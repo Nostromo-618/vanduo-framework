@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanduo Framework - Phase 1, 2 & 3 Examples</title>
+    
+    <!-- Include Vanduo Framework -->
+    <link rel="stylesheet" href="/css/vanduo.css">
+    
+    <style>
+        /* Demo-specific styles */
+        .demo-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+        }
+        .demo-section h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-primary);
+        }
+        .demo-item {
+            margin-bottom: 2rem;
+        }
+        .demo-item h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        .utility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .utility-demo {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-secondary);
+        }
+        code {
+            background: var(--bg-secondary);
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="mb-6 mt-6 text-center">
+            <h1 class="text-4xl text-primary mb-2">Vanduo Framework</h1>
+            <p class="text-lg text-secondary mb-1">A lightweight, pure HTML/CSS/JS framework</p>
+            <p class="text-muted">Phase 1: Foundation ✅ | Phase 2: Essential UI Components ✅ | Phase 3: Navigation & Layout ✅ | Phase 4: Form Elements ✅</p>
+        </header>
+
+        <!-- Colors Demo -->
+        <section class="demo-section">
+            <h2>Colors</h2>
+            
+            <div class="demo-item">
+                <h3>Background Colors</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="bg-primary p-3 text-white rounded">Primary</div>
+                    <div class="bg-secondary p-3 text-white rounded">Secondary</div>
+                    <div class="bg-accent p-3 text-white rounded">Accent</div>
+                    <div class="bg-success p-3 text-white rounded">Success</div>
+                    <div class="bg-warning p-3 text-black rounded">Warning</div>
+                    <div class="bg-error p-3 text-white rounded">Error</div>
+                    <div class="bg-info p-3 text-white rounded">Info</div>
+                    <div class="bg-white p-3 text-black border rounded">White</div>
+                    <div class="bg-black p-3 text-white rounded">Black</div>
+                    <div class="bg-dark p-3 text-white rounded">Dark</div>
+                    <div class="bg-light p-3 text-black border rounded">Light</div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Text Colors</h3>
+                <div class="utility-grid">
+                    <div class="utility-demo">
+                        <p class="text-primary mb-0">Primary Text</p>
+                        <code>.text-primary</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-secondary mb-0">Secondary Text</p>
+                        <code>.text-secondary</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-success mb-0">Success Text</p>
+                        <code>.text-success</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-warning mb-0">Warning Text</p>
+                        <code>.text-warning</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-error mb-0">Error Text</p>
+                        <code>.text-error</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-info mb-0">Info Text</p>
+                        <code>.text-info</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-muted mb-0">Muted Text</p>
+                        <code>.text-muted</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-light mb-0">Light Text</p>
+                        <code>.text-light</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Border Colors</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="border border-primary p-3 rounded">Primary Border</div>
+                    <div class="border border-secondary p-3 rounded">Secondary Border</div>
+                    <div class="border border-success p-3 rounded">Success Border</div>
+                    <div class="border border-warning p-3 rounded">Warning Border</div>
+                    <div class="border border-error p-3 rounded">Error Border</div>
+                    <div class="border border-info p-3 rounded">Info Border</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Demo -->
+        <section class="demo-section">
+            <h2>Typography</h2>
+            
+            <div class="demo-item">
+                <h3>Headings</h3>
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+            </div>
+
+            <div class="demo-item">
+                <h3>Font Sizes</h3>
+                <div class="utility-grid">
+                    <div class="utility-demo">
+                        <p class="text-xs mb-0">Extra Small Text</p>
+                        <code>.text-xs</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-sm mb-0">Small Text</p>
+                        <code>.text-sm</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-base mb-0">Base Text</p>
+                        <code>.text-base</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-lg mb-0">Large Text</p>
+                        <code>.text-lg</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-xl mb-0">Extra Large Text</p>
+                        <code>.text-xl</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-2xl mb-0">2XL Text</p>
+                        <code>.text-2xl</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-3xl mb-0">3XL Text</p>
+                        <code>.text-3xl</code>
+                    </div>
+                    <div class="utility-demo">
+                        <p class="text-4xl mb-0">4XL Text</p>
+                        <code>.text-4xl</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Font Weights</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <p class="font-light mb-0">Light (300)</p>
+                    <p class="font-normal mb-0">Normal (400)</p>
+                    <p class="font-medium mb-0">Medium (500)</p>
+                    <p class="font-semibold mb-0">Semibold (600)</p>
+                    <p class="font-bold mb-0">Bold (700)</p>
+                    <p class="font-extrabold mb-0">Extrabold (800)</p>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Text Alignment</h3>
+                <div class="border p-3 mb-2">
+                    <p class="text-left mb-0">Left aligned text</p>
+                </div>
+                <div class="border p-3 mb-2">
+                    <p class="text-center mb-0">Center aligned text</p>
+                </div>
+                <div class="border p-3 mb-2">
+                    <p class="text-right mb-0">Right aligned text</p>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Text Transform</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <p class="uppercase mb-0">Uppercase Text</p>
+                    <p class="lowercase mb-0">LOWERCASE TEXT</p>
+                    <p class="capitalize mb-0">capitalized text</p>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Line Height</h3>
+                <div class="border p-3 mb-2">
+                    <p class="leading-none mb-0">Tight line height (1.0)</p>
+                </div>
+                <div class="border p-3 mb-2">
+                    <p class="leading-normal mb-0">Normal line height (1.5)</p>
+                </div>
+                <div class="border p-3 mb-2">
+                    <p class="leading-loose mb-0">Loose line height (2.0)</p>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Letter Spacing</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <p class="tracking-tight mb-0">Tight spacing</p>
+                    <p class="tracking-normal mb-0">Normal spacing</p>
+                    <p class="tracking-wide mb-0">Wide spacing</p>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Lists & Code</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h4>Unordered List</h4>
+                        <ul>
+                            <li>First item</li>
+                            <li>Second item</li>
+                            <li>Third item</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h4>Ordered List</h4>
+                        <ol>
+                            <li>First item</li>
+                            <li>Second item</li>
+                            <li>Third item</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p>Inline <code>code</code> example</p>
+                    <pre><code>// Block code example
+function example() {
+    return true;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Demo -->
+        <section class="demo-section">
+            <h2>Grid System</h2>
+            
+            <div class="demo-item">
+                <h3>Basic Grid (12 columns)</h3>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="bg-primary p-3 text-white text-center rounded">col-12 (100%)</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <div class="bg-secondary p-3 text-white text-center rounded">col-6 (50%)</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-accent p-3 text-white text-center rounded">col-6 (50%)</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <div class="bg-success p-3 text-white text-center rounded">col-4 (33%)</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="bg-warning p-3 text-black text-center rounded">col-4 (33%)</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="bg-error p-3 text-white text-center rounded">col-4 (33%)</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="bg-info p-3 text-white text-center rounded">col-3</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-primary p-3 text-white text-center rounded">col-3</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-secondary p-3 text-white text-center rounded">col-3</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="bg-accent p-3 text-white text-center rounded">col-3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Responsive Grid</h3>
+                <p class="text-muted mb-3">Resize your browser to see the responsive behavior</p>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="bg-primary p-3 text-white text-center rounded mb-2">col-12 col-md-6 col-lg-4</div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="bg-secondary p-3 text-white text-center rounded mb-2">col-12 col-md-6 col-lg-4</div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-4">
+                        <div class="bg-accent p-3 text-white text-center rounded mb-2">col-12 col-md-12 col-lg-4</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Grid Offsets</h3>
+                <div class="row">
+                    <div class="col-4 offset-4">
+                        <div class="bg-primary p-3 text-white text-center rounded">col-4 offset-4</div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3 offset-3">
+                        <div class="bg-secondary p-3 text-white text-center rounded">col-3 offset-3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Helpers Demo -->
+        <section class="demo-section">
+            <h2>Helper Utilities</h2>
+            
+            <div class="demo-item">
+                <h3>Spacing - Margin</h3>
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <div class="bg-primary p-2 text-white rounded m-0">m-0</div>
+                    <div class="bg-primary p-2 text-white rounded m-1">m-1</div>
+                    <div class="bg-primary p-2 text-white rounded m-2">m-2</div>
+                    <div class="bg-primary p-2 text-white rounded m-4">m-4</div>
+                    <div class="bg-primary p-2 text-white rounded m-8">m-8</div>
+                </div>
+                <p class="text-sm text-muted mt-2">Also available: mt-*, mr-*, mb-*, ml-* for directional margins</p>
+            </div>
+
+            <div class="demo-item">
+                <h3>Spacing - Padding</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="bg-secondary text-white rounded p-0 border">p-0</div>
+                    <div class="bg-secondary text-white rounded p-1 border">p-1</div>
+                    <div class="bg-secondary text-white rounded p-2 border">p-2</div>
+                    <div class="bg-secondary text-white rounded p-4 border">p-4</div>
+                    <div class="bg-secondary text-white rounded p-8 border">p-8</div>
+                </div>
+                <p class="text-sm text-muted mt-2">Also available: pt-*, pr-*, pb-*, pl-* for directional padding</p>
+            </div>
+
+            <div class="demo-item">
+                <h3>Display Utilities</h3>
+                <div class="utility-grid">
+                    <div class="utility-demo">
+                        <div class="d-block bg-primary p-2 text-white text-center rounded mb-2">Block</div>
+                        <code>.d-block</code>
+                    </div>
+                    <div class="utility-demo">
+                        <div class="d-inline bg-secondary p-2 text-white rounded mb-2">Inline</div>
+                        <code>.d-inline</code>
+                    </div>
+                    <div class="utility-demo">
+                        <div class="d-flex gap-2 mb-2">
+                            <div class="bg-accent p-2 text-white rounded">Flex</div>
+                            <div class="bg-accent p-2 text-white rounded">Item</div>
+                        </div>
+                        <code>.d-flex</code>
+                    </div>
+                    <div class="utility-demo">
+                        <div class="d-grid gap-2 mb-2" style="grid-template-columns: repeat(2, 1fr);">
+                            <div class="bg-success p-2 text-white text-center rounded">Grid</div>
+                            <div class="bg-success p-2 text-white text-center rounded">Item</div>
+                        </div>
+                        <code>.d-grid</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Flexbox Utilities</h3>
+                <div class="border p-3 mb-3">
+                    <div class="d-flex justify-between mb-2">
+                        <div class="bg-primary p-2 text-white rounded">Justify Between</div>
+                        <div class="bg-primary p-2 text-white rounded">Item</div>
+                    </div>
+                    <code>.justify-between</code>
+                </div>
+                <div class="border p-3 mb-3">
+                    <div class="d-flex justify-center mb-2">
+                        <div class="bg-secondary p-2 text-white rounded">Justify Center</div>
+                        <div class="bg-secondary p-2 text-white rounded">Item</div>
+                    </div>
+                    <code>.justify-center</code>
+                </div>
+                <div class="border p-3 mb-3">
+                    <div class="d-flex items-center mb-2" style="height: 60px;">
+                        <div class="bg-accent p-2 text-white rounded">Items Center</div>
+                    </div>
+                    <code>.items-center</code>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Position Utilities</h3>
+                <div class="position-relative border p-4 mb-2" style="height: 100px;">
+                    <div class="position-absolute top-0 left-0 bg-primary p-2 text-white rounded">Absolute Top Left</div>
+                </div>
+                <code>.position-absolute .top-0 .left-0</code>
+            </div>
+
+            <div class="demo-item">
+                <h3>Width & Height</h3>
+                <div class="border p-2 mb-2">
+                    <div class="bg-primary p-2 text-white rounded w-half mb-2">Width 50%</div>
+                    <code>.w-half</code>
+                </div>
+                <div class="border p-2 mb-2">
+                    <div class="bg-secondary p-2 text-white rounded w-full mb-2">Width 100%</div>
+                    <code>.w-full</code>
+                </div>
+                <div class="border p-2">
+                    <div class="bg-accent p-2 text-white rounded w-third mb-2">Width 33%</div>
+                    <code>.w-third</code>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Borders & Border Radius</h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="border p-3 rounded">Default Border</div>
+                    <div class="border border-2 border-primary p-3 rounded">Thick Border</div>
+                    <div class="border border-primary p-3 rounded-lg">Rounded Large</div>
+                    <div class="border border-success p-3 rounded-full p-4">Rounded Full</div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Overflow</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="border p-2 overflow-auto" style="height: 100px;">
+                            <p class="mb-0">This is a long text that will scroll if it overflows the container. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                        <code class="text-sm">.overflow-auto</code>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="border p-2 overflow-hidden" style="height: 100px;">
+                            <p class="mb-0">This text will be hidden if it overflows. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                        <code class="text-sm">.overflow-hidden</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shadow Utilities Demo -->
+        <section class="demo-section">
+            <h2>Shadow Utilities</h2>
+            
+            <div class="demo-item">
+                <h3>Shadow Levels</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow-none border text-center">
+                            <code>.shadow-none</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow-sm text-center">
+                            <code>.shadow-sm</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow text-center">
+                            <code>.shadow</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow-md text-center">
+                            <code>.shadow-md</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow-lg text-center">
+                            <code>.shadow-lg</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="bg-white p-4 rounded shadow-xl text-center">
+                            <code>.shadow-xl</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Elevation Levels</h3>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="bg-white p-4 rounded elevation-1 text-center" style="min-width: 120px;">
+                        <code>elevation-1</code>
+                    </div>
+                    <div class="bg-white p-4 rounded elevation-2 text-center" style="min-width: 120px;">
+                        <code>elevation-2</code>
+                    </div>
+                    <div class="bg-white p-4 rounded elevation-3 text-center" style="min-width: 120px;">
+                        <code>elevation-3</code>
+                    </div>
+                    <div class="bg-white p-4 rounded elevation-4 text-center" style="min-width: 120px;">
+                        <code>elevation-4</code>
+                    </div>
+                    <div class="bg-white p-4 rounded elevation-5 text-center" style="min-width: 120px;">
+                        <code>elevation-5</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Demo -->
+        <section class="demo-section">
+            <h2>Buttons</h2>
+            
+            <div class="demo-item">
+                <h3>Button Variants</h3>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-primary">Primary</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-success">Success</button>
+                    <button class="btn btn-warning">Warning</button>
+                    <button class="btn btn-error">Error</button>
+                    <button class="btn btn-info">Info</button>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Outline Buttons</h3>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-outline-primary">Outline Primary</button>
+                    <button class="btn btn-outline-secondary">Outline Secondary</button>
+                    <button class="btn btn-outline-success">Outline Success</button>
+                    <button class="btn btn-outline-warning">Outline Warning</button>
+                    <button class="btn btn-outline-error">Outline Error</button>
+                    <button class="btn btn-outline-info">Outline Info</button>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Ghost Buttons</h3>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-ghost">Ghost Button</button>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Button Sizes</h3>
+                <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+                    <button class="btn btn-primary btn-sm">Small</button>
+                    <button class="btn btn-primary">Medium</button>
+                    <button class="btn btn-primary btn-lg">Large</button>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Button States</h3>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-primary">Normal</button>
+                    <button class="btn btn-primary" disabled>Disabled</button>
+                    <button class="btn btn-primary disabled">Disabled Class</button>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Full Width Button</h3>
+                <button class="btn btn-primary btn-block mb-2">Full Width Button</button>
+            </div>
+        </section>
+
+        <!-- Forms Demo -->
+        <section class="demo-section">
+            <h2>Forms</h2>
+            
+            <div class="demo-item">
+                <h3>Text Inputs</h3>
+                <div class="form-group">
+                    <label for="example-input" class="label">Default Input</label>
+                    <input type="text" id="example-input" class="input" placeholder="Enter text here">
+                </div>
+                <div class="form-group">
+                    <label for="example-input-sm" class="label">Small Input</label>
+                    <input type="text" id="example-input-sm" class="input input-sm" placeholder="Small input">
+                </div>
+                <div class="form-group">
+                    <label for="example-input-lg" class="label">Large Input</label>
+                    <input type="text" id="example-input-lg" class="input input-lg" placeholder="Large input">
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Input States</h3>
+                <div class="form-group">
+                    <label for="input-success" class="label">Success State</label>
+                    <input type="text" id="input-success" class="input input-success" value="Valid input">
+                    <div class="form-success">This field is valid</div>
+                </div>
+                <div class="form-group">
+                    <label for="input-error" class="label">Error State</label>
+                    <input type="text" id="input-error" class="input input-error" value="Invalid input">
+                    <div class="form-error">This field has an error</div>
+                </div>
+                <div class="form-group">
+                    <label for="input-disabled" class="label">Disabled State</label>
+                    <input type="text" id="input-disabled" class="input" value="Disabled input" disabled>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Textarea</h3>
+                <div class="form-group">
+                    <label for="example-textarea" class="label">Textarea</label>
+                    <textarea id="example-textarea" class="textarea" rows="4" placeholder="Enter your message here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="example-textarea-no-resize" class="label">Textarea (No Resize)</label>
+                    <textarea id="example-textarea-no-resize" class="textarea textarea-no-resize" rows="3" placeholder="This textarea cannot be resized"></textarea>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Labels</h3>
+                <div class="form-group">
+                    <label for="required-input" class="label label-required">Required Field</label>
+                    <input type="text" id="required-input" class="input" placeholder="This field is required">
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Input Groups</h3>
+                <div class="form-group">
+                    <label class="label">Input with Prefix</label>
+                    <div class="input-group">
+                        <span class="input-group-prefix">$</span>
+                        <input type="text" class="input" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label">Input with Suffix</label>
+                    <div class="input-group">
+                        <input type="text" class="input" placeholder="username">
+                        <span class="input-group-suffix">@example.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Complete Form Example</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="form-email" class="label label-required">Email</label>
+                        <input type="email" id="form-email" class="input" placeholder="your.email@example.com" required>
+                        <div class="form-help">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-message" class="label">Message</label>
+                        <textarea id="form-message" class="textarea" rows="4" placeholder="Your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Form Elements Demo (Phase 4) -->
+        <section class="demo-section">
+            <h2>Form Elements (Phase 4)</h2>
+            
+            <div class="demo-item">
+                <h3>Checkboxes</h3>
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox1" class="checkbox-input">
+                    <label for="checkbox1" class="checkbox-label">Default checkbox</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox2" class="checkbox-input" checked>
+                    <label for="checkbox2" class="checkbox-label">Checked checkbox</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox3" class="checkbox-input" disabled>
+                    <label for="checkbox3" class="checkbox-label">Disabled checkbox</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox4" class="checkbox-input" checked disabled>
+                    <label for="checkbox4" class="checkbox-label">Checked disabled</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Checkbox Sizes</h3>
+                <div class="checkbox checkbox-sm">
+                    <input type="checkbox" id="checkbox-sm" class="checkbox-input">
+                    <label for="checkbox-sm" class="checkbox-label">Small checkbox</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox-md" class="checkbox-input">
+                    <label for="checkbox-md" class="checkbox-label">Medium checkbox (default)</label>
+                </div>
+                <div class="checkbox checkbox-lg">
+                    <input type="checkbox" id="checkbox-lg" class="checkbox-input">
+                    <label for="checkbox-lg" class="checkbox-label">Large checkbox</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Checkbox Groups</h3>
+                <div class="checkbox-group">
+                    <div class="checkbox">
+                        <input type="checkbox" id="group1" class="checkbox-input" name="group">
+                        <label for="group1" class="checkbox-label">Option 1</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="group2" class="checkbox-input" name="group" checked>
+                        <label for="group2" class="checkbox-label">Option 2</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="group3" class="checkbox-input" name="group">
+                        <label for="group3" class="checkbox-label">Option 3</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Radio Buttons</h3>
+                <div class="radio">
+                    <input type="radio" id="radio1" name="radio-group" class="radio-input">
+                    <label for="radio1" class="radio-label">Option 1</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="radio2" name="radio-group" class="radio-input" checked>
+                    <label for="radio2" class="radio-label">Option 2 (selected)</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="radio3" name="radio-group" class="radio-input" disabled>
+                    <label for="radio3" class="radio-label">Option 3 (disabled)</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Radio Button Sizes</h3>
+                <div class="radio radio-sm">
+                    <input type="radio" id="radio-sm" name="radio-size" class="radio-input">
+                    <label for="radio-sm" class="radio-label">Small radio</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="radio-md" name="radio-size" class="radio-input">
+                    <label for="radio-md" class="radio-label">Medium radio (default)</label>
+                </div>
+                <div class="radio radio-lg">
+                    <input type="radio" id="radio-lg" name="radio-size" class="radio-input">
+                    <label for="radio-lg" class="radio-label">Large radio</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Range Sliders</h3>
+                <div class="form-group">
+                    <label class="range-label">Volume: <span class="range-value" id="range-value-1">50</span></label>
+                    <div class="range-wrapper">
+                        <input type="range" id="range1" class="range-input" min="0" max="100" value="50" oninput="document.getElementById('range-value-1').textContent = this.value">
+                    </div>
+                    <div class="range-min-max">
+                        <span>0</span>
+                        <span>100</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="range-label">Small Range</label>
+                    <div class="range-wrapper range-sm">
+                        <input type="range" id="range2" class="range-input" min="0" max="100" value="30">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="range-label">Large Range</label>
+                    <div class="range-wrapper range-lg">
+                        <input type="range" id="range3" class="range-input" min="0" max="100" value="70">
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Switches</h3>
+                <div class="switch">
+                    <input type="checkbox" id="switch1" class="switch-input">
+                    <label for="switch1" class="switch-label">Default switch</label>
+                </div>
+                <div class="switch">
+                    <input type="checkbox" id="switch2" class="switch-input" checked>
+                    <label for="switch2" class="switch-label">Checked switch</label>
+                </div>
+                <div class="switch">
+                    <input type="checkbox" id="switch3" class="switch-input" disabled>
+                    <label for="switch3" class="switch-label">Disabled switch</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Switch Variants</h3>
+                <div class="switch switch-success">
+                    <input type="checkbox" id="switch-success" class="switch-input" checked>
+                    <label for="switch-success" class="switch-label">Success switch</label>
+                </div>
+                <div class="switch switch-warning">
+                    <input type="checkbox" id="switch-warning" class="switch-input" checked>
+                    <label for="switch-warning" class="switch-label">Warning switch</label>
+                </div>
+                <div class="switch switch-error">
+                    <input type="checkbox" id="switch-error" class="switch-input" checked>
+                    <label for="switch-error" class="switch-label">Error switch</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Switch Sizes</h3>
+                <div class="switch switch-sm">
+                    <input type="checkbox" id="switch-sm" class="switch-input">
+                    <label for="switch-sm" class="switch-label">Small switch</label>
+                </div>
+                <div class="switch">
+                    <input type="checkbox" id="switch-md" class="switch-input">
+                    <label for="switch-md" class="switch-label">Medium switch (default)</label>
+                </div>
+                <div class="switch switch-lg">
+                    <input type="checkbox" id="switch-lg" class="switch-input">
+                    <label for="switch-lg" class="switch-label">Large switch</label>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Enhanced Select</h3>
+                <div class="form-group">
+                    <label for="select-basic" class="label">Basic Select</label>
+                    <select id="select-basic" class="input">
+                        <option value="">Choose an option...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-custom" class="label">Custom Select (with JS)</label>
+                    <select id="select-custom" class="custom-select-input" data-custom-select>
+                        <option value="">Choose an option...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2" selected>Option 2 (selected)</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-searchable" class="label">Searchable Select</label>
+                    <select id="select-searchable" class="custom-select-input" data-custom-select data-searchable="true">
+                        <option value="">Search options...</option>
+                        <option value="1">Apple</option>
+                        <option value="2">Banana</option>
+                        <option value="3">Cherry</option>
+                        <option value="4">Date</option>
+                        <option value="5">Elderberry</option>
+                        <option value="6">Fig</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-multi" class="label">Multi-Select</label>
+                    <select id="select-multi" class="custom-select-input" data-custom-select multiple>
+                        <option value="1">Option 1</option>
+                        <option value="2" selected>Option 2</option>
+                        <option value="3" selected>Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards Demo -->
+        <section class="demo-section">
+            <h2>Cards</h2>
+            
+            <div class="demo-item">
+                <h3>Basic Card</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Card Title</h4>
+                                <p class="card-text">This is a basic card with some content. Cards are great for displaying related information.</p>
+                                <button class="btn btn-primary btn-sm">Action</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Card with Header and Footer</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Card Header</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Card body content goes here. This is where the main content of the card is displayed.</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Card Variants</h3>
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card card-elevated">
+                            <div class="card-body">
+                                <h4 class="card-title">Elevated Card</h4>
+                                <p class="card-text">Default card with shadow elevation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card card-outlined">
+                            <div class="card-body">
+                                <h4 class="card-title">Outlined Card</h4>
+                                <p class="card-text">Card with border, no shadow.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card card-filled">
+                            <div class="card-body">
+                                <h4 class="card-title">Filled Card</h4>
+                                <p class="card-text">Card with background fill.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Card with Image</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-image-container">
+                                <div class="bg-primary" style="height: 200px; display: flex; align-items: center; justify-content: center; color: white;">
+                                    Image Placeholder
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Card with Image</h4>
+                                <p class="card-text">This card includes an image at the top.</p>
+                                <button class="btn btn-primary btn-sm">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Card Actions</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Card with Actions</h4>
+                                <p class="card-text">Card content with action buttons in the footer.</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-sm">Primary</button>
+                                <button class="btn btn-secondary btn-sm">Secondary</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>Card Sizes</h3>
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card card-compact">
+                            <div class="card-body">
+                                <h4 class="card-title">Compact Card</h4>
+                                <p class="card-text">Card with reduced padding.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Default Card</h4>
+                                <p class="card-text">Card with default padding.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card card-spacious">
+                            <div class="card-body">
+                                <h4 class="card-title">Spacious Card</h4>
+                                <p class="card-text">Card with increased padding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breadcrumbs Demo -->
+        <section class="demo-section">
+            <h2>Breadcrumbs</h2>
+            
+            <div class="demo-item">
+                <h3>Basic Breadcrumbs</h3>
+                <nav class="breadcrumb">
+                    <span class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></span>
+                    <span class="breadcrumb-item"><a href="#" class="breadcrumb-link">Library</a></span>
+                    <span class="breadcrumb-item active">Data</span>
+                </nav>
+            </div>
+
+            <div class="demo-item">
+                <h3>Breadcrumb Sizes</h3>
+                <nav class="breadcrumb breadcrumb-sm mb-3">
+                    <span class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></span>
+                    <span class="breadcrumb-item active">Small</span>
+                </nav>
+                <nav class="breadcrumb mb-3">
+                    <span class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></span>
+                    <span class="breadcrumb-item active">Default</span>
+                </nav>
+                <nav class="breadcrumb breadcrumb-lg">
+                    <span class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></span>
+                    <span class="breadcrumb-item active">Large</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Navbar Demo -->
+        <section class="demo-section">
+            <h2>Navbar</h2>
+            
+            <div class="demo-item">
+                <h3>Basic Navbar</h3>
+                <nav class="navbar">
+                    <div class="navbar-container">
+                        <a class="navbar-brand" href="#">Brand</a>
+                        <button class="navbar-toggle" type="button" aria-label="Toggle navigation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="navbar-menu">
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link active" href="#">Home</a></li>
+                                <li><a class="nav-link" href="#">About</a></li>
+                                <li><a class="nav-link" href="#">Services</a></li>
+                                <li><a class="nav-link" href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <p class="text-sm text-muted mt-2">Resize your browser to see the mobile menu in action</p>
+            </div>
+
+            <div class="demo-item">
+                <h3>Dark Navbar</h3>
+                <nav class="navbar navbar-dark" style="background-color: var(--bg-dark);">
+                    <div class="navbar-container">
+                        <a class="navbar-brand" href="#">Brand</a>
+                        <button class="navbar-toggle" type="button" aria-label="Toggle navigation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="navbar-menu">
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link" href="#">Home</a></li>
+                                <li><a class="nav-link" href="#">About</a></li>
+                                <li><a class="nav-link" href="#">Services</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="demo-item">
+                <h3>Navbar with Dropdown</h3>
+                <nav class="navbar">
+                    <div class="navbar-container">
+                        <a class="navbar-brand" href="#">Brand</a>
+                        <button class="navbar-toggle" type="button" aria-label="Toggle navigation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="navbar-menu">
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link" href="#">Home</a></li>
+                                <li class="navbar-dropdown">
+                                    <a class="nav-link" href="#">Dropdown</a>
+                                    <ul class="navbar-dropdown-menu">
+                                        <li><a class="navbar-dropdown-item" href="#">Action</a></li>
+                                        <li><a class="navbar-dropdown-item" href="#">Another Action</a></li>
+                                        <li><a class="navbar-dropdown-item active" href="#">Active Item</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="nav-link" href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="demo-item">
+                <h3>Sticky Navbar</h3>
+                <nav class="navbar navbar-sticky">
+                    <div class="navbar-container">
+                        <a class="navbar-brand" href="#">Sticky Navbar</a>
+                        <button class="navbar-toggle" type="button" aria-label="Toggle navigation">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="navbar-menu">
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link" href="#">Home</a></li>
+                                <li><a class="nav-link" href="#">About</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <p class="text-sm text-muted mt-2">This navbar sticks to the top when scrolling</p>
+            </div>
+        </section>
+
+        <!-- Footer Demo -->
+        <section class="demo-section">
+            <h2>Footer</h2>
+            
+            <div class="demo-item">
+                <h3>Basic Footer</h3>
+                <footer class="footer">
+                    <div class="footer-container">
+                        <div class="footer-section">
+                            <h4 class="footer-heading">About</h4>
+                            <p class="text-muted">This is a simple footer with some information about the site.</p>
+                        </div>
+                        <div class="footer-copyright">
+                            <p class="mb-0">&copy; 2024 Vanduo Framework. All rights reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+            <div class="demo-item">
+                <h3>Multi-Column Footer</h3>
+                <footer class="footer">
+                    <div class="footer-container">
+                        <div class="footer-3col">
+                            <div class="footer-section">
+                                <h4 class="footer-heading">Company</h4>
+                                <ul class="footer-list">
+                                    <li class="footer-list-item"><a href="#" class="footer-link">About Us</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Careers</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4 class="footer-heading">Resources</h4>
+                                <ul class="footer-list">
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Documentation</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Support</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Blog</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4 class="footer-heading">Legal</h4>
+                                <ul class="footer-list">
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Privacy</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">Terms</a></li>
+                                    <li class="footer-list-item"><a href="#" class="footer-link">License</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-copyright">
+                            <p class="mb-0">&copy; 2024 Vanduo Framework. All rights reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+            <div class="demo-item">
+                <h3>Dark Footer</h3>
+                <footer class="footer footer-dark" style="background-color: var(--bg-dark);">
+                    <div class="footer-container">
+                        <div class="footer-2col">
+                            <div class="footer-section">
+                                <h4 class="footer-heading">Get Started</h4>
+                                <p class="text-muted">Start building beautiful websites with Vanduo Framework.</p>
+                            </div>
+                            <div class="footer-section">
+                                <h4 class="footer-heading">Connect</h4>
+                                <div class="footer-social">
+                                    <a href="#" class="footer-social-link" aria-label="Twitter">T</a>
+                                    <a href="#" class="footer-social-link" aria-label="GitHub">G</a>
+                                    <a href="#" class="footer-social-link" aria-label="LinkedIn">L</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-copyright">
+                            <p class="mb-0">&copy; 2024 Vanduo Framework. All rights reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </section>
+
+        <!-- Usage Example -->
+        <section class="demo-section">
+            <h2>Usage Example</h2>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/vanduo.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-12 col-md-6"&gt;
+                &lt;h1 class="text-primary"&gt;Hello World&lt;/h1&gt;
+                &lt;p class="text-secondary"&gt;This is a paragraph.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class="col-12 col-md-6"&gt;
+                &lt;div class="bg-primary p-4 text-white rounded"&gt;
+                    Content here
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src="js/vanduo.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+
+        <footer class="mt-6 mb-6 pt-4 border-top">
+            <p class="text-center text-muted">Vanduo Framework - Phase 1, 2, 3 & 4 Complete - Built with ❤️ for the web</p>
+        </footer>
+    </div>
+
+    <!-- Include Vanduo JavaScript -->
+    <script src="/js/utils/helpers.js"></script>
+    <script src="/js/components/navbar.js"></script>
+    <script src="/js/components/select.js"></script>
+    <script src="/js/vanduo.js"></script>
+</body>
+</html>

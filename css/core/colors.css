@@ -1,0 +1,107 @@
+/**
+ * Vanduo Framework - Colors
+ * Color system with CSS custom properties
+ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #007bff;
+  --color-primary-dark: #0056b3;
+  --color-primary-light: #66b3ff;
+  
+  /* Secondary Colors */
+  --color-secondary: #6c757d;
+  --color-secondary-dark: #545b62;
+  --color-secondary-light: #adb5bd;
+  
+  /* Accent Colors */
+  --color-accent: #ff6b6b;
+  --color-accent-dark: #ee5a6f;
+  --color-accent-light: #ff8787;
+  
+  /* Semantic Colors */
+  --color-success: #28a745;
+  --color-success-dark: #1e7e34;
+  --color-success-light: #71dd8a;
+  
+  --color-warning: #ffc107;
+  --color-warning-dark: #e0a800;
+  --color-warning-light: #ffcd39;
+  
+  --color-error: #dc3545;
+  --color-error-dark: #c82333;
+  --color-error-light: #e4606d;
+  
+  --color-info: #17a2b8;
+  --color-info-dark: #138496;
+  --color-info-light: #3dd5f3;
+  
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #e9ecef;
+  --color-gray-200: #dee2e6;
+  --color-gray-300: #ced4da;
+  --color-gray-400: #adb5bd;
+  --color-gray-500: #6c757d;
+  --color-gray-600: #495057;
+  --color-gray-700: #343a40;
+  --color-gray-800: #212529;
+  --color-gray-900: #1a1d20;
+  
+  /* Background Colors */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--color-gray-50);
+  --bg-dark: var(--color-gray-800);
+  --bg-darker: var(--color-gray-900);
+  
+  /* Text Colors */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-muted: var(--color-gray-500);
+  --text-light: var(--color-gray-400);
+  --text-inverse: var(--color-white);
+  
+  /* Border Colors */
+  --border-color: var(--color-gray-300);
+  --border-color-light: var(--color-gray-200);
+  --border-color-dark: var(--color-gray-400);
+}
+
+/* Background Color Utilities */
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-success { background-color: var(--color-success); }
+.bg-warning { background-color: var(--color-warning); }
+.bg-error { background-color: var(--color-error); }
+.bg-info { background-color: var(--color-info); }
+.bg-white { background-color: var(--color-white); }
+.bg-black { background-color: var(--color-black); }
+.bg-dark { background-color: var(--bg-dark); }
+.bg-light { background-color: var(--bg-secondary); }
+
+/* Text Color Utilities */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-error { color: var(--color-error); }
+.text-info { color: var(--color-info); }
+.text-white { color: var(--color-white); }
+.text-black { color: var(--color-black); }
+.text-muted { color: var(--text-muted); }
+.text-light { color: var(--text-light); }
+.text-inverse { color: var(--text-inverse); }
+
+/* Border Color Utilities */
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-success { border-color: var(--color-success); }
+.border-warning { border-color: var(--color-warning); }
+.border-error { border-color: var(--color-error); }
+.border-info { border-color: var(--color-info); }
+.border-light { border-color: var(--border-color-light); }
+.border-dark { border-color: var(--border-color-dark); }
+

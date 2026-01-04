@@ -735,7 +735,8 @@ label.label-lg {
   --range-thumb-size: 1.25rem;
   --range-thumb-size-sm: 1rem;
   --range-thumb-size-lg: 1.5rem;
-  --range-track-bg: var(--bg-secondary);
+  --range-track-bg: #ced4da;
+  --range-track-border: none;
   --range-track-fill: var(--color-primary);
   --range-thumb-bg: var(--color-primary);
   --range-thumb-border: 2px solid var(--color-white);
@@ -761,6 +762,7 @@ input[type="range"] {
   cursor: pointer;
   margin: 0;
   padding: 0;
+  display: block;
 }
 
 input[type="range"].range-input:focus,
@@ -783,9 +785,11 @@ input[type="range"].range-input::-webkit-slider-track,
 input[type="range"]::-webkit-slider-track {
   width: 100%;
   height: var(--range-track-height);
+  background: #ced4da;
   background: var(--range-track-bg);
+  border: var(--range-track-border);
   border-radius: 0.5rem;
-  border: none;
+  cursor: pointer;
 }
 
 /* Range Track (Firefox) */
@@ -793,9 +797,11 @@ input[type="range"].range-input::-moz-range-track,
 input[type="range"]::-moz-range-track {
   width: 100%;
   height: var(--range-track-height);
+  background: #ced4da;
   background: var(--range-track-bg);
+  border: var(--range-track-border);
   border-radius: 0.5rem;
-  border: none;
+  cursor: pointer;
 }
 
 /* Range Thumb (Webkit) */

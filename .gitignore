@@ -1,2 +1,3 @@
-/devUtils
+/devUtils/node_modules
+/devUtils/package-lock.json
 .DS_Store

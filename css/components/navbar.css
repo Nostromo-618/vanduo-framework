@@ -20,6 +20,7 @@
   --navbar-height: 3.5rem;
   --navbar-brand-font-size: var(--font-size-xl);
   --navbar-nav-gap: 1.5rem;
+  --navbar-actions-gap: 2rem;
   
   /* Mobile Menu */
   --navbar-mobile-menu-bg: var(--color-white);
@@ -163,6 +164,13 @@
 
 .navbar-menu.is-open {
   display: flex;
+}
+
+/* Navbar Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Mobile Menu Overlay */
@@ -365,6 +373,10 @@
     flex-basis: auto;
   }
   
+  .navbar-actions {
+    margin-left: var(--navbar-actions-gap);
+  }
+  
   .navbar-dropdown-menu {
     margin-top: 0.5rem;
   }
@@ -433,6 +445,17 @@
   
   .navbar-dark .navbar-dropdown-menu {
     background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .navbar-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--navbar-border-color);
+    width: 100%;
+  }
+  
+  .navbar-dark .navbar-actions {
+    border-top-color: rgba(255, 255, 255, 0.1);
   }
 }
 

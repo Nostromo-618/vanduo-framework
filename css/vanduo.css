@@ -24,20 +24,26 @@
 @import url('components/navbar.css');
 @import url('components/footer.css');
 @import url('components/breadcrumbs.css');
-/* @import url('components/badges.css'); */
-/* @import url('components/modals.css'); */
-/* @import url('components/dropdown.css'); */
-/* @import url('components/tooltips.css'); */
-/* @import url('components/collapsible.css'); */
-/* @import url('components/sidenav.css'); */
-/* @import url('components/pagination.css'); */
-/* @import url('components/preloader.css'); */
-/* @import url('components/collections.css'); */
 
-/* Utilities - Will be added as they are developed */
-/* @import url('utilities/media.css'); */
-/* @import url('utilities/table.css'); */
+/* Components - Phase 5 */
+@import url('components/tooltips.css');
+@import url('components/collapsible.css');
+@import url('components/dropdown.css');
+@import url('components/modals.css');
 
-/* Effects - Will be added as they are developed */
-/* @import url('effects/parallax.css'); */
+/* Components - Phase 6 */
+@import url('components/badges.css');
+@import url('components/collections.css');
+@import url('components/pagination.css');
+@import url('components/sidenav.css');
+
+/* Components - Phase 7 */
+@import url('components/preloader.css');
+
+/* Utilities - Phase 7 */
+@import url('utilities/media.css');
+@import url('utilities/table.css');
+
+/* Effects - Phase 7 */
+@import url('effects/parallax.css');
 

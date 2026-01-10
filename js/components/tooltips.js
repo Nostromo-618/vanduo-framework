@@ -243,9 +243,8 @@
         top = scrollTop + viewportHeight - tooltipRect.height - padding;
       }
       
-      tooltip.style.position = 'absolute';
-      tooltip.style.top = `${top}px`;
-      tooltip.style.left = `${left}px`;
+      // Use single style assignment with transform for better performance
+      tooltip.style.cssText = `position: absolute; top: 0; left: 0; transform: translate(${left}px, ${top}px);`;
     },
     
     /**

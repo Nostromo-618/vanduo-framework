@@ -46,7 +46,7 @@
   color: var(--text-primary);
 }
 
-.btn:focus {
+.btn:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
@@ -336,3 +336,43 @@ a.btn:hover {
   text-decoration: none;
 }
 
+/* Loading State */
+.btn.is-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;
+  height: 1em;
+  margin: -0.5em 0 0 -0.5em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spinner 0.6s linear infinite;
+}
+
+.btn-primary.is-loading::after,
+.btn-secondary.is-loading::after,
+.btn-success.is-loading::after,
+.btn-error.is-loading::after,
+.btn-info.is-loading::after {
+  border-color: var(--color-white);
+  border-right-color: transparent;
+}
+
+.btn-warning.is-loading::after {
+  border-color: var(--color-black);
+  border-right-color: transparent;
+}
+
+@keyframes btn-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

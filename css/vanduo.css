@@ -47,3 +47,5 @@
 /* Effects - Phase 7 */
 @import url('effects/parallax.css');
 
+/* Print Styles */
+@import url('utilities/print.css');

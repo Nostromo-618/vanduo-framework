@@ -476,9 +476,9 @@ label.label-lg {
   opacity: 1;
 }
 
-.checkbox-input:focus + .checkbox-label::before,
-.checkbox-input:focus ~ .checkbox-label::before,
-.form-check-input:focus + .form-check-label::before {
+.checkbox-input:focus-visible + .checkbox-label::before,
+.checkbox-input:focus-visible ~ .checkbox-label::before,
+.form-check-input:focus-visible + .form-check-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
@@ -640,9 +640,9 @@ label.label-lg {
   opacity: 1;
 }
 
-.radio-input:focus + .radio-label::before,
-.radio-input:focus ~ .radio-label::before,
-.form-radio-input:focus + .form-radio-label::before {
+.radio-input:focus-visible + .radio-label::before,
+.radio-input:focus-visible ~ .radio-label::before,
+.form-radio-input:focus-visible + .form-radio-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
@@ -1052,9 +1052,9 @@ input[type="range"].range-lg::-moz-range-thumb {
   left: calc(var(--switch-width) - var(--switch-thumb-size) - var(--switch-thumb-offset));
 }
 
-.switch-input:focus + .switch-label::before,
-.switch-input:focus ~ .switch-label::before,
-.form-switch-input:focus + .form-switch-label::before {
+.switch-input:focus-visible + .switch-label::before,
+.switch-input:focus-visible ~ .switch-label::before,
+.form-switch-input:focus-visible + .form-switch-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
@@ -1297,7 +1297,6 @@ select.input.is-success,
 
 /* Select Sizes */
 select.input-sm,
-select.input-sm,
 .select-input-sm,
 .custom-select-sm {
   padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
@@ -1307,7 +1306,6 @@ select.input-sm,
   background-size: 14px 10px;
 }
 
-select.input-lg,
 select.input-lg,
 .select-input-lg,
 .custom-select-lg {
@@ -1409,3 +1407,63 @@ select[multiple] option,
   border-radius: var(--input-border-radius-sm);
 }
 
+/* Dark Mode - Select Arrow Colors */
+[data-theme="dark"] select.input,
+[data-theme="dark"] select,
+[data-theme="dark"] .select-input,
+[data-theme="dark"] .custom-select-input,
+[data-theme="dark"] .custom-select-button {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+[data-theme="dark"] select.input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] .select-input:focus,
+[data-theme="dark"] .custom-select-input:focus,
+[data-theme="dark"] .custom-select-button:focus {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2366b3ff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+[data-theme="dark"] select.input:disabled,
+[data-theme="dark"] select:disabled,
+[data-theme="dark"] .select-input:disabled,
+[data-theme="dark"] .custom-select-input:disabled,
+[data-theme="dark"] .custom-select-button:disabled {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Mobile Touch Target Optimization */
+@media (max-width: 767px) {
+  .input,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"],
+  .textarea,
+  textarea,
+  select,
+  .select-input,
+  .custom-select-input,
+  .custom-select-button {
+    min-height: 44px;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  .checkbox-label,
+  .form-check-label,
+  .radio-label,
+  .form-radio-label,
+  .switch-label,
+  .form-switch-label {
+    min-height: 44px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

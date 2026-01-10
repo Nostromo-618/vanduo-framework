@@ -96,7 +96,7 @@
         }
       });
       
-      this.modals.set(modal, { backdrop, dialog });
+      this.modals.set(modal, { backdrop, dialog, trapHandler: null });
     },
     
     /**
@@ -122,12 +122,19 @@
      */
     open: function(modal) {
       const el = typeof modal === 'string' ? document.querySelector(modal) : modal;
-      
-      if (!el || !this.modals.has(el)) {
+
+      if (!el) {
+        console.warn('[Vanduo Modals] Modal element not found:', modal);
         return;
       }
-      
-      const { backdrop, dialog } = this.modals.get(el);
+
+      if (!this.modals.has(el)) {
+        console.warn('[Vanduo Modals] Modal not initialized:', el);
+        return;
+      }
+
+      const modalData = this.modals.get(el);
+      const { backdrop, dialog } = modalData;
       
       // Increment z-index for stacking
       this.zIndexCounter += 10;
@@ -153,9 +160,10 @@
         }
       }
       
-      // Focus trap
-      this.trapFocus(el);
-      
+      // Focus trap (store handler for cleanup)
+      const trapHandler = this.trapFocus(el);
+      modalData.trapHandler = trapHandler;
+
       // Auto-focus first focusable element
       setTimeout(() => {
         const firstFocusable = this.getFocusableElements(el)[0];
@@ -174,12 +182,25 @@
      */
     close: function(modal) {
       const el = typeof modal === 'string' ? document.querySelector(modal) : modal;
-      
-      if (!el || !this.modals.has(el)) {
+
+      if (!el) {
+        console.warn('[Vanduo Modals] Modal element not found:', modal);
         return;
       }
-      
-      const { backdrop } = this.modals.get(el);
+
+      if (!this.modals.has(el)) {
+        console.warn('[Vanduo Modals] Modal not initialized:', el);
+        return;
+      }
+
+      const modalData = this.modals.get(el);
+      const { backdrop, trapHandler } = modalData;
+
+      // Remove focus trap event listener to prevent memory leak
+      if (trapHandler) {
+        el.removeEventListener('keydown', trapHandler);
+        modalData.trapHandler = null;
+      }
       
       // Remove from open modals stack
       const index = this.openModals.indexOf(el);
@@ -196,6 +217,8 @@
         backdrop.classList.remove('is-visible');
         document.body.classList.remove('body-modal-open');
         document.body.style.paddingRight = '';
+        // Reset z-index counter to prevent indefinite growth
+        this.zIndexCounter = 1050;
       } else {
         // Show backdrop for top modal
         const topModal = this.openModals[this.openModals.length - 1];
@@ -216,17 +239,20 @@
     /**
      * Trap focus within modal
      * @param {HTMLElement} modal - Modal element
+     * @returns {Function} The trap handler function for cleanup
      */
     trapFocus: function(modal) {
-      const focusableElements = this.getFocusableElements(modal);
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-      
-      modal.addEventListener('keydown', function trapHandler(e) {
+      const self = this;
+
+      const trapHandler = function(e) {
         if (e.key !== 'Tab') {
           return;
         }
-        
+
+        const focusableElements = self.getFocusableElements(modal);
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
         if (e.shiftKey) {
           // Shift + Tab
           if (document.activeElement === firstElement) {
@@ -240,7 +266,10 @@
             firstElement.focus();
           }
         }
-      });
+      };
+
+      modal.addEventListener('keydown', trapHandler);
+      return trapHandler;
     },
     
     /**

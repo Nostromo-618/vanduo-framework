@@ -3,6 +3,9 @@
  * Import all framework modules
  */
 
+/* CSS Reset - Must be first */
+@import url('core/reset.css');
+
 /* Core Foundation */
 @import url('core/colors.css');
 @import url('core/typography.css');

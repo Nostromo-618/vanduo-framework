@@ -21,6 +21,9 @@
   --breadcrumb-active-color: var(--text-secondary);
 }
 
+/* Dark Theme Overrides - breadcrumbs use CSS variables that already adapt */
+/* No additional overrides needed as --text-secondary and --color-primary update in dark mode */
+
 /* Base Breadcrumbs */
 .breadcrumbs,
 .breadcrumb {

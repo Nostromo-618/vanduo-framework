@@ -37,6 +37,23 @@
   --tooltip-max-width: 200px;
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --tooltip-bg: var(--color-gray-100);
+  --tooltip-text-color: var(--color-gray-900);
+  --tooltip-bg-light: var(--color-gray-800);
+  --tooltip-text-color-light: var(--color-gray-100);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --tooltip-bg: var(--color-gray-100);
+    --tooltip-text-color: var(--color-gray-900);
+    --tooltip-bg-light: var(--color-gray-800);
+    --tooltip-text-color-light: var(--color-gray-100);
+  }
+}
+
 /* Base Tooltip */
 .tooltip {
   position: absolute;

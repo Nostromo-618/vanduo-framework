@@ -30,8 +30,10 @@ Added dark mode overrides for select dropdown arrow colors with `[data-theme="da
 
 ## Missing Features
 
-### 5. No CSS Reset/Normalization
-Framework lacks base reset. Components may render inconsistently when used standalone without full `vanduo.css`.
+### 5. ~~No CSS Reset/Normalization~~ FIXED
+**File:** `css/core/reset.css`
+
+Created modern CSS reset with box-sizing, margin/padding normalization, typography, and reduced-motion support.
 
 ### 6. ~~No Responsive Spacing Utilities~~ FIXED
 **File:** `css/core/helpers.css`
@@ -60,10 +62,10 @@ Added `.skip-link` utility class for accessible skip navigation.
 
 ## Developer Experience Issues
 
-### 11. Hardcoded Breakpoint in JavaScript
-**File:** `js/components/navbar.js:63, 82`
+### 11. ~~Hardcoded Breakpoint in JavaScript~~ FIXED
+**File:** `js/components/navbar.js`
 
-CSS defines `--breakpoint-lg: 992px` but JS doesn't read it.
+Added `getBreakpoint()` function that reads `--breakpoint-lg` CSS variable with 992px fallback.
 
 ### 12. No Dynamic Component Initialization
 Components only initialize on page load. Dynamically added HTML (via AJAX) won't work without manual `Component.init()` calls.
@@ -100,10 +102,10 @@ Long breadcrumbs don't collapse or truncate on small screens.
 
 ## Browser Compatibility
 
-### 19. No CSS Variable Fallbacks
-```css
-color: var(--color-primary); /* No fallback if variable fails */
-```
+### 19. ~~No CSS Variable Fallbacks~~ FIXED
+**File:** `css/core/colors.css`
+
+Added fallback values to all color utility classes for graceful degradation.
 
 ### 20. Placeholder Styling Incomplete
 **File:** `css/components/forms.css:82-86`
@@ -119,8 +121,10 @@ Missing vendor prefixes for full browser support.
 
 Z-index counter now resets to 1050 when all modals are closed.
 
-### 22. Global Event Listeners Accumulate
-Components add `document.addEventListener('click', ...)` without cleanup. Performance degrades over time.
+### 22. ~~Global Event Listeners Accumulate~~ FIXED
+**File:** `js/components/navbar.js`
+
+Added instance-based event listener storage with `destroy()` and `destroyAll()` cleanup methods.
 
 ### 23. ~~Tooltip Repositioning Causes Repaints~~ FIXED
 **File:** `js/components/tooltips.js`
@@ -169,13 +173,17 @@ Removed duplicate `select.input-sm` and `select.input-lg` selectors.
 | 2. `prefers-reduced-motion` | DONE | transitions.css |
 | 3. Modal focus trap leak | DONE | modals.js |
 | 4. Dark mode SVG colors | DONE | forms.css |
+| 5. CSS Reset | DONE | reset.css (new), vanduo.css |
 | 6. Responsive spacing | DONE | helpers.css |
 | 7. Loading button state | DONE | buttons.css |
 | 8. Print styles | DONE | print.css (new) |
 | 10. Skip link utility | DONE | helpers.css |
+| 11. JS breakpoint sync | DONE | navbar.js |
 | 13. Console warnings | DONE | modals.js |
 | 16. Touch target sizes | DONE | forms.css |
+| 19. CSS fallbacks | DONE | colors.css |
 | 21. Z-index reset | DONE | modals.js |
+| 22. Event listener cleanup | DONE | navbar.js |
 | 23. Tooltip transforms | DONE | tooltips.js |
 | 28. Duplicate selectors | DONE | forms.css |
 

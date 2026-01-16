@@ -24,6 +24,40 @@
   --badge-pill-border-radius: 50rem;
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  /* Invert light/dark badge colors for visibility */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Invert light/dark badge colors for visibility */
+  }
+}
+
+/* Dark Theme - Light badge needs different colors */
+[data-theme="dark"] .badge-light {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+
+[data-theme="dark"] .badge-outlined.badge-light {
+  color: var(--color-gray-300);
+  border-color: var(--color-gray-500);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .badge-light {
+    background-color: var(--color-gray-700);
+    color: var(--color-gray-100);
+  }
+
+  :root:not([data-theme="light"]) .badge-outlined.badge-light {
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-500);
+  }
+}
+
 /* Base Badge */
 .badge {
   display: inline-block;

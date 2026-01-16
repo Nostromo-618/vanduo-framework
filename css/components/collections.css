@@ -8,7 +8,7 @@
   --collection-bg: var(--color-white);
   --collection-item-bg: var(--color-white);
   --collection-item-bg-hover: var(--bg-secondary);
-  --collection-item-bg-active: rgba(0, 123, 255, 0.1);
+  --collection-item-bg-active: var(--color-primary-alpha-10);
   --collection-border-color: var(--border-color);
   
   /* Collection Spacing */
@@ -25,6 +25,21 @@
   --collection-avatar-size: 2.5rem;
   --collection-avatar-size-sm: 2rem;
   --collection-avatar-size-lg: 3.5rem;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --collection-bg: var(--bg-secondary);
+  --collection-item-bg: var(--bg-secondary);
+  --collection-item-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --collection-bg: var(--bg-secondary);
+    --collection-item-bg: var(--bg-secondary);
+    --collection-item-bg-hover: var(--bg-primary);
+  }
 }
 
 /* Base Collection */

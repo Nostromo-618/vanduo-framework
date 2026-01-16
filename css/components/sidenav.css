@@ -9,7 +9,7 @@
   --sidenav-overlay-bg: rgba(0, 0, 0, 0.5);
   --sidenav-border-color: var(--border-color);
   --sidenav-item-bg-hover: var(--bg-secondary);
-  --sidenav-item-bg-active: rgba(0, 123, 255, 0.1);
+  --sidenav-item-bg-active: var(--color-primary-alpha-10);
   --sidenav-item-color-active: var(--color-primary);
   
   /* Sidenav Dimensions */
@@ -29,6 +29,19 @@
   
   /* Sidenav Transitions */
   --sidenav-transition: transform var(--transition-duration-slow) var(--transition-ease);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --sidenav-bg: var(--bg-secondary);
+  --sidenav-item-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sidenav-bg: var(--bg-secondary);
+    --sidenav-item-bg-hover: var(--bg-primary);
+  }
 }
 
 /* Sidenav Overlay */

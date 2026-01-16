@@ -30,6 +30,17 @@
   --modal-dialog-transition: transform var(--transition-duration-base) var(--transition-ease);
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --modal-bg: var(--bg-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --modal-bg: var(--bg-secondary);
+  }
+}
+
 /* Modal Backdrop */
 .modal-backdrop {
   position: fixed;

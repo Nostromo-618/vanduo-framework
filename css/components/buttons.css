@@ -265,12 +265,12 @@
 }
 
 .btn-ghost:hover:not(:disabled):not(.disabled) {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-primary-alpha-10);
   color: var(--color-primary-dark);
 }
 
 .btn-ghost:active:not(:disabled):not(.disabled) {
-  background-color: rgba(0, 123, 255, 0.2);
+  background-color: var(--color-primary-alpha-20);
   transform: translateY(1px);
 }
 

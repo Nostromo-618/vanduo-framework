@@ -21,6 +21,23 @@
                             opacity var(--transition-duration-base) var(--transition-ease);
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --collapsible-bg: var(--bg-secondary);
+  --collapsible-header-bg: var(--bg-primary);
+  --collapsible-header-bg-hover: var(--bg-primary);
+  --collapsible-header-bg-active: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --collapsible-bg: var(--bg-secondary);
+    --collapsible-header-bg: var(--bg-primary);
+    --collapsible-header-bg-hover: var(--bg-primary);
+    --collapsible-header-bg-active: var(--bg-primary);
+  }
+}
+
 /* Base Collapsible Container */
 .collapsible,
 .accordion {
@@ -158,7 +175,7 @@
 
 .collapsible-item.is-active .collapsible-header,
 .accordion-item.is-active .accordion-header {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-primary-alpha-10);
   color: var(--color-primary);
 }
 

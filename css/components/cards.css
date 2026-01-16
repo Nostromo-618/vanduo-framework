@@ -23,6 +23,19 @@
   --card-shadow-elevated: var(--shadow-lg);
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --card-bg: var(--bg-secondary);
+  --card-bg-filled: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --card-bg: var(--bg-secondary);
+    --card-bg-filled: var(--bg-primary);
+  }
+}
+
 /* Base Card */
 .card {
   position: relative;

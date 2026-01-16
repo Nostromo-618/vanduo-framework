@@ -28,6 +28,21 @@
   --pagination-font-size-lg: var(--font-size-lg);
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --pagination-bg: var(--bg-secondary);
+  --pagination-link-bg: var(--bg-secondary);
+  --pagination-link-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pagination-bg: var(--bg-secondary);
+    --pagination-link-bg: var(--bg-secondary);
+    --pagination-link-bg-hover: var(--bg-primary);
+  }
+}
+
 /* Base Pagination */
 .pagination {
   display: flex;

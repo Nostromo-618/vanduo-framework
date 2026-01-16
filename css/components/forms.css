@@ -30,10 +30,23 @@
   
   /* Input Focus */
   --input-focus-border-color: var(--color-primary);
-  --input-focus-box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  --input-focus-box-shadow: 0 0 0 3px var(--color-primary-alpha-10);
   
   /* Input Transitions */
   --input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --input-bg: var(--bg-secondary);
+  --input-bg-disabled: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --input-bg: var(--bg-secondary);
+    --input-bg-disabled: var(--bg-primary);
+  }
 }
 
 /* Base Input */
@@ -183,7 +196,7 @@ input.input-error:focus,
 .input.is-error:focus,
 input.is-error:focus {
   border-color: var(--color-error);
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
 }
 
 .textarea-error,
@@ -198,7 +211,7 @@ textarea.textarea-error:focus,
 .textarea.is-error:focus,
 textarea.is-error:focus {
   border-color: var(--color-error);
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
 }
 
 /* Input States - Success */
@@ -214,7 +227,7 @@ input.input-success:focus,
 .input.is-success:focus,
 input.is-success:focus {
   border-color: var(--color-success);
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
 }
 
 .textarea-success,
@@ -229,7 +242,7 @@ textarea.textarea-success:focus,
 .textarea.is-success:focus,
 textarea.is-success:focus {
   border-color: var(--color-success);
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
 }
 
 /* Labels */
@@ -772,12 +785,12 @@ input[type="range"]:focus {
 
 input[type="range"].range-input:focus::-webkit-slider-thumb,
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: var(--range-thumb-shadow), 0 0 0 3px rgba(0, 123, 255, 0.1);
+  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--color-primary-alpha-10);
 }
 
 input[type="range"].range-input:focus::-moz-range-thumb,
 input[type="range"]:focus::-moz-range-thumb {
-  box-shadow: var(--range-thumb-shadow), 0 0 0 3px rgba(0, 123, 255, 0.1);
+  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--color-primary-alpha-10);
 }
 
 /* Range Track (Webkit) */
@@ -1375,7 +1388,7 @@ select[multiple] option,
 }
 
 .custom-select-option.is-selected {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-primary-alpha-10);
   color: var(--color-primary);
   font-weight: var(--font-weight-medium);
 }

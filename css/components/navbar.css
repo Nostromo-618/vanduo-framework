@@ -29,6 +29,23 @@
   --navbar-mobile-overlay-bg: rgba(0, 0, 0, 0.5);
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --navbar-bg: var(--bg-primary);
+  --navbar-text-color: var(--text-primary);
+  --navbar-link-color: var(--text-primary);
+  --navbar-mobile-menu-bg: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --navbar-bg: var(--bg-primary);
+    --navbar-text-color: var(--text-primary);
+    --navbar-link-color: var(--text-primary);
+    --navbar-mobile-menu-bg: var(--bg-primary);
+  }
+}
+
 /* Base Navbar */
 .navbar {
   position: relative;
@@ -107,6 +124,11 @@
   color: var(--navbar-link-hover-color);
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-nav .nav-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .navbar-nav .nav-link.active {
@@ -328,7 +350,7 @@
 
 .navbar-dropdown-item.active {
   color: var(--navbar-link-active-color);
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-primary-alpha-10);
 }
 
 .navbar-dark .navbar-dropdown-menu {

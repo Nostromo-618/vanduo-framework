@@ -43,6 +43,14 @@
 /* Components - Phase 7 */
 @import url('components/preloader.css');
 
+/* Components - Phase 8 (New) */
+@import url('components/alerts.css');
+@import url('components/chips.css');
+@import url('components/avatar.css');
+@import url('components/skeleton.css');
+@import url('components/tabs.css');
+@import url('components/toast.css');
+
 /* Utilities - Phase 7 */
 @import url('utilities/media.css');
 @import url('utilities/table.css');

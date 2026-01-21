@@ -75,6 +75,10 @@
   border: none;
   width: 100%;
   text-align: left;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
 }
 
 .collapsible-header:hover,
@@ -103,7 +107,7 @@
   width: 100%;
   font-family: var(--font-family-sans);
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   text-decoration: none;
   background: none;

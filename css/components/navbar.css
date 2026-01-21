@@ -77,16 +77,20 @@
 .navbar-brand {
   display: inline-flex;
   align-items: center;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: var(--navbar-brand-font-size);
   font-weight: var(--font-weight-bold);
-  line-height: inherit;
+  line-height: 1;
   white-space: nowrap;
   color: var(--navbar-text-color);
   text-decoration: none;
   transition: color 0.2s ease;
+}
+
+.navbar-brand a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
 }
 
 .navbar-brand:hover,
@@ -105,6 +109,7 @@
 .navbar-nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;

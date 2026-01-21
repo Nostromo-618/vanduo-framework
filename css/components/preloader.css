@@ -255,28 +255,34 @@
 }
 
 /* Progress Bar Colors */
-.progress-bar-primary {
+.progress-bar-primary,
+.progress-bar.bg-primary {
   background-color: var(--color-primary);
 }
 
-.progress-bar-secondary {
+.progress-bar-secondary,
+.progress-bar.bg-secondary {
   background-color: var(--color-secondary);
 }
 
-.progress-bar-success {
+.progress-bar-success,
+.progress-bar.bg-success {
   background-color: var(--color-success);
 }
 
-.progress-bar-warning {
+.progress-bar-warning,
+.progress-bar.bg-warning {
   background-color: var(--color-warning);
   color: var(--color-gray-900);
 }
 
-.progress-bar-error {
+.progress-bar-error,
+.progress-bar.bg-error {
   background-color: var(--color-error);
 }
 
-.progress-bar-info {
+.progress-bar-info,
+.progress-bar.bg-info {
   background-color: var(--color-info);
 }
 

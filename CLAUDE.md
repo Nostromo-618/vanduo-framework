@@ -23,14 +23,14 @@ No build, test, or lint commands exist by design.
 ### CSS Structure (`css/`)
 Layered architecture imported via `css/vanduo.css`:
 - **core/** - Foundation: colors (CSS variables), typography, 12-column grid, spacing/display helpers
-- **components/** - 17 UI components (buttons, forms, cards, navbar, modals, dropdowns, etc.)
+- **components/** - 15 UI components (buttons, forms, cards, navbar, modals, dropdowns, etc.)
 - **utilities/** - shadows, transitions, media utilities, table styling
 - **effects/** - parallax scroll effects
 
 ### JavaScript Structure (`js/`)
 - **vanduo.js** - Main entry point with component registry
 - **utils/helpers.js** - Shared DOM utilities used by all components (`$`, `$$`, `on`, `ready`, `debounce`, etc.)
-- **components/** - 13 interactive component modules (navbar, modals, dropdown, tooltips, select, etc.)
+- **components/** - 11 interactive component modules (navbar, modals, dropdown, tooltips, select, etc.)
 
 ### Key Patterns
 

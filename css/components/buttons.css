@@ -46,6 +46,11 @@
   color: var(--text-primary);
 }
 
+/* Button spacing when adjacent */
+.btn + .btn {
+  margin-left: 0.5rem;
+}
+
 .btn:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

@@ -51,6 +51,7 @@
 @import url('components/skeleton.css');
 @import url('components/tabs.css');
 @import url('components/toast.css');
+@import url('components/code-snippet.css');
 
 /* Utilities - Phase 7 */
 @import url('utilities/media.css');

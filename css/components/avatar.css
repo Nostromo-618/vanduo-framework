@@ -4,14 +4,14 @@
  */
 
 :root {
-  /* Avatar Sizes */
-  --avatar-size-xs: 1.5rem;
-  --avatar-size-sm: 2rem;
-  --avatar-size-md: 2.5rem;
-  --avatar-size: 3rem;
-  --avatar-size-lg: 4rem;
-  --avatar-size-xl: 5rem;
-  --avatar-size-2xl: 6rem;
+  /* Avatar Sizes (Fibonacci) */
+  --avatar-size-xs: 1.3125rem;  /* 21px - fib */
+  --avatar-size-sm: 2.125rem;   /* 34px - fib */
+  --avatar-size-md: 2.125rem;   /* 34px - fib */
+  --avatar-size: 3.4375rem;     /* 55px - fib */
+  --avatar-size-lg: 3.4375rem;  /* 55px - fib */
+  --avatar-size-xl: 5.5625rem;  /* 89px - fib */
+  --avatar-size-2xl: 9rem;      /* 144px - fib */
 
   /* Avatar Colors */
   --avatar-bg: var(--color-gray-300);

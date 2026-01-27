@@ -113,6 +113,14 @@
   padding-bottom: 50%; /* 2:1 */
 }
 
+.aspect-ratio-golden {
+  padding-bottom: 61.8%; /* 1:1.618 - Golden Rectangle landscape */
+}
+
+.aspect-ratio-golden-portrait {
+  padding-bottom: 161.8%; /* 1.618:1 - Golden Rectangle portrait */
+}
+
 /* Image Styles */
 .img-rounded {
   border-radius: var(--btn-border-radius);
@@ -123,10 +131,10 @@
 }
 
 .img-thumbnail {
-  padding: 0.25rem;
+  padding: 0.1875rem; /* 3px - fib */
   background-color: var(--color-white);
   border: 1px solid var(--border-color);
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--radius-fib-5);
   max-width: 100%;
   height: auto;
 }
@@ -134,14 +142,14 @@
 /* Image Alignment */
 .img-left {
   float: left;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin-right: 0.8125rem; /* 13px - fib */
+  margin-bottom: 0.8125rem;
 }
 
 .img-right {
   float: right;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
+  margin-left: 0.8125rem; /* 13px - fib */
+  margin-bottom: 0.8125rem;
 }
 
 .img-center {

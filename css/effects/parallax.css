@@ -74,17 +74,17 @@
   will-change: transform;
 }
 
-/* Parallax Container Heights */
+/* Parallax Container Heights (Fibonacci) */
 .parallax-sm {
-  min-height: 300px;
+  min-height: 377px; /* fib */
 }
 
 .parallax-md {
-  min-height: 500px;
+  min-height: 610px; /* fib */
 }
 
 .parallax-lg {
-  min-height: 700px;
+  min-height: 987px; /* fib */
 }
 
 .parallax-full {

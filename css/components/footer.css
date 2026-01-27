@@ -14,12 +14,12 @@
   --footer-border-color: var(--border-color);
   --footer-heading-color: var(--text-primary);
   
-  /* Footer Spacing */
-  --footer-padding-y: 3rem;
-  --footer-padding-x: 1rem;
-  --footer-padding-y-sm: 2rem;
-  --footer-padding-y-lg: 4rem;
-  --footer-section-spacing: 2rem;
+  /* Footer Spacing (Fibonacci) */
+  --footer-padding-y: 3.4375rem;    /* 55px - fib */
+  --footer-padding-x: 1.3125rem;    /* 21px - fib */
+  --footer-padding-y-sm: 2.125rem;  /* 34px - fib */
+  --footer-padding-y-lg: 5.5625rem; /* 89px - fib */
+  --footer-section-spacing: 2.125rem; /* 34px - fib */
 }
 
 /* Dark Theme Overrides */

@@ -12,29 +12,29 @@
   --tooltip-text-color-light: var(--color-gray-900);
   --tooltip-text-color-dark: var(--color-white);
   
-  /* Tooltip Spacing */
-  --tooltip-padding-y: 0.5rem;
-  --tooltip-padding-x: 0.75rem;
-  --tooltip-padding-y-sm: 0.375rem;
-  --tooltip-padding-x-sm: 0.5rem;
-  --tooltip-padding-y-lg: 0.75rem;
-  --tooltip-padding-x-lg: 1rem;
-  
+  /* Tooltip Spacing (Fibonacci pairs: x/y ratio ~ phi) */
+  --tooltip-padding-y: 0.5rem;        /* 8px - fib */
+  --tooltip-padding-x: 0.8125rem;     /* 13px - fib (13/8 ~ phi) */
+  --tooltip-padding-y-sm: 0.3125rem;  /* 5px - fib */
+  --tooltip-padding-x-sm: 0.5rem;     /* 8px - fib (8/5 = 1.6 ~ phi) */
+  --tooltip-padding-y-lg: 0.8125rem;  /* 13px - fib */
+  --tooltip-padding-x-lg: 1.3125rem;  /* 21px - fib (21/13 ~ phi) */
+
   /* Tooltip Font */
   --tooltip-font-size: var(--font-size-sm);
   --tooltip-font-size-sm: var(--font-size-xs);
   --tooltip-font-size-lg: var(--font-size-base);
-  
-  /* Tooltip Arrow */
-  --tooltip-arrow-size: 6px;
-  --tooltip-arrow-size-sm: 4px;
-  --tooltip-arrow-size-lg: 8px;
-  
+
+  /* Tooltip Arrow (Fibonacci) */
+  --tooltip-arrow-size: 5px;     /* fib */
+  --tooltip-arrow-size-sm: 3px;  /* fib */
+  --tooltip-arrow-size-lg: 8px;  /* fib */
+
   /* Tooltip Z-index */
   --tooltip-z-index: 1070;
-  
+
   /* Tooltip Max Width */
-  --tooltip-max-width: 200px;
+  --tooltip-max-width: 233px; /* fib */
 }
 
 /* Dark Theme Overrides */

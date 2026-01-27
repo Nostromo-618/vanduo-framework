@@ -1,0 +1,150 @@
+/**
+ * Vanduo Framework - Self-Hosted Web Fonts
+ * Optional font faces for consistent typography across platforms
+ * All fonts are OFL (Open Font License) licensed
+ */
+
+/* ==========================================================================
+   Inter - Modern, clean sans-serif by Rasmus Andersson
+   https://github.com/rsms/inter
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/inter/inter-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/inter/inter-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/inter/inter-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/inter/inter-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Source Sans 3 - Adobe's versatile sans-serif
+   https://github.com/adobe-fonts/source-sans
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('../../fonts/source-sans/source-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('../../fonts/source-sans/source-sans-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('../../fonts/source-sans/source-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Fira Sans - Mozilla's readable sans-serif
+   https://github.com/mozilla/Fira
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../../fonts/fira-sans/fira-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../../fonts/fira-sans/fira-sans-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../../fonts/fira-sans/fira-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   IBM Plex Sans - Professional, complete font family
+   https://github.com/IBM/plex
+   ========================================================================== */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../fonts/ibm-plex/ibm-plex-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../fonts/ibm-plex/ibm-plex-sans-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../fonts/ibm-plex/ibm-plex-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   JetBrains Mono - Monospace font for code
+   https://github.com/JetBrains/JetBrainsMono
+   ========================================================================== */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../fonts/jetbrains-mono/jetbrains-mono-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../fonts/jetbrains-mono/jetbrains-mono-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

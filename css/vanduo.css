@@ -8,6 +8,7 @@
 
 /* Core Foundation */
 @import url('core/colors.css');
+@import url('core/fonts.css');
 @import url('core/typography.css');
 @import url('core/grid.css');
 @import url('core/helpers.css');

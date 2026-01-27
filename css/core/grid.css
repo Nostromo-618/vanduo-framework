@@ -4,19 +4,20 @@
  */
 
 :root {
-  /* Container */
-  --container-max-width: 1200px;
-  --container-padding: 1rem;
-  
+  /* Container (Fibonacci: 987px) */
+  --container-max-width: 987px;
+  --container-max-width-wide: 1597px; /* next Fibonacci */
+  --container-padding: 0.8125rem; /* 13px - fib */
+
   /* Breakpoints */
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --breakpoint-2xl: 1400px;
-  
-  /* Grid Gutter */
-  --grid-gutter: 1rem;
+
+  /* Grid Gutter (Fibonacci: 13px) */
+  --grid-gutter: 0.8125rem;
 }
 
 /* Container */
@@ -182,5 +183,132 @@
   .offset-xl-4 { margin-left: 33.333333%; }
   .offset-xl-5 { margin-left: 41.666667%; }
   .offset-xl-6 { margin-left: 50%; }
+}
+
+/* ===================================================
+ * Golden Ratio Grid Layouts
+ * Two-column split: 38.2% / 61.8% (minor / major)
+ * Fibonacci column ratios: 2:3:5, 3:5:8, 5:8
+ * =================================================== */
+
+/* Wide container variant (Fibonacci: 1597px) */
+.container-wide {
+  max-width: var(--container-max-width-wide);
+}
+
+/* Fibonacci-number container widths */
+.container-fib-610 { max-width: 610px; margin-left: auto; margin-right: auto; padding-left: var(--container-padding); padding-right: var(--container-padding); }
+.container-fib-987 { max-width: 987px; margin-left: auto; margin-right: auto; padding-left: var(--container-padding); padding-right: var(--container-padding); }
+.container-fib-1597 { max-width: 1597px; margin-left: auto; margin-right: auto; padding-left: var(--container-padding); padding-right: var(--container-padding); }
+
+/* Golden Ratio Two-Column (flexbox) */
+.row-golden {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--grid-gutter) * -0.5);
+  margin-right: calc(var(--grid-gutter) * -0.5);
+}
+
+.row-golden > .col-golden-minor {
+  flex: 0 0 auto;
+  width: 38.196601%;
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+.row-golden > .col-golden-major {
+  flex: 0 0 auto;
+  width: 61.803399%;
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+/* Fibonacci Two-Column: 5:8 proportions */
+.row-fib-2 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--grid-gutter) * -0.5);
+  margin-right: calc(var(--grid-gutter) * -0.5);
+}
+
+.row-fib-2 > .col-fib-5 {
+  flex: 0 0 auto;
+  width: 38.461538%; /* 5/13 */
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+.row-fib-2 > .col-fib-8 {
+  flex: 0 0 auto;
+  width: 61.538462%; /* 8/13 */
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+/* Fibonacci Three-Column: 2:3:5 proportions */
+.row-fib-3 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--grid-gutter) * -0.5);
+  margin-right: calc(var(--grid-gutter) * -0.5);
+}
+
+.row-fib-3 > .col-fib-2 {
+  flex: 0 0 auto;
+  width: 20%; /* 2/10 */
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+.row-fib-3 > .col-fib-3 {
+  flex: 0 0 auto;
+  width: 30%; /* 3/10 */
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+.row-fib-3 > .col-fib-5 {
+  flex: 0 0 auto;
+  width: 50%; /* 5/10 */
+  padding-left: calc(var(--grid-gutter) * 0.5);
+  padding-right: calc(var(--grid-gutter) * 0.5);
+}
+
+/* CSS Grid Golden Ratio layouts */
+.grid-golden {
+  display: grid;
+  grid-template-columns: 1fr 1.618fr;
+  gap: var(--grid-gutter);
+}
+
+.grid-golden-reverse {
+  display: grid;
+  grid-template-columns: 1.618fr 1fr;
+  gap: var(--grid-gutter);
+}
+
+.grid-fib-3 {
+  display: grid;
+  grid-template-columns: 2fr 3fr 5fr;
+  gap: var(--grid-gutter);
+}
+
+/* Responsive: stack golden/fibonacci grids on mobile */
+@media (max-width: 767.98px) {
+  .row-golden > .col-golden-minor,
+  .row-golden > .col-golden-major,
+  .row-fib-2 > .col-fib-5,
+  .row-fib-2 > .col-fib-8,
+  .row-fib-3 > .col-fib-2,
+  .row-fib-3 > .col-fib-3,
+  .row-fib-3 > .col-fib-5 {
+    width: 100%;
+  }
+
+  .grid-golden,
+  .grid-golden-reverse,
+  .grid-fib-3 {
+    grid-template-columns: 1fr;
+  }
 }
 

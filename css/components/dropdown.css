@@ -14,19 +14,19 @@
   --dropdown-item-active-color: var(--color-primary);
   --dropdown-item-disabled-color: var(--text-muted);
   
-  /* Dropdown Spacing */
-  --dropdown-padding-y: 0.5rem;
+  /* Dropdown Spacing (Fibonacci) */
+  --dropdown-padding-y: 0.5rem;          /* 8px - fib */
   --dropdown-padding-x: 0;
-  --dropdown-item-padding-y: 0.5rem;
-  --dropdown-item-padding-x: 1rem;
-  --dropdown-header-padding-y: 0.5rem;
-  --dropdown-header-padding-x: 1rem;
-  
+  --dropdown-item-padding-y: 0.5rem;     /* 8px  - fib */
+  --dropdown-item-padding-x: 0.8125rem;  /* 13px - fib */
+  --dropdown-header-padding-y: 0.5rem;   /* 8px  - fib */
+  --dropdown-header-padding-x: 0.8125rem;/* 13px - fib */
+
   /* Dropdown Z-index */
   --dropdown-z-index: 1000;
-  
+
   /* Dropdown Min Width */
-  --dropdown-min-width: 10rem;
+  --dropdown-min-width: 13rem; /* ~208px, Fibonacci-inspired */
 }
 
 /* Dark Theme Overrides */

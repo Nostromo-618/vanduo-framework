@@ -9,17 +9,17 @@
   --modal-backdrop-bg: rgba(0, 0, 0, 0.5);
   --modal-border-color: var(--border-color);
   
-  /* Modal Spacing */
-  --modal-padding: 1.5rem;
-  --modal-header-padding: 1.5rem;
-  --modal-body-padding: 1.5rem;
-  --modal-footer-padding: 1.5rem;
-  
-  /* Modal Sizes */
-  --modal-width-sm: 300px;
-  --modal-width: 500px;
-  --modal-width-lg: 800px;
-  --modal-width-xl: 1140px;
+  /* Modal Spacing (Fibonacci: 21px) */
+  --modal-padding: 1.3125rem;
+  --modal-header-padding: 1.3125rem;
+  --modal-body-padding: 1.3125rem;
+  --modal-footer-padding: 1.3125rem;
+
+  /* Modal Sizes (all Fibonacci numbers) */
+  --modal-width-sm: 233px;   /* fib(13) */
+  --modal-width: 377px;      /* fib(14) */
+  --modal-width-lg: 610px;   /* fib(15) */
+  --modal-width-xl: 987px;   /* fib(16) */
   
   /* Modal Z-index */
   --modal-z-index: 1050;

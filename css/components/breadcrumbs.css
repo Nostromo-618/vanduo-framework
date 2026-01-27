@@ -4,15 +4,15 @@
  */
 
 :root {
-  /* Breadcrumb Spacing */
-  --breadcrumb-padding-y: 0.5rem;
+  /* Breadcrumb Spacing (Fibonacci) */
+  --breadcrumb-padding-y: 0.5rem;     /* 8px - fib */
   --breadcrumb-padding-x: 0;
-  --breadcrumb-margin-bottom: 1rem;
-  
+  --breadcrumb-margin-bottom: 0.8125rem; /* 13px - fib */
+
   /* Breadcrumb Separator */
   --breadcrumb-separator: "/";
   --breadcrumb-separator-color: var(--text-muted);
-  --breadcrumb-separator-padding: 0.5rem;
+  --breadcrumb-separator-padding: 0.5rem; /* 8px - fib */
   
   /* Breadcrumb Colors */
   --breadcrumb-bg: transparent;

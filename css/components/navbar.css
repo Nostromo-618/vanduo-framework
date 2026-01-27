@@ -14,18 +14,18 @@
   --navbar-link-active-color: var(--color-primary);
   --navbar-border-color: var(--border-color);
   
-  /* Navbar Spacing */
-  --navbar-padding-y: 1rem;
-  --navbar-padding-x: 1rem;
-  --navbar-height: 3.5rem;
+  /* Navbar Spacing (Fibonacci) */
+  --navbar-padding-y: 0.8125rem;   /* 13px - fib */
+  --navbar-padding-x: 1.3125rem;   /* 21px - fib (21/13 ~ phi) */
+  --navbar-height: 3.4375rem;      /* 55px - fib */
   --navbar-brand-font-size: var(--font-size-xl);
-  --navbar-nav-gap: 1.5rem;
-  --navbar-actions-gap: 2rem;
-  
+  --navbar-nav-gap: 1.3125rem;     /* 21px - fib */
+  --navbar-actions-gap: 2.125rem;  /* 34px - fib */
+
   /* Mobile Menu */
   --navbar-mobile-menu-bg: var(--color-white);
   --navbar-mobile-menu-bg-dark: var(--bg-dark);
-  --navbar-mobile-menu-width: 280px;
+  --navbar-mobile-menu-width: 233px; /* fib */
   --navbar-mobile-overlay-bg: rgba(0, 0, 0, 0.5);
 }
 

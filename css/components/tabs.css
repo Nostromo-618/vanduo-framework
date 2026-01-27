@@ -4,15 +4,15 @@
  */
 
 :root {
-  /* Tab Sizing */
-  --tab-padding-x: 1rem;
-  --tab-padding-y: 0.75rem;
-  --tab-padding-x-sm: 0.75rem;
-  --tab-padding-y-sm: 0.5rem;
-  --tab-padding-x-lg: 1.25rem;
-  --tab-padding-y-lg: 1rem;
+  /* Tab Sizing (Fibonacci pairs: x/y ratio ~ phi) */
+  --tab-padding-x: 1.3125rem;     /* 21px - fib */
+  --tab-padding-y: 0.8125rem;     /* 13px - fib */
+  --tab-padding-x-sm: 0.8125rem;  /* 13px - fib */
+  --tab-padding-y-sm: 0.5rem;     /* 8px  - fib */
+  --tab-padding-x-lg: 2.125rem;   /* 34px - fib */
+  --tab-padding-y-lg: 1.3125rem;  /* 21px - fib */
   --tab-gap: 0;
-  --tab-border-width: 2px;
+  --tab-border-width: 2px; /* fib(2) */
 
   /* Tab Colors */
   --tab-text: var(--text-secondary);

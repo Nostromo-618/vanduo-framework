@@ -4,9 +4,9 @@
  */
 
 :root {
-  /* Alert Spacing */
-  --alert-padding-x: 1rem;
-  --alert-padding-y: 0.875rem;
+  /* Alert Spacing (Fibonacci: 21px/13px, ratio ~ phi) */
+  --alert-padding-x: 1.3125rem;   /* 21px - fib */
+  --alert-padding-y: 0.8125rem;   /* 13px - fib */
   --alert-border-radius: var(--btn-border-radius);
   --alert-border-width: 1px;
 
@@ -201,12 +201,12 @@
 
 /* Alert Sizes */
 .alert-sm {
-  padding: 0.5rem 0.75rem;
+  padding: 0.3125rem 0.5rem; /* 5px 8px - fib pair */
   font-size: var(--font-size-sm);
 }
 
 .alert-lg {
-  padding: 1.25rem 1.5rem;
+  padding: 1.3125rem 2.125rem; /* 21px 34px - fib pair */
   font-size: var(--font-size-lg);
 }
 

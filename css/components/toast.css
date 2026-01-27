@@ -4,13 +4,13 @@
  */
 
 :root {
-  /* Toast Sizing */
-  --toast-width: 320px;
+  /* Toast Sizing (Fibonacci) */
+  --toast-width: 377px;             /* fib */
   --toast-max-width: 90vw;
-  --toast-padding-x: 1rem;
-  --toast-padding-y: 0.875rem;
-  --toast-border-radius: var(--btn-border-radius);
-  --toast-gap: 0.75rem;
+  --toast-padding-x: 1.3125rem;     /* 21px - fib */
+  --toast-padding-y: 0.8125rem;     /* 13px - fib */
+  --toast-border-radius: var(--radius-fib-5);
+  --toast-gap: 0.8125rem;           /* 13px - fib */
 
   /* Toast Colors */
   --toast-bg: var(--color-white);

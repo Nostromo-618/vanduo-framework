@@ -1,23 +1,41 @@
 /**
  * Vanduo Framework - Helpers
  * Utility classes for spacing, display, positioning, and more
+ *
+ * Design System: Fibonacci / Golden Ratio (phi = 1.618)
+ * Spacing values follow the Fibonacci sequence: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
+ * Consecutive Fibonacci pairs yield ratios approaching phi (e.g. 21/13 = 1.615)
  */
 
 :root {
-  /* Spacing Scale */
+  /* Golden Ratio Constants */
+  --phi: 1.618;
+  --phi-inverse: 0.618;
+  --phi-percent-major: 61.8%;
+  --phi-percent-minor: 38.2%;
+
+  /* Fibonacci Border Radius Scale */
+  --radius-fib-2: 0.125rem;    /* 2px */
+  --radius-fib-3: 0.1875rem;   /* 3px */
+  --radius-fib-5: 0.3125rem;   /* 5px */
+  --radius-fib-8: 0.5rem;      /* 8px */
+  --radius-fib-13: 0.8125rem;  /* 13px */
+  --radius-fib-21: 1.3125rem;  /* 21px */
+
+  /* Fibonacci Spacing Scale */
   --spacing-0: 0;
-  --spacing-1: 0.25rem;   /* 4px */
-  --spacing-2: 0.5rem;    /* 8px */
-  --spacing-3: 0.75rem;   /* 12px */
-  --spacing-4: 1rem;      /* 16px */
-  --spacing-5: 1.25rem;   /* 20px */
-  --spacing-6: 1.5rem;    /* 24px */
-  --spacing-8: 2rem;      /* 32px */
-  --spacing-10: 2.5rem;   /* 40px */
-  --spacing-12: 3rem;     /* 48px */
-  --spacing-16: 4rem;     /* 64px */
-  --spacing-20: 5rem;     /* 80px */
-  --spacing-24: 6rem;     /* 96px */
+  --spacing-1: 0.0625rem;   /* 1px  - fib(1) */
+  --spacing-2: 0.125rem;    /* 2px  - fib(2) */
+  --spacing-3: 0.1875rem;   /* 3px  - fib(3) */
+  --spacing-4: 0.3125rem;   /* 5px  - fib(5) */
+  --spacing-5: 0.5rem;      /* 8px  - fib(8) */
+  --spacing-6: 0.8125rem;   /* 13px - fib(13) */
+  --spacing-8: 1.3125rem;   /* 21px - fib(21) */
+  --spacing-10: 2.125rem;   /* 34px - fib(34) */
+  --spacing-12: 3.4375rem;  /* 55px - fib(55) */
+  --spacing-16: 5.5625rem;  /* 89px - fib(89) */
+  --spacing-20: 9rem;        /* 144px - fib(144) */
+  --spacing-24: 9rem;        /* 144px - alias */
 }
 
 /* Margin Utilities */
@@ -252,6 +270,13 @@
 .w-quarter { width: 25%; }
 .w-three-quarters { width: 75%; }
 
+/* Golden Ratio Width Utilities */
+.w-phi-major { width: 61.803399%; }
+.w-phi-minor { width: 38.196601%; }
+.w-fib-987 { max-width: 987px; }
+.w-fib-610 { max-width: 610px; }
+.w-fib-377 { max-width: 377px; }
+
 /* Height Utilities */
 .h-auto { height: auto; }
 .h-full { height: 100%; }
@@ -338,19 +363,19 @@
 .border-4 { border-width: 4px; }
 .border-8 { border-width: 8px; }
 
-/* Border Radius Utilities */
+/* Border Radius Utilities (Fibonacci: 2, 3, 5, 8, 13, 21) */
 .rounded-none { border-radius: 0; }
-.rounded-sm { border-radius: 0.125rem; }
-.rounded { border-radius: 0.25rem; }
-.rounded-md { border-radius: 0.375rem; }
-.rounded-lg { border-radius: 0.5rem; }
-.rounded-xl { border-radius: 0.75rem; }
-.rounded-2xl { border-radius: 1rem; }
+.rounded-sm { border-radius: var(--radius-fib-2); }    /* 2px */
+.rounded { border-radius: var(--radius-fib-3); }        /* 3px */
+.rounded-md { border-radius: var(--radius-fib-5); }     /* 5px */
+.rounded-lg { border-radius: var(--radius-fib-8); }     /* 8px */
+.rounded-xl { border-radius: var(--radius-fib-13); }    /* 13px */
+.rounded-2xl { border-radius: var(--radius-fib-21); }   /* 21px */
 .rounded-full { border-radius: 9999px; }
-.rounded-t { border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; }
-.rounded-r { border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem; }
-.rounded-b { border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; }
-.rounded-l { border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem; }
+.rounded-t { border-top-left-radius: var(--radius-fib-3); border-top-right-radius: var(--radius-fib-3); }
+.rounded-r { border-top-right-radius: var(--radius-fib-3); border-bottom-right-radius: var(--radius-fib-3); }
+.rounded-b { border-bottom-right-radius: var(--radius-fib-3); border-bottom-left-radius: var(--radius-fib-3); }
+.rounded-l { border-top-left-radius: var(--radius-fib-3); border-bottom-left-radius: var(--radius-fib-3); }
 
 /* Responsive Spacing Utilities */
 @media (min-width: 576px) {
@@ -446,7 +471,7 @@
   position: absolute;
   left: -9999px;
   z-index: 9999;
-  padding: 1rem;
+  padding: 0.8125rem; /* 13px - fib */
   background-color: var(--bg-primary);
   color: var(--text-primary);
   text-decoration: none;
@@ -556,3 +581,5 @@
 .aspect-square { aspect-ratio: 1 / 1; }
 .aspect-video { aspect-ratio: 16 / 9; }
 .aspect-4-3 { aspect-ratio: 4 / 3; }
+.aspect-golden { aspect-ratio: 1.618 / 1; }
+.aspect-golden-portrait { aspect-ratio: 1 / 1.618; }

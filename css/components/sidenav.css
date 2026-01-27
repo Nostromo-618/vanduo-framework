@@ -12,16 +12,16 @@
   --sidenav-item-bg-active: var(--color-primary-alpha-10);
   --sidenav-item-color-active: var(--color-primary);
   
-  /* Sidenav Dimensions */
-  --sidenav-width: 280px;
-  --sidenav-width-sm: 240px;
-  --sidenav-width-lg: 320px;
-  
-  /* Sidenav Spacing */
-  --sidenav-padding-y: 1rem;
-  --sidenav-padding-x: 1.25rem;
-  --sidenav-item-padding-y: 0.75rem;
-  --sidenav-item-padding-x: 1rem;
+  /* Sidenav Dimensions (Fibonacci) */
+  --sidenav-width: 233px;     /* fib */
+  --sidenav-width-sm: 233px;  /* fib */
+  --sidenav-width-lg: 377px;  /* fib */
+
+  /* Sidenav Spacing (Fibonacci) */
+  --sidenav-padding-y: 0.8125rem;      /* 13px - fib */
+  --sidenav-padding-x: 1.3125rem;      /* 21px - fib */
+  --sidenav-item-padding-y: 0.5rem;    /* 8px  - fib */
+  --sidenav-item-padding-x: 0.8125rem; /* 13px - fib */
   
   /* Sidenav Z-index */
   --sidenav-z-index: 1040;

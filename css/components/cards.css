@@ -4,10 +4,10 @@
  */
 
 :root {
-  /* Card Padding */
-  --card-padding: 1.5rem;
-  --card-padding-sm: 1rem;
-  --card-padding-lg: 2rem;
+  /* Card Padding (Fibonacci: 13, 21, 34) */
+  --card-padding: 1.3125rem;     /* 21px - fib */
+  --card-padding-sm: 0.8125rem;  /* 13px - fib */
+  --card-padding-lg: 2.125rem;   /* 34px - fib */
   
   /* Card Border */
   --card-border-width: 1px;

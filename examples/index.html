@@ -114,6 +114,7 @@
             <div class="navbar-menu">
                 <ul class="navbar-nav">
                     <li><a href="#typography">Typography</a></li>
+                    <li><a href="#golden-ratio">Golden Ratio</a></li>
                     <li><a href="#buttons">Buttons</a></li>
                     <li><a href="#forms">Forms</a></li>
                     <li><a href="#cards">Cards</a></li>
@@ -132,6 +133,18 @@
                 </ul>
                 
                 <div class="navbar-actions">
+                    <select class="input input-sm" data-toggle="font" aria-label="Font selector">
+                        <optgroup label="System">
+                            <option value="system" selected>System Default</option>
+                        </optgroup>
+                        <optgroup label="Web Fonts">
+                            <option value="inter">Inter</option>
+                            <option value="source-sans">Source Sans 3</option>
+                            <option value="fira-sans">Fira Sans</option>
+                            <option value="ibm-plex">IBM Plex Sans</option>
+                            <option value="jetbrains-mono">JetBrains Mono</option>
+                        </optgroup>
+                    </select>
                     <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
                         <option value="system" selected>System</option>
                         <option value="light">Light</option>
@@ -149,9 +162,9 @@
             <h1>Vanduo Framework</h1>
             <p class="text-lg text-muted">Essential just like Water is. From Lithuania 🇱🇹 with love ❤️.</p>
             <p>Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.</p>
-            <div style="margin-top: 2rem;">
+            <div class="mt-10">
                 <a href="#typography" class="btn btn-primary btn-lg">Get Started</a>
-                <a href="https://github.com" class="btn btn-outline btn-lg" style="margin-left: 1rem;">GitHub</a>
+                <a href="https://github.com" class="btn btn-outline btn-lg ml-6">GitHub</a>
             </div>
         </div>
     </section>
@@ -248,7 +261,113 @@
                     </div>
                 </div>
             </section>
-            
+
+            <!-- Golden Ratio Grid Section -->
+            <section id="golden-ratio">
+                <h2 class="demo-title">Golden Ratio Grid</h2>
+                <p class="mb-8">This framework uses the <strong>Fibonacci sequence</strong> and <strong>Golden Ratio (phi = 1.618)</strong> as its proportional foundation. Spacing, typography, component dimensions, and grid layouts all derive from these mathematical relationships.</p>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card demo-card mb-8">
+                            <div class="card-header">
+                                <h3>Golden Split (38.2% / 61.8%)</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row-golden">
+                                    <div class="col-golden-minor">
+                                        <div class="bg-secondary p-6 rounded-md text-center">
+                                            <strong>Minor</strong><br>38.2% (1/phi)
+                                        </div>
+                                    </div>
+                                    <div class="col-golden-major">
+                                        <div class="bg-primary text-white p-6 rounded-md text-center">
+                                            <strong>Major</strong><br>61.8% (1 - 1/phi)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card mb-8">
+                            <div class="card-header">
+                                <h3>Fibonacci 3-Column (2:3:5)</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row-fib-3">
+                                    <div class="col-fib-2">
+                                        <div class="bg-info text-white p-5 rounded-md text-center text-sm">2</div>
+                                    </div>
+                                    <div class="col-fib-3">
+                                        <div class="bg-success text-white p-5 rounded-md text-center text-sm">3</div>
+                                    </div>
+                                    <div class="col-fib-5">
+                                        <div class="bg-primary text-white p-5 rounded-md text-center text-sm">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card mb-8">
+                            <div class="card-header">
+                                <h3>CSS Grid Golden Layout</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="grid-golden">
+                                    <div class="bg-warning p-5 rounded-md text-center text-sm">1fr</div>
+                                    <div class="bg-primary text-white p-5 rounded-md text-center text-sm">1.618fr</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Fibonacci Spacing Scale</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-col gap-2">
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">1px</code> <div class="bg-primary" style="width: 1px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">2px</code> <div class="bg-primary" style="width: 2px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">3px</code> <div class="bg-primary" style="width: 3px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">5px</code> <div class="bg-primary" style="width: 5px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">8px</code> <div class="bg-primary" style="width: 8px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">13px</code> <div class="bg-primary" style="width: 13px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">21px</code> <div class="bg-primary" style="width: 21px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">34px</code> <div class="bg-primary" style="width: 34px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">55px</code> <div class="bg-primary" style="width: 55px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">89px</code> <div class="bg-primary" style="width: 89px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">144px</code> <div class="bg-primary" style="width: 144px; height: 13px;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Golden Ratio Type Scale</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-xs mb-3">xs &mdash; base / phi</p>
+                                <p class="text-sm mb-3">sm &mdash; base / sqrt(phi)</p>
+                                <p class="text-base mb-3">base &mdash; 16px</p>
+                                <p class="text-lg mb-3">lg &mdash; base x sqrt(phi)</p>
+                                <p class="text-xl mb-3">xl &mdash; base x phi</p>
+                                <p class="text-2xl mb-3">2xl &mdash; base x phi^2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Buttons Section -->
             <section id="buttons">
                 <h2 class="demo-title">Buttons</h2>
@@ -1095,7 +1214,7 @@
                                 <h3>Skeleton Card</h3>
                             </div>
                             <div class="card-body">
-                                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <div class="d-flex gap-6 items-start">
                                     <div class="skeleton skeleton-circle"></div>
                                     <div style="flex: 1;">
                                         <div class="skeleton skeleton-text" style="width: 60%;"></div>
@@ -1256,8 +1375,8 @@
                                 <h3>Spinners</h3>
                             </div>
                             <div class="card-body">
-                                <div class="spinner" style="margin-right: 1rem;"></div>
-                                <div class="spinner spinner-sm" style="margin-right: 1rem;"></div>
+                                <div class="spinner mr-6"></div>
+                                <div class="spinner spinner-sm mr-6"></div>
                                 <div class="spinner spinner-lg"></div>
                                 <br><br>
                                 <div class="spinner-dots"></div>
@@ -1368,6 +1487,7 @@
     
     <!-- Component scripts -->
     <script src="../js/components/theme-switcher.js"></script>
+    <script src="../js/components/font-switcher.js"></script>
     <script src="../js/components/navbar.js"></script>
     <script src="../js/components/dropdown.js"></script>
     <script src="../js/components/modals.js"></script>

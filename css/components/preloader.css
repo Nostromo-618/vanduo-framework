@@ -8,17 +8,17 @@
   --spinner-color: var(--color-primary);
   --spinner-border-width: 0.25em;
   
-  /* Spinner Sizes */
-  --spinner-size: 2rem;
-  --spinner-size-sm: 1rem;
-  --spinner-size-lg: 3rem;
-  
-  /* Progress Bar Colors */
+  /* Spinner Sizes (Fibonacci) */
+  --spinner-size: 2.125rem;     /* 34px - fib */
+  --spinner-size-sm: 1.3125rem; /* 21px - fib */
+  --spinner-size-lg: 3.4375rem; /* 55px - fib */
+
+  /* Progress Bar (Fibonacci heights) */
   --progress-bg: var(--bg-secondary);
   --progress-bar-bg: var(--color-primary);
-  --progress-height: 1rem;
-  --progress-height-sm: 0.5rem;
-  --progress-height-lg: 1.5rem;
+  --progress-height: 0.8125rem;  /* 13px - fib */
+  --progress-height-sm: 0.5rem;  /* 8px  - fib */
+  --progress-height-lg: 1.3125rem; /* 21px - fib */
   
   /* Progress Bar Transitions */
   --progress-transition: width var(--transition-duration-slow) var(--transition-ease);

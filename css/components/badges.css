@@ -4,13 +4,13 @@
  */
 
 :root {
-  /* Badge Colors */
+  /* Badge Padding (x/y ratio ~ phi) */
   --badge-padding-y: 0.25em;
-  --badge-padding-x: 0.6em;
-  --badge-padding-y-sm: 0.2em;
-  --badge-padding-x-sm: 0.5em;
+  --badge-padding-x: 0.4em;      /* 0.4/0.25 = 1.6 ~ phi */
+  --badge-padding-y-sm: 0.15em;
+  --badge-padding-x-sm: 0.25em;  /* 0.25/0.15 = 1.67 ~ phi */
   --badge-padding-y-lg: 0.35em;
-  --badge-padding-x-lg: 0.75em;
+  --badge-padding-x-lg: 0.55em;  /* 0.55/0.35 = 1.57 ~ phi */
   
   /* Badge Font */
   --badge-font-size: 0.75em;

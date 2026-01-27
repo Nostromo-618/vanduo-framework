@@ -11,11 +11,11 @@
   --table-hover-bg: rgba(0, 0, 0, 0.075);
   --table-active-bg: rgba(0, 123, 255, 0.1);
   
-  /* Table Spacing */
-  --table-padding-y: 0.75rem;
-  --table-padding-x: 0.75rem;
-  --table-padding-y-sm: 0.5rem;
-  --table-padding-x-sm: 0.5rem;
+  /* Table Spacing (Fibonacci) */
+  --table-padding-y: 0.5rem;      /* 8px  - fib */
+  --table-padding-x: 0.8125rem;   /* 13px - fib (13/8 ~ phi) */
+  --table-padding-y-sm: 0.3125rem;/* 5px  - fib */
+  --table-padding-x-sm: 0.5rem;   /* 8px  - fib (8/5 ~ phi) */
 }
 
 /* Base Table */

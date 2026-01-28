@@ -14,89 +14,104 @@
     openModals: [],
     zIndexCounter: 1050,
     
+    // Store trigger cleanup functions
+    _triggerCleanups: [],
+
     /**
      * Initialize modals
      */
     init: function() {
       const modals = document.querySelectorAll('.modal');
-      
+
       modals.forEach(modal => {
-        if (!modal.dataset.modalInitialized) {
-          this.initModal(modal);
+        if (this.modals.has(modal)) {
+          return;
         }
+        this.initModal(modal);
       });
-      
+
       // Handle data-modal triggers
       const triggers = document.querySelectorAll('[data-modal]');
       triggers.forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
+        if (trigger.dataset.modalTriggerInitialized) return;
+        trigger.dataset.modalTriggerInitialized = 'true';
+
+        const triggerClickHandler = (e) => {
           e.preventDefault();
           const modalId = trigger.dataset.modal;
           const modal = document.querySelector(modalId);
           if (modal) {
             this.open(modal);
           }
-        });
+        };
+        trigger.addEventListener('click', triggerClickHandler);
+        this._triggerCleanups.push(() => trigger.removeEventListener('click', triggerClickHandler));
       });
     },
-    
+
     /**
      * Initialize a single modal
      * @param {HTMLElement} modal - Modal element
      */
     initModal: function(modal) {
-      modal.dataset.modalInitialized = 'true';
-      
       const backdrop = this.createBackdrop(modal);
       const closeButtons = modal.querySelectorAll('.modal-close, [data-dismiss="modal"]');
       const dialog = modal.querySelector('.modal-dialog');
-      
+
       if (!dialog) {
         return;
       }
-      
+
+      const cleanupFunctions = [];
+
       // Set ARIA attributes
       modal.setAttribute('role', 'dialog');
       modal.setAttribute('aria-modal', 'true');
       modal.setAttribute('aria-hidden', 'true');
-      
+
       // Generate ID if not exists
       if (!modal.id) {
         modal.id = 'modal-' + Math.random().toString(36).substr(2, 9);
       }
-      
+
       // Set aria-labelledby
       const title = modal.querySelector('.modal-title');
       if (title && !title.id) {
         title.id = modal.id + '-title';
         modal.setAttribute('aria-labelledby', title.id);
       }
-      
+
       // Close button handlers
       closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        const closeHandler = () => {
           this.close(modal);
-        });
+        };
+        button.addEventListener('click', closeHandler);
+        cleanupFunctions.push(() => button.removeEventListener('click', closeHandler));
       });
-      
+
       // Backdrop click handler
-      backdrop.addEventListener('click', (e) => {
+      const backdropClickHandler = (e) => {
         if (e.target === backdrop && modal.dataset.backdrop !== 'static') {
           this.close(modal);
         }
-      });
-      
+      };
+      backdrop.addEventListener('click', backdropClickHandler);
+      cleanupFunctions.push(() => backdrop.removeEventListener('click', backdropClickHandler));
+
       // ESC key handler
-      document.addEventListener('keydown', (e) => {
+      const escKeyHandler = (e) => {
         if (e.key === 'Escape' && this.openModals.length > 0) {
           const topModal = this.openModals[this.openModals.length - 1];
-          if (topModal.dataset.keyboard !== 'false') {
+          if (topModal === modal && topModal.dataset.keyboard !== 'false') {
             this.close(topModal);
           }
         }
-      });
-      
-      this.modals.set(modal, { backdrop, dialog, trapHandler: null });
+      };
+      document.addEventListener('keydown', escKeyHandler);
+      cleanupFunctions.push(() => document.removeEventListener('keydown', escKeyHandler));
+
+      this.modals.set(modal, { backdrop, dialog, trapHandler: null, cleanup: cleanupFunctions });
     },
     
     /**
@@ -299,6 +314,44 @@
           this.open(el);
         }
       }
+    },
+
+    /**
+     * Destroy a modal instance and clean up event listeners
+     * @param {HTMLElement} modal - Modal element
+     */
+    destroy: function(modal) {
+      const modalData = this.modals.get(modal);
+      if (!modalData) return;
+
+      // Close if open
+      if (modal.classList.contains('is-open')) {
+        this.close(modal);
+      }
+
+      // Run all cleanup functions
+      if (modalData.cleanup) {
+        modalData.cleanup.forEach(fn => fn());
+      }
+
+      // Remove created backdrop
+      if (modalData.backdrop && modalData.backdrop.parentNode) {
+        modalData.backdrop.parentNode.removeChild(modalData.backdrop);
+      }
+
+      this.modals.delete(modal);
+    },
+
+    /**
+     * Destroy all modal instances
+     */
+    destroyAll: function() {
+      this.modals.forEach((data, modal) => {
+        this.destroy(modal);
+      });
+      // Clean up trigger listeners
+      this._triggerCleanups.forEach(fn => fn());
+      this._triggerCleanups = [];
     }
   };
   

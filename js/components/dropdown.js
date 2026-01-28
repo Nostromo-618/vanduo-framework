@@ -10,73 +10,92 @@
    * Dropdown Component
    */
   const Dropdown = {
+    // Store initialized dropdowns and their cleanup functions
+    instances: new Map(),
+    // Typeahead state
+    _typeaheadBuffer: '',
+    _typeaheadTimer: null,
+
     /**
      * Initialize dropdown components
      */
     init: function() {
       const dropdowns = document.querySelectorAll('.dropdown');
-      
+
       dropdowns.forEach(dropdown => {
-        if (!dropdown.dataset.dropdownInitialized) {
-          this.initDropdown(dropdown);
+        if (this.instances.has(dropdown)) {
+          return;
         }
+        this.initDropdown(dropdown);
       });
     },
-    
+
     /**
      * Initialize a single dropdown
      * @param {HTMLElement} dropdown - Dropdown container
      */
     initDropdown: function(dropdown) {
-      dropdown.dataset.dropdownInitialized = 'true';
-      
       const toggle = dropdown.querySelector('.dropdown-toggle');
       const menu = dropdown.querySelector('.dropdown-menu');
-      
+
       if (!toggle || !menu) {
         return;
       }
-      
+
+      const cleanupFunctions = [];
+
       // Set ARIA attributes
       toggle.setAttribute('aria-haspopup', 'true');
       toggle.setAttribute('aria-expanded', 'false');
       menu.setAttribute('role', 'menu');
       menu.setAttribute('aria-hidden', 'true');
-      
+
       // Toggle on click
-      toggle.addEventListener('click', (e) => {
+      const toggleClickHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
         this.toggleDropdown(dropdown, toggle, menu);
-      });
-      
+      };
+      toggle.addEventListener('click', toggleClickHandler);
+      cleanupFunctions.push(() => toggle.removeEventListener('click', toggleClickHandler));
+
       // Close on outside click
-      document.addEventListener('click', (e) => {
+      const documentClickHandler = (e) => {
         if (!dropdown.contains(e.target) && menu.classList.contains('is-open')) {
           this.closeDropdown(dropdown, toggle, menu);
         }
-      });
-      
+      };
+      document.addEventListener('click', documentClickHandler);
+      cleanupFunctions.push(() => document.removeEventListener('click', documentClickHandler));
+
       // Keyboard navigation
-      toggle.addEventListener('keydown', (e) => {
+      const keydownHandler = (e) => {
         this.handleKeydown(e, dropdown, toggle, menu);
-      });
-      
+      };
+      toggle.addEventListener('keydown', keydownHandler);
+      cleanupFunctions.push(() => toggle.removeEventListener('keydown', keydownHandler));
+
       // Handle item clicks
       const items = menu.querySelectorAll('.dropdown-item:not(.disabled):not(.is-disabled)');
       items.forEach(item => {
-        item.addEventListener('click', (e) => {
+        const itemClickHandler = (e) => {
           e.preventDefault();
           this.selectItem(item, dropdown, toggle, menu);
-        });
-        
-        item.addEventListener('keydown', (e) => {
+        };
+        item.addEventListener('click', itemClickHandler);
+        cleanupFunctions.push(() => item.removeEventListener('click', itemClickHandler));
+
+        const itemKeydownHandler = (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             this.selectItem(item, dropdown, toggle, menu);
           }
-        });
+        };
+        item.addEventListener('keydown', itemKeydownHandler);
+        cleanupFunctions.push(() => item.removeEventListener('keydown', itemKeydownHandler));
       });
+
+      this.instances.set(dropdown, { toggle, menu, cleanup: cleanupFunctions });
     },
     
     /**
@@ -226,6 +245,25 @@
             items[items.length - 1].focus();
           }
           break;
+
+        default:
+          // Typeahead: jump to matching item when typing printable characters
+          if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            clearTimeout(this._typeaheadTimer);
+            this._typeaheadBuffer += e.key.toLowerCase();
+
+            const match = items.find(item =>
+              item.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+            );
+            if (match) {
+              match.focus();
+            }
+
+            this._typeaheadTimer = setTimeout(() => {
+              this._typeaheadBuffer = '';
+            }, 500);
+          }
+          break;
       }
     },
     
@@ -288,6 +326,27 @@
           this.closeDropdown(el, toggle, menu);
         }
       }
+    },
+
+    /**
+     * Destroy a dropdown instance and clean up event listeners
+     * @param {HTMLElement} dropdown - Dropdown element
+     */
+    destroy: function(dropdown) {
+      const instance = this.instances.get(dropdown);
+      if (!instance) return;
+
+      instance.cleanup.forEach(fn => fn());
+      this.instances.delete(dropdown);
+    },
+
+    /**
+     * Destroy all dropdown instances
+     */
+    destroyAll: function() {
+      this.instances.forEach((instance, dropdown) => {
+        this.destroy(dropdown);
+      });
     }
   };
   

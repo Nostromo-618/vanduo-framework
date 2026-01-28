@@ -18,6 +18,7 @@
 
 /* Utilities - Phase 4 */
 @import url('utilities/transitions.css');
+@import url('utilities/transforms.css');
 
 /* Components - Phase 2 */
 @import url('components/buttons.css');
@@ -52,6 +53,9 @@
 @import url('components/tabs.css');
 @import url('components/toast.css');
 @import url('components/code-snippet.css');
+@import url('components/progress.css');
+@import url('components/spinner.css');
+@import url('components/button-group.css');
 
 /* Utilities - Phase 7 */
 @import url('utilities/media.css');

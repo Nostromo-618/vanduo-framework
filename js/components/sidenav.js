@@ -13,76 +13,92 @@
     sidenavs: new Map(),
     breakpoint: 992, // Desktop breakpoint
     
+    // Global cleanup functions (toggles, resize)
+    _globalCleanups: [],
+
     /**
      * Initialize sidenav components
      */
     init: function() {
       const sidenavs = document.querySelectorAll('.sidenav');
-      
+
       sidenavs.forEach(sidenav => {
-        if (!sidenav.dataset.sidenavInitialized) {
-          this.initSidenav(sidenav);
+        if (this.sidenavs.has(sidenav)) {
+          return;
         }
+        this.initSidenav(sidenav);
       });
-      
+
       // Handle toggle buttons
       const toggles = document.querySelectorAll('[data-sidenav-toggle]');
       toggles.forEach(toggle => {
-        toggle.addEventListener('click', (e) => {
+        if (toggle.dataset.sidenavToggleInitialized) return;
+        toggle.dataset.sidenavToggleInitialized = 'true';
+
+        const toggleClickHandler = (e) => {
           e.preventDefault();
           const targetId = toggle.dataset.sidenavToggle;
           const sidenav = document.querySelector(targetId);
           if (sidenav) {
             this.toggle(sidenav);
           }
-        });
+        };
+        toggle.addEventListener('click', toggleClickHandler);
+        this._globalCleanups.push(() => toggle.removeEventListener('click', toggleClickHandler));
       });
-      
+
       // Handle responsive behavior
       this.handleResize();
-      window.addEventListener('resize', () => {
+      const resizeHandler = () => {
         this.handleResize();
-      });
+      };
+      window.addEventListener('resize', resizeHandler);
+      this._globalCleanups.push(() => window.removeEventListener('resize', resizeHandler));
     },
-    
+
     /**
      * Initialize a single sidenav
      * @param {HTMLElement} sidenav - Sidenav element
      */
     initSidenav: function(sidenav) {
-      sidenav.dataset.sidenavInitialized = 'true';
-      
       const overlay = this.createOverlay(sidenav);
       const closeButton = sidenav.querySelector('.sidenav-close');
-      
+      const cleanupFunctions = [];
+
       // Set ARIA attributes
       sidenav.setAttribute('role', 'navigation');
       sidenav.setAttribute('aria-hidden', 'true');
-      
+
       // Close button handler
       if (closeButton) {
-        closeButton.addEventListener('click', () => {
+        const closeHandler = () => {
           this.close(sidenav);
-        });
+        };
+        closeButton.addEventListener('click', closeHandler);
+        cleanupFunctions.push(() => closeButton.removeEventListener('click', closeHandler));
       }
-      
+
       // Overlay click handler
-      overlay.addEventListener('click', () => {
+      const overlayClickHandler = () => {
         if (sidenav.dataset.backdrop !== 'static') {
           this.close(sidenav);
         }
-      });
-      
+      };
+      overlay.addEventListener('click', overlayClickHandler);
+      cleanupFunctions.push(() => overlay.removeEventListener('click', overlayClickHandler));
+
       // ESC key handler
-      document.addEventListener('keydown', (e) => {
+      const escKeyHandler = (e) => {
         if (e.key === 'Escape' && sidenav.classList.contains('is-open')) {
           if (sidenav.dataset.keyboard !== 'false') {
             this.close(sidenav);
           }
         }
-      });
-      
-      this.sidenavs.set(sidenav, { overlay });
+      };
+      document.addEventListener('keydown', escKeyHandler);
+      cleanupFunctions.push(() => document.removeEventListener('keydown', escKeyHandler));
+
+      this.sidenavs.set(sidenav, { overlay, cleanup: cleanupFunctions });
     },
     
     /**
@@ -226,6 +242,40 @@
           }
         }
       });
+    },
+
+    /**
+     * Destroy a sidenav instance and clean up event listeners
+     * @param {HTMLElement} sidenav - Sidenav element
+     */
+    destroy: function(sidenav) {
+      const data = this.sidenavs.get(sidenav);
+      if (!data) return;
+
+      // Close if open
+      if (sidenav.classList.contains('is-open')) {
+        this.close(sidenav);
+      }
+
+      data.cleanup.forEach(fn => fn());
+
+      // Remove created overlay
+      if (data.overlay && data.overlay.parentNode) {
+        data.overlay.parentNode.removeChild(data.overlay);
+      }
+
+      this.sidenavs.delete(sidenav);
+    },
+
+    /**
+     * Destroy all sidenav instances
+     */
+    destroyAll: function() {
+      this.sidenavs.forEach((data, sidenav) => {
+        this.destroy(sidenav);
+      });
+      this._globalCleanups.forEach(fn => fn());
+      this._globalCleanups = [];
     }
   };
   

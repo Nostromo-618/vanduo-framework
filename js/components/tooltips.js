@@ -12,99 +12,63 @@
   const Tooltips = {
     tooltips: new Map(),
     delayTimers: new Map(),
-    
+
     /**
-     * Basic HTML sanitizer (whitelist-based) — runs in the browser without external libs.
-     * Keeps a small set of tags and strips disallowed tags and attributes. Safe for
-     * simple rich text in tooltips (use server-side or DOMPurify for stronger guarantees).
+     * Sanitize HTML — delegates to shared sanitizeHtml from helpers.js
      * @param {string} input
      * @returns {string} sanitized HTML
      */
     sanitizeHtml: function(input) {
-      if (!input) return '';
-      const doc = new DOMParser().parseFromString(input, 'text/html');
-      const allowed = ['B','STRONG','I','EM','BR','A','SPAN','U'];
-
-      const sanitizeNode = (node) => {
-        const children = Array.from(node.childNodes);
-        children.forEach(child => {
-          if (child.nodeType === Node.TEXT_NODE) return; // text is safe
-
-          if (!allowed.includes(child.nodeName)) {
-            // Replace disallowed element with its text content
-            const text = document.createTextNode(child.textContent);
-            node.replaceChild(text, child);
-            return;
-          }
-
-          // Allowed element: sanitize attributes
-          if (child.nodeName === 'A') {
-            const href = child.getAttribute('href') || '';
-            try {
-              const url = new URL(href, location.href);
-              if (!['http:', 'https:', 'mailto:'].includes(url.protocol)) {
-                child.removeAttribute('href');
-              }
-            } catch (e) {
-              child.removeAttribute('href');
-            }
-            // Remove potentially dangerous attributes
-            child.removeAttribute('target');
-            child.removeAttribute('rel');
-          } else {
-            // Remove all attributes on other tags for safety
-            const attrs = Array.from(child.attributes || []);
-            attrs.forEach(a => child.removeAttribute(a.name));
-          }
-
-          // Recurse
-          sanitizeNode(child);
-        });
-      };
-
-      sanitizeNode(doc.body);
-      return doc.body.innerHTML;
+      if (typeof sanitizeHtml === 'function') {
+        return sanitizeHtml(input);
+      }
+      // Fallback: strip all HTML
+      var div = document.createElement('div');
+      div.textContent = input || '';
+      return div.innerHTML;
     },
-    
+
     /**
      * Initialize tooltips
      */
     init: function() {
       const elements = document.querySelectorAll('[data-tooltip], [data-tooltip-html]');
-      
+
       elements.forEach(element => {
-        if (!element.dataset.tooltipInitialized) {
-          this.initTooltip(element);
+        if (this.tooltips.has(element)) {
+          return;
         }
+        this.initTooltip(element);
       });
     },
-    
+
     /**
      * Initialize a single tooltip
      * @param {HTMLElement} element - Element with tooltip
      */
     initTooltip: function(element) {
-      element.dataset.tooltipInitialized = 'true';
-      
       const tooltip = this.createTooltip(element);
-      this.tooltips.set(element, tooltip);
-      
+      const cleanupFunctions = [];
+
       // Show on hover/focus
-      element.addEventListener('mouseenter', () => {
-        this.showTooltip(element, tooltip);
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        this.hideTooltip(element, tooltip);
-      });
-      
-      element.addEventListener('focus', () => {
-        this.showTooltip(element, tooltip);
-      });
-      
-      element.addEventListener('blur', () => {
-        this.hideTooltip(element, tooltip);
-      });
+      const enterHandler = () => { this.showTooltip(element, tooltip); };
+      const leaveHandler = () => { this.hideTooltip(element, tooltip); };
+      const focusHandler = () => { this.showTooltip(element, tooltip); };
+      const blurHandler = () => { this.hideTooltip(element, tooltip); };
+
+      element.addEventListener('mouseenter', enterHandler);
+      element.addEventListener('mouseleave', leaveHandler);
+      element.addEventListener('focus', focusHandler);
+      element.addEventListener('blur', blurHandler);
+
+      cleanupFunctions.push(
+        () => element.removeEventListener('mouseenter', enterHandler),
+        () => element.removeEventListener('mouseleave', leaveHandler),
+        () => element.removeEventListener('focus', focusHandler),
+        () => element.removeEventListener('blur', blurHandler)
+      );
+
+      this.tooltips.set(element, { tooltip, cleanup: cleanupFunctions });
     },
     
     /**
@@ -117,18 +81,23 @@
       tooltip.className = 'tooltip';
       tooltip.setAttribute('role', 'tooltip');
       tooltip.setAttribute('aria-hidden', 'true');
-      
+
+      // Generate unique ID and link via aria-describedby
+      const tooltipId = 'tooltip-' + Math.random().toString(36).substr(2, 9);
+      tooltip.id = tooltipId;
+      element.setAttribute('aria-describedby', tooltipId);
+
       // Get content
       const htmlContent = element.dataset.tooltipHtml;
       const textContent = element.dataset.tooltip;
-      
+
       if (htmlContent) {
         tooltip.innerHTML = this.sanitizeHtml(htmlContent);
         tooltip.classList.add('tooltip-html');
       } else if (textContent) {
         tooltip.textContent = textContent;
       }
-      
+
       // Get placement
       const placement = element.dataset.tooltipPlacement || 'top';
       tooltip.setAttribute('data-placement', placement);
@@ -254,11 +223,11 @@
     show: function(element) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
-        const tooltip = this.tooltips.get(el);
+        const { tooltip } = this.tooltips.get(el);
         this.showTooltip(el, tooltip);
       }
     },
-    
+
     /**
      * Hide tooltip programmatically
      * @param {HTMLElement|string} element - Target element or selector
@@ -266,11 +235,11 @@
     hide: function(element) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
-        const tooltip = this.tooltips.get(el);
+        const { tooltip } = this.tooltips.get(el);
         this.hideTooltip(el, tooltip);
       }
     },
-    
+
     /**
      * Update tooltip content
      * @param {HTMLElement|string} element - Target element or selector
@@ -280,7 +249,7 @@
     update: function(element, content, isHtml = false) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
-        const tooltip = this.tooltips.get(el);
+        const { tooltip } = this.tooltips.get(el);
         if (isHtml) {
           tooltip.innerHTML = this.sanitizeHtml(content);
           tooltip.classList.add('tooltip-html');
@@ -289,6 +258,40 @@
           tooltip.classList.remove('tooltip-html');
         }
       }
+    },
+
+    /**
+     * Destroy a tooltip instance and clean up
+     * @param {HTMLElement} element - Element with tooltip
+     */
+    destroy: function(element) {
+      const data = this.tooltips.get(element);
+      if (!data) return;
+
+      // Clear any pending timer
+      const timer = this.delayTimers.get(element);
+      if (timer) {
+        clearTimeout(timer);
+        this.delayTimers.delete(element);
+      }
+
+      data.cleanup.forEach(fn => fn());
+
+      // Remove tooltip element from DOM
+      if (data.tooltip && data.tooltip.parentNode) {
+        data.tooltip.parentNode.removeChild(data.tooltip);
+      }
+
+      this.tooltips.delete(element);
+    },
+
+    /**
+     * Destroy all tooltip instances
+     */
+    destroyAll: function() {
+      this.tooltips.forEach((data, element) => {
+        this.destroy(element);
+      });
     }
   };
   

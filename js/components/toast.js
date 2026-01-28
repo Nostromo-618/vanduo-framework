@@ -34,6 +34,9 @@
 
       const container = document.createElement('div');
       container.className = `toast-container toast-container-${position}`;
+      container.setAttribute('role', 'status');
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'false');
       document.body.appendChild(container);
       this.containers[position] = container;
 
@@ -79,20 +82,23 @@
       // Build toast content
       let html = '';
 
-      // Icon
+      // Icon (sanitize custom icons, default icons are trusted SVG)
       if (config.icon) {
-        html += `<span class="toast-icon">${config.icon}</span>`;
+        const safeIcon = typeof sanitizeHtml === 'function' ? sanitizeHtml(config.icon) : escapeHtml(config.icon);
+        html += `<span class="toast-icon">${safeIcon}</span>`;
       } else if (config.type) {
         html += `<span class="toast-icon">${this.getDefaultIcon(config.type)}</span>`;
       }
 
-      // Content
+      // Content (escape text to prevent injection)
       html += '<div class="toast-content">';
       if (config.title) {
-        html += `<div class="toast-title">${config.title}</div>`;
+        const safeTitle = typeof escapeHtml === 'function' ? escapeHtml(config.title) : config.title;
+        html += `<div class="toast-title">${safeTitle}</div>`;
       }
       if (config.message) {
-        html += `<div class="toast-message">${config.message}</div>`;
+        const safeMessage = typeof escapeHtml === 'function' ? escapeHtml(config.message) : config.message;
+        html += `<div class="toast-message">${safeMessage}</div>`;
       }
       html += '</div>';
 

@@ -10,38 +10,44 @@
    * Select Component
    */
   const Select = {
+    // Store initialized selects and their cleanup functions
+    instances: new Map(),
+    // Typeahead state
+    _typeaheadBuffer: '',
+    _typeaheadTimer: null,
+
     /**
      * Initialize select components
      */
     init: function() {
       const selects = document.querySelectorAll('select.custom-select-input, select[data-custom-select]');
-      
+
       selects.forEach(select => {
-        if (!select.dataset.selectInitialized) {
-          this.initSelect(select);
+        if (this.instances.has(select)) {
+          return;
         }
+        this.initSelect(select);
       });
     },
-    
+
     /**
      * Initialize a single select
      * @param {HTMLSelectElement} select - Select element
      */
     initSelect: function(select) {
-      // Mark as initialized
-      select.dataset.selectInitialized = 'true';
-      
       // Skip if already has custom wrapper
       if (select.closest('.custom-select-wrapper')) {
         return;
       }
-      
+
+      const cleanupFunctions = [];
+
       // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'custom-select-wrapper';
       select.parentNode.insertBefore(wrapper, select);
       wrapper.appendChild(select);
-      
+
       // Create custom button
       const button = document.createElement('button');
       button.type = 'button';
@@ -49,12 +55,12 @@
       button.setAttribute('aria-haspopup', 'listbox');
       button.setAttribute('aria-expanded', 'false');
       button.setAttribute('aria-labelledby', select.id || this.generateId(select));
-      
+
       // Create dropdown
       const dropdown = document.createElement('div');
       dropdown.className = 'custom-select-dropdown';
       dropdown.setAttribute('role', 'listbox');
-      
+
       // Create search input if searchable
       if (select.dataset.searchable === 'true') {
         const searchWrapper = document.createElement('div');
@@ -63,47 +69,61 @@
         searchInput.type = 'text';
         searchInput.className = 'input input-sm';
         searchInput.placeholder = 'Search...';
+        searchInput.setAttribute('aria-label', 'Search options');
         searchWrapper.appendChild(searchInput);
         dropdown.appendChild(searchWrapper);
-        
-        searchInput.addEventListener('input', (e) => {
+
+        const filterFn = (e) => {
           this.filterOptions(dropdown, e.target.value);
-        });
+        };
+        const searchHandler = typeof debounce === 'function' ? debounce(filterFn, 150) : filterFn;
+        searchInput.addEventListener('input', searchHandler);
+        cleanupFunctions.push(() => searchInput.removeEventListener('input', searchHandler));
       }
-      
+
       // Build options
       this.buildOptions(select, dropdown, button);
-      
+
       wrapper.appendChild(button);
       wrapper.appendChild(dropdown);
-      
+
       // Update button text
       this.updateButtonText(select, button);
-      
+
       // Event listeners
-      button.addEventListener('click', (e) => {
+      const buttonClickHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
         this.toggleDropdown(button, dropdown);
-      });
-      
+      };
+      button.addEventListener('click', buttonClickHandler);
+      cleanupFunctions.push(() => button.removeEventListener('click', buttonClickHandler));
+
       // Close on outside click
-      document.addEventListener('click', (e) => {
+      const documentClickHandler = (e) => {
         if (!wrapper.contains(e.target) && dropdown.classList.contains('is-open')) {
           this.closeDropdown(button, dropdown);
         }
-      });
-      
+      };
+      document.addEventListener('click', documentClickHandler);
+      cleanupFunctions.push(() => document.removeEventListener('click', documentClickHandler));
+
       // Keyboard navigation
-      button.addEventListener('keydown', (e) => {
+      const keydownHandler = (e) => {
         this.handleKeydown(e, select, button, dropdown);
-      });
-      
+      };
+      button.addEventListener('keydown', keydownHandler);
+      cleanupFunctions.push(() => button.removeEventListener('keydown', keydownHandler));
+
       // Update on select change
-      select.addEventListener('change', () => {
+      const changeHandler = () => {
         this.updateButtonText(select, button);
         this.updateSelectedOptions(select, dropdown);
-      });
+      };
+      select.addEventListener('change', changeHandler);
+      cleanupFunctions.push(() => select.removeEventListener('change', changeHandler));
+
+      this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions });
     },
     
     /**
@@ -333,9 +353,28 @@
             options[options.length - 1].focus();
           }
           break;
+
+        default:
+          // Typeahead: jump to matching option when typing printable characters
+          if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            clearTimeout(this._typeaheadTimer);
+            this._typeaheadBuffer += e.key.toLowerCase();
+
+            const match = options.find(opt =>
+              opt.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+            );
+            if (match) {
+              match.focus();
+            }
+
+            this._typeaheadTimer = setTimeout(() => {
+              this._typeaheadBuffer = '';
+            }, 500);
+          }
+          break;
       }
     },
-    
+
     /**
      * Filter options by search term
      * @param {HTMLElement} dropdown - Dropdown container
@@ -365,6 +404,34 @@
         return element.id;
       }
       return 'select-' + Math.random().toString(36).substr(2, 9);
+    },
+
+    /**
+     * Destroy a select instance and clean up event listeners
+     * @param {HTMLSelectElement} select - Select element
+     */
+    destroy: function(select) {
+      const instance = this.instances.get(select);
+      if (!instance) return;
+
+      instance.cleanup.forEach(fn => fn());
+
+      // Unwrap the select element back to its original parent
+      if (instance.wrapper && instance.wrapper.parentNode) {
+        instance.wrapper.parentNode.insertBefore(select, instance.wrapper);
+        instance.wrapper.parentNode.removeChild(instance.wrapper);
+      }
+
+      this.instances.delete(select);
+    },
+
+    /**
+     * Destroy all select instances
+     */
+    destroyAll: function() {
+      this.instances.forEach((instance, select) => {
+        this.destroy(select);
+      });
     }
   };
   

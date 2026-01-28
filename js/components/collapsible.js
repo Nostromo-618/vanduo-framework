@@ -10,51 +10,58 @@
    * Collapsible Component
    */
   const Collapsible = {
+    // Store initialized containers and their cleanup functions
+    instances: new Map(),
+
     /**
      * Initialize collapsible components
      */
     init: function() {
       const collapsibles = document.querySelectorAll('.collapsible, .accordion');
-      
+
       collapsibles.forEach(container => {
-        if (!container.dataset.collapsibleInitialized) {
-          this.initCollapsible(container);
+        if (this.instances.has(container)) {
+          return;
         }
+        this.initCollapsible(container);
       });
     },
-    
+
     /**
      * Initialize a collapsible container
      * @param {HTMLElement} container - Collapsible container
      */
     initCollapsible: function(container) {
-      container.dataset.collapsibleInitialized = 'true';
-      
       const isAccordion = container.classList.contains('accordion');
       const items = container.querySelectorAll('.collapsible-item, .accordion-item');
-      
+      const cleanupFunctions = [];
+
       items.forEach(item => {
         const header = item.querySelector('.collapsible-header, .accordion-header');
         const body = item.querySelector('.collapsible-body, .accordion-body');
         const trigger = item.querySelector('.collapsible-trigger, .accordion-trigger') || header;
-        
+
         if (!header || !body) {
           return;
         }
-        
+
         // Set initial state
         if (item.classList.contains('is-open')) {
           this.openItem(item, body, false);
         } else {
           this.closeItem(item, body, false);
         }
-        
+
         // Add click handler
-        trigger.addEventListener('click', (e) => {
+        const clickHandler = (e) => {
           e.preventDefault();
           this.toggleItem(item, body, container, isAccordion);
-        });
+        };
+        trigger.addEventListener('click', clickHandler);
+        cleanupFunctions.push(() => trigger.removeEventListener('click', clickHandler));
       });
+
+      this.instances.set(container, { cleanup: cleanupFunctions });
     },
     
     /**
@@ -178,11 +185,32 @@
         const body = el.querySelector('.collapsible-body, .accordion-body');
         const container = el.closest('.collapsible, .accordion');
         const isAccordion = container && container.classList.contains('accordion');
-        
+
         if (body) {
           this.toggleItem(el, body, container, isAccordion);
         }
       }
+    },
+
+    /**
+     * Destroy a collapsible instance and clean up event listeners
+     * @param {HTMLElement} container - Collapsible container
+     */
+    destroy: function(container) {
+      const instance = this.instances.get(container);
+      if (!instance) return;
+
+      instance.cleanup.forEach(fn => fn());
+      this.instances.delete(container);
+    },
+
+    /**
+     * Destroy all collapsible instances
+     */
+    destroyAll: function() {
+      this.instances.forEach((instance, container) => {
+        this.destroy(container);
+      });
     }
   };
   

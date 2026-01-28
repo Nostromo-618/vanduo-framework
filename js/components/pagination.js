@@ -10,48 +10,50 @@
    * Pagination Component
    */
   const Pagination = {
+    // Store initialized paginations and their cleanup functions
+    instances: new Map(),
+
     /**
      * Initialize pagination components
      */
     init: function() {
       const paginations = document.querySelectorAll('.pagination[data-pagination]');
-      
+
       paginations.forEach(pagination => {
-        if (!pagination.dataset.paginationInitialized) {
-          this.initPagination(pagination);
+        if (this.instances.has(pagination)) {
+          return;
         }
+        this.initPagination(pagination);
       });
     },
-    
+
     /**
      * Initialize a pagination
      * @param {HTMLElement} pagination - Pagination container
      */
     initPagination: function(pagination) {
-      pagination.dataset.paginationInitialized = 'true';
-      
       const totalPages = parseInt(pagination.dataset.totalPages) || 1;
       const currentPage = parseInt(pagination.dataset.currentPage) || 1;
       const maxVisible = parseInt(pagination.dataset.maxVisible) || 7;
-      
+
       this.render(pagination, {
         totalPages: totalPages,
         currentPage: currentPage,
         maxVisible: maxVisible
       });
-      
-      // Handle clicks
-      pagination.addEventListener('click', (e) => {
+
+      // Handle clicks (event delegation)
+      const clickHandler = (e) => {
         const link = e.target.closest('.pagination-link');
         if (!link || link.closest('.pagination-item.disabled') || link.closest('.pagination-item.active')) {
           return;
         }
-        
+
         e.preventDefault();
-        
+
         const item = link.closest('.pagination-item');
         const page = item.dataset.page;
-        
+
         if (page) {
           this.goToPage(pagination, parseInt(page));
         } else if (item.classList.contains('pagination-prev')) {
@@ -59,6 +61,11 @@
         } else if (item.classList.contains('pagination-next')) {
           this.nextPage(pagination);
         }
+      };
+      pagination.addEventListener('click', clickHandler);
+
+      this.instances.set(pagination, {
+        cleanup: [() => pagination.removeEventListener('click', clickHandler)]
       });
     },
     
@@ -242,6 +249,27 @@
           maxVisible: parseInt(el.dataset.maxVisible) || 7
         });
       }
+    },
+
+    /**
+     * Destroy a pagination instance and clean up event listeners
+     * @param {HTMLElement} pagination - Pagination container
+     */
+    destroy: function(pagination) {
+      const instance = this.instances.get(pagination);
+      if (!instance) return;
+
+      instance.cleanup.forEach(fn => fn());
+      this.instances.delete(pagination);
+    },
+
+    /**
+     * Destroy all pagination instances
+     */
+    destroyAll: function() {
+      this.instances.forEach((instance, pagination) => {
+        this.destroy(pagination);
+      });
     }
   };
   

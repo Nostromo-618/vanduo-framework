@@ -10,6 +10,9 @@
    * Tabs Component
    */
   const Tabs = {
+    // Store initialized tab containers and their cleanup functions
+    instances: new Map(),
+
     /**
      * Initialize all tab components
      */
@@ -17,9 +20,10 @@
       const tabContainers = document.querySelectorAll('.tabs, [data-tabs]');
 
       tabContainers.forEach(container => {
-        if (!container.dataset.tabsInitialized) {
-          this.initTabs(container);
+        if (this.instances.has(container)) {
+          return;
         }
+        this.initTabs(container);
       });
     },
 
@@ -28,13 +32,13 @@
      * @param {HTMLElement} container - Tabs container element
      */
     initTabs: function(container) {
-      container.dataset.tabsInitialized = 'true';
-
       const tabList = container.querySelector('.tab-list, [role="tablist"]');
       const tabLinks = container.querySelectorAll('.tab-link, [data-tab]');
       const tabPanes = container.querySelectorAll('.tab-pane, [data-tab-pane]');
 
       if (!tabList || tabLinks.length === 0) return;
+
+      const cleanupFunctions = [];
 
       // Set up ARIA attributes
       tabList.setAttribute('role', 'tablist');
@@ -63,17 +67,21 @@
         }
 
         // Click handler
-        link.addEventListener('click', (e) => {
+        const clickHandler = (e) => {
           e.preventDefault();
           if (!link.classList.contains('disabled') && !link.disabled) {
             this.activateTab(container, link, tabLinks, tabPanes);
           }
-        });
+        };
+        link.addEventListener('click', clickHandler);
+        cleanupFunctions.push(() => link.removeEventListener('click', clickHandler));
 
         // Keyboard navigation
-        link.addEventListener('keydown', (e) => {
+        const keydownHandler = (e) => {
           this.handleKeydown(e, container, link, tabLinks, tabPanes);
-        });
+        };
+        link.addEventListener('keydown', keydownHandler);
+        cleanupFunctions.push(() => link.removeEventListener('keydown', keydownHandler));
       });
 
       // Ensure one tab is active
@@ -81,6 +89,8 @@
       if (!activeTab && tabLinks.length > 0) {
         this.activateTab(container, tabLinks[0], tabLinks, tabPanes);
       }
+
+      this.instances.set(container, { cleanup: cleanupFunctions });
     },
 
     /**
@@ -261,6 +271,27 @@
       const allPanes = container.querySelectorAll('.tab-pane, [data-tab-pane]');
 
       this.activateTab(container, tabElement, allTabs, allPanes);
+    },
+
+    /**
+     * Destroy a tabs instance and clean up event listeners
+     * @param {HTMLElement} container - Tabs container
+     */
+    destroy: function(container) {
+      const instance = this.instances.get(container);
+      if (!instance) return;
+
+      instance.cleanup.forEach(fn => fn());
+      this.instances.delete(container);
+    },
+
+    /**
+     * Destroy all tabs instances
+     */
+    destroyAll: function() {
+      this.instances.forEach((instance, container) => {
+        this.destroy(container);
+      });
     }
   };
 

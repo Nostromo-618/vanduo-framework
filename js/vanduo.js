@@ -64,10 +64,46 @@
     register: function(name, component) {
       this.components[name] = component;
       if (component.init && typeof component.init === 'function') {
-        component.init();
+        try {
+          component.init();
+        } catch (e) {
+          console.warn('[Vanduo] Failed to initialize component "' + name + '":', e);
+        }
       }
     },
-    
+
+    /**
+     * Re-initialize a component (useful after dynamic DOM changes)
+     * @param {string} name - Component name
+     */
+    reinit: function(name) {
+      var component = this.components[name];
+      if (component && component.init && typeof component.init === 'function') {
+        try {
+          component.init();
+        } catch (e) {
+          console.warn('[Vanduo] Failed to reinitialize component "' + name + '":', e);
+        }
+      }
+    },
+
+    /**
+     * Destroy all component instances and clean up event listeners
+     */
+    destroyAll: function() {
+      var names = Object.keys(this.components);
+      for (var i = 0; i < names.length; i++) {
+        var component = this.components[names[i]];
+        if (component && component.destroyAll && typeof component.destroyAll === 'function') {
+          try {
+            component.destroyAll();
+          } catch (e) {
+            console.warn('[Vanduo] Failed to destroy component "' + names[i] + '":', e);
+          }
+        }
+      }
+    },
+
     /**
      * Get component instance
      * @param {string} name - Component name

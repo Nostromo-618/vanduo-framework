@@ -210,13 +210,9 @@ pre code {
 .font-bold { font-weight: var(--font-weight-bold); }
 .font-extrabold { font-weight: var(--font-weight-extrabold); }
 
-/* Text Alignment Utilities */
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-justify { text-align: justify; }
+/* Text Alignment: see helpers.css for .text-left, .text-center, .text-right, .text-justify */
 
-/* Text Transform Utilities */
+/* Text Transform Utilities (shorthand aliases — see also .text-uppercase etc. in helpers.css) */
 .uppercase { text-transform: uppercase; }
 .lowercase { text-transform: lowercase; }
 .capitalize { text-transform: capitalize; }

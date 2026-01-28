@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects - Portfolio Template built with Vanduo Framework">
+    <title>Projects - Portfolio Template</title>
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="../../css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="../../css/icons/icons.css">
+
+    <style>
+        /* Hero section */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        /* Project cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-muted);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        /* Filter buttons */
+        .filter-btn {
+            margin: 0.25rem;
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 3rem 0 1rem;
+        }
+
+        footer a {
+            color: var(--color-primary-light);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-user-circle" style="color: var(--color-primary); margin-right: 0.25em;"></i>Portfolio</a>
+            </div>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link"><i class="ph ph-house mr-2"></i>Home</a></li>
+                    <li><a href="projects.html" class="nav-link active"><i class="ph ph-briefcase mr-2"></i>Projects</a></li>
+                    <li><a href="blog.html" class="nav-link"><i class="ph ph-article mr-2"></i>Blog</a></li>
+                    <li><a href="about.html" class="nav-link"><i class="ph ph-user mr-2"></i>About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
+                        <option value="system" selected>System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="ph-fill ph-briefcase" style="color: var(--color-primary);"></i> Projects</h1>
+            <p class="text-lg text-muted">A showcase of my recent work and side projects</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Filter Section -->
+        <section style="padding: 2rem 0; border-bottom: 1px solid var(--border-color);">
+            <div class="container">
+                <div class="text-center">
+                    <span class="text-muted mr-3">Filter by:</span>
+                    <button class="btn btn-outline btn-sm filter-btn active" data-filter="all">All</button>
+                    <button class="btn btn-outline btn-sm filter-btn" data-filter="web">Web</button>
+                    <button class="btn btn-outline btn-sm filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="btn btn-outline btn-sm filter-btn" data-filter="design">Design</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <div class="row">
+                    <!-- Project 1 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="web">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-shopping-cart"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-primary">Web</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2024</span>
+                                </div>
+                                <h3>E-Commerce Platform</h3>
+                                <p class="text-muted mb-4">A full-featured e-commerce platform with real-time inventory management, secure Stripe payments, and an intuitive admin dashboard.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-primary chip-sm">React</span>
+                                    <span class="chip chip-secondary chip-sm">Node.js</span>
+                                    <span class="chip chip-success chip-sm">Stripe</span>
+                                    <span class="chip chip-info chip-sm">MongoDB</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="web">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-chart-line-up"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-primary">Web</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2024</span>
+                                </div>
+                                <h3>Analytics Dashboard</h3>
+                                <p class="text-muted mb-4">Real-time business intelligence dashboard with interactive data visualizations, custom reports, and predictive analytics.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-primary chip-sm">Vue.js</span>
+                                    <span class="chip chip-info chip-sm">D3.js</span>
+                                    <span class="chip chip-warning chip-sm">Python</span>
+                                    <span class="chip chip-secondary chip-sm">PostgreSQL</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="mobile">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-device-mobile"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-success">Mobile</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2024</span>
+                                </div>
+                                <h3>Task Manager App</h3>
+                                <p class="text-muted mb-4">Cross-platform mobile application for task management with offline support, push notifications, and team collaboration features.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-success chip-sm">React Native</span>
+                                    <span class="chip chip-primary chip-sm">Firebase</span>
+                                    <span class="chip chip-secondary chip-sm">Redux</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="design">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-paint-brush"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-secondary">Design</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2023</span>
+                                </div>
+                                <h3>Brand Identity System</h3>
+                                <p class="text-muted mb-4">Complete brand identity design including logo, color palette, typography, and comprehensive brand guidelines document.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-secondary chip-sm">Figma</span>
+                                    <span class="chip chip-primary chip-sm">Illustrator</span>
+                                    <span class="chip chip-info chip-sm">Brand Strategy</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-image mr-1"></i>Gallery
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="web">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-chat-circle-text"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-primary">Web</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2023</span>
+                                </div>
+                                <h3>Real-time Chat App</h3>
+                                <p class="text-muted mb-4">Modern chat application with real-time messaging, file sharing, video calls, and end-to-end encryption.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-primary chip-sm">Next.js</span>
+                                    <span class="chip chip-success chip-sm">Socket.io</span>
+                                    <span class="chip chip-info chip-sm">WebRTC</span>
+                                    <span class="chip chip-secondary chip-sm">Redis</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-6 project-item" data-category="mobile">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-heartbeat"></i>
+                                <div class="project-overlay">
+                                    <div class="d-flex gap-3">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="ph ph-eye mr-1"></i>View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-between align-center mb-3">
+                                    <span class="badge badge-success">Mobile</span>
+                                    <span class="text-sm text-muted"><i class="ph ph-calendar mr-1"></i>2023</span>
+                                </div>
+                                <h3>Fitness Tracker</h3>
+                                <p class="text-muted mb-4">Health and fitness tracking app with workout plans, nutrition logging, progress tracking, and social features.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-success chip-sm">Flutter</span>
+                                    <span class="chip chip-primary chip-sm">Dart</span>
+                                    <span class="chip chip-info chip-sm">HealthKit</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                    <a href="#" class="btn btn-link btn-sm">
+                                        Case Study <i class="ph ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section style="padding: 4rem 0; background: var(--bg-secondary);">
+            <div class="container text-center">
+                <h2>Have a project in mind?</h2>
+                <p class="text-muted mb-6">I'm always open to discussing new projects and opportunities.</p>
+                <a href="index.html#contact" class="btn btn-primary btn-lg">
+                    <i class="ph ph-paper-plane-right mr-2"></i>Get in Touch
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-6">
+                    <h4><i class="ph-fill ph-user-circle mr-2"></i>Portfolio</h4>
+                    <p class="text-muted">A clean, responsive portfolio template built with Vanduo Framework.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Connect</h4>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-github-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-linkedin-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-twitter-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-6 mt-6" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <p class="text-muted">&copy; 2025 John Doe. Built with <a href="../../index.html">Vanduo Framework</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/vanduo.js"></script>
+    <script src="../../js/components/theme-switcher.js"></script>
+    <script src="../../js/components/navbar.js"></script>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                const projects = document.querySelectorAll('.project-item');
+
+                projects.forEach(project => {
+                    if (filter === 'all' || project.getAttribute('data-category') === filter) {
+                        project.style.display = 'block';
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

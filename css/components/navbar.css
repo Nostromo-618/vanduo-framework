@@ -78,6 +78,7 @@
   display: inline-flex;
   align-items: center;
   margin-right: 1rem;
+  margin-bottom: 0.5rem;
   font-size: var(--navbar-brand-font-size);
   font-weight: var(--font-weight-bold);
   line-height: 1;

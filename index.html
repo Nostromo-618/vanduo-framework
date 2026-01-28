@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vanduo Framework. Pure HTML, CSS, JS framework for beautiful static websites. No dependencies, no build tools, just clean code.">
+    <meta name="description"
+        content="Vanduo Framework. Pure HTML, CSS, JS framework for beautiful static websites. No dependencies, no build tools, just clean code.">
     <meta name="author" content="Vanduo Framework">
-    <meta name="keywords" content="CSS framework, HTML framework, JavaScript framework, static website, no dependencies, pure CSS, pure JavaScript, responsive design, UI components, Lithuania">
+    <meta name="keywords"
+        content="CSS framework, HTML framework, JavaScript framework, static website, no dependencies, pure CSS, pure JavaScript, responsive design, UI components, Lithuania">
     <meta name="robots" content="index, follow">
     <title>Vanduo Framework - Documentation & Examples</title>
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://nostromo-618.github.io/vanduo-framework/">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nostromo-618.github.io/vanduo-framework/">
     <meta property="og:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
-    <meta property="og:description" content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
+    <meta property="og:description"
+        content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
     <meta property="og:image" content="https://nostromo-618.github.io/vanduo-framework/images/og-image.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Vanduo Framework">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://nostromo-618.github.io/vanduo-framework/">
     <meta name="twitter:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
-    <meta name="twitter:description" content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
+    <meta name="twitter:description"
+        content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
     <meta name="twitter:image" content="https://nostromo-618.github.io/vanduo-framework/images/twitter-card.png">
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
     <!-- Vanduo Framework CSS -->
     <link rel="stylesheet" href="./css/vanduo.css">
-    
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="./css/icons/icons.css">
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -62,7 +71,7 @@
       "programmingLanguage": ["HTML", "CSS", "JavaScript"]
     }
     </script>
-    
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -83,7 +92,7 @@
       ]
     }
     </script>
-    
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -98,13 +107,18 @@
       }
     }
     </script>
-    
+
     <style>
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
-        
+
+        /* Add space to the left of navbar brand */
+        .navbar-brand {
+            margin-left: 1rem;
+        }
+
         /* Skip to content link for accessibility */
         .skip-link {
             position: absolute;
@@ -116,50 +130,54 @@
             text-decoration: none;
             z-index: 100;
         }
-        
+
         .skip-link:focus {
             top: 0;
         }
-        
+
         /* Section spacing */
         section {
             padding: 4rem 0;
             scroll-margin-top: 80px;
         }
-        
+
         section:first-of-type {
             padding-top: 2rem;
         }
-        
+
         /* Hero section */
-        .hero {
-            min-height: 60vh;
+        section.hero {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding-top: 233px;
+            /* Large spacing to clear tall navbar + extra room */
+            padding-bottom: 89px;
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 800px;
             padding: 2rem;
+            margin: 0 auto;
         }
-        
+
         /* Component demo cards */
         .demo-card {
             margin-bottom: 2rem;
         }
-        
+
         .demo-title {
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border-color);
         }
-        
+
         /* Code examples */
         .code-example {
             background: var(--bg-secondary);
@@ -170,42 +188,80 @@
             font-size: var(--font-size-sm);
             overflow-x: auto;
         }
-        
+
         /* Section IDs for navigation */
-        #typography { scroll-margin-top: 80px; }
-        #buttons { scroll-margin-top: 80px; }
-        #forms { scroll-margin-top: 80px; }
-        #cards { scroll-margin-top: 80px; }
-        #navigation { scroll-margin-top: 80px; }
-        #interactive { scroll-margin-top: 80px; }
-        #collections { scroll-margin-top: 80px; }
-        #tables { scroll-margin-top: 80px; }
-        #badges { scroll-margin-top: 80px; }
-        #preloader { scroll-margin-top: 80px; }
-        #getting-started { scroll-margin-top: 80px; }
-        #button-groups { scroll-margin-top: 80px; }
+        #typography {
+            scroll-margin-top: 80px;
+        }
+
+        #buttons {
+            scroll-margin-top: 80px;
+        }
+
+        #forms {
+            scroll-margin-top: 80px;
+        }
+
+        #cards {
+            scroll-margin-top: 80px;
+        }
+
+        #navigation {
+            scroll-margin-top: 80px;
+        }
+
+        #interactive {
+            scroll-margin-top: 80px;
+        }
+
+        #collections {
+            scroll-margin-top: 80px;
+        }
+
+        #tables {
+            scroll-margin-top: 80px;
+        }
+
+        #badges {
+            scroll-margin-top: 80px;
+        }
+
+        #preloader {
+            scroll-margin-top: 80px;
+        }
+
+        #getting-started {
+            scroll-margin-top: 80px;
+        }
+
+        #button-groups {
+            scroll-margin-top: 80px;
+        }
     </style>
 </head>
+
 <body>
     <!-- Skip to content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
+
     <!-- Navbar -->
     <nav class="navbar navbar-fixed">
         <div class="navbar-container">
             <div class="navbar-brand">
-                <a href="#hero">Vanduo</a>
+                <a href="#hero"><i class="ph-fill ph-drop"
+                        style="color: var(--color-primary); margin-right: 0.25em;"></i>Vanduo</a>
             </div>
-            
+
             <button class="navbar-toggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            
+
             <div class="navbar-menu">
                 <ul class="navbar-nav">
                     <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#icons">Icons</a></li>
                     <li><a href="#typography">Typography</a></li>
                     <li><a href="#golden-ratio">Golden Ratio</a></li>
                     <li><a href="#buttons">Buttons</a></li>
@@ -224,8 +280,9 @@
                     <li><a href="#toasts">Toasts</a></li>
                     <li><a href="#preloader">Preloader</a></li>
                     <li><a href="#button-groups">Button Groups</a></li>
+                    <li><a href="templates/index.html"><i class="ph ph-layout mr-1"></i>Templates</a></li>
                 </ul>
-                
+
                 <div class="navbar-actions">
                     <select class="input input-sm" data-toggle="font" aria-label="Font selector">
                         <optgroup label="System">
@@ -248,21 +305,24 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section with Parallax -->
     <section id="hero" class="hero parallax">
         <div class="parallax-layer" data-speed="0.5"></div>
         <div class="parallax-content hero-content">
-            <h1>Vanduo Framework</h1>
+            <h1><i class="ph-fill ph-drop" style="color: var(--color-primary); margin-right: 0.15em;"></i>Vanduo
+                Framework</h1>
             <p class="text-lg text-muted">Essential just like water is.</p>
-            <p>Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.</p>
+            <p>Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools,
+                just clean and simple code.</p>
             <div class="mt-10">
                 <a href="#typography" class="btn btn-primary btn-lg">Get Started</a>
-                <a href="https://github.com/Nostromo-618/vanduo-framework" class="btn btn-outline btn-lg ml-6">GitHub</a>
+                <a href="https://github.com/Nostromo-618/vanduo-framework"
+                    class="btn btn-outline btn-lg ml-6">GitHub</a>
             </div>
         </div>
     </section>
-    
+
     <!-- Main Content -->
     <main id="main-content">
         <div class="container">
@@ -360,7 +420,9 @@
                                 <h3>Theme Switching</h3>
                             </div>
                             <div class="card-body">
-                                <p>Vanduo supports light, dark, and system themes. Preference is stored in <code>localStorage</code>.</p>
+                                <p>Vanduo supports light, dark, and system themes. Preference is stored in
+                                    <code>localStorage</code>.
+                                </p>
                                 <pre class="code-example"><code>&lt;!-- Select-based toggle --&gt;
 &lt;select data-toggle="theme"&gt;
   &lt;option value="system"&gt;System&lt;/option&gt;
@@ -375,7 +437,9 @@
                                     <li><code>data-toggle="theme"</code> binds the element</li>
                                     <li>Preference saved to <code>vanduo-theme-preference</code> key</li>
                                     <li>Sets <code>[data-theme="dark"]</code> on <code>&lt;html&gt;</code></li>
-                                    <li>System mode removes the attribute, deferring to <code>prefers-color-scheme</code></li>
+                                    <li>System mode removes the attribute, deferring to
+                                        <code>prefers-color-scheme</code>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -399,14 +463,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr><td><code>data-modal="#id"</code></td><td>Modal trigger</td></tr>
-                                            <tr><td><code>data-dismiss="modal"</code></td><td>Modal close button</td></tr>
-                                            <tr><td><code>data-tooltip="text"</code></td><td>Tooltip content</td></tr>
-                                            <tr><td><code>data-placement="top|right|bottom|left"</code></td><td>Tooltip position</td></tr>
-                                            <tr><td><code>data-toggle="theme"</code></td><td>Theme switcher</td></tr>
-                                            <tr><td><code>data-toggle="font"</code></td><td>Font switcher</td></tr>
-                                            <tr><td><code>data-collapsible</code></td><td>Collapsible container</td></tr>
-                                            <tr><td><code>data-speed="0.5"</code></td><td>Parallax layer speed</td></tr>
+                                            <tr>
+                                                <td><code>data-modal="#id"</code></td>
+                                                <td>Modal trigger</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-dismiss="modal"</code></td>
+                                                <td>Modal close button</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-tooltip="text"</code></td>
+                                                <td>Tooltip content</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-placement="top|right|bottom|left"</code></td>
+                                                <td>Tooltip position</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-toggle="theme"</code></td>
+                                                <td>Theme switcher</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-toggle="font"</code></td>
+                                                <td>Font switcher</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-collapsible</code></td>
+                                                <td>Collapsible container</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>data-speed="0.5"</code></td>
+                                                <td>Parallax layer speed</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -450,10 +538,199 @@ Vanduo.components.toast.show({
                 </div>
             </section>
 
+            <!-- Icons Section -->
+            <section id="icons">
+                <h2 class="demo-title">Icons</h2>
+                <p class="mb-8">Vanduo includes <a href="https://phosphoricons.com" target="_blank"
+                        rel="noopener"><strong>Phosphor Icons</strong></a> — a flexible icon family with 1,500+ icons in
+                    6 weights. Icons are bundled locally with no external dependencies.</p>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Quick Start</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Include the icons stylesheet and use <code>&lt;i&gt;</code> elements with the
+                                    appropriate classes:</p>
+                                <pre class="code-example"><code>&lt;!-- Include default weights (regular + fill) --&gt;
+&lt;link rel="stylesheet" href="css/icons/icons.css"&gt;
+
+&lt;!-- Use icons --&gt;
+&lt;i class="ph ph-heart"&gt;&lt;/i&gt;
+&lt;i class="ph-fill ph-star"&gt;&lt;/i&gt;
+&lt;i class="ph ph-house"&gt;&lt;/i&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Import Options</h3>
+                            </div>
+                            <div class="card-body">
+                                <pre class="code-example"><code>&lt;!-- Default (regular + fill) - Recommended --&gt;
+&lt;link rel="stylesheet" href="css/icons/icons.css"&gt;
+
+&lt;!-- All 6 weights (~3MB) --&gt;
+&lt;link rel="stylesheet" href="css/icons/icons-all.css"&gt;
+
+&lt;!-- Individual weights --&gt;
+&lt;link rel="stylesheet" href="icons/phosphor/bold/style.css"&gt;
+&lt;link rel="stylesheet" href="icons/phosphor/light/style.css"&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Icon Weights</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-5">6 distinct weights for different visual styles:</p>
+                                <div class="row">
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Regular<br><code>.ph</code></p>
+                                    </div>
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph-fill ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Fill<br><code>.ph-fill</code></p>
+                                    </div>
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph-bold ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Bold<br><code>.ph-bold</code></p>
+                                    </div>
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph-light ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Light<br><code>.ph-light</code></p>
+                                    </div>
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph-thin ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Thin<br><code>.ph-thin</code></p>
+                                    </div>
+                                    <div class="col-6 col-md-2 text-center mb-5">
+                                        <i class="ph-duotone ph-heart" style="font-size: 48px;"></i>
+                                        <p class="text-sm text-muted mt-2">Duotone<br><code>.ph-duotone</code></p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-muted"><strong>Note:</strong> Only regular and fill weights are
+                                    loaded by default. Other weights require importing their CSS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Example Icons</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex gap-5 flex-wrap" style="font-size: 32px;">
+                                    <i class="ph ph-house" data-tooltip="ph-house"></i>
+                                    <i class="ph ph-user" data-tooltip="ph-user"></i>
+                                    <i class="ph ph-gear" data-tooltip="ph-gear"></i>
+                                    <i class="ph ph-bell" data-tooltip="ph-bell"></i>
+                                    <i class="ph ph-envelope" data-tooltip="ph-envelope"></i>
+                                    <i class="ph ph-magnifying-glass" data-tooltip="ph-magnifying-glass"></i>
+                                    <i class="ph ph-download" data-tooltip="ph-download"></i>
+                                    <i class="ph ph-upload" data-tooltip="ph-upload"></i>
+                                    <i class="ph ph-trash" data-tooltip="ph-trash"></i>
+                                    <i class="ph ph-pencil" data-tooltip="ph-pencil"></i>
+                                    <i class="ph-fill ph-heart" style="color: var(--color-error);"
+                                        data-tooltip="ph-heart (fill)"></i>
+                                    <i class="ph-fill ph-star" style="color: var(--color-warning);"
+                                        data-tooltip="ph-star (fill)"></i>
+                                    <i class="ph ph-check-circle" style="color: var(--color-success);"
+                                        data-tooltip="ph-check-circle"></i>
+                                    <i class="ph ph-warning" style="color: var(--color-warning);"
+                                        data-tooltip="ph-warning"></i>
+                                    <i class="ph ph-x-circle" style="color: var(--color-error);"
+                                        data-tooltip="ph-x-circle"></i>
+                                    <i class="ph ph-info" style="color: var(--color-info);" data-tooltip="ph-info"></i>
+                                </div>
+                                <p class="text-sm text-muted mt-5">Browse all 1,500+ icons at <a
+                                        href="https://phosphoricons.com" target="_blank"
+                                        rel="noopener">phosphoricons.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Styling Icons</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Icons are font-based — style them with CSS:</p>
+                                <pre class="code-example"><code>&lt;!-- Size with font-size --&gt;
+&lt;i class="ph ph-heart" style="font-size: 48px;"&gt;&lt;/i&gt;
+
+&lt;!-- Color with color --&gt;
+&lt;i class="ph-fill ph-star" style="color: gold;"&gt;&lt;/i&gt;
+
+&lt;!-- Use CSS variables --&gt;
+&lt;i class="ph ph-check" style="color: var(--color-success);"&gt;&lt;/i&gt;</code></pre>
+                                <div class="mt-5" style="font-size: 32px;">
+                                    <i class="ph ph-heart"></i>
+                                    <i class="ph ph-heart" style="font-size: 24px;"></i>
+                                    <i class="ph ph-heart" style="font-size: 16px;"></i>
+                                    <span class="ml-5"></span>
+                                    <i class="ph-fill ph-circle" style="color: var(--color-primary);"></i>
+                                    <i class="ph-fill ph-circle" style="color: var(--color-success);"></i>
+                                    <i class="ph-fill ph-circle" style="color: var(--color-warning);"></i>
+                                    <i class="ph-fill ph-circle" style="color: var(--color-error);"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Icons in Buttons</h3>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-primary"><i class="ph ph-download mr-2"></i> Download</button>
+                                <button class="btn btn-success"><i class="ph ph-check mr-2"></i> Save</button>
+                                <button class="btn btn-error"><i class="ph ph-trash mr-2"></i> Delete</button>
+                                <button class="btn btn-outline"><i class="ph ph-gear mr-2"></i> Settings</button>
+                                <button class="btn btn-secondary"><i class="ph-fill ph-heart mr-2"
+                                        style="color: var(--color-error);"></i> Like</button>
+                                <button class="btn btn-info"><i class="ph ph-share-network mr-2"></i> Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="text-muted">
+                                    <i class="ph ph-heart-straight" style="color: var(--color-error);"></i>
+                                    Icons by <a href="https://phosphoricons.com" target="_blank"
+                                        rel="noopener"><strong>Phosphor Icons</strong></a> — MIT Licensed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Typography Section -->
             <section id="typography">
                 <h2 class="demo-title">Typography & Colors</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -470,7 +747,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -492,7 +769,7 @@ Vanduo.components.toast.show({
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -502,28 +779,36 @@ Vanduo.components.toast.show({
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-primary text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Primary</div>
+                                        <div class="bg-primary text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Primary</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-secondary text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Secondary</div>
+                                        <div class="bg-secondary text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Secondary</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-success text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Success</div>
+                                        <div class="bg-success text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Success</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-warning text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Warning</div>
+                                        <div class="bg-warning text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Warning</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-error text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Error</div>
+                                        <div class="bg-error text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Error</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-info text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Info</div>
+                                        <div class="bg-info text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Info</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-dark text-white p-3 mb-2" style="border-radius: var(--btn-border-radius);">Dark</div>
+                                        <div class="bg-dark text-white p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Dark</div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6">
-                                        <div class="bg-light text-black p-3 mb-2" style="border-radius: var(--btn-border-radius);">Light</div>
+                                        <div class="bg-light text-black p-3 mb-2"
+                                            style="border-radius: var(--btn-border-radius);">Light</div>
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +820,9 @@ Vanduo.components.toast.show({
             <!-- Golden Ratio Grid Section -->
             <section id="golden-ratio">
                 <h2 class="demo-title">Golden Ratio Grid</h2>
-                <p class="mb-8">This framework uses the <strong>Fibonacci sequence</strong> and <strong>Golden Ratio (phi = 1.618)</strong> as its proportional foundation. Spacing, typography, component dimensions, and grid layouts all derive from these mathematical relationships.</p>
+                <p class="mb-8">This framework uses the <strong>Fibonacci sequence</strong> and <strong>Golden Ratio
+                        (phi = 1.618)</strong> as its proportional foundation. Spacing, typography, component
+                    dimensions, and grid layouts all derive from these mathematical relationships.</p>
 
                 <div class="row">
                     <div class="col-12">
@@ -605,17 +892,39 @@ Vanduo.components.toast.show({
                             </div>
                             <div class="card-body">
                                 <div class="d-flex flex-col gap-2">
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">1px</code> <div class="bg-primary" style="width: 1px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">2px</code> <div class="bg-primary" style="width: 2px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">3px</code> <div class="bg-primary" style="width: 3px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">5px</code> <div class="bg-primary" style="width: 5px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">8px</code> <div class="bg-primary" style="width: 8px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">13px</code> <div class="bg-primary" style="width: 13px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">21px</code> <div class="bg-primary" style="width: 21px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">34px</code> <div class="bg-primary" style="width: 34px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">55px</code> <div class="bg-primary" style="width: 55px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">89px</code> <div class="bg-primary" style="width: 89px; height: 13px;"></div></div>
-                                    <div class="d-flex items-center gap-5"><code class="text-sm">144px</code> <div class="bg-primary" style="width: 144px; height: 13px;"></div></div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">1px</code>
+                                        <div class="bg-primary" style="width: 1px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">2px</code>
+                                        <div class="bg-primary" style="width: 2px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">3px</code>
+                                        <div class="bg-primary" style="width: 3px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">5px</code>
+                                        <div class="bg-primary" style="width: 5px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">8px</code>
+                                        <div class="bg-primary" style="width: 8px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">13px</code>
+                                        <div class="bg-primary" style="width: 13px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">21px</code>
+                                        <div class="bg-primary" style="width: 21px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">34px</code>
+                                        <div class="bg-primary" style="width: 34px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">55px</code>
+                                        <div class="bg-primary" style="width: 55px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">89px</code>
+                                        <div class="bg-primary" style="width: 89px; height: 13px;"></div>
+                                    </div>
+                                    <div class="d-flex items-center gap-5"><code class="text-sm">144px</code>
+                                        <div class="bg-primary" style="width: 144px; height: 13px;"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -641,7 +950,7 @@ Vanduo.components.toast.show({
             <!-- Buttons Section -->
             <section id="buttons">
                 <h2 class="demo-title">Buttons</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card" id="demo-btn-variants">
@@ -660,7 +969,7 @@ Vanduo.components.toast.show({
                                 <button class="btn btn-outline-secondary">Outline Secondary</button>
                             </div>
                         </div>
-                        
+
                         <!-- Code Snippet for Button Variants -->
                         <div class="code-snippet" data-collapsible>
                             <button class="code-snippet-toggle" aria-expanded="false">
@@ -679,7 +988,8 @@ Vanduo.components.toast.show({
                                     </button>
                                 </div>
                                 <div class="code-snippet-body">
-                                    <pre class="code-snippet-pane is-active" data-lang="html" data-extract="#demo-btn-variants .card-body"></pre>
+                                    <pre class="code-snippet-pane is-active" data-lang="html"
+                                        data-extract="#demo-btn-variants .card-body"></pre>
                                     <pre class="code-snippet-pane" data-lang="css"><code><span class="code-selector">.btn</span> {
   <span class="code-property">display</span>: <span class="code-value">inline-flex</span>;
   <span class="code-property">align-items</span>: <span class="code-value">center</span>;
@@ -699,7 +1009,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card" id="demo-btn-sizes">
                             <div class="card-header">
@@ -712,7 +1022,7 @@ Vanduo.components.toast.show({
                                 <button class="btn btn-primary btn-block">Block Button</button>
                             </div>
                         </div>
-                        
+
                         <!-- Code Snippet for Button Sizes -->
                         <div class="code-snippet" data-collapsible>
                             <button class="code-snippet-toggle" aria-expanded="false">
@@ -731,7 +1041,8 @@ Vanduo.components.toast.show({
                                     </button>
                                 </div>
                                 <div class="code-snippet-body">
-                                    <pre class="code-snippet-pane is-active" data-lang="html" data-extract="#demo-btn-sizes .card-body"></pre>
+                                    <pre class="code-snippet-pane is-active" data-lang="html"
+                                        data-extract="#demo-btn-sizes .card-body"></pre>
                                     <pre class="code-snippet-pane" data-lang="css"><code><span class="code-selector">.btn-sm</span> {
   <span class="code-property">padding</span>: <span class="code-value">var(--btn-padding-y-sm) var(--btn-padding-x-sm)</span>;
   <span class="code-property">font-size</span>: <span class="code-value">var(--font-size-sm)</span>;
@@ -751,7 +1062,7 @@ Vanduo.components.toast.show({
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -767,11 +1078,11 @@ Vanduo.components.toast.show({
                     </div>
                 </div>
             </section>
-            
+
             <!-- Forms Section -->
             <section id="forms">
                 <h2 class="demo-title">Forms</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -783,22 +1094,23 @@ Vanduo.components.toast.show({
                                     <label for="text-input">Text Input</label>
                                     <input type="text" id="text-input" class="input" placeholder="Enter text">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="email-input">Email Input</label>
                                     <input type="email" id="email-input" class="input" placeholder="email@example.com">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="password-input">Password Input</label>
                                     <input type="password" id="password-input" class="input" placeholder="Password">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="textarea-input">Textarea</label>
-                                    <textarea id="textarea-input" class="textarea" rows="4" placeholder="Enter your message"></textarea>
+                                    <textarea id="textarea-input" class="textarea" rows="4"
+                                        placeholder="Enter your message"></textarea>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="select-input">Select</label>
                                     <select id="select-input" class="input">
@@ -807,10 +1119,11 @@ Vanduo.components.toast.show({
                                         <option>Option 3</option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="custom-select-input">Custom Select</label>
-                                    <select id="custom-select-input" class="input custom-select-input" data-custom-select>
+                                    <select id="custom-select-input" class="input custom-select-input"
+                                        data-custom-select>
                                         <option>Choose an option</option>
                                         <option>Option 1</option>
                                         <option>Option 2</option>
@@ -820,7 +1133,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -833,35 +1146,35 @@ Vanduo.components.toast.show({
                                         <span>Checked checkbox</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="checkbox">
                                         <input type="checkbox">
                                         <span>Unchecked checkbox</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="checkbox">
                                         <input type="checkbox" disabled>
                                         <span>Disabled checkbox</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="radio">
                                         <input type="radio" name="radio-demo" checked>
                                         <span>Radio option 1</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="radio">
                                         <input type="radio" name="radio-demo">
                                         <span>Radio option 2</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="switch">
                                         <input type="checkbox" checked>
@@ -869,7 +1182,7 @@ Vanduo.components.toast.show({
                                         <span>Toggle switch</span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="range-input">Range: <span id="range-value">50</span></label>
                                     <input type="range" id="range-input" class="range" min="0" max="100" value="50">
@@ -878,7 +1191,7 @@ Vanduo.components.toast.show({
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -891,10 +1204,11 @@ Vanduo.components.toast.show({
                                     <input type="text" id="valid-input" class="input input-valid" value="Valid value">
                                     <div class="form-feedback form-feedback-valid">Looks good!</div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="invalid-input">Invalid Input</label>
-                                    <input type="text" id="invalid-input" class="input input-invalid" value="Invalid value">
+                                    <input type="text" id="invalid-input" class="input input-invalid"
+                                        value="Invalid value">
                                     <div class="form-feedback form-feedback-invalid">Please provide a valid value.</div>
                                 </div>
                             </div>
@@ -902,11 +1216,11 @@ Vanduo.components.toast.show({
                     </div>
                 </div>
             </section>
-            
+
             <!-- Cards Section -->
             <section id="cards">
                 <h2 class="demo-title">Cards</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <div class="card demo-card" id="demo-card-elevated">
@@ -921,7 +1235,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-4">
                         <div class="card card-outlined demo-card">
                             <div class="card-header">
@@ -935,7 +1249,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-4">
                         <div class="card card-filled demo-card">
                             <div class="card-header">
@@ -950,7 +1264,7 @@ Vanduo.components.toast.show({
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Code Snippet for Cards -->
                 <div class="code-snippet" data-collapsible>
                     <button class="code-snippet-toggle" aria-expanded="false">
@@ -969,7 +1283,8 @@ Vanduo.components.toast.show({
                             </button>
                         </div>
                         <div class="code-snippet-body">
-                            <pre class="code-snippet-pane is-active" data-lang="html"><code>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+                            <pre class="code-snippet-pane is-active"
+                                data-lang="html"><code>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
   &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-header"</span>&gt;
     &lt;<span class="code-tag">h3</span>&gt;Card Title&lt;/<span class="code-tag">h3</span>&gt;
   &lt;/<span class="code-tag">div</span>&gt;
@@ -1006,11 +1321,11 @@ Vanduo.components.toast.show({
                     </div>
                 </div>
             </section>
-            
+
             <!-- Navigation Components Section -->
             <section id="navigation">
                 <h2 class="demo-title">Navigation Components</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1028,7 +1343,7 @@ Vanduo.components.toast.show({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1044,7 +1359,8 @@ Vanduo.components.toast.show({
                                         </li>
                                         <li class="pagination-item"><a href="#" class="pagination-link">1</a></li>
                                         <li class="pagination-item"><a href="#" class="pagination-link">2</a></li>
-                                        <li class="pagination-item active"><a href="#" class="pagination-link">3</a></li>
+                                        <li class="pagination-item active"><a href="#" class="pagination-link">3</a>
+                                        </li>
                                         <li class="pagination-item"><a href="#" class="pagination-link">4</a></li>
                                         <li class="pagination-item"><a href="#" class="pagination-link">5</a></li>
                                         <li class="pagination-item">
@@ -1059,11 +1375,11 @@ Vanduo.components.toast.show({
                     </div>
                 </div>
             </section>
-            
+
             <!-- Interactive Components Section -->
             <section id="interactive">
                 <h2 class="demo-title">Interactive Components</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1072,14 +1388,18 @@ Vanduo.components.toast.show({
                             </div>
                             <div class="card-body">
                                 <p>Hover over the buttons to see tooltips:</p>
-                                <button class="btn btn-primary" data-tooltip="This is a tooltip on top" data-placement="top">Tooltip Top</button>
-                                <button class="btn btn-primary" data-tooltip="This is a tooltip on right" data-placement="right">Tooltip Right</button>
-                                <button class="btn btn-primary" data-tooltip="This is a tooltip on bottom" data-placement="bottom">Tooltip Bottom</button>
-                                <button class="btn btn-primary" data-tooltip="This is a tooltip on left" data-placement="left">Tooltip Left</button>
+                                <button class="btn btn-primary" data-tooltip="This is a tooltip on top"
+                                    data-placement="top">Tooltip Top</button>
+                                <button class="btn btn-primary" data-tooltip="This is a tooltip on right"
+                                    data-placement="right">Tooltip Right</button>
+                                <button class="btn btn-primary" data-tooltip="This is a tooltip on bottom"
+                                    data-placement="bottom">Tooltip Bottom</button>
+                                <button class="btn btn-primary" data-tooltip="This is a tooltip on left"
+                                    data-placement="left">Tooltip Left</button>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1094,7 +1414,9 @@ Vanduo.components.toast.show({
                                         <li><a href="#" class="dropdown-item">Action</a></li>
                                         <li><a href="#" class="dropdown-item">Another action</a></li>
                                         <li><a href="#" class="dropdown-item">Something else</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li><a href="#" class="dropdown-item">Separated link</a></li>
                                     </ul>
                                 </div>
@@ -1102,7 +1424,7 @@ Vanduo.components.toast.show({
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1111,7 +1433,7 @@ Vanduo.components.toast.show({
                             </div>
                             <div class="card-body">
                                 <button class="btn btn-primary" data-modal="#demo-modal">Open Modal</button>
-                                
+
                                 <!-- Modal -->
                                 <div class="modal" id="demo-modal">
                                     <div class="modal-backdrop"></div>
@@ -1119,15 +1441,18 @@ Vanduo.components.toast.show({
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h3 class="modal-title">Modal Title</h3>
-                                                <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="modal-close" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>This is a modal dialog. You can close it by clicking the X button, clicking outside, or pressing ESC.</p>
+                                                <p>This is a modal dialog. You can close it by clicking the X button,
+                                                    clicking outside, or pressing ESC.</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
                                                 <button type="button" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
@@ -1135,7 +1460,7 @@ Vanduo.components.toast.show({
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Code Snippet for Modal -->
                         <div class="code-snippet" data-collapsible>
                             <button class="code-snippet-toggle" aria-expanded="false">
@@ -1188,7 +1513,7 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1207,7 +1532,7 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="accordion-item">
                                         <button class="accordion-header">
                                             <span>Accordion Item 2</span>
@@ -1219,7 +1544,7 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="accordion-item">
                                         <button class="accordion-header">
                                             <span>Accordion Item 3</span>
@@ -1234,7 +1559,7 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Code Snippet for Accordion -->
                         <div class="code-snippet" data-collapsible>
                             <button class="code-snippet-toggle" aria-expanded="false">
@@ -1266,7 +1591,8 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
     &lt;/<span class="code-tag">div</span>&gt;
   &lt;/<span class="code-tag">div</span>&gt;
 &lt;/<span class="code-tag">div</span>&gt;</code></pre>
-                                    <pre class="code-snippet-pane" data-lang="js"><code><span class="code-comment">// Accordion auto-initializes on page load</span>
+                                    <pre class="code-snippet-pane"
+                                        data-lang="js"><code><span class="code-comment">// Accordion auto-initializes on page load</span>
 <span class="code-comment">// Click accordion headers to toggle</span>
 
 <span class="code-comment">// Programmatic control:</span>
@@ -1284,11 +1610,11 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                     </div>
                 </div>
             </section>
-            
+
             <!-- Collections Section -->
             <section id="collections">
                 <h2 class="demo-title">Collections</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1298,21 +1624,27 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             <div class="card-body" style="padding: 0;">
                                 <ul class="collection">
                                     <li class="collection-item">
-                                        <div class="collection-avatar" style="background: var(--color-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">JD</div>
+                                        <div class="collection-avatar"
+                                            style="background: var(--color-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                            JD</div>
                                         <div class="collection-content">
                                             <div class="collection-title">John Doe</div>
                                             <div class="collection-subtitle">Software Engineer</div>
                                         </div>
                                     </li>
                                     <li class="collection-item">
-                                        <div class="collection-avatar" style="background: var(--color-success); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">JS</div>
+                                        <div class="collection-avatar"
+                                            style="background: var(--color-success); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                            JS</div>
                                         <div class="collection-content">
                                             <div class="collection-title">Jane Smith</div>
                                             <div class="collection-subtitle">Designer</div>
                                         </div>
                                     </li>
                                     <li class="collection-item active">
-                                        <div class="collection-avatar" style="background: var(--color-warning); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">MJ</div>
+                                        <div class="collection-avatar"
+                                            style="background: var(--color-warning); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                            MJ</div>
                                         <div class="collection-content">
                                             <div class="collection-title">Mike Johnson</div>
                                             <div class="collection-subtitle">Product Manager</div>
@@ -1322,7 +1654,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1354,11 +1686,11 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                     </div>
                 </div>
             </section>
-            
+
             <!-- Tables Section -->
             <section id="tables">
                 <h2 class="demo-title">Tables</h2>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -1396,7 +1728,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -1434,7 +1766,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card demo-card">
@@ -1473,11 +1805,11 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                     </div>
                 </div>
             </section>
-            
+
             <!-- Badges Section -->
             <section id="badges">
                 <h2 class="demo-title">Badges</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1494,7 +1826,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1511,7 +1843,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                     </div>
                 </div>
             </section>
-            
+
             <!-- Alerts Section -->
             <section id="alerts">
                 <h2 class="demo-title">Alerts</h2>
@@ -1540,7 +1872,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Code Snippet for Alerts -->
                         <div class="code-snippet" data-collapsible>
                             <button class="code-snippet-toggle" aria-expanded="false">
@@ -1682,12 +2014,17 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 <h3>Avatar Sizes</h3>
                             </div>
                             <div class="card-body">
-                                <span class="avatar avatar-xs" style="background: var(--color-primary); color: white;">XS</span>
-                                <span class="avatar avatar-sm" style="background: var(--color-secondary); color: white;">SM</span>
+                                <span class="avatar avatar-xs"
+                                    style="background: var(--color-primary); color: white;">XS</span>
+                                <span class="avatar avatar-sm"
+                                    style="background: var(--color-secondary); color: white;">SM</span>
                                 <span class="avatar" style="background: var(--color-success); color: white;">MD</span>
-                                <span class="avatar avatar-lg" style="background: var(--color-warning); color: white;">LG</span>
-                                <span class="avatar avatar-xl" style="background: var(--color-error); color: white;">XL</span>
-                                <span class="avatar avatar-2xl" style="background: var(--color-info); color: white;">2XL</span>
+                                <span class="avatar avatar-lg"
+                                    style="background: var(--color-warning); color: white;">LG</span>
+                                <span class="avatar avatar-xl"
+                                    style="background: var(--color-error); color: white;">XL</span>
+                                <span class="avatar avatar-2xl"
+                                    style="background: var(--color-info); color: white;">2XL</span>
                             </div>
                         </div>
                     </div>
@@ -1698,10 +2035,14 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 <h3>Avatar with Status</h3>
                             </div>
                             <div class="card-body">
-                                <span class="avatar avatar-lg avatar-status-online" style="background: var(--color-primary); color: white;">JD</span>
-                                <span class="avatar avatar-lg avatar-status-offline" style="background: var(--color-secondary); color: white;">AB</span>
-                                <span class="avatar avatar-lg avatar-status-busy" style="background: var(--color-success); color: white;">CD</span>
-                                <span class="avatar avatar-lg avatar-status-away" style="background: var(--color-warning); color: white;">EF</span>
+                                <span class="avatar avatar-lg avatar-status-online"
+                                    style="background: var(--color-primary); color: white;">JD</span>
+                                <span class="avatar avatar-lg avatar-status-offline"
+                                    style="background: var(--color-secondary); color: white;">AB</span>
+                                <span class="avatar avatar-lg avatar-status-busy"
+                                    style="background: var(--color-success); color: white;">CD</span>
+                                <span class="avatar avatar-lg avatar-status-away"
+                                    style="background: var(--color-warning); color: white;">EF</span>
                             </div>
                         </div>
                     </div>
@@ -1715,9 +2056,12 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
                             <div class="card-body">
                                 <div class="avatar-group">
-                                    <span class="avatar" style="background: var(--color-primary); color: white;">A</span>
-                                    <span class="avatar" style="background: var(--color-success); color: white;">B</span>
-                                    <span class="avatar" style="background: var(--color-warning); color: white;">C</span>
+                                    <span class="avatar"
+                                        style="background: var(--color-primary); color: white;">A</span>
+                                    <span class="avatar"
+                                        style="background: var(--color-success); color: white;">B</span>
+                                    <span class="avatar"
+                                        style="background: var(--color-warning); color: white;">C</span>
                                     <span class="avatar" style="background: var(--color-error); color: white;">D</span>
                                     <span class="avatar" style="background: var(--color-info); color: white;">+5</span>
                                 </div>
@@ -1882,10 +2226,14 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 <h3>Toast Types</h3>
                             </div>
                             <div class="card-body">
-                                <button class="btn btn-success" onclick="Toast.success('Operation completed successfully!')">Success Toast</button>
-                                <button class="btn btn-error" onclick="Toast.error('An error occurred!')">Error Toast</button>
-                                <button class="btn btn-warning" onclick="Toast.warning('Please review your input.')">Warning Toast</button>
-                                <button class="btn btn-info" onclick="Toast.info('Here is some information.')">Info Toast</button>
+                                <button class="btn btn-success"
+                                    onclick="Toast.success('Operation completed successfully!')">Success Toast</button>
+                                <button class="btn btn-error" onclick="Toast.error('An error occurred!')">Error
+                                    Toast</button>
+                                <button class="btn btn-warning"
+                                    onclick="Toast.warning('Please review your input.')">Warning Toast</button>
+                                <button class="btn btn-info" onclick="Toast.info('Here is some information.')">Info
+                                    Toast</button>
                             </div>
                         </div>
                     </div>
@@ -1896,9 +2244,15 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 <h3>Toast Options</h3>
                             </div>
                             <div class="card-body">
-                                <button class="btn btn-primary" onclick="Toast.show({ title: 'With Title', message: 'This toast has a title and message.', type: 'info' })">With Title</button>
-                                <button class="btn btn-primary" onclick="Toast.show({ message: 'This toast will stay for 10 seconds.', type: 'success', duration: 10000 })">Long Duration</button>
-                                <button class="btn btn-primary" onclick="Toast.show({ message: 'Bottom left position.', type: 'warning', position: 'bottom-left' })">Bottom Left</button>
+                                <button class="btn btn-primary"
+                                    onclick="Toast.show({ title: 'With Title', message: 'This toast has a title and message.', type: 'info' })">With
+                                    Title</button>
+                                <button class="btn btn-primary"
+                                    onclick="Toast.show({ message: 'This toast will stay for 10 seconds.', type: 'success', duration: 10000 })">Long
+                                    Duration</button>
+                                <button class="btn btn-primary"
+                                    onclick="Toast.show({ message: 'Bottom left position.', type: 'warning', position: 'bottom-left' })">Bottom
+                                    Left</button>
                             </div>
                         </div>
                     </div>
@@ -1908,7 +2262,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
             <!-- Preloader Section -->
             <section id="preloader">
                 <h2 class="demo-title">Preloader & Progress Bars</h2>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -1924,7 +2278,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
                             <div class="card-header">
@@ -1947,7 +2301,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card demo-card">
@@ -2108,7 +2462,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
             </section>
         </div>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -2120,7 +2474,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-md-4">
                     <div class="footer-section">
                         <h4>Quick Links</h4>
@@ -2133,7 +2487,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-md-4">
                     <div class="footer-section">
                         <h4>Resources</h4>
@@ -2146,20 +2500,20 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p class="text-center text-muted">© 2024-2025 Vanduo Framework. MIT License.</p>
             </div>
         </div>
     </footer>
-    
+
     <!-- JavaScript Files -->
     <!-- Helpers must be loaded first -->
     <script src="./js/utils/helpers.js"></script>
-    
+
     <!-- Main framework -->
     <script src="./js/vanduo.js"></script>
-    
+
     <!-- Component scripts -->
     <script src="./js/components/theme-switcher.js"></script>
     <script src="./js/components/font-switcher.js"></script>
@@ -2180,26 +2534,26 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
     <!-- Custom initialization -->
     <script>
         // Initialize range input value display
-        ready(function() {
+        ready(function () {
             const rangeInput = document.getElementById('range-input');
             const rangeValue = document.getElementById('range-value');
-            
+
             if (rangeInput && rangeValue) {
-                rangeInput.addEventListener('input', function() {
+                rangeInput.addEventListener('input', function () {
                     rangeValue.textContent = this.value;
                 });
             }
-            
+
             // Dismissible alerts
             document.querySelectorAll('.alert-close').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     this.closest('.alert').remove();
                 });
             });
 
             // Dismissible chips
             document.querySelectorAll('.chip-close').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     this.closest('.chip').remove();
                 });
             });
@@ -2223,5 +2577,5 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
         });
     </script>
 </body>
-</html>
 
+</html>

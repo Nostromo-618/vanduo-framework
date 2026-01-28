@@ -2,6 +2,9 @@
 /devUtils/package-lock.json
 .DS_Store
 
+# Downloaded icon assets (use icons/ folder instead)
+/phosphor-icons
+
 # SEO placeholder images (replace with actual brand assets)
 /images/og-image.png
 /images/twitter-card.png
@@ -13,4 +16,3 @@
 /favicon-32x32.png
 /apple-touch-icon.png
 
-/phosphor-icons

@@ -1,0 +1,25 @@
+/**
+ * Vanduo Icons - Phosphor Integration
+ * Default weights: regular + fill
+ * 
+ * For other weights, import directly from:
+ * - icons/phosphor/bold/style.css
+ * - icons/phosphor/light/style.css
+ * - icons/phosphor/thin/style.css
+ * - icons/phosphor/duotone/style.css
+ * 
+ * Or use icons-all.css to import all weights (larger file size).
+ * 
+ * Usage:
+ *   <i class="ph ph-heart"></i>           - Regular weight
+ *   <i class="ph-fill ph-star"></i>       - Fill weight
+ * 
+ * Icons can be styled with CSS:
+ *   font-size: 24px;  - Size
+ *   color: red;       - Color
+ * 
+ * Full icon list: https://phosphoricons.com
+ */
+
+@import url('../../icons/phosphor/regular/style.css');
+@import url('../../icons/phosphor/fill/style.css');

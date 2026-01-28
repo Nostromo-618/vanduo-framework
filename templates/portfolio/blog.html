@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog - Portfolio Template built with Vanduo Framework">
+    <title>Blog - Portfolio Template</title>
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="../../css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="../../css/icons/icons.css">
+
+    <style>
+        /* Hero section */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        /* Blog cards */
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Featured post */
+        .featured-post {
+            position: relative;
+            border-radius: var(--card-border-radius);
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+        }
+
+        .featured-content {
+            padding: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar-widget {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-widget h4 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-list a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Tags */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 3rem 0 1rem;
+        }
+
+        footer a {
+            color: var(--color-primary-light);
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-user-circle" style="color: var(--color-primary); margin-right: 0.25em;"></i>Portfolio</a>
+            </div>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link"><i class="ph ph-house mr-2"></i>Home</a></li>
+                    <li><a href="projects.html" class="nav-link"><i class="ph ph-briefcase mr-2"></i>Projects</a></li>
+                    <li><a href="blog.html" class="nav-link active"><i class="ph ph-article mr-2"></i>Blog</a></li>
+                    <li><a href="about.html" class="nav-link"><i class="ph ph-user mr-2"></i>About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
+                        <option value="system" selected>System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="ph-fill ph-article" style="color: var(--color-primary);"></i> Blog</h1>
+            <p class="text-lg text-muted">Thoughts on development, design, and technology</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" style="padding: 4rem 0;">
+        <div class="container">
+            <!-- Featured Post -->
+            <div class="featured-post mb-10">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="featured-image">
+                            <i class="ph ph-rocket"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="featured-content">
+                            <div class="mb-3">
+                                <span class="badge badge-primary">Featured</span>
+                                <span class="badge badge-secondary">Development</span>
+                            </div>
+                            <h2><a href="#" style="text-decoration: none; color: inherit;">The Future of Web Development: Trends to Watch in 2025</a></h2>
+                            <p class="text-muted mb-3">
+                                <i class="ph ph-calendar mr-1"></i>January 20, 2025 · 
+                                <i class="ph ph-clock mr-1"></i>8 min read · 
+                                <i class="ph ph-user mr-1"></i>John Doe
+                            </p>
+                            <p class="mb-4">Explore the emerging technologies and methodologies that are shaping the future of web development. From AI-powered development tools to the rise of edge computing, discover what you need to know to stay ahead.</p>
+                            <a href="#" class="btn btn-primary">
+                                Read Article <i class="ph ph-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Blog Posts -->
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        <!-- Blog Post 1 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-code"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-primary">Development</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">Building Scalable React Applications</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>January 15, 2025 · 
+                                        <i class="ph ph-clock mr-1"></i>5 min read
+                                    </p>
+                                    <p class="text-muted">Learn the best practices for structuring large-scale React applications with proper state management and component architecture.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post 2 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-palette"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-secondary">Design</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">The Psychology of Color in UI Design</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>January 10, 2025 · 
+                                        <i class="ph ph-clock mr-1"></i>4 min read
+                                    </p>
+                                    <p class="text-muted">Understanding how color choices impact user behavior and emotional responses in digital interfaces.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post 3 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-lightning"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-success">Performance</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">Optimizing Web Performance</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>January 5, 2025 · 
+                                        <i class="ph ph-clock mr-1"></i>6 min read
+                                    </p>
+                                    <p class="text-muted">Essential techniques for improving website loading speed and overall performance metrics.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post 4 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-shield-check"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-warning">Security</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">Web Security Best Practices</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>December 28, 2024 · 
+                                        <i class="ph ph-clock mr-1"></i>7 min read
+                                    </p>
+                                    <p class="text-muted">A comprehensive guide to securing your web applications against common vulnerabilities.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post 5 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-git-branch"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-info">DevOps</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">Git Workflow Strategies</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>December 20, 2024 · 
+                                        <i class="ph ph-clock mr-1"></i>5 min read
+                                    </p>
+                                    <p class="text-muted">Comparing different Git branching strategies and when to use each one for your team.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Post 6 -->
+                        <div class="col-12 col-md-6 mb-6">
+                            <div class="card blog-card">
+                                <div class="blog-image">
+                                    <i class="ph ph-users"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="badge badge-secondary">UX</span>
+                                    </div>
+                                    <h3><a href="#" style="text-decoration: none; color: inherit;">User-Centered Design Principles</a></h3>
+                                    <p class="text-muted mb-2">
+                                        <i class="ph ph-calendar mr-1"></i>December 15, 2024 · 
+                                        <i class="ph ph-clock mr-1"></i>6 min read
+                                    </p>
+                                    <p class="text-muted">How to put users at the center of your design process for better product outcomes.</p>
+                                    <a href="#" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination-wrapper">
+                        <nav class="pagination" aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="pagination-item disabled">
+                                    <a href="#" class="pagination-link" aria-label="Previous">
+                                        <span aria-hidden="true"><i class="ph ph-caret-left"></i></span>
+                                    </a>
+                                </li>
+                                <li class="pagination-item active"><a href="#" class="pagination-link">1</a></li>
+                                <li class="pagination-item"><a href="#" class="pagination-link">2</a></li>
+                                <li class="pagination-item"><a href="#" class="pagination-link">3</a></li>
+                                <li class="pagination-item">
+                                    <a href="#" class="pagination-link" aria-label="Next">
+                                        <span aria-hidden="true"><i class="ph ph-caret-right"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-12 col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Search</h4>
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <input type="text" class="input" placeholder="Search articles...">
+                                        <button class="btn btn-primary">
+                                            <i class="ph ph-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Categories</h4>
+                                <ul class="category-list">
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-code mr-2"></i>Development</span>
+                                            <span class="badge badge-sm">12</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-palette mr-2"></i>Design</span>
+                                            <span class="badge badge-sm">8</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-lightning mr-2"></i>Performance</span>
+                                            <span class="badge badge-sm">5</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-shield-check mr-2"></i>Security</span>
+                                            <span class="badge badge-sm">4</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-git-branch mr-2"></i>DevOps</span>
+                                            <span class="badge badge-sm">6</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span><i class="ph ph-users mr-2"></i>UX</span>
+                                            <span class="badge badge-sm">7</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags Widget -->
+                    <div class="sidebar-widget">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Popular Tags</h4>
+                                <div class="tag-cloud">
+                                    <a href="#" class="chip chip-primary chip-sm">React</a>
+                                    <a href="#" class="chip chip-secondary chip-sm">JavaScript</a>
+                                    <a href="#" class="chip chip-success chip-sm">CSS</a>
+                                    <a href="#" class="chip chip-info chip-sm">TypeScript</a>
+                                    <a href="#" class="chip chip-warning chip-sm">Node.js</a>
+                                    <a href="#" class="chip chip-primary chip-sm">UI/UX</a>
+                                    <a href="#" class="chip chip-secondary chip-sm">Figma</a>
+                                    <a href="#" class="chip chip-success chip-sm">API</a>
+                                    <a href="#" class="chip chip-info chip-sm">Git</a>
+                                    <a href="#" class="chip chip-warning chip-sm">Testing</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Widget -->
+                    <div class="sidebar-widget">
+                        <div class="card card-filled" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: white;">
+                            <div class="card-body text-center">
+                                <i class="ph-fill ph-envelope" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                                <h4 style="color: white;">Newsletter</h4>
+                                <p class="mb-4">Subscribe to get the latest articles delivered to your inbox.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <input type="email" class="input" placeholder="your@email.com" style="background: rgba(255,255,255,0.9);">
+                                    </div>
+                                    <button type="submit" class="btn btn-block" style="background: white; color: var(--color-primary);">
+                                        Subscribe
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-6">
+                    <h4><i class="ph-fill ph-user-circle mr-2"></i>Portfolio</h4>
+                    <p class="text-muted">A clean, responsive portfolio template built with Vanduo Framework.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Connect</h4>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-github-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-linkedin-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-twitter-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-6 mt-6" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <p class="text-muted">&copy; 2025 John Doe. Built with <a href="../../index.html">Vanduo Framework</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/vanduo.js"></script>
+    <script src="../../js/components/theme-switcher.js"></script>
+    <script src="../../js/components/navbar.js"></script>
+</body>
+
+</html>

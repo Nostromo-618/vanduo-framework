@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Template - A clean, responsive portfolio website built with Vanduo Framework">
+    <title>Portfolio Template - Vanduo Framework</title>
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="../../css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="../../css/icons/icons.css">
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero section styling */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            padding: 6rem 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 4rem;
+            color: white;
+        }
+
+        /* Section styling */
+        section {
+            padding: 5rem 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Project cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Skill tags */
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--btn-border-radius);
+            margin: 0.25rem;
+            font-size: var(--font-size-sm);
+        }
+
+        /* Blog post preview */
+        .blog-preview {
+            border-left: 3px solid var(--color-primary);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 3rem 0 1rem;
+        }
+
+        footer a {
+            color: var(--color-primary-light);
+        }
+
+        /* Scroll margin for sections */
+        #projects, #blog, #about {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-user-circle" style="color: var(--color-primary); margin-right: 0.25em;"></i>Portfolio</a>
+            </div>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link active"><i class="ph ph-house mr-2"></i>Home</a></li>
+                    <li><a href="projects.html" class="nav-link"><i class="ph ph-briefcase mr-2"></i>Projects</a></li>
+                    <li><a href="blog.html" class="nav-link"><i class="ph ph-article mr-2"></i>Blog</a></li>
+                    <li><a href="about.html" class="nav-link"><i class="ph ph-user mr-2"></i>About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
+                        <option value="system" selected>System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <i class="ph-fill ph-user"></i>
+            </div>
+            <h1>John Doe</h1>
+            <p class="text-lg text-muted mb-6">Full Stack Developer & UI/UX Designer</p>
+            <p class="mb-8">I create beautiful, functional web experiences using modern technologies and clean code. Passionate about user-centered design and performance optimization.</p>
+            <div class="d-flex gap-4 justify-center flex-wrap">
+                <a href="projects.html" class="btn btn-primary btn-lg">
+                    <i class="ph ph-briefcase mr-2"></i>View Projects
+                </a>
+                <a href="about.html" class="btn btn-outline btn-lg">
+                    <i class="ph ph-user mr-2"></i>About Me
+                </a>
+            </div>
+            <div class="mt-10">
+                <a href="#contact" class="text-muted" style="text-decoration: none;">
+                    <i class="ph ph-arrow-down" style="font-size: 2rem; animation: bounce 2s infinite;"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Featured Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>Featured Projects</h2>
+                    <p class="text-muted">A selection of my recent work</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-shopping-cart"></i>
+                            </div>
+                            <div class="card-body">
+                                <h3>E-Commerce Platform</h3>
+                                <p class="text-muted mb-4">A modern e-commerce solution with real-time inventory and secure payments.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-primary chip-sm">React</span>
+                                    <span class="chip chip-secondary chip-sm">Node.js</span>
+                                    <span class="chip chip-success chip-sm">Stripe</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="ph ph-eye mr-1"></i>View
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-chart-line-up"></i>
+                            </div>
+                            <div class="card-body">
+                                <h3>Analytics Dashboard</h3>
+                                <p class="text-muted mb-4">Real-time data visualization dashboard for business intelligence.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-primary chip-sm">Vue.js</span>
+                                    <span class="chip chip-info chip-sm">D3.js</span>
+                                    <span class="chip chip-warning chip-sm">Python</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="ph ph-eye mr-1"></i>View
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card project-card">
+                            <div class="project-image">
+                                <i class="ph ph-device-mobile"></i>
+                            </div>
+                            <div class="card-body">
+                                <h3>Mobile App</h3>
+                                <p class="text-muted mb-4">Cross-platform mobile application for task management.</p>
+                                <div class="mb-4">
+                                    <span class="chip chip-success chip-sm">React Native</span>
+                                    <span class="chip chip-primary chip-sm">Firebase</span>
+                                    <span class="chip chip-secondary chip-sm">Redux</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="ph ph-eye mr-1"></i>View
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-sm">
+                                        <i class="ph ph-github-logo mr-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="projects.html" class="btn btn-secondary btn-lg">
+                        <i class="ph ph-grid-four mr-2"></i>View All Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>Skills & Technologies</h2>
+                    <p class="text-muted">Tools and technologies I work with</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-6">
+                        <div class="card card-filled text-center">
+                            <div class="card-body">
+                                <i class="ph ph-code" style="font-size: 3rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+                                <h3>Frontend</h3>
+                                <div class="d-flex flex-wrap justify-center mt-4">
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>HTML5</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>CSS3</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>JavaScript</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>React</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Vue.js</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>TypeScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-6">
+                        <div class="card card-filled text-center">
+                            <div class="card-body">
+                                <i class="ph ph-server" style="font-size: 3rem; color: var(--color-secondary); margin-bottom: 1rem;"></i>
+                                <h3>Backend</h3>
+                                <div class="d-flex flex-wrap justify-center mt-4">
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Node.js</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Python</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>PostgreSQL</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>MongoDB</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>GraphQL</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>REST API</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-6">
+                        <div class="card card-filled text-center">
+                            <div class="card-body">
+                                <i class="ph ph-paint-brush" style="font-size: 3rem; color: var(--color-info); margin-bottom: 1rem;"></i>
+                                <h3>Design</h3>
+                                <div class="d-flex flex-wrap justify-center mt-4">
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Figma</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Adobe XD</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>UI/UX</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Prototyping</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Wireframing</span>
+                                    <span class="skill-tag"><i class="ph-fill ph-check-circle" style="color: var(--color-success);"></i>Design Systems</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Blog Posts -->
+        <section id="blog">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>Latest from the Blog</h2>
+                    <p class="text-muted">Thoughts on development, design, and technology</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="blog-preview">
+                            <span class="badge badge-primary mb-2">Development</span>
+                            <h3><a href="blog.html" style="text-decoration: none; color: inherit;">Building Scalable React Applications</a></h3>
+                            <p class="text-muted mb-2"><i class="ph ph-calendar mr-1"></i>January 15, 2025 · <i class="ph ph-clock mr-1"></i>5 min read</p>
+                            <p>Learn the best practices for structuring large-scale React applications with proper state management and component architecture.</p>
+                            <a href="blog.html" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="blog-preview">
+                            <span class="badge badge-secondary mb-2">Design</span>
+                            <h3><a href="blog.html" style="text-decoration: none; color: inherit;">The Psychology of Color in UI Design</a></h3>
+                            <p class="text-muted mb-2"><i class="ph ph-calendar mr-1"></i>January 10, 2025 · <i class="ph ph-clock mr-1"></i>4 min read</p>
+                            <p>Understanding how color choices impact user behavior and emotional responses in digital interfaces.</p>
+                            <a href="blog.html" class="btn btn-link">Read More <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="blog.html" class="btn btn-outline btn-lg">
+                        <i class="ph ph-article mr-2"></i>View All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-6">
+                        <h2>Let's Work Together</h2>
+                        <p class="text-muted mb-6">Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing.</p>
+
+                        <div class="d-flex flex-col gap-4">
+                            <div class="d-flex align-center gap-3">
+                                <i class="ph-fill ph-envelope" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+                                <span>hello@johndoe.com</span>
+                            </div>
+                            <div class="d-flex align-center gap-3">
+                                <i class="ph-fill ph-map-pin" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="d-flex align-center gap-3">
+                                <i class="ph-fill ph-github-logo" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+                                <span>github.com/johndoe</span>
+                            </div>
+                            <div class="d-flex align-center gap-3">
+                                <i class="ph-fill ph-linkedin-logo" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+                                <span>linkedin.com/in/johndoe</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" class="input" placeholder="Your name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" class="input" placeholder="your@email.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="message" class="textarea" rows="4" placeholder="Tell me about your project..."></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        <i class="ph ph-paper-plane-right mr-2"></i>Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-6">
+                    <h4><i class="ph-fill ph-user-circle mr-2"></i>Portfolio</h4>
+                    <p class="text-muted">A clean, responsive portfolio template built with Vanduo Framework.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Connect</h4>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-github-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-linkedin-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-twitter-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-6 mt-6" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <p class="text-muted">&copy; 2025 John Doe. Built with <a href="../../index.html">Vanduo Framework</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/vanduo.js"></script>
+    <script src="../../js/components/theme-switcher.js"></script>
+    <script src="../../js/components/navbar.js"></script>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.length > 1) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

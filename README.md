@@ -217,6 +217,55 @@ The framework now includes comprehensive SEO features:
 
 See [SEO-IMPLEMENTATION.md](SEO-IMPLEMENTATION.md) for detailed implementation guide and deployment checklist.
 
+## Icons
+
+Vanduo includes [Phosphor Icons](https://phosphoricons.com) - a flexible icon family with 1,500+ icons in 6 weights.
+
+### Quick Start
+
+```html
+<!-- Include default weights (regular + fill) -->
+<link rel="stylesheet" href="css/icons/icons.css">
+
+<!-- Use icons -->
+<i class="ph ph-heart"></i>
+<i class="ph-fill ph-star"></i>
+```
+
+### Available Weights
+
+| Weight | Class | File |
+|--------|-------|------|
+| Regular | `ph` | `icons/phosphor/regular/style.css` |
+| Fill | `ph-fill` | `icons/phosphor/fill/style.css` |
+| Bold | `ph-bold` | `icons/phosphor/bold/style.css` |
+| Light | `ph-light` | `icons/phosphor/light/style.css` |
+| Thin | `ph-thin` | `icons/phosphor/thin/style.css` |
+| Duotone | `ph-duotone` | `icons/phosphor/duotone/style.css` |
+
+### Import Options
+
+```html
+<!-- Default (regular + fill) - Recommended -->
+<link rel="stylesheet" href="css/icons/icons.css">
+
+<!-- All weights (~3MB) -->
+<link rel="stylesheet" href="css/icons/icons-all.css">
+
+<!-- Individual weights -->
+<link rel="stylesheet" href="icons/phosphor/bold/style.css">
+```
+
+### Styling Icons
+
+Icons are font-based and can be styled with CSS:
+
+```html
+<i class="ph ph-heart" style="font-size: 32px; color: red;"></i>
+```
+
+> **Note:** For SVG icons or advanced use cases, visit [phosphoricons.com](https://phosphoricons.com) to download individual SVG files.
+
 ## Development Server
 
 A development server is included for easy testing and collaboration:

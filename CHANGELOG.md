@@ -20,6 +20,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Keyboard accessible
 - Mobile responsive
 
+#### Phosphor Icons Integration
+- **Directory:** `icons/phosphor/` - All 6 font weights (regular, fill, bold, light, thin, duotone)
+- **Files:** `css/icons/icons.css` (default), `css/icons/icons-all.css` (all weights)
+- 1,500+ icons bundled locally, no CDN required
+- MIT licensed with attribution
+- Usage: `<i class="ph ph-heart"></i>` or `<i class="ph-fill ph-star"></i>`
+
 #### CSS Reset/Normalization
 - **File:** `css/core/reset.css`
 - Modern CSS reset with box-sizing, margin/padding normalization

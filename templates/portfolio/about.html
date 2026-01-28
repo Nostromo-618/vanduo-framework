@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About - Portfolio Template built with Vanduo Framework">
+    <title>About - Portfolio Template</title>
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="../../css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="../../css/icons/icons.css">
+
+    <style>
+        /* Hero section */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        /* Profile section */
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 6rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            margin-left: -5px;
+        }
+
+        .timeline-date {
+            font-size: var(--font-size-sm);
+            color: var(--color-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* Stats */
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Testimonials */
+        .testimonial-card {
+            position: relative;
+            padding: 2rem;
+        }
+
+        .testimonial-quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            font-size: 3rem;
+            color: var(--color-primary);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 3rem 0 1rem;
+        }
+
+        footer a {
+            color: var(--color-primary-light);
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .social-link:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-user-circle" style="color: var(--color-primary); margin-right: 0.25em;"></i>Portfolio</a>
+            </div>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link"><i class="ph ph-house mr-2"></i>Home</a></li>
+                    <li><a href="projects.html" class="nav-link"><i class="ph ph-briefcase mr-2"></i>Projects</a></li>
+                    <li><a href="blog.html" class="nav-link"><i class="ph ph-article mr-2"></i>Blog</a></li>
+                    <li><a href="about.html" class="nav-link active"><i class="ph ph-user mr-2"></i>About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
+                        <option value="system" selected>System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="ph-fill ph-user" style="color: var(--color-primary);"></i> About Me</h1>
+            <p class="text-lg text-muted">Get to know me and my journey</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Profile Section -->
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 text-center mb-6">
+                        <div class="profile-image">
+                            <i class="ph-fill ph-user"></i>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link" data-tooltip="GitHub">
+                                <i class="ph-fill ph-github-logo"></i>
+                            </a>
+                            <a href="#" class="social-link" data-tooltip="LinkedIn">
+                                <i class="ph-fill ph-linkedin-logo"></i>
+                            </a>
+                            <a href="#" class="social-link" data-tooltip="Twitter">
+                                <i class="ph-fill ph-twitter-logo"></i>
+                            </a>
+                            <a href="#" class="social-link" data-tooltip="Email">
+                                <i class="ph-fill ph-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <h2>Hi, I'm John Doe</h2>
+                        <p class="text-lg text-muted mb-4">Full Stack Developer & UI/UX Designer based in San Francisco</p>
+                        <p class="mb-4">I'm a passionate developer with over 5 years of experience creating digital experiences that make a difference. My journey in tech started when I built my first website at 15, and I've been hooked ever since.</p>
+                        <p class="mb-4">I specialize in building scalable web applications using modern technologies like React, Node.js, and cloud services. I'm equally comfortable working on the frontend crafting beautiful user interfaces as I am architecting robust backend systems.</p>
+                        <p class="mb-6">When I'm not coding, you can find me exploring new hiking trails, experimenting with photography, or contributing to open-source projects. I believe in continuous learning and staying up-to-date with the latest industry trends.</p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="index.html#contact" class="btn btn-primary btn-lg">
+                                <i class="ph ph-paper-plane-right mr-2"></i>Get in Touch
+                            </a>
+                            <a href="#" class="btn btn-outline btn-lg">
+                                <i class="ph ph-download mr-2"></i>Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section style="padding: 4rem 0; background: var(--bg-secondary);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="card stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="card stat-card">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="card stat-card">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="card stat-card">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Blog Articles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>Experience</h2>
+                    <p class="text-muted">My professional journey</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8 mx-auto">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <span class="timeline-date">2022 - Present</span>
+                                        <h3>Senior Full Stack Developer</h3>
+                                        <p class="text-muted mb-2"><i class="ph ph-buildings mr-1"></i>TechCorp Inc.</p>
+                                        <p>Leading a team of developers in building enterprise-scale applications. Architecting solutions using microservices, implementing CI/CD pipelines, and mentoring junior developers.</p>
+                                        <div class="mt-3">
+                                            <span class="chip chip-primary chip-sm">React</span>
+                                            <span class="chip chip-secondary chip-sm">Node.js</span>
+                                            <span class="chip chip-info chip-sm">AWS</span>
+                                            <span class="chip chip-success chip-sm">Docker</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <span class="timeline-date">2020 - 2022</span>
+                                        <h3>Full Stack Developer</h3>
+                                        <p class="text-muted mb-2"><i class="ph ph-buildings mr-1"></i>StartupXYZ</p>
+                                        <p>Developed and maintained multiple web applications for clients across various industries. Implemented responsive designs, RESTful APIs, and database optimizations.</p>
+                                        <div class="mt-3">
+                                            <span class="chip chip-primary chip-sm">Vue.js</span>
+                                            <span class="chip chip-secondary chip-sm">Python</span>
+                                            <span class="chip chip-warning chip-sm">PostgreSQL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <span class="timeline-date">2019 - 2020</span>
+                                        <h3>Junior Web Developer</h3>
+                                        <p class="text-muted mb-2"><i class="ph ph-buildings mr-1"></i>Digital Agency</p>
+                                        <p>Built responsive websites and landing pages for clients. Collaborated with designers to implement pixel-perfect designs and optimized site performance.</p>
+                                        <div class="mt-3">
+                                            <span class="chip chip-primary chip-sm">HTML/CSS</span>
+                                            <span class="chip chip-secondary chip-sm">JavaScript</span>
+                                            <span class="chip chip-success chip-sm">WordPress</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section style="padding: 4rem 0; background: var(--bg-secondary);">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>Education</h2>
+                    <p class="text-muted">My academic background</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-center gap-3 mb-3">
+                                    <i class="ph-fill ph-graduation-cap" style="font-size: 2rem; color: var(--color-primary);"></i>
+                                    <div>
+                                        <h3 class="mb-0">BS Computer Science</h3>
+                                        <p class="text-muted mb-0">University of Technology</p>
+                                    </div>
+                                </div>
+                                <p class="text-muted"><i class="ph ph-calendar mr-1"></i>2015 - 2019</p>
+                                <p>Graduated with honors. Specialized in software engineering and human-computer interaction. Completed capstone project on machine learning applications in web development.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-center gap-3 mb-3">
+                                    <i class="ph-fill ph-certificate" style="font-size: 2rem; color: var(--color-secondary);"></i>
+                                    <div>
+                                        <h3 class="mb-0">UI/UX Design Certification</h3>
+                                        <p class="text-muted mb-0">Design Institute</p>
+                                    </div>
+                                </div>
+                                <p class="text-muted"><i class="ph ph-calendar mr-1"></i>2020</p>
+                                <p>Intensive program covering user research, wireframing, prototyping, and usability testing. Completed portfolio of 5 comprehensive design projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <div class="text-center mb-10">
+                    <h2>What People Say</h2>
+                    <p class="text-muted">Testimonials from colleagues and clients</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="card testimonial-card">
+                            <div class="card-body">
+                                <div class="testimonial-quote">
+                                    John is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding. He's a valuable asset to any team.
+                                </div>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">
+                                        <i class="ph-fill ph-user"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Sarah Johnson</strong>
+                                        <p class="text-muted mb-0">CTO, TechCorp Inc.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-6">
+                        <div class="card testimonial-card">
+                            <div class="card-body">
+                                <div class="testimonial-quote">
+                                    Working with John was a pleasure. He understood our requirements perfectly and delivered a beautiful, functional website that exceeded our expectations. Highly recommended!
+                                </div>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">
+                                        <i class="ph-fill ph-user"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Michael Chen</strong>
+                                        <p class="text-muted mb-0">Founder, StartupXYZ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section style="padding: 4rem 0; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: white;">
+            <div class="container text-center">
+                <h2 style="color: white;">Let's Work Together</h2>
+                <p class="mb-6" style="color: rgba(255,255,255,0.9);">I'm always interested in hearing about new projects and opportunities.</p>
+                <a href="index.html#contact" class="btn btn-lg" style="background: white; color: var(--color-primary);">
+                    <i class="ph ph-paper-plane-right mr-2"></i>Get in Touch
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-6">
+                    <h4><i class="ph-fill ph-user-circle mr-2"></i>Portfolio</h4>
+                    <p class="text-muted">A clean, responsive portfolio template built with Vanduo Framework.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 mb-6">
+                    <h4>Connect</h4>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-github-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-linkedin-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-twitter-logo"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">
+                            <i class="ph-fill ph-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-6 mt-6" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <p class="text-muted">&copy; 2025 John Doe. Built with <a href="../../index.html">Vanduo Framework</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/vanduo.js"></script>
+    <script src="../../js/components/theme-switcher.js"></script>
+    <script src="../../js/components/navbar.js"></script>
+    <script src="../../js/components/tooltips.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 # Vanduo Framework
 
-**Essential just like Water is. From Lithuania 🇱🇹 with love ❤️.** 
+**Essential just like water is.** 
 
 - **Pure HTML, CSS, JS** — just peace of mind and clarity.
 - **No libraries. No NPM. No build tools. No vulnerabilities. No nonsense.**

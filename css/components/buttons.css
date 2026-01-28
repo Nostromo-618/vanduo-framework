@@ -47,11 +47,18 @@
   transition: var(--btn-transition);
   background-color: transparent;
   color: var(--text-primary);
+  margin-bottom: 0.5rem;
 }
 
 /* Button spacing when adjacent */
 .btn + .btn {
   margin-left: 0.5rem;
+}
+
+/* Reset bottom margin in flush contexts */
+.modal-footer .btn,
+.card-footer .btn {
+  margin-bottom: 0;
 }
 
 .btn:focus-visible {

@@ -13,6 +13,7 @@
 .btn-group > .btn {
   position: relative;
   flex: 0 1 auto;
+  margin-bottom: 0;
 }
 
 /* Remove inner border-radius for adjacent buttons */
@@ -45,6 +46,7 @@
 
 .btn-group-vertical > .btn {
   width: 100%;
+  margin-bottom: 0;
 }
 
 .btn-group-vertical > .btn:not(:first-child) {

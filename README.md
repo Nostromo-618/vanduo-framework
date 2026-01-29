@@ -291,5 +291,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Credits
 
-Vanduo Framework - Built with ❤️ for the web.
+- **Color System**: [Open Color](https://yeun.github.io/open-color/) by Heeyeun Jeong (MIT License)
+- **Icons**: [Phosphor Icons](https://phosphoricons.com) (MIT License)
 
+Vanduo Framework - Built with ❤️ for the web.

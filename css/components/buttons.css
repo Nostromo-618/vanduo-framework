@@ -289,6 +289,121 @@
   transform: translateY(1px);
 }
 
+/* Ghost Button Variants */
+.btn-ghost-primary {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--primary-6);
+}
+
+.btn-ghost-primary:hover:not(:disabled):not(.disabled) {
+  background-color: var(--primary-0);
+  color: var(--primary-7);
+}
+
+.btn-ghost-primary:active:not(:disabled):not(.disabled) {
+  background-color: var(--primary-1);
+  color: var(--primary-8);
+}
+
+.btn-ghost-secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--secondary-6);
+}
+
+.btn-ghost-secondary:hover:not(:disabled):not(.disabled) {
+  background-color: var(--secondary-0);
+  color: var(--secondary-7);
+}
+
+.btn-ghost-secondary:active:not(:disabled):not(.disabled) {
+  background-color: var(--secondary-1);
+  color: var(--secondary-8);
+}
+
+.btn-ghost-success {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--success-6);
+}
+
+.btn-ghost-success:hover:not(:disabled):not(.disabled) {
+  background-color: var(--success-0);
+  color: var(--success-7);
+}
+
+.btn-ghost-success:active:not(:disabled):not(.disabled) {
+  background-color: var(--success-1);
+  color: var(--success-8);
+}
+
+.btn-ghost-warning {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--warning-6);
+}
+
+.btn-ghost-warning:hover:not(:disabled):not(.disabled) {
+  background-color: var(--warning-0);
+  color: var(--warning-7);
+}
+
+.btn-ghost-warning:active:not(:disabled):not(.disabled) {
+  background-color: var(--warning-1);
+  color: var(--warning-8);
+}
+
+.btn-ghost-error {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--danger-6);
+}
+
+.btn-ghost-error:hover:not(:disabled):not(.disabled) {
+  background-color: var(--danger-0);
+  color: var(--danger-7);
+}
+
+.btn-ghost-error:active:not(:disabled):not(.disabled) {
+  background-color: var(--danger-1);
+  color: var(--danger-8);
+}
+
+.btn-ghost-info {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--info-6);
+}
+
+.btn-ghost-info:hover:not(:disabled):not(.disabled) {
+  background-color: var(--info-0);
+  color: var(--info-7);
+}
+
+.btn-ghost-info:active:not(:disabled):not(.disabled) {
+  background-color: var(--info-1);
+  color: var(--info-8);
+}
+
+/* Ghost Button with Border (Subtle) */
+.btn-ghost-subtle {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.btn-ghost-subtle:hover:not(:disabled):not(.disabled) {
+  background-color: var(--gray-0);
+  border-color: var(--gray-4);
+  color: var(--text-primary);
+}
+
+.btn-ghost-subtle:active:not(:disabled):not(.disabled) {
+  background-color: var(--gray-1);
+  border-color: var(--gray-5);
+}
+
 /* Button Sizes - Small */
 .btn-sm {
   padding: var(--btn-padding-y-sm) var(--btn-padding-x-sm);

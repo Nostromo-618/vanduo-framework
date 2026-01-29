@@ -305,7 +305,8 @@
 
                             <li class="doc-nav-section">Core</li>
                             <li><a href="#icons" class="doc-nav-link">Icons</a></li>
-                            <li><a href="#typography" class="doc-nav-link">Typography & Colors</a></li>
+                            <li><a href="#color-palette" class="doc-nav-link">Color Palette</a></li>
+                            <li><a href="#typography" class="doc-nav-link">Typography</a></li>
                             <li><a href="#grid-system" class="doc-nav-link">Grid System</a></li>
                             <li><a href="#golden-ratio" class="doc-nav-link">Golden Ratio</a></li>
 
@@ -730,9 +731,524 @@ Vanduo.components.toast.show({
                 </div>
             </section>
 
+            <!-- Color Palette Section -->
+            <section id="color-palette">
+                <h2 class="demo-title">Color Palette</h2>
+                <p class="mb-8">Vanduo uses the <a href="https://yeun.github.io/open-color/" target="_blank" rel="noopener"><strong>Open Color</strong></a> palette (MIT License) — a battle-tested, accessible color system with 10-step scales for each hue. Perfect for the "no-build" philosophy.</p>
+
+                <style>
+                    .color-swatch {
+                        padding: 1rem;
+                        font-size: var(--font-size-sm);
+                        font-family: var(--font-family-mono);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    .color-swatch-name {
+                        font-weight: var(--font-weight-medium);
+                    }
+                    .color-swatch-hex {
+                        opacity: 0.8;
+                    }
+                    .color-scale {
+                        border-radius: var(--btn-border-radius);
+                        overflow: hidden;
+                        margin-bottom: 1.5rem;
+                    }
+                    .color-scale-title {
+                        font-weight: var(--font-weight-semibold);
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    .color-scale-title code {
+                        font-size: var(--font-size-xs);
+                        background: var(--bg-secondary);
+                        padding: 0.125rem 0.375rem;
+                        border-radius: 3px;
+                    }
+                </style>
+
+                <!-- Primary (Cyan) -->
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Primary — Cyan (Brand)</h3>
+                                <p class="text-sm text-muted mb-0">The "Water" brand color for Vanduo</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #e3fafc; color: #0b7285;">
+                                        <span class="color-swatch-name">primary-0</span>
+                                        <span class="color-swatch-hex">#e3fafc</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #c5f6fa; color: #0b7285;">
+                                        <span class="color-swatch-name">primary-1</span>
+                                        <span class="color-swatch-hex">#c5f6fa</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #99e9f2; color: #0b7285;">
+                                        <span class="color-swatch-name">primary-2</span>
+                                        <span class="color-swatch-hex">#99e9f2</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #66d9e8; color: #0b7285;">
+                                        <span class="color-swatch-name">primary-3</span>
+                                        <span class="color-swatch-hex">#66d9e8</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #3bc9db; color: #0b7285;">
+                                        <span class="color-swatch-name">primary-4</span>
+                                        <span class="color-swatch-hex">#3bc9db</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #22b8cf; color: #ffffff;">
+                                        <span class="color-swatch-name">primary-5 ★</span>
+                                        <span class="color-swatch-hex">#22b8cf</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #15aabf; color: #ffffff;">
+                                        <span class="color-swatch-name">primary-6</span>
+                                        <span class="color-swatch-hex">#15aabf</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #1098ad; color: #ffffff;">
+                                        <span class="color-swatch-name">primary-7</span>
+                                        <span class="color-swatch-hex">#1098ad</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #0c8599; color: #ffffff;">
+                                        <span class="color-swatch-name">primary-8</span>
+                                        <span class="color-swatch-hex">#0c8599</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #0b7285; color: #ffffff;">
+                                        <span class="color-swatch-name">primary-9</span>
+                                        <span class="color-swatch-hex">#0b7285</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Secondary — Teal</h3>
+                                <p class="text-sm text-muted mb-0">Complementary to Cyan for secondary actions</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #e6fcf5; color: #087f5b;">
+                                        <span class="color-swatch-name">secondary-0</span>
+                                        <span class="color-swatch-hex">#e6fcf5</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #c3fae8; color: #087f5b;">
+                                        <span class="color-swatch-name">secondary-1</span>
+                                        <span class="color-swatch-hex">#c3fae8</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #96f2d7; color: #087f5b;">
+                                        <span class="color-swatch-name">secondary-2</span>
+                                        <span class="color-swatch-hex">#96f2d7</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #63e6be; color: #087f5b;">
+                                        <span class="color-swatch-name">secondary-3</span>
+                                        <span class="color-swatch-hex">#63e6be</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #38d9a9; color: #087f5b;">
+                                        <span class="color-swatch-name">secondary-4</span>
+                                        <span class="color-swatch-hex">#38d9a9</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #20c997; color: #ffffff;">
+                                        <span class="color-swatch-name">secondary-5 ★</span>
+                                        <span class="color-swatch-hex">#20c997</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #12b886; color: #ffffff;">
+                                        <span class="color-swatch-name">secondary-6</span>
+                                        <span class="color-swatch-hex">#12b886</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #0ca678; color: #ffffff;">
+                                        <span class="color-swatch-name">secondary-7</span>
+                                        <span class="color-swatch-hex">#0ca678</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #099268; color: #ffffff;">
+                                        <span class="color-swatch-name">secondary-8</span>
+                                        <span class="color-swatch-hex">#099268</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #087f5b; color: #ffffff;">
+                                        <span class="color-swatch-name">secondary-9</span>
+                                        <span class="color-swatch-hex">#087f5b</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gray (Neutrals) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Gray — Neutrals</h3>
+                                <p class="text-sm text-muted mb-0">Used for backgrounds, borders, text, and UI structure</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="row" style="margin: 0;">
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #f8f9fa; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-0</span>
+                                            <span class="color-swatch-hex">#f8f9fa</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #f1f3f5; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-1</span>
+                                            <span class="color-swatch-hex">#f1f3f5</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #e9ecef; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-2</span>
+                                            <span class="color-swatch-hex">#e9ecef</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #dee2e6; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-3</span>
+                                            <span class="color-swatch-hex">#dee2e6</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #ced4da; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-4</span>
+                                            <span class="color-swatch-hex">#ced4da</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #adb5bd; color: #212529; border-bottom: 1px solid var(--border-color);">
+                                            <span class="color-swatch-name">gray-5</span>
+                                            <span class="color-swatch-hex">#adb5bd</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #868e96; color: #ffffff;">
+                                            <span class="color-swatch-name">gray-6</span>
+                                            <span class="color-swatch-hex">#868e96</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #495057; color: #ffffff;">
+                                            <span class="color-swatch-name">gray-7</span>
+                                            <span class="color-swatch-hex">#495057</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #343a40; color: #ffffff;">
+                                            <span class="color-swatch-name">gray-8</span>
+                                            <span class="color-swatch-hex">#343a40</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4" style="padding: 0;">
+                                        <div class="color-swatch" style="background: #212529; color: #ffffff;">
+                                            <span class="color-swatch-name">gray-9</span>
+                                            <span class="color-swatch-hex">#212529</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Functional Colors -->
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Danger — Red</h3>
+                                <p class="text-sm text-muted mb-0">Error states, destructive actions</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #fff5f5; color: #c92a2a;">
+                                        <span class="color-swatch-name">danger-0</span>
+                                        <span class="color-swatch-hex">#fff5f5</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffe3e3; color: #c92a2a;">
+                                        <span class="color-swatch-name">danger-1</span>
+                                        <span class="color-swatch-hex">#ffe3e3</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffc9c9; color: #c92a2a;">
+                                        <span class="color-swatch-name">danger-2</span>
+                                        <span class="color-swatch-hex">#ffc9c9</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffa8a8; color: #c92a2a;">
+                                        <span class="color-swatch-name">danger-3</span>
+                                        <span class="color-swatch-hex">#ffa8a8</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ff8787; color: #c92a2a;">
+                                        <span class="color-swatch-name">danger-4</span>
+                                        <span class="color-swatch-hex">#ff8787</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ff6b6b; color: #ffffff;">
+                                        <span class="color-swatch-name">danger-5</span>
+                                        <span class="color-swatch-hex">#ff6b6b</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #fa5252; color: #ffffff;">
+                                        <span class="color-swatch-name">danger-6 ★</span>
+                                        <span class="color-swatch-hex">#fa5252</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #f03e3e; color: #ffffff;">
+                                        <span class="color-swatch-name">danger-7</span>
+                                        <span class="color-swatch-hex">#f03e3e</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #e03131; color: #ffffff;">
+                                        <span class="color-swatch-name">danger-8</span>
+                                        <span class="color-swatch-hex">#e03131</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #c92a2a; color: #ffffff;">
+                                        <span class="color-swatch-name">danger-9</span>
+                                        <span class="color-swatch-hex">#c92a2a</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Success — Green</h3>
+                                <p class="text-sm text-muted mb-0">Success states, confirmations</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #ebfbee; color: #2b8a3e;">
+                                        <span class="color-swatch-name">success-0</span>
+                                        <span class="color-swatch-hex">#ebfbee</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #d3f9d8; color: #2b8a3e;">
+                                        <span class="color-swatch-name">success-1</span>
+                                        <span class="color-swatch-hex">#d3f9d8</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #b2f2bb; color: #2b8a3e;">
+                                        <span class="color-swatch-name">success-2</span>
+                                        <span class="color-swatch-hex">#b2f2bb</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #8ce99a; color: #2b8a3e;">
+                                        <span class="color-swatch-name">success-3</span>
+                                        <span class="color-swatch-hex">#8ce99a</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #69db7c; color: #2b8a3e;">
+                                        <span class="color-swatch-name">success-4</span>
+                                        <span class="color-swatch-hex">#69db7c</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #51cf66; color: #ffffff;">
+                                        <span class="color-swatch-name">success-5</span>
+                                        <span class="color-swatch-hex">#51cf66</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #40c057; color: #ffffff;">
+                                        <span class="color-swatch-name">success-6 ★</span>
+                                        <span class="color-swatch-hex">#40c057</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #37b24d; color: #ffffff;">
+                                        <span class="color-swatch-name">success-7</span>
+                                        <span class="color-swatch-hex">#37b24d</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #2f9e44; color: #ffffff;">
+                                        <span class="color-swatch-name">success-8</span>
+                                        <span class="color-swatch-hex">#2f9e44</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #2b8a3e; color: #ffffff;">
+                                        <span class="color-swatch-name">success-9</span>
+                                        <span class="color-swatch-hex">#2b8a3e</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Warning — Yellow</h3>
+                                <p class="text-sm text-muted mb-0">Warnings, cautions, attention</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #fff9db; color: #e67700;">
+                                        <span class="color-swatch-name">warning-0</span>
+                                        <span class="color-swatch-hex">#fff9db</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #fff3bf; color: #e67700;">
+                                        <span class="color-swatch-name">warning-1</span>
+                                        <span class="color-swatch-hex">#fff3bf</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffec99; color: #e67700;">
+                                        <span class="color-swatch-name">warning-2</span>
+                                        <span class="color-swatch-hex">#ffec99</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffe066; color: #e67700;">
+                                        <span class="color-swatch-name">warning-3</span>
+                                        <span class="color-swatch-hex">#ffe066</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #ffd43b; color: #e67700;">
+                                        <span class="color-swatch-name">warning-4</span>
+                                        <span class="color-swatch-hex">#ffd43b</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #fcc419; color: #212529;">
+                                        <span class="color-swatch-name">warning-5</span>
+                                        <span class="color-swatch-hex">#fcc419</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #fab005; color: #212529;">
+                                        <span class="color-swatch-name">warning-6 ★</span>
+                                        <span class="color-swatch-hex">#fab005</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #f59f00; color: #212529;">
+                                        <span class="color-swatch-name">warning-7</span>
+                                        <span class="color-swatch-hex">#f59f00</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #f08c00; color: #ffffff;">
+                                        <span class="color-swatch-name">warning-8</span>
+                                        <span class="color-swatch-hex">#f08c00</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #e67700; color: #ffffff;">
+                                        <span class="color-swatch-name">warning-9</span>
+                                        <span class="color-swatch-hex">#e67700</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Info — Blue</h3>
+                                <p class="text-sm text-muted mb-0">Information, help, neutral feedback</p>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="color-scale">
+                                    <div class="color-swatch" style="background: #e7f5ff; color: #1864ab;">
+                                        <span class="color-swatch-name">info-0</span>
+                                        <span class="color-swatch-hex">#e7f5ff</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #d0ebff; color: #1864ab;">
+                                        <span class="color-swatch-name">info-1</span>
+                                        <span class="color-swatch-hex">#d0ebff</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #a5d8ff; color: #1864ab;">
+                                        <span class="color-swatch-name">info-2</span>
+                                        <span class="color-swatch-hex">#a5d8ff</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #74c0fc; color: #1864ab;">
+                                        <span class="color-swatch-name">info-3</span>
+                                        <span class="color-swatch-hex">#74c0fc</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #4dabf7; color: #1864ab;">
+                                        <span class="color-swatch-name">info-4</span>
+                                        <span class="color-swatch-hex">#4dabf7</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #339af0; color: #ffffff;">
+                                        <span class="color-swatch-name">info-5</span>
+                                        <span class="color-swatch-hex">#339af0</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #228be6; color: #ffffff;">
+                                        <span class="color-swatch-name">info-6 ★</span>
+                                        <span class="color-swatch-hex">#228be6</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #1c7ed6; color: #ffffff;">
+                                        <span class="color-swatch-name">info-7</span>
+                                        <span class="color-swatch-hex">#1c7ed6</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #1971c2; color: #ffffff;">
+                                        <span class="color-swatch-name">info-8</span>
+                                        <span class="color-swatch-hex">#1971c2</span>
+                                    </div>
+                                    <div class="color-swatch" style="background: #1864ab; color: #ffffff;">
+                                        <span class="color-swatch-name">info-9</span>
+                                        <span class="color-swatch-hex">#1864ab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Guide -->
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>CSS Variable Usage</h3>
+                            </div>
+                            <div class="card-body">
+                                <pre class="code-example"><code>/* Direct scale access */
+.my-element {
+  background: var(--primary-0);  /* Lightest */
+  color: var(--primary-9);       /* Darkest */
+}
+
+/* Semantic aliases (recommended) */
+.my-button {
+  background: var(--color-primary);
+  border-color: var(--color-primary-dark);
+}
+
+/* Hover states using scale */
+.my-button:hover {
+  background: var(--primary-6);
+}
+
+.my-button:active {
+  background: var(--primary-7);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Theming Guide</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-3">To change the primary color to another Open Color hue (e.g., Violet):</p>
+                                <pre class="code-example"><code>:root {
+  /* Swap Cyan with Violet */
+  --primary-0: #f3f0ff;
+  --primary-1: #e5dbff;
+  --primary-2: #d0bfff;
+  --primary-3: #b197fc;
+  --primary-4: #9775fa;
+  --primary-5: #845ef7;
+  --primary-6: #7950f2;
+  --primary-7: #7048e8;
+  --primary-8: #6741d9;
+  --primary-9: #5f3dc4;
+}</code></pre>
+                                <p class="text-sm text-muted mt-3">All components using <code>--primary-*</code> or <code>--color-primary</code> will automatically update.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Attribution -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="text-muted">
+                                    <i class="ph ph-palette" style="color: var(--color-primary);"></i>
+                                    Color palette based on <a href="https://yeun.github.io/open-color/" target="_blank" rel="noopener"><strong>Open Color</strong></a> by Heeyeun Jeong — MIT Licensed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Typography Section -->
             <section id="typography">
-                <h2 class="demo-title">Typography & Colors</h2>
+                <h2 class="demo-title">Typography</h2>
 
                 <div class="row">
                     <div class="col-12 col-md-6">

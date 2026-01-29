@@ -69,15 +69,6 @@ Planned features and improvements for the Vanduo Framework.
 
 ---
 
-## Contributing
-
-If you'd like to contribute to any of these items, please:
-1. Open an issue to discuss the implementation approach
-2. Reference the roadmap item in your PR
-3. Follow the existing code style and patterns
-
----
-
 ## Issue Reference
 
 These items were originally tracked in `ISSUES_AND_IMPROVEMENTS.md` and have been migrated to this roadmap:

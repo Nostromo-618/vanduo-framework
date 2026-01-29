@@ -1,4 +1,4 @@
-# Vanduo Framework
+# Vanduo Framework v1.0.0
 
 **Essential just like water is.** 
 
@@ -94,8 +94,12 @@ vanduo-framework/
 │   ├── vanduo.js          # Main framework file
 │   ├── components/        # Component JavaScript
 │   └── utils/            # Utility functions
-└── examples/              # Example pages
-    └── index.html
+├── icons/                 # Phosphor Icons
+├── fonts/                 # Web fonts
+├── templates/             # Starter templates
+├── index.html             # Framework homepage
+├── documentation.html     # Full documentation
+└── showcase.html          # Template gallery
 ```
 
 ## Usage Examples
@@ -215,8 +219,6 @@ The framework now includes comprehensive SEO features:
 - ✅ Canonical URLs and proper meta tags
 - ✅ Favicon support
 
-See [SEO-IMPLEMENTATION.md](SEO-IMPLEMENTATION.md) for detailed implementation guide and deployment checklist.
-
 ## Icons
 
 Vanduo includes [Phosphor Icons](https://phosphoricons.com) - a flexible icon family with 1,500+ icons in 6 weights.
@@ -265,18 +267,6 @@ Icons are font-based and can be styled with CSS:
 ```
 
 > **Note:** For SVG icons or advanced use cases, visit [phosphoricons.com](https://phosphoricons.com) to download individual SVG files.
-
-## Development Server
-
-A development server is included for easy testing and collaboration:
-
-```bash
-cd devUtils
-npm install
-npm start
-```
-
-The server will start on `http://localhost:3000` and serve the example page. See [devUtils/README.md](devUtils/README.md) for more details.
 
 ## Browser Support
 

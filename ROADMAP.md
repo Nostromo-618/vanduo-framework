@@ -7,6 +7,7 @@ Planned features and improvements for the Vanduo Framework.
 ## High Priority
 
 ### Documentation
+- [x] **Multi-page Documentation** - Site restructured into Home, Documentation, and Showcase pages with dedicated navigation
 - [ ] **Theme Switching Documentation** - Dark mode exists via `[data-theme="dark"]` and `theme-switcher.js`, but README doesn't mention it
 - [ ] **CSS Variable Customization Guide** - No guide on how to override `--color-primary`, `--btn-border-radius`, etc.
 - [ ] **Modular Import Strategy** - README shows file structure but doesn't explain how to import only specific components

@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+#### Website Restructuring
+- **Restructured from single-page to multi-page architecture:**
+  - `index.html` — Clean home page with framework overview, core philosophy, and quick start
+  - `documentation.html` — Full component documentation with sticky sidebar navigation and scroll-spy
+  - `showcase.html` — Template gallery (elevated from `templates/index.html`)
+- **Navbar simplified** from 21 section links to 3 page links (Home, Documentation, Showcase)
+- **Documentation page** features sticky sidebar with scroll-spy, grouped section navigation, and mobile-responsive collapse
+- **SEO improved:** Each page has unique meta tags, canonical URLs, and JSON-LD structured data
+- **Sitemap updated** from hash-fragment URLs to actual page URLs for proper search engine indexing
+- **`templates/index.html`** now redirects to `showcase.html` for backward compatibility
+
 ### Added
 
 #### Code Snippet Component

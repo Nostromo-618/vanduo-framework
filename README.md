@@ -502,8 +502,7 @@ vanduo-framework/
 ├── fonts/                 # Web fonts
 ├── templates/             # Starter templates
 ├── index.html             # Framework homepage
-├── documentation.html     # Full documentation
-└── showcase.html          # Template gallery
+└── documentation.html     # Full documentation
 ```
 
 ## Usage Examples

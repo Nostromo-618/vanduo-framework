@@ -15,20 +15,4 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Showcase page -->
-  <url>
-    <loc>https://vanduo.dev/showcase.html</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Portfolio template -->
-  <url>
-    <loc>https://vanduo.dev/templates/portfolio/index.html</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
 </urlset>

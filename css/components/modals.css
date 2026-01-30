@@ -92,6 +92,7 @@
   pointer-events: none;
   transform: scale(0.95);
   transition: var(--modal-dialog-transition);
+  z-index: 1060;
 }
 
 .modal.is-open .modal-dialog {

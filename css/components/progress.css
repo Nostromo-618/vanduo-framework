@@ -101,7 +101,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --progress-bg: var(--bg-tertiary, #2d3748);
   }
 }

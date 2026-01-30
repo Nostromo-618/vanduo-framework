@@ -31,7 +31,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --avatar-bg: var(--color-gray-600);
     --avatar-text: var(--color-gray-200);
     --avatar-border: var(--color-gray-800);

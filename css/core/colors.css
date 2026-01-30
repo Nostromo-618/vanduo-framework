@@ -15,31 +15,44 @@
   /* --- NEUTRALS: Gray Scale (Open Color Gray 0-9) ---
    * Used for: Backgrounds, borders, text, and UI structure
    */
-  --gray-0: #f8f9fa;  /* Lightest - hover backgrounds, light sections */
+  --gray-0: #f8f9fa;
+  /* Lightest - hover backgrounds, light sections */
   --gray-1: #f1f3f5;
-  --gray-2: #e9ecef;  /* Secondary backgrounds, cards */
-  --gray-3: #dee2e6;  /* Borders, dividers */
+  --gray-2: #e9ecef;
+  /* Secondary backgrounds, cards */
+  --gray-3: #dee2e6;
+  /* Borders, dividers */
   --gray-4: #ced4da;
-  --gray-5: #adb5bd;  /* Disabled text, placeholders */
-  --gray-6: #868e96;  /* Muted text */
-  --gray-7: #495057;  /* Secondary text */
-  --gray-8: #343a40;  /* Primary text */
-  --gray-9: #212529;  /* Darkest - headings, dark mode backgrounds */
+  --gray-5: #adb5bd;
+  /* Disabled text, placeholders */
+  --gray-6: #868e96;
+  /* Muted text */
+  --gray-7: #495057;
+  /* Secondary text */
+  --gray-8: #343a40;
+  /* Primary text */
+  --gray-9: #212529;
+  /* Darkest - headings, dark mode backgrounds */
 
   /* --- PRIMARY: Cyan Scale (Open Color Cyan 0-9) ---
    * The "Water" brand color - perfect for Vanduo
    * Used for: Buttons, links, highlights, brand elements
    */
-  --primary-0: #e3fafc;  /* Lightest - hover backgrounds, highlights */
+  --primary-0: #e3fafc;
+  /* Lightest - hover backgrounds, highlights */
   --primary-1: #c5f6fa;
   --primary-2: #99e9f2;
   --primary-3: #66d9e8;
   --primary-4: #3bc9db;
-  --primary-5: #22b8cf;  /* ★ Main brand color */
-  --primary-6: #15aabf;  /* Hover state */
-  --primary-7: #1098ad;  /* Active state */
+  --primary-5: #22b8cf;
+  /* ★ Main brand color */
+  --primary-6: #15aabf;
+  /* Hover state */
+  --primary-7: #1098ad;
+  /* Active state */
   --primary-8: #0c8599;
-  --primary-9: #0b7285;  /* Darkest - pressed state */
+  --primary-9: #0b7285;
+  /* Darkest - pressed state */
 
   /* --- SECONDARY: Teal Scale (Open Color Teal 0-9) ---
    * Complementary to Cyan for secondary actions
@@ -49,9 +62,12 @@
   --secondary-2: #96f2d7;
   --secondary-3: #63e6be;
   --secondary-4: #38d9a9;
-  --secondary-5: #20c997;  /* ★ Main secondary color */
-  --secondary-6: #12b886;  /* Hover state */
-  --secondary-7: #0ca678;  /* Active state */
+  --secondary-5: #20c997;
+  /* ★ Main secondary color */
+  --secondary-6: #12b886;
+  /* Hover state */
+  --secondary-7: #0ca678;
+  /* Active state */
   --secondary-8: #099268;
   --secondary-9: #087f5b;
 
@@ -66,10 +82,13 @@
   --danger-3: #ffa8a8;
   --danger-4: #ff8787;
   --danger-5: #ff6b6b;
-  --danger-6: #fa5252;  /* ★ Main danger color */
-  --danger-7: #f03e3e;  /* Hover state */
+  --danger-6: #fa5252;
+  /* ★ Main danger color */
+  --danger-7: #f03e3e;
+  /* Hover state */
   --danger-8: #e03131;
-  --danger-9: #c92a2a;  /* Active state */
+  --danger-9: #c92a2a;
+  /* Active state */
 
   /* Error aliases (maps to danger scale for consistent naming) */
   --error-0: var(--danger-0);
@@ -90,10 +109,13 @@
   --success-3: #8ce99a;
   --success-4: #69db7c;
   --success-5: #51cf66;
-  --success-6: #40c057;  /* ★ Main success color */
-  --success-7: #37b24d;  /* Hover state */
+  --success-6: #40c057;
+  /* ★ Main success color */
+  --success-7: #37b24d;
+  /* Hover state */
   --success-8: #2f9e44;
-  --success-9: #2b8a3e;  /* Active state */
+  --success-9: #2b8a3e;
+  /* Active state */
 
   /* Warning - Open Color Yellow */
   --warning-0: #fff9db;
@@ -102,10 +124,13 @@
   --warning-3: #ffe066;
   --warning-4: #ffd43b;
   --warning-5: #fcc419;
-  --warning-6: #fab005;  /* ★ Main warning color */
-  --warning-7: #f59f00;  /* Hover state */
+  --warning-6: #fab005;
+  /* ★ Main warning color */
+  --warning-7: #f59f00;
+  /* Hover state */
   --warning-8: #f08c00;
-  --warning-9: #e67700;  /* Active state */
+  --warning-9: #e67700;
+  /* Active state */
 
   /* Info - Open Color Blue (complementary to Cyan) */
   --info-0: #e7f5ff;
@@ -114,10 +139,13 @@
   --info-3: #74c0fc;
   --info-4: #4dabf7;
   --info-5: #339af0;
-  --info-6: #228be6;  /* ★ Main info color */
-  --info-7: #1c7ed6;  /* Hover state */
+  --info-6: #228be6;
+  /* ★ Main info color */
+  --info-7: #1c7ed6;
+  /* Hover state */
   --info-8: #1971c2;
-  --info-9: #1864ab;  /* Active state */
+  --info-9: #1864ab;
+  /* Active state */
 
   /* ═══════════════════════════════════════════════════════════════════════
    * SEMANTIC ALIASES
@@ -185,7 +213,8 @@
   --color-gray-600: var(--gray-7);
   --color-gray-700: var(--gray-8);
   --color-gray-800: var(--gray-9);
-  --color-gray-900: #1a1d20; /* Slightly darker than gray-9 */
+  --color-gray-900: #1a1d20;
+  /* Slightly darker than gray-9 */
 
   /* ═══════════════════════════════════════════════════════════════════════
    * APPLICATION-SPECIFIC VARIABLES
@@ -216,55 +245,146 @@
   --color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
   --color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
   --color-success-alpha-10: rgba(64, 192, 87, 0.1);
+  --color-success-alpha-20: rgba(64, 192, 87, 0.2);
   --color-error-alpha-10: rgba(250, 82, 82, 0.1);
+  --color-error-alpha-20: rgba(250, 82, 82, 0.2);
   --color-warning-alpha-10: rgba(250, 176, 5, 0.1);
+  --color-warning-alpha-20: rgba(250, 176, 5, 0.2);
   --color-info-alpha-10: rgba(34, 139, 230, 0.1);
+  --color-info-alpha-20: rgba(34, 139, 230, 0.2);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
  * BACKGROUND COLOR UTILITIES
  * ═════════════════════════════════════════════════════════════════════════ */
 
-.bg-primary { background-color: var(--color-primary); }
-.bg-secondary { background-color: var(--color-secondary); }
-.bg-accent { background-color: var(--color-accent); }
-.bg-success { background-color: var(--color-success); }
-.bg-warning { background-color: var(--color-warning); }
-.bg-error { background-color: var(--color-error); }
-.bg-info { background-color: var(--color-info); }
-.bg-white { background-color: var(--color-white); }
-.bg-black { background-color: var(--color-black); }
-.bg-dark { background-color: var(--bg-dark); }
-.bg-light { background-color: var(--bg-secondary); }
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
+}
+
+.bg-error {
+  background-color: var(--color-error);
+}
+
+.bg-info {
+  background-color: var(--color-info);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-black {
+  background-color: var(--color-black);
+}
+
+.bg-dark {
+  background-color: var(--bg-dark);
+}
+
+.bg-light {
+  background-color: var(--bg-secondary);
+}
 
 /* ═════════════════════════════════════════════════════════════════════════
  * TEXT COLOR UTILITIES
  * ═════════════════════════════════════════════════════════════════════════ */
 
-.text-primary { color: var(--color-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-success { color: var(--color-success); }
-.text-warning { color: var(--color-warning); }
-.text-error { color: var(--color-error); }
-.text-info { color: var(--color-info); }
-.text-white { color: var(--color-white); }
-.text-black { color: var(--color-black); }
-.text-muted { color: var(--text-muted); }
-.text-light { color: var(--text-light); }
-.text-inverse { color: var(--text-inverse); }
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-black {
+  color: var(--color-black);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-light {
+  color: var(--text-light);
+}
+
+.text-inverse {
+  color: var(--text-inverse);
+}
 
 /* ═════════════════════════════════════════════════════════════════════════
  * BORDER COLOR UTILITIES
  * ═════════════════════════════════════════════════════════════════════════ */
 
-.border-primary { border-color: var(--color-primary); }
-.border-secondary { border-color: var(--color-secondary); }
-.border-success { border-color: var(--color-success); }
-.border-warning { border-color: var(--color-warning); }
-.border-error { border-color: var(--color-error); }
-.border-info { border-color: var(--color-info); }
-.border-light { border-color: var(--border-color-light); }
-.border-dark { border-color: var(--border-color-dark); }
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+.border-success {
+  border-color: var(--color-success);
+}
+
+.border-warning {
+  border-color: var(--color-warning);
+}
+
+.border-error {
+  border-color: var(--color-error);
+}
+
+.border-info {
+  border-color: var(--color-info);
+}
+
+.border-light {
+  border-color: var(--border-color-light);
+}
+
+.border-dark {
+  border-color: var(--border-color-dark);
+}
 
 /* ═════════════════════════════════════════════════════════════════════════
  * DARK THEME OVERRIDES
@@ -307,7 +427,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     /* Background Colors */
     --bg-primary: var(--gray-9);
     --bg-secondary: var(--gray-8);

@@ -1,5 +1,14 @@
-/devUtils/node_modules
-/devUtils/package-lock.json
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Package manager
+# pnpm-lock.yaml (Committed to ensure reproducible tool versions)
+.pnpm-store
+
+# OS files
 .DS_Store
 
 # Downloaded icon assets (use icons/ folder instead)
@@ -16,3 +25,4 @@
 /favicon-32x32.png
 /apple-touch-icon.png
 
+review_20260130.md

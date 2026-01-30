@@ -36,7 +36,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --pagination-bg: var(--bg-secondary);
     --pagination-link-bg: var(--bg-secondary);
     --pagination-link-bg-hover: var(--bg-primary);

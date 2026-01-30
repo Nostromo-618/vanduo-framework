@@ -19,8 +19,334 @@ A lightweight, pure HTML/CSS/JS framework for designing beautiful static website
 - 📱 **Responsive** - Mobile-first design approach
 - 🎯 **Utility-First** - Flexible utility classes for rapid development
 - 🧩 **Modular** - Import only what you need
-- ♿ **Accessible** - Built with accessibility in mind
+- ♿ **Accessible** - Built with accessibility in mind (WCAG 2.1 AA)
+- 🌙 **Dark Mode** - Automatic OS preference detection + manual toggle
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
+
+---
+
+## Dark Mode
+
+Vanduo includes a two-layer dark mode system that works out of the box.
+
+### How It Works
+
+1. **Automatic** — Respects `prefers-color-scheme: dark` system preference
+2. **Manual Override** — Use `data-theme="dark"` attribute on `<html>`
+
+### Usage
+
+```html
+<!-- Automatic (uses system preference) -->
+<html lang="en">
+
+<!-- Force dark mode -->
+<html lang="en" data-theme="dark">
+
+<!-- Force light mode (overrides system preference) -->
+<html lang="en" data-theme="light">
+```
+
+### JavaScript Theme Toggle
+
+```javascript
+// Toggle between light and dark
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+
+// Persist preference
+localStorage.setItem('theme', 'dark');
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || '');
+```
+
+### CSS Variables in Dark Mode
+
+All semantic color variables automatically adjust in dark mode:
+
+| Variable | Light Mode | Dark Mode |
+|----------|------------|-----------|
+| `--bg-primary` | White | Gray-9 |
+| `--bg-secondary` | Gray-0 | Gray-8 |
+| `--text-primary` | Gray-9 | Gray-0 |
+| `--text-secondary` | Gray-7 | Gray-4 |
+| `--border-color` | Gray-3 | Gray-7 |
+
+---
+
+## CSS Customization
+
+Vanduo uses CSS custom properties (variables) for theming. Override them to customize your design.
+
+### Primary Theme Colors
+
+```css
+:root {
+  /* Change primary color to indigo */
+  --color-primary: var(--indigo-6);
+  --color-primary-light: var(--indigo-5);
+  --color-primary-dark: var(--indigo-7);
+  
+  /* Change secondary color */
+  --color-secondary: var(--violet-6);
+}
+```
+
+### Typography
+
+```css
+:root {
+  /* Custom font family */
+  --font-family-base: 'Your Font', system-ui, sans-serif;
+  
+  /* Adjust base font size (scales all typography) */
+  --font-size-base: 1rem;
+  
+  /* Custom line height */
+  --line-height-base: 1.618; /* Golden ratio */
+}
+```
+
+### Spacing & Layout
+
+```css
+:root {
+  /* Container max-widths (Fibonacci-based) */
+  --container-sm: 521px;   /* Lucas */
+  --container-md: 610px;   /* Fibonacci */
+  --container-lg: 987px;   /* Fibonacci */
+  --container-xl: 1364px;  /* Lucas */
+  --container-2xl: 1597px; /* Fibonacci */
+  
+  /* Border radius (Fibonacci-based) */
+  --radius-sm: 0.125rem;  /* 2px */
+  --radius-md: 0.25rem;   /* 4px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.8125rem; /* 13px */
+}
+```
+
+### Color Palette
+
+Vanduo uses [Open Color](https://yeun.github.io/open-color/) with 10 shades (0-9) for each color:
+
+```css
+/* Available color scales */
+--gray-0 to --gray-9
+--red-0 to --red-9
+--orange-0 to --orange-9
+--yellow-0 to --yellow-9
+--green-0 to --green-9
+--teal-0 to --teal-9
+--cyan-0 to --cyan-9
+--blue-0 to --blue-9
+--indigo-0 to --indigo-9
+--violet-0 to --violet-9
+--pink-0 to --pink-9
+
+/* Semantic aliases */
+--color-primary        /* Default: cyan-6 */
+--color-secondary      /* Default: gray-6 */
+--color-success        /* Default: green-6 */
+--color-error          /* Default: red-6 */
+--color-warning        /* Default: yellow-6 */
+--color-info           /* Default: blue-6 */
+
+/* Alpha variants for overlays/hover states */
+--color-primary-alpha-10   /* 10% opacity */
+--color-primary-alpha-20   /* 20% opacity */
+```
+
+---
+
+## Modular Import Guide
+
+For optimal performance, import only what you need. **Order matters** — dependencies must load first.
+
+### Required (Core)
+
+Always include these first, in this exact order:
+
+```html
+<!-- 1. Reset (must be first) -->
+<link rel="stylesheet" href="css/core/reset.css">
+
+<!-- 2. Colors (defines all CSS variables) -->
+<link rel="stylesheet" href="css/core/colors.css">
+
+<!-- 3. Typography (depends on colors) -->
+<link rel="stylesheet" href="css/core/typography.css">
+
+<!-- 4. Grid (layout system) -->
+<link rel="stylesheet" href="css/core/grid.css">
+
+<!-- 5. Helpers (spacing, display, etc.) -->
+<link rel="stylesheet" href="css/core/helpers.css">
+```
+
+### Optional (Pick What You Need)
+
+After core, add components in any order:
+
+```html
+<!-- Components -->
+<link rel="stylesheet" href="css/components/buttons.css">
+<link rel="stylesheet" href="css/components/forms.css">
+<link rel="stylesheet" href="css/components/cards.css">
+<link rel="stylesheet" href="css/components/navbar.css">
+<link rel="stylesheet" href="css/components/modals.css">
+<!-- ... add more as needed -->
+
+<!-- Utilities -->
+<link rel="stylesheet" href="css/utilities/shadow.css">
+<link rel="stylesheet" href="css/utilities/transitions.css">
+```
+
+### Dependency Map
+
+| Component | Requires |
+|-----------|----------|
+| All components | `core/colors.css` |
+| `forms.css` | `core/typography.css` |
+| `navbar.css` | `components/buttons.css` (optional) |
+| `modals.css` | `utilities/transitions.css` (recommended) |
+| `tooltips.css` | `utilities/shadow.css` |
+
+### All-in-One (Quick Start)
+
+For prototyping, just use the bundled file:
+
+```html
+<link rel="stylesheet" href="css/vanduo.css">
+```
+
+---
+
+## Accessibility (WCAG 2.1)
+
+Vanduo is built with accessibility as a priority.
+
+### Keyboard Navigation
+
+- ✅ All interactive elements are focusable
+- ✅ `focus-visible` for keyboard-only focus rings
+- ✅ Skip links supported via `.skip-link` class
+- ✅ Dropdown/modal keyboard navigation (Arrow keys, Escape, Tab)
+
+### Visual
+
+- ✅ Minimum 4.5:1 contrast ratio for text (WCAG AA)
+- ✅ 3:1 contrast ratio for large text and UI components
+- ✅ Focus indicators visible in both light and dark mode
+- ✅ Color is not the only indicator of state (icons/text accompany colors)
+
+### Motion
+
+- ✅ `prefers-reduced-motion` respected
+- ✅ Animations can be disabled system-wide
+
+### Touch
+
+- ✅ Minimum 44×44px touch targets on mobile
+- ✅ Adequate spacing between interactive elements
+
+### Screen Readers
+
+- ✅ Semantic HTML structure
+- ✅ ARIA labels on icon-only buttons
+- ✅ Live regions for dynamic content (toasts)
+
+---
+
+## Utility Reference
+
+### Z-Index Scale
+
+Vanduo uses a standardized z-index scale (steps of 10) to manage stacking order.
+
+| Class | Value | Usage |
+|-------|-------|-------|
+| `.z-negative` | -1 | Background elements |
+| `.z-0` | 0 | Default content |
+| `.z-10` | 10 | Dropdowns, tooltips |
+| `.z-20` | 20 | Sticky headers |
+| `.z-30` | 30 | Fixed overlays |
+| `.z-40` | 40 | Modals, dialogs |
+| `.z-50` | 50 | High priority notifications (toasts) |
+
+---
+
+## Backend Integration
+
+Vanduo is a static framework, but you can easily add backend functionality to forms.
+
+### Contact Forms
+
+For static sites, we recommend using a service like [Formspree](https://formspree.io) or Netlify Forms.
+
+#### Example (Formspree)
+
+```html
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" class="input" required>
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea name="message" id="message" class="textarea" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+```
+
+#### Example (Netlify)
+
+```html
+<form name="contact" method="POST" data-netlify="true">
+  <!-- ... fields ... -->
+</form>
+```
+
+---
+
+## Browser Compatibility
+
+### Fully Supported
+
+| Browser | Version | Notes |
+|---------|---------|-------|
+| Chrome | 105+ | Full support |
+| Firefox | 121+ | Full support |
+| Safari | 15.4+ | Full support |
+| Edge | 105+ | Full support (Chromium-based) |
+
+### Modern CSS Features Used
+
+| Feature | Support | Fallback |
+|---------|---------|----------|
+| CSS Custom Properties | ✅ All modern | — |
+| `color-mix()` | ✅ Chrome 111+, Firefox 113+, Safari 16.2+ | Solid fallback colors |
+| `:has()` selector | ✅ Chrome 105+, Firefox 121+, Safari 15.4+ | JS alternatives available |
+| `@container` queries | ✅ Chrome 105+, Safari 16+ | Width-based media queries |
+| `gap` in flexbox | ✅ All modern | Margin fallbacks |
+
+### Not Supported
+
+- Internet Explorer (any version)
+- Chrome < 105
+- Firefox < 113
+- Safari < 15.4
+
+### Testing Your Site
+
+```bash
+# Check feature support for your target browsers
+npx browserslist "last 2 Chrome versions, last 2 Firefox versions, last 2 Safari versions"
+```
+
 
 ## Quick Start
 

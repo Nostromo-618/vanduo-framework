@@ -30,7 +30,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     /* Invert light/dark badge colors for visibility */
   }
 }
@@ -47,12 +47,12 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .badge-light {
+  :root:not([data-theme]) .badge-light {
     background-color: var(--color-gray-700);
     color: var(--color-gray-100);
   }
 
-  :root:not([data-theme="light"]) .badge-outlined.badge-light {
+  :root:not([data-theme]) .badge-outlined.badge-light {
     color: var(--color-gray-300);
     border-color: var(--color-gray-500);
   }

@@ -38,7 +38,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --navbar-bg: var(--bg-primary);
     --navbar-text-color: var(--text-primary);
     --navbar-link-color: var(--text-primary);

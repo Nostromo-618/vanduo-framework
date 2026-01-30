@@ -17,7 +17,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --skeleton-bg: var(--color-gray-700);
     --skeleton-shimmer: var(--color-gray-600);
   }

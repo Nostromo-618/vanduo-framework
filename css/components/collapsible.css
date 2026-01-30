@@ -30,7 +30,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --collapsible-bg: var(--bg-secondary);
     --collapsible-header-bg: var(--bg-primary);
     --collapsible-header-bg-hover: var(--bg-primary);

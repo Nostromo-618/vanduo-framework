@@ -38,7 +38,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --sidenav-bg: var(--bg-secondary);
     --sidenav-item-bg-hover: var(--bg-primary);
   }

@@ -42,7 +42,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --alert-primary-text: var(--color-primary-light);
     --alert-success-text: var(--color-success-light);
     --alert-warning-text: var(--color-warning-light);

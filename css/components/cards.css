@@ -5,19 +5,22 @@
 
 :root {
   /* Card Padding (Fibonacci: 13, 21, 34) */
-  --card-padding: 1.3125rem;     /* 21px - fib */
-  --card-padding-sm: 0.8125rem;  /* 13px - fib */
-  --card-padding-lg: 2.125rem;   /* 34px - fib */
-  
+  --card-padding: 1.3125rem;
+  /* 21px - fib */
+  --card-padding-sm: 0.8125rem;
+  /* 13px - fib */
+  --card-padding-lg: 2.125rem;
+  /* 34px - fib */
+
   /* Card Border */
   --card-border-width: 1px;
   --card-border-color: var(--border-color);
   --card-border-radius: var(--btn-border-radius-lg);
-  
+
   /* Card Background */
   --card-bg: var(--color-white);
   --card-bg-filled: var(--bg-secondary);
-  
+
   /* Card Shadow */
   --card-shadow: var(--shadow-md);
   --card-shadow-elevated: var(--shadow-lg);
@@ -30,7 +33,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --card-bg: var(--bg-secondary);
     --card-bg-filled: var(--bg-primary);
   }
@@ -260,29 +263,16 @@ a.card:active {
 .card-group {
   display: flex;
   flex-direction: column;
-}
-
-.card-group > .card {
-  margin-bottom: 1rem;
-}
-
-.card-group > .card:last-child {
-  margin-bottom: 0;
+  gap: 1rem;
+  /* Fibonacci-inspired spacing */
 }
 
 @media (min-width: 768px) {
   .card-group {
     flex-direction: row;
   }
-  
-  .card-group > .card {
+
+  .card-group>.card {
     flex: 1 1 0%;
-    margin-bottom: 0;
-    margin-right: 1rem;
-  }
-  
-  .card-group > .card:last-child {
-    margin-right: 0;
   }
 }
-

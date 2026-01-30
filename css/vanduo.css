@@ -56,6 +56,7 @@
 @import url('components/progress.css');
 @import url('components/spinner.css');
 @import url('components/button-group.css');
+@import url('components/theme-customizer.css');
 
 /* Utilities - Phase 7 */
 @import url('utilities/media.css');

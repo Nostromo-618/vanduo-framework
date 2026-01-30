@@ -50,10 +50,10 @@
 
     /**
      * Get saved font preference from localStorage
-     * @returns {string} Font key or 'system'
+     * @returns {string} Font key or 'jetbrains-mono' (default)
      */
     getPreference: function() {
-      return localStorage.getItem(this.STORAGE_KEY) || 'system';
+      return localStorage.getItem(this.STORAGE_KEY) || 'jetbrains-mono';
     },
 
     /**

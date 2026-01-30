@@ -6,11 +6,9 @@
 - **No libraries. No NPM. No build tools. No vulnerabilities. No nonsense.**
 - **FOSS now and forever.**
 
-_Banzai!_
-
-
-
 A lightweight, pure HTML/CSS/JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.
+
+[![Built with Kilo Code](https://img.shields.io)](https://kilo.ai)
 
 ## Features
 
@@ -21,6 +19,7 @@ A lightweight, pure HTML/CSS/JS framework for designing beautiful static website
 - 🧩 **Modular** - Import only what you need
 - ♿ **Accessible** - Built with accessibility in mind (WCAG 2.1 AA)
 - 🌙 **Dark Mode** - Automatic OS preference detection + manual toggle
+- 🎛️ **Theme Customizer** - Real-time color, radius, font, and mode customization
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
 
 ---
@@ -73,6 +72,84 @@ All semantic color variables automatically adjust in dark mode:
 | `--text-primary` | Gray-9 | Gray-0 |
 | `--text-secondary` | Gray-7 | Gray-4 |
 | `--border-color` | Gray-3 | Gray-7 |
+
+---
+
+## Theme Customizer
+
+Vanduo includes a powerful Theme Customizer component that allows users to personalize the framework's appearance in real-time.
+
+### Features
+
+- **Primary Color**: 18 color options from the Open Color palette
+- **Neutral Color**: 5 gray scale variants (Gray, Slate, Zinc, Neutral, Stone)
+- **Border Radius**: 5 presets (0, 0.125rem, 0.25rem, 0.375rem, 0.5rem)
+- **Font Family**: 6 bundled fonts (JetBrains Mono is default)
+- **Color Mode**: System (default), Dark, or Light
+
+All preferences are persisted to `localStorage` and restored on page load.
+
+### Quick Start
+
+```html
+<!-- Add trigger button to your navbar -->
+<button class="theme-customizer-trigger" 
+        data-theme-customizer-trigger 
+        aria-label="Open theme customizer">
+    <i class="ph ph-sliders-horizontal"></i>
+</button>
+
+<!-- Include the JS component -->
+<script src="js/components/theme-customizer.js"></script>
+```
+
+### JavaScript API
+
+```javascript
+// Access the component
+const customizer = Vanduo.components.themeCustomizer;
+
+// Open/close programmatically
+customizer.open();
+customizer.close();
+customizer.toggle();
+
+// Get current state
+const state = customizer.getState();
+// Returns: { primary, neutral, radius, font, theme }
+
+// Set values programmatically
+customizer.setPrimary('violet');
+customizer.setNeutral('slate');
+customizer.setRadius('0.375');
+customizer.setFont('inter');
+customizer.setTheme('dark');
+
+// Reset to defaults
+customizer.reset();
+```
+
+### localStorage Keys
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `vanduo-primary-color` | `cyan` | Primary brand color |
+| `vanduo-neutral-color` | `gray` | Neutral/gray scale |
+| `vanduo-radius` | `0.25` | Border radius scale |
+| `vanduo-font-preference` | `jetbrains-mono` | Font family |
+| `vanduo-theme-preference` | `system` | Color mode |
+
+### Data Attributes
+
+The Theme Customizer sets these attributes on `<html>`:
+
+| Attribute | Example Values | Description |
+|-----------|----------------|-------------|
+| `data-primary` | `cyan`, `violet`, `rose` | Remaps `--primary-*` CSS variables |
+| `data-neutral` | `gray`, `slate`, `zinc` | Remaps `--gray-*` CSS variables |
+| `data-radius` | `0`, `0.125`, `0.25`, `0.375`, `0.5` | Sets `--radius-scale` |
+| `data-font` | `jetbrains-mono`, `inter` | Sets `--font-family-base` |
+| `data-theme` | `light`, `dark` | Forces light/dark mode |
 
 ---
 
@@ -408,6 +485,7 @@ vanduo-framework/
 │   │   ├── buttons.css
 │   │   ├── forms.css
 │   │   ├── cards.css
+│   │   ├── theme-customizer.css
 │   │   └── ...
 │   ├── utilities/          # Utility classes
 │   │   ├── media.css

@@ -357,17 +357,17 @@
 .btn-ghost-error {
   background-color: transparent;
   border-color: transparent;
-  color: var(--danger-6);
+  color: var(--error-6);
 }
 
 .btn-ghost-error:hover:not(:disabled):not(.disabled) {
-  background-color: var(--danger-0);
-  color: var(--danger-7);
+  background-color: var(--error-0);
+  color: var(--error-7);
 }
 
 .btn-ghost-error:active:not(:disabled):not(.disabled) {
-  background-color: var(--danger-1);
-  color: var(--danger-8);
+  background-color: var(--error-1);
+  color: var(--error-8);
 }
 
 .btn-ghost-info {

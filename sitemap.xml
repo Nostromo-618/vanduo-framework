@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home page -->
   <url>
-    <loc>https://nostromo-618.github.io/vanduo-framework/</loc>
+    <loc>https://vanduo.dev/</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,7 +10,7 @@
 
   <!-- Documentation page -->
   <url>
-    <loc>https://nostromo-618.github.io/vanduo-framework/documentation.html</loc>
+    <loc>https://vanduo.dev/documentation.html</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -18,7 +18,7 @@
 
   <!-- Showcase page -->
   <url>
-    <loc>https://nostromo-618.github.io/vanduo-framework/showcase.html</loc>
+    <loc>https://vanduo.dev/showcase.html</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -26,7 +26,7 @@
 
   <!-- Portfolio template -->
   <url>
-    <loc>https://nostromo-618.github.io/vanduo-framework/templates/portfolio/index.html</loc>
+    <loc>https://vanduo.dev/templates/portfolio/index.html</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

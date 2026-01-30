@@ -166,7 +166,7 @@ code {
   background-color: var(--bg-secondary);
   padding: 0.125em 0.1875em; /* 2px 3px - fib pair */
   border-radius: var(--radius-fib-3);
-  color: var(--color-error);
+  color: var(--color-primary-dark);
 }
 
 pre {

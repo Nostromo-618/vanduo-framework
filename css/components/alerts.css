@@ -15,19 +15,19 @@
   --alert-primary-border: var(--color-primary);
   --alert-primary-text: var(--color-primary-dark);
 
-  --alert-success-bg: rgba(40, 167, 69, 0.1);
+  --alert-success-bg: var(--color-success-alpha-10);
   --alert-success-border: var(--color-success);
   --alert-success-text: var(--color-success-dark);
 
-  --alert-warning-bg: rgba(255, 193, 7, 0.15);
+  --alert-warning-bg: var(--color-warning-alpha-10);
   --alert-warning-border: var(--color-warning);
   --alert-warning-text: var(--color-warning-dark);
 
-  --alert-error-bg: rgba(220, 53, 69, 0.1);
+  --alert-error-bg: var(--color-error-alpha-10);
   --alert-error-border: var(--color-error);
   --alert-error-text: var(--color-error-dark);
 
-  --alert-info-bg: rgba(23, 162, 184, 0.1);
+  --alert-info-bg: var(--color-info-alpha-10);
   --alert-info-border: var(--color-info);
   --alert-info-text: var(--color-info-dark);
 }

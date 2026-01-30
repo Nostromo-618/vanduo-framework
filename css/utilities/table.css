@@ -9,7 +9,7 @@
   --table-border-color: var(--border-color);
   --table-striped-bg: var(--bg-secondary);
   --table-hover-bg: rgba(0, 0, 0, 0.075);
-  --table-active-bg: rgba(0, 123, 255, 0.1);
+  --table-active-bg: var(--color-primary-alpha-10);
   
   /* Table Spacing (Fibonacci) */
   --table-padding-y: 0.5rem;      /* 8px  - fib */

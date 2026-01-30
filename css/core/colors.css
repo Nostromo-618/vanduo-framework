@@ -71,6 +71,18 @@
   --danger-8: #e03131;
   --danger-9: #c92a2a;  /* Active state */
 
+  /* Error aliases (maps to danger scale for consistent naming) */
+  --error-0: var(--danger-0);
+  --error-1: var(--danger-1);
+  --error-2: var(--danger-2);
+  --error-3: var(--danger-3);
+  --error-4: var(--danger-4);
+  --error-5: var(--danger-5);
+  --error-6: var(--danger-6);
+  --error-7: var(--danger-7);
+  --error-8: var(--danger-8);
+  --error-9: var(--danger-9);
+
   /* Success - Open Color Green */
   --success-0: #ebfbee;
   --success-1: #d3f9d8;
@@ -201,6 +213,8 @@
   /* Alpha Colors (for hover/active states) */
   --color-primary-alpha-10: rgba(34, 184, 207, 0.1);
   --color-primary-alpha-20: rgba(34, 184, 207, 0.2);
+  --color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
+  --color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
   --color-success-alpha-10: rgba(64, 192, 87, 0.1);
   --color-error-alpha-10: rgba(250, 82, 82, 0.1);
   --color-warning-alpha-10: rgba(250, 176, 5, 0.1);

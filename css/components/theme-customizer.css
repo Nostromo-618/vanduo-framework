@@ -22,14 +22,16 @@
 
 body > .theme-customizer-panel {
   position: fixed;
-  top: 60px;
-  right: 1rem;
+  /* top is set dynamically by JS based on actual navbar height */
+  top: 55px;
+  right: 0;
   width: var(--customizer-width);
-  max-height: calc(100vh - 80px);
+  max-height: calc(100vh - 55px);
   overflow-y: auto;
   background-color: var(--customizer-bg);
   border: 1px solid var(--customizer-border);
-  border-radius: calc(var(--radius-scale, 0.25) * 1rem);
+  border-top: none;
+  border-radius: 0 0 calc(var(--radius-scale, 0.25) * 1rem) calc(var(--radius-scale, 0.25) * 1rem);
   box-shadow: var(--customizer-shadow);
   z-index: var(--customizer-z-index);
   opacity: 0;
@@ -348,19 +350,21 @@ body > .theme-customizer-panel.is-open {
 }
 
 /* ==========================================================================
-   Panel
-   ========================================================================== */
+    Panel
+    ========================================================================== */
 
 .theme-customizer-panel {
-  position: absolute;
-  top: calc(100% + 0.5rem);
+  position: fixed;
+  /* top is set dynamically by JS based on actual navbar height */
+  top: 55px;
   right: 0;
   width: var(--customizer-width);
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - 55px);
   overflow-y: auto;
   background-color: var(--customizer-bg);
   border: 1px solid var(--customizer-border);
-  border-radius: var(--btn-border-radius);
+  border-top: none;
+  border-radius: 0 0 calc(var(--radius-scale, 0.25) * 1rem) calc(var(--radius-scale, 0.25) * 1rem);
   box-shadow: var(--customizer-shadow);
   z-index: var(--customizer-z-index);
   opacity: 0;
@@ -673,8 +677,8 @@ body > .theme-customizer-panel.is-open {
 }
 
 /* ==========================================================================
-   Mobile Responsive
-   ========================================================================== */
+    Mobile Responsive
+    ========================================================================== */
 
 @media (max-width: 767.98px) {
   .theme-customizer-panel,
@@ -686,6 +690,8 @@ body > .theme-customizer-panel.is-open {
     width: 100%;
     max-width: 320px;
     max-height: none;
+    border: none;
+    border-left: 1px solid var(--customizer-border);
     border-radius: 0;
     transform: none;
     opacity: 1;

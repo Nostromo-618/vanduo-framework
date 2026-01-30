@@ -149,26 +149,11 @@
                     <li><a href="documentation.html" class="nav-link">Documentation</a></li>
                     <li><a href="showcase.html" class="nav-link active">Showcase</a></li>
                 </ul>
-
-                <div class="navbar-actions">
-                    <select class="input input-sm" data-toggle="font" aria-label="Font selector">
-                        <optgroup label="System">
-                            <option value="system" selected>System Default</option>
-                        </optgroup>
-                        <optgroup label="Web Fonts">
-                            <option value="inter">Inter</option>
-                            <option value="source-sans">Source Sans 3</option>
-                            <option value="fira-sans">Fira Sans</option>
-                            <option value="ibm-plex">IBM Plex Sans</option>
-                            <option value="jetbrains-mono">JetBrains Mono</option>
-                        </optgroup>
-                    </select>
-                    <select class="input input-sm" data-toggle="theme" aria-label="Theme selector">
-                        <option value="system" selected>System</option>
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                    </select>
-                </div>
+                
+                <!-- Theme Customizer Trigger (far right) -->
+                <button class="theme-customizer-trigger" data-theme-customizer-trigger aria-label="Open theme customizer" style="margin-left: auto;">
+                    <i class="ph ph-sliders-horizontal"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -293,6 +278,7 @@
     <script src="./js/vanduo.js"></script>
     <script src="./js/components/theme-switcher.js"></script>
     <script src="./js/components/font-switcher.js"></script>
+    <script src="./js/components/theme-customizer.js"></script>
     <script src="./js/components/navbar.js"></script>
 </body>
 

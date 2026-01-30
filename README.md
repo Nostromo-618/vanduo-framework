@@ -8,7 +8,7 @@
 
 A lightweight, pure HTML/CSS/JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.
 
-[![Built with Kilo Code](https://img.shields.io)](https://kilo.ai)
+![Built with Kilo](https://img.shields.io/badge/Editor-Kilo-0c8599?style=flat-square)
 
 ## Features
 

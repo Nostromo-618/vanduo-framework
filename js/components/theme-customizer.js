@@ -19,9 +19,9 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY: 'cyan',
-      NEUTRAL: 'gray',
-      RADIUS: '0.25',
+      PRIMARY: 'blue',
+      NEUTRAL: 'neutral',
+      RADIUS: '0.375',
       FONT: 'jetbrains-mono',
       THEME: 'system'
     },
@@ -283,30 +283,76 @@
       // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'theme-customizer';
-      
+
       // Move trigger into wrapper or create reference
       this.elements.trigger = triggerButton;
-      
+
       // Create overlay
       const overlay = document.createElement('div');
       overlay.className = 'theme-customizer-overlay';
-      
+
       // Create panel
       const panel = document.createElement('div');
       panel.className = 'theme-customizer-panel';
       panel.innerHTML = this.getPanelHTML();
-      
+
       // Append to body
       document.body.appendChild(overlay);
       document.body.appendChild(panel);
-      
+
       // Store references
       this.elements.panel = panel;
       this.elements.overlay = overlay;
       this.elements.customizer = { contains: (el) => panel.contains(el) || triggerButton.contains(el) };
-      
+
+      // Position panel below trigger on desktop
+      this.positionPanel();
+
       // Bind panel events after creation
       this.bindPanelEvents();
+
+      // Reposition on resize
+      window.addEventListener('resize', () => this.positionPanel());
+    },
+
+    /**
+     * Position the panel below the trigger button on desktop
+     */
+    positionPanel: function() {
+      if (!this.elements.panel || !this.elements.trigger) return;
+
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: full height slide-in from right - let CSS handle it
+        this.elements.panel.style.top = '';
+        this.elements.panel.style.right = '';
+        this.elements.panel.style.left = '';
+        this.elements.panel.style.height = '';
+        this.elements.panel.style.maxHeight = '';
+      } else {
+        // Desktop: position directly below the trigger button, aligned to its right edge
+        const triggerRect = this.elements.trigger.getBoundingClientRect();
+        const panelWidth = 320; // --customizer-width
+        const panelTop = triggerRect.bottom;
+        
+        // Calculate right position: align panel's right edge with trigger's right edge
+        // But ensure it doesn't overflow the viewport
+        const viewportWidth = window.innerWidth;
+        let panelRight = viewportWidth - triggerRect.right;
+        
+        // Ensure panel doesn't overflow left side of viewport
+        const panelLeft = viewportWidth - panelRight - panelWidth;
+        if (panelLeft < 8) {
+          panelRight = viewportWidth - panelWidth - 8;
+        }
+        
+        this.elements.panel.style.top = panelTop + 'px';
+        this.elements.panel.style.right = panelRight + 'px';
+        this.elements.panel.style.left = '';
+        this.elements.panel.style.height = 'auto';
+        this.elements.panel.style.maxHeight = 'calc(100vh - ' + panelTop + 'px)';
+      }
     },
 
     /**
@@ -578,7 +624,10 @@
      */
     open: function() {
       this.state.isOpen = true;
-      
+
+      // Ensure panel is positioned correctly before opening
+      this.positionPanel();
+
       if (this.elements.panel) {
         this.elements.panel.classList.add('is-open');
       }
@@ -588,7 +637,7 @@
       if (this.elements.overlay) {
         this.elements.overlay.classList.add('is-active');
       }
-      
+
       this.dispatchEvent('panel-open', { isOpen: true });
     },
 

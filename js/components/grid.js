@@ -4,13 +4,13 @@
  * via data-layout-mode attribute and toggle buttons
  */
 
-(function() {
+(function () {
   'use strict';
 
-  var supportsHas = (function() {
+  var supportsHas = (function () {
     try {
       return CSS.supports('selector(:has(*))');
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   })();
@@ -24,10 +24,10 @@
     /**
      * Initialize all grid layout containers
      */
-    init: function() {
+    init: function () {
       var containers = document.querySelectorAll('[data-layout-mode]');
 
-      containers.forEach(function(container) {
+      containers.forEach(function (container) {
         if (this.instances.has(container)) {
           return;
         }
@@ -41,7 +41,7 @@
      * Initialize a single grid container
      * @param {HTMLElement} container - Element with data-layout-mode
      */
-    initContainer: function(container) {
+    initContainer: function (container) {
       var mode = container.getAttribute('data-layout-mode') || 'standard';
       var cleanupFunctions = [];
 
@@ -59,15 +59,15 @@
     /**
      * Initialize toggle buttons that target grid containers
      */
-    initToggleButtons: function() {
+    initToggleButtons: function () {
       var toggleButtons = document.querySelectorAll('[data-grid-toggle]');
 
-      toggleButtons.forEach(function(button) {
+      toggleButtons.forEach(function (button) {
         if (button.getAttribute('data-grid-initialized') === 'true') {
           return;
         }
 
-        var clickHandler = function(e) {
+        var clickHandler = function (e) {
           e.preventDefault();
           var targetSelector = button.getAttribute('data-grid-toggle');
           var target;
@@ -87,7 +87,7 @@
         button.setAttribute('data-grid-initialized', 'true');
         button.setAttribute('aria-pressed', 'false');
 
-        button._gridCleanup = function() {
+        button._gridCleanup = function () {
           button.removeEventListener('click', clickHandler);
           button.removeAttribute('data-grid-initialized');
           button.removeAttribute('aria-pressed');
@@ -99,11 +99,11 @@
      * Apply Fibonacci grid-template-columns inline for browsers without :has()
      * @param {HTMLElement} container - Grid container
      */
-    applyFibFallback: function(container) {
+    applyFibFallback: function (container) {
       if (supportsHas) return;
 
       var rows = container.querySelectorAll('.row');
-      rows.forEach(function(row) {
+      rows.forEach(function (row) {
         var cols = row.querySelectorAll(':scope > [class*="col-"]');
         var count = cols.length;
 
@@ -125,9 +125,9 @@
      * Remove inline grid-template-columns fallback
      * @param {HTMLElement} container - Grid container
      */
-    removeFibFallback: function(container) {
+    removeFibFallback: function (container) {
       var rows = container.querySelectorAll('.row');
-      rows.forEach(function(row) {
+      rows.forEach(function (row) {
         row.style.gridTemplateColumns = '';
       });
     },
@@ -137,7 +137,7 @@
      * @param {HTMLElement} container - Target container
      * @param {string} mode - 'fibonacci' or 'standard'
      */
-    applyMode: function(container, mode) {
+    applyMode: function (container, mode) {
       container.classList.remove('grid-standard', 'grid-fibonacci');
 
       if (mode === 'fibonacci') {
@@ -153,7 +153,7 @@
 
       // Update associated toggle button states
       var toggleButtons = document.querySelectorAll('[data-grid-toggle]');
-      toggleButtons.forEach(function(btn) {
+      toggleButtons.forEach(function (btn) {
         var targetSelector = btn.getAttribute('data-grid-toggle');
         if (targetSelector && container.matches(targetSelector)) {
           var isActive = (mode === 'fibonacci');
@@ -182,7 +182,7 @@
             mode: mode
           }
         });
-      } catch (e) {
+      } catch (_e) {
         event = document.createEvent('CustomEvent');
         event.initCustomEvent('grid:modechange', true, true, {
           container: container,
@@ -196,7 +196,7 @@
      * Toggle between standard and fibonacci modes
      * @param {HTMLElement|string} container - Container element or selector
      */
-    toggle: function(container) {
+    toggle: function (container) {
       if (typeof container === 'string') {
         container = document.querySelector(container);
       }
@@ -212,7 +212,7 @@
      * @param {HTMLElement|string} container - Container element or selector
      * @param {string} mode - 'fibonacci' or 'standard'
      */
-    setMode: function(container, mode) {
+    setMode: function (container, mode) {
       if (typeof container === 'string') {
         container = document.querySelector(container);
       }
@@ -227,7 +227,7 @@
      * @param {HTMLElement|string} container - Container element or selector
      * @returns {string|null} Current mode or null
      */
-    getMode: function(container) {
+    getMode: function (container) {
       if (typeof container === 'string') {
         container = document.querySelector(container);
       }
@@ -239,11 +239,11 @@
      * Destroy a single grid layout instance
      * @param {HTMLElement} container - Grid container
      */
-    destroy: function(container) {
+    destroy: function (container) {
       var instance = this.instances.get(container);
       if (!instance) return;
 
-      instance.cleanup.forEach(function(fn) { fn(); });
+      instance.cleanup.forEach(function (fn) { fn(); });
       container.classList.remove('grid-standard', 'grid-fibonacci');
       container.removeAttribute('aria-label');
       this.removeFibFallback(container);
@@ -253,13 +253,13 @@
     /**
      * Destroy all grid layout instances and clean up toggle buttons
      */
-    destroyAll: function() {
-      this.instances.forEach(function(instance, container) {
+    destroyAll: function () {
+      this.instances.forEach(function (instance, container) {
         this.destroy(container);
       }.bind(this));
 
       var toggleButtons = document.querySelectorAll('[data-grid-initialized="true"]');
-      toggleButtons.forEach(function(button) {
+      toggleButtons.forEach(function (button) {
         if (button._gridCleanup) {
           button._gridCleanup();
           delete button._gridCleanup;
@@ -270,12 +270,12 @@
 
   // Initialize when DOM is ready
   if (typeof ready !== 'undefined') {
-    ready(function() {
+    ready(function () {
       GridLayout.init();
     });
   } else {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         GridLayout.init();
       });
     } else {

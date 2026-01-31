@@ -5,8 +5,8 @@
 
 import { transform } from 'lightningcss';
 import * as esbuild from 'esbuild';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync } from 'fs';
+import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -22,6 +22,52 @@ const isMinify = process.argv.includes('--minify');
 
 console.log(`🌊 Vanduo Build ${isMinify ? '(production)' : '(development)'}`);
 console.log('─'.repeat(50));
+
+/**
+ * Recursively copy a directory
+ */
+function copyDir(src, dest) {
+    if (!existsSync(dest)) {
+        mkdirSync(dest, { recursive: true });
+    }
+
+    const entries = readdirSync(src);
+
+    for (const entry of entries) {
+        const srcPath = join(src, entry);
+        const destPath = join(dest, entry);
+        const stat = statSync(srcPath);
+
+        if (stat.isDirectory()) {
+            copyDir(srcPath, destPath);
+        } else {
+            copyFileSync(srcPath, destPath);
+        }
+    }
+}
+
+/**
+ * Copy fonts and icons to dist
+ */
+function copyAssets() {
+    console.log('📦 Copying assets...');
+
+    // Copy fonts
+    const fontsDir = resolve(rootDir, 'fonts');
+    const distFontsDir = resolve(distDir, 'fonts');
+    if (existsSync(fontsDir)) {
+        copyDir(fontsDir, distFontsDir);
+        console.log('   ✅ fonts/');
+    }
+
+    // Copy icons
+    const iconsDir = resolve(rootDir, 'icons');
+    const distIconsDir = resolve(distDir, 'icons');
+    if (existsSync(iconsDir)) {
+        copyDir(iconsDir, distIconsDir);
+        console.log('   ✅ icons/');
+    }
+}
 
 /**
  * Read CSS file and resolve @import statements
@@ -48,6 +94,19 @@ function resolveCSSImports(filePath, basePath) {
     return css;
 }
 
+/**
+ * Rewrite asset paths in CSS for dist folder structure
+ */
+function rewriteAssetPaths(css) {
+    // Rewrite font paths: ../../fonts/ -> ./fonts/
+    css = css.replace(/url\(['"]?\.\.\/\.\.\/fonts\//g, "url('./fonts/");
+
+    // Rewrite icon paths: ../../icons/ -> ./icons/
+    css = css.replace(/url\(['"]?\.\.\/\.\.\/icons\//g, "url('./icons/");
+
+    return css;
+}
+
 // Build CSS
 async function buildCSS() {
     const inputPath = resolve(rootDir, 'css/vanduo.css');
@@ -55,7 +114,10 @@ async function buildCSS() {
 
     try {
         // Resolve all imports into one file
-        const bundledCSS = resolveCSSImports(inputPath, dirname(inputPath));
+        let bundledCSS = resolveCSSImports(inputPath, dirname(inputPath));
+
+        // Rewrite asset paths for dist folder structure
+        bundledCSS = rewriteAssetPaths(bundledCSS);
 
         // Transform/minify with LightningCSS
         const { code, map } = transform({
@@ -83,7 +145,7 @@ async function buildCSS() {
 
 // Build JS
 async function buildJS() {
-    const inputPath = resolve(rootDir, 'js/vanduo.js');
+    const inputPath = resolve(rootDir, 'js/index.js');
     const outputPath = resolve(distDir, isMinify ? 'vanduo.min.js' : 'vanduo.js');
 
     try {
@@ -110,6 +172,7 @@ async function buildJS() {
 
 // Run builds
 async function build() {
+    copyAssets();
     await buildCSS();
     await buildJS();
     console.log('─'.repeat(50));

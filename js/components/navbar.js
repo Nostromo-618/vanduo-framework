@@ -245,7 +245,7 @@
      * @param {HTMLElement} navbar - Navbar element
      * @returns {HTMLElement} Overlay element
      */
-    createOverlay: function (navbar) {
+    createOverlay: function (_navbar) {
       const overlay = document.createElement('div');
       overlay.className = 'navbar-overlay';
       document.body.appendChild(overlay);

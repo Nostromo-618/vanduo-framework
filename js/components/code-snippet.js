@@ -3,7 +3,7 @@
  * Copyable code blocks with tabs, syntax highlighting, and HTML extraction
  */
 
-(function() {
+(function () {
   'use strict';
 
   /**
@@ -13,9 +13,9 @@
     /**
      * Initialize all code snippet components
      */
-    init: function() {
+    init: function () {
       const snippets = document.querySelectorAll('.code-snippet');
-      
+
       snippets.forEach(snippet => {
         if (!snippet.dataset.initialized) {
           this.initSnippet(snippet);
@@ -27,13 +27,13 @@
      * Initialize a single code snippet
      * @param {HTMLElement} snippet - Code snippet container element
      */
-    initSnippet: function(snippet) {
+    initSnippet: function (snippet) {
       snippet.dataset.initialized = 'true';
 
       // Handle collapsible toggle
       const toggle = snippet.querySelector('.code-snippet-toggle');
       const content = snippet.querySelector('.code-snippet-content');
-      
+
       if (toggle && content) {
         this.initCollapsible(snippet, toggle, content);
       }
@@ -41,7 +41,7 @@
       // Handle tabs
       const tabs = snippet.querySelectorAll('.code-snippet-tab');
       const panes = snippet.querySelectorAll('.code-snippet-pane');
-      
+
       if (tabs.length > 0) {
         this.initTabs(snippet, tabs, panes);
       }
@@ -71,12 +71,12 @@
      * @param {HTMLElement} toggle - Toggle button
      * @param {HTMLElement} content - Collapsible content
      */
-    initCollapsible: function(snippet, toggle, content) {
+    initCollapsible: function (snippet, toggle, content) {
       // Set initial state
       const isExpanded = snippet.dataset.expanded === 'true';
       toggle.setAttribute('aria-expanded', isExpanded);
       content.dataset.visible = isExpanded;
-      
+
       toggle.addEventListener('click', () => {
         const expanded = snippet.dataset.expanded === 'true';
         snippet.dataset.expanded = !expanded;
@@ -106,7 +106,7 @@
      * @param {NodeList} tabs - Tab buttons
      * @param {NodeList} panes - Code panes
      */
-    initTabs: function(snippet, tabs, panes) {
+    initTabs: function (snippet, tabs, panes) {
       // Set up ARIA attributes
       const tabList = snippet.querySelector('.code-snippet-tabs');
       if (tabList) {
@@ -116,7 +116,7 @@
       tabs.forEach((tab, index) => {
         const lang = tab.dataset.lang;
         const isActive = tab.classList.contains('is-active');
-        
+
         // Set ARIA attributes
         tab.setAttribute('role', 'tab');
         tab.setAttribute('aria-selected', isActive);
@@ -149,7 +149,7 @@
      * @param {NodeList} tabs - All tab buttons
      * @param {NodeList} panes - All code panes
      */
-    switchTab: function(snippet, activeTab, tabs, panes) {
+    switchTab: function (snippet, activeTab, tabs, panes) {
       const lang = activeTab.dataset.lang;
 
       // Deactivate all tabs
@@ -190,7 +190,7 @@
      * @param {NodeList} tabs - All tab buttons
      * @param {NodeList} panes - All code panes
      */
-    handleTabKeydown: function(e, snippet, tabs, panes) {
+    handleTabKeydown: function (e, snippet, tabs, panes) {
       const tabArray = Array.from(tabs);
       const currentIndex = tabArray.indexOf(e.target);
       let newIndex = currentIndex;
@@ -227,7 +227,7 @@
      * @param {HTMLElement} snippet - Code snippet container
      * @param {HTMLElement} copyBtn - Copy button element
      */
-    initCopyButton: function(snippet, copyBtn) {
+    initCopyButton: function (snippet, copyBtn) {
       copyBtn.addEventListener('click', async () => {
         await this.copyCode(snippet, copyBtn);
       });
@@ -238,10 +238,10 @@
      * @param {HTMLElement} snippet - Code snippet container
      * @param {HTMLElement} copyBtn - Copy button element
      */
-    copyCode: async function(snippet, copyBtn) {
+    copyCode: async function (snippet, copyBtn) {
       const activePane = snippet.querySelector('.code-snippet-pane.is-active') ||
-                         snippet.querySelector('.code-snippet-pane');
-      
+        snippet.querySelector('.code-snippet-pane');
+
       if (!activePane) {
         console.warn('CodeSnippet: No code pane found');
         return;
@@ -253,7 +253,7 @@
       try {
         await navigator.clipboard.writeText(code);
         this.showCopyFeedback(copyBtn, true);
-      } catch (err) {
+      } catch (_err) {
         // Fallback for older browsers
         const success = this.fallbackCopy(code);
         this.showCopyFeedback(copyBtn, success);
@@ -272,7 +272,7 @@
      * @param {string} text - Text to copy
      * @returns {boolean} Success status
      */
-    fallbackCopy: function(text) {
+    fallbackCopy: function (text) {
       const textarea = document.createElement('textarea');
       textarea.value = text;
       textarea.style.position = 'fixed';
@@ -298,10 +298,10 @@
      * @param {HTMLElement} copyBtn - Copy button element
      * @param {boolean} success - Whether copy was successful
      */
-    showCopyFeedback: function(copyBtn, success) {
+    showCopyFeedback: function (copyBtn, success) {
       if (success) {
         copyBtn.classList.add('is-copied');
-        
+
         // Announce to screen readers
         const announcement = document.createElement('span');
         announcement.setAttribute('role', 'status');
@@ -323,7 +323,7 @@
      * Extract HTML from a demo element
      * @param {HTMLElement} pane - Code pane with data-extract attribute
      */
-    extractHtml: function(pane) {
+    extractHtml: function (pane) {
       const selector = pane.dataset.extract;
       if (!selector) return;
 
@@ -355,7 +355,7 @@
      * @param {string} html - Raw HTML string
      * @returns {string} Formatted HTML
      */
-    formatHtml: function(html) {
+    formatHtml: function (html) {
       // Remove leading/trailing whitespace
       html = html.trim();
 
@@ -397,7 +397,7 @@
      * @param {string} html - HTML string
      * @returns {string} Escaped HTML
      */
-    escapeHtml: function(html) {
+    escapeHtml: function (html) {
       const div = document.createElement('div');
       div.textContent = html;
       return div.innerHTML;
@@ -408,16 +408,16 @@
      * @param {string} html - Escaped HTML string
      * @returns {string} HTML with syntax highlighting spans
      */
-    highlightHtml: function(html) {
+    highlightHtml: function (html) {
       // Highlight HTML tags
       html = html.replace(/(&lt;\/?)([\w-]+)/g, '$1<span class="code-tag">$2</span>');
-      
+
       // Highlight attributes
       html = html.replace(/([\w-]+)(=)(&quot;|&#39;)/g, '<span class="code-attr">$1</span>$2$3');
-      
+
       // Highlight attribute values (strings)
       html = html.replace(/(&quot;|&#39;)([^&]*)(&quot;|&#39;)/g, '$1<span class="code-string">$2</span>$3');
-      
+
       // Highlight comments
       html = html.replace(/(&lt;!--)(.*?)(--&gt;)/g, '<span class="code-comment">$1$2$3</span>');
 
@@ -429,19 +429,19 @@
      * @param {string} css - CSS string
      * @returns {string} CSS with syntax highlighting spans
      */
-    highlightCss: function(css) {
+    highlightCss: function (css) {
       // Highlight selectors
       css = css.replace(/([.#]?[\w-]+)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
-      
+
       // Highlight properties
       css = css.replace(/([\w-]+)(\s*:)/g, '<span class="code-property">$1</span>$2');
-      
+
       // Highlight values
       css = css.replace(/:\s*([^;{}]+)(;)/g, ': <span class="code-value">$1</span>$2');
-      
+
       // Highlight units
       css = css.replace(/(\d+)(px|rem|em|%|vh|vw|deg|s|ms)/g, '<span class="code-number">$1</span><span class="code-unit">$2</span>');
-      
+
       // Highlight comments
       css = css.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
 
@@ -453,23 +453,23 @@
      * @param {string} js - JavaScript string
      * @returns {string} JS with syntax highlighting spans
      */
-    highlightJs: function(js) {
+    highlightJs: function (js) {
       // Highlight keywords
       const keywords = ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'continue', 'new', 'this', 'class', 'extends', 'import', 'export', 'default', 'async', 'await', 'try', 'catch', 'throw', 'typeof', 'instanceof'];
       keywords.forEach(kw => {
         const regex = new RegExp(`\\b(${kw})\\b`, 'g');
         js = js.replace(regex, '<span class="code-keyword">$1</span>');
       });
-      
+
       // Highlight strings
       js = js.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)/g, '<span class="code-string">$1</span>');
-      
+
       // Highlight numbers
       js = js.replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');
-      
+
       // Highlight function calls
       js = js.replace(/\b([\w]+)(\s*\()/g, '<span class="code-function">$1</span>$2');
-      
+
       // Highlight comments
       js = js.replace(/(\/\/.*$)/gm, '<span class="code-comment">$1</span>');
       js = js.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
@@ -481,7 +481,7 @@
      * Add line numbers to a code pane
      * @param {HTMLElement} pane - Code pane element
      */
-    addLineNumbers: function(pane) {
+    addLineNumbers: function (pane) {
       const code = pane.querySelector('code');
       if (!code) return;
 
@@ -514,7 +514,7 @@
      * Programmatically expand a code snippet
      * @param {string|HTMLElement} snippet - Snippet selector or element
      */
-    expand: function(snippet) {
+    expand: function (snippet) {
       if (typeof snippet === 'string') {
         snippet = document.querySelector(snippet);
       }
@@ -523,7 +523,7 @@
       snippet.dataset.expanded = 'true';
       const toggle = snippet.querySelector('.code-snippet-toggle');
       const content = snippet.querySelector('.code-snippet-content');
-      
+
       if (toggle) toggle.setAttribute('aria-expanded', 'true');
       if (content) content.dataset.visible = 'true';
     },
@@ -532,7 +532,7 @@
      * Programmatically collapse a code snippet
      * @param {string|HTMLElement} snippet - Snippet selector or element
      */
-    collapse: function(snippet) {
+    collapse: function (snippet) {
       if (typeof snippet === 'string') {
         snippet = document.querySelector(snippet);
       }
@@ -541,7 +541,7 @@
       snippet.dataset.expanded = 'false';
       const toggle = snippet.querySelector('.code-snippet-toggle');
       const content = snippet.querySelector('.code-snippet-content');
-      
+
       if (toggle) toggle.setAttribute('aria-expanded', 'false');
       if (content) content.dataset.visible = 'false';
     },
@@ -551,7 +551,7 @@
      * @param {string|HTMLElement} snippet - Snippet selector or element
      * @param {string} lang - Language to switch to (html, css, js)
      */
-    showLang: function(snippet, lang) {
+    showLang: function (snippet, lang) {
       if (typeof snippet === 'string') {
         snippet = document.querySelector(snippet);
       }

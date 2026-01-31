@@ -3,7 +3,7 @@
  * JavaScript functionality for modal dialogs
  */
 
-(function() {
+(function () {
   'use strict';
 
   /**
@@ -13,14 +13,14 @@
     modals: new Map(),
     openModals: [],
     zIndexCounter: 1050,
-    
+
     // Store trigger cleanup functions
     _triggerCleanups: [],
 
     /**
      * Initialize modals
      */
-    init: function() {
+    init: function () {
       const modals = document.querySelectorAll('.modal');
 
       modals.forEach(modal => {
@@ -53,7 +53,7 @@
      * Initialize a single modal
      * @param {HTMLElement} modal - Modal element
      */
-    initModal: function(modal) {
+    initModal: function (modal) {
       const backdrop = this.createBackdrop(modal);
       const closeButtons = modal.querySelectorAll('.modal-close, [data-dismiss="modal"]');
       const dialog = modal.querySelector('.modal-dialog');
@@ -113,29 +113,29 @@
 
       this.modals.set(modal, { backdrop, dialog, trapHandler: null, cleanup: cleanupFunctions });
     },
-    
+
     /**
      * Create backdrop element
      * @param {HTMLElement} modal - Modal element
      * @returns {HTMLElement} Backdrop element
      */
-    createBackdrop: function(modal) {
+    createBackdrop: function (modal) {
       let backdrop = modal.querySelector('.modal-backdrop');
-      
+
       if (!backdrop) {
         backdrop = document.createElement('div');
         backdrop.className = 'modal-backdrop';
         document.body.appendChild(backdrop);
       }
-      
+
       return backdrop;
     },
-    
+
     /**
      * Open modal
      * @param {HTMLElement|string} modal - Modal element or selector
      */
-    open: function(modal) {
+    open: function (modal) {
       const el = typeof modal === 'string' ? document.querySelector(modal) : modal;
 
       if (!el) {
@@ -149,23 +149,23 @@
       }
 
       const modalData = this.modals.get(el);
-      const { backdrop, dialog } = modalData;
-      
+      const { backdrop, dialog: _dialog } = modalData;
+
       // Increment z-index for stacking
       this.zIndexCounter += 10;
       el.style.zIndex = this.zIndexCounter;
       backdrop.style.zIndex = this.zIndexCounter - 1;
-      
+
       // Add to open modals stack
       this.openModals.push(el);
-      
+
       // Show backdrop
       backdrop.classList.add('is-visible');
-      
+
       // Show modal
       el.classList.add('is-open');
       el.setAttribute('aria-hidden', 'false');
-      
+
       // Lock body scroll
       if (this.openModals.length === 1) {
         document.body.classList.add('body-modal-open');
@@ -174,7 +174,7 @@
           document.body.style.paddingRight = `${scrollbarWidth}px`;
         }
       }
-      
+
       // Focus trap (store handler for cleanup)
       const trapHandler = this.trapFocus(el);
       modalData.trapHandler = trapHandler;
@@ -186,16 +186,16 @@
           firstFocusable.focus();
         }
       }, 100);
-      
+
       // Dispatch event
       el.dispatchEvent(new CustomEvent('modal:open', { bubbles: true }));
     },
-    
+
     /**
      * Close modal
      * @param {HTMLElement|string} modal - Modal element or selector
      */
-    close: function(modal) {
+    close: function (modal) {
       const el = typeof modal === 'string' ? document.querySelector(modal) : modal;
 
       if (!el) {
@@ -216,17 +216,17 @@
         el.removeEventListener('keydown', trapHandler);
         modalData.trapHandler = null;
       }
-      
+
       // Remove from open modals stack
       const index = this.openModals.indexOf(el);
       if (index > -1) {
         this.openModals.splice(index, 1);
       }
-      
+
       // Hide modal
       el.classList.remove('is-open');
       el.setAttribute('aria-hidden', 'true');
-      
+
       // Hide backdrop if no other modals open
       if (this.openModals.length === 0) {
         backdrop.classList.remove('is-visible');
@@ -240,26 +240,26 @@
         const topBackdrop = this.modals.get(topModal).backdrop;
         topBackdrop.classList.add('is-visible');
       }
-      
+
       // Return focus to trigger
       const trigger = document.querySelector(`[data-modal="#${el.id}"]`);
       if (trigger) {
         trigger.focus();
       }
-      
+
       // Dispatch event
       el.dispatchEvent(new CustomEvent('modal:close', { bubbles: true }));
     },
-    
+
     /**
      * Trap focus within modal
      * @param {HTMLElement} modal - Modal element
      * @returns {Function} The trap handler function for cleanup
      */
-    trapFocus: function(modal) {
+    trapFocus: function (modal) {
       const self = this;
 
-      const trapHandler = function(e) {
+      const trapHandler = function (e) {
         if (e.key !== 'Tab') {
           return;
         }
@@ -286,26 +286,26 @@
       modal.addEventListener('keydown', trapHandler);
       return trapHandler;
     },
-    
+
     /**
      * Get focusable elements within modal
      * @param {HTMLElement} modal - Modal element
      * @returns {Array<HTMLElement>} Focusable elements
      */
-    getFocusableElements: function(modal) {
+    getFocusableElements: function (modal) {
       const selector = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
       return Array.from(modal.querySelectorAll(selector)).filter(el => {
-        return !el.hasAttribute('disabled') && 
-               el.offsetWidth > 0 && 
-               el.offsetHeight > 0;
+        return !el.hasAttribute('disabled') &&
+          el.offsetWidth > 0 &&
+          el.offsetHeight > 0;
       });
     },
-    
+
     /**
      * Toggle modal
      * @param {HTMLElement|string} modal - Modal element or selector
      */
-    toggle: function(modal) {
+    toggle: function (modal) {
       const el = typeof modal === 'string' ? document.querySelector(modal) : modal;
       if (el) {
         if (el.classList.contains('is-open')) {
@@ -320,7 +320,7 @@
      * Destroy a modal instance and clean up event listeners
      * @param {HTMLElement} modal - Modal element
      */
-    destroy: function(modal) {
+    destroy: function (modal) {
       const modalData = this.modals.get(modal);
       if (!modalData) return;
 
@@ -345,7 +345,7 @@
     /**
      * Destroy all modal instances
      */
-    destroyAll: function() {
+    destroyAll: function () {
       this.modals.forEach((data, modal) => {
         this.destroy(modal);
       });
@@ -354,7 +354,7 @@
       this._triggerCleanups = [];
     }
   };
-  
+
   // Initialize when DOM is ready
   if (typeof ready !== 'undefined') {
     ready(() => {
@@ -369,15 +369,15 @@
       Modals.init();
     }
   }
-  
+
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('modals', Modals);
   }
-  
+
   // Expose globally
   window.VanduoModals = Modals;
-  
+
   // Export for module systems
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Modals;

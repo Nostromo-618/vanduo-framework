@@ -3,7 +3,7 @@
  * Custom select dropdown with enhanced functionality
  */
 
-(function() {
+(function () {
   'use strict';
 
   /**
@@ -19,7 +19,7 @@
     /**
      * Initialize select components
      */
-    init: function() {
+    init: function () {
       const selects = document.querySelectorAll('select.custom-select-input, select[data-custom-select]');
 
       selects.forEach(select => {
@@ -34,7 +34,7 @@
      * Initialize a single select
      * @param {HTMLSelectElement} select - Select element
      */
-    initSelect: function(select) {
+    initSelect: function (select) {
       // Skip if already has custom wrapper
       if (select.closest('.custom-select-wrapper')) {
         return;
@@ -125,17 +125,17 @@
 
       this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions });
     },
-    
+
     /**
      * Build options in dropdown
      * @param {HTMLSelectElement} select - Select element
      * @param {HTMLElement} dropdown - Dropdown container
      * @param {HTMLElement} button - Button element
      */
-    buildOptions: function(select, dropdown, button) {
+    buildOptions: function (select, dropdown, button) {
       const options = select.querySelectorAll('option');
       const fragment = document.createDocumentFragment();
-      
+
       options.forEach((option, index) => {
         if (option.parentElement.tagName === 'OPTGROUP') {
           // Handle option groups
@@ -148,40 +148,40 @@
             fragment.appendChild(groupElement);
           }
         }
-        
+
         if (option.value === '' && !option.textContent.trim()) {
           return; // Skip empty options
         }
-        
+
         const optionElement = document.createElement('div');
         optionElement.className = 'custom-select-option';
         optionElement.textContent = option.textContent;
         optionElement.setAttribute('role', 'option');
         optionElement.setAttribute('data-value', option.value);
         optionElement.setAttribute('data-index', index);
-        
+
         if (option.selected) {
           optionElement.classList.add('is-selected');
           optionElement.setAttribute('aria-selected', 'true');
         }
-        
+
         if (option.disabled) {
           optionElement.classList.add('is-disabled');
           optionElement.setAttribute('aria-disabled', 'true');
         }
-        
-        optionElement.addEventListener('click', (e) => {
+
+        optionElement.addEventListener('click', (_e) => {
           if (!option.disabled) {
             this.selectOption(select, option, optionElement, button, dropdown);
           }
         });
-        
+
         fragment.appendChild(optionElement);
       });
-      
+
       dropdown.appendChild(fragment);
     },
-    
+
     /**
      * Select an option
      * @param {HTMLSelectElement} select - Select element
@@ -190,7 +190,7 @@
      * @param {HTMLElement} button - Button element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    selectOption: function(select, option, optionElement, button, dropdown) {
+    selectOption: function (select, option, optionElement, button, dropdown) {
       if (select.multiple) {
         // Multi-select
         option.selected = !option.selected;
@@ -202,16 +202,16 @@
         select.dispatchEvent(new Event('change', { bubbles: true }));
         this.closeDropdown(button, dropdown);
       }
-      
+
       this.updateButtonText(select, button);
     },
-    
+
     /**
      * Update button text
      * @param {HTMLSelectElement} select - Select element
      * @param {HTMLElement} button - Button element
      */
-    updateButtonText: function(select, button) {
+    updateButtonText: function (select, button) {
       if (select.multiple) {
         const selected = Array.from(select.selectedOptions);
         if (selected.length === 0) {
@@ -226,16 +226,16 @@
         button.textContent = selectedOption ? selectedOption.textContent : (select.dataset.placeholder || 'Select...');
       }
     },
-    
+
     /**
      * Update selected options in dropdown
      * @param {HTMLSelectElement} select - Select element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    updateSelectedOptions: function(select, dropdown) {
+    updateSelectedOptions: function (select, dropdown) {
       const options = dropdown.querySelectorAll('.custom-select-option');
       const selectedValues = Array.from(select.selectedOptions).map(opt => opt.value);
-      
+
       options.forEach(optionEl => {
         const value = optionEl.dataset.value;
         if (selectedValues.includes(value)) {
@@ -247,48 +247,48 @@
         }
       });
     },
-    
+
     /**
      * Toggle dropdown
      * @param {HTMLElement} button - Button element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    toggleDropdown: function(button, dropdown) {
+    toggleDropdown: function (button, dropdown) {
       const isOpen = dropdown.classList.contains('is-open');
-      
+
       if (isOpen) {
         this.closeDropdown(button, dropdown);
       } else {
         this.openDropdown(button, dropdown);
       }
     },
-    
+
     /**
      * Open dropdown
      * @param {HTMLElement} button - Button element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    openDropdown: function(button, dropdown) {
+    openDropdown: function (button, dropdown) {
       dropdown.classList.add('is-open');
       button.setAttribute('aria-expanded', 'true');
-      
+
       // Focus first option
       const firstOption = dropdown.querySelector('.custom-select-option:not(.is-disabled)');
       if (firstOption) {
         firstOption.focus();
       }
     },
-    
+
     /**
      * Close dropdown
      * @param {HTMLElement} button - Button element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    closeDropdown: function(button, dropdown) {
+    closeDropdown: function (button, dropdown) {
       dropdown.classList.remove('is-open');
       button.setAttribute('aria-expanded', 'false');
     },
-    
+
     /**
      * Handle keyboard navigation
      * @param {KeyboardEvent} e - Keyboard event
@@ -296,11 +296,11 @@
      * @param {HTMLElement} button - Button element
      * @param {HTMLElement} dropdown - Dropdown container
      */
-    handleKeydown: function(e, select, button, dropdown) {
+    handleKeydown: function (e, select, button, dropdown) {
       const isOpen = dropdown.classList.contains('is-open');
       const options = Array.from(dropdown.querySelectorAll('.custom-select-option:not(.is-disabled)'));
       const currentIndex = options.findIndex(opt => opt === document.activeElement);
-      
+
       switch (e.key) {
         case 'Enter':
         case ' ':
@@ -313,7 +313,7 @@
             this.openDropdown(button, dropdown);
           }
           break;
-          
+
         case 'Escape':
           if (isOpen) {
             e.preventDefault();
@@ -321,7 +321,7 @@
             button.focus();
           }
           break;
-          
+
         case 'ArrowDown':
           e.preventDefault();
           if (!isOpen) {
@@ -331,7 +331,7 @@
             options[nextIndex].focus();
           }
           break;
-          
+
         case 'ArrowUp':
           e.preventDefault();
           if (isOpen) {
@@ -339,14 +339,14 @@
             options[prevIndex].focus();
           }
           break;
-          
+
         case 'Home':
           if (isOpen) {
             e.preventDefault();
             options[0].focus();
           }
           break;
-          
+
         case 'End':
           if (isOpen) {
             e.preventDefault();
@@ -380,10 +380,10 @@
      * @param {HTMLElement} dropdown - Dropdown container
      * @param {string} searchTerm - Search term
      */
-    filterOptions: function(dropdown, searchTerm) {
+    filterOptions: function (dropdown, searchTerm) {
       const options = dropdown.querySelectorAll('.custom-select-option');
       const term = searchTerm.toLowerCase();
-      
+
       options.forEach(option => {
         const text = option.textContent.toLowerCase();
         if (text.includes(term)) {
@@ -393,13 +393,13 @@
         }
       });
     },
-    
+
     /**
      * Generate unique ID
      * @param {HTMLElement} element - Element
      * @returns {string} Generated ID
      */
-    generateId: function(element) {
+    generateId: function (element) {
       if (element.id) {
         return element.id;
       }
@@ -410,7 +410,7 @@
      * Destroy a select instance and clean up event listeners
      * @param {HTMLSelectElement} select - Select element
      */
-    destroy: function(select) {
+    destroy: function (select) {
       const instance = this.instances.get(select);
       if (!instance) return;
 
@@ -428,13 +428,13 @@
     /**
      * Destroy all select instances
      */
-    destroyAll: function() {
+    destroyAll: function () {
       this.instances.forEach((instance, select) => {
         this.destroy(select);
       });
     }
   };
-  
+
   // Initialize when DOM is ready
   if (typeof ready !== 'undefined') {
     ready(() => {
@@ -449,12 +449,12 @@
       Select.init();
     }
   }
-  
+
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('select', Select);
   }
-  
+
   // Export for module systems
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Select;

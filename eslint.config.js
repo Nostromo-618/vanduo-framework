@@ -72,6 +72,20 @@ export default [
         }
     },
     {
+        // Override for ES module entry point
+        files: ['js/index.js'],
+        languageOptions: {
+            sourceType: 'module'
+        }
+    },
+    {
+        // Override for helpers.js - these are global definitions, not redeclarations
+        files: ['js/utils/helpers.js'],
+        rules: {
+            'no-redeclare': 'off'
+        }
+    },
+    {
         // Ignore dist folder and vendor files
         ignores: ['dist/**', 'phosphor-icons/**', 'devUtils/**', 'scripts/**']
     }

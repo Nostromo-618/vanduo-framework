@@ -45,15 +45,15 @@ function ready(callback) {
  */
 function on(target, event, handlerOrSelector, handler) {
   const element = typeof target === 'string' ? $(target) : target;
-  
+
   if (!element) return;
-  
+
   if (typeof handlerOrSelector === 'function') {
     // Direct event binding
     element.addEventListener(event, handlerOrSelector);
   } else {
     // Event delegation
-    element.addEventListener(event, function(e) {
+    element.addEventListener(event, function (e) {
       const delegateTarget = e.target.closest(handlerOrSelector);
       if (delegateTarget && element.contains(delegateTarget)) {
         handler.call(delegateTarget, e);
@@ -163,7 +163,7 @@ function debounce(func, wait) {
  */
 function throttle(func, limit) {
   let inThrottle;
-  return function(...args) {
+  return function (...args) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -223,11 +223,11 @@ function escapeHtml(str) {
 function sanitizeHtml(input) {
   if (!input) return '';
   var doc = new DOMParser().parseFromString(input, 'text/html');
-  var allowed = ['B','STRONG','I','EM','BR','A','SPAN','U','SVG','PATH','LINE','CIRCLE','POLYLINE','RECT','G'];
+  var allowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U', 'SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
 
-  var sanitizeNode = function(node) {
+  var sanitizeNode = function (node) {
     var children = Array.from(node.childNodes);
-    children.forEach(function(child) {
+    children.forEach(function (child) {
       if (child.nodeType === Node.TEXT_NODE) return;
 
       if (!allowed.includes(child.nodeName)) {
@@ -243,25 +243,25 @@ function sanitizeHtml(input) {
           if (!['http:', 'https:', 'mailto:'].includes(url.protocol)) {
             child.removeAttribute('href');
           }
-        } catch (e) {
+        } catch (_e) {
           child.removeAttribute('href');
         }
         child.removeAttribute('target');
         child.removeAttribute('rel');
       } else if (child.nodeName === 'SVG' || child.closest && child.closest('svg')) {
         // Allow safe SVG presentation attributes only
-        var safeSvgAttrs = ['xmlns','width','height','viewBox','fill','stroke','stroke-width',
-          'stroke-linecap','stroke-linejoin','d','cx','cy','r','x1','y1','x2','y2','points',
-          'transform','class'];
+        var safeSvgAttrs = ['xmlns', 'width', 'height', 'viewBox', 'fill', 'stroke', 'stroke-width',
+          'stroke-linecap', 'stroke-linejoin', 'd', 'cx', 'cy', 'r', 'x1', 'y1', 'x2', 'y2', 'points',
+          'transform', 'class'];
         var attrs = Array.from(child.attributes || []);
-        attrs.forEach(function(a) {
+        attrs.forEach(function (a) {
           if (!safeSvgAttrs.includes(a.name)) {
             child.removeAttribute(a.name);
           }
         });
       } else {
-        var attrs = Array.from(child.attributes || []);
-        attrs.forEach(function(a) { child.removeAttribute(a.name); });
+        var otherAttrs = Array.from(child.attributes || []);
+        otherAttrs.forEach(function (a) { child.removeAttribute(a.name); });
       }
 
       sanitizeNode(child);

@@ -11,8 +11,16 @@
   <!-- Documentation page -->
   <url>
     <loc>https://vanduo.dev/documentation.html</loc>
-    <lastmod>2026-01-29</lastmod>
+    <lastmod>2026-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Changelog page -->
+  <url>
+    <loc>https://vanduo.dev/changelog.html</loc>
+    <lastmod>2026-01-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

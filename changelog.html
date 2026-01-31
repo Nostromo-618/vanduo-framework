@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vanduo Framework Changelog. Track all version updates, bug fixes, and new features.">
+    <meta name="author" content="Vanduo Framework">
+    <meta name="keywords" content="CSS framework, changelog, version history, updates, releases">
+    <meta name="robots" content="index, follow">
+    <title>Changelog - Vanduo Framework</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vanduo.dev/changelog.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vanduo.dev/changelog.html">
+    <meta property="og:title" content="Changelog - Vanduo Framework">
+    <meta property="og:description"
+        content="Track all version updates, bug fixes, and new features in Vanduo Framework.">
+    <meta property="og:image" content="https://vanduo.dev/images/og-image.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vanduo Framework">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vanduo.dev/changelog.html">
+    <meta name="twitter:title" content="Changelog - Vanduo Framework">
+    <meta name="twitter:description"
+        content="Track all version updates, bug fixes, and new features in Vanduo Framework.">
+    <meta name="twitter:image" content="https://vanduo.dev/images/twitter-card.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="./css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="./css/icons/icons.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://vanduo.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Changelog",
+          "item": "https://vanduo.dev/changelog.html"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add space to the left of navbar brand */
+        .navbar-brand {
+            margin-left: 1rem;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Changelog page header */
+        .changelog-header {
+            padding: 144px 0 55px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-primary-alpha-10), var(--color-info-alpha-10));
+        }
+
+        .changelog-header h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Version card styling */
+        .version-card {
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-border-radius);
+            overflow: hidden;
+        }
+
+        .version-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .version-body {
+            padding: 1.5rem;
+        }
+
+        .change-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .change-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .change-category h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .change-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .change-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .change-item:last-child {
+            border-bottom: none;
+        }
+
+        .change-item i {
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .change-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .change-item p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Version badge colors */
+        .version-latest {
+            background: linear-gradient(135deg, var(--color-primary-alpha-10), var(--color-info-alpha-10));
+        }
+
+        .version-initial {
+            background: linear-gradient(135deg, var(--color-success-alpha-10), var(--color-primary-alpha-10));
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-drop"
+                        style="color: var(--color-primary); margin-right: 0.25em;"></i>Vanduo</a>
+            </div>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="documentation.html" class="nav-link">Documentation</a></li>
+                    <li><a href="changelog.html" class="nav-link active">Changelog</a></li>
+                </ul>
+
+                <!-- Theme Customizer Trigger (far right) -->
+                <button class="theme-customizer-trigger" data-theme-customizer-trigger
+                    aria-label="Open theme customizer" style="margin-left: auto;">
+                    <i class="ph ph-paint-roller"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="changelog-header">
+        <div class="container-responsive">
+            <h1><i class="ph ph-scroll" style="color: var(--color-info);"></i> Changelog</h1>
+            <p class="text-lg text-muted">All notable changes to Vanduo Framework are documented here.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" style="padding: 3rem 0;">
+        <div class="container-responsive" style="max-width: 900px;">
+
+            <!-- Version 1.0.1 -->
+            <article class="version-card">
+                <header class="version-header version-latest">
+                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.1</span>
+                    <span style="color: var(--text-secondary); font-size: 0.95rem;">
+                        <i class="ph ph-calendar mr-1"></i>January 31, 2026
+                    </span>
+                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
+                </header>
+                <div class="version-body">
+                    <!-- Bug Fixes -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-success);">
+                            <i class="ph ph-wrench"></i> Bug Fixes
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Vertical button group alignment</strong>
+                                    <p>Fixed <code>.btn-group-vertical</code> alignment by changing
+                                        <code>align-items</code> to <code>stretch</code> for consistent button widths.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Dark mode table styling</strong>
+                                    <p>Tables now have proper dark mode backgrounds. Added
+                                        <code>[data-theme="dark"]</code> overrides for table variables.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Range slider track visibility</strong>
+                                    <p>Range slider track is now visible in dark mode using
+                                        <code>--color-gray-400</code> for better contrast.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Layout Changes -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-info);">
+                            <i class="ph ph-layout"></i> Layout Changes
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Getting Started cards layout</strong>
+                                    <p>Changed to full-width stacked cards for better readability.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-secondary);">
+                            <i class="ph ph-book-open"></i> Documentation
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Separate changelog page</strong>
+                                    <p>Created a dedicated changelog page with beautiful styling and icons.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.0.0 -->
+            <article class="version-card">
+                <header class="version-header version-initial">
+                    <span class="badge badge-success" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.0</span>
+                    <span style="color: var(--text-secondary); font-size: 0.95rem;">
+                        <i class="ph ph-calendar mr-1"></i>January 30, 2026
+                    </span>
+                    <span class="badge badge-outline" style="font-size: 0.75rem;">Initial Release</span>
+                </header>
+                <div class="version-body">
+                    <!-- Features -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-primary);">
+                            <i class="ph ph-rocket-launch"></i> Features
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-star" style="color: var(--color-warning);"></i>
+                                <div>
+                                    <strong>Complete UI Component Library</strong>
+                                    <p>Buttons, cards, forms, navigation, modals, tabs, toasts, and more.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-moon" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Dark Mode Support</strong>
+                                    <p>Built-in dark theme with automatic system preference detection.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-paint-brush" style="color: var(--color-primary);"></i>
+                                <div>
+                                    <strong>Theme Customizer</strong>
+                                    <p>Real-time customization of colors, fonts, and spacing.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-grid-four" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Responsive Grid System</strong>
+                                    <p>12-column grid with flexible breakpoints.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-text-aa" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Golden Ratio Typography</strong>
+                                    <p>Mathematically harmonious type scale based on Fibonacci sequence.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-leaf" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Zero Dependencies</strong>
+                                    <p>Pure HTML, CSS, and JavaScript with no external dependencies.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-phosphor-logo" style="color: var(--color-primary);"></i>
+                                <div>
+                                    <strong>Phosphor Icons</strong>
+                                    <p>1,500+ icons in 6 weights bundled locally.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-wheelchair" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Accessibility First</strong>
+                                    <p>ARIA attributes, focus states, and semantic HTML built-in.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Vanduo Framework</h4>
+                        <p>Essential just like water is.</p>
+                        <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Made with Kilo Code Section -->
+            <div class="footer-made-with">
+                <span class="footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+                        rel="noopener noreferrer">Kilo Code</a></span>
+                <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="footer-kilo-link"
+                    title="Kilo Code - AI Coding Assistant">
+                    <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="footer-kilo-logo">
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="text-center text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/utils/helpers.js"></script>
+    <script src="./js/vanduo.js"></script>
+    <script src="./js/components/theme-switcher.js"></script>
+    <script src="./js/components/font-switcher.js"></script>
+    <script src="./js/components/theme-customizer.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/select.js"></script>
+</body>
+
+</html>

@@ -267,6 +267,7 @@
                 <ul class="navbar-nav">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="documentation.html" class="nav-link active">Documentation</a></li>
+                    <li><a href="changelog.html" class="nav-link">Changelog</a></li>
                 </ul>
 
                 <!-- Theme Customizer Trigger (far right) -->
@@ -323,7 +324,7 @@
                             <li><a href="#button-groups" class="doc-nav-link">Button Groups</a></li>
 
                             <li class="doc-nav-section">Meta</li>
-                            <li><a href="#changelog" class="doc-nav-link">Changelog</a></li>
+                            <li><a href="changelog.html" class="doc-nav-link">Changelog</a></li>
                         </ul>
                     </nav>
                 </aside>
@@ -3755,163 +3756,6 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
                         </div>
                     </section>
-
-                    <!-- Changelog Section -->
-                    <section id="changelog">
-                        <h2 class="demo-title"><i class="ph ph-scroll mr-2"
-                                style="color: var(--color-info);"></i>Changelog</h2>
-                        <p class="mb-5">All notable changes to Vanduo Framework are documented here.</p>
-
-                        <!-- Version 1.0.1 -->
-                        <div class="card demo-card mb-5">
-                            <div class="card-header"
-                                style="background: linear-gradient(135deg, var(--color-primary-alpha-10), var(--color-info-alpha-10));">
-                                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                    <span class="badge badge-primary" style="font-size: 0.9rem;">v1.0.1</span>
-                                    <span style="color: var(--text-secondary); font-weight: 400; font-size: 0.9rem;">
-                                        <i class="ph ph-calendar mr-1"></i>January 31, 2026
-                                    </span>
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-4">
-                                    <h4
-                                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-success); margin-bottom: 1rem;">
-                                        <i class="ph ph-wrench"></i> Bug Fixes
-                                    </h4>
-                                    <ul style="list-style: none; padding: 0; margin: 0;">
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-check-circle"
-                                                style="color: var(--color-success); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Vertical button group alignment</strong>
-                                                <p class="text-muted text-sm mb-0">Fixed
-                                                    <code>.btn-group-vertical</code> alignment by changing
-                                                    <code>align-items</code> to <code>stretch</code> for consistent
-                                                    button widths.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-check-circle"
-                                                style="color: var(--color-success); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Dark mode table styling</strong>
-                                                <p class="text-muted text-sm mb-0">Tables now have proper dark mode
-                                                    backgrounds. Added <code>[data-theme="dark"]</code> overrides for
-                                                    table variables.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0;">
-                                            <i class="ph ph-check-circle"
-                                                style="color: var(--color-success); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Range slider track visibility</strong>
-                                                <p class="text-muted text-sm mb-0">Range slider track is now visible in
-                                                    dark mode using <code>--color-gray-400</code> for better contrast.
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <h4
-                                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-info); margin-bottom: 1rem;">
-                                        <i class="ph ph-layout"></i> Layout Changes
-                                    </h4>
-                                    <ul style="list-style: none; padding: 0; margin: 0;">
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0;">
-                                            <i class="ph ph-check-circle"
-                                                style="color: var(--color-info); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Getting Started cards layout</strong>
-                                                <p class="text-muted text-sm mb-0">Changed to full-width stacked cards
-                                                    for better readability.</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Version 1.0.0 -->
-                        <div class="card demo-card">
-                            <div class="card-header"
-                                style="background: linear-gradient(135deg, var(--color-success-alpha-10), var(--color-primary-alpha-10));">
-                                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                    <span class="badge badge-success" style="font-size: 0.9rem;">v1.0.0</span>
-                                    <span style="color: var(--text-secondary); font-weight: 400; font-size: 0.9rem;">
-                                        <i class="ph ph-calendar mr-1"></i>January 30, 2026
-                                    </span>
-                                    <span class="badge badge-outline" style="font-size: 0.75rem;">Initial Release</span>
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-4">
-                                    <h4
-                                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-primary); margin-bottom: 1rem;">
-                                        <i class="ph ph-rocket-launch"></i> Features
-                                    </h4>
-                                    <ul style="list-style: none; padding: 0; margin: 0;">
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-star"
-                                                style="color: var(--color-warning); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Complete UI Component Library</strong>
-                                                <p class="text-muted text-sm mb-0">Buttons, cards, forms, navigation,
-                                                    modals, tabs, toasts, and more.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-moon"
-                                                style="color: var(--color-info); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Dark Mode Support</strong>
-                                                <p class="text-muted text-sm mb-0">Built-in dark theme with automatic
-                                                    system preference detection.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-paint-brush"
-                                                style="color: var(--color-primary); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Theme Customizer</strong>
-                                                <p class="text-muted text-sm mb-0">Real-time customization of colors,
-                                                    fonts, and spacing.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <i class="ph ph-grid-four"
-                                                style="color: var(--color-success); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Responsive Grid System</strong>
-                                                <p class="text-muted text-sm mb-0">12-column grid with flexible
-                                                    breakpoints.</p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0;">
-                                            <i class="ph ph-text-aa"
-                                                style="color: var(--color-secondary); margin-top: 0.2rem;"></i>
-                                            <div>
-                                                <strong>Golden Ratio Typography</strong>
-                                                <p class="text-muted text-sm mb-0">Mathematically harmonious type scale.
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </div>
             </div>
         </div>
@@ -3934,6 +3778,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         <ul class="footer-links">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
                         </ul>
                     </div>
                 </div>
@@ -3943,6 +3788,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         <ul class="footer-links">
                             <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
                             <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
                             <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
                             </li>
                         </ul>

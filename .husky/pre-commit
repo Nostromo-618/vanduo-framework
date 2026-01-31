@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Run build to ensure dist/ is up to date with latest changes
+echo "🌊 Running Vanduo build before commit..."
+pnpm run build
+
+# Build succeeded - continue with commit
+echo "✅ Build verified, proceeding with commit..."

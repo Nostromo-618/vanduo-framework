@@ -17,6 +17,9 @@ importers:
       eslint:
         specifier: ^9.0.0
         version: 9.39.2
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       lightningcss:
         specifier: ^1.28.0
         version: 1.31.1
@@ -571,6 +574,11 @@ packages:
   html-tags@3.3.1:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
     engines: {node: '>=8'}
+
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -1472,6 +1480,8 @@ snapshots:
   hookified@1.15.0: {}
 
   html-tags@3.3.1: {}
+
+  husky@9.1.7: {}
 
   ignore@5.3.2: {}
 

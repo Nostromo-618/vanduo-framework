@@ -66,6 +66,48 @@
   padding-right: var(--container-padding);
 }
 
+/* Container XL - Intermediate size (1364px Lucas number) */
+.container-xl {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Container Wide - Full Fibonacci wide (1597px) */
+.container-wide {
+  width: 100%;
+  max-width: var(--container-2xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Container Responsive - Grows with viewport at XL+ breakpoints */
+.container-responsive {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (min-width: 1200px) {
+  .container-responsive {
+    max-width: var(--container-xl);
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-responsive {
+    max-width: var(--container-2xl);
+  }
+}
+
 /* Row */
 .row {
   display: flex;

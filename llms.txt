@@ -1,0 +1,107 @@
+# Vanduo Framework
+
+> A lightweight, pure HTML/CSS/JS framework for static websites. No dependencies, no build tools, no NPM — just clean code. "Essential just like water is."
+
+## Key Principles
+
+- Pure HTML/CSS/JS only — no libraries, no build steps
+- Modular CSS architecture — import only what you need
+- Fibonacci-based spacing system for natural visual rhythm
+- Dark mode with OS preference detection + manual toggle
+- WCAG 2.1 AA accessibility compliance
+- Mobile-first responsive design
+
+## Quick Start
+
+Load via CDN (no download required):
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
+```
+
+Pin to version for production: replace `@main` with `@v1.0.0`
+
+## Docs
+
+- [Full Documentation](https://vanduo.dev/documentation.html): Complete component reference with live examples
+- [README](https://github.com/Nostromo-618/vanduo-framework/blob/main/README.md): Quick start guide and project overview
+
+## Core Systems
+
+- [Colors](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/colors.css): Open Color palette with CSS variables (`--color-primary`, `--color-success`, etc.)
+- [Typography](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/typography.css): Fluid typography with `clamp()`, font stacks
+- [Grid System](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/grid.css): 12-column responsive grid (`.container`, `.row`, `.col-*`)
+- [Spacing](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/spacing.css): Fibonacci-based spacing utilities (`.m-*`, `.p-*`, `.gap-*`)
+
+## Components
+
+- [Buttons](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/buttons.css): `.btn`, `.btn-primary`, `.btn-outline`, sizes, states
+- [Cards](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/cards.css): `.card`, `.card-header`, `.card-body`, `.card-footer`
+- [Forms](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/forms.css): Inputs, selects, checkboxes, validation states
+- [Navbar](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/navbar.css): `.navbar`, `.navbar-fixed`, responsive mobile menu
+- [Modals](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/modals.css): `.modal`, triggered via `data-modal="#id"`
+- [Dropdown](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/dropdown.css): `.dropdown`, `.dropdown-menu`
+- [Tabs](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tabs.css): `.tabs`, `.tab-content`
+- [Tooltips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tooltips.css): `data-tooltip="text"`, `data-placement="top|right|bottom|left"`
+- [Toasts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/toast.css): Notification system via `Vanduo.components.toast.show()`
+- [Alerts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/alerts.css): `.alert`, `.alert-success`, `.alert-error`, dismissible
+- [Badges](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/badges.css): `.badge`, color variants
+- [Avatars](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/avatar.css): `.avatar`, sizes, status indicators
+- [Chips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/chips.css): `.chip`, deletable chips
+- [Collapsible](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/collapsible.css): `data-collapsible` accordion/collapse
+- [Skeleton](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/skeleton.css): Loading placeholders
+- [Preloader](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/preloader.css): Page loading animation
+- [Spinner](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/spinner.css): `.spinner` loading indicator
+- [Progress](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/progress.css): `.progress`, `.progress-bar`
+
+## JavaScript API
+
+```javascript
+// Global object
+Vanduo.reinit('dropdown');     // Re-initialize component
+Vanduo.destroyAll();           // Cleanup all components
+
+// Toast notifications
+Vanduo.components.toast.show({
+  title: 'Success',
+  message: 'Item saved.',
+  type: 'success'  // success | error | warning | info
+});
+```
+
+## Data Attributes
+
+| Attribute | Purpose |
+|-----------|---------|
+| `data-modal="#id"` | Open modal |
+| `data-dismiss="modal"` | Close modal |
+| `data-tooltip="text"` | Tooltip content |
+| `data-placement="top"` | Tooltip position |
+| `data-toggle="theme"` | Theme switcher (light/dark/system) |
+| `data-collapsible` | Collapsible container |
+
+## Theme Customization
+
+Override CSS variables:
+```css
+:root {
+  --color-primary: #6366f1;
+  --font-family-base: 'Inter', sans-serif;
+  --btn-border-radius: 8px;
+}
+```
+
+Dark mode: set `data-theme="dark"` on `<html>` or use `data-toggle="theme"` for automatic switching.
+
+## Icons
+
+Includes Phosphor Icons (1,500+ icons, MIT License):
+```html
+<i class="ph ph-heart"></i>       <!-- Regular -->
+<i class="ph-fill ph-star"></i>   <!-- Filled -->
+```
+
+## Optional
+
+- [Phosphor Icons Reference](https://phosphoricons.com): Full icon browser
+- [Open Color Palette](https://yeun.github.io/open-color/): Color system reference

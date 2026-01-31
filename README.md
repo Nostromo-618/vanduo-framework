@@ -105,6 +105,12 @@ For development or when you need more control, use the unminified source:
 
 ---
 
+## LLM Access
+
+This project includes an [`llms.txt`](llms.txt) file — a structured markdown summary designed for AI assistants and LLM-powered code editors. It provides quick access to framework documentation, component references, and usage patterns.
+
+---
+
 ## Documentation
 
 Comprehensive documentation for all components, utilities, and customization options is included in the project.

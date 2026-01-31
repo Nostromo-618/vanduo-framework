@@ -30,9 +30,9 @@ A lightweight, pure HTML/CSS/JS framework for designing beautiful static website
 
 ## Quick Start
 
-### Option 1: Production Bundle (Recommended)
+### Option 1: CDN (Fastest)
 
-The fastest way to get started. Copy the `dist/` folder to your project:
+Load directly from jsDelivr — no download required:
 
 ```html
 <!DOCTYPE html>
@@ -41,13 +41,40 @@ The fastest way to get started. Copy the `dist/` folder to your project:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
-    <!-- Minified CSS (includes all components, fonts, icons) -->
+    <!-- Vanduo CSS via CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.css">
+</head>
+<body>
+    <!-- Your content here -->
+    
+    <!-- Vanduo JS via CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
+</body>
+</html>
+```
+
+**Pin to a specific version** (recommended for production):
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.0/dist/vanduo.min.js"></script>
+```
+
+### Option 2: Download
+
+[**Download dist/ folder**](https://github.com/Nostromo-618/vanduo-framework/tree/main/dist) and include locally:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
     <link rel="stylesheet" href="dist/vanduo.min.css">
 </head>
 <body>
     <!-- Your content here -->
     
-    <!-- Minified JS (includes all interactive components) -->
     <script src="dist/vanduo.min.js"></script>
 </body>
 </html>
@@ -55,9 +82,9 @@ The fastest way to get started. Copy the `dist/` folder to your project:
 
 The `dist/` folder is **self-contained** (CSS, JS, Fonts, Icons).
 
-### Option 2: Development/Source Files
+### Option 3: Source Files
 
-For development or when you need more control:
+For development or when you need more control, use the unminified source:
 
 ```html
 <!DOCTYPE html>
@@ -66,13 +93,11 @@ For development or when you need more control:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
-    <!-- Full unminified CSS -->
     <link rel="stylesheet" href="css/vanduo.css">
 </head>
 <body>
     <!-- Your content here -->
     
-    <!-- Core framework + individual components as needed -->
     <script src="js/vanduo.js"></script>
 </body>
 </html>

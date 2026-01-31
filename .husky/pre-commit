@@ -4,5 +4,7 @@
 echo "🌊 Running Vanduo build before commit..."
 pnpm run build
 
-# Build succeeded - continue with commit
-echo "✅ Build verified, proceeding with commit..."
+# Stage the updated dist files
+git add dist/
+
+echo "✅ Build complete and dist/ staged, proceeding with commit..."

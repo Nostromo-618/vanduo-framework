@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output (tracked for CDN/download access)
+# dist/
 
 # Package manager
 # pnpm-lock.yaml (Committed to ensure reproducible tool versions)

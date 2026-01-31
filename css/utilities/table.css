@@ -10,12 +10,16 @@
   --table-striped-bg: var(--bg-secondary);
   --table-hover-bg: rgba(0, 0, 0, 0.075);
   --table-active-bg: var(--color-primary-alpha-10);
-  
+
   /* Table Spacing (Fibonacci) */
-  --table-padding-y: 0.5rem;      /* 8px  - fib */
-  --table-padding-x: 0.8125rem;   /* 13px - fib (13/8 ~ phi) */
-  --table-padding-y-sm: 0.3125rem;/* 5px  - fib */
-  --table-padding-x-sm: 0.5rem;   /* 8px  - fib (8/5 ~ phi) */
+  --table-padding-y: 0.5rem;
+  /* 8px  - fib */
+  --table-padding-x: 0.8125rem;
+  /* 13px - fib (13/8 ~ phi) */
+  --table-padding-y-sm: 0.3125rem;
+  /* 5px  - fib */
+  --table-padding-x-sm: 0.5rem;
+  /* 8px  - fib (8/5 ~ phi) */
 }
 
 /* Base Table */
@@ -41,7 +45,7 @@
   color: var(--text-primary);
 }
 
-.table tbody + tbody {
+.table tbody+tbody {
   border-top: 2px solid var(--table-border-color);
 }
 
@@ -63,7 +67,7 @@
 .table-borderless th,
 .table-borderless td,
 .table-borderless thead th,
-.table-borderless tbody + tbody {
+.table-borderless tbody+tbody {
   border: 0;
 }
 
@@ -82,49 +86,49 @@
 
 /* Table Cell States */
 .table-active,
-.table-active > th,
-.table-active > td {
+.table-active>th,
+.table-active>td {
   background-color: var(--table-active-bg);
 }
 
 .table-primary,
-.table-primary > th,
-.table-primary > td {
+.table-primary>th,
+.table-primary>td {
   color: var(--color-white);
   background-color: var(--color-primary);
 }
 
 .table-secondary,
-.table-secondary > th,
-.table-secondary > td {
+.table-secondary>th,
+.table-secondary>td {
   color: var(--color-white);
   background-color: var(--color-secondary);
 }
 
 .table-success,
-.table-success > th,
-.table-success > td {
+.table-success>th,
+.table-success>td {
   color: var(--color-white);
   background-color: var(--color-success);
 }
 
 .table-warning,
-.table-warning > th,
-.table-warning > td {
+.table-warning>th,
+.table-warning>td {
   color: var(--color-gray-900);
   background-color: var(--color-warning);
 }
 
 .table-error,
-.table-error > th,
-.table-error > td {
+.table-error>th,
+.table-error>td {
   color: var(--color-white);
   background-color: var(--color-error);
 }
 
 .table-info,
-.table-info > th,
-.table-info > td {
+.table-info>th,
+.table-info>td {
   color: var(--color-white);
   background-color: var(--color-info);
 }
@@ -162,7 +166,7 @@ tfoot {
   -webkit-overflow-scrolling: touch;
 }
 
-.table-responsive > .table {
+.table-responsive>.table {
   margin-bottom: 0;
 }
 
@@ -174,8 +178,8 @@ tfoot {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
-  .table-responsive-sm > .table {
+
+  .table-responsive-sm>.table {
     margin-bottom: 0;
   }
 }
@@ -187,8 +191,8 @@ tfoot {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
-  .table-responsive-md > .table {
+
+  .table-responsive-md>.table {
     margin-bottom: 0;
   }
 }
@@ -200,8 +204,8 @@ tfoot {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
-  .table-responsive-lg > .table {
+
+  .table-responsive-lg>.table {
     margin-bottom: 0;
   }
 }
@@ -213,8 +217,8 @@ tfoot {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
-  .table-responsive-xl > .table {
+
+  .table-responsive-xl>.table {
     margin-bottom: 0;
   }
 }
@@ -239,3 +243,60 @@ tfoot {
   background-color: rgba(255, 255, 255, 0.075);
 }
 
+/* Dark Mode Table Overrides */
+[data-theme="dark"] .table {
+  --table-bg: var(--bg-primary);
+  --table-border-color: var(--border-color);
+  --table-striped-bg: var(--bg-secondary);
+  --table-hover-bg: rgba(255, 255, 255, 0.05);
+  background-color: var(--table-bg);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  border-color: var(--table-border-color);
+}
+
+[data-theme="dark"] .table thead th {
+  border-color: var(--table-border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--table-striped-bg);
+}
+
+[data-theme="dark"] thead {
+  background-color: var(--bg-secondary);
+}
+
+/* Dark mode support for system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .table {
+    --table-bg: var(--bg-primary);
+    --table-border-color: var(--border-color);
+    --table-striped-bg: var(--bg-secondary);
+    --table-hover-bg: rgba(255, 255, 255, 0.05);
+    background-color: var(--table-bg);
+    color: var(--text-primary);
+  }
+
+  :root:not([data-theme]) .table th,
+  :root:not([data-theme]) .table td {
+    border-color: var(--table-border-color);
+  }
+
+  :root:not([data-theme]) .table thead th {
+    border-color: var(--table-border-color);
+    color: var(--text-primary);
+  }
+
+  :root:not([data-theme]) .table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--table-striped-bg);
+  }
+
+  :root:not([data-theme]) thead {
+    background-color: var(--bg-secondary);
+  }
+}

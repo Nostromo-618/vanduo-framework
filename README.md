@@ -6,7 +6,8 @@
 - **No libraries. No NPM. No build tools. No vulnerabilities. No nonsense.**
 - **FOSS now and forever.**
 
-![Built with Kilo](https://img.shields.io/badge/Editor-Kilo-0c8599?style=flat-square)
+
+## Built with ![Kilo Code](https://img.shields.io/badge/Kilo_Code-AI-F4ED14?style=for-the-badge&logo=lightning&logoColor=black&labelColor=black)
 
 ## Overview
 

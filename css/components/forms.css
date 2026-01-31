@@ -901,14 +901,14 @@ label.label-lg {
   --range-thumb-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Dark Theme Range Overrides */
+/* Dark Theme Range Overrides - more visible track */
 [data-theme="dark"] {
-  --range-track-bg: var(--color-gray-500);
+  --range-track-bg: var(--color-gray-400);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --range-track-bg: var(--color-gray-500);
+    --range-track-bg: var(--color-gray-400);
   }
 }
 
@@ -949,9 +949,17 @@ input[type="range"]:focus::-moz-range-thumb {
   box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--color-primary-alpha-10);
 }
 
-/* Range Track (Webkit) */
-input[type="range"].range-input::-webkit-slider-track,
-input[type="range"]::-webkit-slider-track {
+/* Range Track (Webkit - Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: var(--range-track-height);
+  background: var(--range-track-bg);
+  border: var(--range-track-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="range"].range-input::-webkit-slider-runnable-track {
   width: 100%;
   height: var(--range-track-height);
   background: var(--range-track-bg);

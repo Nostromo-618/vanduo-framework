@@ -64,6 +64,12 @@
   margin-left: 0.5rem;
 }
 
+/* Reset margin for vertical groups */
+.btn-group-vertical>.btn+.btn {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
 /* Reset bottom margin in flush contexts */
 .modal-footer .btn,
 .card-footer .btn {

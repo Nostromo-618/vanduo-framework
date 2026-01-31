@@ -4,7 +4,7 @@
  * Handles primary color, neutral color, radius, font, and color mode
  */
 
-(function() {
+(function () {
   'use strict';
 
   const ThemeCustomizer = {
@@ -19,7 +19,8 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY: 'blue',
+      PRIMARY_LIGHT: 'blue',
+      PRIMARY_DARK: 'yellow',
       NEUTRAL: 'neutral',
       RADIUS: '0.375',
       FONT: 'jetbrains-mono',
@@ -94,37 +95,50 @@
     /**
      * Initialize the Theme Customizer
      */
-    init: function() {
+    init: function () {
       this.loadPreferences();
       this.applyAllPreferences();
       this.bindExistingElements();
       this.bindEvents();
-      
+
       console.log('Vanduo Theme Customizer initialized');
+    },
+
+    /**
+     * Get default primary color based on theme
+     */
+    getDefaultPrimary: function (theme) {
+      if (theme === 'system') {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return this.DEFAULTS.PRIMARY_DARK;
+        }
+        return this.DEFAULTS.PRIMARY_LIGHT;
+      }
+      return theme === 'dark' ? this.DEFAULTS.PRIMARY_DARK : this.DEFAULTS.PRIMARY_LIGHT;
     },
 
     /**
      * Load preferences from localStorage
      */
-    loadPreferences: function() {
-      this.state.primary = localStorage.getItem(this.STORAGE_KEYS.PRIMARY) || this.DEFAULTS.PRIMARY;
+    loadPreferences: function () {
+      this.state.theme = localStorage.getItem(this.STORAGE_KEYS.THEME) || this.DEFAULTS.THEME;
+      this.state.primary = localStorage.getItem(this.STORAGE_KEYS.PRIMARY) || this.getDefaultPrimary(this.state.theme);
       this.state.neutral = localStorage.getItem(this.STORAGE_KEYS.NEUTRAL) || this.DEFAULTS.NEUTRAL;
       this.state.radius = localStorage.getItem(this.STORAGE_KEYS.RADIUS) || this.DEFAULTS.RADIUS;
       this.state.font = localStorage.getItem(this.STORAGE_KEYS.FONT) || this.DEFAULTS.FONT;
-      this.state.theme = localStorage.getItem(this.STORAGE_KEYS.THEME) || this.DEFAULTS.THEME;
     },
 
     /**
      * Save a preference to localStorage
      */
-    savePreference: function(key, value) {
+    savePreference: function (key, value) {
       localStorage.setItem(key, value);
     },
 
     /**
      * Apply all preferences
      */
-    applyAllPreferences: function() {
+    applyAllPreferences: function () {
       this.applyPrimary(this.state.primary);
       this.applyNeutral(this.state.neutral);
       this.applyRadius(this.state.radius);
@@ -135,22 +149,22 @@
     /**
      * Apply primary color
      */
-    applyPrimary: function(colorKey) {
+    applyPrimary: function (colorKey) {
       if (!this.PRIMARY_COLORS[colorKey]) {
-        colorKey = this.DEFAULTS.PRIMARY;
+        colorKey = this.getDefaultPrimary(this.state.theme);
       }
 
       this.state.primary = colorKey;
       document.documentElement.setAttribute('data-primary', colorKey);
       this.savePreference(this.STORAGE_KEYS.PRIMARY, colorKey);
-      
+
       this.dispatchEvent('primary-change', { color: colorKey });
     },
 
     /**
      * Apply neutral color
      */
-    applyNeutral: function(neutralKey) {
+    applyNeutral: function (neutralKey) {
       if (!this.NEUTRAL_COLORS[neutralKey]) {
         neutralKey = this.DEFAULTS.NEUTRAL;
       }
@@ -158,14 +172,14 @@
       this.state.neutral = neutralKey;
       document.documentElement.setAttribute('data-neutral', neutralKey);
       this.savePreference(this.STORAGE_KEYS.NEUTRAL, neutralKey);
-      
+
       this.dispatchEvent('neutral-change', { neutral: neutralKey });
     },
 
     /**
      * Apply border radius
      */
-    applyRadius: function(radius) {
+    applyRadius: function (radius) {
       if (!this.RADIUS_OPTIONS.includes(radius)) {
         radius = this.DEFAULTS.RADIUS;
       }
@@ -174,43 +188,52 @@
       document.documentElement.setAttribute('data-radius', radius);
       document.documentElement.style.setProperty('--radius-scale', radius);
       this.savePreference(this.STORAGE_KEYS.RADIUS, radius);
-      
+
       this.dispatchEvent('radius-change', { radius: radius });
     },
 
     /**
      * Apply font family
      */
-    applyFont: function(fontKey) {
+    applyFont: function (fontKey) {
       if (!this.FONT_OPTIONS[fontKey]) {
         fontKey = this.DEFAULTS.FONT;
       }
 
       this.state.font = fontKey;
-      
+
       if (fontKey === 'system') {
         document.documentElement.removeAttribute('data-font');
       } else {
         document.documentElement.setAttribute('data-font', fontKey);
       }
-      
+
       this.savePreference(this.STORAGE_KEYS.FONT, fontKey);
-      
+
       // Also update the existing FontSwitcher if available
       if (window.FontSwitcher && window.FontSwitcher.setPreference) {
         window.FontSwitcher.state.preference = fontKey;
         window.FontSwitcher.applyFont();
       }
-      
+
       this.dispatchEvent('font-change', { font: fontKey });
     },
 
     /**
      * Apply theme mode
      */
-    applyTheme: function(mode) {
+    applyTheme: function (mode) {
       if (!this.THEME_MODES.includes(mode)) {
         mode = this.DEFAULTS.THEME;
+      }
+
+      // Check if we should switch primary color (if using default)
+      const oldDefault = this.getDefaultPrimary(this.state.theme);
+      if (this.state.primary === oldDefault) {
+        const newDefault = this.getDefaultPrimary(mode);
+        if (newDefault !== this.state.primary) {
+          this.applyPrimary(newDefault);
+        }
       }
 
       this.state.theme = mode;
@@ -220,21 +243,21 @@
       } else {
         document.documentElement.setAttribute('data-theme', mode);
       }
-      
+
       this.savePreference(this.STORAGE_KEYS.THEME, mode);
-      
+
       // Also update the existing ThemeSwitcher if available
       if (window.Vanduo && window.Vanduo.components.themeSwitcher) {
         window.Vanduo.components.themeSwitcher.state.preference = mode;
       }
-      
+
       this.dispatchEvent('mode-change', { mode: mode });
     },
 
     /**
      * Dispatch custom event
      */
-    dispatchEvent: function(type, detail) {
+    dispatchEvent: function (type, detail) {
       const event = new CustomEvent('theme:' + type, {
         bubbles: true,
         detail: detail
@@ -256,10 +279,10 @@
     /**
      * Bind to existing DOM elements or create them dynamically
      */
-    bindExistingElements: function() {
+    bindExistingElements: function () {
       // First check for existing full structure
       this.elements.customizer = document.querySelector('.theme-customizer');
-      
+
       if (this.elements.customizer) {
         this.elements.trigger = this.elements.customizer.querySelector('.theme-customizer-trigger');
         this.elements.panel = this.elements.customizer.querySelector('.theme-customizer-panel');
@@ -279,7 +302,7 @@
     /**
      * Create the panel dynamically when only a trigger button exists
      */
-    createDynamicPanel: function(triggerButton) {
+    createDynamicPanel: function (triggerButton) {
       // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'theme-customizer';
@@ -318,7 +341,7 @@
     /**
      * Position the panel below the trigger button on desktop
      */
-    positionPanel: function() {
+    positionPanel: function () {
       if (!this.elements.panel || !this.elements.trigger) return;
 
       const isMobile = window.innerWidth < 768;
@@ -335,18 +358,18 @@
         const triggerRect = this.elements.trigger.getBoundingClientRect();
         const panelWidth = 320; // --customizer-width
         const panelTop = triggerRect.bottom;
-        
+
         // Calculate right position: align panel's right edge with trigger's right edge
         // But ensure it doesn't overflow the viewport
         const viewportWidth = window.innerWidth;
         let panelRight = viewportWidth - triggerRect.right;
-        
+
         // Ensure panel doesn't overflow left side of viewport
         const panelLeft = viewportWidth - panelRight - panelWidth;
         if (panelLeft < 8) {
           panelRight = viewportWidth - panelWidth - 8;
         }
-        
+
         this.elements.panel.style.top = panelTop + 'px';
         this.elements.panel.style.right = panelRight + 'px';
         this.elements.panel.style.left = '';
@@ -358,7 +381,7 @@
     /**
      * Bind events specifically for the panel (called after dynamic creation)
      */
-    bindPanelEvents: function() {
+    bindPanelEvents: function () {
       if (!this.elements.panel) return;
 
       // Primary color swatches
@@ -429,7 +452,7 @@
     /**
      * Generate panel HTML
      */
-    getPanelHTML: function() {
+    getPanelHTML: function () {
       // Generate primary color swatches
       let primarySwatches = '';
       for (const [key, value] of Object.entries(this.PRIMARY_COLORS)) {
@@ -513,7 +536,7 @@
     /**
      * Bind event listeners
      */
-    bindEvents: function() {
+    bindEvents: function () {
       // Trigger click - bind to any trigger button
       if (this.elements.trigger) {
         this.elements.trigger.addEventListener('click', (e) => {
@@ -611,7 +634,7 @@
     /**
      * Toggle panel open/close
      */
-    toggle: function() {
+    toggle: function () {
       if (this.state.isOpen) {
         this.close();
       } else {
@@ -622,7 +645,7 @@
     /**
      * Open the panel
      */
-    open: function() {
+    open: function () {
       this.state.isOpen = true;
 
       // Ensure panel is positioned correctly before opening
@@ -644,9 +667,9 @@
     /**
      * Close the panel
      */
-    close: function() {
+    close: function () {
       this.state.isOpen = false;
-      
+
       if (this.elements.panel) {
         this.elements.panel.classList.remove('is-open');
       }
@@ -656,14 +679,14 @@
       if (this.elements.overlay) {
         this.elements.overlay.classList.remove('is-active');
       }
-      
+
       this.dispatchEvent('panel-close', { isOpen: false });
     },
 
     /**
      * Update UI to reflect current state
      */
-    updateUI: function() {
+    updateUI: function () {
       if (!this.elements.panel) return;
 
       // Update primary color swatches
@@ -696,28 +719,29 @@
     /**
      * Reset all preferences to defaults
      */
-    reset: function() {
-      this.applyPrimary(this.DEFAULTS.PRIMARY);
+    reset: function () {
+      this.applyTheme(this.DEFAULTS.THEME);
+      this.applyPrimary(this.getDefaultPrimary(this.DEFAULTS.THEME));
       this.applyNeutral(this.DEFAULTS.NEUTRAL);
       this.applyRadius(this.DEFAULTS.RADIUS);
       this.applyFont(this.DEFAULTS.FONT);
       this.applyTheme(this.DEFAULTS.THEME);
       this.updateUI();
-      
+
       this.dispatchEvent('reset', { state: { ...this.state } });
     },
 
     /**
      * Get current state
      */
-    getState: function() {
+    getState: function () {
       return { ...this.state };
     },
 
     /**
      * Programmatically set preferences
      */
-    setPreferences: function(prefs) {
+    setPreferences: function (prefs) {
       if (prefs.primary) this.applyPrimary(prefs.primary);
       if (prefs.neutral) this.applyNeutral(prefs.neutral);
       if (prefs.radius) this.applyRadius(prefs.radius);

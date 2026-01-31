@@ -272,7 +272,7 @@
                 <!-- Theme Customizer Trigger (far right) -->
                 <button class="theme-customizer-trigger" data-theme-customizer-trigger
                     aria-label="Open theme customizer" style="margin-left: auto;">
-                    <i class="ph ph-sliders-horizontal"></i>
+                    <i class="ph ph-paint-roller"></i>
                 </button>
             </div>
         </div>
@@ -1563,7 +1563,8 @@ Vanduo.components.toast.show({
                                         </div>
                                         <p class="mt-3 text-sm text-muted">Ratio 3:5:8 (total 16 parts). Use
                                             <code>.row-fib-3-alt</code> with <code>.col-fib-3</code>,
-                                            <code>.col-fib-5</code>, <code>.col-fib-8</code>.</p>
+                                            <code>.col-fib-5</code>, <code>.col-fib-8</code>.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -1926,13 +1927,13 @@ Vanduo.components.toast.show({
 &lt;button class="theme-customizer-trigger" 
         data-theme-customizer-trigger 
         aria-label="Open theme customizer"&gt;
-    &lt;i class="ph ph-sliders-horizontal"&gt;&lt;/i&gt;
+    &lt;i class="ph ph-paint-roller"&gt;&lt;/i&gt;
 &lt;/button&gt;
 
 &lt;!-- Include the JS component --&gt;
 &lt;script src="js/components/theme-customizer.js"&gt;&lt;/script&gt;</code></pre>
                                         <p class="mt-5"><strong>Try it:</strong> Click the <i
-                                                class="ph ph-sliders-horizontal"></i> icon in the navbar to open the
+                                                class="ph ph-paint-roller"></i> icon in the navbar to open the
                                             Theme Customizer.</p>
                                     </div>
                                 </div>
@@ -1956,7 +1957,8 @@ Vanduo.components.toast.show({
                                             <li><strong>Color Mode:</strong> System (default), Dark, or Light</li>
                                         </ul>
                                         <p class="mt-5 text-sm text-muted">All preferences are persisted to
-                                            <code>localStorage</code> and restored on page load.</p>
+                                            <code>localStorage</code> and restored on page load.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -2104,7 +2106,8 @@ customizer.reset();</code></pre>
                                     </div>
                                     <div class="card-body">
                                         <p class="mb-5">The Theme Customizer sets data attributes on the
-                                            <code>&lt;html&gt;</code> element:</p>
+                                            <code>&lt;html&gt;</code> element:
+                                        </p>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -2132,14 +2135,16 @@ customizer.reset();</code></pre>
                                                     <tr>
                                                         <td><code>data-radius</code></td>
                                                         <td><code>0</code>, <code>0.125</code>, <code>0.25</code>,
-                                                            <code>0.375</code>, <code>0.5</code></td>
+                                                            <code>0.375</code>, <code>0.5</code>
+                                                        </td>
                                                         <td>Sets <code>--radius-scale</code> for component border-radius
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><code>data-font</code></td>
                                                         <td><code>jetbrains-mono</code>, <code>inter</code>,
-                                                            <code>fira-sans</code></td>
+                                                            <code>fira-sans</code>
+                                                        </td>
                                                         <td>Sets <code>--font-family-base</code></td>
                                                     </tr>
                                                     <tr>
@@ -2147,7 +2152,8 @@ customizer.reset();</code></pre>
                                                         <td><code>light</code>, <code>dark</code>, (removed for system)
                                                         </td>
                                                         <td>Forces light/dark mode or defers to
-                                                            <code>prefers-color-scheme</code></td>
+                                                            <code>prefers-color-scheme</code>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

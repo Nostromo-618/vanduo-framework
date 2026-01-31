@@ -19,11 +19,12 @@ Load via CDN (no download required):
 <script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
 ```
 
-Pin to version for production: replace `@main` with `@v1.0.0`
+Pin to version for production: replace `@main` with `@v1.0.1`
 
 ## Docs
 
 - [Full Documentation](https://vanduo.dev/documentation.html): Complete component reference with live examples
+- [Changelog](https://vanduo.dev/changelog.html): Version history and updates
 - [README](https://github.com/Nostromo-618/vanduo-framework/blob/main/README.md): Quick start guide and project overview
 
 ## Core Systems

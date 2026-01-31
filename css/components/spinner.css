@@ -1,0 +1,107 @@
+/**
+ * Vanduo Framework - Spinner Component
+ * Loading indicators with variants and sizes
+ */
+
+:root {
+  --spinner-size: 2rem;
+  --spinner-border-width: 3px;
+  --spinner-color: var(--color-primary);
+  --spinner-speed: 0.65s;
+}
+
+/* Border Spinner */
+.spinner {
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: var(--spinner-border-width) solid var(--border-color, #e9ecef);
+  border-top-color: var(--spinner-color);
+  border-radius: 50%;
+  animation: spinner-rotate var(--spinner-speed) linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Dot Spinner */
+.spinner-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.spinner-dots::before,
+.spinner-dots::after,
+.spinner-dots span {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--spinner-color);
+  animation: spinner-dots-bounce 1.4s ease-in-out infinite both;
+}
+
+.spinner-dots::before {
+  animation-delay: -0.32s;
+}
+
+.spinner-dots span {
+  animation-delay: -0.16s;
+}
+
+@keyframes spinner-dots-bounce {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Growing Spinner */
+.spinner-grow {
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  background-color: var(--spinner-color);
+  border-radius: 50%;
+  opacity: 0;
+  animation: spinner-grow 0.75s linear infinite;
+}
+
+@keyframes spinner-grow {
+  0% { transform: scale(0); }
+  50% { opacity: 1; }
+}
+
+/* Size Variants */
+.spinner-xs { --spinner-size: 1rem; --spinner-border-width: 2px; }
+.spinner-sm { --spinner-size: 1.5rem; --spinner-border-width: 2px; }
+.spinner-lg { --spinner-size: 3rem; --spinner-border-width: 4px; }
+.spinner-xl { --spinner-size: 4rem; --spinner-border-width: 5px; }
+
+/* Color Variants */
+.spinner-success { --spinner-color: var(--color-success); }
+.spinner-warning { --spinner-color: var(--color-warning); }
+.spinner-error { --spinner-color: var(--color-error); }
+.spinner-info { --spinner-color: var(--color-info); }
+.spinner-light { --spinner-color: #fff; }
+.spinner-dark { --spinner-color: var(--text-primary); }
+
+/* Centering Helper */
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-5, 1rem);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .spinner-dots::before,
+  .spinner-dots::after,
+  .spinner-dots span,
+  .spinner-grow {
+    animation-duration: 1.5s;
+  }
+}

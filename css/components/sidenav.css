@@ -1,0 +1,301 @@
+/**
+ * Vanduo Framework - Sidenav
+ * Side navigation drawer component
+ */
+
+:root {
+  /* Sidenav Colors */
+  --sidenav-bg: var(--color-white);
+  --sidenav-overlay-bg: rgba(0, 0, 0, 0.5);
+  --sidenav-border-color: var(--border-color);
+  --sidenav-item-bg-hover: var(--bg-secondary);
+  --sidenav-item-bg-active: var(--color-primary-alpha-10);
+  --sidenav-item-color-active: var(--color-primary);
+  
+  /* Sidenav Dimensions (Fibonacci) */
+  --sidenav-width: 233px;     /* fib */
+  --sidenav-width-sm: 233px;  /* fib */
+  --sidenav-width-lg: 377px;  /* fib */
+
+  /* Sidenav Spacing (Fibonacci) */
+  --sidenav-padding-y: 0.8125rem;      /* 13px - fib */
+  --sidenav-padding-x: 1.3125rem;      /* 21px - fib */
+  --sidenav-item-padding-y: 0.5rem;    /* 8px  - fib */
+  --sidenav-item-padding-x: 0.8125rem; /* 13px - fib */
+  
+  /* Sidenav Z-index */
+  --sidenav-z-index: 1040;
+  --sidenav-overlay-z-index: 1030;
+  
+  /* Sidenav Transitions */
+  --sidenav-transition: transform var(--transition-duration-slow) var(--transition-ease);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --sidenav-bg: var(--bg-secondary);
+  --sidenav-item-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --sidenav-bg: var(--bg-secondary);
+    --sidenav-item-bg-hover: var(--bg-primary);
+  }
+}
+
+/* Sidenav Overlay */
+.sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--sidenav-overlay-z-index);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--sidenav-overlay-bg);
+  opacity: 0;
+  transition: opacity var(--transition-duration-base) var(--transition-ease);
+  pointer-events: none;
+}
+
+.sidenav-overlay.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Base Sidenav */
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--sidenav-z-index);
+  width: var(--sidenav-width);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sidenav-bg);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-100%);
+  transition: var(--sidenav-transition);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidenav.is-open {
+  transform: translateX(0);
+}
+
+/* Sidenav Right */
+.sidenav-right {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+}
+
+.sidenav-right.is-open {
+  transform: translateX(0);
+}
+
+/* Sidenav Variants */
+.sidenav-overlay-variant {
+  /* Overlay variant - slides over content */
+}
+
+.sidenav-push {
+  /* Push variant - pushes content */
+}
+
+.sidenav-push.is-open ~ * {
+  margin-left: var(--sidenav-width);
+  transition: margin-left var(--transition-duration-slow) var(--transition-ease);
+}
+
+.sidenav-push.sidenav-right.is-open ~ * {
+  margin-left: 0;
+  margin-right: var(--sidenav-width);
+}
+
+.sidenav-fixed {
+  position: fixed;
+  transform: translateX(0);
+}
+
+.sidenav-fixed.is-open {
+  transform: translateX(0);
+}
+
+/* Sidenav Header */
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sidenav-padding-y) var(--sidenav-padding-x);
+  border-bottom: 1px solid var(--sidenav-border-color);
+  flex-shrink: 0;
+}
+
+.sidenav-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.sidenav-close {
+  padding: 0.5rem;
+  margin: -0.5rem -0.5rem -0.5rem auto;
+  background: transparent;
+  border: 0;
+  border-radius: var(--btn-border-radius);
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--text-secondary);
+  transition: var(--transition-opacity);
+}
+
+.sidenav-close:hover,
+.sidenav-close:focus {
+  opacity: 0.75;
+  outline: none;
+}
+
+/* Sidenav Body */
+.sidenav-body {
+  flex: 1 1 auto;
+  padding: var(--sidenav-padding-y) 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Sidenav Footer */
+.sidenav-footer {
+  padding: var(--sidenav-padding-y) var(--sidenav-padding-x);
+  border-top: 1px solid var(--sidenav-border-color);
+  flex-shrink: 0;
+}
+
+/* Sidenav Navigation */
+.sidenav-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sidenav Section */
+.sidenav-section {
+  padding: 0.5rem var(--sidenav-padding-x);
+  margin-top: 0.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidenav-section:first-child {
+  margin-top: 0;
+}
+
+/* Sidenav Item */
+.sidenav-item {
+  display: block;
+}
+
+.sidenav-link {
+  display: flex;
+  align-items: center;
+  padding: var(--sidenav-item-padding-y) var(--sidenav-item-padding-x);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition-bg);
+  cursor: pointer;
+}
+
+.sidenav-link:hover {
+  background-color: var(--sidenav-item-bg-hover);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.sidenav-link:focus {
+  outline: 2px solid var(--input-focus-border-color);
+  outline-offset: -2px;
+}
+
+.sidenav-item.active .sidenav-link {
+  background-color: var(--sidenav-item-bg-active);
+  color: var(--sidenav-item-color-active);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Sidenav Divider */
+.sidenav-divider {
+  height: 0;
+  margin: 0.5rem var(--sidenav-padding-x);
+  overflow: hidden;
+  border-top: 1px solid var(--sidenav-border-color);
+}
+
+/* Sidenav Sizes */
+.sidenav-sm {
+  width: var(--sidenav-width-sm);
+}
+
+.sidenav-sm.sidenav-push.is-open ~ * {
+  margin-left: var(--sidenav-width-sm);
+}
+
+.sidenav-sm.sidenav-push.sidenav-right.is-open ~ * {
+  margin-right: var(--sidenav-width-sm);
+}
+
+.sidenav-lg {
+  width: var(--sidenav-width-lg);
+}
+
+.sidenav-lg.sidenav-push.is-open ~ * {
+  margin-left: var(--sidenav-width-lg);
+}
+
+.sidenav-lg.sidenav-push.sidenav-right.is-open ~ * {
+  margin-right: var(--sidenav-width-lg);
+}
+
+/* Body Scroll Lock */
+.body-sidenav-open {
+  overflow: hidden;
+}
+
+/* Responsive Behavior */
+@media (max-width: 991.98px) {
+  .sidenav {
+    /* On mobile, sidenav is always overlay */
+    position: fixed;
+  }
+  
+  .sidenav-fixed {
+    /* Fixed sidenav becomes overlay on mobile */
+    position: fixed;
+    transform: translateX(-100%);
+  }
+  
+  .sidenav-fixed.sidenav-right {
+    transform: translateX(100%);
+  }
+  
+  .sidenav-fixed.is-open {
+    transform: translateX(0);
+  }
+  
+  .sidenav-push.is-open ~ * {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+

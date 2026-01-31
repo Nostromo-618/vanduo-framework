@@ -1,0 +1,253 @@
+/**
+ * Vanduo Framework - Collections
+ * List/item collection component
+ */
+
+:root {
+  /* Collection Colors */
+  --collection-bg: var(--color-white);
+  --collection-item-bg: var(--color-white);
+  --collection-item-bg-hover: var(--bg-secondary);
+  --collection-item-bg-active: var(--color-primary-alpha-10);
+  --collection-border-color: var(--border-color);
+  
+  /* Collection Spacing (Fibonacci) */
+  --collection-padding-y: 0;
+  --collection-padding-x: 0;
+  --collection-item-padding-y: 0.8125rem;    /* 13px - fib */
+  --collection-item-padding-x: 1.3125rem;    /* 21px - fib */
+  --collection-item-padding-y-sm: 0.5rem;    /* 8px  - fib */
+  --collection-item-padding-x-sm: 0.8125rem; /* 13px - fib */
+  --collection-item-padding-y-lg: 1.3125rem; /* 21px - fib */
+  --collection-item-padding-x-lg: 2.125rem;  /* 34px - fib */
+
+  /* Collection Avatar (Fibonacci) */
+  --collection-avatar-size: 2.125rem;     /* 34px - fib */
+  --collection-avatar-size-sm: 1.3125rem; /* 21px - fib */
+  --collection-avatar-size-lg: 3.4375rem; /* 55px - fib */
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --collection-bg: var(--bg-secondary);
+  --collection-item-bg: var(--bg-secondary);
+  --collection-item-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --collection-bg: var(--bg-secondary);
+    --collection-item-bg: var(--bg-secondary);
+    --collection-item-bg-hover: var(--bg-primary);
+  }
+}
+
+/* Base Collection */
+.collection {
+  display: flex;
+  flex-direction: column;
+  padding: var(--collection-padding-y) var(--collection-padding-x);
+  margin-bottom: 0;
+  list-style: none;
+  background-color: var(--collection-bg);
+}
+
+/* Collection Item */
+.collection-item {
+  display: flex;
+  align-items: center;
+  padding: var(--collection-item-padding-y) var(--collection-item-padding-x);
+  margin-bottom: 0;
+  color: var(--text-primary);
+  text-decoration: none;
+  background-color: var(--collection-item-bg);
+  border-bottom: 1px solid var(--collection-border-color);
+  transition: var(--transition-bg);
+}
+
+.collection-item:last-child {
+  border-bottom: none;
+}
+
+.collection-item:hover {
+  background-color: var(--collection-item-bg-hover);
+  text-decoration: none;
+}
+
+.collection-item.active {
+  background-color: var(--collection-item-bg-active);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.collection-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Collection Avatar */
+.collection-avatar {
+  flex-shrink: 0;
+  width: var(--collection-avatar-size);
+  height: var(--collection-avatar-size);
+  margin-right: 1rem;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.collection-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collection-avatar-icon {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+/* Collection Content */
+.collection-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.collection-title {
+  margin: 0 0 0.25rem 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+}
+
+.collection-item.active .collection-title {
+  color: var(--color-primary);
+}
+
+.collection-text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--text-secondary);
+}
+
+.collection-item-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.collection-item-secondary .collection-title {
+  margin-bottom: 0;
+}
+
+/* Collection Action */
+.collection-action {
+  flex-shrink: 0;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Collection Divider */
+.collection-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid var(--collection-border-color);
+}
+
+/* Collection Header */
+.collection-header {
+  padding: var(--collection-item-padding-y) var(--collection-item-padding-x);
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--collection-border-color);
+}
+
+/* Collection Variants */
+.collection-bordered {
+  border: 1px solid var(--collection-border-color);
+  border-radius: var(--btn-border-radius);
+  overflow: hidden;
+}
+
+.collection-bordered .collection-item {
+  border-bottom: 1px solid var(--collection-border-color);
+}
+
+.collection-bordered .collection-item:last-child {
+  border-bottom: none;
+}
+
+.collection-stripped .collection-item:nth-child(odd) {
+  background-color: var(--bg-secondary);
+}
+
+.collection-stripped .collection-item:nth-child(odd):hover {
+  background-color: var(--collection-item-bg-hover);
+}
+
+.collection-hoverable .collection-item {
+  cursor: pointer;
+}
+
+/* Collection Sizes */
+.collection-sm .collection-item {
+  padding: var(--collection-item-padding-y-sm) var(--collection-item-padding-x-sm);
+}
+
+.collection-sm .collection-avatar {
+  width: var(--collection-avatar-size-sm);
+  height: var(--collection-avatar-size-sm);
+}
+
+.collection-sm .collection-title {
+  font-size: var(--font-size-sm);
+}
+
+.collection-sm .collection-text {
+  font-size: var(--font-size-xs);
+}
+
+.collection-lg .collection-item {
+  padding: var(--collection-item-padding-y-lg) var(--collection-item-padding-x-lg);
+}
+
+.collection-lg .collection-avatar {
+  width: var(--collection-avatar-size-lg);
+  height: var(--collection-avatar-size-lg);
+}
+
+.collection-lg .collection-title {
+  font-size: var(--font-size-lg);
+}
+
+.collection-lg .collection-text {
+  font-size: var(--font-size-base);
+}
+
+/* Responsive Behavior */
+@media (max-width: 575.98px) {
+  .collection-item {
+    flex-wrap: wrap;
+  }
+  
+  .collection-action {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    padding-left: calc(var(--collection-avatar-size) + 1rem);
+  }
+}
+

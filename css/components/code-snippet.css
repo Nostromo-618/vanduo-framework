@@ -1,0 +1,554 @@
+/**
+ * Vanduo Framework - Code Snippet Component
+ * Copyable code blocks with tabs and syntax highlighting
+ */
+
+:root {
+  /* Code Snippet Sizing - Fibonacci */
+  --code-padding-x: 1.3125rem;        /* 21px - fib */
+  --code-padding-y: 0.8125rem;        /* 13px - fib */
+  --code-border-radius: var(--radius-fib-5, 8px);
+  --code-tab-gap: 0.5rem;             /* 8px - fib */
+  --code-header-height: 2.75rem;      /* 44px - touch target */
+  --code-line-height: 1.618;          /* Golden ratio */
+  --code-font-size: 0.875rem;         /* 14px */
+  
+  /* Code Snippet Colors - Light Mode */
+  --code-bg: var(--color-gray-50, #f8fafc);
+  --code-header-bg: var(--color-gray-100, #f1f5f9);
+  --code-border: var(--border-color, #e2e8f0);
+  --code-text: var(--text-primary, #1e293b);
+  --code-text-muted: var(--text-secondary, #64748b);
+  --code-tab-text: var(--text-secondary, #64748b);
+  --code-tab-active: var(--color-primary, #3b82f6);
+  --code-tab-hover-bg: var(--color-gray-200, #e2e8f0);
+  --code-copy-success: var(--color-success, #22c55e);
+  --code-line-number: var(--text-tertiary, #94a3b8);
+  --code-line-highlight: rgba(59, 130, 246, 0.1);
+  
+  /* Syntax Highlighting Colors - Light Mode */
+  --code-tag: #e11d48;                /* HTML tags - rose */
+  --code-attr: #7c3aed;               /* Attributes - violet */
+  --code-string: #16a34a;             /* Strings - green */
+  --code-comment: #64748b;            /* Comments - slate */
+  --code-selector: #e11d48;           /* CSS selectors - rose */
+  --code-property: #2563eb;           /* CSS properties - blue */
+  --code-value: #16a34a;              /* CSS values - green */
+  --code-unit: #d97706;               /* Units - amber */
+  --code-keyword: #7c3aed;            /* JS keywords - violet */
+  --code-function: #2563eb;           /* JS functions - blue */
+  --code-number: #d97706;             /* Numbers - amber */
+  --code-operator: #64748b;           /* Operators - slate */
+  --code-punctuation: #64748b;        /* Punctuation - slate */
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --code-bg: var(--color-gray-900, #0f172a);
+  --code-header-bg: var(--color-gray-800, #1e293b);
+  --code-border: var(--color-gray-700, #334155);
+  --code-tab-hover-bg: var(--color-gray-700, #334155);
+  --code-line-highlight: rgba(59, 130, 246, 0.15);
+  
+  /* Syntax Highlighting - Dark Mode */
+  --code-tag: #fb7185;                /* HTML tags - rose */
+  --code-attr: #a78bfa;               /* Attributes - violet */
+  --code-string: #4ade80;             /* Strings - green */
+  --code-comment: #64748b;            /* Comments - slate */
+  --code-selector: #fb7185;           /* CSS selectors - rose */
+  --code-property: #60a5fa;           /* CSS properties - blue */
+  --code-value: #4ade80;              /* CSS values - green */
+  --code-unit: #fbbf24;               /* Units - amber */
+  --code-keyword: #a78bfa;            /* JS keywords - violet */
+  --code-function: #60a5fa;           /* JS functions - blue */
+  --code-number: #fbbf24;             /* Numbers - amber */
+  --code-operator: #94a3b8;           /* Operators - slate */
+  --code-punctuation: #94a3b8;        /* Punctuation - slate */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --code-bg: var(--color-gray-900, #0f172a);
+    --code-header-bg: var(--color-gray-800, #1e293b);
+    --code-border: var(--color-gray-700, #334155);
+    --code-tab-hover-bg: var(--color-gray-700, #334155);
+    --code-line-highlight: rgba(59, 130, 246, 0.15);
+    
+    --code-tag: #fb7185;
+    --code-attr: #a78bfa;
+    --code-string: #4ade80;
+    --code-comment: #64748b;
+    --code-selector: #fb7185;
+    --code-property: #60a5fa;
+    --code-value: #4ade80;
+    --code-unit: #fbbf24;
+    --code-keyword: #a78bfa;
+    --code-function: #60a5fa;
+    --code-number: #fbbf24;
+    --code-operator: #94a3b8;
+    --code-punctuation: #94a3b8;
+  }
+}
+
+/* ==========================================================================
+   Base Code Snippet Container
+   ========================================================================== */
+
+.code-snippet {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: var(--code-border-radius);
+  border: 1px solid var(--code-border);
+  background-color: var(--code-bg);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Collapsible Toggle Button
+   ========================================================================== */
+
+.code-snippet-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: var(--code-padding-y) var(--code-padding-x);
+  background-color: var(--code-header-bg);
+  border: none;
+  color: var(--code-text-muted);
+  font-size: var(--code-font-size);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  text-align: left;
+}
+
+.code-snippet-toggle:hover {
+  color: var(--code-text);
+  background-color: var(--code-tab-hover-bg);
+}
+
+.code-snippet-toggle:focus-visible {
+  outline: 2px solid var(--code-tab-active);
+  outline-offset: -2px;
+}
+
+/* Toggle Icon (chevron) */
+.code-snippet-toggle-icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.code-snippet-toggle-icon::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  margin: auto;
+}
+
+/* Expanded state */
+.code-snippet[data-expanded="true"] .code-snippet-toggle-icon::before {
+  transform: rotate(45deg);
+}
+
+.code-snippet[data-expanded="true"] .code-snippet-toggle {
+  border-bottom: 1px solid var(--code-border);
+}
+
+/* ==========================================================================
+   Collapsible Content
+   ========================================================================== */
+
+.code-snippet-content {
+  display: none;
+}
+
+.code-snippet-content[data-visible="true"],
+.code-snippet:not([data-collapsible]) .code-snippet-content {
+  display: block;
+}
+
+/* Non-collapsible variant */
+.code-snippet:not([data-collapsible]) .code-snippet-toggle {
+  display: none;
+}
+
+/* ==========================================================================
+   Header with Tabs and Copy Button
+   ========================================================================== */
+
+.code-snippet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--code-header-height);
+  padding: 0 var(--code-padding-x);
+  background-color: var(--code-header-bg);
+  border-bottom: 1px solid var(--code-border);
+}
+
+/* ==========================================================================
+   Tabs
+   ========================================================================== */
+
+.code-snippet-tabs {
+  display: flex;
+  gap: var(--code-tab-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.code-snippet-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  font-size: var(--code-font-size);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--code-tab-text);
+  background: transparent;
+  border: none;
+  border-radius: var(--code-border-radius);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.code-snippet-tab:hover {
+  color: var(--code-text);
+  background-color: var(--code-tab-hover-bg);
+}
+
+.code-snippet-tab:focus-visible {
+  outline: 2px solid var(--code-tab-active);
+  outline-offset: -2px;
+}
+
+.code-snippet-tab.is-active {
+  color: var(--code-tab-active);
+  background-color: var(--code-bg);
+}
+
+/* Language labels */
+.code-snippet-tab[data-lang="html"]::before { content: ''; }
+.code-snippet-tab[data-lang="css"]::before { content: ''; }
+.code-snippet-tab[data-lang="js"]::before { content: ''; }
+
+/* ==========================================================================
+   Copy Button
+   ========================================================================== */
+
+.code-snippet-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--code-font-size);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--code-tab-text);
+  background: transparent;
+  border: 1px solid var(--code-border);
+  border-radius: var(--code-border-radius);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.code-snippet-copy:hover {
+  color: var(--code-text);
+  background-color: var(--code-tab-hover-bg);
+}
+
+.code-snippet-copy:focus-visible {
+  outline: 2px solid var(--code-tab-active);
+  outline-offset: 2px;
+}
+
+/* Copy Icon */
+.code-snippet-copy-icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+}
+
+.code-snippet-copy-icon::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Success state */
+.code-snippet-copy.is-copied {
+  color: var(--code-copy-success);
+  border-color: var(--code-copy-success);
+}
+
+.code-snippet-copy.is-copied .code-snippet-copy-icon::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.code-snippet-copy.is-copied .code-snippet-copy-text::after {
+  content: 'd!';
+}
+
+.code-snippet-copy.is-copied .code-snippet-copy-text {
+  font-size: 0;
+}
+
+.code-snippet-copy.is-copied .code-snippet-copy-text::before {
+  content: 'Copie';
+  font-size: var(--code-font-size);
+}
+
+/* ==========================================================================
+   Code Body
+   ========================================================================== */
+
+.code-snippet-body {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Code Panes
+   ========================================================================== */
+
+.code-snippet-pane {
+  display: none;
+  margin: 0;
+  padding: var(--code-padding-y) var(--code-padding-x);
+  background-color: var(--code-bg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.code-snippet-pane.is-active {
+  display: block;
+}
+
+.code-snippet-pane code {
+  display: block;
+  font-family: var(--font-family-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  color: var(--code-text);
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* ==========================================================================
+   Line Numbers (Optional)
+   ========================================================================== */
+
+.code-snippet-pane.has-line-numbers {
+  padding-left: 0;
+}
+
+.code-snippet-pane.has-line-numbers code {
+  display: flex;
+}
+
+.code-snippet-line-numbers {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--code-padding-x);
+  margin-right: var(--code-padding-x);
+  border-right: 1px solid var(--code-border);
+  color: var(--code-line-number);
+  text-align: right;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.code-snippet-line-numbers span {
+  line-height: var(--code-line-height);
+}
+
+.code-snippet-code {
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* Line highlighting */
+.code-line-highlight {
+  display: block;
+  background-color: var(--code-line-highlight);
+  margin: 0 calc(-1 * var(--code-padding-x));
+  padding: 0 var(--code-padding-x);
+}
+
+/* ==========================================================================
+   Syntax Highlighting Classes
+   ========================================================================== */
+
+/* HTML Syntax */
+.code-tag { color: var(--code-tag); }
+.code-attr { color: var(--code-attr); }
+.code-string { color: var(--code-string); }
+.code-comment { color: var(--code-comment); font-style: italic; }
+
+/* CSS Syntax */
+.code-selector { color: var(--code-selector); }
+.code-property { color: var(--code-property); }
+.code-value { color: var(--code-value); }
+.code-unit { color: var(--code-unit); }
+
+/* JavaScript Syntax */
+.code-keyword { color: var(--code-keyword); }
+.code-function { color: var(--code-function); }
+.code-number { color: var(--code-number); }
+.code-operator { color: var(--code-operator); }
+.code-punctuation { color: var(--code-punctuation); }
+
+/* ==========================================================================
+   Single Language Variant (No Tabs)
+   ========================================================================== */
+
+.code-snippet-single .code-snippet-header {
+  justify-content: flex-end;
+}
+
+.code-snippet-single .code-snippet-tabs {
+  display: none;
+}
+
+/* ==========================================================================
+   Inline Variant
+   ========================================================================== */
+
+.code-snippet-inline {
+  display: inline-flex;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.code-snippet-inline .code-snippet-header {
+  display: none;
+}
+
+.code-snippet-inline .code-snippet-pane {
+  display: block;
+  padding: 0.125rem 0.375rem;
+}
+
+.code-snippet-inline .code-snippet-pane code {
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Compact Variant
+   ========================================================================== */
+
+.code-snippet-compact .code-snippet-header {
+  min-height: auto;
+  padding: 0.25rem 0.5rem;
+}
+
+.code-snippet-compact .code-snippet-tab {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.code-snippet-compact .code-snippet-copy {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.code-snippet-compact .code-snippet-pane {
+  padding: 0.5rem;
+}
+
+.code-snippet-compact .code-snippet-pane code {
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .code-snippet-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .code-snippet-tabs {
+    order: 2;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .code-snippet-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .code-snippet-copy {
+    order: 1;
+    margin-left: auto;
+  }
+  
+  .code-snippet-pane {
+    padding: 0.75rem;
+  }
+  
+  .code-snippet-pane code {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .code-snippet {
+    break-inside: avoid;
+    border: 1px solid #ccc;
+  }
+  
+  .code-snippet-toggle,
+  .code-snippet-copy {
+    display: none !important;
+  }
+  
+  .code-snippet-content {
+    display: block !important;
+  }
+  
+  .code-snippet-pane {
+    display: block !important;
+    page-break-inside: avoid;
+  }
+  
+  .code-snippet-pane::before {
+    content: attr(data-lang) ':';
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .code-snippet-toggle,
+  .code-snippet-toggle-icon,
+  .code-snippet-tab,
+  .code-snippet-copy {
+    transition: none;
+  }
+}

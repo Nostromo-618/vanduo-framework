@@ -1,0 +1,241 @@
+/**
+ * Vanduo Framework - Table Utilities
+ * Table styling utilities
+ */
+
+:root {
+  /* Table Colors */
+  --table-bg: var(--color-white);
+  --table-border-color: var(--border-color);
+  --table-striped-bg: var(--bg-secondary);
+  --table-hover-bg: rgba(0, 0, 0, 0.075);
+  --table-active-bg: var(--color-primary-alpha-10);
+  
+  /* Table Spacing (Fibonacci) */
+  --table-padding-y: 0.5rem;      /* 8px  - fib */
+  --table-padding-x: 0.8125rem;   /* 13px - fib (13/8 ~ phi) */
+  --table-padding-y-sm: 0.3125rem;/* 5px  - fib */
+  --table-padding-x-sm: 0.5rem;   /* 8px  - fib (8/5 ~ phi) */
+}
+
+/* Base Table */
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  background-color: var(--table-bg);
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--table-padding-y) var(--table-padding-x);
+  vertical-align: top;
+  border-top: 1px solid var(--table-border-color);
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid var(--table-border-color);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.table tbody + tbody {
+  border-top: 2px solid var(--table-border-color);
+}
+
+/* Table Variants */
+.table-bordered {
+  border: 1px solid var(--table-border-color);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid var(--table-border-color);
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--table-striped-bg);
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--table-hover-bg);
+}
+
+.table-sm th,
+.table-sm td {
+  padding: var(--table-padding-y-sm) var(--table-padding-x-sm);
+}
+
+/* Table Cell States */
+.table-active,
+.table-active > th,
+.table-active > td {
+  background-color: var(--table-active-bg);
+}
+
+.table-primary,
+.table-primary > th,
+.table-primary > td {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.table-secondary,
+.table-secondary > th,
+.table-secondary > td {
+  color: var(--color-white);
+  background-color: var(--color-secondary);
+}
+
+.table-success,
+.table-success > th,
+.table-success > td {
+  color: var(--color-white);
+  background-color: var(--color-success);
+}
+
+.table-warning,
+.table-warning > th,
+.table-warning > td {
+  color: var(--color-gray-900);
+  background-color: var(--color-warning);
+}
+
+.table-error,
+.table-error > th,
+.table-error > td {
+  color: var(--color-white);
+  background-color: var(--color-error);
+}
+
+.table-info,
+.table-info > th,
+.table-info > td {
+  color: var(--color-white);
+  background-color: var(--color-info);
+}
+
+/* Table Sections */
+.table-header,
+thead {
+  background-color: var(--bg-secondary);
+}
+
+.table-header th,
+thead th {
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+}
+
+.table-body,
+tbody {
+  /* Default styling */
+}
+
+.table-footer,
+tfoot {
+  background-color: var(--bg-secondary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive > .table {
+  margin-bottom: 0;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 575.98px) {
+  .table-responsive-sm {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-responsive-sm > .table {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .table-responsive-md {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-responsive-md > .table {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .table-responsive-lg {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-responsive-lg > .table {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .table-responsive-xl {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-responsive-xl > .table {
+    margin-bottom: 0;
+  }
+}
+
+/* Dark Table Variant */
+.table-dark {
+  color: var(--color-white);
+  background-color: var(--color-gray-800);
+}
+
+.table-dark th,
+.table-dark td,
+.table-dark thead th {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-dark.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-dark.table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+

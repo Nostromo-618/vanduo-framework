@@ -1,0 +1,340 @@
+/**
+ * Vanduo Framework - Preloader/Progress Bars
+ * Loading indicators and progress bars
+ */
+
+:root {
+  /* Spinner Colors */
+  --spinner-color: var(--color-primary);
+  --spinner-border-width: 0.25em;
+  
+  /* Spinner Sizes (Fibonacci) */
+  --spinner-size: 2.125rem;     /* 34px - fib */
+  --spinner-size-sm: 1.3125rem; /* 21px - fib */
+  --spinner-size-lg: 3.4375rem; /* 55px - fib */
+
+  /* Progress Bar (Fibonacci heights) */
+  --progress-bg: var(--bg-secondary);
+  --progress-bar-bg: var(--color-primary);
+  --progress-height: 0.8125rem;  /* 13px - fib */
+  --progress-height-sm: 0.5rem;  /* 8px  - fib */
+  --progress-height-lg: 1.3125rem; /* 21px - fib */
+  
+  /* Progress Bar Transitions */
+  --progress-transition: width var(--transition-duration-slow) var(--transition-ease);
+}
+
+/* Base Spinner */
+.spinner,
+.preloader {
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  vertical-align: text-bottom;
+  border: var(--spinner-border-width) solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-rotate 0.75s linear infinite;
+  color: var(--spinner-color);
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spinner Variants */
+.spinner-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  animation: none;
+}
+
+.spinner-dots::before,
+.spinner-dots::after {
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: spinner-dots 1.4s ease-in-out infinite both;
+}
+
+.spinner-dots::before {
+  animation-delay: -0.32s;
+}
+
+.spinner-dots::after {
+  animation-delay: -0.16s;
+}
+
+@keyframes spinner-dots {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.spinner-bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  border: none;
+  animation: none;
+}
+
+.spinner-bars::before,
+.spinner-bars::after {
+  content: '';
+  width: 0.25em;
+  height: 1em;
+  background-color: currentColor;
+  animation: spinner-bars 1.2s ease-in-out infinite;
+}
+
+.spinner-bars::before {
+  animation-delay: -0.4s;
+}
+
+.spinner-bars::after {
+  animation-delay: -0.2s;
+}
+
+@keyframes spinner-bars {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.spinner-pulse {
+  border: none;
+  background-color: currentColor;
+  opacity: 1;
+  animation: spinner-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spinner-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Spinner Sizes */
+.spinner-sm,
+.preloader-sm {
+  width: var(--spinner-size-sm);
+  height: var(--spinner-size-sm);
+  border-width: calc(var(--spinner-border-width) * 0.75);
+}
+
+.spinner-lg,
+.preloader-lg {
+  width: var(--spinner-size-lg);
+  height: var(--spinner-size-lg);
+  border-width: calc(var(--spinner-border-width) * 1.25);
+}
+
+/* Spinner Colors */
+.spinner-primary,
+.preloader-primary {
+  color: var(--color-primary);
+}
+
+.spinner-secondary,
+.preloader-secondary {
+  color: var(--color-secondary);
+}
+
+.spinner-success,
+.preloader-success {
+  color: var(--color-success);
+}
+
+.spinner-warning,
+.preloader-warning {
+  color: var(--color-warning);
+}
+
+.spinner-error,
+.preloader-error {
+  color: var(--color-error);
+}
+
+.spinner-info,
+.preloader-info {
+  color: var(--color-info);
+}
+
+/* Progress Bar */
+.progress {
+  display: flex;
+  height: var(--progress-height);
+  overflow: hidden;
+  background-color: var(--progress-bg);
+  border-radius: var(--btn-border-radius);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-white);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--progress-bar-bg);
+  transition: var(--progress-transition);
+  width: 0%;
+}
+
+.progress-text {
+  padding: 0 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Progress Bar Sizes */
+.progress-sm {
+  height: var(--progress-height-sm);
+}
+
+.progress-sm .progress-text {
+  font-size: var(--font-size-xs);
+  padding: 0 0.25rem;
+}
+
+.progress-lg {
+  height: var(--progress-height-lg);
+}
+
+.progress-lg .progress-text {
+  font-size: var(--font-size-base);
+  padding: 0 0.75rem;
+}
+
+/* Progress Bar Variants */
+.progress-striped .progress-bar {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.progress-animated .progress-bar {
+  animation: progress-stripes 1s linear infinite;
+}
+
+@keyframes progress-stripes {
+  0% {
+    background-position: 1rem 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Progress Bar Colors */
+.progress-bar-primary,
+.progress-bar.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.progress-bar-secondary,
+.progress-bar.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.progress-bar-success,
+.progress-bar.bg-success {
+  background-color: var(--color-success);
+}
+
+.progress-bar-warning,
+.progress-bar.bg-warning {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+}
+
+.progress-bar-error,
+.progress-bar.bg-error {
+  background-color: var(--color-error);
+}
+
+.progress-bar-info,
+.progress-bar.bg-info {
+  background-color: var(--color-info);
+}
+
+/* Indeterminate Progress */
+.progress-indeterminate .progress-bar {
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--progress-bar-bg) 30%,
+    var(--progress-bar-bg) 70%,
+    transparent 100%
+  );
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+/* Preloader Container */
+.preloader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 1rem;
+}
+
+.preloader-text {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .preloader,
+  .spinner-dots::before,
+  .spinner-dots::after,
+  .spinner-bars::before,
+  .spinner-bars::after,
+  .spinner-pulse,
+  .progress-animated .progress-bar,
+  .progress-indeterminate .progress-bar {
+    animation: none;
+  }
+}
+

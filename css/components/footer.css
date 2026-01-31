@@ -1,0 +1,340 @@
+/**
+ * Vanduo Framework - Footer
+ * Footer component for site footers
+ */
+
+:root {
+  /* Footer Colors */
+  --footer-bg: var(--bg-secondary);
+  --footer-bg-dark: var(--bg-dark);
+  --footer-text-color: var(--text-primary);
+  --footer-text-color-dark: var(--text-inverse);
+  --footer-link-color: var(--text-secondary);
+  --footer-link-hover-color: var(--color-primary);
+  --footer-border-color: var(--border-color);
+  --footer-heading-color: var(--text-primary);
+  
+  /* Footer Spacing (Fibonacci) */
+  --footer-padding-y: 3.4375rem;    /* 55px - fib */
+  --footer-padding-x: 1.3125rem;    /* 21px - fib */
+  --footer-padding-y-sm: 2.125rem;  /* 34px - fib */
+  --footer-padding-y-lg: 5.5625rem; /* 89px - fib */
+  --footer-section-spacing: 2.125rem; /* 34px - fib */
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --footer-bg: var(--bg-secondary);
+  --footer-text-color: var(--text-primary);
+  --footer-link-color: var(--text-secondary);
+  --footer-heading-color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --footer-bg: var(--bg-secondary);
+    --footer-text-color: var(--text-primary);
+    --footer-link-color: var(--text-secondary);
+    --footer-heading-color: var(--text-primary);
+  }
+}
+
+/* Base Footer */
+.footer {
+  padding: var(--footer-padding-y) var(--footer-padding-x);
+  background-color: var(--footer-bg);
+  color: var(--footer-text-color);
+  border-top: 1px solid var(--footer-border-color);
+}
+
+/* Footer Container */
+.footer-container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Footer Sections */
+.footer-section {
+  margin-bottom: var(--footer-section-spacing);
+}
+
+.footer-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer Headings */
+.footer-heading {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--footer-heading-color);
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+/* Footer Links */
+.footer-link {
+  display: inline-block;
+  color: var(--footer-link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  margin-bottom: 0.5rem;
+}
+
+.footer-link:hover {
+  color: var(--footer-link-hover-color);
+  text-decoration: underline;
+}
+
+.footer-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Footer Lists */
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-list-item {
+  margin-bottom: 0.5rem;
+}
+
+.footer-list-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Copyright Area */
+.footer-copyright {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--footer-border-color);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.footer-copyright-left {
+  text-align: left;
+}
+
+.footer-copyright-right {
+  text-align: right;
+}
+
+/* Multi-Column Footer Layouts */
+.footer-2col,
+.footer-3col,
+.footer-4col {
+  display: grid;
+  gap: var(--footer-section-spacing);
+}
+
+.footer-2col {
+  grid-template-columns: 1fr;
+}
+
+.footer-3col {
+  grid-template-columns: 1fr;
+}
+
+.footer-4col {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .footer-2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .footer-4col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Footer Variants - Dark */
+.footer-dark {
+  background-color: var(--footer-bg-dark);
+  color: var(--footer-text-color-dark);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-dark .footer-heading {
+  color: var(--footer-text-color-dark);
+}
+
+.footer-dark .footer-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-dark .footer-link:hover {
+  color: var(--color-primary-light);
+}
+
+.footer-dark .footer-copyright {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Footer Sizes */
+.footer-sm {
+  padding: var(--footer-padding-y-sm) var(--footer-padding-x);
+}
+
+.footer-lg {
+  padding: var(--footer-padding-y-lg) var(--footer-padding-x);
+}
+
+/* Footer with Container */
+.footer .container {
+  max-width: var(--container-max-width);
+}
+
+/* Footer Brand/Logo Area */
+.footer-brand {
+  margin-bottom: 1rem;
+}
+
+.footer-brand img {
+  max-height: 2rem;
+  width: auto;
+}
+
+.footer-brand-text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--footer-heading-color);
+  text-decoration: none;
+}
+
+.footer-brand-text:hover {
+  text-decoration: none;
+  color: var(--footer-link-hover-color);
+}
+
+/* Footer Social Links */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--footer-link-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.footer-social-link:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.footer-dark .footer-social-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-dark .footer-social-link:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Responsive Footer */
+@media (max-width: 767.98px) {
+  .footer-2col,
+  .footer-3col,
+  .footer-4col {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-copyright-left,
+  .footer-copyright-right {
+    text-align: center;
+  }
+}
+
+/* Made with Kilo Code Section */
+.footer-made-with {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem 0;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--footer-border-color);
+}
+
+.footer-made-with-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+}
+
+.footer-kilo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.footer-kilo-link:hover {
+  background: rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer-kilo-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.footer-kilo-logo {
+  height: 1.75rem;
+  width: auto;
+  display: block;
+  border-radius: 0.25rem;
+}
+
+/* Dark theme styles for Kilo Code section */
+[data-theme="dark"] .footer-kilo-link {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .footer-kilo-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .footer-kilo-link {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  :root:not([data-theme]) .footer-kilo-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Run build to ensure dist/ is up to date with latest changes
+echo "🌊 Running Vanduo build before commit..."
+pnpm run build
+
+# Stage the updated dist files
+git add dist/
+
+echo "✅ Build complete and dist/ staged, proceeding with commit..."

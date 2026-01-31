@@ -1,0 +1,998 @@
+/**
+ * Vanduo Framework - Color System
+ *
+ * Color palette based on Open Color (https://yeun.github.io/open-color/)
+ * Open Color is MIT licensed, Copyright (c) 2016 Heeyeun Jeong
+ *
+ * @license MIT
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════════════
+   * OPEN COLOR PALETTE
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* --- NEUTRALS: Gray Scale (Open Color Gray 0-9) ---
+   * Used for: Backgrounds, borders, text, and UI structure
+   */
+  --gray-0: #f8f9fa;
+  /* Lightest - hover backgrounds, light sections */
+  --gray-1: #f1f3f5;
+  --gray-2: #e9ecef;
+  /* Secondary backgrounds, cards */
+  --gray-3: #dee2e6;
+  /* Borders, dividers */
+  --gray-4: #ced4da;
+  --gray-5: #adb5bd;
+  /* Disabled text, placeholders */
+  --gray-6: #868e96;
+  /* Muted text */
+  --gray-7: #495057;
+  /* Secondary text */
+  --gray-8: #343a40;
+  /* Primary text */
+  --gray-9: #212529;
+  /* Darkest - headings, dark mode backgrounds */
+
+  /* --- PRIMARY: Cyan Scale (Open Color Cyan 0-9) ---
+   * The "Water" brand color - perfect for Vanduo
+   * Used for: Buttons, links, highlights, brand elements
+   */
+  --primary-0: #e3fafc;
+  /* Lightest - hover backgrounds, highlights */
+  --primary-1: #c5f6fa;
+  --primary-2: #99e9f2;
+  --primary-3: #66d9e8;
+  --primary-4: #3bc9db;
+  --primary-5: #22b8cf;
+  /* ★ Main brand color */
+  --primary-6: #15aabf;
+  /* Hover state */
+  --primary-7: #1098ad;
+  /* Active state */
+  --primary-8: #0c8599;
+  --primary-9: #0b7285;
+  /* Darkest - pressed state */
+
+  /* --- SECONDARY: Teal Scale (Open Color Teal 0-9) ---
+   * Complementary to Cyan for secondary actions
+   */
+  --secondary-0: #e6fcf5;
+  --secondary-1: #c3fae8;
+  --secondary-2: #96f2d7;
+  --secondary-3: #63e6be;
+  --secondary-4: #38d9a9;
+  --secondary-5: #20c997;
+  /* ★ Main secondary color */
+  --secondary-6: #12b886;
+  /* Hover state */
+  --secondary-7: #0ca678;
+  /* Active state */
+  --secondary-8: #099268;
+  --secondary-9: #087f5b;
+
+  /* --- FUNCTIONAL: Semantic Colors ---
+   * Used for: Status indicators, feedback, alerts
+   */
+
+  /* Danger/Error - Open Color Red */
+  --danger-0: #fff5f5;
+  --danger-1: #ffe3e3;
+  --danger-2: #ffc9c9;
+  --danger-3: #ffa8a8;
+  --danger-4: #ff8787;
+  --danger-5: #ff6b6b;
+  --danger-6: #fa5252;
+  /* ★ Main danger color */
+  --danger-7: #f03e3e;
+  /* Hover state */
+  --danger-8: #e03131;
+  --danger-9: #c92a2a;
+  /* Active state */
+
+  /* Error aliases (maps to danger scale for consistent naming) */
+  --error-0: var(--danger-0);
+  --error-1: var(--danger-1);
+  --error-2: var(--danger-2);
+  --error-3: var(--danger-3);
+  --error-4: var(--danger-4);
+  --error-5: var(--danger-5);
+  --error-6: var(--danger-6);
+  --error-7: var(--danger-7);
+  --error-8: var(--danger-8);
+  --error-9: var(--danger-9);
+
+  /* Success - Open Color Green */
+  --success-0: #ebfbee;
+  --success-1: #d3f9d8;
+  --success-2: #b2f2bb;
+  --success-3: #8ce99a;
+  --success-4: #69db7c;
+  --success-5: #51cf66;
+  --success-6: #40c057;
+  /* ★ Main success color */
+  --success-7: #37b24d;
+  /* Hover state */
+  --success-8: #2f9e44;
+  --success-9: #2b8a3e;
+  /* Active state */
+
+  /* Warning - Open Color Yellow */
+  --warning-0: #fff9db;
+  --warning-1: #fff3bf;
+  --warning-2: #ffec99;
+  --warning-3: #ffe066;
+  --warning-4: #ffd43b;
+  --warning-5: #fcc419;
+  --warning-6: #fab005;
+  /* ★ Main warning color */
+  --warning-7: #f59f00;
+  /* Hover state */
+  --warning-8: #f08c00;
+  --warning-9: #e67700;
+  /* Active state */
+
+  /* Info - Open Color Blue (complementary to Cyan) */
+  --info-0: #e7f5ff;
+  --info-1: #d0ebff;
+  --info-2: #a5d8ff;
+  --info-3: #74c0fc;
+  --info-4: #4dabf7;
+  --info-5: #339af0;
+  --info-6: #228be6;
+  /* ★ Main info color */
+  --info-7: #1c7ed6;
+  /* Hover state */
+  --info-8: #1971c2;
+  --info-9: #1864ab;
+  /* Active state */
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * EXTENDED COLOR PALETTES (for Theme Customizer)
+   * All colors from Open Color palette
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* --- Red Scale --- */
+  --red-0: #fff5f5;
+  --red-1: #ffe3e3;
+  --red-2: #ffc9c9;
+  --red-3: #ffa8a8;
+  --red-4: #ff8787;
+  --red-5: #ff6b6b;
+  --red-6: #fa5252;
+  --red-7: #f03e3e;
+  --red-8: #e03131;
+  --red-9: #c92a2a;
+
+  /* --- Orange Scale --- */
+  --orange-0: #fff4e6;
+  --orange-1: #ffe8cc;
+  --orange-2: #ffd8a8;
+  --orange-3: #ffc078;
+  --orange-4: #ffa94d;
+  --orange-5: #ff922b;
+  --orange-6: #fd7e14;
+  --orange-7: #f76707;
+  --orange-8: #e8590c;
+  --orange-9: #d9480f;
+
+  /* --- Yellow Scale --- */
+  --yellow-0: #fff9db;
+  --yellow-1: #fff3bf;
+  --yellow-2: #ffec99;
+  --yellow-3: #ffe066;
+  --yellow-4: #ffd43b;
+  --yellow-5: #fcc419;
+  --yellow-6: #fab005;
+  --yellow-7: #f59f00;
+  --yellow-8: #f08c00;
+  --yellow-9: #e67700;
+
+  /* --- Lime Scale --- */
+  --lime-0: #f4fce3;
+  --lime-1: #e9fac8;
+  --lime-2: #d8f5a2;
+  --lime-3: #c0eb75;
+  --lime-4: #a9e34b;
+  --lime-5: #94d82d;
+  --lime-6: #82c91e;
+  --lime-7: #74b816;
+  --lime-8: #66a80f;
+  --lime-9: #5c940d;
+
+  /* --- Green Scale --- */
+  --green-0: #ebfbee;
+  --green-1: #d3f9d8;
+  --green-2: #b2f2bb;
+  --green-3: #8ce99a;
+  --green-4: #69db7c;
+  --green-5: #51cf66;
+  --green-6: #40c057;
+  --green-7: #37b24d;
+  --green-8: #2f9e44;
+  --green-9: #2b8a3e;
+
+  /* --- Teal Scale --- */
+  --teal-0: #e6fcf5;
+  --teal-1: #c3fae8;
+  --teal-2: #96f2d7;
+  --teal-3: #63e6be;
+  --teal-4: #38d9a9;
+  --teal-5: #20c997;
+  --teal-6: #12b886;
+  --teal-7: #0ca678;
+  --teal-8: #099268;
+  --teal-9: #087f5b;
+
+  /* --- Cyan Scale --- */
+  --cyan-0: #e3fafc;
+  --cyan-1: #c5f6fa;
+  --cyan-2: #99e9f2;
+  --cyan-3: #66d9e8;
+  --cyan-4: #3bc9db;
+  --cyan-5: #22b8cf;
+  --cyan-6: #15aabf;
+  --cyan-7: #1098ad;
+  --cyan-8: #0c8599;
+  --cyan-9: #0b7285;
+
+  /* --- Blue Scale --- */
+  --blue-0: #e7f5ff;
+  --blue-1: #d0ebff;
+  --blue-2: #a5d8ff;
+  --blue-3: #74c0fc;
+  --blue-4: #4dabf7;
+  --blue-5: #339af0;
+  --blue-6: #228be6;
+  --blue-7: #1c7ed6;
+  --blue-8: #1971c2;
+  --blue-9: #1864ab;
+
+  /* --- Indigo Scale --- */
+  --indigo-0: #edf2ff;
+  --indigo-1: #dbe4ff;
+  --indigo-2: #bac8ff;
+  --indigo-3: #91a7ff;
+  --indigo-4: #748ffc;
+  --indigo-5: #5c7cfa;
+  --indigo-6: #4c6ef5;
+  --indigo-7: #4263eb;
+  --indigo-8: #3b5bdb;
+  --indigo-9: #364fc7;
+
+  /* --- Violet Scale --- */
+  --violet-0: #f3f0ff;
+  --violet-1: #e5dbff;
+  --violet-2: #d0bfff;
+  --violet-3: #b197fc;
+  --violet-4: #9775fa;
+  --violet-5: #845ef7;
+  --violet-6: #7950f2;
+  --violet-7: #7048e8;
+  --violet-8: #6741d9;
+  --violet-9: #5f3dc4;
+
+  /* --- Grape (Purple) Scale --- */
+  --grape-0: #f8f0fc;
+  --grape-1: #f3d9fa;
+  --grape-2: #eebefa;
+  --grape-3: #e599f7;
+  --grape-4: #da77f2;
+  --grape-5: #cc5de8;
+  --grape-6: #be4bdb;
+  --grape-7: #ae3ec9;
+  --grape-8: #9c36b5;
+  --grape-9: #862e9c;
+
+  /* --- Pink Scale --- */
+  --pink-0: #fff0f6;
+  --pink-1: #ffdeeb;
+  --pink-2: #fcc2d7;
+  --pink-3: #faa2c1;
+  --pink-4: #f783ac;
+  --pink-5: #f06595;
+  --pink-6: #e64980;
+  --pink-7: #d6336c;
+  --pink-8: #c2255c;
+  --pink-9: #a61e4d;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * NEUTRAL COLOR ALTERNATIVES (for Theme Customizer)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* --- Slate Scale (Cool blue-gray) --- */
+  --slate-0: #f8fafc;
+  --slate-1: #f1f5f9;
+  --slate-2: #e2e8f0;
+  --slate-3: #cbd5e1;
+  --slate-4: #94a3b8;
+  --slate-5: #64748b;
+  --slate-6: #475569;
+  --slate-7: #334155;
+  --slate-8: #1e293b;
+  --slate-9: #0f172a;
+
+  /* --- Zinc Scale (Slightly warm gray) --- */
+  --zinc-0: #fafafa;
+  --zinc-1: #f4f4f5;
+  --zinc-2: #e4e4e7;
+  --zinc-3: #d4d4d8;
+  --zinc-4: #a1a1aa;
+  --zinc-5: #71717a;
+  --zinc-6: #52525b;
+  --zinc-7: #3f3f46;
+  --zinc-8: #27272a;
+  --zinc-9: #18181b;
+
+  /* --- Neutral Scale (True neutral) --- */
+  --neutral-0: #fafafa;
+  --neutral-1: #f5f5f5;
+  --neutral-2: #e5e5e5;
+  --neutral-3: #d4d4d4;
+  --neutral-4: #a3a3a3;
+  --neutral-5: #737373;
+  --neutral-6: #525252;
+  --neutral-7: #404040;
+  --neutral-8: #262626;
+  --neutral-9: #171717;
+
+  /* --- Stone Scale (Warm beige-gray) --- */
+  --stone-0: #fafaf9;
+  --stone-1: #f5f5f4;
+  --stone-2: #e7e5e4;
+  --stone-3: #d6d3d1;
+  --stone-4: #a8a29e;
+  --stone-5: #78716c;
+  --stone-6: #57534e;
+  --stone-7: #44403c;
+  --stone-8: #292524;
+  --stone-9: #1c1917;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC ALIASES
+   * Backward-compatible names mapped to Open Color scales
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* Primary Brand */
+  --color-primary: var(--primary-5);
+  --color-primary-light: var(--primary-3);
+  --color-primary-dark: var(--primary-7);
+  --color-primary-hover: var(--primary-6);
+  --color-primary-active: var(--primary-7);
+
+  /* Secondary */
+  --color-secondary: var(--secondary-5);
+  --color-secondary-light: var(--secondary-3);
+  --color-secondary-dark: var(--secondary-7);
+  --color-secondary-hover: var(--secondary-6);
+  --color-secondary-active: var(--secondary-7);
+
+  /* Accent - Same as primary for Vanduo */
+  --color-accent: var(--primary-5);
+  --color-accent-light: var(--primary-3);
+  --color-accent-dark: var(--primary-7);
+
+  /* Semantic - Success */
+  --color-success: var(--success-6);
+  --color-success-light: var(--success-4);
+  --color-success-dark: var(--success-7);
+  --color-success-hover: var(--success-7);
+  --color-success-active: var(--success-8);
+
+  /* Semantic - Warning */
+  --color-warning: var(--warning-6);
+  --color-warning-light: var(--warning-4);
+  --color-warning-dark: var(--warning-7);
+  --color-warning-hover: var(--warning-7);
+  --color-warning-active: var(--warning-8);
+
+  /* Semantic - Error/Danger */
+  --color-error: var(--danger-6);
+  --color-error-light: var(--danger-4);
+  --color-error-dark: var(--danger-7);
+  --color-error-hover: var(--danger-7);
+  --color-error-active: var(--danger-8);
+
+  /* Semantic - Info */
+  --color-info: var(--info-6);
+  --color-info-light: var(--info-4);
+  --color-info-dark: var(--info-7);
+  --color-info-hover: var(--info-7);
+  --color-info-active: var(--info-8);
+
+  /* Base Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Legacy Gray Aliases (for backward compatibility) */
+  --color-gray-50: var(--gray-0);
+  --color-gray-100: var(--gray-2);
+  --color-gray-200: var(--gray-3);
+  --color-gray-300: var(--gray-4);
+  --color-gray-400: var(--gray-5);
+  --color-gray-500: var(--gray-6);
+  --color-gray-600: var(--gray-7);
+  --color-gray-700: var(--gray-8);
+  --color-gray-800: var(--gray-9);
+  --color-gray-900: #1a1d20;
+  /* Slightly darker than gray-9 */
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * APPLICATION-SPECIFIC VARIABLES
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* Background Colors */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--gray-0);
+  --bg-tertiary: var(--gray-1);
+  --bg-dark: var(--gray-8);
+  --bg-darker: var(--gray-9);
+
+  /* Text Colors */
+  --text-primary: var(--gray-8);
+  --text-secondary: var(--gray-7);
+  --text-muted: var(--gray-5);
+  --text-light: var(--gray-4);
+  --text-inverse: var(--color-white);
+
+  /* Border Colors */
+  --border-color: var(--gray-3);
+  --border-color-light: var(--gray-2);
+  --border-color-dark: var(--gray-4);
+
+  /* Alpha Colors (for hover/active states) */
+  --color-primary-alpha-10: rgba(34, 184, 207, 0.1);
+  --color-primary-alpha-20: rgba(34, 184, 207, 0.2);
+  --color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
+  --color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
+  --color-success-alpha-10: rgba(64, 192, 87, 0.1);
+  --color-success-alpha-20: rgba(64, 192, 87, 0.2);
+  --color-error-alpha-10: rgba(250, 82, 82, 0.1);
+  --color-error-alpha-20: rgba(250, 82, 82, 0.2);
+  --color-warning-alpha-10: rgba(250, 176, 5, 0.1);
+  --color-warning-alpha-20: rgba(250, 176, 5, 0.2);
+  --color-info-alpha-10: rgba(34, 139, 230, 0.1);
+  --color-info-alpha-20: rgba(34, 139, 230, 0.2);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * BACKGROUND COLOR UTILITIES
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
+}
+
+.bg-error {
+  background-color: var(--color-error);
+}
+
+.bg-info {
+  background-color: var(--color-info);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-black {
+  background-color: var(--color-black);
+}
+
+.bg-dark {
+  background-color: var(--bg-dark);
+}
+
+.bg-light {
+  background-color: var(--bg-secondary);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * TEXT COLOR UTILITIES
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-black {
+  color: var(--color-black);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-light {
+  color: var(--text-light);
+}
+
+.text-inverse {
+  color: var(--text-inverse);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * BORDER COLOR UTILITIES
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+.border-success {
+  border-color: var(--color-success);
+}
+
+.border-warning {
+  border-color: var(--color-warning);
+}
+
+.border-error {
+  border-color: var(--color-error);
+}
+
+.border-info {
+  border-color: var(--color-info);
+}
+
+.border-light {
+  border-color: var(--border-color-light);
+}
+
+.border-dark {
+  border-color: var(--border-color-dark);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * DARK THEME OVERRIDES
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg-primary: var(--gray-9);
+  --bg-secondary: var(--gray-8);
+  --bg-tertiary: var(--gray-7);
+  --bg-dark: var(--color-black);
+  --bg-darker: #000000;
+
+  /* Text Colors */
+  --text-primary: var(--gray-0);
+  --text-secondary: var(--gray-3);
+  --text-muted: var(--gray-4);
+  --text-light: var(--gray-5);
+  --text-inverse: var(--gray-9);
+
+  /* Border Colors */
+  --border-color: var(--gray-7);
+  --border-color-light: var(--gray-8);
+  --border-color-dark: var(--gray-6);
+
+  /* Primary - Slightly brighter for dark backgrounds */
+  --color-primary: var(--primary-4);
+  --color-primary-light: var(--primary-3);
+  --color-primary-dark: var(--primary-5);
+  --color-primary-hover: var(--primary-5);
+  --color-primary-active: var(--primary-6);
+
+  /* Secondary */
+  --color-secondary: var(--secondary-4);
+  --color-secondary-hover: var(--secondary-5);
+
+  /* Alpha Colors for Dark Mode */
+  --color-primary-alpha-10: rgba(59, 201, 219, 0.15);
+  --color-primary-alpha-20: rgba(59, 201, 219, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Background Colors */
+    --bg-primary: var(--gray-9);
+    --bg-secondary: var(--gray-8);
+    --bg-tertiary: var(--gray-7);
+    --bg-dark: var(--color-black);
+    --bg-darker: #000000;
+
+    /* Text Colors */
+    --text-primary: var(--gray-0);
+    --text-secondary: var(--gray-3);
+    --text-muted: var(--gray-4);
+    --text-light: var(--gray-5);
+    --text-inverse: var(--gray-9);
+
+    /* Border Colors */
+    --border-color: var(--gray-7);
+    --border-color-light: var(--gray-8);
+    --border-color-dark: var(--gray-6);
+
+    /* Primary - Slightly brighter for dark backgrounds */
+    --color-primary: var(--primary-4);
+    --color-primary-light: var(--primary-3);
+    --color-primary-dark: var(--primary-5);
+    --color-primary-hover: var(--primary-5);
+    --color-primary-active: var(--primary-6);
+
+    /* Secondary */
+    --color-secondary: var(--secondary-4);
+    --color-secondary-hover: var(--secondary-5);
+
+    /* Alpha Colors for Dark Mode */
+    --color-primary-alpha-10: rgba(59, 201, 219, 0.15);
+    --color-primary-alpha-20: rgba(59, 201, 219, 0.25);
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * DYNAMIC PRIMARY COLOR SWITCHING (Theme Customizer)
+ * These rules remap --primary-* variables based on [data-primary] attribute
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* Red Primary */
+[data-primary="red"] {
+  --primary-0: var(--red-0);
+  --primary-1: var(--red-1);
+  --primary-2: var(--red-2);
+  --primary-3: var(--red-3);
+  --primary-4: var(--red-4);
+  --primary-5: var(--red-5);
+  --primary-6: var(--red-6);
+  --primary-7: var(--red-7);
+  --primary-8: var(--red-8);
+  --primary-9: var(--red-9);
+}
+
+/* Orange Primary */
+[data-primary="orange"] {
+  --primary-0: var(--orange-0);
+  --primary-1: var(--orange-1);
+  --primary-2: var(--orange-2);
+  --primary-3: var(--orange-3);
+  --primary-4: var(--orange-4);
+  --primary-5: var(--orange-5);
+  --primary-6: var(--orange-6);
+  --primary-7: var(--orange-7);
+  --primary-8: var(--orange-8);
+  --primary-9: var(--orange-9);
+}
+
+/* Amber Primary (using yellow with warmer tones) */
+[data-primary="amber"] {
+  --primary-0: #fffbeb;
+  --primary-1: #fef3c7;
+  --primary-2: #fde68a;
+  --primary-3: #fcd34d;
+  --primary-4: #fbbf24;
+  --primary-5: #f59e0b;
+  --primary-6: #d97706;
+  --primary-7: #b45309;
+  --primary-8: #92400e;
+  --primary-9: #78350f;
+}
+
+/* Yellow Primary */
+[data-primary="yellow"] {
+  --primary-0: var(--yellow-0);
+  --primary-1: var(--yellow-1);
+  --primary-2: var(--yellow-2);
+  --primary-3: var(--yellow-3);
+  --primary-4: var(--yellow-4);
+  --primary-5: var(--yellow-5);
+  --primary-6: var(--yellow-6);
+  --primary-7: var(--yellow-7);
+  --primary-8: var(--yellow-8);
+  --primary-9: var(--yellow-9);
+}
+
+/* Lime Primary */
+[data-primary="lime"] {
+  --primary-0: var(--lime-0);
+  --primary-1: var(--lime-1);
+  --primary-2: var(--lime-2);
+  --primary-3: var(--lime-3);
+  --primary-4: var(--lime-4);
+  --primary-5: var(--lime-5);
+  --primary-6: var(--lime-6);
+  --primary-7: var(--lime-7);
+  --primary-8: var(--lime-8);
+  --primary-9: var(--lime-9);
+}
+
+/* Green Primary */
+[data-primary="green"] {
+  --primary-0: var(--green-0);
+  --primary-1: var(--green-1);
+  --primary-2: var(--green-2);
+  --primary-3: var(--green-3);
+  --primary-4: var(--green-4);
+  --primary-5: var(--green-5);
+  --primary-6: var(--green-6);
+  --primary-7: var(--green-7);
+  --primary-8: var(--green-8);
+  --primary-9: var(--green-9);
+}
+
+/* Emerald Primary (slightly different green) */
+[data-primary="emerald"] {
+  --primary-0: #ecfdf5;
+  --primary-1: #d1fae5;
+  --primary-2: #a7f3d0;
+  --primary-3: #6ee7b7;
+  --primary-4: #34d399;
+  --primary-5: #10b981;
+  --primary-6: #059669;
+  --primary-7: #047857;
+  --primary-8: #065f46;
+  --primary-9: #064e3b;
+}
+
+/* Teal Primary */
+[data-primary="teal"] {
+  --primary-0: var(--teal-0);
+  --primary-1: var(--teal-1);
+  --primary-2: var(--teal-2);
+  --primary-3: var(--teal-3);
+  --primary-4: var(--teal-4);
+  --primary-5: var(--teal-5);
+  --primary-6: var(--teal-6);
+  --primary-7: var(--teal-7);
+  --primary-8: var(--teal-8);
+  --primary-9: var(--teal-9);
+}
+
+/* Cyan Primary (default - no override needed, but included for completeness) */
+[data-primary="cyan"] {
+  --primary-0: var(--cyan-0);
+  --primary-1: var(--cyan-1);
+  --primary-2: var(--cyan-2);
+  --primary-3: var(--cyan-3);
+  --primary-4: var(--cyan-4);
+  --primary-5: var(--cyan-5);
+  --primary-6: var(--cyan-6);
+  --primary-7: var(--cyan-7);
+  --primary-8: var(--cyan-8);
+  --primary-9: var(--cyan-9);
+}
+
+/* Sky Primary */
+[data-primary="sky"] {
+  --primary-0: #f0f9ff;
+  --primary-1: #e0f2fe;
+  --primary-2: #bae6fd;
+  --primary-3: #7dd3fc;
+  --primary-4: #38bdf8;
+  --primary-5: #0ea5e9;
+  --primary-6: #0284c7;
+  --primary-7: #0369a1;
+  --primary-8: #075985;
+  --primary-9: #0c4a6e;
+}
+
+/* Blue Primary */
+[data-primary="blue"] {
+  --primary-0: var(--blue-0);
+  --primary-1: var(--blue-1);
+  --primary-2: var(--blue-2);
+  --primary-3: var(--blue-3);
+  --primary-4: var(--blue-4);
+  --primary-5: var(--blue-5);
+  --primary-6: var(--blue-6);
+  --primary-7: var(--blue-7);
+  --primary-8: var(--blue-8);
+  --primary-9: var(--blue-9);
+}
+
+/* Indigo Primary */
+[data-primary="indigo"] {
+  --primary-0: var(--indigo-0);
+  --primary-1: var(--indigo-1);
+  --primary-2: var(--indigo-2);
+  --primary-3: var(--indigo-3);
+  --primary-4: var(--indigo-4);
+  --primary-5: var(--indigo-5);
+  --primary-6: var(--indigo-6);
+  --primary-7: var(--indigo-7);
+  --primary-8: var(--indigo-8);
+  --primary-9: var(--indigo-9);
+}
+
+/* Violet Primary */
+[data-primary="violet"] {
+  --primary-0: var(--violet-0);
+  --primary-1: var(--violet-1);
+  --primary-2: var(--violet-2);
+  --primary-3: var(--violet-3);
+  --primary-4: var(--violet-4);
+  --primary-5: var(--violet-5);
+  --primary-6: var(--violet-6);
+  --primary-7: var(--violet-7);
+  --primary-8: var(--violet-8);
+  --primary-9: var(--violet-9);
+}
+
+/* Purple Primary (using grape) */
+[data-primary="purple"] {
+  --primary-0: var(--grape-0);
+  --primary-1: var(--grape-1);
+  --primary-2: var(--grape-2);
+  --primary-3: var(--grape-3);
+  --primary-4: var(--grape-4);
+  --primary-5: var(--grape-5);
+  --primary-6: var(--grape-6);
+  --primary-7: var(--grape-7);
+  --primary-8: var(--grape-8);
+  --primary-9: var(--grape-9);
+}
+
+/* Fuchsia Primary */
+[data-primary="fuchsia"] {
+  --primary-0: #fdf4ff;
+  --primary-1: #fae8ff;
+  --primary-2: #f5d0fe;
+  --primary-3: #f0abfc;
+  --primary-4: #e879f9;
+  --primary-5: #d946ef;
+  --primary-6: #c026d3;
+  --primary-7: #a21caf;
+  --primary-8: #86198f;
+  --primary-9: #701a75;
+}
+
+/* Pink Primary */
+[data-primary="pink"] {
+  --primary-0: var(--pink-0);
+  --primary-1: var(--pink-1);
+  --primary-2: var(--pink-2);
+  --primary-3: var(--pink-3);
+  --primary-4: var(--pink-4);
+  --primary-5: var(--pink-5);
+  --primary-6: var(--pink-6);
+  --primary-7: var(--pink-7);
+  --primary-8: var(--pink-8);
+  --primary-9: var(--pink-9);
+}
+
+/* Rose Primary */
+[data-primary="rose"] {
+  --primary-0: #fff1f2;
+  --primary-1: #ffe4e6;
+  --primary-2: #fecdd3;
+  --primary-3: #fda4af;
+  --primary-4: #fb7185;
+  --primary-5: #f43f5e;
+  --primary-6: #e11d48;
+  --primary-7: #be123c;
+  --primary-8: #9f1239;
+  --primary-9: #881337;
+}
+
+/* Black Primary (grayscale) */
+[data-primary="black"] {
+  --primary-0: #fafafa;
+  --primary-1: #f5f5f5;
+  --primary-2: #e5e5e5;
+  --primary-3: #d4d4d4;
+  --primary-4: #a3a3a3;
+  --primary-5: #525252;
+  --primary-6: #404040;
+  --primary-7: #262626;
+  --primary-8: #171717;
+  --primary-9: #0a0a0a;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * DYNAMIC NEUTRAL COLOR SWITCHING (Theme Customizer)
+ * These rules remap --gray-* variables based on [data-neutral] attribute
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* Gray Neutral (default - no override needed) */
+[data-neutral="gray"] {
+  --gray-0: #f8f9fa;
+  --gray-1: #f1f3f5;
+  --gray-2: #e9ecef;
+  --gray-3: #dee2e6;
+  --gray-4: #ced4da;
+  --gray-5: #adb5bd;
+  --gray-6: #868e96;
+  --gray-7: #495057;
+  --gray-8: #343a40;
+  --gray-9: #212529;
+}
+
+/* Slate Neutral */
+[data-neutral="slate"] {
+  --gray-0: var(--slate-0);
+  --gray-1: var(--slate-1);
+  --gray-2: var(--slate-2);
+  --gray-3: var(--slate-3);
+  --gray-4: var(--slate-4);
+  --gray-5: var(--slate-5);
+  --gray-6: var(--slate-6);
+  --gray-7: var(--slate-7);
+  --gray-8: var(--slate-8);
+  --gray-9: var(--slate-9);
+}
+
+/* Zinc Neutral */
+[data-neutral="zinc"] {
+  --gray-0: var(--zinc-0);
+  --gray-1: var(--zinc-1);
+  --gray-2: var(--zinc-2);
+  --gray-3: var(--zinc-3);
+  --gray-4: var(--zinc-4);
+  --gray-5: var(--zinc-5);
+  --gray-6: var(--zinc-6);
+  --gray-7: var(--zinc-7);
+  --gray-8: var(--zinc-8);
+  --gray-9: var(--zinc-9);
+}
+
+/* Neutral (true neutral) */
+[data-neutral="neutral"] {
+  --gray-0: var(--neutral-0);
+  --gray-1: var(--neutral-1);
+  --gray-2: var(--neutral-2);
+  --gray-3: var(--neutral-3);
+  --gray-4: var(--neutral-4);
+  --gray-5: var(--neutral-5);
+  --gray-6: var(--neutral-6);
+  --gray-7: var(--neutral-7);
+  --gray-8: var(--neutral-8);
+  --gray-9: var(--neutral-9);
+}
+
+/* Stone Neutral */
+[data-neutral="stone"] {
+  --gray-0: var(--stone-0);
+  --gray-1: var(--stone-1);
+  --gray-2: var(--stone-2);
+  --gray-3: var(--stone-3);
+  --gray-4: var(--stone-4);
+  --gray-5: var(--stone-5);
+  --gray-6: var(--stone-6);
+  --gray-7: var(--stone-7);
+  --gray-8: var(--stone-8);
+  --gray-9: var(--stone-9);
+}

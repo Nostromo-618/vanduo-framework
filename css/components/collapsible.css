@@ -1,0 +1,267 @@
+/**
+ * Vanduo Framework - Collapsible
+ * Collapsible/Accordion component for expandable content
+ */
+
+:root {
+  /* Collapsible Colors */
+  --collapsible-border-color: var(--border-color);
+  --collapsible-bg: var(--color-white);
+  --collapsible-header-bg: var(--bg-secondary);
+  --collapsible-header-bg-hover: var(--bg-secondary);
+  --collapsible-header-bg-active: var(--bg-secondary);
+  
+  /* Collapsible Spacing (Fibonacci) */
+  --collapsible-padding-y: 0.8125rem;    /* 13px - fib */
+  --collapsible-padding-x: 1.3125rem;    /* 21px - fib (21/13 ~ phi) */
+  --collapsible-body-padding: 1.3125rem; /* 21px - fib */
+  
+  /* Collapsible Transitions */
+  --collapsible-transition: height var(--transition-duration-slow) var(--transition-ease),
+                            opacity var(--transition-duration-base) var(--transition-ease);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --collapsible-bg: var(--bg-secondary);
+  --collapsible-header-bg: var(--bg-primary);
+  --collapsible-header-bg-hover: var(--bg-primary);
+  --collapsible-header-bg-active: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --collapsible-bg: var(--bg-secondary);
+    --collapsible-header-bg: var(--bg-primary);
+    --collapsible-header-bg-hover: var(--bg-primary);
+    --collapsible-header-bg-active: var(--bg-primary);
+  }
+}
+
+/* Base Collapsible Container */
+.collapsible,
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Collapsible Item */
+.collapsible-item,
+.accordion-item {
+  border: 1px solid var(--collapsible-border-color);
+  border-radius: var(--btn-border-radius);
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  background-color: var(--collapsible-bg);
+}
+
+.collapsible-item:last-child,
+.accordion-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Collapsible Header */
+.collapsible-header,
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--collapsible-padding-y) var(--collapsible-padding-x);
+  background-color: var(--collapsible-header-bg);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-bg);
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.collapsible-header:hover,
+.accordion-header:hover {
+  background-color: var(--collapsible-header-bg-hover);
+}
+
+.collapsible-header:focus,
+.accordion-header:focus {
+  outline: 2px solid var(--input-focus-border-color);
+  outline-offset: -2px;
+}
+
+.collapsible-item.is-open .collapsible-header,
+.accordion-item.is-open .accordion-header {
+  background-color: var(--collapsible-header-bg-active);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Collapsible Trigger */
+.collapsible-trigger,
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.collapsible-trigger:focus,
+.accordion-trigger:focus {
+  outline: none;
+}
+
+/* Collapsible Icon */
+.collapsible-icon,
+.accordion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.75rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-duration-base) var(--transition-ease);
+}
+
+.collapsible-icon::before,
+.accordion-icon::before {
+  content: '▼';
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  transition: transform var(--transition-duration-base) var(--transition-ease);
+}
+
+.collapsible-item.is-open .collapsible-icon::before,
+.accordion-item.is-open .accordion-icon::before {
+  transform: rotate(180deg);
+}
+
+/* Collapsible Body */
+.collapsible-body,
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: var(--collapsible-transition);
+  opacity: 0;
+}
+
+.collapsible-item.is-open .collapsible-body,
+.accordion-item.is-open .accordion-body {
+  max-height: 5000px;
+  opacity: 1;
+  padding: var(--collapsible-body-padding);
+  border-top: 1px solid var(--collapsible-border-color);
+}
+
+/* Collapsible Content */
+.collapsible-content,
+.accordion-content {
+  color: var(--text-primary);
+  line-height: var(--line-height-normal);
+}
+
+/* Collapsible States */
+.collapsible-item.is-active,
+.accordion-item.is-active {
+  border-color: var(--color-primary);
+}
+
+.collapsible-item.is-active .collapsible-header,
+.accordion-item.is-active .accordion-header {
+  background-color: var(--color-primary-alpha-10);
+  color: var(--color-primary);
+}
+
+/* Collapsible Variants - Bordered */
+.collapsible-bordered .collapsible-item,
+.accordion-bordered .accordion-item {
+  border: 1px solid var(--collapsible-border-color);
+  border-radius: 0;
+  margin-bottom: -1px;
+}
+
+.collapsible-bordered .collapsible-item:first-child,
+.accordion-bordered .accordion-item:first-child {
+  border-top-left-radius: var(--btn-border-radius);
+  border-top-right-radius: var(--btn-border-radius);
+}
+
+.collapsible-bordered .collapsible-item:last-child,
+.accordion-bordered .accordion-item:last-child {
+  border-bottom-left-radius: var(--btn-border-radius);
+  border-bottom-right-radius: var(--btn-border-radius);
+  margin-bottom: 0;
+}
+
+/* Collapsible Variants - Flush (no borders) */
+.collapsible-flush .collapsible-item,
+.accordion-flush .accordion-item {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--collapsible-border-color);
+}
+
+.collapsible-flush .collapsible-item:last-child,
+.accordion-flush .accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* Collapsible Sizes */
+.collapsible-sm .collapsible-header,
+.accordion-sm .accordion-header {
+  padding: calc(var(--collapsible-padding-y) * 0.75) calc(var(--collapsible-padding-x) * 0.75);
+  font-size: var(--font-size-sm);
+}
+
+.collapsible-sm .collapsible-body,
+.accordion-sm .accordion-body {
+  padding: calc(var(--collapsible-body-padding) * 0.75);
+}
+
+.collapsible-lg .collapsible-header,
+.accordion-lg .accordion-header {
+  padding: calc(var(--collapsible-padding-y) * 1.25) calc(var(--collapsible-padding-x) * 1.25);
+  font-size: var(--font-size-lg);
+}
+
+.collapsible-lg .collapsible-body,
+.accordion-lg .accordion-body {
+  padding: calc(var(--collapsible-body-padding) * 1.25);
+}
+
+/* Accordion Mode (single open) */
+.accordion .accordion-item.is-open ~ .accordion-item.is-open .accordion-body {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+.accordion .accordion-item.is-open ~ .accordion-item.is-open {
+  border-top: 1px solid var(--collapsible-border-color);
+}
+
+/* Responsive Behavior */
+@media (max-width: 575.98px) {
+  .collapsible-header,
+  .accordion-header {
+    padding: calc(var(--collapsible-padding-y) * 0.875) var(--collapsible-padding-x);
+    font-size: var(--font-size-sm);
+  }
+  
+  .collapsible-body,
+  .accordion-body {
+    padding: var(--collapsible-padding-x);
+  }
+}
+

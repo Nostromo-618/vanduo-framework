@@ -1,0 +1,167 @@
+/**
+ * Vanduo Framework - Media Utilities
+ * Responsive image and media utilities
+ */
+
+/* Responsive Images */
+.img-responsive,
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+/* Object Fit Utilities */
+.object-fit-contain {
+  object-fit: contain;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.object-fit-fill {
+  object-fit: fill;
+}
+
+.object-fit-none {
+  object-fit: none;
+}
+
+.object-fit-scale-down {
+  object-fit: scale-down;
+}
+
+/* Object Position Utilities */
+.object-position-center {
+  object-position: center;
+}
+
+.object-position-top {
+  object-position: top;
+}
+
+.object-position-bottom {
+  object-position: bottom;
+}
+
+.object-position-left {
+  object-position: left;
+}
+
+.object-position-right {
+  object-position: right;
+}
+
+.object-position-top-left {
+  object-position: top left;
+}
+
+.object-position-top-right {
+  object-position: top right;
+}
+
+.object-position-bottom-left {
+  object-position: bottom left;
+}
+
+.object-position-bottom-right {
+  object-position: bottom right;
+}
+
+/* Aspect Ratio Utilities */
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 default */
+}
+
+.aspect-ratio > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aspect-ratio-1-1 {
+  padding-bottom: 100%; /* 1:1 - Square */
+}
+
+.aspect-ratio-16-9 {
+  padding-bottom: 56.25%; /* 16:9 - Video */
+}
+
+.aspect-ratio-4-3 {
+  padding-bottom: 75%; /* 4:3 - Classic */
+}
+
+.aspect-ratio-21-9 {
+  padding-bottom: 42.857%; /* 21:9 - Ultrawide */
+}
+
+.aspect-ratio-3-2 {
+  padding-bottom: 66.667%; /* 3:2 */
+}
+
+.aspect-ratio-2-1 {
+  padding-bottom: 50%; /* 2:1 */
+}
+
+.aspect-ratio-golden {
+  padding-bottom: 61.8%; /* 1:1.618 - Golden Rectangle landscape */
+}
+
+.aspect-ratio-golden-portrait {
+  padding-bottom: 161.8%; /* 1.618:1 - Golden Rectangle portrait */
+}
+
+/* Image Styles */
+.img-rounded {
+  border-radius: var(--btn-border-radius);
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.img-thumbnail {
+  padding: 0.1875rem; /* 3px - fib */
+  background-color: var(--color-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-fib-5);
+  max-width: 100%;
+  height: auto;
+}
+
+/* Image Alignment */
+.img-left {
+  float: left;
+  margin-right: 0.8125rem; /* 13px - fib */
+  margin-bottom: 0.8125rem;
+}
+
+.img-right {
+  float: right;
+  margin-left: 0.8125rem; /* 13px - fib */
+  margin-bottom: 0.8125rem;
+}
+
+.img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Clearfix for floated images */
+.img-clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+

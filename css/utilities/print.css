@@ -1,0 +1,111 @@
+/**
+ * Vanduo Framework - Print Styles
+ * Optimized styles for printing
+ */
+
+@media print {
+  /* Reset backgrounds and shadows for printing */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Links */
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Paragraphs */
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse !important;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Hide non-essential elements */
+  .navbar,
+  .navbar-menu,
+  .navbar-toggle,
+  .navbar-overlay,
+  .sidenav,
+  .modal,
+  .modal-backdrop,
+  .tooltip,
+  .dropdown-menu,
+  .btn-group,
+  .pagination,
+  .skip-link,
+  .d-print-none {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .d-print-block {
+    display: block !important;
+  }
+
+  .d-print-inline {
+    display: inline !important;
+  }
+
+  .d-print-inline-block {
+    display: inline-block !important;
+  }
+
+  /* Container adjustments */
+  .container {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  /* Pre and code blocks */
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+}

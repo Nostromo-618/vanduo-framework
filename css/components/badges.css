@@ -1,0 +1,230 @@
+/**
+ * Vanduo Framework - Badges
+ * Status indicator badges
+ */
+
+:root {
+  /* Badge Padding (x/y ratio ~ phi) */
+  --badge-padding-y: 0.25em;
+  --badge-padding-x: 0.4em;      /* 0.4/0.25 = 1.6 ~ phi */
+  --badge-padding-y-sm: 0.15em;
+  --badge-padding-x-sm: 0.25em;  /* 0.25/0.15 = 1.67 ~ phi */
+  --badge-padding-y-lg: 0.35em;
+  --badge-padding-x-lg: 0.55em;  /* 0.55/0.35 = 1.57 ~ phi */
+  
+  /* Badge Font */
+  --badge-font-size: 0.75em;
+  --badge-font-size-sm: 0.65em;
+  --badge-font-size-lg: 0.875em;
+  --badge-font-weight: var(--font-weight-semibold);
+  --badge-line-height: 1;
+  
+  /* Badge Border Radius */
+  --badge-border-radius: var(--btn-border-radius-sm);
+  --badge-pill-border-radius: 50rem;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  /* Invert light/dark badge colors for visibility */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Invert light/dark badge colors for visibility */
+  }
+}
+
+/* Dark Theme - Light badge needs different colors */
+[data-theme="dark"] .badge-light {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+
+[data-theme="dark"] .badge-outlined.badge-light {
+  color: var(--color-gray-300);
+  border-color: var(--color-gray-500);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .badge-light {
+    background-color: var(--color-gray-700);
+    color: var(--color-gray-100);
+  }
+
+  :root:not([data-theme]) .badge-outlined.badge-light {
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-500);
+  }
+}
+
+/* Base Badge */
+.badge {
+  display: inline-block;
+  padding: var(--badge-padding-y) var(--badge-padding-x);
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  line-height: var(--badge-line-height);
+  color: var(--color-white);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: var(--badge-border-radius);
+  background-color: var(--color-secondary);
+}
+
+/* Badge Variants */
+.badge-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.badge-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.badge-success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.badge-warning {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+}
+
+.badge-error {
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+.badge-info {
+  background-color: var(--color-info);
+  color: var(--color-white);
+}
+
+.badge-light {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-900);
+}
+
+.badge-dark {
+  background-color: var(--color-gray-800);
+  color: var(--color-white);
+}
+
+/* Badge Sizes */
+.badge-sm {
+  padding: var(--badge-padding-y-sm) var(--badge-padding-x-sm);
+  font-size: var(--badge-font-size-sm);
+}
+
+.badge-lg {
+  padding: var(--badge-padding-y-lg) var(--badge-padding-x-lg);
+  font-size: var(--badge-font-size-lg);
+}
+
+/* Badge Styles */
+.badge-pill {
+  padding-right: var(--badge-padding-x);
+  padding-left: var(--badge-padding-x);
+  border-radius: var(--badge-pill-border-radius);
+}
+
+.badge-outlined {
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.badge-outlined.badge-primary {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.badge-outlined.badge-secondary {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.badge-outlined.badge-success {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.badge-outlined.badge-warning {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.badge-outlined.badge-error {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.badge-outlined.badge-info {
+  color: var(--color-info);
+  border-color: var(--color-info);
+}
+
+.badge-outlined.badge-light {
+  color: var(--color-gray-600);
+  border-color: var(--color-gray-300);
+}
+
+.badge-outlined.badge-dark {
+  color: var(--color-gray-800);
+  border-color: var(--color-gray-800);
+}
+
+/* Badge Positioning (for use with buttons, avatars, etc.) */
+.badge-top-right,
+.badge-top-left,
+.badge-bottom-right,
+.badge-bottom-left {
+  position: absolute;
+  z-index: 1;
+  transform: translate(50%, -50%);
+}
+
+.badge-top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.badge-top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.badge-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+.badge-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+
+/* Badge in Buttons */
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
+/* Badge in Headings */
+h1 .badge,
+h2 .badge,
+h3 .badge,
+h4 .badge,
+h5 .badge,
+h6 .badge {
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+

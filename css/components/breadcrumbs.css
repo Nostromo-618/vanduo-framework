@@ -1,0 +1,146 @@
+/**
+ * Vanduo Framework - Breadcrumbs
+ * Breadcrumb navigation component
+ */
+
+:root {
+  /* Breadcrumb Spacing (Fibonacci) */
+  --breadcrumb-padding-y: 0.5rem;     /* 8px - fib */
+  --breadcrumb-padding-x: 0;
+  --breadcrumb-margin-bottom: 0.8125rem; /* 13px - fib */
+
+  /* Breadcrumb Separator */
+  --breadcrumb-separator: "/";
+  --breadcrumb-separator-color: var(--text-muted);
+  --breadcrumb-separator-padding: 0.5rem; /* 8px - fib */
+  
+  /* Breadcrumb Colors */
+  --breadcrumb-bg: transparent;
+  --breadcrumb-link-color: var(--color-primary);
+  --breadcrumb-link-hover-color: var(--color-primary-dark);
+  --breadcrumb-active-color: var(--text-secondary);
+}
+
+/* Dark Theme Overrides - breadcrumbs use CSS variables that already adapt */
+/* No additional overrides needed as --text-secondary and --color-primary update in dark mode */
+
+/* Base Breadcrumbs */
+.breadcrumbs,
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--breadcrumb-padding-y) var(--breadcrumb-padding-x);
+  margin-bottom: var(--breadcrumb-margin-bottom);
+  list-style: none;
+  background-color: var(--breadcrumb-bg);
+  border-radius: var(--btn-border-radius);
+}
+
+/* Breadcrumb Item */
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: var(--breadcrumb-separator-padding);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: var(--breadcrumb-separator);
+  display: inline-block;
+  padding-right: var(--breadcrumb-separator-padding);
+  color: var(--breadcrumb-separator-color);
+  font-weight: var(--font-weight-normal);
+}
+
+/* Breadcrumb Link */
+.breadcrumb-link,
+.breadcrumb-item > a {
+  color: var(--breadcrumb-link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-item > a:hover {
+  color: var(--breadcrumb-link-hover-color);
+  text-decoration: underline;
+}
+
+.breadcrumb-link:focus,
+.breadcrumb-item > a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Active/Current Breadcrumb Item */
+.breadcrumb-item.active,
+.breadcrumb-current {
+  color: var(--breadcrumb-active-color);
+}
+
+.breadcrumb-item.active > a,
+.breadcrumb-current > a {
+  color: var(--breadcrumb-active-color);
+  pointer-events: none;
+  cursor: default;
+}
+
+.breadcrumb-item.active > a:hover,
+.breadcrumb-current > a:hover {
+  text-decoration: none;
+}
+
+/* Breadcrumb Variants - With Icons */
+.breadcrumb-item > svg,
+.breadcrumb-item > i {
+  margin-right: 0.25rem;
+  vertical-align: middle;
+}
+
+/* Custom Separators */
+.breadcrumb-separator-slash::before {
+  content: "/";
+}
+
+.breadcrumb-separator-chevron::before {
+  content: "›";
+}
+
+.breadcrumb-separator-arrow::before {
+  content: "→";
+}
+
+.breadcrumb-separator-dot::before {
+  content: "·";
+}
+
+.breadcrumb-separator-pipe::before {
+  content: "|";
+}
+
+/* Breadcrumb Sizes */
+.breadcrumb-sm {
+  font-size: var(--font-size-sm);
+  padding: calc(var(--breadcrumb-padding-y) * 0.75) var(--breadcrumb-padding-x);
+}
+
+.breadcrumb-lg {
+  font-size: var(--font-size-lg);
+  padding: calc(var(--breadcrumb-padding-y) * 1.25) var(--breadcrumb-padding-x);
+}
+
+/* Responsive Behavior */
+@media (max-width: 575.98px) {
+  .breadcrumb-item {
+    font-size: var(--font-size-sm);
+  }
+  
+  .breadcrumb-item + .breadcrumb-item::before {
+    padding-right: calc(var(--breadcrumb-separator-padding) * 0.75);
+    padding-left: calc(var(--breadcrumb-separator-padding) * 0.75);
+  }
+}
+

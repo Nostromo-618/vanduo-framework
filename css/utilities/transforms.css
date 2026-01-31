@@ -1,0 +1,71 @@
+/**
+ * Vanduo Framework - Transform Utilities
+ * Scale, rotate, and translate utilities
+ */
+
+/* Scale Utilities */
+.scale-0 { transform: scale(0); }
+.scale-50 { transform: scale(0.5); }
+.scale-75 { transform: scale(0.75); }
+.scale-90 { transform: scale(0.9); }
+.scale-95 { transform: scale(0.95); }
+.scale-100 { transform: scale(1); }
+.scale-105 { transform: scale(1.05); }
+.scale-110 { transform: scale(1.1); }
+.scale-125 { transform: scale(1.25); }
+.scale-150 { transform: scale(1.5); }
+
+/* Rotate Utilities */
+.rotate-0 { transform: rotate(0deg); }
+.rotate-45 { transform: rotate(45deg); }
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+.-rotate-45 { transform: rotate(-45deg); }
+.-rotate-90 { transform: rotate(-90deg); }
+.-rotate-180 { transform: rotate(-180deg); }
+
+/* Translate Utilities (Fibonacci-based: 1, 2, 3, 5, 8, 13, 21px) */
+.translate-x-0 { transform: translateX(0); }
+.translate-x-1 { transform: translateX(1px); }
+.translate-x-2 { transform: translateX(2px); }
+.translate-x-3 { transform: translateX(3px); }
+.translate-x-5 { transform: translateX(5px); }
+.translate-x-8 { transform: translateX(8px); }
+.-translate-x-1 { transform: translateX(-1px); }
+.-translate-x-2 { transform: translateX(-2px); }
+.-translate-x-3 { transform: translateX(-3px); }
+.-translate-x-5 { transform: translateX(-5px); }
+.-translate-x-8 { transform: translateX(-8px); }
+
+.translate-y-0 { transform: translateY(0); }
+.translate-y-1 { transform: translateY(1px); }
+.translate-y-2 { transform: translateY(2px); }
+.translate-y-3 { transform: translateY(3px); }
+.translate-y-5 { transform: translateY(5px); }
+.translate-y-8 { transform: translateY(8px); }
+.-translate-y-1 { transform: translateY(-1px); }
+.-translate-y-2 { transform: translateY(-2px); }
+.-translate-y-3 { transform: translateY(-3px); }
+.-translate-y-5 { transform: translateY(-5px); }
+.-translate-y-8 { transform: translateY(-8px); }
+
+/* Translate percentage-based */
+.translate-x-full { transform: translateX(100%); }
+.-translate-x-full { transform: translateX(-100%); }
+.translate-x-half { transform: translateX(50%); }
+.-translate-x-half { transform: translateX(-50%); }
+.translate-y-full { transform: translateY(100%); }
+.-translate-y-full { transform: translateY(-100%); }
+.translate-y-half { transform: translateY(50%); }
+.-translate-y-half { transform: translateY(-50%); }
+
+/* Transform Origin */
+.origin-center { transform-origin: center; }
+.origin-top { transform-origin: top; }
+.origin-top-right { transform-origin: top right; }
+.origin-right { transform-origin: right; }
+.origin-bottom-right { transform-origin: bottom right; }
+.origin-bottom { transform-origin: bottom; }
+.origin-bottom-left { transform-origin: bottom left; }
+.origin-left { transform-origin: left; }
+.origin-top-left { transform-origin: top left; }

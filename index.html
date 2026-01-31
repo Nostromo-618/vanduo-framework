@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vanduo Framework. Pure HTML, CSS, JS framework for beautiful static websites. No dependencies, no build tools, just clean code.">
+    <meta name="author" content="Vanduo Framework">
+    <meta name="keywords"
+        content="CSS framework, HTML framework, JavaScript framework, static website, no dependencies, pure CSS, pure JavaScript, responsive design, UI components, Lithuania">
+    <meta name="robots" content="index, follow">
+    <title>Vanduo Framework - Pure HTML, CSS, JS Framework</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vanduo.dev/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vanduo.dev/">
+    <meta property="og:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
+    <meta property="og:description"
+        content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
+    <meta property="og:image" content="https://vanduo.dev/images/og-image.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vanduo Framework">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vanduo.dev/">
+    <meta name="twitter:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
+    <meta name="twitter:description"
+        content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
+    <meta name="twitter:image" content="https://vanduo.dev/images/twitter-card.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="./css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="./css/icons/icons.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Vanduo Framework",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "description": "Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.",
+      "url": "https://vanduo.dev/",
+      "author": {
+        "@type": "Organization",
+        "name": "Vanduo Framework",
+        "url": "https://vanduo.dev/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "softwareVersion": "1.0",
+      "license": "https://opensource.org/licenses/MIT",
+      "programmingLanguage": ["HTML", "CSS", "JavaScript"]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://vanduo.dev/"
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Vanduo Framework",
+      "url": "https://vanduo.dev/",
+      "logo": "https://vanduo.dev/images/logo.png",
+      "description": "Essential just like Water is. Pure HTML, CSS, JS framework for beautiful static websites.",
+      "foundingLocation": {
+        "@type": "Country",
+        "name": "Lithuania"
+      }
+    }
+    </script>
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add space to the left of navbar brand */
+        .navbar-brand {
+            margin-left: 1rem;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Section spacing */
+        section {
+            padding: 4rem 0;
+            scroll-margin-top: 80px;
+        }
+
+        section:first-of-type {
+            padding-top: 2rem;
+        }
+
+        /* Hero section */
+        section.hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 233px;
+            padding-bottom: 89px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            margin: 0 auto;
+        }
+
+        /* Component demo cards */
+        .demo-card {
+            margin-bottom: 2rem;
+        }
+
+        /* Code examples */
+        .code-example {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--btn-border-radius);
+            margin-top: 1rem;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            overflow-x: auto;
+        }
+
+        /* Feature icons */
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-drop"
+                        style="color: var(--color-primary); margin-right: 0.25em;"></i>Vanduo</a>
+            </div>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="documentation.html" class="nav-link">Documentation</a></li>
+                </ul>
+
+                <!-- Theme Customizer Trigger (far right) -->
+                <button class="theme-customizer-trigger" data-theme-customizer-trigger
+                    aria-label="Open theme customizer" style="margin-left: auto;">
+                    <i class="ph ph-paint-roller"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero parallax">
+        <div class="parallax-layer" data-speed="0.5"></div>
+        <div class="parallax-content hero-content">
+            <h1><i class="ph-fill ph-drop" style="color: var(--color-primary); margin-right: 0.15em;"></i>Vanduo
+                Framework</h1>
+            <p class="text-lg text-muted">Essential just like water is.</p>
+            <p>Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools,
+                just clean and simple code.</p>
+            <div class="mt-10">
+                <a href="documentation.html" class="btn btn-outline btn-lg">Get Started</a>
+                <a href="https://github.com/Nostromo-618/vanduo-framework"
+                    class="btn btn-outline btn-lg ml-6">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container-responsive">
+
+            <!-- Core Philosophy -->
+            <section id="philosophy">
+                <h2 class="text-center mb-8">Core Philosophy</h2>
+                <div class="row" style="align-items: stretch;">
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-leaf feature-icon"></i>
+                            <h3>Zero Dependencies</h3>
+                            <p class="text-muted">Pure HTML, CSS, and JavaScript. No build tools, no package managers,
+                                no complexity.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-spiral feature-icon"></i>
+                            <h3>Fibonacci Design</h3>
+                            <p class="text-muted">Spacing, typography, and grid layouts built on the Golden Ratio and
+                                Fibonacci sequence for natural harmony.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-puzzle-piece feature-icon"></i>
+                            <h3>Modular CSS</h3>
+                            <p class="text-muted">Import the full framework or pick only the components you need. No
+                                bloat, just what you use.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-wheelchair feature-icon"></i>
+                            <h3>Accessibility First</h3>
+                            <p class="text-muted">ARIA attributes, focus-visible states, reduced motion support, and
+                                semantic HTML built-in.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-moon-stars feature-icon"></i>
+                            <h3>Dark Mode Ready</h3>
+                            <p class="text-muted">Light, dark, and system themes with smooth transitions. Includes a
+                                customizable theme switcher component.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-6">
+                        <div class="card text-center" style="padding: 2rem; height: 100%;">
+                            <i class="ph ph-lightning feature-icon"></i>
+                            <h3>Lightweight & Fast</h3>
+                            <p class="text-muted">Minimal footprint with optimized CSS. No JavaScript required for
+                                styling—scripts are optional enhancements.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Icons Overview -->
+            <section id="icons">
+                <h2 class="text-center mb-3">Phosphor Icons</h2>
+                <p class="text-center text-muted mb-8">1,500+ icons in 6 weights, bundled locally. No CDN required.</p>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="padding: 2rem;">
+                            <div class="row mb-6">
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Regular</p>
+                                </div>
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph-fill ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Fill</p>
+                                </div>
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph-bold ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Bold</p>
+                                </div>
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph-light ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Light</p>
+                                </div>
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph-thin ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Thin</p>
+                                </div>
+                                <div class="col-6 col-md-2 text-center mb-5">
+                                    <i class="ph-duotone ph-heart" style="font-size: 48px;"></i>
+                                    <p class="text-sm text-muted mt-2">Duotone</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-5 flex-wrap justify-center" style="font-size: 32px;">
+                                <i class="ph ph-house"></i>
+                                <i class="ph ph-user"></i>
+                                <i class="ph ph-gear"></i>
+                                <i class="ph ph-bell"></i>
+                                <i class="ph ph-envelope"></i>
+                                <i class="ph ph-magnifying-glass"></i>
+                                <i class="ph ph-download"></i>
+                                <i class="ph ph-upload"></i>
+                                <i class="ph ph-trash"></i>
+                                <i class="ph ph-pencil"></i>
+                                <i class="ph-fill ph-heart" style="color: var(--color-error);"></i>
+                                <i class="ph-fill ph-star" style="color: var(--color-warning);"></i>
+                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
+                                <i class="ph ph-warning" style="color: var(--color-warning);"></i>
+                                <i class="ph ph-x-circle" style="color: var(--color-error);"></i>
+                                <i class="ph ph-info" style="color: var(--color-info);"></i>
+                            </div>
+                            <p class="text-center text-sm text-muted mt-5">
+                                <i class="ph ph-heart-straight" style="color: var(--color-error);"></i>
+                                Icons by <a href="https://phosphoricons.com" target="_blank"
+                                    rel="noopener"><strong>Phosphor Icons</strong></a> — MIT Licensed.
+                                <a href="documentation.html#icons">See full documentation &rarr;</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section id="getting-started">
+                <h2 class="text-center mb-8">Getting Started</h2>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Quick Start</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Include the CSS and JS files in your HTML. No build tools needed.</p>
+                                <pre class="code-example"><code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="css/vanduo.css"&gt;
+
+&lt;!-- JS (order matters) --&gt;
+&lt;script src="js/utils/helpers.js"&gt;&lt;/script&gt;
+&lt;script src="js/vanduo.js"&gt;&lt;/script&gt;
+
+&lt;!-- Add only the components you need --&gt;
+&lt;script src="js/components/navbar.js"&gt;&lt;/script&gt;
+&lt;script src="js/components/modals.js"&gt;&lt;/script&gt;
+&lt;!-- ... --&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card demo-card">
+                            <div class="card-header">
+                                <h3>Modular CSS Imports</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Import only what you need instead of the full bundle:</p>
+                                <pre class="code-example"><code>&lt;!-- Full framework --&gt;
+&lt;link rel="stylesheet" href="css/vanduo.css"&gt;
+
+&lt;!-- Or pick individual modules --&gt;
+&lt;link rel="stylesheet" href="css/core/reset.css"&gt;
+&lt;link rel="stylesheet" href="css/core/colors.css"&gt;
+&lt;link rel="stylesheet" href="css/core/typography.css"&gt;
+&lt;link rel="stylesheet" href="css/core/grid.css"&gt;
+&lt;link rel="stylesheet" href="css/components/buttons.css"&gt;
+&lt;!-- ... add what you need --&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <a href="documentation.html#getting-started" class="btn btn-outline">Full Documentation &rarr;</a>
+                </div>
+            </section>
+
+            <!-- Color System -->
+            <section id="colors">
+                <h2 class="text-center mb-8">Color System</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="padding: 2rem;">
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-primary text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Primary</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-secondary text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Secondary</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-success text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Success</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-warning text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Warning</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-error text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Error</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-info text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Info</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-dark text-white p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Dark</div>
+                                </div>
+                                <div class="col-12 col-md-3 col-sm-6">
+                                    <div class="bg-light text-black p-3 mb-2"
+                                        style="border-radius: var(--btn-border-radius);">Light</div>
+                                </div>
+                            </div>
+                            <p class="text-center text-sm text-muted mt-5">All colors support dark mode and are fully
+                                customizable via CSS variables. <a href="documentation.html#typography">Learn more
+                                    &rarr;</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section id="cta" style="padding: 5rem 0;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card text-center" style="padding: 3rem 2rem;">
+                            <i class="ph ph-book-open"
+                                style="font-size: 3rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+                            <h3>Browse Documentation</h3>
+                            <p class="text-muted mb-5">Explore all components, utilities, and code examples.</p>
+                            <a href="documentation.html" class="btn btn-outline btn-lg">Documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Vanduo Framework</h4>
+                        <p>Essential just like water is.</p>
+                        <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Made with Kilo Code Section -->
+            <div class="footer-made-with">
+                <span class="footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+                        rel="noopener noreferrer">Kilo Code</a></span>
+                <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="footer-kilo-link"
+                    title="Kilo Code - AI Coding Assistant">
+                    <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="footer-kilo-logo">
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="text-center text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/utils/helpers.js"></script>
+    <script src="./js/vanduo.js"></script>
+    <script src="./js/components/theme-switcher.js"></script>
+    <script src="./js/components/font-switcher.js"></script>
+    <script src="./js/components/theme-customizer.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/parallax.js"></script>
+    <script src="./js/components/select.js"></script>
+</body>
+
+</html>

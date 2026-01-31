@@ -1,0 +1,241 @@
+/**
+ * Vanduo Framework - Skeleton
+ * Loading placeholder animations
+ */
+
+:root {
+  /* Skeleton Colors */
+  --skeleton-bg: var(--color-gray-200);
+  --skeleton-shimmer: var(--color-gray-100);
+  --skeleton-border-radius: var(--btn-border-radius);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --skeleton-bg: var(--color-gray-700);
+  --skeleton-shimmer: var(--color-gray-600);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --skeleton-bg: var(--color-gray-700);
+    --skeleton-shimmer: var(--color-gray-600);
+  }
+}
+
+/* Base Skeleton */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--skeleton-bg);
+  border-radius: var(--skeleton-border-radius);
+}
+
+/* Shimmer Animation */
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--skeleton-shimmer),
+    transparent
+  );
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Skeleton Text (single line) */
+.skeleton-text {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-text:last-child {
+  width: 80%;
+  margin-bottom: 0;
+}
+
+/* Skeleton Text Sizes */
+.skeleton-text-xs { height: 0.75rem; }
+.skeleton-text-sm { height: 0.875rem; }
+.skeleton-text-lg { height: 1.25rem; }
+.skeleton-text-xl { height: 1.5rem; }
+
+/* Skeleton Heading */
+.skeleton-heading {
+  height: 1.5rem;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-heading-lg {
+  height: 2rem;
+  width: 50%;
+}
+
+/* Skeleton Circle (for avatars) */
+.skeleton-circle {
+  border-radius: 50%;
+}
+
+.skeleton-circle-xs { width: 1.5rem; height: 1.5rem; }
+.skeleton-circle-sm { width: 2rem; height: 2rem; }
+.skeleton-circle-md { width: 2.5rem; height: 2.5rem; }
+.skeleton-circle { width: 3rem; height: 3rem; }
+.skeleton-circle-lg { width: 4rem; height: 4rem; }
+.skeleton-circle-xl { width: 5rem; height: 5rem; }
+
+/* Skeleton Rectangle (for images/thumbnails) */
+.skeleton-rect {
+  width: 100%;
+  height: 200px;
+}
+
+.skeleton-rect-sm { height: 100px; }
+.skeleton-rect-lg { height: 300px; }
+
+/* Skeleton Button */
+.skeleton-button {
+  height: 2.5rem;
+  width: 6rem;
+  border-radius: var(--btn-border-radius);
+}
+
+.skeleton-button-sm {
+  height: 2rem;
+  width: 4rem;
+}
+
+.skeleton-button-lg {
+  height: 3rem;
+  width: 8rem;
+}
+
+/* Skeleton Card */
+.skeleton-card {
+  padding: 1rem;
+  border-radius: var(--btn-border-radius);
+  border: 1px solid var(--border-color);
+}
+
+/* Skeleton Input */
+.skeleton-input {
+  height: 2.5rem;
+  width: 100%;
+  border-radius: var(--btn-border-radius);
+}
+
+/* Skeleton Paragraph (multiple lines) */
+.skeleton-paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-paragraph .skeleton-text {
+  margin-bottom: 0;
+}
+
+.skeleton-paragraph .skeleton-text:nth-child(1) { width: 100%; }
+.skeleton-paragraph .skeleton-text:nth-child(2) { width: 95%; }
+.skeleton-paragraph .skeleton-text:nth-child(3) { width: 90%; }
+.skeleton-paragraph .skeleton-text:nth-child(4) { width: 70%; }
+
+/* Skeleton List */
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skeleton-list-item .skeleton-circle {
+  flex-shrink: 0;
+}
+
+.skeleton-list-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Skeleton Grid */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Skeleton Table Row */
+.skeleton-table-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.skeleton-table-row .skeleton-text {
+  margin-bottom: 0;
+}
+
+/* Width Variants */
+.skeleton-w-full { width: 100%; }
+.skeleton-w-3-4 { width: 75%; }
+.skeleton-w-2-3 { width: 66.666667%; }
+.skeleton-w-1-2 { width: 50%; }
+.skeleton-w-1-3 { width: 33.333333%; }
+.skeleton-w-1-4 { width: 25%; }
+
+/* No Animation Variant */
+.skeleton-static::after {
+  display: none;
+}
+
+/* Pulse Animation Variant */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-pulse::after {
+  display: none;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+    transform: none;
+    background: transparent;
+  }
+
+  .skeleton-pulse {
+    animation: none;
+  }
+}

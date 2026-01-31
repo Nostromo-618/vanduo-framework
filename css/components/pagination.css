@@ -1,0 +1,186 @@
+/**
+ * Vanduo Framework - Pagination
+ * Page navigation component
+ */
+
+:root {
+  /* Pagination Colors */
+  --pagination-bg: var(--color-white);
+  --pagination-border-color: var(--border-color);
+  --pagination-link-color: var(--color-primary);
+  --pagination-link-bg: var(--color-white);
+  --pagination-link-bg-hover: var(--bg-secondary);
+  --pagination-link-bg-active: var(--color-primary);
+  --pagination-link-color-active: var(--color-white);
+  --pagination-link-color-disabled: var(--text-muted);
+  
+  /* Pagination Spacing (Fibonacci pairs: x/y ratio ~ phi) */
+  --pagination-padding-y: 0.5rem;        /* 8px  - fib */
+  --pagination-padding-x: 0.8125rem;     /* 13px - fib */
+  --pagination-padding-y-sm: 0.1875rem;  /* 3px  - fib */
+  --pagination-padding-x-sm: 0.3125rem;  /* 5px  - fib */
+  --pagination-padding-y-lg: 0.8125rem;  /* 13px - fib */
+  --pagination-padding-x-lg: 1.3125rem;  /* 21px - fib */
+  
+  /* Pagination Font */
+  --pagination-font-size: var(--font-size-base);
+  --pagination-font-size-sm: var(--font-size-sm);
+  --pagination-font-size-lg: var(--font-size-lg);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --pagination-bg: var(--bg-secondary);
+  --pagination-link-bg: var(--bg-secondary);
+  --pagination-link-bg-hover: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --pagination-bg: var(--bg-secondary);
+    --pagination-link-bg: var(--bg-secondary);
+    --pagination-link-bg-hover: var(--bg-primary);
+  }
+}
+
+/* Base Pagination */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Pagination Item */
+.pagination-item {
+  display: inline-block;
+  margin: 0 0.125rem;
+}
+
+.pagination-item:first-child {
+  margin-left: 0;
+}
+
+.pagination-item:last-child {
+  margin-right: 0;
+}
+
+/* Pagination Link */
+.pagination-link {
+  position: relative;
+  display: block;
+  padding: var(--pagination-padding-y) var(--pagination-padding-x);
+  font-size: var(--pagination-font-size);
+  line-height: var(--line-height-normal);
+  color: var(--pagination-link-color);
+  text-decoration: none;
+  background-color: var(--pagination-link-bg);
+  border: 1px solid var(--pagination-border-color);
+  border-radius: var(--btn-border-radius);
+  transition: var(--transition-colors);
+  cursor: pointer;
+  user-select: none;
+}
+
+.pagination-link:hover {
+  color: var(--pagination-link-color);
+  background-color: var(--pagination-link-bg-hover);
+  border-color: var(--pagination-border-color);
+  text-decoration: none;
+}
+
+.pagination-link:focus {
+  outline: 0;
+  box-shadow: var(--input-focus-box-shadow);
+  z-index: 1;
+}
+
+/* Pagination Active State */
+.pagination-item.active .pagination-link {
+  z-index: 1;
+  color: var(--pagination-link-color-active);
+  background-color: var(--pagination-link-bg-active);
+  border-color: var(--pagination-link-bg-active);
+  cursor: default;
+}
+
+.pagination-item.active .pagination-link:hover {
+  color: var(--pagination-link-color-active);
+  background-color: var(--pagination-link-bg-active);
+  border-color: var(--pagination-link-bg-active);
+}
+
+/* Pagination Disabled State */
+.pagination-item.disabled .pagination-link {
+  color: var(--pagination-link-color-disabled);
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: var(--pagination-link-bg);
+  border-color: var(--pagination-border-color);
+  opacity: 0.6;
+}
+
+/* Pagination Previous/Next */
+.pagination-prev,
+.pagination-next {
+  font-weight: var(--font-weight-medium);
+}
+
+.pagination-prev .pagination-link::before {
+  content: '«';
+  margin-right: 0.25rem;
+}
+
+.pagination-next .pagination-link::after {
+  content: '»';
+  margin-left: 0.25rem;
+}
+
+/* Pagination Ellipsis */
+.pagination-ellipsis {
+  padding: var(--pagination-padding-y) var(--pagination-padding-x);
+  color: var(--text-muted);
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Pagination Sizes */
+.pagination-sm .pagination-link {
+  padding: var(--pagination-padding-y-sm) var(--pagination-padding-x-sm);
+  font-size: var(--pagination-font-size-sm);
+}
+
+.pagination-lg .pagination-link {
+  padding: var(--pagination-padding-y-lg) var(--pagination-padding-x-lg);
+  font-size: var(--pagination-font-size-lg);
+}
+
+/* Pagination Alignment */
+.pagination-center {
+  justify-content: center;
+}
+
+.pagination-right {
+  justify-content: flex-end;
+}
+
+/* Responsive Behavior */
+@media (max-width: 575.98px) {
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .pagination-item {
+    margin: 0.125rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+}
+

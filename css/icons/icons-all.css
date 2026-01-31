@@ -1,0 +1,23 @@
+/**
+ * Vanduo Icons - All Phosphor Weights
+ * 
+ * WARNING: This imports ~3MB of font assets. Only use if you need all weights.
+ * For most projects, use icons.css (regular + fill) instead.
+ * 
+ * Available weights:
+ *   <i class="ph ph-heart"></i>           - Regular
+ *   <i class="ph-fill ph-heart"></i>      - Fill
+ *   <i class="ph-bold ph-heart"></i>      - Bold
+ *   <i class="ph-light ph-heart"></i>     - Light
+ *   <i class="ph-thin ph-heart"></i>      - Thin
+ *   <i class="ph-duotone ph-heart"></i>   - Duotone
+ * 
+ * Full icon list: https://phosphoricons.com
+ */
+
+@import url('../../icons/phosphor/regular/style.css');
+@import url('../../icons/phosphor/fill/style.css');
+@import url('../../icons/phosphor/bold/style.css');
+@import url('../../icons/phosphor/light/style.css');
+@import url('../../icons/phosphor/thin/style.css');
+@import url('../../icons/phosphor/duotone/style.css');

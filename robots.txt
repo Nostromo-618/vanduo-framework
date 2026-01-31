@@ -1,0 +1,13 @@
+# Vanduo Framework - robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://vanduo.dev/sitemap.xml
+
+# Disallow crawling of development utilities
+Disallow: /devUtils/
+Disallow: /.claude/
+Disallow: /plans/

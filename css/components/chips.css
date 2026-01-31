@@ -1,0 +1,259 @@
+/**
+ * Vanduo Framework - Chips/Tags
+ * Small interactive elements for tags, filters, and selections
+ */
+
+:root {
+  /* Chip Sizing (Fibonacci) */
+  --chip-padding-x: 0.8125rem;     /* 13px - fib */
+  --chip-padding-y: 0.3125rem;     /* 5px  - fib */
+  --chip-padding-x-sm: 0.5rem;     /* 8px  - fib */
+  --chip-padding-y-sm: 0.1875rem;  /* 3px  - fib */
+  --chip-padding-x-lg: 1.3125rem;  /* 21px - fib */
+  --chip-padding-y-lg: 0.5rem;     /* 8px  - fib */
+  --chip-border-radius: 9999px;
+  --chip-font-size: var(--font-size-sm);
+  --chip-font-size-sm: var(--font-size-xs);
+  --chip-font-size-lg: var(--font-size-base);
+
+  /* Chip Colors */
+  --chip-bg: var(--bg-secondary);
+  --chip-text: var(--text-primary);
+  --chip-border: var(--border-color);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --chip-bg: var(--color-gray-700);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --chip-bg: var(--color-gray-700);
+  }
+}
+
+/* Base Chip */
+.chip,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: var(--chip-padding-y) var(--chip-padding-x);
+  font-size: var(--chip-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  color: var(--chip-text);
+  background-color: var(--chip-bg);
+  border-radius: var(--chip-border-radius);
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: var(--transition-base);
+}
+
+/* Chip Sizes */
+.chip-sm,
+.tag-sm {
+  padding: var(--chip-padding-y-sm) var(--chip-padding-x-sm);
+  font-size: var(--chip-font-size-sm);
+}
+
+.chip-lg,
+.tag-lg {
+  padding: var(--chip-padding-y-lg) var(--chip-padding-x-lg);
+  font-size: var(--chip-font-size-lg);
+}
+
+/* Chip Color Variants */
+.chip-primary,
+.tag-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.chip-secondary,
+.tag-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.chip-success,
+.tag-success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.chip-warning,
+.tag-warning {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+}
+
+.chip-error,
+.tag-error,
+.chip-danger,
+.tag-danger {
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+.chip-info,
+.tag-info {
+  background-color: var(--color-info);
+  color: var(--color-white);
+}
+
+/* Outline Variants */
+.chip-outline,
+.tag-outline {
+  background-color: transparent;
+  border: 1px solid var(--chip-border);
+}
+
+.chip-outline.chip-primary,
+.tag-outline.tag-primary {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: transparent;
+}
+
+.chip-outline.chip-success,
+.tag-outline.tag-success {
+  border-color: var(--color-success);
+  color: var(--color-success);
+  background-color: transparent;
+}
+
+.chip-outline.chip-warning,
+.tag-outline.tag-warning {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+  background-color: transparent;
+}
+
+.chip-outline.chip-error,
+.tag-outline.tag-error {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  background-color: transparent;
+}
+
+.chip-outline.chip-info,
+.tag-outline.tag-info {
+  border-color: var(--color-info);
+  color: var(--color-info);
+  background-color: transparent;
+}
+
+/* Clickable/Interactive Chip */
+.chip-clickable,
+.tag-clickable,
+a.chip,
+a.tag,
+button.chip,
+button.tag {
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.chip-clickable:hover,
+.tag-clickable:hover,
+a.chip:hover,
+a.tag:hover,
+button.chip:hover,
+button.tag:hover {
+  filter: brightness(0.9);
+}
+
+.chip-clickable:focus-visible,
+.tag-clickable:focus-visible,
+a.chip:focus-visible,
+a.tag:focus-visible,
+button.chip:focus-visible,
+button.tag:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Dismissible Chip */
+.chip-dismissible,
+.tag-dismissible {
+  padding-right: 0.375rem;
+}
+
+.chip-close,
+.tag-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin-left: 0.125rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+.chip-close:hover,
+.tag-close:hover {
+  opacity: 1;
+}
+
+.chip-close::before,
+.tag-close::before {
+  content: '\00D7';
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Chip with Avatar/Image */
+.chip-avatar,
+.tag-avatar {
+  padding-left: 0.25rem;
+}
+
+.chip-avatar img,
+.tag-avatar img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chip-sm.chip-avatar img,
+.tag-sm.tag-avatar img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.chip-lg.chip-avatar img,
+.tag-lg.tag-avatar img {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+/* Chip Group */
+.chip-group,
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .chip,
+  .tag,
+  .chip-close,
+  .tag-close {
+    transition: none;
+  }
+}

@@ -1,0 +1,107 @@
+/**
+ * Vanduo Framework - Progress Bar Component
+ * CSS-only progress bar with variants and sizes
+ */
+
+:root {
+  --progress-height: 8px;
+  --progress-bg: var(--bg-tertiary, #e9ecef);
+  --progress-bar-bg: var(--color-primary);
+  --progress-border-radius: var(--radius-fib-5, 5px);
+}
+
+/* Base Progress */
+.progress {
+  display: flex;
+  height: var(--progress-height);
+  overflow: hidden;
+  background-color: var(--progress-bg);
+  border-radius: var(--progress-border-radius);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--progress-bar-bg);
+  transition: width 0.4s ease;
+  border-radius: var(--progress-border-radius);
+}
+
+/* Variants */
+.progress-bar.progress-success { background-color: var(--color-success); }
+.progress-bar.progress-warning { background-color: var(--color-warning); }
+.progress-bar.progress-error { background-color: var(--color-error); }
+.progress-bar.progress-info { background-color: var(--color-info); }
+
+/* Sizes */
+.progress-xs { --progress-height: 3px; }
+.progress-sm { --progress-height: 5px; }
+.progress-lg { --progress-height: 13px; }
+.progress-xl { --progress-height: 21px; }
+
+/* Labeled (show text) */
+.progress-xl .progress-bar,
+.progress-lg .progress-bar {
+  font-size: var(--font-size-xs, 0.75rem);
+  line-height: 1;
+}
+
+/* Striped */
+.progress-striped .progress-bar {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+/* Animated Striped */
+.progress-animated .progress-bar {
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+
+/* Indeterminate */
+.progress-indeterminate .progress-bar {
+  width: 30%;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .progress-animated .progress-bar,
+  .progress-indeterminate .progress-bar {
+    animation: none;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --progress-bg: var(--bg-tertiary, #2d3748);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --progress-bg: var(--bg-tertiary, #2d3748);
+  }
+}

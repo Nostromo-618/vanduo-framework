@@ -1,0 +1,278 @@
+/**
+ * Vanduo Framework - Cards
+ * Card component for content containers
+ */
+
+:root {
+  /* Card Padding (Fibonacci: 13, 21, 34) */
+  --card-padding: 1.3125rem;
+  /* 21px - fib */
+  --card-padding-sm: 0.8125rem;
+  /* 13px - fib */
+  --card-padding-lg: 2.125rem;
+  /* 34px - fib */
+
+  /* Card Border */
+  --card-border-width: 1px;
+  --card-border-color: var(--border-color);
+  --card-border-radius: var(--btn-border-radius-lg);
+
+  /* Card Background */
+  --card-bg: var(--color-white);
+  --card-bg-filled: var(--bg-secondary);
+
+  /* Card Shadow */
+  --card-shadow: var(--shadow-md);
+  --card-shadow-elevated: var(--shadow-lg);
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --card-bg: var(--bg-secondary);
+  --card-bg-filled: var(--bg-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --card-bg: var(--bg-secondary);
+    --card-bg-filled: var(--bg-primary);
+  }
+}
+
+/* Base Card */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: var(--card-bg);
+  background-clip: border-box;
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Card Variants - Elevated (default) */
+.card-elevated,
+.card {
+  box-shadow: var(--card-shadow-elevated);
+}
+
+/* Card Variants - Outlined */
+.card-outlined {
+  box-shadow: none;
+  border: var(--card-border-width) solid var(--card-border-color);
+}
+
+/* Card Variants - Filled */
+.card-filled {
+  background-color: var(--card-bg-filled);
+  box-shadow: none;
+  border: none;
+}
+
+/* Card Header */
+.card-header {
+  padding: var(--card-padding);
+  margin-bottom: 0;
+  background-color: transparent;
+  border-bottom: var(--card-border-width) solid var(--card-border-color);
+  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+}
+
+.card-header:first-child {
+  border-top-left-radius: var(--card-border-radius);
+  border-top-right-radius: var(--card-border-radius);
+}
+
+.card-header-sm {
+  padding: var(--card-padding-sm);
+}
+
+.card-header-lg {
+  padding: var(--card-padding-lg);
+}
+
+/* Card Body */
+.card-body {
+  flex: 1 1 auto;
+  padding: var(--card-padding);
+}
+
+.card-body-sm {
+  padding: var(--card-padding-sm);
+}
+
+.card-body-lg {
+  padding: var(--card-padding-lg);
+}
+
+/* Card Footer */
+.card-footer {
+  padding: var(--card-padding);
+  margin-top: 0;
+  background-color: transparent;
+  border-top: var(--card-border-width) solid var(--card-border-color);
+  border-bottom-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-bottom-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+}
+
+.card-footer:last-child {
+  border-bottom-left-radius: var(--card-border-radius);
+  border-bottom-right-radius: var(--card-border-radius);
+}
+
+.card-footer-sm {
+  padding: var(--card-padding-sm);
+}
+
+.card-footer-lg {
+  padding: var(--card-padding-lg);
+}
+
+/* Card Image */
+.card-image {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+}
+
+.card-image:first-child {
+  border-top-left-radius: var(--card-border-radius);
+  border-top-right-radius: var(--card-border-radius);
+}
+
+.card-image:last-child {
+  border-bottom-left-radius: var(--card-border-radius);
+  border-bottom-right-radius: var(--card-border-radius);
+}
+
+/* Card Image Container */
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+}
+
+.card-image-container:first-child {
+  border-top-left-radius: var(--card-border-radius);
+  border-top-right-radius: var(--card-border-radius);
+}
+
+.card-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Card Title */
+.card-title {
+  margin-bottom: 0.5rem;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.card-title:last-child {
+  margin-bottom: 0;
+}
+
+/* Card Subtitle */
+.card-subtitle {
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Card Text */
+.card-text {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: var(--card-padding);
+  border-top: var(--card-border-width) solid var(--card-border-color);
+}
+
+.card-actions-sm {
+  padding: var(--card-padding-sm);
+}
+
+.card-actions-lg {
+  padding: var(--card-padding-lg);
+}
+
+/* Card with No Padding */
+.card-no-padding .card-body {
+  padding: 0;
+}
+
+.card-no-padding .card-header {
+  padding: var(--card-padding);
+}
+
+.card-no-padding .card-footer {
+  padding: var(--card-padding);
+}
+
+/* Card Sizes - Compact */
+.card-compact .card-header,
+.card-compact .card-body,
+.card-compact .card-footer {
+  padding: var(--card-padding-sm);
+}
+
+/* Card Sizes - Spacious */
+.card-spacious .card-header,
+.card-spacious .card-body,
+.card-spacious .card-footer {
+  padding: var(--card-padding-lg);
+}
+
+/* Card Link */
+a.card {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.card:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+a.card:active {
+  transform: translateY(0);
+}
+
+/* Card Groups (for multiple cards) */
+.card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* Fibonacci-inspired spacing */
+}
+
+@media (min-width: 768px) {
+  .card-group {
+    flex-direction: row;
+  }
+
+  .card-group>.card {
+    flex: 1 1 0%;
+  }
+}

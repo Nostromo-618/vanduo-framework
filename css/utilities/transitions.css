@@ -1,0 +1,87 @@
+/**
+ * Vanduo Framework - Transitions
+ * Transition utilities for animations and effects
+ */
+
+:root {
+  /* Transition Durations */
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-slow: 300ms;
+  --transition-duration-slower: 400ms;
+  --transition-duration-slowest: 500ms;
+  
+  /* Transition Timing Functions */
+  --transition-ease: ease;
+  --transition-ease-in: ease-in;
+  --transition-ease-out: ease-out;
+  --transition-ease-in-out: ease-in-out;
+  --transition-linear: linear;
+  
+  /* Common Transitions */
+  --transition-base: all var(--transition-duration-base) var(--transition-ease);
+  --transition-fast: all var(--transition-duration-fast) var(--transition-ease);
+  --transition-slow: all var(--transition-duration-slow) var(--transition-ease);
+  --transition-color: color var(--transition-duration-base) var(--transition-ease);
+  --transition-bg: background-color var(--transition-duration-base) var(--transition-ease);
+  --transition-border: border-color var(--transition-duration-base) var(--transition-ease);
+  --transition-opacity: opacity var(--transition-duration-base) var(--transition-ease);
+  --transition-transform: transform var(--transition-duration-base) var(--transition-ease);
+  --transition-shadow: box-shadow var(--transition-duration-base) var(--transition-ease);
+}
+
+/* Transition Duration Utilities */
+.transition-none { transition: none; }
+.transition-fast { transition-duration: var(--transition-duration-fast); }
+.transition-base { transition-duration: var(--transition-duration-base); }
+.transition-slow { transition-duration: var(--transition-duration-slow); }
+.transition-slower { transition-duration: var(--transition-duration-slower); }
+.transition-slowest { transition-duration: var(--transition-duration-slowest); }
+
+/* Transition Timing Function Utilities */
+.transition-ease { transition-timing-function: var(--transition-ease); }
+.transition-ease-in { transition-timing-function: var(--transition-ease-in); }
+.transition-ease-out { transition-timing-function: var(--transition-ease-out); }
+.transition-ease-in-out { transition-timing-function: var(--transition-ease-in-out); }
+.transition-linear { transition-timing-function: var(--transition-linear); }
+
+/* Transition Property Utilities */
+.transition-all { transition-property: all; }
+.transition-colors { transition-property: color, background-color, border-color; }
+.transition-opacity { transition-property: opacity; }
+.transition-transform { transition-property: transform; }
+.transition-shadow { transition-property: box-shadow; }
+
+/* Combined Transition Utilities */
+.transition { transition: var(--transition-base); }
+.transition-fast { transition: var(--transition-fast); }
+.transition-slow { transition: var(--transition-slow); }
+.transition-color { transition: var(--transition-color); }
+.transition-bg { transition: var(--transition-bg); }
+.transition-border { transition: var(--transition-border); }
+.transition-opacity { transition: var(--transition-opacity); }
+.transition-transform { transition: var(--transition-transform); }
+.transition-shadow { transition: var(--transition-shadow); }
+
+/* Delay Utilities */
+.transition-delay-none { transition-delay: 0ms; }
+.transition-delay-75 { transition-delay: 75ms; }
+.transition-delay-100 { transition-delay: 100ms; }
+.transition-delay-150 { transition-delay: 150ms; }
+.transition-delay-200 { transition-delay: 200ms; }
+.transition-delay-300 { transition-delay: 300ms; }
+.transition-delay-500 { transition-delay: 500ms; }
+.transition-delay-700 { transition-delay: 700ms; }
+.transition-delay-1000 { transition-delay: 1000ms; }
+
+/* Reduced Motion - Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

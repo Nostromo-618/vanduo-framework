@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <main class="container" style="padding: 2rem;">
+    <h1>Dropdown Test Fixture</h1>
+    
+    <!-- Basic Dropdown -->
+    <div class="dropdown" id="basic-dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button">
+        Select Option
+      </button>
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item" data-value="option1">Option 1</a>
+        <a href="#" class="dropdown-item" data-value="option2">Option 2</a>
+        <a href="#" class="dropdown-item" data-value="option3">Option 3</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item" data-value="other">Other</a>
+      </div>
+    </div>
+
+    <br><br>
+
+    <!-- Dropdown with Disabled Items -->
+    <div class="dropdown" id="dropdown-with-disabled">
+      <button class="btn btn-secondary dropdown-toggle" type="button">
+        With Disabled
+      </button>
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item" data-value="active1">Active Item 1</a>
+        <a href="#" class="dropdown-item disabled" data-value="disabled1">Disabled Item</a>
+        <a href="#" class="dropdown-item" data-value="active2">Active Item 2</a>
+        <a href="#" class="dropdown-item is-disabled" data-value="disabled2">Also Disabled</a>
+        <a href="#" class="dropdown-item" data-value="active3">Active Item 3</a>
+      </div>
+    </div>
+
+    <br><br>
+
+    <!-- Dropdown for Typeahead Testing -->
+    <div class="dropdown" id="typeahead-dropdown">
+      <button class="btn btn-outline dropdown-toggle" type="button">
+        Typeahead Test
+      </button>
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item" data-value="apple">Apple</a>
+        <a href="#" class="dropdown-item" data-value="apricot">Apricot</a>
+        <a href="#" class="dropdown-item" data-value="banana">Banana</a>
+        <a href="#" class="dropdown-item" data-value="blueberry">Blueberry</a>
+        <a href="#" class="dropdown-item" data-value="cherry">Cherry</a>
+        <a href="#" class="dropdown-item" data-value="cranberry">Cranberry</a>
+        <a href="#" class="dropdown-item" data-value="date">Date</a>
+        <a href="#" class="dropdown-item" data-value="elderberry">Elderberry</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/dropdown.js"></script>
+</body>
+</html>

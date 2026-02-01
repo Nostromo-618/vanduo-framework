@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buttons Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    .button-showcase {
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .button-group-showcase {
+      padding: 1rem 2rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Button Test Fixture</h1>
+    
+    <!-- Primary Buttons -->
+    <section class="button-showcase" data-testid="primary-buttons">
+      <h2>Primary Buttons</h2>
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-primary" disabled>Primary Disabled</button>
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+    </section>
+
+    <!-- Secondary Buttons -->
+    <section class="button-showcase" data-testid="secondary-buttons">
+      <h2>Secondary Buttons</h2>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-secondary" disabled>Secondary Disabled</button>
+    </section>
+
+    <!-- Outline Buttons -->
+    <section class="button-showcase" data-testid="outline-buttons">
+      <h2>Outline Buttons</h2>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-outline" disabled>Outline Disabled</button>
+    </section>
+
+    <!-- Semantic Buttons -->
+    <section class="button-showcase" data-testid="semantic-buttons">
+      <h2>Semantic Buttons</h2>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-error">Error</button>
+      <button class="btn btn-info">Info</button>
+    </section>
+
+    <!-- Button States for Focus Testing -->
+    <section class="button-showcase" data-testid="focus-test-buttons">
+      <h2>Focus Test</h2>
+      <button class="btn btn-primary focus-test-button" id="focus-test-1">Focus Test 1</button>
+      <button class="btn btn-secondary focus-test-button" id="focus-test-2">Focus Test 2</button>
+      <a href="#" class="btn btn-outline focus-test-button" id="focus-test-3">Link Button</a>
+    </section>
+
+    <!-- Button Group -->
+    <section class="button-group-showcase" data-testid="button-groups">
+      <h2>Button Groups</h2>
+      <div class="btn-group">
+        <button class="btn btn-primary">Left</button>
+        <button class="btn btn-primary">Middle</button>
+        <button class="btn btn-primary">Right</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/utils/helpers.js"></script>
+</body>
+</html>

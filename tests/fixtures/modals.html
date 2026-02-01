@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Modal Test Fixture</h1>
+    
+    <!-- Modal Triggers -->
+    <button data-modal="#test-modal" class="btn btn-primary">Open Test Modal</button>
+    <button data-modal="#modal-with-form" class="btn btn-secondary">Open Form Modal</button>
+    <button data-modal="#static-backdrop-modal" class="btn btn-outline">Static Backdrop</button>
+    
+    <!-- Basic Test Modal -->
+    <div id="test-modal" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="test-modal-title">Test Modal</h2>
+            <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>This is the modal body content.</p>
+            <a href="#" class="modal-link">Focusable link</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary modal-action">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal with Form (for focus trap testing) -->
+    <div id="modal-with-form" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="form-modal-title">Form Modal</h2>
+            <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="test-form">
+              <div class="form-group">
+                <label for="name-input">Name</label>
+                <input type="text" id="name-input" class="form-control" placeholder="Enter name">
+              </div>
+              <div class="form-group">
+                <label for="email-input">Email</label>
+                <input type="email" id="email-input" class="form-control" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="message-input">Message</label>
+                <textarea id="message-input" class="form-control" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" form="test-form" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Static Backdrop Modal -->
+    <div id="static-backdrop-modal" class="modal" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="static-modal-title">Static Backdrop</h2>
+            <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>This modal has a static backdrop. Clicking outside won't close it.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/modals.js"></script>
+</body>
+</html>

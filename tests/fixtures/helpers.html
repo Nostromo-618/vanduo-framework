@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpers Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div id="test-container">
+    <!-- Test elements for various utilities -->
+    <div id="test-element" class="test-class" data-test="value">Test Element</div>
+    <div class="test-class" data-test="item1">Item 1</div>
+    <div class="test-class" data-test="item2">Item 2</div>
+    
+    <!-- Elements for $$ test -->
+    <div class="multi" data-value="1">Item 1</div>
+    <div class="multi" data-value="2">Item 2</div>
+    <div class="multi" data-value="3">Item 3</div>
+    
+    <!-- Visibility tests -->
+    <div id="visible-element" style="display: block;">Visible</div>
+    <div id="hidden-display" style="display: none;">Hidden (display)</div>
+    <div id="hidden-visibility" style="visibility: hidden;">Hidden (visibility)</div>
+    <div id="hidden-opacity" style="opacity: 0;">Hidden (opacity)</div>
+    
+    <!-- CSS test element -->
+    <div id="styled-element" style="color: rgb(255, 0, 0); padding: 10px;">Styled Element</div>
+    
+    <!-- Off-screen element -->
+    <div id="off-screen-element" style="position: absolute; left: -9999px; top: -9999px;">Off Screen</div>
+  </div>
+
+  <!-- Load helpers.js to make functions available -->
+  <script src="/js/utils/helpers.js"></script>
+  
+  <!-- Make functions available on window for page.evaluate() testing -->
+  <script>
+    // Functions are already global from helpers.js
+    // Expose them explicitly for clarity and testing
+    window.$ = $;
+    window.$$ = $$;
+    window.ready = ready;
+    window.debounce = debounce;
+    window.throttle = throttle;
+    window.escapeHtml = escapeHtml;
+    window.sanitizeHtml = sanitizeHtml;
+    window.isVisible = isVisible;
+    window.getPosition = getPosition;
+    window.hasClass = hasClass;
+    window.addClass = addClass;
+    window.removeClass = removeClass;
+    window.toggleClass = toggleClass;
+    window.data = data;
+  </script>
+</body>
+</html>

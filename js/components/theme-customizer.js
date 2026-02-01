@@ -497,6 +497,12 @@
         </div>
         <div class="tc-body">
           <div class="tc-section">
+            <label class="tc-label">Color Mode</label>
+            <div class="tc-mode-group">
+              ${modeButtons}
+            </div>
+          </div>
+          <div class="tc-section">
             <label class="tc-label">Primary Color</label>
             <div class="tc-color-grid">
               ${primarySwatches}
@@ -519,12 +525,6 @@
             <select class="tc-font-select" data-customizer-font>
               ${fontOptions}
             </select>
-          </div>
-          <div class="tc-section">
-            <label class="tc-label">Color Mode</label>
-            <div class="tc-mode-group">
-              ${modeButtons}
-            </div>
           </div>
         </div>
         <div class="tc-footer">

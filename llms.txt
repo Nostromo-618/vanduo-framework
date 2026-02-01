@@ -19,7 +19,7 @@ Load via CDN (no download required):
 <script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
 ```
 
-Pin to version for production: replace `@main` with `@v1.0.1`
+Pin to version for production: replace `@main` with `@v1.0.2`
 
 ## Docs
 
@@ -54,6 +54,7 @@ Pin to version for production: replace `@main` with `@v1.0.1`
 - [Preloader](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/preloader.css): Page loading animation
 - [Spinner](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/spinner.css): `.spinner` loading indicator
 - [Progress](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/progress.css): `.progress`, `.progress-bar`
+- [Search](https://github.com/Nostromo-618/vanduo-framework/blob/main/js/components/doc-search.js): Client-side search with keyboard navigation, `Search.create()` factory
 
 ## JavaScript API
 

@@ -231,14 +231,103 @@
     <main id="main-content" style="padding: 3rem 0;">
         <div class="container-responsive" style="max-width: 900px;">
 
-            <!-- Version 1.0.1 -->
+            <!-- Version 1.0.2 -->
             <article class="version-card">
                 <header class="version-header version-latest">
+                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.2</span>
+                    <span style="color: var(--text-secondary); font-size: 0.95rem;">
+                        <i class="ph ph-calendar mr-1"></i>February 1, 2026
+                    </span>
+                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
+                </header>
+                <div class="version-body">
+                    <!-- New Features -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-primary);">
+                            <i class="ph ph-sparkle"></i> New Features
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-magnifying-glass" style="color: var(--color-primary);"></i>
+                                <div>
+                                    <strong>Search Component</strong>
+                                    <p>New client-side search with keyboard navigation (⌘K/Ctrl+K), debounced input, category grouping, and full ARIA accessibility. Includes <code>Search.create()</code> factory for custom instances.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Improvements -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-info);">
+                            <i class="ph ph-arrow-up"></i> Improvements
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Search component refactored</strong>
+                                    <p>Refactored to be more generic and configurable with custom data sources, callbacks, and category icons.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>ReDoS protection</strong>
+                                    <p>Added protection against Regular Expression Denial of Service in search highlight function.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Enhanced ARIA attributes</strong>
+                                    <p>Added <code>aria-controls</code>, <code>aria-expanded</code>, and <code>role="listbox"</code> to search component for better screen reader support.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Bug Fixes -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-success);">
+                            <i class="ph ph-wrench"></i> Bug Fixes
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Removed console.log from production</strong>
+                                    <p>Removed debug console.log statement from doc-search.js.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-secondary);">
+                            <i class="ph ph-book-open"></i> Documentation
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Search component documentation</strong>
+                                    <p>Added comprehensive documentation for the Search component including quick start, configuration options, JavaScript API, and CSS customization.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.0.1 -->
+            <article class="version-card">
+                <header class="version-header">
                     <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.1</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>January 31, 2026
                     </span>
-                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
                 </header>
                 <div class="version-body">
                     <!-- Bug Fixes -->

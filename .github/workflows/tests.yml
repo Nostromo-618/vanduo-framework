@@ -1,6 +1,5 @@
 # Playwright Test Suite for Vanduo Framework
 # Single dependency strategy: @playwright/test only
-
 name: Tests
 
 on:
@@ -8,6 +7,10 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
+# --------------------
 
 jobs:
   # Primary tests - run on all browsers for desktop and mobile

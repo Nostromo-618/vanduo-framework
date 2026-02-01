@@ -43,7 +43,7 @@ Pin to version for production: replace `@main` with `@v1.0.1`
 - [Modals](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/modals.css): `.modal`, triggered via `data-modal="#id"`
 - [Dropdown](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/dropdown.css): `.dropdown`, `.dropdown-menu`
 - [Tabs](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tabs.css): `.tabs`, `.tab-content`
-- [Tooltips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tooltips.css): `data-tooltip="text"`, `data-placement="top|right|bottom|left"`
+- [Tooltips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tooltips.css): `data-tooltip="text"`, `data-tooltip-placement="top|right|bottom|left"`
 - [Toasts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/toast.css): Notification system via `Vanduo.components.toast.show()`
 - [Alerts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/alerts.css): `.alert`, `.alert-success`, `.alert-error`, dismissible
 - [Badges](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/badges.css): `.badge`, color variants
@@ -77,7 +77,7 @@ Vanduo.components.toast.show({
 | `data-modal="#id"` | Open modal |
 | `data-dismiss="modal"` | Close modal |
 | `data-tooltip="text"` | Tooltip content |
-| `data-placement="top"` | Tooltip position |
+| `data-tooltip-placement="top"` | Tooltip position |
 | `data-toggle="theme"` | Theme switcher (light/dark/system) |
 | `data-collapsible` | Collapsible container |
 

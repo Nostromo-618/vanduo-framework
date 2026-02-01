@@ -3,7 +3,7 @@
  * JavaScript functionality for tooltips
  */
 
-(function() {
+(function () {
   'use strict';
 
   /**
@@ -18,7 +18,7 @@
      * @param {string} input
      * @returns {string} sanitized HTML
      */
-    sanitizeHtml: function(input) {
+    sanitizeHtml: function (input) {
       if (typeof sanitizeHtml === 'function') {
         return sanitizeHtml(input);
       }
@@ -31,7 +31,7 @@
     /**
      * Initialize tooltips
      */
-    init: function() {
+    init: function () {
       const elements = document.querySelectorAll('[data-tooltip], [data-tooltip-html]');
 
       elements.forEach(element => {
@@ -46,7 +46,7 @@
      * Initialize a single tooltip
      * @param {HTMLElement} element - Element with tooltip
      */
-    initTooltip: function(element) {
+    initTooltip: function (element) {
       const tooltip = this.createTooltip(element);
       const cleanupFunctions = [];
 
@@ -70,13 +70,13 @@
 
       this.tooltips.set(element, { tooltip, cleanup: cleanupFunctions });
     },
-    
+
     /**
      * Create tooltip element
      * @param {HTMLElement} element - Target element
      * @returns {HTMLElement} Tooltip element
      */
-    createTooltip: function(element) {
+    createTooltip: function (element) {
       const tooltip = document.createElement('div');
       tooltip.className = 'tooltip';
       tooltip.setAttribute('role', 'tooltip');
@@ -99,37 +99,37 @@
       }
 
       // Get placement
-      const placement = element.dataset.tooltipPlacement || 'top';
+      const placement = element.dataset.tooltipPlacement || element.dataset.placement || 'top';
       tooltip.setAttribute('data-placement', placement);
       tooltip.classList.add(`tooltip-${placement}`);
-      
+
       // Get variant
       if (element.dataset.tooltipVariant) {
         tooltip.classList.add(`tooltip-${element.dataset.tooltipVariant}`);
       }
-      
+
       // Get size
       if (element.dataset.tooltipSize) {
         tooltip.classList.add(`tooltip-${element.dataset.tooltipSize}`);
       }
-      
+
       // Get delay
       const delay = parseInt(element.dataset.tooltipDelay) || 0;
       tooltip.dataset.delay = delay;
-      
+
       document.body.appendChild(tooltip);
-      
+
       return tooltip;
     },
-    
+
     /**
      * Show tooltip
      * @param {HTMLElement} element - Target element
      * @param {HTMLElement} tooltip - Tooltip element
      */
-    showTooltip: function(element, tooltip) {
+    showTooltip: function (element, tooltip) {
       const delay = parseInt(tooltip.dataset.delay) || 0;
-      
+
       if (delay > 0) {
         const timer = setTimeout(() => {
           this.positionTooltip(element, tooltip);
@@ -143,39 +143,39 @@
         tooltip.setAttribute('aria-hidden', 'false');
       }
     },
-    
+
     /**
      * Hide tooltip
      * @param {HTMLElement} element - Target element
      * @param {HTMLElement} tooltip - Tooltip element
      */
-    hideTooltip: function(element, tooltip) {
+    hideTooltip: function (element, tooltip) {
       // Clear delay timer if exists
       const timer = this.delayTimers.get(element);
       if (timer) {
         clearTimeout(timer);
         this.delayTimers.delete(element);
       }
-      
+
       tooltip.classList.remove('is-visible');
       tooltip.setAttribute('aria-hidden', 'true');
     },
-    
+
     /**
      * Position tooltip relative to element
      * @param {HTMLElement} element - Target element
      * @param {HTMLElement} tooltip - Tooltip element
      */
-    positionTooltip: function(element, tooltip) {
+    positionTooltip: function (element, tooltip) {
       const placement = tooltip.dataset.placement || 'top';
       const rect = element.getBoundingClientRect();
       const tooltipRect = tooltip.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-      
+
       let top = 0;
       let left = 0;
-      
+
       switch (placement) {
         case 'top':
           top = rect.top + scrollTop - tooltipRect.height - 8;
@@ -194,33 +194,33 @@
           left = rect.right + scrollLeft + 8;
           break;
       }
-      
+
       // Prevent overflow
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       const padding = 8;
-      
+
       if (left < padding) {
         left = padding;
       } else if (left + tooltipRect.width > viewportWidth - padding) {
         left = viewportWidth - tooltipRect.width - padding;
       }
-      
+
       if (top < scrollTop + padding) {
         top = scrollTop + padding;
       } else if (top + tooltipRect.height > scrollTop + viewportHeight - padding) {
         top = scrollTop + viewportHeight - tooltipRect.height - padding;
       }
-      
+
       // Use single style assignment with transform for better performance
       tooltip.style.cssText = `position: absolute; top: 0; left: 0; transform: translate(${left}px, ${top}px);`;
     },
-    
+
     /**
      * Show tooltip programmatically
      * @param {HTMLElement|string} element - Target element or selector
      */
-    show: function(element) {
+    show: function (element) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
         const { tooltip } = this.tooltips.get(el);
@@ -232,7 +232,7 @@
      * Hide tooltip programmatically
      * @param {HTMLElement|string} element - Target element or selector
      */
-    hide: function(element) {
+    hide: function (element) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
         const { tooltip } = this.tooltips.get(el);
@@ -246,7 +246,7 @@
      * @param {string} content - New content
      * @param {boolean} isHtml - Whether content is HTML
      */
-    update: function(element, content, isHtml = false) {
+    update: function (element, content, isHtml = false) {
       const el = typeof element === 'string' ? document.querySelector(element) : element;
       if (el && this.tooltips.has(el)) {
         const { tooltip } = this.tooltips.get(el);
@@ -264,7 +264,7 @@
      * Destroy a tooltip instance and clean up
      * @param {HTMLElement} element - Element with tooltip
      */
-    destroy: function(element) {
+    destroy: function (element) {
       const data = this.tooltips.get(element);
       if (!data) return;
 
@@ -288,13 +288,13 @@
     /**
      * Destroy all tooltip instances
      */
-    destroyAll: function() {
+    destroyAll: function () {
       this.tooltips.forEach((data, element) => {
         this.destroy(element);
       });
     }
   };
-  
+
   // Initialize when DOM is ready
   if (typeof ready !== 'undefined') {
     ready(() => {
@@ -309,15 +309,15 @@
       Tooltips.init();
     }
   }
-  
+
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('tooltips', Tooltips);
   }
-  
+
   // Expose globally
   window.VanduoTooltips = Tooltips;
-  
+
   // Export for module systems
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Tooltips;

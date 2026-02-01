@@ -32,6 +32,22 @@
   --font-family-mono: 'JetBrains Mono', monospace;
 }
 
+[data-font="ubuntu"] {
+  --font-family-sans: 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-font="open-sans"] {
+  --font-family-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-font="rubik"] {
+  --font-family-sans: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-font="titillium-web"] {
+  --font-family-sans: 'Titillium Web', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 :root {
 
   /* Golden Ratio Type Scale (Fluid)

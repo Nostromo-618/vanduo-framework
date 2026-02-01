@@ -23,7 +23,7 @@
       PRIMARY_DARK: 'yellow',
       NEUTRAL: 'neutral',
       RADIUS: '0.375',
-      FONT: 'jetbrains-mono',
+      FONT: 'ubuntu',
       THEME: 'system'
     },
 
@@ -68,7 +68,12 @@
       'source-sans': { name: 'Source Sans 3', family: "'Source Sans 3', sans-serif" },
       'fira-sans': { name: 'Fira Sans', family: "'Fira Sans', sans-serif" },
       'ibm-plex': { name: 'IBM Plex Sans', family: "'IBM Plex Sans', sans-serif" },
-      'system': { name: 'System Default', family: null }
+      'system': { name: 'System Default', family: null },
+      // Google Fonts Collection
+      'ubuntu': { name: 'Ubuntu', family: "'Ubuntu', sans-serif" },
+      'open-sans': { name: 'Open Sans', family: "'Open Sans', sans-serif" },
+      'rubik': { name: 'Rubik', family: "'Rubik', sans-serif" },
+      'titillium-web': { name: 'Titillium Web', family: "'Titillium Web', sans-serif" }
     },
 
     // Theme mode options

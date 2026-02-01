@@ -34,6 +34,30 @@
       'jetbrains-mono': {
         name: 'JetBrains Mono',
         family: "'JetBrains Mono', monospace"
+      },
+      'ubuntu': {
+        name: 'Ubuntu',
+        family: "'Ubuntu', sans-serif",
+        category: 'sans-serif',
+        description: 'Friendly, humanist sans-serif'
+      },
+      'open-sans': {
+        name: 'Open Sans',
+        family: "'Open Sans', sans-serif",
+        category: 'sans-serif',
+        description: 'Neutral, highly readable'
+      },
+      'rubik': {
+        name: 'Rubik',
+        family: "'Rubik', sans-serif",
+        category: 'sans-serif',
+        description: 'Modern, geometric'
+      },
+      'titillium-web': {
+        name: 'Titillium Web',
+        family: "'Titillium Web', sans-serif",
+        category: 'sans-serif',
+        description: 'Technical, elegant'
       }
     },
 
@@ -50,10 +74,10 @@
 
     /**
      * Get saved font preference from localStorage
-     * @returns {string} Font key or 'jetbrains-mono' (default)
+     * @returns {string} Font key or 'ubuntu' (default)
      */
     getPreference: function() {
-      return localStorage.getItem(this.STORAGE_KEY) || 'jetbrains-mono';
+      return localStorage.getItem(this.STORAGE_KEY) || 'ubuntu';
     },
 
     /**

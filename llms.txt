@@ -30,7 +30,8 @@ Pin to version for production: replace `@main` with `@v1.0.2`
 ## Core Systems
 
 - [Colors](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/colors.css): Open Color palette with CSS variables (`--color-primary`, `--color-success`, etc.)
-- [Typography](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/typography.css): Fluid typography with `clamp()`, font stacks
+- [Typography](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/typography.css): Fluid typography with `clamp()`, 10 self-hosted font families
+- [Fonts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/fonts.css): 10 self-hosted fonts (Inter, Ubuntu, Open Sans, Rubik, Titillium Web, etc.)
 - [Grid System](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/grid.css): 12-column responsive grid (`.container`, `.row`, `.col-*`)
 - [Spacing](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/spacing.css): Fibonacci-based spacing utilities (`.m-*`, `.p-*`, `.gap-*`)
 
@@ -80,6 +81,8 @@ Vanduo.components.toast.show({
 | `data-tooltip="text"` | Tooltip content |
 | `data-tooltip-placement="top"` | Tooltip position |
 | `data-toggle="theme"` | Theme switcher (light/dark/system) |
+| `data-toggle="font"` | Font switcher (cycles through font families) |
+| `data-font="{id}"` | Set specific font family (e.g., ubuntu, open-sans) |
 | `data-collapsible` | Collapsible container |
 
 ## Theme Customization
@@ -92,6 +95,11 @@ Override CSS variables:
   --btn-border-radius: 8px;
 }
 ```
+
+Font families: Set `data-font` attribute on `<html>` with values:
+- `inter`, `source-sans`, `fira-sans`, `ibm-plex`, `jetbrains-mono` (original)
+- `ubuntu`, `open-sans`, `rubik`, `titillium-web` (Google Fonts collection)
+- `system` (device default)
 
 Dark mode: set `data-theme="dark"` on `<html>` or use `data-toggle="theme"` for automatic switching.
 

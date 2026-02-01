@@ -190,4 +190,70 @@ test.describe('Accessibility Tests @a11y', () => {
       await expect(firstButton).toBeFocused();
     });
   });
+
+  test.describe('Font Switching Accessibility', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/tests/fixtures/buttons.html');
+    });
+
+    test('all Google Fonts render correctly', async ({ page }) => {
+      const fonts = ['ubuntu', 'open-sans', 'rubik', 'titillium-web'];
+      
+      for (const font of fonts) {
+        // Set font via data-font attribute
+        await page.evaluate((f) => {
+          document.documentElement.setAttribute('data-font', f);
+        }, font);
+        
+        // Check that body has the font family applied
+        const fontFamily = await page.evaluate(() => {
+          return window.getComputedStyle(document.body).fontFamily;
+        });
+        
+        // Font family should contain the expected font name
+        expect(fontFamily.toLowerCase()).toContain(font.replace('-', ' '));
+      }
+    });
+
+    test('font switching maintains text readability', async ({ page }) => {
+      // Switch to Ubuntu
+      await page.evaluate(() => {
+        document.documentElement.setAttribute('data-font', 'ubuntu');
+      });
+      
+      // Get body font size and line height
+      const styles = await page.evaluate(() => {
+        const computed = window.getComputedStyle(document.body);
+        return {
+          fontSize: computed.fontSize,
+          lineHeight: computed.lineHeight
+        };
+      });
+      
+      // Verify text remains readable (font size should be reasonable)
+      const fontSizePx = parseInt(styles.fontSize);
+      expect(fontSizePx).toBeGreaterThanOrEqual(14);
+      expect(fontSizePx).toBeLessThanOrEqual(20);
+    });
+
+    test('theme customizer includes all font options', async ({ page }) => {
+      await page.goto('/documentation.html');
+      await page.waitForTimeout(500);
+      
+      // Open theme customizer
+      await page.click('[data-theme-customizer-trigger]');
+      await page.waitForTimeout(200);
+      
+      // Get font select element
+      const fontSelect = page.locator('[data-customizer-font]');
+      await expect(fontSelect).toBeVisible();
+      
+      // Check that Google Fonts are in the dropdown
+      const options = await fontSelect.locator('option').allTextContents();
+      expect(options).toContain('Ubuntu');
+      expect(options).toContain('Open Sans');
+      expect(options).toContain('Rubik');
+      expect(options).toContain('Titillium Web');
+    });
+  });
 });

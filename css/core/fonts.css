@@ -148,3 +148,119 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* ==========================================================================
+   Ubuntu - Humanist sans-serif by Dalton Maag
+   https://design.ubuntu.com/font/
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../fonts/ubuntu/ubuntu-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../fonts/ubuntu/ubuntu-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../fonts/ubuntu/ubuntu-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Open Sans - Neutral sans-serif by Steve Matteson
+   https://fonts.google.com/specimen/Open+Sans
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../fonts/open-sans/open-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../fonts/open-sans/open-sans-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../fonts/open-sans/open-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Rubik - Geometric sans-serif by Hubert and Fischer
+   https://fonts.google.com/specimen/Rubik
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../fonts/rubik/rubik-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../fonts/rubik/rubik-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../fonts/rubik/rubik-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Titillium Web - Sans-serif by Accademia di Belle Arti di Urbino
+   https://fonts.google.com/specimen/Titillium+Web
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../../fonts/titillium-web/titillium-web-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../../fonts/titillium-web/titillium-web-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../../fonts/titillium-web/titillium-web-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

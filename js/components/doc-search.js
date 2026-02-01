@@ -914,8 +914,4 @@
   window.Search = Search;
   window.DocSearch = Search;  // Backward compatibility
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Search;
-  }
 })();

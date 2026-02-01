@@ -120,9 +120,5 @@
   // Expose to global scope
   window.Vanduo = Vanduo;
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Vanduo;
-  }
 })();
 

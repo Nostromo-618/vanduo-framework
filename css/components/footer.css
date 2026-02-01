@@ -318,6 +318,41 @@
   border-radius: 0.25rem;
 }
 
+/* Vertical Separator */
+.footer-separator {
+  width: 1px;
+  height: 1.5rem;
+  background-color: var(--footer-border-color);
+  margin: 0 0.5rem;
+}
+
+/* Buy Me A Coffee Link */
+.footer-bmac-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.footer-bmac-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.footer-bmac-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.footer-bmac-logo {
+  height: 2.5rem;
+  width: auto;
+  display: block;
+  border-radius: 0.25rem;
+}
+
 /* Dark theme styles for Kilo Code section */
 [data-theme="dark"] .footer-kilo-link {
   background: rgba(255, 255, 255, 0.08);

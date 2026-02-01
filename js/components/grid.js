@@ -291,8 +291,4 @@
   // Expose globally
   window.VanduoGridLayout = GridLayout;
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = GridLayout;
-  }
 })();

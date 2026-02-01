@@ -278,8 +278,4 @@
   // Also expose globally for convenience
   window.Toast = Toast;
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Toast;
-  }
 })();

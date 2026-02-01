@@ -272,25 +272,5 @@ function sanitizeHtml(input) {
   return doc.body.innerHTML;
 }
 
-// Export utilities (for module systems if needed)
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    $,
-    $$,
-    ready,
-    on,
-    off,
-    toggleClass,
-    addClass,
-    removeClass,
-    hasClass,
-    data,
-    debounce,
-    throttle,
-    isVisible,
-    getPosition,
-    escapeHtml,
-    sanitizeHtml
-  };
-}
+
 

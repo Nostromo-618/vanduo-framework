@@ -276,8 +276,4 @@
   // Expose globally
   window.VanduoNavbar = Navbar;
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Navbar;
-  }
 })();

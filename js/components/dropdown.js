@@ -373,9 +373,5 @@
   // Expose globally
   window.VanduoDropdown = Dropdown;
   
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Dropdown;
-  }
 })();
 

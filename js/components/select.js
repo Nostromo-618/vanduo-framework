@@ -455,9 +455,5 @@
     window.Vanduo.register('select', Select);
   }
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Select;
-  }
 })();
 

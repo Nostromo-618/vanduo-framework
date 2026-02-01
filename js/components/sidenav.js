@@ -302,9 +302,5 @@
   // Expose globally
   window.VanduoSidenav = Sidenav;
   
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Sidenav;
-  }
 })();
 

@@ -378,9 +378,5 @@
   // Expose globally
   window.VanduoModals = Modals;
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Modals;
-  }
 })();
 

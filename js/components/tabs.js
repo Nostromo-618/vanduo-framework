@@ -315,8 +315,4 @@
     window.Vanduo.register('tabs', Tabs);
   }
 
-  // Export for module systems
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = Tabs;
-  }
 })();

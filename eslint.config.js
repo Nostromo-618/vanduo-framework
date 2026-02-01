@@ -54,7 +54,8 @@ export default [
             // Warn on unused vars but don't error
             'no-unused-vars': ['warn', {
                 argsIgnorePattern: '^_',
-                varsIgnorePattern: '^_'
+                varsIgnorePattern: '^_',
+                caughtErrorsIgnorePattern: '^_'
             }],
 
             // Allow console for debugging
@@ -79,10 +80,11 @@ export default [
         }
     },
     {
-        // Override for helpers.js - these are global definitions, not redeclarations
+        // Override for helpers.js - these are global utility definitions
         files: ['js/utils/helpers.js'],
         rules: {
-            'no-redeclare': 'off'
+            'no-redeclare': 'off',
+            'no-unused-vars': 'off'  // These are intentionally global utilities
         }
     },
     {

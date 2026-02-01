@@ -19,8 +19,8 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY_LIGHT: 'blue',
-      PRIMARY_DARK: 'yellow',
+      PRIMARY_LIGHT: 'indigo',
+      PRIMARY_DARK: 'indigo',
       NEUTRAL: 'neutral',
       RADIUS: '0.375',
       FONT: 'ubuntu',

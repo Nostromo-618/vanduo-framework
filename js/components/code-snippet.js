@@ -378,7 +378,7 @@
         formattedLines.push(' '.repeat(indent) + line);
 
         // Check for opening tags (not self-closing)
-        if (line.match(/<\w[^>]*[^\/]>/) && !line.match(/<\w[^>]*\/>/)) {
+        if (line.match(/<\w[^>]*[^/]>/) && !line.match(/<\w[^>]*\/>/)) {
           // Don't indent for void elements
           if (!line.match(/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)/i)) {
             // Only indent if not also closing on same line

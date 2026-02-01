@@ -34,24 +34,24 @@
   --gray-9: #212529;
   /* Darkest - headings, dark mode backgrounds */
 
-  /* --- PRIMARY: Cyan Scale (Open Color Cyan 0-9) ---
-   * The "Water" brand color - perfect for Vanduo
+  /* --- PRIMARY: Indigo Scale (Open Color Indigo 0-9) ---
+   * Global default for buttons, links, highlights, brand elements
    * Used for: Buttons, links, highlights, brand elements
    */
-  --primary-0: #e3fafc;
+  --primary-0: #edf2ff;
   /* Lightest - hover backgrounds, highlights */
-  --primary-1: #c5f6fa;
-  --primary-2: #99e9f2;
-  --primary-3: #66d9e8;
-  --primary-4: #3bc9db;
-  --primary-5: #22b8cf;
+  --primary-1: #dbe4ff;
+  --primary-2: #bac8ff;
+  --primary-3: #91a7ff;
+  --primary-4: #748ffc;
+  --primary-5: #5c7cfa;
   /* ★ Main brand color */
-  --primary-6: #15aabf;
+  --primary-6: #4c6ef5;
   /* Hover state */
-  --primary-7: #1098ad;
+  --primary-7: #4263eb;
   /* Active state */
-  --primary-8: #0c8599;
-  --primary-9: #0b7285;
+  --primary-8: #3b5bdb;
+  --primary-9: #364fc7;
   /* Darkest - pressed state */
 
   /* --- SECONDARY: Teal Scale (Open Color Teal 0-9) ---
@@ -440,9 +440,9 @@
   --border-color-light: var(--gray-2);
   --border-color-dark: var(--gray-4);
 
-  /* Alpha Colors (for hover/active states) */
-  --color-primary-alpha-10: rgba(34, 184, 207, 0.1);
-  --color-primary-alpha-20: rgba(34, 184, 207, 0.2);
+  /* Alpha Colors (for hover/active states) - indigo */
+  --color-primary-alpha-10: rgba(92, 124, 250, 0.1);
+  --color-primary-alpha-20: rgba(92, 124, 250, 0.2);
   --color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
   --color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
   --color-success-alpha-10: rgba(64, 192, 87, 0.1);
@@ -622,9 +622,9 @@
   --color-secondary: var(--secondary-4);
   --color-secondary-hover: var(--secondary-5);
 
-  /* Alpha Colors for Dark Mode */
-  --color-primary-alpha-10: rgba(59, 201, 219, 0.15);
-  --color-primary-alpha-20: rgba(59, 201, 219, 0.25);
+  /* Alpha Colors for Dark Mode - indigo */
+  --color-primary-alpha-10: rgba(116, 143, 252, 0.15);
+  --color-primary-alpha-20: rgba(116, 143, 252, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -659,9 +659,9 @@
     --color-secondary: var(--secondary-4);
     --color-secondary-hover: var(--secondary-5);
 
-    /* Alpha Colors for Dark Mode */
-    --color-primary-alpha-10: rgba(59, 201, 219, 0.15);
-    --color-primary-alpha-20: rgba(59, 201, 219, 0.25);
+    /* Alpha Colors for Dark Mode - indigo */
+    --color-primary-alpha-10: rgba(116, 143, 252, 0.15);
+    --color-primary-alpha-20: rgba(116, 143, 252, 0.25);
   }
 }
 

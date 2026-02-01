@@ -34,11 +34,12 @@ Pin to version for production: replace `@main` with `@v1.0.2`
 - [Fonts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/fonts.css): 10 self-hosted fonts (Inter, Ubuntu, Open Sans, Rubik, Titillium Web, etc.)
 - [Grid System](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/grid.css): 12-column responsive grid (`.container`, `.row`, `.col-*`)
 - [Spacing](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/spacing.css): Fibonacci-based spacing utilities (`.m-*`, `.p-*`, `.gap-*`)
+- [Shadows & Glow](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/utilities/shadow.css): Shadow utilities (`.shadow-md`, `.shadow-lg`) and glow effects (`.card-glow`, `.hover-glow`, `.glow-success`)
 
 ## Components
 
 - [Buttons](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/buttons.css): `.btn`, `.btn-primary`, `.btn-outline`, sizes, states
-- [Cards](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/cards.css): `.card`, `.card-header`, `.card-body`, `.card-footer`
+- [Cards](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/cards.css): `.card`, `.card-header`, `.card-body`, `.card-footer`, `.card-glow` (hover glow effect)
 - [Forms](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/forms.css): Inputs, selects, checkboxes, validation states
 - [Navbar](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/navbar.css): `.navbar`, `.navbar-fixed`, responsive mobile menu
 - [Modals](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/modals.css): `.modal`, triggered via `data-modal="#id"`

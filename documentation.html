@@ -159,13 +159,14 @@
             flex-direction: column;
         }
 
-        /* Search bar stays fixed at top of sidebar */
+        /* Search bar sticks below navbar with spacing above */
         .doc-sidebar .doc-search {
             flex-shrink: 0;
             position: sticky;
-            top: 0;
+            top: 70px;
             z-index: 2;
             background: var(--bg-primary);
+            padding-top: 0.5rem;
             padding-bottom: 0.5rem;
         }
 
@@ -260,9 +261,10 @@
             .doc-sidebar .doc-search {
                 flex-shrink: 0;
                 position: sticky;
-                top: 0;
+                top: 70px;
                 z-index: 2;
                 background: var(--bg-primary);
+                padding-top: 0.5rem;
                 padding-bottom: 0.5rem;
             }
 
@@ -355,6 +357,7 @@
                             <li><a href="#typography" class="doc-nav-link">Typography</a></li>
                             <li><a href="#grid-system" class="doc-nav-link">Grid System</a></li>
                             <li><a href="#golden-ratio" class="doc-nav-link">Golden Ratio</a></li>
+                            <li><a href="#shadows-glow" class="doc-nav-link">Shadows & Glow</a></li>
 
                             <li class="doc-nav-section">Components</li>
                             <li><a href="#theme-customizer" class="doc-nav-link">Theme Customizer</a></li>
@@ -392,11 +395,11 @@
                 <div class="col-12 col-lg-9 doc-content">
                     <section id="getting-started">
                         <h2 class="demo-title">Getting Started <code class="text-sm"
-                                                style="font-weight: normal; vertical-align: middle;">v1.0.2</code></h2>
+                                                style="font-weight: normal; vertical-align: middle;">v1.0.3</code></h2>
 
                         <div class="row">
                             <div class="col-12 mb-4">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3><i class="ph ph-lightning mr-2" style="color: var(--color-warning);"></i>CDN
                                             (Fastest)</h3>
@@ -416,7 +419,7 @@
                             </div>
 
                             <div class="col-12 mb-4">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3><i class="ph ph-download-simple mr-2"
                                                 style="color: var(--color-primary);"></i>Download</h3>
@@ -437,7 +440,7 @@
                             </div>
 
                             <div class="col-12 mb-4">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3><i class="ph ph-code mr-2" style="color: var(--color-success);"></i>Source
                                             Files</h3>
@@ -458,7 +461,7 @@
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>CSS Variable Customization</h3>
                                     </div>
@@ -489,7 +492,7 @@
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Theme Switching</h3>
                                     </div>
@@ -522,7 +525,7 @@
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Data Attributes Reference</h3>
                                     </div>
@@ -578,7 +581,7 @@
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>JavaScript API</h3>
                                     </div>
@@ -623,7 +626,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Quick Start</h3>
                                     </div>
@@ -642,7 +645,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Import Options</h3>
                                     </div>
@@ -663,7 +666,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Icon Weights</h3>
                                     </div>
@@ -706,7 +709,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Example Icons</h3>
                                     </div>
@@ -743,7 +746,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Styling Icons</h3>
                                     </div>
@@ -774,7 +777,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Icons in Buttons</h3>
                                     </div>
@@ -796,7 +799,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card">
+                                <div class="card card-glow">
                                     <div class="card-body text-center">
                                         <p class="text-muted">
                                             <i class="ph ph-heart-straight" style="color: var(--color-error);"></i>
@@ -860,7 +863,7 @@ Vanduo.components.toast.show({
                         <!-- Primary (Cyan) -->
                         <div class="row">
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Primary — Cyan (Brand)</h3>
                                         <p class="text-sm text-muted mb-0">The "Water" brand color for Vanduo</p>
@@ -913,7 +916,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Secondary — Teal</h3>
                                         <p class="text-sm text-muted mb-0">Complementary to Cyan for secondary actions
@@ -970,7 +973,7 @@ Vanduo.components.toast.show({
                         <!-- Gray (Neutrals) -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Gray — Neutrals</h3>
                                         <p class="text-sm text-muted mb-0">Used for backgrounds, borders, text, and UI
@@ -1053,7 +1056,7 @@ Vanduo.components.toast.show({
                         <!-- Functional Colors -->
                         <div class="row">
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Danger — Red</h3>
                                         <p class="text-sm text-muted mb-0">Error states, destructive actions</p>
@@ -1106,7 +1109,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Success — Green</h3>
                                         <p class="text-sm text-muted mb-0">Success states, confirmations</p>
@@ -1161,7 +1164,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Warning — Yellow</h3>
                                         <p class="text-sm text-muted mb-0">Warnings, cautions, attention</p>
@@ -1214,7 +1217,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-lg-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Info — Blue</h3>
                                         <p class="text-sm text-muted mb-0">Information, help, neutral feedback</p>
@@ -1270,7 +1273,7 @@ Vanduo.components.toast.show({
                         <!-- Usage Guide -->
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>CSS Variable Usage</h3>
                                     </div>
@@ -1300,7 +1303,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Theming Guide</h3>
                                     </div>
@@ -1330,7 +1333,7 @@ Vanduo.components.toast.show({
                         <!-- Color Attribution -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card">
+                                <div class="card card-glow">
                                     <div class="card-body text-center">
                                         <p class="text-muted">
                                             <i class="ph ph-palette" style="color: var(--color-primary);"></i>
@@ -1350,7 +1353,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Font Families</h3>
                                     </div>
@@ -1418,7 +1421,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Headings</h3>
                                     </div>
@@ -1434,7 +1437,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Text Utilities</h3>
                                     </div>
@@ -1457,7 +1460,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Color Utilities</h3>
                                     </div>
@@ -1514,7 +1517,7 @@ Vanduo.components.toast.show({
                         <!-- 2XL Breakpoint -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>2XL Breakpoint (1400px)</h3>
                                     </div>
@@ -1583,7 +1586,7 @@ Vanduo.components.toast.show({
                         <!-- Responsive Containers -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Responsive Containers</h3>
                                     </div>
@@ -1616,7 +1619,7 @@ Vanduo.components.toast.show({
                         <!-- Order Utilities -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Order Utilities</h3>
                                     </div>
@@ -1660,7 +1663,7 @@ Vanduo.components.toast.show({
                         <!-- Fibonacci Layouts -->
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Fibonacci 4-Column (1:2:3:5)</h3>
                                     </div>
@@ -1691,7 +1694,7 @@ Vanduo.components.toast.show({
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Fibonacci 3-Column (3:5:8)</h3>
                                     </div>
@@ -1722,7 +1725,7 @@ Vanduo.components.toast.show({
                         <!-- CSS Grid Fibonacci Variants -->
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>CSS Grid: 4-Column Fibonacci</h3>
                                     </div>
@@ -1740,7 +1743,7 @@ Vanduo.components.toast.show({
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>CSS Grid: 3:5:8 Fibonacci</h3>
                                     </div>
@@ -1760,7 +1763,7 @@ Vanduo.components.toast.show({
                         <!-- Fibonacci Gap Utilities -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Fibonacci Gap Utilities</h3>
                                     </div>
@@ -1816,7 +1819,7 @@ Vanduo.components.toast.show({
                         <!-- Grid Mode Toggle -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Grid Mode Toggle</h3>
                                     </div>
@@ -1884,7 +1887,7 @@ Vanduo.components.toast.show({
                         <!-- Offsets Demo -->
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Offset Utilities</h3>
                                     </div>
@@ -1932,7 +1935,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Golden Split (38.2% / 61.8%)</h3>
                                     </div>
@@ -1956,7 +1959,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>Fibonacci 3-Column (2:3:5)</h3>
                                     </div>
@@ -1979,7 +1982,7 @@ Vanduo.components.toast.show({
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card mb-8">
+                                <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
                                         <h3>CSS Grid Golden Layout</h3>
                                     </div>
@@ -1996,7 +1999,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Fibonacci Spacing Scale</h3>
                                     </div>
@@ -2040,7 +2043,7 @@ Vanduo.components.toast.show({
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Golden Ratio Type Scale</h3>
                                     </div>
@@ -2057,6 +2060,162 @@ Vanduo.components.toast.show({
                         </div>
                     </section>
 
+                    <!-- Shadows & Glow Section -->
+                    <section id="shadows-glow">
+                        <h2 class="demo-title">Shadows & Glow</h2>
+                        <p class="mb-8">Vanduo provides a comprehensive shadow system based on Fibonacci proportions, plus
+                            glow effects for interactive elements. Shadows create depth and visual hierarchy, while glow
+                            effects add emphasis on hover.</p>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Shadow Utilities</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Apply shadows with utility classes:</p>
+                                        <div class="d-flex flex-col gap-3">
+                                            <div class="p-3 rounded-md shadow-none border"
+                                                style="background: var(--bg-primary);"><code>.shadow-none</code></div>
+                                            <div class="p-3 rounded-md shadow-sm" style="background: var(--bg-primary);">
+                                                <code>.shadow-sm</code></div>
+                                            <div class="p-3 rounded-md shadow" style="background: var(--bg-primary);">
+                                                <code>.shadow</code></div>
+                                            <div class="p-3 rounded-md shadow-md" style="background: var(--bg-primary);">
+                                                <code>.shadow-md</code></div>
+                                            <div class="p-3 rounded-md shadow-lg" style="background: var(--bg-primary);">
+                                                <code>.shadow-lg</code></div>
+                                            <div class="p-3 rounded-md shadow-xl" style="background: var(--bg-primary);">
+                                                <code>.shadow-xl</code></div>
+                                            <div class="p-3 rounded-md shadow-2xl" style="background: var(--bg-primary);">
+                                                <code>.shadow-2xl</code></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Glow Utilities</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Add glowing effects to any element:</p>
+                                        <div class="d-flex flex-col gap-4">
+                                            <div class="p-4 rounded-md glow hover-glow"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.glow</code> or <code>.glow-primary</code> - permanent glow
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow</code> - glow on hover only
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow-success"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-success</code> - green glow
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow-warning"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-warning</code> - yellow glow
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow-error"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-error</code> - red glow
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Glow Intensity Variants</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-4">Control the glow intensity with size variants:</p>
+                                        <div class="d-flex flex-wrap gap-5">
+                                            <div class="p-4 rounded-md hover-glow-sm"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-sm</code><br><small>Subtle (10px blur)</small>
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow-md"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-md</code><br><small>Medium (20px blur)</small>
+                                            </div>
+                                            <div class="p-4 rounded-md hover-glow-lg"
+                                                style="background: var(--bg-primary); border: 1px solid var(--border-color);">
+                                                <code>.hover-glow-lg</code><br><strong>Strong (30px blur)</strong>
+                                            </div>
+                                        </div>
+                                        <pre class="code-example mt-5"><code>&lt;!-- Basic glow on any element --&gt;
+&lt;div class="hover-glow"&gt;Hover for primary glow&lt;/div&gt;
+
+&lt;!-- Glow with specific color --&gt;
+&lt;button class="btn btn-success hover-glow-success"&gt;Success Glow&lt;/button&gt;
+&lt;button class="btn btn-warning hover-glow-warning"&gt;Warning Glow&lt;/button&gt;
+&lt;button class="btn btn-error hover-glow-error"&gt;Error Glow&lt;/button&gt;
+
+&lt;!-- Glow intensity variants --&gt;
+&lt;div class="hover-glow-sm"&gt;Subtle glow&lt;/div&gt;
+&lt;div class="hover-glow-md"&gt;Medium glow&lt;/div&gt;
+&lt;div class="hover-glow-lg"&gt;Strong glow&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Colored Shadows</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Semantic color shadows for emphasis:</p>
+                                        <div class="d-flex flex-col gap-3">
+                                            <div class="p-3 rounded-md shadow-primary text-white bg-primary">
+                                                <code>.shadow-primary</code></div>
+                                            <div class="p-3 rounded-md shadow-success text-white bg-success">
+                                                <code>.shadow-success</code></div>
+                                            <div class="p-3 rounded-md shadow-warning bg-warning">
+                                                <code>.shadow-warning</code></div>
+                                            <div class="p-3 rounded-md shadow-error text-white bg-error">
+                                                <code>.shadow-error</code></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>CSS Variables</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Customize glow colors via CSS variables:</p>
+                                        <pre class="code-example"><code>:root {
+  /* Glow colors */
+  --glow-primary-color: rgba(34, 184, 207, 0.25);
+  --glow-success-color: rgba(64, 192, 87, 0.25);
+  --glow-warning-color: rgba(250, 176, 5, 0.25);
+  --glow-error-color: rgba(250, 82, 82, 0.25);
+  
+  /* Card glow (uses primary by default) */
+  --card-glow-color: rgba(34, 184, 207, 0.25);
+  --card-glow-border-color: rgba(34, 184, 207, 0.4);
+}</code></pre>
+                                        <p class="mt-3 text-sm text-muted">Note: Glow intensity is automatically
+                                            increased in dark mode for better visibility.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <!-- Theme Customizer Section -->
                     <section id="theme-customizer">
                         <h2 class="demo-title">Theme Customizer</h2>
@@ -2066,7 +2225,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Quick Start</h3>
                                     </div>
@@ -2089,7 +2248,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Features</h3>
                                     </div>
@@ -2115,7 +2274,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Available Primary Colors</h3>
                                     </div>
@@ -2146,7 +2305,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Available Neutral Colors</h3>
                                     </div>
@@ -2168,7 +2327,7 @@ Vanduo.components.toast.show({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>localStorage Keys</h3>
                                     </div>
@@ -2216,7 +2375,7 @@ Vanduo.components.toast.show({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>JavaScript API</h3>
                                     </div>
@@ -2249,7 +2408,7 @@ customizer.reset();</code></pre>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Data Attributes</h3>
                                     </div>
@@ -2315,7 +2474,7 @@ customizer.reset();</code></pre>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>CSS Customization</h3>
                                     </div>
@@ -2342,7 +2501,7 @@ customizer.reset();</code></pre>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Events</h3>
                                     </div>
@@ -2380,7 +2539,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card" id="demo-btn-variants">
+                                <div class="card card-glow demo-card" id="demo-btn-variants">
                                     <div class="card-header">
                                         <h3>Button Variants</h3>
                                     </div>
@@ -2439,7 +2598,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card" id="demo-btn-sizes">
+                                <div class="card card-glow demo-card" id="demo-btn-sizes">
                                     <div class="card-header">
                                         <h3>Button Sizes</h3>
                                     </div>
@@ -2494,7 +2653,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Button States</h3>
                                     </div>
@@ -2514,7 +2673,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Input Fields</h3>
                                     </div>
@@ -2566,7 +2725,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Form Controls</h3>
                                     </div>
@@ -2626,7 +2785,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Form Validation States</h3>
                                     </div>
@@ -2657,7 +2816,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-4">
-                                <div class="card demo-card" id="demo-card-elevated">
+                                <div class="card card-glow demo-card" id="demo-card-elevated">
                                     <div class="card-header">
                                         <h3>Elevated Card</h3>
                                     </div>
@@ -2671,7 +2830,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-4">
-                                <div class="card card-outlined demo-card">
+                                <div class="card card-glow card-outlined demo-card">
                                     <div class="card-header">
                                         <h3>Outlined Card</h3>
                                     </div>
@@ -2685,7 +2844,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-4">
-                                <div class="card card-filled demo-card">
+                                <div class="card card-glow card-filled demo-card">
                                     <div class="card-header">
                                         <h3>Filled Card</h3>
                                     </div>
@@ -2694,6 +2853,25 @@ document.addEventListener('themeCustomizer:reset', () => {
                                     </div>
                                     <div class="card-footer">
                                         <button class="btn btn-primary btn-sm">Action</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Glow Effect -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card mb-8">
+                                    <div class="card-header">
+                                        <h3><i class="ph ph-sparkle mr-2" style="color: var(--color-primary);"></i>Card Glow Effect</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-5">Add a gentle glow effect to any card with the <code>.card-glow</code> class. On hover, cards emit a soft primary-colored glow using CSS box-shadow.</p>
+                                        <pre class="code-example"><code>&lt;!-- Card with glow effect on hover --&gt;
+&lt;div class="card card-glow"&gt;
+  &lt;div class="card-body"&gt;Hover over this card&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        <p class="mt-5 text-sm text-muted"><strong>Tip:</strong> The glow color adapts to your theme's primary color. Works beautifully with dark mode too!</p>
                                     </div>
                                 </div>
                             </div>
@@ -2762,7 +2940,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Breadcrumbs</h3>
                                     </div>
@@ -2779,7 +2957,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Pagination</h3>
                                     </div>
@@ -2821,7 +2999,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Tooltips</h3>
                                     </div>
@@ -2840,7 +3018,7 @@ document.addEventListener('themeCustomizer:reset', () => {
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Dropdown</h3>
                                     </div>
@@ -2866,7 +3044,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Modal</h3>
                                     </div>
@@ -2932,7 +3110,7 @@ document.<span class="code-function">querySelector</span>(<span class="code-stri
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Collapsible / Accordion</h3>
                                     </div>
@@ -3035,7 +3213,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Collection List</h3>
                                     </div>
@@ -3074,7 +3252,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Collection with Actions</h3>
                                     </div>
@@ -3111,7 +3289,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Bordered Table</h3>
                                     </div>
@@ -3149,7 +3327,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Striped Table</h3>
                                     </div>
@@ -3187,7 +3365,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Hover Table</h3>
                                     </div>
@@ -3230,7 +3408,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Badge Variants</h3>
                                     </div>
@@ -3246,7 +3424,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Badge Sizes</h3>
                                     </div>
@@ -3268,7 +3446,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card" id="demo-alerts">
+                                <div class="card card-glow demo-card" id="demo-alerts">
                                     <div class="card-header">
                                         <h3>Alert Variants</h3>
                                     </div>
@@ -3338,7 +3516,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Dismissible Alerts</h3>
                                     </div>
@@ -3363,7 +3541,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Chip Variants</h3>
                                     </div>
@@ -3380,7 +3558,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Chip Sizes & Outline</h3>
                                     </div>
@@ -3399,7 +3577,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Dismissible Chips</h3>
                                     </div>
@@ -3428,7 +3606,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Avatar Sizes</h3>
                                     </div>
@@ -3450,7 +3628,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Avatar with Status</h3>
                                     </div>
@@ -3470,7 +3648,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Avatar Group</h3>
                                     </div>
@@ -3499,7 +3677,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Basic Skeletons</h3>
                                     </div>
@@ -3516,7 +3694,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Skeleton Card</h3>
                                     </div>
@@ -3546,7 +3724,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Basic Tabs</h3>
                                     </div>
@@ -3574,7 +3752,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Boxed Tabs</h3>
                                     </div>
@@ -3604,7 +3782,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Pills Tabs</h3>
                                     </div>
@@ -3644,7 +3822,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Toast Types</h3>
                                     </div>
@@ -3664,7 +3842,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Toast Options</h3>
                                     </div>
@@ -3690,7 +3868,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Spinners</h3>
                                     </div>
@@ -3705,7 +3883,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Progress Bars</h3>
                                     </div>
@@ -3729,7 +3907,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Colored Progress Bars</h3>
                                     </div>
@@ -3751,7 +3929,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Striped & Animated Progress</h3>
                                     </div>
@@ -3775,7 +3953,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Progress Sizes</h3>
                                     </div>
@@ -3801,7 +3979,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Grow Spinner & Colors</h3>
                                     </div>
@@ -3828,7 +4006,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Horizontal Group</h3>
                                     </div>
@@ -3856,7 +4034,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Vertical Group & Sizes</h3>
                                     </div>
@@ -3893,7 +4071,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Quick Start</h3>
                                     </div>
@@ -3926,7 +4104,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Features</h3>
                                     </div>
@@ -3948,7 +4126,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Custom Instance</h3>
                                     </div>
@@ -3987,7 +4165,7 @@ const mySearch = Search.create({
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Configuration Options</h3>
                                     </div>
@@ -4042,7 +4220,7 @@ const mySearch = Search.create({
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>JavaScript API</h3>
                                     </div>
@@ -4072,7 +4250,7 @@ const isOpen = search.isOpen;</code></pre>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Category Icons</h3>
                                     </div>
@@ -4095,7 +4273,7 @@ const isOpen = search.isOpen;</code></pre>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>CSS Customization</h3>
                                     </div>
@@ -4124,7 +4302,7 @@ const isOpen = search.isOpen;</code></pre>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card demo-card">
+                                <div class="card card-glow demo-card">
                                     <div class="card-header">
                                         <h3>Keyboard Shortcuts</h3>
                                     </div>

@@ -699,7 +699,7 @@
       var section = document.querySelector(result.url);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        history.pushState(null, '', result.url);
+        window.history.pushState(null, '', result.url);
         updateSidebarActive(result.id);
       }
     }

@@ -240,6 +240,10 @@ test.describe('Accessibility Tests @a11y', () => {
       await page.goto('/documentation.html');
       await page.waitForTimeout(500);
       
+      // Scroll to top to ensure theme customizer trigger is visible
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForTimeout(100);
+      
       // Open theme customizer
       await page.click('[data-theme-customizer-trigger]');
       await page.waitForTimeout(200);

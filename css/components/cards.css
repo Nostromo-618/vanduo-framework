@@ -24,18 +24,28 @@
   /* Card Shadow */
   --card-shadow: var(--shadow-md);
   --card-shadow-elevated: var(--shadow-lg);
+
+  /* Card Glow Effect - uses primary color scale */
+  --card-glow-color: var(--primary-3);
+  --card-glow-border-color: var(--primary-4);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
   --card-bg: var(--bg-secondary);
   --card-bg-filled: var(--bg-primary);
+  /* Glow uses lighter primary shades for dark mode visibility */
+  --card-glow-color: var(--primary-4);
+  --card-glow-border-color: var(--primary-5);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --card-bg: var(--bg-secondary);
     --card-bg-filled: var(--bg-primary);
+    /* Glow uses lighter primary shades for dark mode visibility */
+    --card-glow-color: var(--primary-4);
+    --card-glow-border-color: var(--primary-5);
   }
 }
 
@@ -242,6 +252,17 @@
   padding: var(--card-padding-lg);
 }
 
+/* Card Glow Effect */
+.card-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border-color: var(--card-border-color);
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 15px 0 var(--card-glow-color), var(--card-shadow);
+  border-color: var(--card-glow-border-color);
+}
+
 /* Card Link */
 a.card {
   text-decoration: none;
@@ -253,6 +274,11 @@ a.card:hover {
   text-decoration: none;
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl);
+}
+
+a.card.card-glow:hover {
+  box-shadow: 0 0 15px 0 var(--card-glow-color), var(--shadow-xl);
+  border-color: var(--card-glow-border-color);
 }
 
 a.card:active {

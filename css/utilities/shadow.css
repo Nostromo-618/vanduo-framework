@@ -21,6 +21,12 @@
   --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.2), 0 2px 3px -2px rgba(64, 192, 87, 0.1);
   --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.2), 0 2px 3px -2px rgba(250, 176, 5, 0.1);
   --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.2), 0 2px 3px -2px rgba(250, 82, 82, 0.1);
+
+  /* Glow Effect Colors - uses color scale variables */
+  --glow-primary-color: var(--primary-3);
+  --glow-success-color: var(--success-3);
+  --glow-warning-color: var(--warning-3);
+  --glow-error-color: var(--danger-3);
 }
 
 /* Shadow Utilities */
@@ -98,6 +104,79 @@
   box-shadow: var(--shadow-xl);
 }
 
+/* ═════════════════════════════════════════════════════════════════════════
+ * GLOW EFFECT UTILITIES
+ * Soft glowing shadows for interactive elements
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* Base Glow (uses primary color) */
+.glow,
+.glow-primary {
+  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+}
+
+/* Glow on Hover */
+.hover-glow,
+.hover-glow-primary {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover,
+.hover-glow-primary:hover {
+  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+}
+
+/* Glow Color Variants */
+.glow-success {
+  box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
+}
+
+.glow-warning {
+  box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
+}
+
+.glow-error {
+  box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
+}
+
+/* Glow Hover Variants */
+.hover-glow-success:hover {
+  box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
+}
+
+.hover-glow-warning:hover {
+  box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
+}
+
+.hover-glow-error:hover {
+  box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
+}
+
+/* Glow Intensity Variants */
+.glow-sm {
+  box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
+}
+
+.glow-md {
+  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+}
+
+.glow-lg {
+  box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
+}
+
+.hover-glow-sm:hover {
+  box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
+}
+
+.hover-glow-md:hover {
+  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+}
+
+.hover-glow-lg:hover {
+  box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
+}
+
 /* Dark Mode Shadow Overrides
  * Dark backgrounds need stronger shadows for visible depth
  * Matches both explicit dark theme and system preference */
@@ -114,6 +193,12 @@
   --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
   --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
   --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
+
+  /* Glow Effect Colors - Dark Mode (lighter shades for visibility) */
+  --glow-primary-color: var(--primary-4);
+  --glow-success-color: var(--success-4);
+  --glow-warning-color: var(--warning-4);
+  --glow-error-color: var(--danger-4);
 }
 
 /* System preference dark mode (when no explicit theme is set) */
@@ -130,5 +215,11 @@
     --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
     --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
     --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
+
+    /* Glow Effect Colors - Dark Mode */
+    --glow-primary-color: var(--primary-4);
+    --glow-success-color: var(--success-4);
+    --glow-warning-color: var(--warning-4);
+    --glow-error-color: var(--danger-4);
   }
 }

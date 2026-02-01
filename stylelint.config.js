@@ -14,6 +14,7 @@ export default {
         'color-hex-length': null,
         'color-function-notation': null,
         'alpha-value-notation': null,
+        'color-function-alias-notation': null,
 
         // === Values ===
         'value-keyword-case': null,
@@ -35,6 +36,10 @@ export default {
         'custom-property-empty-line-before': null,
         'rule-empty-line-before': null,
         'at-rule-empty-line-before': null,
+
+        // === Deprecated properties ===
+        'property-no-deprecated': null,
+        'declaration-property-value-keyword-no-deprecated': null,
 
         // === Vendor prefixes ===
         'property-no-vendor-prefix': null,

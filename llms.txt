@@ -1,118 +1,215 @@
-# Vanduo Framework
+# Vanduo Framework Context
 
-> A lightweight, pure HTML/CSS/JS framework for static websites. No dependencies, no build tools, no NPM — just clean code. "Essential just like water is."
+> **Role**: You are an expert Vanduo Framework developer.
+> **Philosophy**: Pure HTML/CSS/JS. No build steps. Essential aesthetics. "Just like water."
 
-## Key Principles
+## Crash Course
 
-- Pure HTML/CSS/JS only — no libraries, no build steps
-- Modular CSS architecture — import only what you need
-- Fibonacci-based spacing system for natural visual rhythm
-- Dark mode with OS preference detection + manual toggle
-- WCAG 2.1 AA accessibility compliance
-- Mobile-first responsive design
+1.  **Structure**: Standard HTML5. Load CSS in `<head>`, JS at end of `<body>`.
+2.  **Class Names**: Utility-first + Component hybrids (Bootstrap-like but modern).
+3.  **Spacing**: Fibonacci sequence (1, 2, 3, 5, 8, 13, 21...) for natural rhythm.
+4.  **Typography**: Fluid `clamp()` based sizes. 10 built-in privacy-focused font families.
+5.  **Icons**: Phosphor Icons bundled (`<i class="ph ph-heart"></i>`).
+6.  **JS**: `Vanduo` global object. Use `data-*` attributes for behavior (modals, tooltips, etc).
 
-## Quick Start
+## Quick Start Template
 
-Load via CDN (no download required):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.css">
+    <title>Vanduo Page</title>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand"><i class="ph-fill ph-drop text-primary"></i> Vanduo</a>
+            <button class="navbar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#" class="nav-link">About</a></li>
+                </ul>
+                <button class="theme-customizer-trigger"><i class="ph ph-paint-roller"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-8">
+        <h1>Hello World</h1>
+    </main>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
+</body>
+</html>
 ```
 
-Pin to version for production: replace `@main` with `@v1.0.2`
+## Component Templates
 
-## Docs
+### 1. Grid & Layout
+**Breakpoints**: `sm` (576px), `md` (768px), `lg` (992px), `xl` (1200px), `2xl` (1400px).
 
-- [Full Documentation](https://vanduo.dev/documentation.html): Complete component reference with live examples
-- [Changelog](https://vanduo.dev/changelog.html): Version history and updates
-- [README](https://github.com/Nostromo-618/vanduo-framework/blob/main/README.md): Quick start guide and project overview
+```html
+<div class="container"> <!-- or container-fluid / container-{bp} -->
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">Item 1</div>
+        <div class="col-12 col-md-6 col-lg-4">Item 2</div>
+        <div class="col-12 col-md-12 col-lg-4">Item 3</div>
+    </div>
+</div>
+```
 
-## Core Systems
+### 2. Buttons
+```html
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-outline">Outline</button>
+<button class="btn btn-ghost">Ghost</button>
+<button class="btn btn-error btn-sm">Small Error</button>
+<button class="btn btn-success btn-lg btn-block">Large Block Success</button>
+```
 
-- [Colors](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/colors.css): Open Color palette with CSS variables (`--color-primary`, `--color-success`, etc.)
-- [Typography](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/typography.css): Fluid typography with `clamp()`, 10 self-hosted font families
-- [Fonts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/fonts.css): 10 self-hosted fonts (Inter, Ubuntu, Open Sans, Rubik, Titillium Web, etc.)
-- [Grid System](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/grid.css): 12-column responsive grid (`.container`, `.row`, `.col-*`)
-- [Spacing](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/core/spacing.css): Fibonacci-based spacing utilities (`.m-*`, `.p-*`, `.gap-*`)
-- [Shadows & Glow](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/utilities/shadow.css): Shadow utilities (`.shadow-md`, `.shadow-lg`) and glow effects (`.card-glow`, `.hover-glow`, `.glow-success`)
+### 3. Cards
+```html
+<div class="card card-glow"> <!-- card-glow adds hover effect -->
+    <div class="card-header">
+        <h3>Card Title</h3>
+    </div>
+    <div class="card-body">
+        <p>Content goes here.</p>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-sm btn-primary">Action</button>
+    </div>
+</div>
+```
 
-## Components
+### 4. Forms
+```html
+<form>
+    <!-- Text Input -->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="ph ph-envelope"></i></span>
+            <input type="email" id="email" class="form-control" placeholder="name@example.com">
+        </div>
+        <small class="form-text text-muted">We'll never share your email.</small>
+    </div>
 
-- [Buttons](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/buttons.css): `.btn`, `.btn-primary`, `.btn-outline`, sizes, states
-- [Cards](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/cards.css): `.card`, `.card-header`, `.card-body`, `.card-footer`, `.card-glow` (hover glow effect)
-- [Forms](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/forms.css): Inputs, selects, checkboxes, validation states
-- [Navbar](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/navbar.css): `.navbar`, `.navbar-fixed`, responsive mobile menu
-- [Modals](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/modals.css): `.modal`, triggered via `data-modal="#id"`
-- [Dropdown](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/dropdown.css): `.dropdown`, `.dropdown-menu`
-- [Tabs](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tabs.css): `.tabs`, `.tab-content`
-- [Tooltips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/tooltips.css): `data-tooltip="text"`, `data-tooltip-placement="top|right|bottom|left"`
-- [Toasts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/toast.css): Notification system via `Vanduo.components.toast.show()`
-- [Alerts](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/alerts.css): `.alert`, `.alert-success`, `.alert-error`, dismissible
-- [Badges](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/badges.css): `.badge`, color variants
-- [Avatars](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/avatar.css): `.avatar`, sizes, status indicators
-- [Chips](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/chips.css): `.chip`, deletable chips
-- [Collapsible](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/collapsible.css): `data-collapsible` accordion/collapse
-- [Skeleton](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/skeleton.css): Loading placeholders
-- [Preloader](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/preloader.css): Page loading animation
-- [Spinner](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/spinner.css): `.spinner` loading indicator
-- [Progress](https://github.com/Nostromo-618/vanduo-framework/blob/main/css/components/progress.css): `.progress`, `.progress-bar`
-- [Search](https://github.com/Nostromo-618/vanduo-framework/blob/main/js/components/doc-search.js): Client-side search with keyboard navigation, `Search.create()` factory
+    <!-- Select -->
+    <div class="form-group">
+        <label>Category</label>
+        <select class="form-select">
+            <option>Option 1</option>
+        </select>
+    </div>
 
-## JavaScript API
+    <!-- Checkbox -->
+    <div class="form-check">
+        <input type="checkbox" id="check1" class="form-check-input">
+        <label for="check1" class="form-check-label">Remember me</label>
+    </div>
+</form>
+```
+
+### 5. Modals
+```html
+<!-- Trigger -->
+<button class="btn btn-primary" data-modal="#myModal">Open Modal</button>
+
+<!-- Structure -->
+<div id="myModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Title</h3>
+                <button class="close-button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Modal content...</p>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+### 6. Interactive Elements
+```html
+<!-- Tooltip -->
+<button data-tooltip="I am a tooltip" data-tooltip-placement="top">Hover Me</button>
+
+<!-- Tabs -->
+<div class="tabs">
+    <div class="tab-list">
+        <button class="tab-item active" data-tab="#tab1">Tab 1</button>
+        <button class="tab-item" data-tab="#tab2">Tab 2</button>
+    </div>
+    <div class="tab-content active" id="tab1">Content 1</div>
+    <div class="tab-content" id="tab2">Content 2</div>
+</div>
+
+<!-- Accordion -->
+<div class="accordion">
+    <div class="accordion-item" data-collapsible>
+        <div class="accordion-header">
+            <h3>Title</h3>
+            <i class="ph ph-caret-down"></i>
+        </div>
+        <div class="accordion-content">
+            <p>Body content.</p>
+        </div>
+    </div>
+</div>
+```
+
+## Utility Reference
+
+### Colors (Open Color)
+**Variables**: `--color-{name}` or `--{name}-{0-9}` template.
+**Names**: `primary` (cyan), `secondary` (teal), `success` (green), `warning` (yellow), `error` (red), `info` (blue), `gray` (neutral).
+
+**Classes**:
+- Text: `.text-{name}`, `.text-white`, `.text-black`, `.text-muted`.
+- Background: `.bg-{name}`, `.bg-white`, `.bg-dark`.
+
+### Spacing (Fibonacci System)
+**Scale**: `0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144` pixels (approx).
+**Classes**: `{property}-{size}`.
+- Properties: `m` (margin), `p` (padding), `mx`, `my`, `mt`, `mb`, `px`, `py`, `pt`, `pb`, `gap`.
+- Examples: `.p-5` (padding ~8px), `.m-8` (margin ~13px), `.gap-21` (gap ~34px).
+
+### Typography
+- **Families**: `inter`, `source-sans`, `fira-sans`, `ibm-plex`, `jetbrains-mono`, `ubuntu`, `open-sans`, `rubik`, `titillium-web`. (Set via `data-font="{name}"` on `<html>`).
+- **Sizes**: `.text-xs`, `.text-sm`, `.text-base`, `.text-lg`, `.text-xl`, `.text-2xl` ... `.text-6xl`.
+- **Weights**: `.text-thin`, `.text-light`, `.text-regular`, `.text-medium`, `.text-bold`, `.text-black`.
+
+## JavaScript API (`Vanduo` global)
 
 ```javascript
-// Global object
-Vanduo.reinit('dropdown');     // Re-initialize component
-Vanduo.destroyAll();           // Cleanup all components
-
-// Toast notifications
+/* Toast Notification */
 Vanduo.components.toast.show({
-  title: 'Success',
-  message: 'Item saved.',
-  type: 'success'  // success | error | warning | info
+    title: 'Success',
+    message: 'Operation completed.',
+    type: 'success', // success | error | warning | info
+    duration: 3000
 });
+
+/* Managing Components */
+Vanduo.reinit('dropdown');  // Re-initialize specific component
+Vanduo.destroyAll();        // Teardown
 ```
-
-## Data Attributes
-
-| Attribute | Purpose |
-|-----------|---------|
-| `data-modal="#id"` | Open modal |
-| `data-dismiss="modal"` | Close modal |
-| `data-tooltip="text"` | Tooltip content |
-| `data-tooltip-placement="top"` | Tooltip position |
-| `data-toggle="theme"` | Theme switcher (light/dark/system) |
-| `data-toggle="font"` | Font switcher (cycles through font families) |
-| `data-font="{id}"` | Set specific font family (e.g., ubuntu, open-sans) |
-| `data-collapsible` | Collapsible container |
-
-## Theme Customization
-
-Override CSS variables:
-```css
-:root {
-  --color-primary: #6366f1;
-  --font-family-base: 'Inter', sans-serif;
-  --btn-border-radius: 8px;
-}
-```
-
-Font families: Set `data-font` attribute on `<html>` with values:
-- `inter`, `source-sans`, `fira-sans`, `ibm-plex`, `jetbrains-mono` (original)
-- `ubuntu`, `open-sans`, `rubik`, `titillium-web` (Google Fonts collection)
-- `system` (device default)
-
-Dark mode: set `data-theme="dark"` on `<html>` or use `data-toggle="theme"` for automatic switching.
 
 ## Icons
-
-Includes Phosphor Icons (1,500+ icons, MIT License):
-```html
-<i class="ph ph-heart"></i>       <!-- Regular -->
-<i class="ph-fill ph-star"></i>   <!-- Filled -->
-```
-
-## Optional
-
-- [Phosphor Icons Reference](https://phosphoricons.com): Full icon browser
-- [Open Color Palette](https://yeun.github.io/open-color/): Color system reference
+Use **Phosphor Icons**. 
+- Regular: `<i class="ph ph-{name}"></i>`
+- Fill: `<i class="ph-fill ph-{name}"></i>`
+- Examples: `ph-house`, `ph-user`, `ph-gear`, `ph-check`, `ph-x`, `ph-arrow-right`.

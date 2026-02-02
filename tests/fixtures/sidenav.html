@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidenav Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    body { min-height: 100vh; }
+    main { padding: 2rem; }
+  </style>
+</head>
+<body>
+  <!-- Basic Sidenav -->
+  <nav class="sidenav" id="basic-sidenav" aria-label="Main navigation">
+    <div class="sidenav-header">
+      <h3>Navigation</h3>
+      <button class="sidenav-close" aria-label="Close navigation">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <div class="sidenav-body">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link">Home</a></li>
+        <li><a href="#" class="nav-link">About</a></li>
+        <li><a href="#" class="nav-link">Services</a></li>
+        <li><a href="#" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Right-aligned Sidenav -->
+  <nav class="sidenav sidenav-right" id="right-sidenav" aria-label="Right navigation">
+    <div class="sidenav-header">
+      <h3>Settings</h3>
+      <button class="sidenav-close" aria-label="Close navigation">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <div class="sidenav-body">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link">Profile</a></li>
+        <li><a href="#" class="nav-link">Preferences</a></li>
+        <li><a href="#" class="nav-link">Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Static Backdrop Sidenav -->
+  <nav class="sidenav" id="static-sidenav" data-backdrop="static" aria-label="Static navigation">
+    <div class="sidenav-header">
+      <h3>Static Nav</h3>
+      <button class="sidenav-close" aria-label="Close navigation">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <div class="sidenav-body">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link">Item 1</a></li>
+        <li><a href="#" class="nav-link">Item 2</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- No Keyboard Close Sidenav -->
+  <nav class="sidenav" id="no-keyboard-sidenav" data-keyboard="false" aria-label="No keyboard nav">
+    <div class="sidenav-header">
+      <h3>No ESC Close</h3>
+      <button class="sidenav-close" aria-label="Close navigation">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <div class="sidenav-body">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link">Item</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Sidenav Test Fixture</h1>
+    
+    <!-- Toggle buttons -->
+    <div class="form-group">
+      <button class="btn btn-primary" data-sidenav-toggle="#basic-sidenav">Open Basic Sidenav</button>
+      <button class="btn btn-secondary" data-sidenav-toggle="#right-sidenav">Open Right Sidenav</button>
+      <button class="btn btn-info" data-sidenav-toggle="#static-sidenav">Open Static Sidenav</button>
+      <button class="btn btn-warning" data-sidenav-toggle="#no-keyboard-sidenav">Open No Keyboard Sidenav</button>
+    </div>
+
+    <!-- Programmatic controls -->
+    <div class="form-group">
+      <button id="open-basic" class="btn btn-primary">Open Basic (API)</button>
+      <button id="close-basic" class="btn btn-secondary">Close Basic (API)</button>
+      <button id="toggle-basic" class="btn btn-info">Toggle Basic (API)</button>
+    </div>
+
+    <p>Main content area. Sidenav should push content when using sidenav-push variant.</p>
+  </main>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/sidenav.js"></script>
+  <script>
+    // Programmatic controls
+    document.getElementById('open-basic').addEventListener('click', function() {
+      window.VanduoSidenav.open('#basic-sidenav');
+    });
+
+    document.getElementById('close-basic').addEventListener('click', function() {
+      window.VanduoSidenav.close('#basic-sidenav');
+    });
+
+    document.getElementById('toggle-basic').addEventListener('click', function() {
+      window.VanduoSidenav.toggle('#basic-sidenav');
+    });
+  </script>
+</body>
+</html>

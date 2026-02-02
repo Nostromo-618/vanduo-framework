@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Switcher Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Font Switcher Test Fixture</h1>
+
+    <!-- Select-based Font Toggle -->
+    <div class="form-group">
+      <label for="font-select">Select Font</label>
+      <select id="font-select" data-toggle="font">
+        <option value="system">System Default</option>
+        <option value="inter">Inter</option>
+        <option value="source-sans">Source Sans 3</option>
+        <option value="fira-sans">Fira Sans</option>
+        <option value="ibm-plex">IBM Plex Sans</option>
+        <option value="ubuntu" selected>Ubuntu</option>
+        <option value="open-sans">Open Sans</option>
+        <option value="rubik">Rubik</option>
+        <option value="titillium-web">Titillium Web</option>
+        <option value="jetbrains-mono">JetBrains Mono</option>
+      </select>
+    </div>
+
+    <!-- Button-based Font Toggle -->
+    <div class="form-group">
+      <button id="font-button" class="btn btn-primary" data-toggle="font">
+        Font: <span class="font-current-label">Ubuntu</span>
+      </button>
+    </div>
+
+    <!-- Display current font -->
+    <div class="card">
+      <div class="card-body">
+        <h3>Current Font State</h3>
+        <p>data-font attribute: <code id="font-attr">ubuntu</code></p>
+        <p>localStorage preference: <code id="storage-pref">-</code></p>
+      </div>
+    </div>
+
+    <!-- Sample text -->
+    <div class="card">
+      <div class="card-body">
+        <h3>Sample Text</h3>
+        <p>The quick brown fox jumps over the lazy dog.</p>
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>0123456789</p>
+      </div>
+    </div>
+
+    <!-- Programmatic controls -->
+    <div class="form-group">
+      <button id="set-inter" class="btn btn-secondary">Set Inter</button>
+      <button id="set-system" class="btn btn-secondary">Set System</button>
+      <button id="get-font" class="btn btn-info">Get Current Font</button>
+      <button id="get-font-data" class="btn btn-info">Get Font Data</button>
+    </div>
+
+    <div id="font-display"></div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/font-switcher.js"></script>
+  <script>
+    // Update display
+    function updateFontDisplay() {
+      const font = document.documentElement.getAttribute('data-font') || 'system (no attribute)';
+      document.getElementById('font-attr').textContent = font;
+      
+      const pref = localStorage.getItem('vanduo-font-preference') || 'not set';
+      document.getElementById('storage-pref').textContent = pref;
+    }
+
+    // Initial display
+    updateFontDisplay();
+
+    // Update on changes
+    window.addEventListener('storage', updateFontDisplay);
+    document.addEventListener('font:change', updateFontDisplay);
+    
+    // Programmatic controls
+    document.getElementById('set-inter').addEventListener('click', function() {
+      const fs = window.FontSwitcher;
+      if (fs) fs.setPreference('inter');
+      updateFontDisplay();
+    });
+
+    document.getElementById('set-system').addEventListener('click', function() {
+      const fs = window.FontSwitcher;
+      if (fs) fs.setPreference('system');
+      updateFontDisplay();
+    });
+
+    document.getElementById('get-font').addEventListener('click', function() {
+      const fs = window.FontSwitcher;
+      const font = fs ? fs.getCurrentFont() : 'N/A';
+      document.getElementById('font-display').textContent = 'Current font: ' + font;
+    });
+
+    document.getElementById('get-font-data').addEventListener('click', function() {
+      const fs = window.FontSwitcher;
+      const data = fs ? fs.getFontData('inter') : null;
+      document.getElementById('font-display').textContent = data ? 
+        'Font: ' + data.name + ', Family: ' + data.family : 'No data';
+    });
+
+    // Listen for select changes
+    document.getElementById('font-select').addEventListener('change', updateFontDisplay);
+    document.getElementById('font-button').addEventListener('click', function() {
+      setTimeout(updateFontDisplay, 10);
+    });
+  </script>
+</body>
+</html>

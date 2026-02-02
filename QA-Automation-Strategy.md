@@ -1,9 +1,11 @@
 # QA Automation Strategy for Vanduo Framework
 
-> **Document Version:** 2.0  
-> **Created:** 2026-02-01  
-> **Framework:** Playwright Test (ONLY)  
+> **Document Version:** 2.1
+> **Created:** 2026-02-01
+> **Framework:** Playwright Test (ONLY)
 > **Target Browsers:** Chromium, Firefox, WebKit
+
+> 🚫 **Visual pixel-comparison tests are currently NOT run** (removed per project direction)
 
 ---
 
@@ -17,12 +19,14 @@ The Vanduo Framework is built on zero-dependency principles. Our testing strateg
 |-------------|----------|------------|
 | Test Runner | Playwright Test | `@playwright/test` |
 | Browser Testing | Playwright | `@playwright/test` |
-| Visual Regression | `toHaveScreenshot()` | `@playwright/test` |
+| Visual Regression | ~~`toHaveScreenshot()`~~ (not currently run) | N/A |
 | Accessibility | `page.evaluate()` + ARIA assertions | `@playwright/test` |
 | Unit-level Tests | `page.evaluate()` | `@playwright/test` |
 | Performance | Performance API via `page.evaluate()` | `@playwright/test` |
 | Mobile/Tablet | Device emulation | `@playwright/test` |
 | Local Server | Python/Node built-in HTTP | None |
+
+> ⚠️ **Note:** Visual/pixel-comparison tests have been removed from the test suite as per project direction. Testing focuses on functional behavior, ARIA attributes, and DOM state rather than screenshot comparisons.
 
 **Total dependencies: 1 (one)**
 
@@ -543,16 +547,18 @@ test.describe('Performance @perf', () => {
 
 ## Component Testing Matrix
 
-| Component | Unit | Component | Integration | Visual | A11y | E2E |
-|-----------|:----:|:---------:|:-----------:|:------:|:----:|:---:|
-| Modals | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Dropdown | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Navbar | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Tabs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Toast | ✅ | ✅ | ◐ | ✅ | ✅ | ◐ |
-| Tooltips | ✅ | ✅ | ◐ | ✅ | ✅ | ◐ |
-| Collapsible | ✅ | ✅ | ◐ | ✅ | ✅ | ◐ |
-| Sidenav | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Component | Unit | Component | Integration | A11y | E2E |
+|-----------|:----:|:---------:|:-----------:|:----:|:---:|
+| Modals | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Dropdown | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Navbar | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Tabs | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Toast | ✅ | ✅ | ◐ | ✅ | ◐ |
+| Tooltips | ✅ | ✅ | ◐ | ✅ | ◐ |
+| Collapsible | ✅ | ✅ | ◐ | ✅ | ◐ |
+| Sidenav | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+> **Note:** Visual/pixel-comparison testing column has been removed as these tests are not currently run per project direction. Testing focuses on functional behavior and DOM state assertions.
 
 ---
 
@@ -615,8 +621,6 @@ vanduo-framework/
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
-    "test:visual": "playwright test --grep @visual",
-    "test:visual:update": "playwright test --grep @visual --update-snapshots",
     "test:a11y": "playwright test --grep @a11y",
     "test:e2e": "playwright test --grep @e2e",
     "test:perf": "playwright test --grep @perf",
@@ -627,6 +631,8 @@ vanduo-framework/
     "test:webkit": "playwright test --project='WebKit*'",
     "report": "playwright show-report"
   },
+
+  // Note: Visual/pixel-comparison test scripts removed as per project direction.
   "devDependencies": {
     "@playwright/test": "^1.50.0"
   }
@@ -760,30 +766,8 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  visual-regression:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      
-      - name: Install Playwright
-        run: |
-          npm install -D @playwright/test
-          npx playwright install --with-deps chromium
-      
-      - name: Run visual tests
-        run: npx playwright test --grep @visual --project="Chromium Desktop"
-      
-      - name: Upload visual diffs
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: visual-diff-report
-          path: test-results/
-          retention-days: 7
+  # Note: Visual/pixel-comparison tests have been removed from the test suite.
+  # Testing focuses on functional behavior, ARIA attributes, and DOM state.
 ```
 
 ---
@@ -882,13 +866,15 @@ await expect(page.locator('.result')).toBeVisible();
 
 ## Summary
 
-This strategy enables comprehensive testing of the Vanduo Framework with **a single dependency**: `@playwright/test`. 
+This strategy enables comprehensive testing of the Vanduo Framework with **a single dependency**: `@playwright/test`.
+
+> **Current Status:** Visual/pixel-comparison tests (screenshot-based regression) have been removed from the active test suite. Testing now focuses on functional behavior, DOM state assertions, ARIA attributes, and component interactions rather than pixel-perfect visual comparisons.
 
 All testing needs are covered:
 - ✅ Unit testing (via `page.evaluate()`)
 - ✅ Component testing (native Playwright)
 - ✅ Integration testing (native Playwright)
-- ✅ Visual regression (built-in `toHaveScreenshot()`)
+- ✅ ~~Visual regression (built-in `toHaveScreenshot()`)~~ (not currently run)
 - ✅ Accessibility testing (manual ARIA checks)
 - ✅ E2E testing (native Playwright)
 - ✅ Performance testing (browser Performance API)

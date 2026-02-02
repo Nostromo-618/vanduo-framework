@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switcher Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Theme Switcher Test Fixture</h1>
+
+    <!-- Select-based Theme Toggle -->
+    <div class="form-group">
+      <label for="theme-select">Select Theme</label>
+      <select id="theme-select" data-toggle="theme">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+
+    <!-- Button-based Theme Toggle -->
+    <div class="form-group">
+      <button id="theme-button" class="btn btn-primary" data-toggle="theme">
+        Theme: <span class="theme-current-label">System</span>
+      </button>
+    </div>
+
+    <!-- Display current theme -->
+    <div class="card">
+      <div class="card-body">
+        <h3>Current Theme State</h3>
+        <p>data-theme attribute: <code id="theme-attr">none</code></p>
+        <p>localStorage preference: <code id="storage-pref">-</code></p>
+      </div>
+    </div>
+
+    <!-- Programmatic controls -->
+    <div class="form-group">
+      <button id="set-light" class="btn btn-secondary">Set Light</button>
+      <button id="set-dark" class="btn btn-secondary">Set Dark</button>
+      <button id="set-system" class="btn btn-secondary">Set System</button>
+      <button id="get-preference" class="btn btn-info">Get Preference</button>
+    </div>
+
+    <div id="preference-display"></div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/theme-switcher.js"></script>
+  <script>
+    // Update display
+    function updateThemeDisplay() {
+      const theme = document.documentElement.getAttribute('data-theme') || 'system (no attribute)';
+      document.getElementById('theme-attr').textContent = theme;
+      
+      const pref = localStorage.getItem('vanduo-theme-preference') || 'not set';
+      document.getElementById('storage-pref').textContent = pref;
+    }
+
+    // Initial display
+    updateThemeDisplay();
+
+    // Update on changes
+    window.addEventListener('storage', updateThemeDisplay);
+    
+    // Programmatic controls
+    document.getElementById('set-light').addEventListener('click', () => {
+      const ts = window.Vanduo && window.Vanduo.components ? window.Vanduo.components.themeSwitcher : null;
+      if (ts) ts.setPreference('light');
+      updateThemeDisplay();
+    });
+
+    document.getElementById('set-dark').addEventListener('click', () => {
+      const ts = window.Vanduo && window.Vanduo.components ? window.Vanduo.components.themeSwitcher : null;
+      if (ts) ts.setPreference('dark');
+      updateThemeDisplay();
+    });
+
+    document.getElementById('set-system').addEventListener('click', () => {
+      const ts = window.Vanduo && window.Vanduo.components ? window.Vanduo.components.themeSwitcher : null;
+      if (ts) ts.setPreference('system');
+      updateThemeDisplay();
+    });
+
+    document.getElementById('get-preference').addEventListener('click', () => {
+      const ts = window.Vanduo && window.Vanduo.components ? window.Vanduo.components.themeSwitcher : null;
+      const pref = ts ? ts.getPreference() : 'N/A';
+      document.getElementById('preference-display').textContent = 'Preference: ' + pref;
+    });
+
+    // Listen for select changes
+    document.getElementById('theme-select').addEventListener('change', updateThemeDisplay);
+    document.getElementById('theme-button').addEventListener('click', () => {
+      setTimeout(updateThemeDisplay, 10);
+    });
+  </script>
+</body>
+</html>

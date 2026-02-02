@@ -40,8 +40,6 @@
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
-    "test:visual": "playwright test --grep @visual",
-    "test:visual:update": "playwright test --grep @visual --update-snapshots",
     "test:a11y": "playwright test --grep @a11y",
     "test:e2e": "playwright test --grep @e2e",
     "test:perf": "playwright test --grep @perf",

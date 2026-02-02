@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    body { min-height: 100vh; }
+    main { padding: 2rem; }
+  </style>
+</head>
+<body>
+  <!-- Basic Navbar -->
+  <nav class="navbar" id="basic-navbar">
+    <div class="navbar-brand">
+      <a href="#" class="navbar-item">Brand</a>
+      <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="navbar-menu" aria-hidden="true">
+      <div class="navbar-start">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Navbar with Dropdown -->
+  <nav class="navbar" id="navbar-with-dropdown">
+    <div class="navbar-brand">
+      <a href="#" class="navbar-item">Brand</a>
+      <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="navbar-menu" aria-hidden="true">
+      <div class="navbar-start">
+        <a href="#" class="nav-link">Home</a>
+        <div class="navbar-dropdown">
+          <a href="#" class="nav-link">Products</a>
+          <div class="navbar-dropdown-menu">
+            <a href="#" class="nav-link">Product 1</a>
+            <a href="#" class="nav-link">Product 2</a>
+            <a href="#" class="nav-link">Product 3</a>
+          </div>
+        </div>
+        <a href="#" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Programmatic API Test Navbar -->
+  <nav class="navbar" id="api-navbar">
+    <div class="navbar-brand">
+      <a href="#" class="navbar-item">API Test</a>
+      <button class="navbar-toggle" id="api-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="navbar-menu" id="api-menu" aria-hidden="true">
+      <div class="navbar-start">
+        <a href="#" class="nav-link">Item 1</a>
+        <a href="#" class="nav-link">Item 2</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Navbar Test Fixture</h1>
+    <p>Test content to verify body scroll behavior.</p>
+  </main>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/navbar.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltips Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    .test-container {
+      padding: 100px 50px;
+      display: flex;
+      gap: 200px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <button id="tooltip-top" class="btn btn-primary" data-tooltip="Tooltip on top">Top Tooltip</button>
+    <button id="tooltip-bottom" class="btn btn-primary" data-tooltip="Tooltip on bottom" data-tooltip-placement="bottom">Bottom Tooltip</button>
+    <button id="tooltip-left" class="btn btn-primary" data-tooltip="Tooltip on left" data-tooltip-placement="left">Left Tooltip</button>
+    <button id="tooltip-right" class="btn btn-primary" data-tooltip="Tooltip on right" data-tooltip-placement="right">Right Tooltip</button>
+    <button id="tooltip-delayed" class="btn btn-primary" data-tooltip="Delayed tooltip" data-tooltip-delay="500">Delayed Tooltip</button>
+    <button id="tooltip-html" class="btn btn-primary" data-tooltip-html="<strong>Bold</strong> tooltip">HTML Tooltip</button>
+    <button id="programmatic-tooltip" class="btn btn-secondary">Programmatic Tooltip</button>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/tooltips.js"></script>
+  <script>
+    // Add programmatic tooltip after init
+    document.addEventListener('DOMContentLoaded', () => {
+      const progBtn = document.getElementById('programmatic-tooltip');
+      progBtn.setAttribute('data-tooltip', 'Added programmatically');
+      // Re-init to pick up new tooltip
+      VanduoTooltips.init();
+    });
+  </script>
+</body>
+</html>

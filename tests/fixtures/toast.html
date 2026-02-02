@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Toast Component Test Fixture</h1>
+
+    <button id="show-toast" class="btn btn-primary">Show Toast</button>
+    <button id="show-success" class="btn btn-success">Show Success</button>
+    <button id="show-error" class="btn btn-error">Show Error</button>
+    <button id="show-warning" class="btn btn-warning">Show Warning</button>
+    <button id="show-info" class="btn btn-info">Show Info</button>
+    <button id="dismiss-all" class="btn btn-secondary">Dismiss All</button>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/toast.js"></script>
+  <script>
+    document.getElementById('show-toast').addEventListener('click', () => {
+      Toast.show('This is a test toast message');
+    });
+    document.getElementById('show-success').addEventListener('click', () => {
+      Toast.success('Operation completed successfully!');
+    });
+    document.getElementById('show-error').addEventListener('click', () => {
+      Toast.error('Something went wrong!');
+    });
+    document.getElementById('show-warning').addEventListener('click', () => {
+      Toast.warning('Please check your input');
+    });
+    document.getElementById('show-info').addEventListener('click', () => {
+      Toast.info('Here is some information');
+    });
+    document.getElementById('dismiss-all').addEventListener('click', () => {
+      Toast.dismissAll();
+    });
+  </script>
+</body>
+</html>

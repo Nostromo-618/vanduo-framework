@@ -42,26 +42,8 @@ jobs:
           npm install -D @playwright/test
           npx playwright install --with-deps
 
-      - name: Update visual snapshots
-        run: |
-          # First pass: update all visual snapshots for Linux
-          npx playwright test --grep @visual --project="${{ matrix.project }}" --update-snapshots || true
-        continue-on-error: true
-
       - name: Run tests
-        run: |
-          # Second pass: run all tests, visual should now pass
-          npx playwright test --project="${{ matrix.project }}" || true
-        continue-on-error: true
-
-      - name: Commit updated snapshots
-        if: github.event_name == 'push'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add tests/visual/*.spec.ts-snapshots/ || true
-          git commit -m "Update visual test snapshots for Linux" || echo "No changes to commit"
-          git push || echo "Nothing to push"
+        run: npx playwright test --project="${{ matrix.project }}"
 
       - name: Upload test report
         uses: actions/upload-artifact@v4
@@ -78,37 +60,6 @@ jobs:
           name: test-results-${{ matrix.project }}
           path: test-results/
           retention-days: 7
-
-  # Visual regression tests (only on Chromium Desktop for consistency)
-  visual-regression:
-    name: Visual Regression
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Playwright
-        run: |
-          npm install -D @playwright/test
-          npx playwright install --with-deps chromium
-
-      - name: Run visual tests
-        run: npx playwright test --grep @visual --project="Chromium Desktop"
-
-      - name: Upload visual diff report
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: visual-diff-report
-          path: test-results/
-          retention-days: 14
 
   # Accessibility tests
   accessibility:

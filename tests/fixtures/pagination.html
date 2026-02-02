@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagination Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Pagination Test Fixture</h1>
+
+    <!-- Basic Pagination -->
+    <nav aria-label="Basic pagination">
+      <ul class="pagination" id="basic-pagination" data-pagination data-total-pages="10" data-current-page="1" data-max-visible="7">
+        <!-- Dynamically generated -->
+      </ul>
+    </nav>
+
+    <!-- Pagination on middle page -->
+    <nav aria-label="Middle page pagination">
+      <ul class="pagination" id="middle-pagination" data-pagination data-total-pages="20" data-current-page="10" data-max-visible="7">
+      </ul>
+    </nav>
+
+    <!-- Pagination with few pages -->
+    <nav aria-label="Few pages pagination">
+      <ul class="pagination" id="few-pages" data-pagination data-total-pages="3" data-current-page="2" data-max-visible="7">
+      </ul>
+    </nav>
+
+    <!-- Pagination on last page -->
+    <nav aria-label="Last page pagination">
+      <ul class="pagination" id="last-page" data-pagination data-total-pages="15" data-current-page="15" data-max-visible="7">
+      </ul>
+    </nav>
+
+    <!-- Pagination with many pages (ellipses) -->
+    <nav aria-label="Many pages pagination">
+      <ul class="pagination" id="many-pages" data-pagination data-total-pages="50" data-current-page="25" data-max-visible="7">
+      </ul>
+    </nav>
+
+    <!-- API Test Pagination -->
+    <nav aria-label="API test pagination">
+      <ul class="pagination" id="api-pagination" data-pagination data-total-pages="5" data-current-page="1" data-max-visible="5">
+      </ul>
+    </nav>
+
+    <!-- Programmatic controls -->
+    <div class="form-group">
+      <button id="go-to-page-3" class="btn btn-primary">Go to Page 3</button>
+      <button id="prev-page" class="btn btn-secondary">Previous Page</button>
+      <button id="next-page" class="btn btn-secondary">Next Page</button>
+      <button id="update-total" class="btn btn-info">Update to 20 Pages</button>
+    </div>
+
+    <div id="page-info">Current page: <span id="current-page-display">1</span></div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/pagination.js"></script>
+  <script>
+    // Track page changes for testing
+    document.addEventListener('pagination:change', (e) => {
+      document.getElementById('current-page-display').textContent = e.detail.page;
+    });
+
+    document.getElementById('go-to-page-3').addEventListener('click', () => {
+      window.VanduoPagination.goToPage(document.getElementById('api-pagination'), 3);
+    });
+
+    document.getElementById('prev-page').addEventListener('click', () => {
+      window.VanduoPagination.prevPage(document.getElementById('api-pagination'));
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      window.VanduoPagination.nextPage(document.getElementById('api-pagination'));
+    });
+
+    document.getElementById('update-total').addEventListener('click', () => {
+      window.VanduoPagination.update('#api-pagination', { totalPages: 20 });
+    });
+  </script>
+</body>
+</html>

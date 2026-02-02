@@ -1,13 +1,10 @@
-# Vanduo Framework v1.0.1
+# Vanduo Framework v1.0.3
 
 **Essential just like water is.** 
 
-- **Pure HTML, CSS, JS** — just peace of mind and clarity.
-- **No libraries. No NPM. No build tools. No vulnerabilities. No nonsense.**
-- **FOSS now and forever.**
-
-
-## Built with ![Kilo Code](https://img.shields.io/badge/Kilo_Code-AI-F4ED14?style=for-the-badge&logo=lightning&logoColor=black&labelColor=black)
+- **Pure HTML, CSS, JS** 
+- **No third party dependencies**
+- **Free and open source.**
 
 ## Overview
 
@@ -56,8 +53,8 @@ Load directly from jsDelivr — no download required:
 
 **Pin to a specific version** (recommended for production):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.3/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.3/dist/vanduo.min.js"></script>
 ```
 
 ### Option 2: Download
@@ -116,7 +113,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 
 Comprehensive documentation for all components, utilities, and customization options is included in the project.
 
-[**View Documentation (documentation.html)**](documentation.html)
+[**View Documentation**](https://vanduo.dev/documentation.html)
 
 ### Key Capabilities
 
@@ -163,4 +160,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Color System**: [Open Color](https://yeun.github.io/open-color/) by Heeyeun Jeong (MIT License)
 - **Icons**: [Phosphor Icons](https://phosphoricons.com) (MIT License)
 
+---
+- **Made with Kilo Code(https://kilo.ai)**
+---
 Vanduo Framework - Built with ❤️ for the web.

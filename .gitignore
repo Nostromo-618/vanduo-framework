@@ -10,6 +10,7 @@ node_modules/
 
 # OS files
 .DS_Store
+plans/
 
 # Downloaded icon assets (use icons/ folder instead)
 /phosphor-icons
@@ -19,11 +20,8 @@ node_modules/
 # /images/twitter-card.png
 # /images/logo.png
 
-# Favicon files (generate from your brand assets)
-/favicon.ico
-/favicon-16x16.png
-/favicon-32x32.png
-/apple-touch-icon.png
+# Favicon - only favicon.svg is used
+# /favicon.svg is committed
 
 # Test related
 test-results/

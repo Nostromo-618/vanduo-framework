@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Select Component Test Fixture</h1>
+
+    <!-- Basic Select -->
+    <div class="form-group">
+      <label for="basic-select">Basic Select</label>
+      <select id="basic-select" class="custom-select-input">
+        <option value="">Choose an option...</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+    </div>
+
+    <!-- Select with Selected Value -->
+    <div class="form-group">
+      <label for="preselected-select">Preselected Select</label>
+      <select id="preselected-select" class="custom-select-input">
+        <option value="">Choose...</option>
+        <option value="a">Choice A</option>
+        <option value="b" selected>Choice B</option>
+        <option value="c">Choice C</option>
+      </select>
+    </div>
+
+    <!-- Select with Disabled Option -->
+    <div class="form-group">
+      <label for="disabled-option-select">Select with Disabled Option</label>
+      <select id="disabled-option-select" class="custom-select-input">
+        <option value="">Select...</option>
+        <option value="enabled">Enabled Option</option>
+        <option value="disabled" disabled>Disabled Option</option>
+        <option value="another">Another Option</option>
+      </select>
+    </div>
+
+    <!-- Searchable Select -->
+    <div class="form-group">
+      <label for="searchable-select">Searchable Select</label>
+      <select id="searchable-select" class="custom-select-input" data-searchable="true">
+        <option value="">Search options...</option>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="cherry">Cherry</option>
+        <option value="date">Date</option>
+        <option value="elderberry">Elderberry</option>
+      </select>
+    </div>
+
+    <!-- Multi Select -->
+    <div class="form-group">
+      <label for="multi-select">Multi Select</label>
+      <select id="multi-select" class="custom-select-input" multiple>
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="yellow">Yellow</option>
+      </select>
+    </div>
+
+    <!-- Select with Placeholder -->
+    <div class="form-group">
+      <label for="placeholder-select">Select with Placeholder</label>
+      <select id="placeholder-select" class="custom-select-input" data-placeholder="Custom placeholder text">
+        <option value="">Choose wisely...</option>
+        <option value="x">Option X</option>
+        <option value="y">Option Y</option>
+      </select>
+    </div>
+
+    <!-- Select for programmatic API testing -->
+    <div class="form-group">
+      <label for="api-select">API Test Select</label>
+      <select id="api-select" class="custom-select-input">
+        <option value="">API Test...</option>
+        <option value="opt1">API Option 1</option>
+        <option value="opt2">API Option 2</option>
+        <option value="opt3">API Option 3</option>
+      </select>
+    </div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/select.js"></script>
+</body>
+</html>

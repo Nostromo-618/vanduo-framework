@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collapsible Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Collapsible Component Test Fixture</h1>
+
+    <!-- Basic Collapsible -->
+    <div class="collapsible" id="basic-collapsible">
+      <div class="collapsible-item">
+        <div class="collapsible-header">Header 1</div>
+        <div class="collapsible-body">
+          <p>Content for item 1</p>
+        </div>
+      </div>
+      <div class="collapsible-item">
+        <div class="collapsible-header">Header 2</div>
+        <div class="collapsible-body">
+          <p>Content for item 2</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion (only one open at a time) -->
+    <div class="accordion" id="accordion-test">
+      <div class="accordion-item">
+        <div class="accordion-header">Accordion 1</div>
+        <div class="accordion-body">
+          <p>Accordion content 1</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Accordion 2</div>
+        <div class="accordion-body">
+          <p>Accordion content 2</p>
+        </div>
+      </div>
+      <div class="accordion-item is-open">
+        <div class="accordion-header">Accordion 3 (Open)</div>
+        <div class="accordion-body">
+          <p>Accordion content 3</p>
+        </div>
+      </div>
+    </div>
+
+    <button id="open-first" class="btn btn-primary">Open First</button>
+    <button id="close-first" class="btn btn-secondary">Close First</button>
+    <button id="toggle-first" class="btn btn-info">Toggle First</button>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/components/collapsible.js"></script>
+  <script>
+    document.getElementById('open-first').addEventListener('click', () => {
+      VanduoCollapsible.open('#basic-collapsible .collapsible-item:first-child');
+    });
+    document.getElementById('close-first').addEventListener('click', () => {
+      VanduoCollapsible.close('#basic-collapsible .collapsible-item:first-child');
+    });
+    document.getElementById('toggle-first').addEventListener('click', () => {
+      VanduoCollapsible.toggle('#basic-collapsible .collapsible-item:first-child');
+    });
+  </script>
+</body>
+</html>

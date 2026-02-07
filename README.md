@@ -1,4 +1,4 @@
-# Vanduo Framework v1.0.3
+# Vanduo Framework v1.0.4
 
 **Essential just like water is.** 
 
@@ -53,8 +53,8 @@ Load directly from jsDelivr — no download required:
 
 **Pin to a specific version** (recommended for production):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.3/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.3/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.4/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.4/dist/vanduo.min.js"></script>
 ```
 
 ### Option 2: Download

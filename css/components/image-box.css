@@ -1,0 +1,279 @@
+/**
+ * Vanduo Framework - Image Box Component
+ * Lightbox-style image enlargement with smooth transitions
+ */
+
+:root {
+  /* Image Box Colors */
+  --image-box-backdrop-bg: rgba(0, 0, 0, 0.9);
+  --image-box-backdrop-blur: 8px;
+
+  /* Image Box Transitions (Fibonacci-inspired timing) */
+  --image-box-transition-duration: 0.3s;
+  --image-box-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Image Box Z-index */
+  --image-box-z-index: 2000;
+
+  /* Image Box Padding */
+  --image-box-padding: 21px;
+  /* Fibonacci number */
+
+  /* Image Box Scale */
+  --image-box-scale-start: 0.9;
+  --image-box-scale-end: 1;
+
+  /* Image Box Max Size */
+  --image-box-max-width: 50vw;
+  --image-box-max-height: 50vh;
+}
+
+/* Broken Image Handling for Triggers */
+.image-box-trigger {
+  position: relative;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+/* Hide broken image alt text and show styled placeholder */
+.image-box-trigger.is-broken {
+  /* Gradient background for placeholder */
+  background: linear-gradient(135deg,
+      var(--bg-tertiary, rgba(128, 128, 128, 0.1)) 0%,
+      var(--bg-secondary, rgba(128, 128, 128, 0.15)) 100%);
+  border: 1px dashed var(--border-color, rgba(128, 128, 128, 0.3));
+
+  /* Center the icon using background image */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23888888' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H216v94.75l-24.29-24.29a16,16,0,0,0-22.63,0L144,151.51l-25.38-25.38a16,16,0,0,0-22.62,0L40,182.12V56Z'/%3E%3Ccircle cx='100' cy='108' r='20'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px 32px;
+
+  /* Hide the broken image icon and alt text */
+  color: transparent;
+  overflow: hidden;
+}
+
+/* Image Box Trigger - Images that can be enlarged */
+.image-box-trigger {
+  cursor: zoom-in;
+  transition: transform var(--image-box-transition-duration) var(--image-box-transition-easing),
+    box-shadow var(--image-box-transition-duration) var(--image-box-transition-easing);
+}
+
+.image-box-trigger:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Image Box Backdrop */
+.image-box-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: var(--image-box-z-index);
+  background-color: var(--image-box-backdrop-bg);
+  backdrop-filter: blur(var(--image-box-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--image-box-backdrop-blur));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--image-box-transition-duration) var(--image-box-transition-easing),
+    visibility var(--image-box-transition-duration) var(--image-box-transition-easing);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--image-box-padding);
+}
+
+.image-box-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Image Box Container */
+.image-box-container {
+  position: relative;
+  max-width: var(--image-box-max-width);
+  max-height: var(--image-box-max-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(var(--image-box-scale-start));
+  opacity: 0;
+  transition: transform var(--image-box-transition-duration) var(--image-box-transition-easing),
+    opacity var(--image-box-transition-duration) var(--image-box-transition-easing);
+}
+
+.image-box-backdrop.is-visible .image-box-container {
+  transform: scale(var(--image-box-scale-end));
+  opacity: 1;
+}
+
+/* Image Box Image */
+.image-box-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--btn-border-radius);
+  box-shadow: var(--shadow-2xl);
+  cursor: zoom-out;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Image Box Close Button (optional) */
+.image-box-close {
+  position: absolute;
+  top: 21px;
+  right: 21px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-duration-fast) var(--transition-ease),
+    transform var(--transition-duration-fast) var(--transition-ease);
+  z-index: calc(var(--image-box-z-index) + 1);
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.image-box-backdrop.is-visible .image-box-close {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.image-box-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.image-box-close:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Image Box Caption */
+.image-box-caption {
+  position: absolute;
+  bottom: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--color-white);
+  padding: 8px 16px;
+  border-radius: var(--btn-border-radius);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  max-width: 80%;
+  opacity: 0;
+  transition: opacity var(--image-box-transition-duration) var(--image-box-transition-easing);
+}
+
+.image-box-backdrop.is-visible .image-box-caption {
+  opacity: 1;
+  transition-delay: 0.15s;
+}
+
+/* Body scroll lock when Image Box is open */
+.body-image-box-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+  .image-box-trigger,
+  .image-box-backdrop,
+  .image-box-container,
+  .image-box-close,
+  .image-box-caption {
+    transition: none;
+  }
+
+  .image-box-trigger:hover {
+    transform: none;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767.98px) {
+  :root {
+    --image-box-padding: 13px;
+    --image-box-max-width: 90vw;
+    --image-box-max-height: 80vh;
+  }
+
+  .image-box-close {
+    top: 13px;
+    right: 13px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+/* Gallery Grid Support */
+.image-box-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 13px;
+  margin-top: 21px;
+}
+
+.image-box-gallery .image-box-trigger {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, outline 0.15s ease;
+}
+
+/* Active/selected state for gallery thumbnails */
+.image-box-gallery .image-box-trigger.is-active,
+.image-box-gallery .image-box-trigger[aria-selected="true"] {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Keyboard focus for gallery thumbnails */
+.image-box-gallery .image-box-trigger:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Portrait orientation gallery item */
+.image-box-gallery .image-box-trigger[data-orientation="portrait"] {
+  aspect-ratio: 3 / 4;
+}
+
+/* Loading State */
+.image-box-trigger.is-loading {
+  background: var(--bg-secondary);
+  animation: image-box-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes image-box-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}

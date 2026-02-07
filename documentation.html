@@ -115,10 +115,15 @@
         section {
             padding: 4rem 0;
             scroll-margin-top: 80px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         section:first-of-type {
             padding-top: 2rem;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
         }
 
         /* Component demo cards */
@@ -127,9 +132,24 @@
         }
 
         .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-primary);
+            font-size: 1.75rem;
+        }
+
+        .demo-title i {
+            font-size: 1.25em;
+            color: var(--color-primary);
+        }
+
+        .demo-title code {
+            font-size: 0.5em;
+            vertical-align: middle;
+            margin-left: auto;
         }
 
         /* Code examples */
@@ -327,18 +347,13 @@
                     <div class="doc-search">
                         <div class="doc-search-input-wrapper">
                             <i class="ph ph-magnifying-glass doc-search-icon"></i>
-                            <input
-                                type="search"
-                                class="doc-search-input"
-                                placeholder="Search docs..."
-                                aria-label="Search documentation"
-                                aria-controls="doc-search-results-list"
-                                aria-expanded="false"
-                                autocomplete="off"
-                            >
+                            <input type="search" class="doc-search-input" placeholder="Search docs..."
+                                aria-label="Search documentation" aria-controls="doc-search-results-list"
+                                aria-expanded="false" autocomplete="off">
                             <kbd class="doc-search-shortcut">⌘K</kbd>
                         </div>
-                        <div class="doc-search-results" id="doc-search-results-list" role="listbox" aria-label="Search results"></div>
+                        <div class="doc-search-results" id="doc-search-results-list" role="listbox"
+                            aria-label="Search results"></div>
                     </div>
 
                     <button class="doc-sidebar-toggle" aria-label="Toggle navigation">Table of Contents</button>
@@ -381,6 +396,9 @@
                             <li><a href="#preloader" class="doc-nav-link">Preloader</a></li>
                             <li><a href="#button-groups" class="doc-nav-link">Button Groups</a></li>
 
+                            <li class="doc-nav-section">Media</li>
+                            <li><a href="#image-box" class="doc-nav-link">Image Box</a></li>
+
                             <li class="doc-nav-section">Meta</li>
                             <li><a href="changelog.html" class="doc-nav-link">Changelog</a></li>
                         </ul>
@@ -390,8 +408,8 @@
                 <!-- Content area -->
                 <div class="col-12 col-lg-9 doc-content">
                     <section id="getting-started">
-                        <h2 class="demo-title">Getting Started <code class="text-sm"
-                                                style="font-weight: normal; vertical-align: middle;">v1.0.3</code></h2>
+                        <h2 class="demo-title"><i class="ph ph-rocket-launch"></i>Getting Started <code
+                                class="text-sm">v1.0.4</code></h2>
 
                         <div class="row">
                             <div class="col-12 mb-4">
@@ -614,7 +632,7 @@ Vanduo.components.toast.show({
 
                     <!-- Icons Section -->
                     <section id="icons">
-                        <h2 class="demo-title">Icons</h2>
+                        <h2 class="demo-title"><i class="ph ph-images"></i>Icons</h2>
                         <p class="mb-8">Vanduo includes <a href="https://phosphoricons.com" target="_blank"
                                 rel="noopener"><strong>Phosphor Icons</strong></a> — a flexible icon family with 1,500+
                             icons in
@@ -810,7 +828,7 @@ Vanduo.components.toast.show({
 
                     <!-- Color Palette Section -->
                     <section id="color-palette">
-                        <h2 class="demo-title">Color Palette</h2>
+                        <h2 class="demo-title"><i class="ph ph-palette"></i>Color Palette</h2>
                         <p class="mb-8">Vanduo uses the <a href="https://yeun.github.io/open-color/" target="_blank"
                                 rel="noopener"><strong>Open Color</strong></a> palette (MIT License) — a battle-tested,
                             accessible color system with 10-step scales for each hue. Perfect for the "no-build"
@@ -1345,7 +1363,7 @@ Vanduo.components.toast.show({
 
                     <!-- Typography Section -->
                     <section id="typography">
-                        <h2 class="demo-title">Typography</h2>
+                        <h2 class="demo-title"><i class="ph ph-text-aa"></i>Typography</h2>
 
                         <div class="row">
                             <div class="col-12">
@@ -1354,26 +1372,36 @@ Vanduo.components.toast.show({
                                         <h3>Font Families</h3>
                                     </div>
                                     <div class="card-body">
-                                        <p class="mb-5">Vanduo includes <strong>10 carefully selected font families</strong>, all self-hosted for privacy and performance. No external font dependencies or Google Fonts requests.</p>
+                                        <p class="mb-5">Vanduo includes <strong>10 carefully selected font
+                                                families</strong>, all self-hosted for privacy and performance. No
+                                            external font dependencies or Google Fonts requests.</p>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <h4 class="mb-3">Original Fonts</h4>
                                                 <ul class="mb-5">
-                                                    <li><strong>Inter</strong> — Modern, clean sans-serif by Rasmus Andersson</li>
-                                                    <li><strong>Source Sans 3</strong> — Adobe's versatile sans-serif</li>
+                                                    <li><strong>Inter</strong> — Modern, clean sans-serif by Rasmus
+                                                        Andersson</li>
+                                                    <li><strong>Source Sans 3</strong> — Adobe's versatile sans-serif
+                                                    </li>
                                                     <li><strong>Fira Sans</strong> — Mozilla's readable sans-serif</li>
-                                                    <li><strong>IBM Plex Sans</strong> — Professional, complete font family</li>
-                                                    <li><strong>JetBrains Mono</strong> — Monospace font optimized for code</li>
+                                                    <li><strong>IBM Plex Sans</strong> — Professional, complete font
+                                                        family</li>
+                                                    <li><strong>JetBrains Mono</strong> — Monospace font optimized for
+                                                        code</li>
                                                 </ul>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <h4 class="mb-3">Google Fonts Collection</h4>
                                                 <ul class="mb-5">
-                                                    <li><strong>Ubuntu</strong> — Humanist sans-serif, friendly and approachable</li>
-                                                    <li><strong>Open Sans</strong> — Neutral sans-serif, highly readable</li>
-                                                    <li><strong>Rubik</strong> — Geometric sans-serif, modern and distinctive</li>
-                                                    <li><strong>Titillium Web</strong> — Technical, elegant sans-serif</li>
+                                                    <li><strong>Ubuntu</strong> — Humanist sans-serif, friendly and
+                                                        approachable</li>
+                                                    <li><strong>Open Sans</strong> — Neutral sans-serif, highly readable
+                                                    </li>
+                                                    <li><strong>Rubik</strong> — Geometric sans-serif, modern and
+                                                        distinctive</li>
+                                                    <li><strong>Titillium Web</strong> — Technical, elegant sans-serif
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1387,13 +1415,18 @@ Vanduo.components.toast.show({
 &lt;button data-theme-customizer-trigger&gt;
     &lt;i class="ph ph-paint-roller"&gt;&lt;/i&gt;
 &lt;/button&gt;</code></pre>
-                                        <p class="text-sm text-muted mt-3">Font preference is persisted to <code>localStorage</code> and restored on page load.</p>
+                                        <p class="text-sm text-muted mt-3">Font preference is persisted to
+                                            <code>localStorage</code> and restored on page load.
+                                        </p>
 
                                         <h4 class="mt-5 mb-3">Adding More Google Fonts</h4>
                                         <p>Need more fonts? You have two options:</p>
 
                                         <h5 class="mb-2">Option 1: Self-Host (Recommended)</h5>
-                                        <p class="text-sm">Download fonts from <a href="https://fonts.google.com/" target="_blank" rel="noopener">Google Fonts</a> and add them to your <code>fonts/</code> folder. Follow the same pattern as existing fonts:</p>
+                                        <p class="text-sm">Download fonts from <a href="https://fonts.google.com/"
+                                                target="_blank" rel="noopener">Google Fonts</a> and add them to your
+                                            <code>fonts/</code> folder. Follow the same pattern as existing fonts:
+                                        </p>
                                         <pre class="code-example"><code>1. Create folder: fonts/my-font/
 2. Add woff2 files
 3. Add @font-face rules to css/core/fonts.css
@@ -1401,7 +1434,8 @@ Vanduo.components.toast.show({
 5. Register in js/components/font-switcher.js</code></pre>
 
                                         <h5 class="mb-2 mt-4">Option 2: Google Fonts CDN</h5>
-                                        <p class="text-sm">For quick prototyping, use Google Fonts CDN link in your HTML head:</p>
+                                        <p class="text-sm">For quick prototyping, use Google Fonts CDN link in your HTML
+                                            head:</p>
                                         <pre class="code-example"><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
 &lt;link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"&gt;
 
@@ -1503,7 +1537,7 @@ Vanduo.components.toast.show({
 
                     <!-- Grid System Section -->
                     <section id="grid-system">
-                        <h2 class="demo-title">Grid System</h2>
+                        <h2 class="demo-title"><i class="ph ph-grid-four"></i>Grid System</h2>
                         <p class="mb-8">A comprehensive 12-column flexbox grid with Fibonacci/Golden Ratio proportional
                             layouts,
                             responsive containers, order utilities, and an interactive toggle between standard and
@@ -1923,7 +1957,7 @@ Vanduo.components.toast.show({
 
                     <!-- Golden Ratio Grid Section -->
                     <section id="golden-ratio">
-                        <h2 class="demo-title">Golden Ratio Grid</h2>
+                        <h2 class="demo-title"><i class="ph ph-spiral"></i>Golden Ratio Grid</h2>
                         <p class="mb-8">This framework uses the <strong>Fibonacci sequence</strong> and <strong>Golden
                                 Ratio
                                 (phi = 1.618)</strong> as its proportional foundation. Spacing, typography, component
@@ -2058,8 +2092,9 @@ Vanduo.components.toast.show({
 
                     <!-- Shadows & Glow Section -->
                     <section id="shadows-glow">
-                        <h2 class="demo-title">Shadows & Glow</h2>
-                        <p class="mb-8">Vanduo provides a comprehensive shadow system based on Fibonacci proportions, plus
+                        <h2 class="demo-title"><i class="ph ph-sun"></i>Shadows & Glow</h2>
+                        <p class="mb-8">Vanduo provides a comprehensive shadow system based on Fibonacci proportions,
+                            plus
                             glow effects for interactive elements. Shadows create depth and visual hierarchy, while glow
                             effects add emphasis on hover.</p>
 
@@ -2074,18 +2109,29 @@ Vanduo.components.toast.show({
                                         <div class="d-flex flex-col gap-3">
                                             <div class="p-3 rounded-md shadow-none border"
                                                 style="background: var(--bg-primary);"><code>.shadow-none</code></div>
-                                            <div class="p-3 rounded-md shadow-sm" style="background: var(--bg-primary);">
-                                                <code>.shadow-sm</code></div>
+                                            <div class="p-3 rounded-md shadow-sm"
+                                                style="background: var(--bg-primary);">
+                                                <code>.shadow-sm</code>
+                                            </div>
                                             <div class="p-3 rounded-md shadow" style="background: var(--bg-primary);">
-                                                <code>.shadow</code></div>
-                                            <div class="p-3 rounded-md shadow-md" style="background: var(--bg-primary);">
-                                                <code>.shadow-md</code></div>
-                                            <div class="p-3 rounded-md shadow-lg" style="background: var(--bg-primary);">
-                                                <code>.shadow-lg</code></div>
-                                            <div class="p-3 rounded-md shadow-xl" style="background: var(--bg-primary);">
-                                                <code>.shadow-xl</code></div>
-                                            <div class="p-3 rounded-md shadow-2xl" style="background: var(--bg-primary);">
-                                                <code>.shadow-2xl</code></div>
+                                                <code>.shadow</code>
+                                            </div>
+                                            <div class="p-3 rounded-md shadow-md"
+                                                style="background: var(--bg-primary);">
+                                                <code>.shadow-md</code>
+                                            </div>
+                                            <div class="p-3 rounded-md shadow-lg"
+                                                style="background: var(--bg-primary);">
+                                                <code>.shadow-lg</code>
+                                            </div>
+                                            <div class="p-3 rounded-md shadow-xl"
+                                                style="background: var(--bg-primary);">
+                                                <code>.shadow-xl</code>
+                                            </div>
+                                            <div class="p-3 rounded-md shadow-2xl"
+                                                style="background: var(--bg-primary);">
+                                                <code>.shadow-2xl</code>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2174,13 +2220,17 @@ Vanduo.components.toast.show({
                                         <p class="mb-3">Semantic color shadows for emphasis:</p>
                                         <div class="d-flex flex-col gap-3">
                                             <div class="p-3 rounded-md shadow-primary text-white bg-primary">
-                                                <code>.shadow-primary</code></div>
+                                                <code>.shadow-primary</code>
+                                            </div>
                                             <div class="p-3 rounded-md shadow-success text-white bg-success">
-                                                <code>.shadow-success</code></div>
+                                                <code>.shadow-success</code>
+                                            </div>
                                             <div class="p-3 rounded-md shadow-warning bg-warning">
-                                                <code>.shadow-warning</code></div>
+                                                <code>.shadow-warning</code>
+                                            </div>
                                             <div class="p-3 rounded-md shadow-error text-white bg-error">
-                                                <code>.shadow-error</code></div>
+                                                <code>.shadow-error</code>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2214,7 +2264,7 @@ Vanduo.components.toast.show({
 
                     <!-- Theme Customizer Section -->
                     <section id="theme-customizer">
-                        <h2 class="demo-title">Theme Customizer</h2>
+                        <h2 class="demo-title"><i class="ph ph-paint-roller"></i>Theme Customizer</h2>
                         <p class="mb-8">The Theme Customizer is a powerful component that allows users to personalize
                             the framework's appearance in real-time. It provides controls for primary color, neutral
                             color, border radius, font family, and color mode (light/dark/system).</p>
@@ -2447,7 +2497,8 @@ customizer.reset();</code></pre>
                                                     <tr>
                                                         <td><code>data-font</code></td>
                                                         <td><code>jetbrains-mono</code>, <code>inter</code>,
-                                                            <code>fira-sans</code>, <code>ubuntu</code>, <code>open-sans</code>,
+                                                            <code>fira-sans</code>, <code>ubuntu</code>,
+                                                            <code>open-sans</code>,
                                                             <code>rubik</code>, <code>titillium-web</code>
                                                         </td>
                                                         <td>Sets <code>--font-family-base</code></td>
@@ -2531,7 +2582,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                     <!-- Buttons Section -->
                     <section id="buttons">
-                        <h2 class="demo-title">Buttons</h2>
+                        <h2 class="demo-title"><i class="ph ph-cursor-click"></i>Buttons</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -2665,7 +2716,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                     <!-- Forms Section -->
                     <section id="forms">
-                        <h2 class="demo-title">Forms</h2>
+                        <h2 class="demo-title"><i class="ph ph-textbox"></i>Forms</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -2808,7 +2859,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                     <!-- Cards Section -->
                     <section id="cards">
-                        <h2 class="demo-title">Cards</h2>
+                        <h2 class="demo-title"><i class="ph ph-rectangle"></i>Cards</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-4">
@@ -2859,15 +2910,20 @@ document.addEventListener('themeCustomizer:reset', () => {
                             <div class="col-12">
                                 <div class="card card-glow demo-card mb-8">
                                     <div class="card-header">
-                                        <h3><i class="ph ph-sparkle mr-2" style="color: var(--color-primary);"></i>Card Glow Effect</h3>
+                                        <h3><i class="ph ph-sparkle mr-2" style="color: var(--color-primary);"></i>Card
+                                            Glow Effect</h3>
                                     </div>
                                     <div class="card-body">
-                                        <p class="mb-5">Add a gentle glow effect to any card with the <code>.card-glow</code> class. On hover, cards emit a soft primary-colored glow using CSS box-shadow.</p>
+                                        <p class="mb-5">Add a gentle glow effect to any card with the
+                                            <code>.card-glow</code> class. On hover, cards emit a soft primary-colored
+                                            glow using CSS box-shadow.
+                                        </p>
                                         <pre class="code-example"><code>&lt;!-- Card with glow effect on hover --&gt;
 &lt;div class="card card-glow"&gt;
   &lt;div class="card-body"&gt;Hover over this card&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-                                        <p class="mt-5 text-sm text-muted"><strong>Tip:</strong> The glow color adapts to your theme's primary color. Works beautifully with dark mode too!</p>
+                                        <p class="mt-5 text-sm text-muted"><strong>Tip:</strong> The glow color adapts
+                                            to your theme's primary color. Works beautifully with dark mode too!</p>
                                     </div>
                                 </div>
                             </div>
@@ -2932,7 +2988,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                     <!-- Navigation Components Section -->
                     <section id="navigation">
-                        <h2 class="demo-title">Navigation Components</h2>
+                        <h2 class="demo-title"><i class="ph ph-compass"></i>Navigation Components</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -2991,7 +3047,7 @@ document.addEventListener('themeCustomizer:reset', () => {
 
                     <!-- Interactive Components Section -->
                     <section id="interactive">
-                        <h2 class="demo-title">Interactive Components</h2>
+                        <h2 class="demo-title"><i class="ph ph-hand-pointing"></i>Interactive Components</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3205,7 +3261,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Collections Section -->
                     <section id="collections">
-                        <h2 class="demo-title">Collections</h2>
+                        <h2 class="demo-title"><i class="ph ph-list"></i>Collections</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3277,11 +3333,46 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>&lt;!-- Basic Collection --&gt;
+&lt;ul class="collection"&gt;
+  &lt;li class="collection-item"&gt;
+    &lt;div class="collection-content"&gt;
+      &lt;div class="collection-title"&gt;Item Title&lt;/div&gt;
+      &lt;div class="collection-subtitle"&gt;Subtitle&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- With Avatar --&gt;
+&lt;ul class="collection"&gt;
+  &lt;li class="collection-item"&gt;
+    &lt;div class="collection-avatar"&gt;JD&lt;/div&gt;
+    &lt;div class="collection-content"&gt;
+      &lt;div class="collection-title"&gt;John Doe&lt;/div&gt;
+      &lt;div class="collection-subtitle"&gt;Role&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="collection-action"&gt;
+      &lt;button class="btn btn-sm btn-outline"&gt;View&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- Tables Section -->
                     <section id="tables">
-                        <h2 class="demo-title">Tables</h2>
+                        <h2 class="demo-title"><i class="ph ph-table"></i>Tables</h2>
 
                         <div class="row">
                             <div class="col-12">
@@ -3400,7 +3491,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Badges Section -->
                     <section id="badges">
-                        <h2 class="demo-title">Badges</h2>
+                        <h2 class="demo-title"><i class="ph ph-seal"></i>Badges</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3434,11 +3525,38 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>&lt;!-- Badge Variants --&gt;
+&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge badge-secondary"&gt;Secondary&lt;/span&gt;
+&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge-error"&gt;Error&lt;/span&gt;
+&lt;span class="badge badge-info"&gt;Info&lt;/span&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;span class="badge badge-primary badge-sm"&gt;Small&lt;/span&gt;
+&lt;span class="badge badge-primary"&gt;Default&lt;/span&gt;
+&lt;span class="badge badge-primary badge-lg"&gt;Large&lt;/span&gt;
+
+&lt;!-- Pill Style --&gt;
+&lt;span class="badge badge-primary badge-pill"&gt;Pill Badge&lt;/span&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- Alerts Section -->
                     <section id="alerts">
-                        <h2 class="demo-title">Alerts</h2>
+                        <h2 class="demo-title"><i class="ph ph-warning"></i>Alerts</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3533,7 +3651,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Chips Section -->
                     <section id="chips">
-                        <h2 class="demo-title">Chips & Tags</h2>
+                        <h2 class="demo-title"><i class="ph ph-tag"></i>Chips & Tags</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3594,11 +3712,35 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>&lt;!-- Chip Variants --&gt;
+&lt;span class="chip chip-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="chip chip-success"&gt;Success&lt;/span&gt;
+&lt;span class="chip chip-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="chip chip-error"&gt;Error&lt;/span&gt;
+&lt;span class="chip chip-info"&gt;Info&lt;/span&gt;
+
+&lt;!-- Dismissible Chip --&gt;
+&lt;span class="chip chip-primary chip-dismissible"&gt;
+  Removable
+  &lt;button type="button" class="chip-close" aria-label="Remove"&gt;&lt;/button&gt;
+&lt;/span&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- Avatars Section -->
                     <section id="avatars">
-                        <h2 class="demo-title">Avatars</h2>
+                        <h2 class="demo-title"><i class="ph ph-user-circle"></i>Avatars</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3665,11 +3807,43 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>&lt;!-- Avatar Sizes --&gt;
+&lt;span class="avatar avatar-xs"&gt;XS&lt;/span&gt;
+&lt;span class="avatar avatar-sm"&gt;SM&lt;/span&gt;
+&lt;span class="avatar"&gt;MD&lt;/span&gt;
+&lt;span class="avatar avatar-lg"&gt;LG&lt;/span&gt;
+&lt;span class="avatar avatar-xl"&gt;XL&lt;/span&gt;
+&lt;span class="avatar avatar-2xl"&gt;2XL&lt;/span&gt;
+
+&lt;!-- With Status --&gt;
+&lt;span class="avatar avatar-status-online"&gt;JD&lt;/span&gt;
+&lt;span class="avatar avatar-status-offline"&gt;AB&lt;/span&gt;
+&lt;span class="avatar avatar-status-busy"&gt;CD&lt;/span&gt;
+&lt;span class="avatar avatar-status-away"&gt;EF&lt;/span&gt;
+
+&lt;!-- Avatar Group --&gt;
+&lt;div class="avatar-group"&gt;
+  &lt;span class="avatar"&gt;A&lt;/span&gt;
+  &lt;span class="avatar"&gt;B&lt;/span&gt;
+  &lt;span class="avatar"&gt;+5&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <!-- Skeleton Section -->
                     <section id="skeleton">
-                        <h2 class="demo-title">Skeleton Loaders</h2>
+                        <h2 class="demo-title"><i class="ph ph-spinner"></i>Skeleton Loaders</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3712,11 +3886,39 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                 </div>
                             </div>
                         </div>
-                    </section>
 
-                    <!-- Tabs Section -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>&lt;!-- Text Skeleton --&gt;
+&lt;div class="skeleton skeleton-text" style="width: 100%;"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-text" style="width: 80%;"&gt;&lt;/div&gt;
+
+&lt;!-- Circle Skeleton (avatars) --&gt;
+&lt;div class="skeleton skeleton-circle"&gt;&lt;/div&gt;
+
+&lt;!-- Rectangle Skeleton (images, cards) --&gt;
+&lt;div class="skeleton skeleton-rect" style="width: 100%; height: 100px;"&gt;&lt;/div&gt;
+
+&lt;!-- Card Skeleton Pattern --&gt;
+&lt;div class="d-flex gap-6"&gt;
+  &lt;div class="skeleton skeleton-circle"&gt;&lt;/div&gt;
+  &lt;div style="flex: 1;"&gt;
+    &lt;div class="skeleton skeleton-text" style="width: 60%;"&gt;&lt;/div&gt;
+    &lt;div class="skeleton skeleton-text" style="width: 40%;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     <section id="tabs">
-                        <h2 class="demo-title">Tabs</h2>
+                        <h2 class="demo-title"><i class="ph ph-tabs"></i>Tabs</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3814,7 +4016,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Toasts Section -->
                     <section id="toasts">
-                        <h2 class="demo-title">Toast Notifications</h2>
+                        <h2 class="demo-title"><i class="ph ph-bell-ringing"></i>Toast Notifications</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3860,7 +4062,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Preloader Section -->
                     <section id="preloader">
-                        <h2 class="demo-title">Preloader & Progress Bars</h2>
+                        <h2 class="demo-title"><i class="ph ph-circle-notch"></i>Preloader & Progress Bars</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -3998,7 +4200,7 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
                     <!-- Button Groups Section -->
                     <section id="button-groups">
-                        <h2 class="demo-title">Button Groups</h2>
+                        <h2 class="demo-title"><i class="ph ph-squares-four"></i>Button Groups</h2>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -4060,10 +4262,325 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                         </div>
                     </section>
 
+                    <!-- Image Box Section -->
+                    <section id="image-box">
+                        <h2 class="demo-title"><i class="ph ph-image"></i>Image Box</h2>
+                        <p class="mb-8">A smooth "lightbox" implementation for enlarging images. Supports dual-image
+                            mode with separate thumbnails and full-size images. When users click on an image, Image Box
+                            centers it and smoothly scales it up. Dismiss by clicking, pressing ESC, or scrolling away.
+                        </p>
+
+                        <!-- Gallery Demo with Dual Images -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3><i class="ph ph-image mr-2" style="color: var(--color-primary);"></i>Gallery
+                                            with Dual Images</h3>
+                                        <p class="text-sm text-muted mb-0">Thumbnail → Full-size on click</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-5">This gallery demonstrates the dual-image feature. Small
+                                            thumbnails are displayed, but clicking opens the full-resolution version.
+                                            Includes landscape and portrait orientations.</p>
+
+                                        <!-- Gallery Grid -->
+                                        <div class="image-box-gallery">
+                                            <!-- Alice and Mushroom -->
+                                            <img src="./images/alice-and-mushroom_small.jpg" alt="Alice and Mushroom"
+                                                class="image-box-trigger rounded-md shadow" data-image-box
+                                                data-image-box-full-src="./images/alice-and-mushroom.jpg"
+                                                data-image-box-caption="Alice and the Mushroom - Digital Art"
+                                                tabindex="0" role="button"
+                                                aria-label="View Alice and Mushroom full image">
+
+                                            <!-- French Bulldog -->
+                                            <img src="./images/french-bulldog_small.jpg" alt="French Bulldog"
+                                                class="image-box-trigger rounded-md shadow" data-image-box
+                                                data-image-box-full-src="./images/french-bulldog.jpg"
+                                                data-image-box-caption="French Bulldog - Pet Photography" tabindex="0"
+                                                role="button" aria-label="View French Bulldog full image">
+
+                                            <!-- Mountains and Fog -->
+                                            <img src="./images/mountains-and-fog_small.jpg" alt="Mountains and Fog"
+                                                class="image-box-trigger rounded-md shadow" data-image-box
+                                                data-image-box-full-src="./images/mountains-and-fog.jpg"
+                                                data-image-box-caption="Mountains and Fog - Landscape Photography"
+                                                tabindex="0" role="button"
+                                                aria-label="View Mountains and Fog full image">
+
+                                            <!-- Portrait Orientation -->
+                                            <img src="./images/portrait-orientation_small.JPG"
+                                                alt="Portrait Orientation Demo"
+                                                class="image-box-trigger rounded-md shadow" data-image-box
+                                                data-image-box-full-src="./images/portrait-orientation.JPG"
+                                                data-image-box-caption="Portrait Orientation - Mobile Photo"
+                                                data-orientation="portrait" tabindex="0" role="button"
+                                                aria-label="View Portrait full image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Quick Start</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Add the <code>data-image-box</code> attribute to any image you want to make
+                                            enlargeable:</p>
+                                        <pre class="code-example"><code><!-- Single image (same src for thumbnail and full) -->
+<img src="./images/photo.jpg"
+     alt="Description"
+     data-image-box>
+
+<!-- Dual images (thumbnail + full-size) -->
+<img src="./images/photo-thumb.jpg"
+     alt="Description"
+     data-image-box
+     data-image-box-full-src="./images/photo-full.jpg"
+     data-image-box-caption="A beautiful photo">
+
+<!-- With caption only -->
+<img src="./images/photo.jpg"
+     alt="Description"
+     data-image-box
+     data-image-box-caption="A beautiful photo"></code></pre>
+                                        <p class="mt-5 text-sm text-muted">The component auto-initializes on page load.
+                                            No JavaScript setup required.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Features</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><strong>Dual Image Support:</strong> Use
+                                                <code>data-image-box-full-src</code> for separate thumbnail and
+                                                full-size images
+                                            </li>
+                                            <li><strong>Smooth Transitions:</strong> CSS-powered scale animation with
+                                                cubic-bezier easing</li>
+                                            <li><strong>Zoom Cursor:</strong> Magnifying glass icon on hover indicates
+                                                enlargement</li>
+                                            <li><strong>Multiple Close Methods:</strong> Click image, press ESC, or
+                                                scroll away</li>
+                                            <li><strong>Scroll Detection:</strong> Auto-closes when scrolling more than
+                                                50px</li>
+                                            <li><strong>Backdrop Blur:</strong> Beautiful frosted glass effect behind
+                                                enlarged image</li>
+                                            <li><strong>Captions:</strong> Optional captions with
+                                                <code>data-image-box-caption</code>
+                                            </li>
+                                            <li><strong>Accessible:</strong> Full keyboard navigation and ARIA
+                                                attributes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Gallery Grid</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-5">Create responsive image galleries using the
+                                            <code>.image-box-gallery</code> class. The grid automatically adjusts
+                                            columns based on available space.
+                                        </p>
+                                        <pre class="code-example"><code><!-- Gallery container -->
+<div class="image-box-gallery">
+  <!-- Each thumbnail opens its full-size version -->
+  <img src="./images/thumb1.jpg"
+       data-image-box
+       data-image-box-full-src="./images/full1.jpg"
+       data-image-box-caption="Image 1">
+  
+  <img src="./images/thumb2.jpg"
+       data-image-box
+       data-image-box-full-src="./images/full2.jpg"
+       data-image-box-caption="Image 2">
+  
+  <!-- Portrait orientation -->
+  <img src="./images/thumb3.jpg"
+       data-image-box
+       data-image-box-full-src="./images/full3.jpg"
+       data-orientation="portrait">
+</div></code></pre>
+                                        <p class="mt-5 text-sm text-muted">The gallery uses CSS Grid with auto-fit
+                                            columns (minimum 120px). Add <code>data-orientation="portrait"</code> for
+                                            3:4 aspect ratio images.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>JavaScript API</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre class="code-example"><code>// Access the component
+const imageBox = Vanduo.components.imageBox;
+
+// Open an image programmatically
+imageBox.open(document.querySelector('[data-image-box]'));
+
+// Close the image box
+imageBox.close();
+
+// Re-initialize after adding new images to DOM
+Vanduo.reinit('imageBox');
+
+// Destroy and clean up
+imageBox.destroy();</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>CSS Customization</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Override CSS variables to customize the appearance:</p>
+                                        <pre class="code-example"><code>:root {
+  /* Backdrop styling */
+  --image-box-backdrop-bg: rgba(0, 0, 0, 0.9);
+  --image-box-backdrop-blur: 8px;
+  
+  /* Animation duration */
+  --image-box-transition-duration: 0.3s;
+  
+  /* Max size of enlarged image (default: 50% of viewport) */
+  --image-box-max-width: 50vw;
+  --image-box-max-height: 50vh;
+}
+
+/* Gallery grid customization */
+.image-box-gallery {
+  gap: 21px; /* Increase spacing */
+}
+
+/* Active/selected thumbnail */
+.image-box-gallery .image-box-trigger.is-active {
+  outline: 3px solid var(--color-primary);
+  transform: scale(1.05);
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Data Attributes</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Attribute</th>
+                                                        <th>Type</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><code>data-image-box</code></td>
+                                                        <td>Boolean</td>
+                                                        <td>Enables Image Box functionality on the image</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><code>data-image-box-full-src</code></td>
+                                                        <td>String</td>
+                                                        <td>URL of full-size image to display in lightbox (optional,
+                                                            uses src if not set)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><code>data-image-box-src</code></td>
+                                                        <td>String</td>
+                                                        <td>Alternative source URL (fallback if full-src not set)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><code>data-image-box-caption</code></td>
+                                                        <td>String</td>
+                                                        <td>Caption displayed below the enlarged image</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><code>data-orientation</code></td>
+                                                        <td>String</td>
+                                                        <td>Use "portrait" for 3:4 aspect ratio gallery thumbnails</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-glow demo-card">
+                                    <div class="card-header">
+                                        <h3>Keyboard Shortcuts</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Key</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><kbd>Enter</kbd> / <kbd>Space</kbd></td>
+                                                        <td>Open Image Box (when image is focused)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><kbd>Escape</kbd></td>
+                                                        <td>Close Image Box</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><kbd>Scroll</kbd></td>
+                                                        <td>Close Image Box (when scrolled > 50px)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <!-- Search Section -->
                     <section id="search">
-                        <h2 class="demo-title">Search</h2>
-                        <p class="mb-8">A configurable client-side search component with keyboard navigation, debounced input, category grouping, and full accessibility support. Perfect for documentation sites, knowledge bases, or any content-heavy application.</p>
+                        <h2 class="demo-title"><i class="ph ph-magnifying-glass"></i>Search</h2>
+                        <p class="mb-8">A configurable client-side search component with keyboard navigation, debounced
+                            input, category grouping, and full accessibility support. Perfect for documentation sites,
+                            knowledge bases, or any content-heavy application.</p>
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -4094,7 +4611,9 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
 
 &lt;!-- JS --&gt;
 &lt;script src="js/components/doc-search.js"&gt;&lt;/script&gt;</code></pre>
-                                        <p class="mt-5 text-sm text-muted">The component auto-initializes on page load and indexes all <code>&lt;section&gt;</code> elements with <code>id</code> attributes.</p>
+                                        <p class="mt-5 text-sm text-muted">The component auto-initializes on page load
+                                            and indexes all <code>&lt;section&gt;</code> elements with <code>id</code>
+                                            attributes.</p>
                                     </div>
                                 </div>
                             </div>
@@ -4106,14 +4625,22 @@ item.<span class="code-function">classList</span>.<span class="code-function">re
                                     </div>
                                     <div class="card-body">
                                         <ul>
-                                            <li><strong>Keyboard Navigation:</strong> Arrow keys, Enter to select, Escape to close</li>
-                                            <li><strong>Keyboard Shortcut:</strong> <kbd>⌘K</kbd> (Mac) / <kbd>Ctrl+K</kbd> (Windows) to focus</li>
-                                            <li><strong>Debounced Input:</strong> 150ms delay prevents excessive searches</li>
-                                            <li><strong>Category Grouping:</strong> Results grouped by section with icons</li>
-                                            <li><strong>Highlight Matching:</strong> Search terms highlighted in results</li>
+                                            <li><strong>Keyboard Navigation:</strong> Arrow keys, Enter to select,
+                                                Escape to close</li>
+                                            <li><strong>Keyboard Shortcut:</strong> <kbd>⌘K</kbd> (Mac) /
+                                                <kbd>Ctrl+K</kbd> (Windows) to focus
+                                            </li>
+                                            <li><strong>Debounced Input:</strong> 150ms delay prevents excessive
+                                                searches</li>
+                                            <li><strong>Category Grouping:</strong> Results grouped by section with
+                                                icons</li>
+                                            <li><strong>Highlight Matching:</strong> Search terms highlighted in results
+                                            </li>
                                             <li><strong>ARIA Accessible:</strong> Full screen reader support</li>
                                             <li><strong>Dark Mode:</strong> Automatic theme adaptation</li>
-                                            <li><strong>Reduced Motion:</strong> Respects <code>prefers-reduced-motion</code></li>
+                                            <li><strong>Reduced Motion:</strong> Respects
+                                                <code>prefers-reduced-motion</code>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -4261,7 +4788,9 @@ const isOpen = search.isOpen;</code></pre>
         'default': 'ph-file-text'
     }
 });</code></pre>
-                                        <p class="mt-5 text-sm text-muted">Icons use Phosphor Icons classes. The <code>default</code> key is used for categories without a specific icon.</p>
+                                        <p class="mt-5 text-sm text-muted">Icons use Phosphor Icons classes. The
+                                            <code>default</code> key is used for categories without a specific icon.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -4418,6 +4947,7 @@ const isOpen = search.isOpen;</code></pre>
     <script src="./js/components/code-snippet.js"></script>
     <script src="./js/components/grid.js"></script>
     <script src="./js/components/doc-search.js"></script>
+    <script src="./js/components/image-box.js"></script>
 
     <script>
         ready(function () {

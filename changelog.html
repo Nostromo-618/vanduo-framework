@@ -227,14 +227,92 @@
     <main id="main-content" style="padding: 3rem 0;">
         <div class="container-responsive" style="max-width: 900px;">
 
-            <!-- Version 1.0.3 -->
+            <!-- Version 1.0.4 -->
             <article class="version-card">
                 <header class="version-header version-latest">
+                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.4</span>
+                    <span style="color: var(--text-secondary); font-size: 0.95rem;">
+                        <i class="ph ph-calendar mr-1"></i>February 7, 2026
+                    </span>
+                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
+                </header>
+                <div class="version-body">
+                    <!-- Improvements -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-info);">
+                            <i class="ph ph-arrow-up"></i> Improvements
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-image" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Image Box Dynamic Sizing</strong>
+                                    <p>Enlarged images now display with a maximum size of 50% of the viewport
+                                        (50vw/50vh) instead of filling the entire screen. Mobile breakpoints use
+                                        90vw/80vh for better usability on small screens.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-image-broken" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Broken Image Styling</strong>
+                                    <p>Added graceful fallback styling for broken or missing images. Broken images now
+                                        display with a subtle gradient background, dashed border, and centered image
+                                        icon instead of the browser's default broken image icon.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-secondary);">
+                            <i class="ph ph-book-open"></i> Documentation
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Image Box Placeholder Images</strong>
+                                    <p>Added 9 placeholder images for documentation code examples, eliminating 404
+                                        console errors. Placeholders feature dark theme with teal accents matching the
+                                        framework aesthetic.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Updated CSS Customization Docs</strong>
+                                    <p>Documentation now reflects the new default values for
+                                        <code>--image-box-max-width</code> (50vw) and
+                                        <code>--image-box-max-height</code> (50vh).
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-layout" style="color: var(--color-secondary);"></i>
+                                <div>
+                                    <strong>Documentation Page UX Improvements</strong>
+                                    <p>Added Phosphor icons to all 26 section headers for visual consistency with search
+                                        results.
+                                        Improved section spacing with uniform divider lines and primary-colored header
+                                        underlines.
+                                        Added code snippet examples to Collections, Badges, Chips, Avatars, and Skeleton
+                                        sections.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.0.3 -->
+            <article class="version-card">
+                <header class="version-header" style="background: var(--bg-secondary);">
                     <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.3</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>February 1, 2026
                     </span>
-                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
                 </header>
                 <div class="version-body">
                     <!-- New Features -->
@@ -247,14 +325,20 @@
                                 <i class="ph ph-text-aa" style="color: var(--color-primary);"></i>
                                 <div>
                                     <strong>Google Fonts Collection</strong>
-                                    <p>Added 4 new self-hosted Google Fonts: Ubuntu, Open Sans, Rubik, and Titillium Web. All fonts are privacy-friendly with no external requests. Total font collection now includes 10 fonts.</p>
+                                    <p>Added 4 new self-hosted Google Fonts: Ubuntu, Open Sans, Rubik, and Titillium
+                                        Web. All fonts are privacy-friendly with no external requests. Total font
+                                        collection now includes 10 fonts.</p>
                                 </div>
                             </li>
                             <li class="change-item">
                                 <i class="ph ph-sparkle" style="color: var(--color-primary);"></i>
                                 <div>
                                     <strong>Card Glow Effect</strong>
-                                    <p>Added gentle glow effect to cards on hover with <code>.card-glow</code> class. The glow color dynamically adapts to the theme's primary color via Theme Customizer. Includes reusable glow utilities (<code>.hover-glow</code>, <code>.glow-success</code>, etc.) for any element.</p>
+                                    <p>Added gentle glow effect to cards on hover with <code>.card-glow</code> class.
+                                        The glow color dynamically adapts to the theme's primary color via Theme
+                                        Customizer. Includes reusable glow utilities (<code>.hover-glow</code>,
+                                        <code>.glow-success</code>, etc.) for any element.
+                                    </p>
                                 </div>
                             </li>
                         </ul>
@@ -270,7 +354,8 @@
                                 <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
                                 <div>
                                     <strong>Theme Customizer Font Options</strong>
-                                    <p>Updated Theme Customizer with all 10 font options in the font family dropdown.</p>
+                                    <p>Updated Theme Customizer with all 10 font options in the font family dropdown.
+                                    </p>
                                 </div>
                             </li>
                             <li class="change-item">
@@ -293,7 +378,8 @@
                                 <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
                                 <div>
                                     <strong>Typography Documentation</strong>
-                                    <p>Added comprehensive font families section to documentation with descriptions of all 10 available fonts.</p>
+                                    <p>Added comprehensive font families section to documentation with descriptions of
+                                        all 10 available fonts.</p>
                                 </div>
                             </li>
                         </ul>
@@ -320,7 +406,10 @@
                                 <i class="ph ph-magnifying-glass" style="color: var(--color-primary);"></i>
                                 <div>
                                     <strong>Search Component</strong>
-                                    <p>New client-side search with keyboard navigation (⌘K/Ctrl+K), debounced input, category grouping, and full ARIA accessibility. Includes <code>Search.create()</code> factory for custom instances.</p>
+                                    <p>New client-side search with keyboard navigation (⌘K/Ctrl+K), debounced input,
+                                        category grouping, and full ARIA accessibility. Includes
+                                        <code>Search.create()</code> factory for custom instances.
+                                    </p>
                                 </div>
                             </li>
                         </ul>
@@ -336,21 +425,26 @@
                                 <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
                                 <div>
                                     <strong>Search component refactored</strong>
-                                    <p>Refactored to be more generic and configurable with custom data sources, callbacks, and category icons.</p>
+                                    <p>Refactored to be more generic and configurable with custom data sources,
+                                        callbacks, and category icons.</p>
                                 </div>
                             </li>
                             <li class="change-item">
                                 <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
                                 <div>
                                     <strong>ReDoS protection</strong>
-                                    <p>Added protection against Regular Expression Denial of Service in search highlight function.</p>
+                                    <p>Added protection against Regular Expression Denial of Service in search highlight
+                                        function.</p>
                                 </div>
                             </li>
                             <li class="change-item">
                                 <i class="ph ph-check-circle" style="color: var(--color-info);"></i>
                                 <div>
                                     <strong>Enhanced ARIA attributes</strong>
-                                    <p>Added <code>aria-controls</code>, <code>aria-expanded</code>, and <code>role="listbox"</code> to search component for better screen reader support.</p>
+                                    <p>Added <code>aria-controls</code>, <code>aria-expanded</code>, and
+                                        <code>role="listbox"</code> to search component for better screen reader
+                                        support.
+                                    </p>
                                 </div>
                             </li>
                         </ul>
@@ -382,7 +476,8 @@
                                 <i class="ph ph-check-circle" style="color: var(--color-secondary);"></i>
                                 <div>
                                     <strong>Search component documentation</strong>
-                                    <p>Added comprehensive documentation for the Search component including quick start, configuration options, JavaScript API, and CSS customization.</p>
+                                    <p>Added comprehensive documentation for the Search component including quick start,
+                                        configuration options, JavaScript API, and CSS customization.</p>
                                 </div>
                             </li>
                         </ul>
@@ -419,7 +514,8 @@
                                 <div>
                                     <strong>Dark mode table styling</strong>
                                     <p>Tables now have proper dark mode backgrounds. Added
-                                        <code>[data-theme="dark"]</code> overrides for table variables.</p>
+                                        <code>[data-theme="dark"]</code> overrides for table variables.
+                                    </p>
                                 </div>
                             </li>
                             <li class="change-item">
@@ -427,7 +523,8 @@
                                 <div>
                                     <strong>Range slider track visibility</strong>
                                     <p>Range slider track is now visible in dark mode using
-                                        <code>--color-gray-400</code> for better contrast.</p>
+                                        <code>--color-gray-400</code> for better contrast.
+                                    </p>
                                 </div>
                             </li>
                         </ul>

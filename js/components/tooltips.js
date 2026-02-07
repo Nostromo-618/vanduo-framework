@@ -78,7 +78,7 @@
      */
     createTooltip: function (element) {
       const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip';
+      tooltip.className = 'vd-tooltip';
       tooltip.setAttribute('role', 'tooltip');
       tooltip.setAttribute('aria-hidden', 'true');
 
@@ -93,7 +93,7 @@
 
       if (htmlContent) {
         tooltip.innerHTML = this.sanitizeHtml(htmlContent);
-        tooltip.classList.add('tooltip-html');
+        tooltip.classList.add('vd-tooltip-html');
       } else if (textContent) {
         tooltip.textContent = textContent;
       }
@@ -101,16 +101,16 @@
       // Get placement
       const placement = element.dataset.tooltipPlacement || element.dataset.placement || 'top';
       tooltip.setAttribute('data-placement', placement);
-      tooltip.classList.add(`tooltip-${placement}`);
+      tooltip.classList.add(`vd-tooltip-${placement}`);
 
       // Get variant
       if (element.dataset.tooltipVariant) {
-        tooltip.classList.add(`tooltip-${element.dataset.tooltipVariant}`);
+        tooltip.classList.add(`vd-tooltip-${element.dataset.tooltipVariant}`);
       }
 
       // Get size
       if (element.dataset.tooltipSize) {
-        tooltip.classList.add(`tooltip-${element.dataset.tooltipSize}`);
+        tooltip.classList.add(`vd-tooltip-${element.dataset.tooltipSize}`);
       }
 
       // Get delay
@@ -252,10 +252,10 @@
         const { tooltip } = this.tooltips.get(el);
         if (isHtml) {
           tooltip.innerHTML = this.sanitizeHtml(content);
-          tooltip.classList.add('tooltip-html');
+          tooltip.classList.add('vd-tooltip-html');
         } else {
           tooltip.textContent = content;
-          tooltip.classList.remove('tooltip-html');
+          tooltip.classList.remove('vd-tooltip-html');
         }
       }
     },
@@ -319,4 +319,3 @@
   window.VanduoTooltips = Tooltips;
 
 })();
-

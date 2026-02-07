@@ -11,14 +11,14 @@
 }
 
 /* Base Parallax Container */
-.parallax {
+.vd-parallax {
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 
 /* Parallax Layer */
-.parallax-layer {
+.vd-parallax-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -30,31 +30,31 @@
 }
 
 /* Parallax Content */
-.parallax-content {
+.vd-parallax-content {
   position: relative;
   z-index: 1;
 }
 
 /* Parallax Speed Variants */
-.parallax-slow {
+.vd-parallax-slow {
   --parallax-speed: var(--parallax-speed-slow);
 }
 
-.parallax-medium {
+.vd-parallax-medium {
   --parallax-speed: var(--parallax-speed-medium);
 }
 
-.parallax-fast {
+.vd-parallax-fast {
   --parallax-speed: var(--parallax-speed-fast);
 }
 
 /* Parallax Direction */
-.parallax-horizontal .parallax-layer {
+.vd-parallax-horizontal .vd-parallax-layer {
   /* Horizontal parallax will be handled by JS */
 }
 
 /* Parallax Image */
-.parallax-image {
+.vd-parallax-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -62,7 +62,7 @@
 }
 
 /* Parallax Background */
-.parallax-bg {
+.vd-parallax-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,27 +75,27 @@
 }
 
 /* Parallax Container Heights (Fibonacci) */
-.parallax-sm {
+.vd-parallax-sm {
   min-height: 377px; /* fib */
 }
 
-.parallax-md {
+.vd-parallax-md {
   min-height: 610px; /* fib */
 }
 
-.parallax-lg {
+.vd-parallax-lg {
   min-height: 987px; /* fib */
 }
 
-.parallax-full {
+.vd-parallax-full {
   min-height: 100vh;
 }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  .parallax-layer,
-  .parallax-bg,
-  .parallax-image {
+  .vd-parallax-layer,
+  .vd-parallax-bg,
+  .vd-parallax-image {
     transform: none !important;
     will-change: auto;
   }
@@ -103,9 +103,9 @@
 
 /* Mobile Optimization (disable parallax on small screens) */
 @media (max-width: 767.98px) {
-  .parallax-disable-mobile .parallax-layer,
-  .parallax-disable-mobile .parallax-bg,
-  .parallax-disable-mobile .parallax-image {
+  .vd-parallax-disable-mobile .vd-parallax-layer,
+  .vd-parallax-disable-mobile .vd-parallax-bg,
+  .vd-parallax-disable-mobile .vd-parallax-image {
     transform: none !important;
     will-change: auto;
   }

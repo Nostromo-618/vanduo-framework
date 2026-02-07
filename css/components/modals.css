@@ -42,7 +42,7 @@
 }
 
 /* Modal Backdrop */
-.modal-backdrop {
+.vd-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -55,13 +55,13 @@
   pointer-events: none;
 }
 
-.modal-backdrop.is-visible {
+.vd-modal-backdrop.is-visible {
   opacity: 1;
   pointer-events: all;
 }
 
 /* Base Modal */
-.modal {
+.vd-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -76,7 +76,7 @@
   transition: var(--modal-transition);
 }
 
-.modal.is-open {
+.vd-modal.is-open {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@
 }
 
 /* Modal Dialog */
-.modal-dialog {
+.vd-modal-dialog {
   position: relative;
   width: auto;
   margin: 1.75rem auto;
@@ -95,12 +95,12 @@
   z-index: 1060;
 }
 
-.modal.is-open .modal-dialog {
+.vd-modal.is-open .vd-modal-dialog {
   transform: scale(1);
 }
 
 /* Modal Content */
-.modal-content {
+.vd-modal-content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -115,7 +115,7 @@
 }
 
 /* Modal Header */
-.modal-header {
+.vd-modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -125,7 +125,7 @@
   border-top-right-radius: calc(var(--btn-border-radius-lg) - 1px);
 }
 
-.modal-title {
+.vd-modal-title {
   margin-bottom: 0;
   line-height: var(--line-height-normal);
   font-size: var(--font-size-xl);
@@ -134,7 +134,7 @@
 }
 
 /* Modal Close Button */
-.modal-close {
+.vd-modal-close {
   padding: 0.5rem;
   margin: -0.5rem -0.5rem -0.5rem auto;
   background: transparent;
@@ -151,28 +151,28 @@
   user-select: none;
 }
 
-.modal-close:hover,
-.modal-close:focus {
+.vd-modal-close:hover,
+.vd-modal-close:focus {
   color: var(--text-primary);
   text-decoration: none;
   opacity: 0.75;
   outline: none;
 }
 
-.modal-close:focus {
+.vd-modal-close:focus {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 /* Modal Body */
-.modal-body {
+.vd-modal-body {
   position: relative;
   flex: 1 1 auto;
   padding: var(--modal-body-padding);
 }
 
 /* Modal Footer */
-.modal-footer {
+.vd-modal-footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -184,24 +184,24 @@
   gap: 0.5rem;
 }
 
-.modal-footer > * {
+.vd-modal-footer > * {
   margin: 0;
 }
 
 /* Modal Sizes */
-.modal-sm .modal-dialog {
+.vd-modal-sm .vd-modal-dialog {
   max-width: var(--modal-width-sm);
 }
 
-.modal-lg .modal-dialog {
+.vd-modal-lg .vd-modal-dialog {
   max-width: var(--modal-width-lg);
 }
 
-.modal-xl .modal-dialog {
+.vd-modal-xl .vd-modal-dialog {
   max-width: var(--modal-width-xl);
 }
 
-.modal-fullscreen .modal-dialog {
+.vd-modal-fullscreen .vd-modal-dialog {
   max-width: 100%;
   width: 100%;
   height: 100%;
@@ -209,31 +209,31 @@
   border-radius: 0;
 }
 
-.modal-fullscreen .modal-content {
+.vd-modal-fullscreen .vd-modal-content {
   height: 100%;
   border: 0;
   border-radius: 0;
 }
 
 /* Modal Positioning */
-.modal-top .modal-dialog {
+.vd-modal-top .vd-modal-dialog {
   margin-top: 0;
   margin-bottom: auto;
 }
 
-.modal-bottom .modal-dialog {
+.vd-modal-bottom .vd-modal-dialog {
   margin-top: auto;
   margin-bottom: 0;
 }
 
 /* Modal Scrollable */
-.modal-scrollable .modal-body {
+.vd-modal-scrollable .vd-modal-body {
   overflow-y: auto;
   max-height: calc(100vh - 200px);
 }
 
 /* Modal Centered */
-.modal-centered .modal-dialog {
+.vd-modal-centered .vd-modal-dialog {
   display: flex;
   align-items: center;
   min-height: calc(100% - 3.5rem);
@@ -241,19 +241,19 @@
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
-  .modal-dialog {
+  .vd-modal-dialog {
     margin: 0.5rem;
     max-width: calc(100% - 1rem);
   }
   
-  .modal-fullscreen-sm-down {
+  .vd-modal-fullscreen-sm-down {
     width: 100vw;
     max-width: 100vw;
     height: 100%;
     margin: 0;
   }
   
-  .modal-fullscreen-sm-down .modal-content {
+  .vd-modal-fullscreen-sm-down .vd-modal-content {
     height: 100%;
     border: 0;
     border-radius: 0;
@@ -261,19 +261,19 @@
 }
 
 /* Modal Animation Variants */
-.modal-fade .modal-dialog {
+.vd-modal-fade .vd-modal-dialog {
   transform: translateY(-50px);
 }
 
-.modal.is-open.modal-fade .modal-dialog {
+.vd-modal.is-open.vd-modal-fade .vd-modal-dialog {
   transform: translateY(0);
 }
 
-.modal-zoom .modal-dialog {
+.vd-modal-zoom .vd-modal-dialog {
   transform: scale(0.8);
 }
 
-.modal.is-open.modal-zoom .modal-dialog {
+.vd-modal.is-open.vd-modal-zoom .vd-modal-dialog {
   transform: scale(1);
 }
 

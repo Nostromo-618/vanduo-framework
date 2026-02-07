@@ -23,6 +23,7 @@
 }
 
 /* Base Table */
+.vd-table,
 .table {
   width: 100%;
   margin-bottom: 1rem;
@@ -31,6 +32,8 @@
   border-collapse: collapse;
 }
 
+.vd-table th,
+.vd-table td,
 .table th,
 .table td {
   padding: var(--table-padding-y) var(--table-padding-x);
@@ -38,6 +41,7 @@
   border-top: 1px solid var(--table-border-color);
 }
 
+.vd-table thead th,
 .table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid var(--table-border-color);
@@ -45,25 +49,35 @@
   color: var(--text-primary);
 }
 
+.vd-table tbody+tbody,
 .table tbody+tbody {
   border-top: 2px solid var(--table-border-color);
 }
 
 /* Table Variants */
+.vd-table-bordered,
 .table-bordered {
   border: 1px solid var(--table-border-color);
 }
 
+.vd-table-bordered th,
+.vd-table-bordered td,
 .table-bordered th,
 .table-bordered td {
   border: 1px solid var(--table-border-color);
 }
 
+.vd-table-bordered thead th,
+.vd-table-bordered thead td,
 .table-bordered thead th,
 .table-bordered thead td {
   border-bottom-width: 2px;
 }
 
+.vd-table-borderless th,
+.vd-table-borderless td,
+.vd-table-borderless thead th,
+.vd-table-borderless tbody+tbody,
 .table-borderless th,
 .table-borderless td,
 .table-borderless thead th,
@@ -71,26 +85,36 @@
   border: 0;
 }
 
+.vd-table-striped tbody tr:nth-of-type(odd),
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: var(--table-striped-bg);
 }
 
+.vd-table-hover tbody tr:hover,
 .table-hover tbody tr:hover {
   background-color: var(--table-hover-bg);
 }
 
+.vd-table-sm th,
+.vd-table-sm td,
 .table-sm th,
 .table-sm td {
   padding: var(--table-padding-y-sm) var(--table-padding-x-sm);
 }
 
 /* Table Cell States */
+.vd-table-active,
+.vd-table-active>th,
+.vd-table-active>td,
 .table-active,
 .table-active>th,
 .table-active>td {
   background-color: var(--table-active-bg);
 }
 
+.vd-table-primary,
+.vd-table-primary>th,
+.vd-table-primary>td,
 .table-primary,
 .table-primary>th,
 .table-primary>td {
@@ -98,6 +122,9 @@
   background-color: var(--color-primary);
 }
 
+.vd-table-secondary,
+.vd-table-secondary>th,
+.vd-table-secondary>td,
 .table-secondary,
 .table-secondary>th,
 .table-secondary>td {
@@ -105,6 +132,9 @@
   background-color: var(--color-secondary);
 }
 
+.vd-table-success,
+.vd-table-success>th,
+.vd-table-success>td,
 .table-success,
 .table-success>th,
 .table-success>td {
@@ -112,6 +142,9 @@
   background-color: var(--color-success);
 }
 
+.vd-table-warning,
+.vd-table-warning>th,
+.vd-table-warning>td,
 .table-warning,
 .table-warning>th,
 .table-warning>td {
@@ -119,6 +152,9 @@
   background-color: var(--color-warning);
 }
 
+.vd-table-error,
+.vd-table-error>th,
+.vd-table-error>td,
 .table-error,
 .table-error>th,
 .table-error>td {
@@ -126,6 +162,9 @@
   background-color: var(--color-error);
 }
 
+.vd-table-info,
+.vd-table-info>th,
+.vd-table-info>td,
 .table-info,
 .table-info>th,
 .table-info>td {
@@ -134,11 +173,13 @@
 }
 
 /* Table Sections */
+.vd-table-header,
 .table-header,
 thead {
   background-color: var(--bg-secondary);
 }
 
+.vd-table-header th,
 .table-header th,
 thead th {
   font-weight: var(--font-weight-semibold);
@@ -152,6 +193,7 @@ tbody {
   /* Default styling */
 }
 
+.vd-table-footer,
 .table-footer,
 tfoot {
   background-color: var(--bg-secondary);
@@ -159,6 +201,7 @@ tfoot {
 }
 
 /* Responsive Table Wrapper */
+.vd-table-responsive,
 .table-responsive {
   display: block;
   width: 100%;
@@ -166,12 +209,15 @@ tfoot {
   -webkit-overflow-scrolling: touch;
 }
 
+.vd-table-responsive>.vd-table,
+.vd-table-responsive>.table,
 .table-responsive>.table {
   margin-bottom: 0;
 }
 
 /* Responsive Breakpoints */
 @media (max-width: 575.98px) {
+  .vd-table-responsive-sm,
   .table-responsive-sm {
     display: block;
     width: 100%;
@@ -179,12 +225,15 @@ tfoot {
     -webkit-overflow-scrolling: touch;
   }
 
+  .vd-table-responsive-sm>.vd-table,
+  .vd-table-responsive-sm>.table,
   .table-responsive-sm>.table {
     margin-bottom: 0;
   }
 }
 
 @media (max-width: 767.98px) {
+  .vd-table-responsive-md,
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -192,12 +241,15 @@ tfoot {
     -webkit-overflow-scrolling: touch;
   }
 
+  .vd-table-responsive-md>.vd-table,
+  .vd-table-responsive-md>.table,
   .table-responsive-md>.table {
     margin-bottom: 0;
   }
 }
 
 @media (max-width: 991.98px) {
+  .vd-table-responsive-lg,
   .table-responsive-lg {
     display: block;
     width: 100%;
@@ -205,12 +257,15 @@ tfoot {
     -webkit-overflow-scrolling: touch;
   }
 
+  .vd-table-responsive-lg>.vd-table,
+  .vd-table-responsive-lg>.table,
   .table-responsive-lg>.table {
     margin-bottom: 0;
   }
 }
 
 @media (max-width: 1199.98px) {
+  .vd-table-responsive-xl,
   .table-responsive-xl {
     display: block;
     width: 100%;
@@ -218,32 +273,43 @@ tfoot {
     -webkit-overflow-scrolling: touch;
   }
 
+  .vd-table-responsive-xl>.vd-table,
+  .vd-table-responsive-xl>.table,
   .table-responsive-xl>.table {
     margin-bottom: 0;
   }
 }
 
 /* Dark Table Variant */
+.vd-table-dark,
 .table-dark {
   color: var(--color-white);
   background-color: var(--color-gray-800);
 }
 
+.vd-table-dark th,
+.vd-table-dark td,
+.vd-table-dark thead th,
 .table-dark th,
 .table-dark td,
 .table-dark thead th {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+.vd-table-dark.vd-table-striped tbody tr:nth-of-type(odd),
+.vd-table-dark.table-striped tbody tr:nth-of-type(odd),
 .table-dark.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+.vd-table-dark.vd-table-hover tbody tr:hover,
+.vd-table-dark.table-hover tbody tr:hover,
 .table-dark.table-hover tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.075);
 }
 
 /* Dark Mode Table Overrides */
+[data-theme="dark"] .vd-table,
 [data-theme="dark"] .table {
   --table-bg: var(--bg-primary);
   --table-border-color: var(--border-color);
@@ -254,26 +320,32 @@ tfoot {
   color: var(--text-primary);
 }
 
+[data-theme="dark"] .vd-table th,
+[data-theme="dark"] .vd-table td,
 [data-theme="dark"] .table th,
 [data-theme="dark"] .table td {
   border-color: var(--table-border-color);
 }
 
+[data-theme="dark"] .vd-table thead th,
 [data-theme="dark"] .table thead th {
   border-color: var(--table-border-color);
   color: var(--text-primary);
 }
 
+[data-theme="dark"] .vd-table-striped tbody tr:nth-of-type(odd),
 [data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
   background-color: var(--table-striped-bg);
 }
 
+[data-theme="dark"] .vd-table thead,
 [data-theme="dark"] thead {
   background-color: var(--bg-secondary);
 }
 
 /* Dark mode support for system preference */
 @media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .vd-table,
   :root:not([data-theme]) .table {
     --table-bg: var(--bg-primary);
     --table-border-color: var(--border-color);
@@ -284,20 +356,25 @@ tfoot {
     color: var(--text-primary);
   }
 
+  :root:not([data-theme]) .vd-table th,
+  :root:not([data-theme]) .vd-table td,
   :root:not([data-theme]) .table th,
   :root:not([data-theme]) .table td {
     border-color: var(--table-border-color);
   }
 
+  :root:not([data-theme]) .vd-table thead th,
   :root:not([data-theme]) .table thead th {
     border-color: var(--table-border-color);
     color: var(--text-primary);
   }
 
+  :root:not([data-theme]) .vd-table-striped tbody tr:nth-of-type(odd),
   :root:not([data-theme]) .table-striped tbody tr:nth-of-type(odd) {
     background-color: var(--table-striped-bg);
   }
 
+  :root:not([data-theme]) .vd-table thead,
   :root:not([data-theme]) thead {
     background-color: var(--bg-secondary);
   }

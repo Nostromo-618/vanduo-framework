@@ -39,7 +39,7 @@
 }
 
 /* Base Collapsible Container */
-.collapsible,
+.vd-collapsible,
 .accordion {
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
 }
 
 /* Collapsible Item */
-.collapsible-item,
+.vd-collapsible-item,
 .accordion-item {
   border: 1px solid var(--collapsible-border-color);
   border-radius: var(--btn-border-radius);
@@ -56,13 +56,13 @@
   background-color: var(--collapsible-bg);
 }
 
-.collapsible-item:last-child,
+.vd-collapsible-item:last-child,
 .accordion-item:last-child {
   margin-bottom: 0;
 }
 
 /* Collapsible Header */
-.collapsible-header,
+.vd-collapsible-header,
 .accordion-header {
   display: flex;
   align-items: center;
@@ -81,25 +81,25 @@
   color: var(--text-primary);
 }
 
-.collapsible-header:hover,
+.vd-collapsible-header:hover,
 .accordion-header:hover {
   background-color: var(--collapsible-header-bg-hover);
 }
 
-.collapsible-header:focus,
+.vd-collapsible-header:focus,
 .accordion-header:focus {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: -2px;
 }
 
-.collapsible-item.is-open .collapsible-header,
+.vd-collapsible-item.is-open .vd-collapsible-header,
 .accordion-item.is-open .accordion-header {
   background-color: var(--collapsible-header-bg-active);
   font-weight: var(--font-weight-semibold);
 }
 
 /* Collapsible Trigger */
-.collapsible-trigger,
+.vd-collapsible-trigger,
 .accordion-trigger {
   display: flex;
   align-items: center;
@@ -116,13 +116,13 @@
   cursor: pointer;
 }
 
-.collapsible-trigger:focus,
+.vd-collapsible-trigger:focus,
 .accordion-trigger:focus {
   outline: none;
 }
 
 /* Collapsible Icon */
-.collapsible-icon,
+.vd-collapsible-icon,
 .accordion-icon {
   display: inline-flex;
   align-items: center;
@@ -134,7 +134,7 @@
   transition: transform var(--transition-duration-base) var(--transition-ease);
 }
 
-.collapsible-icon::before,
+.vd-collapsible-icon::before,
 .accordion-icon::before {
   content: '▼';
   font-size: 0.75rem;
@@ -142,13 +142,13 @@
   transition: transform var(--transition-duration-base) var(--transition-ease);
 }
 
-.collapsible-item.is-open .collapsible-icon::before,
+.vd-collapsible-item.is-open .vd-collapsible-icon::before,
 .accordion-item.is-open .accordion-icon::before {
   transform: rotate(180deg);
 }
 
 /* Collapsible Body */
-.collapsible-body,
+.vd-collapsible-body,
 .accordion-body {
   max-height: 0;
   overflow: hidden;
@@ -156,7 +156,7 @@
   opacity: 0;
 }
 
-.collapsible-item.is-open .collapsible-body,
+.vd-collapsible-item.is-open .vd-collapsible-body,
 .accordion-item.is-open .accordion-body {
   max-height: 5000px;
   opacity: 1;
@@ -165,39 +165,39 @@
 }
 
 /* Collapsible Content */
-.collapsible-content,
+.vd-collapsible-content,
 .accordion-content {
   color: var(--text-primary);
   line-height: var(--line-height-normal);
 }
 
 /* Collapsible States */
-.collapsible-item.is-active,
+.vd-collapsible-item.is-active,
 .accordion-item.is-active {
   border-color: var(--color-primary);
 }
 
-.collapsible-item.is-active .collapsible-header,
+.vd-collapsible-item.is-active .vd-collapsible-header,
 .accordion-item.is-active .accordion-header {
   background-color: var(--color-primary-alpha-10);
   color: var(--color-primary);
 }
 
 /* Collapsible Variants - Bordered */
-.collapsible-bordered .collapsible-item,
+.vd-collapsible-bordered .vd-collapsible-item,
 .accordion-bordered .accordion-item {
   border: 1px solid var(--collapsible-border-color);
   border-radius: 0;
   margin-bottom: -1px;
 }
 
-.collapsible-bordered .collapsible-item:first-child,
+.vd-collapsible-bordered .vd-collapsible-item:first-child,
 .accordion-bordered .accordion-item:first-child {
   border-top-left-radius: var(--btn-border-radius);
   border-top-right-radius: var(--btn-border-radius);
 }
 
-.collapsible-bordered .collapsible-item:last-child,
+.vd-collapsible-bordered .vd-collapsible-item:last-child,
 .accordion-bordered .accordion-item:last-child {
   border-bottom-left-radius: var(--btn-border-radius);
   border-bottom-right-radius: var(--btn-border-radius);
@@ -205,37 +205,37 @@
 }
 
 /* Collapsible Variants - Flush (no borders) */
-.collapsible-flush .collapsible-item,
+.vd-collapsible-flush .vd-collapsible-item,
 .accordion-flush .accordion-item {
   border: none;
   border-radius: 0;
   border-bottom: 1px solid var(--collapsible-border-color);
 }
 
-.collapsible-flush .collapsible-item:last-child,
+.vd-collapsible-flush .vd-collapsible-item:last-child,
 .accordion-flush .accordion-item:last-child {
   border-bottom: none;
 }
 
 /* Collapsible Sizes */
-.collapsible-sm .collapsible-header,
+.vd-collapsible-sm .vd-collapsible-header,
 .accordion-sm .accordion-header {
   padding: calc(var(--collapsible-padding-y) * 0.75) calc(var(--collapsible-padding-x) * 0.75);
   font-size: var(--font-size-sm);
 }
 
-.collapsible-sm .collapsible-body,
+.vd-collapsible-sm .vd-collapsible-body,
 .accordion-sm .accordion-body {
   padding: calc(var(--collapsible-body-padding) * 0.75);
 }
 
-.collapsible-lg .collapsible-header,
+.vd-collapsible-lg .vd-collapsible-header,
 .accordion-lg .accordion-header {
   padding: calc(var(--collapsible-padding-y) * 1.25) calc(var(--collapsible-padding-x) * 1.25);
   font-size: var(--font-size-lg);
 }
 
-.collapsible-lg .collapsible-body,
+.vd-collapsible-lg .vd-collapsible-body,
 .accordion-lg .accordion-body {
   padding: calc(var(--collapsible-body-padding) * 1.25);
 }
@@ -253,13 +253,13 @@
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
-  .collapsible-header,
+  .vd-collapsible-header,
   .accordion-header {
     padding: calc(var(--collapsible-padding-y) * 0.875) var(--collapsible-padding-x);
     font-size: var(--font-size-sm);
   }
   
-  .collapsible-body,
+  .vd-collapsible-body,
   .accordion-body {
     padding: var(--collapsible-padding-x);
   }

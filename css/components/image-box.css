@@ -29,14 +29,14 @@
 }
 
 /* Broken Image Handling for Triggers */
-.image-box-trigger {
+.vd-image-box-trigger {
   position: relative;
   min-height: 60px;
   min-width: 60px;
 }
 
 /* Hide broken image alt text and show styled placeholder */
-.image-box-trigger.is-broken {
+.vd-image-box-trigger.is-broken {
   /* Gradient background for placeholder */
   background: linear-gradient(135deg,
       var(--bg-tertiary, rgba(128, 128, 128, 0.1)) 0%,
@@ -55,19 +55,19 @@
 }
 
 /* Image Box Trigger - Images that can be enlarged */
-.image-box-trigger {
+.vd-image-box-trigger {
   cursor: zoom-in;
   transition: transform var(--image-box-transition-duration) var(--image-box-transition-easing),
     box-shadow var(--image-box-transition-duration) var(--image-box-transition-easing);
 }
 
-.image-box-trigger:hover {
+.vd-image-box-trigger:hover {
   transform: scale(1.02);
   box-shadow: var(--shadow-lg);
 }
 
 /* Image Box Backdrop */
-.image-box-backdrop {
+.vd-image-box-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -87,13 +87,13 @@
   padding: var(--image-box-padding);
 }
 
-.image-box-backdrop.is-visible {
+.vd-image-box-backdrop.is-visible {
   opacity: 1;
   visibility: visible;
 }
 
 /* Image Box Container */
-.image-box-container {
+.vd-image-box-container {
   position: relative;
   max-width: var(--image-box-max-width);
   max-height: var(--image-box-max-height);
@@ -106,13 +106,13 @@
     opacity var(--image-box-transition-duration) var(--image-box-transition-easing);
 }
 
-.image-box-backdrop.is-visible .image-box-container {
+.vd-image-box-backdrop.is-visible .vd-image-box-container {
   transform: scale(var(--image-box-scale-end));
   opacity: 1;
 }
 
 /* Image Box Image */
-.image-box-img {
+.vd-image-box-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -124,7 +124,7 @@
 }
 
 /* Image Box Close Button (optional) */
-.image-box-close {
+.vd-image-box-close {
   position: absolute;
   top: 21px;
   right: 21px;
@@ -147,24 +147,24 @@
   transform: translateY(-10px);
 }
 
-.image-box-backdrop.is-visible .image-box-close {
+.vd-image-box-backdrop.is-visible .vd-image-box-close {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.1s;
 }
 
-.image-box-close:hover {
+.vd-image-box-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
 }
 
-.image-box-close:focus {
+.vd-image-box-close:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Image Box Caption */
-.image-box-caption {
+.vd-image-box-caption {
   position: absolute;
   bottom: 21px;
   left: 50%;
@@ -180,7 +180,7 @@
   transition: opacity var(--image-box-transition-duration) var(--image-box-transition-easing);
 }
 
-.image-box-backdrop.is-visible .image-box-caption {
+.vd-image-box-backdrop.is-visible .vd-image-box-caption {
   opacity: 1;
   transition-delay: 0.15s;
 }
@@ -194,15 +194,15 @@
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
 
-  .image-box-trigger,
-  .image-box-backdrop,
-  .image-box-container,
-  .image-box-close,
-  .image-box-caption {
+  .vd-image-box-trigger,
+  .vd-image-box-backdrop,
+  .vd-image-box-container,
+  .vd-image-box-close,
+  .vd-image-box-caption {
     transition: none;
   }
 
-  .image-box-trigger:hover {
+  .vd-image-box-trigger:hover {
     transform: none;
   }
 }
@@ -215,7 +215,7 @@
     --image-box-max-height: 80vh;
   }
 
-  .image-box-close {
+  .vd-image-box-close {
     top: 13px;
     right: 13px;
     width: 40px;
@@ -225,14 +225,14 @@
 }
 
 /* Gallery Grid Support */
-.image-box-gallery {
+.vd-image-box-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 13px;
   margin-top: 21px;
 }
 
-.image-box-gallery .image-box-trigger {
+.vd-image-box-gallery .vd-image-box-trigger {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -241,8 +241,8 @@
 }
 
 /* Active/selected state for gallery thumbnails */
-.image-box-gallery .image-box-trigger.is-active,
-.image-box-gallery .image-box-trigger[aria-selected="true"] {
+.vd-image-box-gallery .vd-image-box-trigger.is-active,
+.vd-image-box-gallery .vd-image-box-trigger[aria-selected="true"] {
   outline: 3px solid var(--color-primary);
   outline-offset: 2px;
   transform: scale(1.05);
@@ -250,18 +250,18 @@
 }
 
 /* Keyboard focus for gallery thumbnails */
-.image-box-gallery .image-box-trigger:focus {
+.vd-image-box-gallery .vd-image-box-trigger:focus {
   outline: 3px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Portrait orientation gallery item */
-.image-box-gallery .image-box-trigger[data-orientation="portrait"] {
+.vd-image-box-gallery .vd-image-box-trigger[data-orientation="portrait"] {
   aspect-ratio: 3 / 4;
 }
 
 /* Loading State */
-.image-box-trigger.is-loading {
+.vd-image-box-trigger.is-loading {
   background: var(--bg-secondary);
   animation: image-box-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

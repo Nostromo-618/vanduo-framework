@@ -17,7 +17,7 @@
      * Initialize all tab components
      */
     init: function() {
-      const tabContainers = document.querySelectorAll('.tabs, [data-tabs]');
+      const tabContainers = document.querySelectorAll('.vd-tabs, [data-tabs]');
 
       tabContainers.forEach(container => {
         if (this.instances.has(container)) {
@@ -32,9 +32,9 @@
      * @param {HTMLElement} container - Tabs container element
      */
     initTabs: function(container) {
-      const tabList = container.querySelector('.tab-list, [role="tablist"]');
-      const tabLinks = container.querySelectorAll('.tab-link, [data-tab]');
-      const tabPanes = container.querySelectorAll('.tab-pane, [data-tab-pane]');
+      const tabList = container.querySelector('.vd-tab-list, [role="tablist"]');
+      const tabLinks = container.querySelectorAll('.vd-tab-link, [data-tab]');
+      const tabPanes = container.querySelectorAll('.vd-tab-pane, [data-tab-pane]');
 
       if (!tabList || tabLinks.length === 0) return;
 
@@ -85,7 +85,7 @@
       });
 
       // Ensure one tab is active
-      const activeTab = container.querySelector('.tab-link.is-active, [data-tab].is-active');
+      const activeTab = container.querySelector('.vd-tab-link.is-active, [data-tab].is-active');
       if (!activeTab && tabLinks.length > 0) {
         this.activateTab(container, tabLinks[0], tabLinks, tabPanes);
       }
@@ -111,7 +111,7 @@
 
       // Try matching by index
       if (!pane) {
-        const tabLinks = container.querySelectorAll('.tab-link, [data-tab]');
+        const tabLinks = container.querySelectorAll('.vd-tab-link, [data-tab]');
         tabLinks.forEach((link, index) => {
           const linkTabId = link.dataset.tab || link.getAttribute('href')?.replace('#', '');
           if (linkTabId === tabId && tabPanes[index]) {
@@ -264,11 +264,11 @@
 
       if (!tabElement) return;
 
-      const container = tabElement.closest('.tabs, [data-tabs]');
+      const container = tabElement.closest('.vd-tabs, [data-tabs]');
       if (!container) return;
 
-      const allTabs = container.querySelectorAll('.tab-link, [data-tab]');
-      const allPanes = container.querySelectorAll('.tab-pane, [data-tab-pane]');
+      const allTabs = container.querySelectorAll('.vd-tab-link, [data-tab]');
+      const allPanes = container.querySelectorAll('.vd-tab-pane, [data-tab-pane]');
 
       this.activateTab(container, tabElement, allTabs, allPanes);
     },

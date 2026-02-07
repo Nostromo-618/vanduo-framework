@@ -44,7 +44,7 @@
 }
 
 /* Base Pagination */
-.pagination {
+.vd-pagination {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -53,21 +53,21 @@
 }
 
 /* Pagination Item */
-.pagination-item {
+.vd-pagination-item {
   display: inline-block;
   margin: 0 0.125rem;
 }
 
-.pagination-item:first-child {
+.vd-pagination-item:first-child {
   margin-left: 0;
 }
 
-.pagination-item:last-child {
+.vd-pagination-item:last-child {
   margin-right: 0;
 }
 
 /* Pagination Link */
-.pagination-link {
+.vd-pagination-link {
   position: relative;
   display: block;
   padding: var(--pagination-padding-y) var(--pagination-padding-x);
@@ -83,21 +83,21 @@
   user-select: none;
 }
 
-.pagination-link:hover {
+.vd-pagination-link:hover {
   color: var(--pagination-link-color);
   background-color: var(--pagination-link-bg-hover);
   border-color: var(--pagination-border-color);
   text-decoration: none;
 }
 
-.pagination-link:focus {
+.vd-pagination-link:focus {
   outline: 0;
   box-shadow: var(--input-focus-box-shadow);
   z-index: 1;
 }
 
 /* Pagination Active State */
-.pagination-item.active .pagination-link {
+.vd-pagination-item.active .vd-pagination-link {
   z-index: 1;
   color: var(--pagination-link-color-active);
   background-color: var(--pagination-link-bg-active);
@@ -105,14 +105,14 @@
   cursor: default;
 }
 
-.pagination-item.active .pagination-link:hover {
+.vd-pagination-item.active .vd-pagination-link:hover {
   color: var(--pagination-link-color-active);
   background-color: var(--pagination-link-bg-active);
   border-color: var(--pagination-link-bg-active);
 }
 
 /* Pagination Disabled State */
-.pagination-item.disabled .pagination-link {
+.vd-pagination-item.disabled .vd-pagination-link {
   color: var(--pagination-link-color-disabled);
   pointer-events: none;
   cursor: not-allowed;
@@ -122,23 +122,23 @@
 }
 
 /* Pagination Previous/Next */
-.pagination-prev,
-.pagination-next {
+.vd-pagination-prev,
+.vd-pagination-next {
   font-weight: var(--font-weight-medium);
 }
 
-.pagination-prev .pagination-link::before {
+.vd-pagination-prev .vd-pagination-link::before {
   content: '«';
   margin-right: 0.25rem;
 }
 
-.pagination-next .pagination-link::after {
+.vd-pagination-next .vd-pagination-link::after {
   content: '»';
   margin-left: 0.25rem;
 }
 
 /* Pagination Ellipsis */
-.pagination-ellipsis {
+.vd-pagination-ellipsis {
   padding: var(--pagination-padding-y) var(--pagination-padding-x);
   color: var(--text-muted);
   pointer-events: none;
@@ -146,38 +146,38 @@
 }
 
 /* Pagination Sizes */
-.pagination-sm .pagination-link {
+.vd-pagination-sm .vd-pagination-link {
   padding: var(--pagination-padding-y-sm) var(--pagination-padding-x-sm);
   font-size: var(--pagination-font-size-sm);
 }
 
-.pagination-lg .pagination-link {
+.vd-pagination-lg .vd-pagination-link {
   padding: var(--pagination-padding-y-lg) var(--pagination-padding-x-lg);
   font-size: var(--pagination-font-size-lg);
 }
 
 /* Pagination Alignment */
-.pagination-center {
+.vd-pagination-center {
   justify-content: center;
 }
 
-.pagination-right {
+.vd-pagination-right {
   justify-content: flex-end;
 }
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
-  .pagination {
+  .vd-pagination {
     flex-wrap: wrap;
     justify-content: center;
   }
   
-  .pagination-item {
+  .vd-pagination-item {
     margin: 0.125rem;
   }
   
-  .pagination-prev,
-  .pagination-next {
+  .vd-pagination-prev,
+  .vd-pagination-next {
     width: 100%;
     text-align: center;
     margin: 0.5rem 0;

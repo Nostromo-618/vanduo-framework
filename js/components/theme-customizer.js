@@ -19,11 +19,11 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY_LIGHT: 'indigo',
-      PRIMARY_DARK: 'indigo',
-      NEUTRAL: 'neutral',
-      RADIUS: '0.375',
-      FONT: 'ubuntu',
+      PRIMARY_LIGHT: 'blue',
+      PRIMARY_DARK: 'blue',
+      NEUTRAL: 'zinc',
+      RADIUS: '0.5',
+      FONT: 'open-sans',
       THEME: 'system'
     },
 
@@ -286,12 +286,12 @@
      */
     bindExistingElements: function () {
       // First check for existing full structure
-      this.elements.customizer = document.querySelector('.theme-customizer');
+      this.elements.customizer = document.querySelector('.vd-theme-customizer');
 
       if (this.elements.customizer) {
-        this.elements.trigger = this.elements.customizer.querySelector('.theme-customizer-trigger');
-        this.elements.panel = this.elements.customizer.querySelector('.theme-customizer-panel');
-        this.elements.overlay = this.elements.customizer.querySelector('.theme-customizer-overlay');
+        this.elements.trigger = this.elements.customizer.querySelector('.vd-theme-customizer-trigger');
+        this.elements.panel = this.elements.customizer.querySelector('.vd-theme-customizer-panel');
+        this.elements.overlay = this.elements.customizer.querySelector('.vd-theme-customizer-overlay');
       } else {
         // Look for standalone trigger button with data attribute
         const standaloneTrigger = document.querySelector('[data-theme-customizer-trigger]');
@@ -310,18 +310,18 @@
     createDynamicPanel: function (triggerButton) {
       // Create wrapper
       const wrapper = document.createElement('div');
-      wrapper.className = 'theme-customizer';
+      wrapper.className = 'vd-theme-customizer';
 
       // Move trigger into wrapper or create reference
       this.elements.trigger = triggerButton;
 
       // Create overlay
       const overlay = document.createElement('div');
-      overlay.className = 'theme-customizer-overlay';
+      overlay.className = 'vd-theme-customizer-overlay';
 
       // Create panel
       const panel = document.createElement('div');
-      panel.className = 'theme-customizer-panel';
+      panel.className = 'vd-theme-customizer-panel';
       panel.innerHTML = this.getPanelHTML();
 
       // Append to body

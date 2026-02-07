@@ -17,7 +17,7 @@
      * Initialize collapsible components
      */
     init: function() {
-      const collapsibles = document.querySelectorAll('.collapsible, .accordion');
+      const collapsibles = document.querySelectorAll('.vd-collapsible, .accordion');
 
       collapsibles.forEach(container => {
         if (this.instances.has(container)) {
@@ -33,13 +33,13 @@
      */
     initCollapsible: function(container) {
       const isAccordion = container.classList.contains('accordion');
-      const items = container.querySelectorAll('.collapsible-item, .accordion-item');
+      const items = container.querySelectorAll('.vd-collapsible-item, .accordion-item');
       const cleanupFunctions = [];
 
       items.forEach(item => {
-        const header = item.querySelector('.collapsible-header, .accordion-header');
-        const body = item.querySelector('.collapsible-body, .accordion-body');
-        const trigger = item.querySelector('.collapsible-trigger, .accordion-trigger') || header;
+        const header = item.querySelector('.vd-collapsible-header, .accordion-header');
+        const body = item.querySelector('.vd-collapsible-body, .accordion-body');
+        const trigger = item.querySelector('.vd-collapsible-trigger, .accordion-trigger') || header;
 
         if (!header || !body) {
           return;
@@ -79,10 +79,10 @@
       } else {
         // If accordion mode, close other open items
         if (isAccordion) {
-          const otherOpenItems = container.querySelectorAll('.collapsible-item.is-open, .accordion-item.is-open');
+          const otherOpenItems = container.querySelectorAll('.vd-collapsible-item.is-open, .accordion-item.is-open');
           otherOpenItems.forEach(otherItem => {
             if (otherItem !== item) {
-              const otherBody = otherItem.querySelector('.collapsible-body, .accordion-body');
+              const otherBody = otherItem.querySelector('.vd-collapsible-body, .accordion-body');
               this.closeItem(otherItem, otherBody);
             }
           });
@@ -154,7 +154,7 @@
     open: function(item) {
       const el = typeof item === 'string' ? document.querySelector(item) : item;
       if (el) {
-        const body = el.querySelector('.collapsible-body, .accordion-body');
+        const body = el.querySelector('.vd-collapsible-body, .accordion-body');
         if (body) {
           this.openItem(el, body);
         }
@@ -168,7 +168,7 @@
     close: function(item) {
       const el = typeof item === 'string' ? document.querySelector(item) : item;
       if (el) {
-        const body = el.querySelector('.collapsible-body, .accordion-body');
+        const body = el.querySelector('.vd-collapsible-body, .accordion-body');
         if (body) {
           this.closeItem(el, body);
         }
@@ -182,8 +182,8 @@
     toggle: function(item) {
       const el = typeof item === 'string' ? document.querySelector(item) : item;
       if (el) {
-        const body = el.querySelector('.collapsible-body, .accordion-body');
-        const container = el.closest('.collapsible, .accordion');
+        const body = el.querySelector('.vd-collapsible-body, .accordion-body');
+        const container = el.closest('.vd-collapsible, .accordion');
         const isAccordion = container && container.classList.contains('accordion');
 
         if (body) {

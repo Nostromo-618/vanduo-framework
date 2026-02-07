@@ -20,7 +20,7 @@
      * Initialize select components
      */
     init: function () {
-      const selects = document.querySelectorAll('select.custom-select-input, select[data-custom-select]');
+      const selects = document.querySelectorAll('select.vd-custom-select-input, select[data-custom-select]');
 
       selects.forEach(select => {
         if (this.instances.has(select)) {
@@ -36,7 +36,7 @@
      */
     initSelect: function (select) {
       // Skip if already has custom wrapper
-      if (select.closest('.custom-select-wrapper')) {
+      if (select.closest('.vd-custom-select-wrapper')) {
         return;
       }
 
@@ -233,7 +233,7 @@
      * @param {HTMLElement} dropdown - Dropdown container
      */
     updateSelectedOptions: function (select, dropdown) {
-      const options = dropdown.querySelectorAll('.custom-select-option');
+      const options = dropdown.querySelectorAll('.vd-custom-select-option');
       const selectedValues = Array.from(select.selectedOptions).map(opt => opt.value);
 
       options.forEach(optionEl => {
@@ -273,7 +273,7 @@
       button.setAttribute('aria-expanded', 'true');
 
       // Focus first option
-      const firstOption = dropdown.querySelector('.custom-select-option:not(.is-disabled)');
+      const firstOption = dropdown.querySelector('.vd-custom-select-option:not(.is-disabled)');
       if (firstOption) {
         firstOption.focus();
       }
@@ -298,7 +298,7 @@
      */
     handleKeydown: function (e, select, button, dropdown) {
       const isOpen = dropdown.classList.contains('is-open');
-      const options = Array.from(dropdown.querySelectorAll('.custom-select-option:not(.is-disabled)'));
+      const options = Array.from(dropdown.querySelectorAll('.vd-custom-select-option:not(.is-disabled)'));
       const currentIndex = options.findIndex(opt => opt === document.activeElement);
 
       switch (e.key) {
@@ -381,7 +381,7 @@
      * @param {string} searchTerm - Search term
      */
     filterOptions: function (dropdown, searchTerm) {
-      const options = dropdown.querySelectorAll('.custom-select-option');
+      const options = dropdown.querySelectorAll('.vd-custom-select-option');
       const term = searchTerm.toLowerCase();
 
       options.forEach(option => {

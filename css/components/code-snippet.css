@@ -94,7 +94,7 @@
    Base Code Snippet Container
    ========================================================================== */
 
-.code-snippet {
+.vd-code-snippet {
   position: relative;
   margin: 1rem 0;
   border-radius: var(--code-border-radius);
@@ -107,7 +107,7 @@
    Collapsible Toggle Button
    ========================================================================== */
 
-.code-snippet-toggle {
+.vd-code-snippet-toggle {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -123,25 +123,25 @@
   text-align: left;
 }
 
-.code-snippet-toggle:hover {
+.vd-code-snippet-toggle:hover {
   color: var(--code-text);
   background-color: var(--code-tab-hover-bg);
 }
 
-.code-snippet-toggle:focus-visible {
+.vd-code-snippet-toggle:focus-visible {
   outline: 2px solid var(--code-tab-active);
   outline-offset: -2px;
 }
 
 /* Toggle Icon (chevron) */
-.code-snippet-toggle-icon {
+.vd-code-snippet-toggle-icon {
   display: inline-flex;
   width: 1rem;
   height: 1rem;
   transition: transform 0.2s ease;
 }
 
-.code-snippet-toggle-icon::before {
+.vd-code-snippet-toggle-icon::before {
   content: '';
   width: 0.5rem;
   height: 0.5rem;
@@ -152,11 +152,11 @@
 }
 
 /* Expanded state */
-.code-snippet[data-expanded="true"] .code-snippet-toggle-icon::before {
+.vd-code-snippet[data-expanded="true"] .vd-code-snippet-toggle-icon::before {
   transform: rotate(45deg);
 }
 
-.code-snippet[data-expanded="true"] .code-snippet-toggle {
+.vd-code-snippet[data-expanded="true"] .vd-code-snippet-toggle {
   border-bottom: 1px solid var(--code-border);
 }
 
@@ -164,17 +164,17 @@
    Collapsible Content
    ========================================================================== */
 
-.code-snippet-content {
+.vd-code-snippet-content {
   display: none;
 }
 
-.code-snippet-content[data-visible="true"],
-.code-snippet:not([data-collapsible]) .code-snippet-content {
+.vd-code-snippet-content[data-visible="true"],
+.vd-code-snippet:not([data-collapsible]) .vd-code-snippet-content {
   display: block;
 }
 
 /* Non-collapsible variant */
-.code-snippet:not([data-collapsible]) .code-snippet-toggle {
+.vd-code-snippet:not([data-collapsible]) .vd-code-snippet-toggle {
   display: none;
 }
 
@@ -182,7 +182,7 @@
    Header with Tabs and Copy Button
    ========================================================================== */
 
-.code-snippet-header {
+.vd-code-snippet-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -196,7 +196,7 @@
    Tabs
    ========================================================================== */
 
-.code-snippet-tabs {
+.vd-code-snippet-tabs {
   display: flex;
   gap: var(--code-tab-gap);
   margin: 0;
@@ -204,7 +204,7 @@
   list-style: none;
 }
 
-.code-snippet-tab {
+.vd-code-snippet-tab {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 0.75rem;
@@ -219,31 +219,31 @@
   white-space: nowrap;
 }
 
-.code-snippet-tab:hover {
+.vd-code-snippet-tab:hover {
   color: var(--code-text);
   background-color: var(--code-tab-hover-bg);
 }
 
-.code-snippet-tab:focus-visible {
+.vd-code-snippet-tab:focus-visible {
   outline: 2px solid var(--code-tab-active);
   outline-offset: -2px;
 }
 
-.code-snippet-tab.is-active {
+.vd-code-snippet-tab.is-active {
   color: var(--code-tab-active);
   background-color: var(--code-bg);
 }
 
 /* Language labels */
-.code-snippet-tab[data-lang="html"]::before { content: ''; }
-.code-snippet-tab[data-lang="css"]::before { content: ''; }
-.code-snippet-tab[data-lang="js"]::before { content: ''; }
+.vd-code-snippet-tab[data-lang="html"]::before { content: ''; }
+.vd-code-snippet-tab[data-lang="css"]::before { content: ''; }
+.vd-code-snippet-tab[data-lang="js"]::before { content: ''; }
 
 /* ==========================================================================
    Copy Button
    ========================================================================== */
 
-.code-snippet-copy {
+.vd-code-snippet-copy {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
@@ -258,24 +258,24 @@
   transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.code-snippet-copy:hover {
+.vd-code-snippet-copy:hover {
   color: var(--code-text);
   background-color: var(--code-tab-hover-bg);
 }
 
-.code-snippet-copy:focus-visible {
+.vd-code-snippet-copy:focus-visible {
   outline: 2px solid var(--code-tab-active);
   outline-offset: 2px;
 }
 
 /* Copy Icon */
-.code-snippet-copy-icon {
+.vd-code-snippet-copy-icon {
   display: inline-flex;
   width: 1rem;
   height: 1rem;
 }
 
-.code-snippet-copy-icon::before {
+.vd-code-snippet-copy-icon::before {
   content: '';
   width: 100%;
   height: 100%;
@@ -286,24 +286,24 @@
 }
 
 /* Success state */
-.code-snippet-copy.is-copied {
+.vd-code-snippet-copy.is-copied {
   color: var(--code-copy-success);
   border-color: var(--code-copy-success);
 }
 
-.code-snippet-copy.is-copied .code-snippet-copy-icon::before {
+.vd-code-snippet-copy.is-copied .vd-code-snippet-copy-icon::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
-.code-snippet-copy.is-copied .code-snippet-copy-text::after {
+.vd-code-snippet-copy.is-copied .vd-code-snippet-copy-text::after {
   content: 'd!';
 }
 
-.code-snippet-copy.is-copied .code-snippet-copy-text {
+.vd-code-snippet-copy.is-copied .vd-code-snippet-copy-text {
   font-size: 0;
 }
 
-.code-snippet-copy.is-copied .code-snippet-copy-text::before {
+.vd-code-snippet-copy.is-copied .vd-code-snippet-copy-text::before {
   content: 'Copie';
   font-size: var(--code-font-size);
 }
@@ -312,7 +312,7 @@
    Code Body
    ========================================================================== */
 
-.code-snippet-body {
+.vd-code-snippet-body {
   position: relative;
   overflow: hidden;
 }
@@ -321,7 +321,7 @@
    Code Panes
    ========================================================================== */
 
-.code-snippet-pane {
+.vd-code-snippet-pane {
   display: none;
   margin: 0;
   padding: var(--code-padding-y) var(--code-padding-x);
@@ -330,11 +330,11 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.code-snippet-pane.is-active {
+.vd-code-snippet-pane.is-active {
   display: block;
 }
 
-.code-snippet-pane code {
+.vd-code-snippet-pane code {
   display: block;
   font-family: var(--font-family-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
   font-size: var(--code-font-size);
@@ -348,15 +348,15 @@
    Line Numbers (Optional)
    ========================================================================== */
 
-.code-snippet-pane.has-line-numbers {
+.vd-code-snippet-pane.has-line-numbers {
   padding-left: 0;
 }
 
-.code-snippet-pane.has-line-numbers code {
+.vd-code-snippet-pane.has-line-numbers code {
   display: flex;
 }
 
-.code-snippet-line-numbers {
+.vd-code-snippet-line-numbers {
   display: flex;
   flex-direction: column;
   padding: 0 var(--code-padding-x);
@@ -368,11 +368,11 @@
   flex-shrink: 0;
 }
 
-.code-snippet-line-numbers span {
+.vd-code-snippet-line-numbers span {
   line-height: var(--code-line-height);
 }
 
-.code-snippet-code {
+.vd-code-snippet-code {
   flex: 1;
   overflow-x: auto;
 }
@@ -412,11 +412,11 @@
    Single Language Variant (No Tabs)
    ========================================================================== */
 
-.code-snippet-single .code-snippet-header {
+.vd-code-snippet-single .vd-code-snippet-header {
   justify-content: flex-end;
 }
 
-.code-snippet-single .code-snippet-tabs {
+.vd-code-snippet-single .vd-code-snippet-tabs {
   display: none;
 }
 
@@ -424,22 +424,22 @@
    Inline Variant
    ========================================================================== */
 
-.code-snippet-inline {
+.vd-code-snippet-inline {
   display: inline-flex;
   margin: 0;
   vertical-align: middle;
 }
 
-.code-snippet-inline .code-snippet-header {
+.vd-code-snippet-inline .vd-code-snippet-header {
   display: none;
 }
 
-.code-snippet-inline .code-snippet-pane {
+.vd-code-snippet-inline .vd-code-snippet-pane {
   display: block;
   padding: 0.125rem 0.375rem;
 }
 
-.code-snippet-inline .code-snippet-pane code {
+.vd-code-snippet-inline .vd-code-snippet-pane code {
   white-space: nowrap;
 }
 
@@ -447,26 +447,26 @@
    Compact Variant
    ========================================================================== */
 
-.code-snippet-compact .code-snippet-header {
+.vd-code-snippet-compact .vd-code-snippet-header {
   min-height: auto;
   padding: 0.25rem 0.5rem;
 }
 
-.code-snippet-compact .code-snippet-tab {
+.vd-code-snippet-compact .vd-code-snippet-tab {
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
 }
 
-.code-snippet-compact .code-snippet-copy {
+.vd-code-snippet-compact .vd-code-snippet-copy {
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
 }
 
-.code-snippet-compact .code-snippet-pane {
+.vd-code-snippet-compact .vd-code-snippet-pane {
   padding: 0.5rem;
 }
 
-.code-snippet-compact .code-snippet-pane code {
+.vd-code-snippet-compact .vd-code-snippet-pane code {
   font-size: 0.75rem;
 }
 
@@ -475,13 +475,13 @@
    ========================================================================== */
 
 @media (max-width: 640px) {
-  .code-snippet-header {
+  .vd-code-snippet-header {
     flex-wrap: wrap;
     gap: 0.5rem;
     padding: 0.5rem;
   }
   
-  .code-snippet-tabs {
+  .vd-code-snippet-tabs {
     order: 2;
     width: 100%;
     overflow-x: auto;
@@ -489,20 +489,20 @@
     scrollbar-width: none;
   }
   
-  .code-snippet-tabs::-webkit-scrollbar {
+  .vd-code-snippet-tabs::-webkit-scrollbar {
     display: none;
   }
   
-  .code-snippet-copy {
+  .vd-code-snippet-copy {
     order: 1;
     margin-left: auto;
   }
   
-  .code-snippet-pane {
+  .vd-code-snippet-pane {
     padding: 0.75rem;
   }
   
-  .code-snippet-pane code {
+  .vd-code-snippet-pane code {
     font-size: 0.8125rem;
   }
 }
@@ -512,26 +512,26 @@
    ========================================================================== */
 
 @media print {
-  .code-snippet {
+  .vd-code-snippet {
     break-inside: avoid;
     border: 1px solid #ccc;
   }
   
-  .code-snippet-toggle,
-  .code-snippet-copy {
+  .vd-code-snippet-toggle,
+  .vd-code-snippet-copy {
     display: none !important;
   }
   
-  .code-snippet-content {
+  .vd-code-snippet-content {
     display: block !important;
   }
   
-  .code-snippet-pane {
+  .vd-code-snippet-pane {
     display: block !important;
     page-break-inside: avoid;
   }
   
-  .code-snippet-pane::before {
+  .vd-code-snippet-pane::before {
     content: attr(data-lang) ':';
     display: block;
     font-weight: bold;
@@ -545,10 +545,10 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .code-snippet-toggle,
-  .code-snippet-toggle-icon,
-  .code-snippet-tab,
-  .code-snippet-copy {
+  .vd-code-snippet-toggle,
+  .vd-code-snippet-toggle-icon,
+  .vd-code-snippet-tab,
+  .vd-code-snippet-copy {
     transition: none;
   }
 }

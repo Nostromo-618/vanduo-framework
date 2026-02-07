@@ -14,7 +14,7 @@
      * Initialize all code snippet components
      */
     init: function () {
-      const snippets = document.querySelectorAll('.code-snippet');
+      const snippets = document.querySelectorAll('.vd-code-snippet');
 
       snippets.forEach(snippet => {
         if (!snippet.dataset.initialized) {
@@ -31,23 +31,23 @@
       snippet.dataset.initialized = 'true';
 
       // Handle collapsible toggle
-      const toggle = snippet.querySelector('.code-snippet-toggle');
-      const content = snippet.querySelector('.code-snippet-content');
+      const toggle = snippet.querySelector('.vd-code-snippet-toggle');
+      const content = snippet.querySelector('.vd-code-snippet-content');
 
       if (toggle && content) {
         this.initCollapsible(snippet, toggle, content);
       }
 
       // Handle tabs
-      const tabs = snippet.querySelectorAll('.code-snippet-tab');
-      const panes = snippet.querySelectorAll('.code-snippet-pane');
+      const tabs = snippet.querySelectorAll('.vd-code-snippet-tab');
+      const panes = snippet.querySelectorAll('.vd-code-snippet-pane');
 
       if (tabs.length > 0) {
         this.initTabs(snippet, tabs, panes);
       }
 
       // Handle copy button
-      const copyBtn = snippet.querySelector('.code-snippet-copy');
+      const copyBtn = snippet.querySelector('.vd-code-snippet-copy');
       if (copyBtn) {
         this.initCopyButton(snippet, copyBtn);
       }
@@ -108,7 +108,7 @@
      */
     initTabs: function (snippet, tabs, panes) {
       // Set up ARIA attributes
-      const tabList = snippet.querySelector('.code-snippet-tabs');
+      const tabList = snippet.querySelector('.vd-code-snippet-tabs');
       if (tabList) {
         tabList.setAttribute('role', 'tablist');
       }
@@ -124,7 +124,7 @@
         tab.id = tab.id || `code-tab-${snippet.dataset.initialized}-${index}`;
 
         // Find corresponding pane
-        const pane = snippet.querySelector(`.code-snippet-pane[data-lang="${lang}"]`);
+        const pane = snippet.querySelector(`.vd-code-snippet-pane[data-lang="${lang}"]`);
         if (pane) {
           pane.setAttribute('role', 'tabpanel');
           pane.setAttribute('aria-labelledby', tab.id);
@@ -170,7 +170,7 @@
       activeTab.setAttribute('tabindex', '0');
 
       // Show corresponding pane
-      const activePane = snippet.querySelector(`.code-snippet-pane[data-lang="${lang}"]`);
+      const activePane = snippet.querySelector(`.vd-code-snippet-pane[data-lang="${lang}"]`);
       if (activePane) {
         activePane.classList.add('is-active');
       }
@@ -239,8 +239,8 @@
      * @param {HTMLElement} copyBtn - Copy button element
      */
     copyCode: async function (snippet, copyBtn) {
-      const activePane = snippet.querySelector('.code-snippet-pane.is-active') ||
-        snippet.querySelector('.code-snippet-pane');
+      const activePane = snippet.querySelector('.vd-code-snippet-pane.is-active') ||
+        snippet.querySelector('.vd-code-snippet-pane');
 
       if (!activePane) {
         console.warn('CodeSnippet: No code pane found');
@@ -490,7 +490,7 @@
 
       // Create line numbers container
       const lineNumbers = document.createElement('div');
-      lineNumbers.className = 'code-snippet-line-numbers';
+      lineNumbers.className = 'vd-code-snippet-line-numbers';
       lineNumbers.setAttribute('aria-hidden', 'true');
 
       for (let i = 1; i <= lineCount; i++) {
@@ -501,7 +501,7 @@
 
       // Wrap code content
       const codeWrapper = document.createElement('div');
-      codeWrapper.className = 'code-snippet-code';
+      codeWrapper.className = 'vd-code-snippet-code';
       codeWrapper.innerHTML = code.outerHTML;
 
       // Replace code with new structure
@@ -521,8 +521,8 @@
       if (!snippet) return;
 
       snippet.dataset.expanded = 'true';
-      const toggle = snippet.querySelector('.code-snippet-toggle');
-      const content = snippet.querySelector('.code-snippet-content');
+      const toggle = snippet.querySelector('.vd-code-snippet-toggle');
+      const content = snippet.querySelector('.vd-code-snippet-content');
 
       if (toggle) toggle.setAttribute('aria-expanded', 'true');
       if (content) content.dataset.visible = 'true';
@@ -539,8 +539,8 @@
       if (!snippet) return;
 
       snippet.dataset.expanded = 'false';
-      const toggle = snippet.querySelector('.code-snippet-toggle');
-      const content = snippet.querySelector('.code-snippet-content');
+      const toggle = snippet.querySelector('.vd-code-snippet-toggle');
+      const content = snippet.querySelector('.vd-code-snippet-content');
 
       if (toggle) toggle.setAttribute('aria-expanded', 'false');
       if (content) content.dataset.visible = 'false';
@@ -557,9 +557,9 @@
       }
       if (!snippet) return;
 
-      const tab = snippet.querySelector(`.code-snippet-tab[data-lang="${lang}"]`);
-      const tabs = snippet.querySelectorAll('.code-snippet-tab');
-      const panes = snippet.querySelectorAll('.code-snippet-pane');
+      const tab = snippet.querySelector(`.vd-code-snippet-tab[data-lang="${lang}"]`);
+      const tabs = snippet.querySelectorAll('.vd-code-snippet-tab');
+      const panes = snippet.querySelectorAll('.vd-code-snippet-pane');
 
       if (tab) {
         this.switchTab(snippet, tab, tabs, panes);

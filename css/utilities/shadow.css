@@ -30,52 +30,52 @@
 }
 
 /* Shadow Utilities */
-.shadow-none {
+.vd-shadow-none {
   box-shadow: none;
 }
 
-.shadow-sm {
+.vd-shadow-sm {
   box-shadow: var(--shadow-sm);
 }
 
-.shadow {
+.vd-shadow {
   box-shadow: var(--shadow);
 }
 
-.shadow-md {
+.vd-shadow-md {
   box-shadow: var(--shadow-md);
 }
 
-.shadow-lg {
+.vd-shadow-lg {
   box-shadow: var(--shadow-lg);
 }
 
-.shadow-xl {
+.vd-shadow-xl {
   box-shadow: var(--shadow-xl);
 }
 
-.shadow-2xl {
+.vd-shadow-2xl {
   box-shadow: var(--shadow-2xl);
 }
 
-.shadow-inner {
+.vd-shadow-inner {
   box-shadow: var(--shadow-inner);
 }
 
 /* Colored Shadow Utilities */
-.shadow-primary {
+.vd-shadow-primary {
   box-shadow: var(--shadow-primary);
 }
 
-.shadow-success {
+.vd-shadow-success {
   box-shadow: var(--shadow-success);
 }
 
-.shadow-warning {
+.vd-shadow-warning {
   box-shadow: var(--shadow-warning);
 }
 
-.shadow-error {
+.vd-shadow-error {
   box-shadow: var(--shadow-error);
 }
 
@@ -110,69 +110,87 @@
  * ═════════════════════════════════════════════════════════════════════════ */
 
 /* Base Glow (uses primary color) */
+.vd-glow,
+.vd-glow-primary,
 .glow,
 .glow-primary {
   box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 /* Glow on Hover */
+.vd-hover-glow,
+.vd-hover-glow-primary,
 .hover-glow,
 .hover-glow-primary {
   transition: box-shadow 0.3s ease;
 }
 
+.vd-hover-glow:hover,
+.vd-hover-glow-primary:hover,
 .hover-glow:hover,
 .hover-glow-primary:hover {
   box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 /* Glow Color Variants */
+.vd-glow-success,
 .glow-success {
   box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
 }
 
+.vd-glow-warning,
 .glow-warning {
   box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
 }
 
+.vd-glow-error,
 .glow-error {
   box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
 }
 
 /* Glow Hover Variants */
+.vd-hover-glow-success:hover,
 .hover-glow-success:hover {
   box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
 }
 
+.vd-hover-glow-warning:hover,
 .hover-glow-warning:hover {
   box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
 }
 
+.vd-hover-glow-error:hover,
 .hover-glow-error:hover {
   box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
 }
 
 /* Glow Intensity Variants */
+.vd-glow-sm,
 .glow-sm {
   box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
 }
 
+.vd-glow-md,
 .glow-md {
   box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
+.vd-glow-lg,
 .glow-lg {
   box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
 }
 
+.vd-hover-glow-sm:hover,
 .hover-glow-sm:hover {
   box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
 }
 
+.vd-hover-glow-md:hover,
 .hover-glow-md:hover {
   box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
+.vd-hover-glow-lg:hover,
 .hover-glow-lg:hover {
   box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
 }

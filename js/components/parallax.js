@@ -24,7 +24,7 @@
         return; // Don't initialize if user prefers reduced motion
       }
 
-      const parallaxElements = document.querySelectorAll('.parallax');
+      const parallaxElements = document.querySelectorAll('.vd-parallax');
 
       parallaxElements.forEach(element => {
         if (!element.dataset.parallaxInitialized) {
@@ -58,7 +58,7 @@
         return;
       }
 
-      const layers = element.querySelectorAll('.parallax-layer, .parallax-bg');
+      const layers = element.querySelectorAll('.vd-parallax-layer, .vd-parallax-bg');
       const speed = this.getSpeed(element);
       const direction = element.classList.contains('parallax-horizontal') ? 'horizontal' : 'vertical';
 

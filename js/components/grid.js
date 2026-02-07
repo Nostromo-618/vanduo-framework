@@ -102,9 +102,9 @@
     applyFibFallback: function (container) {
       if (supportsHas) return;
 
-      var rows = container.querySelectorAll('.row');
+      var rows = container.querySelectorAll('.vd-row, .row');
       rows.forEach(function (row) {
-        var cols = row.querySelectorAll(':scope > [class*="col-"]');
+        var cols = row.querySelectorAll(':scope > [class*="vd-col-"], :scope > [class*="col-"]');
         var count = cols.length;
 
         if (count === 1) {
@@ -126,7 +126,7 @@
      * @param {HTMLElement} container - Grid container
      */
     removeFibFallback: function (container) {
-      var rows = container.querySelectorAll('.row');
+      var rows = container.querySelectorAll('.vd-row, .row');
       rows.forEach(function (row) {
         row.style.gridTemplateColumns = '';
       });
@@ -138,13 +138,13 @@
      * @param {string} mode - 'fibonacci' or 'standard'
      */
     applyMode: function (container, mode) {
-      container.classList.remove('grid-standard', 'grid-fibonacci');
+      container.classList.remove('vd-grid-standard', 'vd-grid-fibonacci');
 
       if (mode === 'fibonacci') {
-        container.classList.add('grid-fibonacci');
+        container.classList.add('vd-grid-fibonacci');
         this.applyFibFallback(container);
       } else {
-        container.classList.add('grid-standard');
+        container.classList.add('vd-grid-standard');
         this.removeFibFallback(container);
       }
 
@@ -244,7 +244,7 @@
       if (!instance) return;
 
       instance.cleanup.forEach(function (fn) { fn(); });
-      container.classList.remove('grid-standard', 'grid-fibonacci');
+      container.classList.remove('vd-grid-standard', 'vd-grid-fibonacci');
       container.removeAttribute('aria-label');
       this.removeFibFallback(container);
       this.instances.delete(container);

@@ -70,7 +70,7 @@
         }
 
         /* Add space to the left of navbar brand */
-        .navbar-brand {
+        .vd-navbar-brand {
             margin-left: 1rem;
         }
 
@@ -190,24 +190,24 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-fixed">
-        <div class="navbar-container">
-            <div class="navbar-brand">
+    <nav class="vd-navbar vd-navbar-fixed">
+        <div class="vd-navbar-container">
+            <div class="vd-navbar-brand">
                 <a href="index.html"><i class="ph-fill ph-drop"
                         style="color: var(--color-primary); margin-right: 0.25em;"></i>Vanduo</a>
             </div>
-            <button class="navbar-toggle" aria-label="Toggle navigation">
+            <button class="vd-navbar-toggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>
-            <div class="navbar-menu">
-                <ul class="navbar-nav">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="documentation.html" class="nav-link">Documentation</a></li>
-                    <li><a href="changelog.html" class="nav-link active">Changelog</a></li>
+            <div class="vd-navbar-menu">
+                <ul class="vd-navbar-nav">
+                    <li><a href="index.html" class="vd-nav-link">Home</a></li>
+                    <li><a href="documentation.html" class="vd-nav-link">Documentation</a></li>
+                    <li><a href="changelog.html" class="vd-nav-link active">Changelog</a></li>
                 </ul>
 
                 <!-- Theme Customizer Trigger (far right) -->
-                <button class="theme-customizer-trigger" data-theme-customizer-trigger
+                <button class="vd-theme-customizer-trigger" data-theme-customizer-trigger
                     aria-label="Open theme customizer" style="margin-left: auto;">
                     <i class="ph ph-paint-roller"></i>
                 </button>
@@ -217,24 +217,105 @@
 
     <!-- Page Header -->
     <section class="changelog-header">
-        <div class="container-responsive">
+        <div class="vd-container-responsive">
             <h1><i class="ph ph-scroll" style="color: var(--color-info);"></i> Changelog</h1>
-            <p class="text-lg text-muted">All notable changes to Vanduo Framework are documented here.</p>
+            <p class="vd-text-lg vd-text-muted">All notable changes to Vanduo Framework are documented here.</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <main id="main-content" style="padding: 3rem 0;">
-        <div class="container-responsive" style="max-width: 900px;">
+        <div class="vd-container-responsive" style="max-width: 900px;">
 
-            <!-- Version 1.0.4 -->
+            <!-- Version 1.1.0 -->
             <article class="version-card">
                 <header class="version-header version-latest">
-                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.4</span>
+                    <span class="vd-badge vd-badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.1.0</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>February 7, 2026
                     </span>
-                    <span class="badge badge-info" style="font-size: 0.75rem;">Latest</span>
+                    <span class="vd-badge vd-badge-warning" style="font-size: 0.75rem;">Breaking Changes</span>
+                </header>
+                <div class="version-body">
+                    <!-- Breaking Changes -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-warning);">
+                            <i class="ph ph-warning"></i> Breaking Changes
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-text-t" style="color: var(--color-warning);"></i>
+                                <div>
+                                    <strong>CSS Class Prefixing</strong>
+                                    <p>All CSS classes now use the <code>vd-</code> prefix to prevent collisions with other frameworks. 
+                                    Examples: <code>.btn</code> → <code>.vd-btn</code>, <code>.container</code> → <code>.vd-container</code>, 
+                                    <code>.card</code> → <code>.vd-card</code>. See MIGRATION.md for complete class mapping.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-play" style="color: var(--color-warning);"></i>
+                                <div>
+                                    <strong>Manual Initialization Required</strong>
+                                    <p>Framework no longer auto-initializes on page load. You must explicitly call 
+                                    <code>Vanduo.init()</code> after loading the script. This allows better control over 
+                                    initialization timing in SPAs and complex applications.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- New Features -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-primary);">
+                            <i class="ph ph-sparkle"></i> New Features
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-export" style="color: var(--color-primary);"></i>
+                                <div>
+                                    <strong>Multiple Module Formats</strong>
+                                    <p>Added ESM (<code>vanduo.esm.js</code>) and CJS (<code>vanduo.cjs.js</code>) build outputs 
+                                    alongside IIFE format. Modern bundlers can now tree-shake unused components.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-package" style="color: var(--color-primary);"></i>
+                                <div>
+                                    <strong>Package.json Exports Map</strong>
+                                    <p>Added proper <code>exports</code> field in package.json for clean imports: 
+                                    <code>import { Vanduo } from 'vanduo-framework'</code>.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Improvements -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-info);">
+                            <i class="ph ph-arrow-up"></i> Improvements
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-shield" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>CSS Namespace Isolation</strong>
+                                    <p>The <code>vd-</code> prefix ensures Vanduo can be safely embedded in applications 
+                                    using Bootstrap, Tailwind, or other CSS frameworks without class name collisions.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.0.4 -->
+            <article class="version-card">
+                <header class="version-header">
+                    <span class="vd-badge vd-badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.4</span>
+                    <span style="color: var(--text-secondary); font-size: 0.95rem;">
+                        <i class="ph ph-calendar mr-1"></i>February 7, 2026
+                    </span>
+                    <span class="vd-badge vd-badge-info" style="font-size: 0.75rem;">Latest</span>
                 </header>
                 <div class="version-body">
                     <!-- Improvements -->
@@ -309,7 +390,7 @@
             <!-- Version 1.0.3 -->
             <article class="version-card">
                 <header class="version-header" style="background: var(--bg-secondary);">
-                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.3</span>
+                    <span class="vd-badge vd-badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.3</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>February 1, 2026
                     </span>
@@ -390,7 +471,7 @@
             <!-- Version 1.0.2 -->
             <article class="version-card">
                 <header class="version-header" style="background: var(--bg-secondary);">
-                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.2</span>
+                    <span class="vd-badge vd-badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.2</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>February 1, 2026
                     </span>
@@ -488,7 +569,7 @@
             <!-- Version 1.0.1 -->
             <article class="version-card">
                 <header class="version-header">
-                    <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.1</span>
+                    <span class="vd-badge vd-badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.1</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>January 31, 2026
                     </span>
@@ -567,11 +648,11 @@
             <!-- Version 1.0.0 -->
             <article class="version-card">
                 <header class="version-header version-initial">
-                    <span class="badge badge-success" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.0</span>
+                    <span class="vd-badge vd-badge-success" style="font-size: 1rem; padding: 0.5rem 1rem;">v1.0.0</span>
                     <span style="color: var(--text-secondary); font-size: 0.95rem;">
                         <i class="ph ph-calendar mr-1"></i>January 30, 2026
                     </span>
-                    <span class="badge badge-outline" style="font-size: 0.75rem;">Initial Release</span>
+                    <span class="vd-badge vd-badge-outline" style="font-size: 0.75rem;">Initial Release</span>
                 </header>
                 <div class="version-body">
                     <!-- Features -->
@@ -645,30 +726,30 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <div class="footer-section">
+    <footer class="vd-footer">
+        <div class="vd-footer-container">
+            <div class="vd-row">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
                         <h4>Vanduo Framework</h4>
                         <p>Essential just like water is.</p>
                         <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="footer-section">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
                         <h4>Quick Links</h4>
-                        <ul class="footer-links">
+                        <ul class="vd-footer-links">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="documentation.html">Documentation</a></li>
                             <li><a href="changelog.html">Changelog</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="footer-section">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
                         <h4>Resources</h4>
-                        <ul class="footer-links">
+                        <ul class="vd-footer-links">
                             <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
                             <li><a href="documentation.html">Documentation</a></li>
                             <li><a href="changelog.html">Changelog</a></li>
@@ -680,23 +761,23 @@
             </div>
 
             <!-- Made with Kilo Code Section -->
-            <div class="footer-made-with">
-                <span class="footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+            <div class="vd-footer-made-with">
+                <span class="vd-footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
                         rel="noopener noreferrer">Kilo Code</a></span>
-                <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="footer-kilo-link"
+                <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="vd-footer-kilo-link"
                     title="Kilo Code - AI Coding Assistant">
-                    <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="footer-kilo-logo">
+                    <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="vd-footer-kilo-logo">
                 </a>
-                <span class="footer-separator" aria-hidden="true"></span>
+                <span class="vd-footer-separator" aria-hidden="true"></span>
                 <a href="https://www.buymeacoffee.com/nostromo618" target="_blank" rel="noopener noreferrer"
-                    class="footer-bmac-link" title="Buy Me A Coffee">
+                    class="vd-footer-bmac-link" title="Buy Me A Coffee">
                     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
-                        class="footer-bmac-logo">
+                        class="vd-footer-bmac-logo">
                 </a>
             </div>
 
-            <div class="footer-bottom">
-                <p class="text-center text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+            <div class="vd-footer-bottom">
+                <p class="vd-text-center vd-text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
             </div>
         </div>
     </footer>
@@ -709,6 +790,13 @@
     <script src="./js/components/theme-customizer.js"></script>
     <script src="./js/components/navbar.js"></script>
     <script src="./js/components/select.js"></script>
+
+    <!-- Initialize Vanduo -->
+    <script>
+        if (typeof Vanduo !== 'undefined') {
+            Vanduo.init();
+        }
+    </script>
 </body>
 
 </html>

@@ -244,87 +244,87 @@ pre code {
 }
 
 /* Font Family Utilities */
-.font-sans {
+.vd-font-sans {
   font-family: var(--font-family-sans);
 }
 
-.font-serif {
+.vd-font-serif {
   font-family: var(--font-family-serif);
 }
 
-.font-mono {
+.vd-font-mono {
   font-family: var(--font-family-mono);
 }
 
 /* Font Size Utilities */
-.text-xs {
+.vd-text-xs {
   font-size: var(--font-size-xs);
 }
 
-.text-sm {
+.vd-text-sm {
   font-size: var(--font-size-sm);
 }
 
-.text-base {
+.vd-text-base {
   font-size: var(--font-size-base);
 }
 
-.text-lg {
+.vd-text-lg {
   font-size: var(--font-size-lg);
 }
 
-.text-xl {
+.vd-text-xl {
   font-size: var(--font-size-xl);
 }
 
-.text-2xl {
+.vd-text-2xl {
   font-size: var(--font-size-2xl);
 }
 
-.text-3xl {
+.vd-text-3xl {
   font-size: var(--font-size-3xl);
 }
 
-.text-4xl {
+.vd-text-4xl {
   font-size: var(--font-size-4xl);
 }
 
-.text-5xl {
+.vd-text-5xl {
   font-size: var(--font-size-5xl);
 }
 
-.text-6xl {
+.vd-text-6xl {
   font-size: var(--font-size-6xl);
 }
 
 /* Font Weight Utilities */
-.font-light {
+.vd-font-light {
   font-weight: var(--font-weight-light);
 }
 
-.font-normal {
+.vd-font-normal {
   font-weight: var(--font-weight-normal);
 }
 
-.font-medium {
+.vd-font-medium {
   font-weight: var(--font-weight-medium);
 }
 
-.font-semibold {
+.vd-font-semibold {
   font-weight: var(--font-weight-semibold);
 }
 
-.font-bold {
+.vd-font-bold {
   font-weight: var(--font-weight-bold);
 }
 
-.font-extrabold {
+.vd-font-extrabold {
   font-weight: var(--font-weight-extrabold);
 }
 
-/* Text Alignment: see helpers.css for .text-left, .text-center, .text-right, .text-justify */
+/* Text Alignment: see helpers.css for .vd-text-left, .vd-text-center, .vd-text-right, .vd-text-justify */
 
-/* Text Transform Utilities (shorthand aliases — see also .text-uppercase etc. in helpers.css) */
+/* Text Transform Utilities (shorthand aliases — see also .vd-text-uppercase etc. in helpers.css) */
 .uppercase {
   text-transform: uppercase;
 }

@@ -44,14 +44,14 @@
      */
     createBackdrop: function () {
       // Prevent duplicate backdrop creation
-      if (this.backdrop || document.querySelector('.image-box-backdrop')) {
+      if (this.backdrop || document.querySelector('.vd-image-box-backdrop')) {
         // If backdrop already exists in DOM, reuse it
         if (!this.backdrop) {
-          this.backdrop = document.querySelector('.image-box-backdrop');
-          this.container = this.backdrop.querySelector('.image-box-container');
-          this.img = this.backdrop.querySelector('.image-box-img');
-          this.closeBtn = this.backdrop.querySelector('.image-box-close');
-          this.caption = this.backdrop.querySelector('.image-box-caption');
+          this.backdrop = document.querySelector('.vd-image-box-backdrop');
+          this.container = this.backdrop.querySelector('.vd-image-box-container');
+          this.img = this.backdrop.querySelector('.vd-image-box-img');
+          this.closeBtn = this.backdrop.querySelector('.vd-image-box-close');
+          this.caption = this.backdrop.querySelector('.vd-image-box-caption');
           this.bindBackdropEvents();
         }
         return;
@@ -59,7 +59,7 @@
 
       // Create backdrop
       this.backdrop = document.createElement('div');
-      this.backdrop.className = 'image-box-backdrop';
+      this.backdrop.className = 'vd-image-box-backdrop';
       this.backdrop.setAttribute('role', 'dialog');
       this.backdrop.setAttribute('aria-modal', 'true');
       this.backdrop.setAttribute('aria-label', 'Image viewer');
@@ -67,22 +67,22 @@
 
       // Create container
       this.container = document.createElement('div');
-      this.container.className = 'image-box-container';
+      this.container.className = 'vd-image-box-container';
 
       // Create image
       this.img = document.createElement('img');
-      this.img.className = 'image-box-img';
+      this.img.className = 'vd-image-box-img';
       this.img.alt = '';
 
       // Create close button
       this.closeBtn = document.createElement('button');
-      this.closeBtn.className = 'image-box-close';
+      this.closeBtn.className = 'vd-image-box-close';
       this.closeBtn.setAttribute('aria-label', 'Close image viewer');
       this.closeBtn.innerHTML = '&times;';
 
       // Create caption element
       this.caption = document.createElement('div');
-      this.caption.className = 'image-box-caption';
+      this.caption.className = 'vd-image-box-caption';
 
       // Assemble
       this.container.appendChild(this.img);
@@ -161,7 +161,7 @@
         trigger.dataset.imageBoxInitialized = 'true';
 
         // Add trigger class
-        trigger.classList.add('image-box-trigger');
+        trigger.classList.add('vd-image-box-trigger');
 
         // Handle broken images
         if (trigger.tagName === 'IMG') {
@@ -339,7 +339,7 @@
       // Remove trigger bindings
       const triggers = document.querySelectorAll('[data-image-box-initialized]');
       triggers.forEach(trigger => {
-        trigger.classList.remove('image-box-trigger');
+        trigger.classList.remove('vd-image-box-trigger');
         if (trigger._imageBoxCleanup) {
           trigger._imageBoxCleanup();
           delete trigger._imageBoxCleanup;

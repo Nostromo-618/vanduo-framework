@@ -17,7 +17,7 @@
      * Initialize pagination components
      */
     init: function() {
-      const paginations = document.querySelectorAll('.pagination[data-pagination]');
+      const paginations = document.querySelectorAll('.vd-pagination[data-pagination]');
 
       paginations.forEach(pagination => {
         if (this.instances.has(pagination)) {
@@ -44,14 +44,14 @@
 
       // Handle clicks (event delegation)
       const clickHandler = (e) => {
-        const link = e.target.closest('.pagination-link');
-        if (!link || link.closest('.pagination-item.disabled') || link.closest('.pagination-item.active')) {
+        const link = e.target.closest('.vd-pagination-link');
+        if (!link || link.closest('.vd-pagination-item.disabled') || link.closest('.vd-pagination-item.active')) {
           return;
         }
 
         e.preventDefault();
 
-        const item = link.closest('.pagination-item');
+        const item = link.closest('.vd-pagination-item');
         const page = item.dataset.page;
 
         if (page) {

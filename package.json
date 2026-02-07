@@ -1,6 +1,6 @@
 {
   "name": "vanduo-framework",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Zero-dependency CSS/JS framework built on Fibonacci/Golden Ratio design system with Open Color integration",
   "keywords": [
     "css",
@@ -19,7 +19,18 @@
   "license": "MIT",
   "author": "Nostromo-618",
   "type": "module",
-  "main": "dist/vanduo.min.css",
+  "main": "dist/vanduo.cjs.js",
+  "module": "dist/vanduo.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vanduo.esm.js",
+      "require": "./dist/vanduo.cjs.js",
+      "default": "./dist/vanduo.esm.js"
+    },
+    "./css": "./dist/vanduo.min.css",
+    "./iife": "./dist/vanduo.min.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist/",
     "css/",
@@ -51,10 +62,10 @@
     "report": "playwright show-report"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@playwright/test": "^1.58.1",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
     "esbuild": "^0.27.3",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "husky": "^9.1.7",
     "lightningcss": "^1.31.1",
     "stylelint": "^17.1.1",

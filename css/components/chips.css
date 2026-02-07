@@ -34,7 +34,7 @@
 }
 
 /* Base Chip */
-.chip,
+.vd-chip,
 .tag {
   display: inline-flex;
   align-items: center;
@@ -52,93 +52,93 @@
 }
 
 /* Chip Sizes */
-.chip-sm,
+.vd-chip-sm,
 .tag-sm {
   padding: var(--chip-padding-y-sm) var(--chip-padding-x-sm);
   font-size: var(--chip-font-size-sm);
 }
 
-.chip-lg,
+.vd-chip-lg,
 .tag-lg {
   padding: var(--chip-padding-y-lg) var(--chip-padding-x-lg);
   font-size: var(--chip-font-size-lg);
 }
 
 /* Chip Color Variants */
-.chip-primary,
+.vd-chip-primary,
 .tag-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.chip-secondary,
+.vd-chip-secondary,
 .tag-secondary {
   background-color: var(--color-secondary);
   color: var(--color-white);
 }
 
-.chip-success,
+.vd-chip-success,
 .tag-success {
   background-color: var(--color-success);
   color: var(--color-white);
 }
 
-.chip-warning,
+.vd-chip-warning,
 .tag-warning {
   background-color: var(--color-warning);
   color: var(--color-gray-900);
 }
 
-.chip-error,
+.vd-chip-error,
 .tag-error,
-.chip-danger,
+.vd-chip-danger,
 .tag-danger {
   background-color: var(--color-error);
   color: var(--color-white);
 }
 
-.chip-info,
+.vd-chip-info,
 .tag-info {
   background-color: var(--color-info);
   color: var(--color-white);
 }
 
 /* Outline Variants */
-.chip-outline,
+.vd-chip-outline,
 .tag-outline {
   background-color: transparent;
   border: 1px solid var(--chip-border);
 }
 
-.chip-outline.chip-primary,
+.vd-chip-outline.vd-chip-primary,
 .tag-outline.tag-primary {
   border-color: var(--color-primary);
   color: var(--color-primary);
   background-color: transparent;
 }
 
-.chip-outline.chip-success,
+.vd-chip-outline.vd-chip-success,
 .tag-outline.tag-success {
   border-color: var(--color-success);
   color: var(--color-success);
   background-color: transparent;
 }
 
-.chip-outline.chip-warning,
+.vd-chip-outline.vd-chip-warning,
 .tag-outline.tag-warning {
   border-color: var(--color-warning);
   color: var(--color-warning);
   background-color: transparent;
 }
 
-.chip-outline.chip-error,
+.vd-chip-outline.vd-chip-error,
 .tag-outline.tag-error {
   border-color: var(--color-error);
   color: var(--color-error);
   background-color: transparent;
 }
 
-.chip-outline.chip-info,
+.vd-chip-outline.vd-chip-info,
 .tag-outline.tag-info {
   border-color: var(--color-info);
   color: var(--color-info);
@@ -146,43 +146,43 @@
 }
 
 /* Clickable/Interactive Chip */
-.chip-clickable,
+.vd-chip-clickable,
 .tag-clickable,
-a.chip,
+a.vd-chip,
 a.tag,
-button.chip,
+button.vd-chip,
 button.tag {
   cursor: pointer;
   text-decoration: none;
   border: none;
 }
 
-.chip-clickable:hover,
+.vd-chip-clickable:hover,
 .tag-clickable:hover,
-a.chip:hover,
+a.vd-chip:hover,
 a.tag:hover,
-button.chip:hover,
+button.vd-chip:hover,
 button.tag:hover {
   filter: brightness(0.9);
 }
 
-.chip-clickable:focus-visible,
+.vd-chip-clickable:focus-visible,
 .tag-clickable:focus-visible,
-a.chip:focus-visible,
+a.vd-chip:focus-visible,
 a.tag:focus-visible,
-button.chip:focus-visible,
+button.vd-chip:focus-visible,
 button.tag:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Dismissible Chip */
-.chip-dismissible,
+.vd-chip-dismissible,
 .tag-dismissible {
   padding-right: 0.375rem;
 }
 
-.chip-close,
+.vd-chip-close,
 .tag-close {
   display: inline-flex;
   align-items: center;
@@ -202,12 +202,12 @@ button.tag:focus-visible {
   transition: opacity 0.15s ease;
 }
 
-.chip-close:hover,
+.vd-chip-close:hover,
 .tag-close:hover {
   opacity: 1;
 }
 
-.chip-close::before,
+.vd-chip-close::before,
 .tag-close::before {
   content: '\00D7';
   font-size: 1rem;
@@ -215,12 +215,12 @@ button.tag:focus-visible {
 }
 
 /* Chip with Avatar/Image */
-.chip-avatar,
+.vd-chip-avatar,
 .tag-avatar {
   padding-left: 0.25rem;
 }
 
-.chip-avatar img,
+.vd-chip-avatar img,
 .tag-avatar img {
   width: 1.5rem;
   height: 1.5rem;
@@ -228,20 +228,20 @@ button.tag:focus-visible {
   object-fit: cover;
 }
 
-.chip-sm.chip-avatar img,
+.vd-chip-sm.vd-chip-avatar img,
 .tag-sm.tag-avatar img {
   width: 1.25rem;
   height: 1.25rem;
 }
 
-.chip-lg.chip-avatar img,
+.vd-chip-lg.vd-chip-avatar img,
 .tag-lg.tag-avatar img {
   width: 1.75rem;
   height: 1.75rem;
 }
 
 /* Chip Group */
-.chip-group,
+.vd-chip-group,
 .tag-group {
   display: flex;
   flex-wrap: wrap;
@@ -250,9 +250,9 @@ button.tag:focus-visible {
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .chip,
+  .vd-chip,
   .tag,
-  .chip-close,
+  .vd-chip-close,
   .tag-close {
     transition: none;
   }

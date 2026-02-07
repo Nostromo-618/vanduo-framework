@@ -6,7 +6,7 @@
  * // HTML:
  * // <div class="doc-search">
  * //   <input type="search" class="doc-search-input" placeholder="Search...">
- * //   <div class="doc-search-results"></div>
+ * //   <div class="vd-doc-search-results"></div>
  * // </div>
  * 
  * @example Custom configuration
@@ -45,9 +45,9 @@
     keyboardShortcut: true,  // Enable Cmd/Ctrl+K shortcut
     
     // Selectors (for DOM-based indexing)
-    containerSelector: '.doc-search',
-    inputSelector: '.doc-search-input',
-    resultsSelector: '.doc-search-results',
+    containerSelector: '.vd-doc-search',
+    inputSelector: '.vd-doc-search-input',
+    resultsSelector: '.vd-doc-search-results',
     contentSelector: '.doc-content section[id]',
     titleSelector: '.demo-title, h2, h3',
     navSelector: '.doc-nav-link',
@@ -314,7 +314,7 @@
         }
       };
       state.boundHandlers.handleResultClick = function(e) {
-        var result = e.target.closest('.doc-search-result');
+        var result = e.target.closest('.vd-doc-search-result');
         if (result) {
           var index = parseInt(result.dataset.index, 10);
           select(index);
@@ -517,27 +517,27 @@
         return;
       }
 
-      var html = '<ul class="doc-search-results-list" role="listbox">';
+      var html = '<ul class="vd-doc-search-results-list" role="listbox">';
 
       state.results.forEach(function(result, index) {
         var isActive = index === state.activeIndex;
         var icon = getCategoryIcon(result.categorySlug);
         var excerpt = getExcerpt(result.content, state.query);
 
-        html += '<li class="doc-search-result' + (isActive ? ' is-active' : '') + '"' +
+        html += '<li class="vd-doc-search-result' + (isActive ? ' is-active' : '') + '"' +
           ' role="option"' +
-          ' id="doc-search-result-' + index + '"' +
+          ' id="vd-doc-search-result-' + index + '"' +
           ' data-index="' + index + '"' +
           ' data-category="' + result.categorySlug + '"' +
           ' aria-selected="' + isActive + '"' +
           '>' +
-          '<div class="doc-search-result-icon">' +
+          '<div class="vd-doc-search-result-icon">' +
           '<i class="ph ' + icon + '"></i>' +
           '</div>' +
-          '<div class="doc-search-result-content">' +
-          '<div class="doc-search-result-title">' + highlight(result.title, state.query) + '</div>' +
-          '<div class="doc-search-result-category">' + result.category + '</div>' +
-          '<div class="doc-search-result-excerpt">' + highlight(excerpt, state.query) + '</div>' +
+          '<div class="vd-doc-search-result-content">' +
+          '<div class="vd-doc-search-result-title">' + highlight(result.title, state.query) + '</div>' +
+          '<div class="vd-doc-search-result-category">' + result.category + '</div>' +
+          '<div class="vd-doc-search-result-excerpt">' + highlight(excerpt, state.query) + '</div>' +
           '</div>' +
           '</li>';
       });
@@ -552,10 +552,10 @@
      * Render empty state
      */
     function renderEmpty() {
-      return '<div class="doc-search-empty">' +
-        '<div class="doc-search-empty-icon"><i class="ph ph-magnifying-glass"></i></div>' +
-        '<div class="doc-search-empty-title">' + escapeHtml(config.emptyTitle) + '</div>' +
-        '<div class="doc-search-empty-text">' + escapeHtml(config.emptyText) + '</div>' +
+      return '<div class="vd-doc-search-empty">' +
+        '<div class="vd-doc-search-empty-icon"><i class="ph ph-magnifying-glass"></i></div>' +
+        '<div class="vd-doc-search-empty-title">' + escapeHtml(config.emptyTitle) + '</div>' +
+        '<div class="vd-doc-search-empty-text">' + escapeHtml(config.emptyText) + '</div>' +
         '</div>';
     }
 
@@ -563,10 +563,10 @@
      * Render footer with keyboard hints
      */
     function renderFooter() {
-      return '<div class="doc-search-footer">' +
-        '<span class="doc-search-footer-item"><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>' +
-        '<span class="doc-search-footer-item"><kbd>↵</kbd> to select</span>' +
-        '<span class="doc-search-footer-item"><kbd>esc</kbd> to close</span>' +
+      return '<div class="vd-doc-search-footer">' +
+        '<span class="vd-doc-search-footer-item"><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>' +
+        '<span class="vd-doc-search-footer-item"><kbd>↵</kbd> to select</span>' +
+        '<span class="vd-doc-search-footer-item"><kbd>esc</kbd> to close</span>' +
         '</div>';
     }
 
@@ -660,7 +660,7 @@
      * Set active result index
      */
     function setActiveIndex(index) {
-      var prevActive = state.resultsContainer.querySelector('.doc-search-result.is-active');
+      var prevActive = state.resultsContainer.querySelector('.vd-doc-search-result.is-active');
       if (prevActive) {
         prevActive.classList.remove('is-active');
         prevActive.setAttribute('aria-selected', 'false');
@@ -672,7 +672,7 @@
       if (newActive) {
         newActive.classList.add('is-active');
         newActive.setAttribute('aria-selected', 'true');
-        state.input.setAttribute('aria-activedescendant', 'doc-search-result-' + index);
+        state.input.setAttribute('aria-activedescendant', 'vd-doc-search-result-' + index);
         newActive.scrollIntoView({ block: 'nearest' });
       }
     }

@@ -1,4 +1,4 @@
-# Vanduo Framework v1.0.4
+# Vanduo Framework v1.1.0
 
 **Essential just like water is.** 
 
@@ -47,15 +47,33 @@ Load directly from jsDelivr — no download required:
     
     <!-- Vanduo JS via CDN -->
     <script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@main/dist/vanduo.min.js"></script>
+    <script>Vanduo.init();</script>
 </body>
 </html>
 ```
 
 **Pin to a specific version** (recommended for production):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.4/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.0.4/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.0/dist/vanduo.min.js"></script>
+<script>Vanduo.init();</script>
 ```
+
+### ⚠️ Breaking Changes in v1.1.0
+
+**CSS Class Prefixing:** All CSS classes now use the `vd-` prefix to prevent collisions with other frameworks:
+- `.btn` → `.vd-btn`
+- `.container` → `.vd-container`
+- `.card` → `.vd-card`
+- etc.
+
+**Manual Initialization:** Framework no longer auto-initializes. Explicitly call `Vanduo.init()` after loading:
+```html
+<script src="dist/vanduo.min.js"></script>
+<script>Vanduo.init();</script>
+```
+
+See [MIGRATION.md](MIGRATION.md) for complete upgrade guide.
 
 ### Option 2: Download
 
@@ -74,6 +92,7 @@ Load directly from jsDelivr — no download required:
     <!-- Your content here -->
     
     <script src="dist/vanduo.min.js"></script>
+    <script>Vanduo.init();</script>
 </body>
 </html>
 ```
@@ -97,6 +116,7 @@ For development or when you need more control, use the unminified source:
     <!-- Your content here -->
     
     <script src="js/vanduo.js"></script>
+    <script>Vanduo.init();</script>
 </body>
 </html>
 ```

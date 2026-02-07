@@ -33,7 +33,7 @@
       }
 
       const container = document.createElement('div');
-      container.className = `toast-container toast-container-${position}`;
+      container.className = `vd-toast-container vd-toast-container-${position}`;
       container.setAttribute('role', 'status');
       container.setAttribute('aria-live', 'polite');
       container.setAttribute('aria-atomic', 'false');
@@ -65,18 +65,18 @@
 
       // Create toast element
       const toast = document.createElement('div');
-      toast.className = 'toast';
+      toast.className = 'vd-toast';
 
       if (config.type) {
-        toast.classList.add(`toast-${config.type}`);
+        toast.classList.add(`vd-toast-${config.type}`);
       }
 
       if (config.solid) {
-        toast.classList.add('toast-solid');
+        toast.classList.add('vd-toast-solid');
       }
 
       if (config.showProgress && config.duration > 0) {
-        toast.classList.add('toast-with-progress');
+        toast.classList.add('vd-toast-with-progress');
       }
 
       // Build toast content
@@ -85,31 +85,31 @@
       // Icon (sanitize custom icons, default icons are trusted SVG)
       if (config.icon) {
         const safeIcon = typeof sanitizeHtml === 'function' ? sanitizeHtml(config.icon) : escapeHtml(config.icon);
-        html += `<span class="toast-icon">${safeIcon}</span>`;
+        html += `<span class="vd-toast-icon">${safeIcon}</span>`;
       } else if (config.type) {
-        html += `<span class="toast-icon">${this.getDefaultIcon(config.type)}</span>`;
+        html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;
       }
 
       // Content (escape text to prevent injection)
-      html += '<div class="toast-content">';
+      html += '<div class="vd-toast-content">';
       if (config.title) {
         const safeTitle = typeof escapeHtml === 'function' ? escapeHtml(config.title) : config.title;
-        html += `<div class="toast-title">${safeTitle}</div>`;
+        html += `<div class="vd-toast-title">${safeTitle}</div>`;
       }
       if (config.message) {
         const safeMessage = typeof escapeHtml === 'function' ? escapeHtml(config.message) : config.message;
-        html += `<div class="toast-message">${safeMessage}</div>`;
+        html += `<div class="vd-toast-message">${safeMessage}</div>`;
       }
       html += '</div>';
 
       // Close button
       if (config.dismissible) {
-        html += '<button type="button" class="toast-close" aria-label="Close"></button>';
+        html += '<button type="button" class="vd-toast-close" aria-label="Close"></button>';
       }
 
       // Progress bar
       if (config.showProgress && config.duration > 0) {
-        html += `<div class="toast-progress" style="animation-duration: ${config.duration}ms"></div>`;
+        html += `<div class="vd-toast-progress" style="animation-duration: ${config.duration}ms"></div>`;
       }
 
       toast.innerHTML = html;
@@ -119,7 +119,7 @@
 
       // Set up close button handler
       if (config.dismissible) {
-        const closeBtn = toast.querySelector('.toast-close');
+        const closeBtn = toast.querySelector('.vd-toast-close');
         closeBtn.addEventListener('click', () => {
           this.dismiss(toast);
         });
@@ -138,7 +138,7 @@
           }, remainingTime);
 
           // Resume progress animation
-          const progress = toast.querySelector('.toast-progress');
+          const progress = toast.querySelector('.vd-toast-progress');
           if (progress) {
             progress.style.animationPlayState = 'running';
           }
@@ -152,7 +152,7 @@
           remainingTime -= Date.now() - startTime;
 
           // Pause progress animation
-          const progress = toast.querySelector('.toast-progress');
+          const progress = toast.querySelector('.vd-toast-progress');
           if (progress) {
             progress.style.animationPlayState = 'paused';
           }
@@ -224,11 +224,11 @@
      */
     dismissAll: function(position) {
       if (position && this.containers[position]) {
-        const toasts = this.containers[position].querySelectorAll('.toast');
+        const toasts = this.containers[position].querySelectorAll('.vd-toast');
         toasts.forEach(toast => this.dismiss(toast));
       } else {
         Object.values(this.containers).forEach(container => {
-          const toasts = container.querySelectorAll('.toast');
+          const toasts = container.querySelectorAll('.vd-toast');
           toasts.forEach(toast => this.dismiss(toast));
         });
       }

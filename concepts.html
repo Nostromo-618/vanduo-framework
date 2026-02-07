@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vanduo Framework Concepts & Architecture. Learn about our philosophy, namespacing strategy, design tokens, lifecycle management, and more.">
+    <meta name="author" content="Vanduo Framework">
+    <meta name="keywords"
+        content="CSS framework architecture, design tokens, CSS namespacing, zero dependencies, vanilla JS, framework concepts">
+    <meta name="robots" content="index, follow">
+    <title>Concepts & Architecture - Vanduo Framework</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vanduo.dev/concepts.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vanduo.dev/concepts.html">
+    <meta property="og:title" content="Concepts & Architecture - Vanduo Framework">
+    <meta property="og:description"
+        content="Learn about Vanduo's architectural decisions: CSS namespacing, design tokens, lifecycle management, and zero-dependency philosophy.">
+    <meta property="og:image" content="https://vanduo.dev/images/og-image.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vanduo Framework">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vanduo.dev/concepts.html">
+    <meta name="twitter:title" content="Concepts & Architecture - Vanduo Framework">
+    <meta name="twitter:description"
+        content="Learn about Vanduo's architectural decisions: CSS namespacing, design tokens, lifecycle management, and zero-dependency philosophy.">
+    <meta name="twitter:image" content="https://vanduo.dev/images/twitter-card.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="./css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="./css/icons/icons.css">
+
+    <!-- Documentation Search -->
+    <link rel="stylesheet" href="./css/components/doc-search.css">
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--vd-color-primary);
+            color: var(--vd-color-white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Section spacing */
+        section {
+            padding: 4rem 0;
+            scroll-margin-top: 80px;
+            border-bottom: 1px solid var(--vd-border-color);
+        }
+
+        section:first-of-type {
+            padding-top: 2rem;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Component demo cards */
+        .demo-card {
+            margin-bottom: 2rem;
+        }
+
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--vd-color-primary);
+            font-size: 1.75rem;
+        }
+
+        .demo-title i {
+            font-size: 1.25em;
+            color: var(--vd-color-primary);
+        }
+
+        .demo-title code {
+            font-size: 0.5em;
+            vertical-align: middle;
+            margin-left: auto;
+        }
+
+        /* Code examples */
+        .code-example {
+            background: var(--vd-bg-secondary);
+            padding: 1rem;
+            border-radius: var(--vd-btn-border-radius);
+            margin-top: 1rem;
+            font-family: var(--vd-font-family-mono);
+            font-size: var(--vd-font-size-sm);
+            overflow-x: auto;
+        }
+
+        /* Documentation sidebar */
+        .doc-sidebar {
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 80px);
+            overflow: visible;
+            padding-right: 1rem;
+            border-right: 1px solid var(--vd-border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Search bar sticks below navbar with spacing above */
+        .doc-sidebar .vd-doc-search {
+            flex-shrink: 0;
+            position: sticky;
+            top: 70px;
+            z-index: 2;
+            background: var(--vd-bg-primary);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* TOC navigation scrolls below search */
+        .doc-sidebar .doc-nav {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .doc-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .doc-nav-section {
+            font-size: var(--vd-font-size-xs);
+            font-weight: 600;
+            color: var(--vd-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0.8125rem;
+            margin-top: 1rem;
+        }
+
+        .doc-nav-section:first-child {
+            margin-top: 0;
+        }
+
+        .doc-nav-link {
+            display: block;
+            padding: 0.3125rem 0.8125rem;
+            color: var(--vd-text-primary);
+            text-decoration: none;
+            font-size: var(--vd-font-size-sm);
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .doc-nav-link:hover {
+            color: var(--vd-color-primary);
+            background-color: var(--vd-bg-secondary);
+        }
+
+        .doc-nav-link.active {
+            color: var(--vd-color-primary);
+            border-left-color: var(--vd-color-primary);
+            font-weight: 500;
+        }
+
+        /* Philosophy cards */
+        .philosophy-card {
+            height: 100%;
+        }
+
+        .philosophy-icon {
+            font-size: 2.5rem;
+            color: var(--vd-color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--vd-border-color);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            background: var(--vd-bg-secondary);
+        }
+
+        /* Mobile sidebar toggle */
+        .doc-sidebar-toggle {
+            display: none;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--vd-bg-secondary);
+            border: 1px solid var(--vd-border-color);
+            border-radius: var(--vd-btn-border-radius);
+            cursor: pointer;
+            font-size: var(--vd-font-size-sm);
+            color: var(--vd-text-primary);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .doc-sidebar-toggle::after {
+            content: '\25BC';
+            float: right;
+            transition: transform 0.2s;
+        }
+
+        .doc-sidebar-toggle.is-open::after {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 991px) {
+            .doc-sidebar {
+                position: sticky;
+                top: 70px;
+                height: auto;
+                max-height: calc(100vh - 80px);
+                overflow: visible;
+                display: flex;
+                flex-direction: column;
+                border-right: none;
+                padding-right: 0;
+                margin-bottom: 2rem;
+                background: var(--vd-bg-primary);
+                z-index: 10;
+            }
+
+            .doc-sidebar .vd-doc-search {
+                flex-shrink: 0;
+                position: sticky;
+                top: 70px;
+                z-index: 2;
+                background: var(--vd-bg-primary);
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .doc-sidebar-toggle {
+                display: block;
+                flex-shrink: 0;
+            }
+
+            .doc-nav {
+                display: none;
+                overflow-y: auto;
+                flex: 1;
+                max-height: calc(100vh - 200px);
+            }
+
+            .doc-nav.is-open {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="vd-navbar vd-navbar-fixed">
+        <div class="vd-navbar-container">
+            <div class="vd-navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-drop"
+                        style="color: var(--vd-color-primary); margin-right: 0.25em;"></i>Vanduo</a>
+            </div>
+
+            <button class="vd-navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="vd-navbar-menu">
+                <ul class="vd-navbar-nav">
+                    <li><a href="index.html" class="vd-nav-link">Home</a></li>
+                    <li><a href="documentation.html" class="vd-nav-link">Documentation</a></li>
+                    <li><a href="changelog.html" class="vd-nav-link">Changelog</a></li>
+                </ul>
+
+                <!-- Theme Customizer Trigger (far right) -->
+                <button class="vd-theme-customizer-trigger" data-theme-customizer-trigger
+                    aria-label="Open theme customizer" style="margin-left: auto;">
+                    <i class="ph ph-paint-roller"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="padding-top: 80px;">
+        <div class="vd-container-responsive">
+            <!-- Documentation Tabs -->
+            <div class="doc-tabs">
+                <a href="documentation.html" class="doc-tab">
+                    <i class="ph ph-cube"></i>Components
+                </a>
+                <a href="concepts.html" class="doc-tab active">
+                    <i class="ph ph-lightbulb"></i>Concepts & Architecture
+                </a>
+            </div>
+
+            <div class="vd-row">
+                <!-- Sidebar -->
+                <aside class="vd-col-12 vd-col-lg-3 doc-sidebar">
+                    <!-- Documentation Search -->
+                    <div class="vd-doc-search">
+                        <div class="vd-doc-search-input-wrapper">
+                            <i class="ph ph-magnifying-glass vd-doc-search-icon"></i>
+                            <input type="search" class="vd-doc-search-input" placeholder="Search concepts..."
+                                aria-label="Search documentation" aria-controls="doc-search-results-list"
+                                aria-expanded="false" autocomplete="off">
+                            <kbd class="vd-doc-search-shortcut">⌘K</kbd>
+                        </div>
+                        <div class="vd-doc-search-results" id="doc-search-results-list" role="listbox"
+                            aria-label="Search results"></div>
+                    </div>
+
+                    <button class="doc-sidebar-toggle" aria-label="Toggle navigation">Table of Contents</button>
+                    <nav class="doc-nav" aria-label="Documentation sections">
+                        <ul class="doc-nav-list">
+                            <li class="doc-nav-section">Overview</li>
+                            <li><a href="#philosophy" class="doc-nav-link active">Philosophy</a></li>
+                            <li><a href="#namespacing" class="doc-nav-link">CSS Namespacing</a></li>
+                            <li><a href="#tokens" class="doc-nav-link">Design Tokens</a></li>
+
+                            <li class="doc-nav-section">Architecture</li>
+                            <li><a href="#lifecycle" class="doc-nav-link">Lifecycle Management</a></li>
+                            <li><a href="#modules" class="doc-nav-link">Module Formats</a></li>
+
+                            <li class="doc-nav-section">Migration</li>
+                            <li><a href="#migration" class="doc-nav-link">Migration Guide</a></li>
+                            <li><a href="#breaking-changes" class="doc-nav-link">Breaking Changes</a></li>
+
+                            <li class="doc-nav-section">Reference</li>
+                            <li><a href="#class-prefixes" class="doc-nav-link">Class Prefixes</a></li>
+                            <li><a href="#token-reference" class="doc-nav-link">Token Reference</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Content area -->
+                <div class="vd-col-12 vd-col-lg-9 doc-content">
+
+                    <!-- Philosophy Section -->
+                    <section id="philosophy">
+                        <h2 class="demo-title"><i class="ph ph-heart"></i>Our Philosophy</h2>
+                        <p class="vd-mb-6">Vanduo is built on a foundation of simplicity, transparency, and developer
+                            empowerment. We believe that a CSS framework should enhance your workflow without adding
+                            unnecessary complexity or hidden dependencies.</p>
+
+                        <div class="vd-row">
+                            <div class="vd-col-12 vd-col-md-6 vd-col-lg-3 vd-mb-4">
+                                <div class="vd-card vd-card-glow philosophy-card">
+                                    <div class="vd-card-body vd-text-center">
+                                        <i class="ph ph-drop philosophy-icon"></i>
+                                        <h4>Pure & Simple</h4>
+                                        <p class="vd-text-sm vd-text-muted">Just HTML, CSS, and vanilla JavaScript. No
+                                            build tools required, no transpilation needed.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6 vd-col-lg-3 vd-mb-4">
+                                <div class="vd-card vd-card-glow philosophy-card">
+                                    <div class="vd-card-body vd-text-center">
+                                        <i class="ph ph-shield-check philosophy-icon"></i>
+                                        <h4>Conflict-Free</h4>
+                                        <p class="vd-text-sm vd-text-muted">The <code>vd-</code> prefix ensures our
+                                            classes never conflict with your existing styles or other libraries.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6 vd-col-lg-3 vd-mb-4">
+                                <div class="vd-card vd-card-glow philosophy-card">
+                                    <div class="vd-card-body vd-text-center">
+                                        <i class="ph ph-lego philosophy-icon"></i>
+                                        <h4>Modular</h4>
+                                        <p class="vd-text-sm vd-text-muted">Use only what you need. Import individual
+                                            components or the full framework—your choice.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6 vd-col-lg-3 vd-mb-4">
+                                <div class="vd-card vd-card-glow philosophy-card">
+                                    <div class="vd-card-body vd-text-center">
+                                        <i class="ph ph-code philosophy-icon"></i>
+                                        <h4>Developer First</h4>
+                                        <p class="vd-text-sm vd-text-muted">Clean, readable code with consistent
+                                            patterns. Easy to customize and extend.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-info vd-mr-2"></i>What "Vanduo" Means</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p><strong>Vanduo</strong> (pronounced <em>van-doo-oh</em>) is derived from Lithuanian:
+                                    <em>vanduo</em> means "water."
+                                </p>
+                                <p class="vd-mt-3">Just as water is essential for life, we believe a good CSS framework
+                                    should be essential yet unobtrusive—flowing naturally into your projects without
+                                    forcing you to change your workflow. Water adapts to its container; Vanduo adapts to
+                                    your design.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Namespacing Section -->
+                    <section id="namespacing">
+                        <h2 class="demo-title"><i class="ph ph-shield"></i>CSS Namespacing Strategy</h2>
+                        <p class="vd-mb-6">One of the most important architectural decisions in Vanduo v1.1.0 is the
+                            introduction of comprehensive CSS namespacing. Every framework class is prefixed with
+                            <code>vd-</code> to prevent collisions and ensure safe integration.
+                        </p>
+
+                        <div class="vd-row">
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3><i class="ph ph-check-circle vd-mr-2"
+                                                style="color: var(--vd-color-success);"></i>Before v1.1.0</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <pre class="code-example"><code>/* Generic class names */
+.container { }
+.row { }
+.col-6 { }
+.btn { }
+.card { }
+.alert { }
+
+/* Problems:
+   - Conflicts with Bootstrap
+   - Conflicts with Tailwind
+   - Conflicts with your own .btn
+   - Unpredictable in large apps
+*/</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3><i class="ph ph-star vd-mr-2"
+                                                style="color: var(--vd-color-warning);"></i>Since v1.1.0</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <pre class="code-example"><code>/* Namespaced class names */
+.vd-container { }
+.vd-row { }
+.vd-col-6 { }
+.vd-btn { }
+.vd-card { }
+.vd-alert { }
+
+/* Benefits:
+   - Zero conflicts guaranteed
+   - Clear framework origin
+   - Safe embedding in any app
+   - Multiple framework friendly
+*/</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-warning vd-mr-2" style="color: var(--vd-color-warning);"></i>Why
+                                    This Matters</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <div class="vd-row">
+                                    <div class="vd-col-12 vd-col-md-6">
+                                        <h4>Without Namespacing</h4>
+                                        <ul class="vd-mb-4">
+                                            <li>Cannot safely embed in WordPress themes</li>
+                                            <li>Conflicts with Bootstrap-based admin panels</li>
+                                            <li>Cannot use alongside Tailwind projects</li>
+                                            <li>Your <code>.btn</code> styles may override ours</li>
+                                            <li>Difficult to isolate in micro-frontends</li>
+                                        </ul>
+                                    </div>
+                                    <div class="vd-col-12 vd-col-md-6">
+                                        <h4>With <code>vd-</code> Prefix</h4>
+                                        <ul>
+                                            <li>Safe embedding in any environment</li>
+                                            <li>Works alongside Bootstrap, Tailwind, etc.</li>
+                                            <li>Your <code>.btn</code> remains untouched</li>
+                                            <li>Shadow DOM friendly</li>
+                                            <li>Perfect for widget/embed scenarios</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Design Tokens Section -->
+                    <section id="tokens">
+                        <h2 class="demo-title"><i class="ph ph-palette"></i>Design Tokens</h2>
+                        <p class="vd-mb-6">Design tokens are the single source of truth for our visual design system.
+                            All CSS custom properties (variables) are prefixed with <code>--vd-</code> for clarity and
+                            consistency.</p>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Token Categories</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <div class="table-responsive">
+                                    <table class="comparison-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Prefix</th>
+                                                <th>Example</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Colors</td>
+                                                <td><code>--vd-color-</code></td>
+                                                <td><code>--vd-color-primary</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Backgrounds</td>
+                                                <td><code>--vd-bg-</code></td>
+                                                <td><code>--vd-bg-primary</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Text</td>
+                                                <td><code>--vd-text-</code></td>
+                                                <td><code>--vd-text-primary</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Typography</td>
+                                                <td><code>--vd-font-</code></td>
+                                                <td><code>--vd-font-family-base</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Spacing</td>
+                                                <td><code>--vd-spacing-</code></td>
+                                                <td><code>--vd-spacing-8</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Borders</td>
+                                                <td><code>--vd-border-</code></td>
+                                                <td><code>--vd-border-color</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Shadows</td>
+                                                <td><code>--vd-shadow-</code></td>
+                                                <td><code>--vd-shadow-md</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Breakpoints</td>
+                                                <td><code>--vd-breakpoint-</code></td>
+                                                <td><code>--vd-breakpoint-md</code></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vd-row vd-mt-5">
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3>Using Tokens</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <pre class="code-example"><code>/* Override primary color */
+:root {
+  --vd-color-primary: #6366f1;
+  --vd-color-primary-dark: #4f46e5;
+}
+
+/* Use in your custom CSS */
+.my-component {
+  background: var(--vd-color-primary);
+  padding: var(--vd-spacing-8);
+  border-radius: var(--vd-btn-border-radius);
+  font-family: var(--vd-font-family-base);
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3>Color Scale System</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <p>Vanduo uses Open Color's 10-step scale:</p>
+                                        <pre class="code-example"><code>/* Primary color scale */
+--vd-primary-0: #e3fafc;  /* Lightest */
+--vd-primary-1: #c5f6fa;
+--vd-primary-2: #99e9f2;
+--vd-primary-3: #66d9e8;
+--vd-primary-4: #3bc9db;
+--vd-primary-5: #22b8cf;  /* Base */
+--vd-primary-6: #15aabf;
+--vd-primary-7: #1098ad;
+--vd-primary-8: #0c8599;
+--vd-primary-9: #0b7285;  /* Darkest */</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Lifecycle Section -->
+                    <section id="lifecycle">
+                        <h2 class="demo-title"><i class="ph ph-arrows-clockwise"></i>Lifecycle Management</h2>
+                        <p class="vd-mb-6">Vanduo provides a lightweight lifecycle manager that enables proper cleanup
+                            of event listeners, observers, and other resources. This is essential for Single Page
+                            Applications (SPAs) where components are dynamically mounted and unmounted.</p>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Manual Initialization</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p>Unlike earlier versions, Vanduo v1.1.0 requires manual initialization. This gives you
+                                    full control over when components are initialized and destroyed.</p>
+
+                                <pre class="code-example vd-mt-4"><code>&lt;!-- Include Vanduo --&gt;
+&lt;link rel="stylesheet" href="css/vanduo.css"&gt;
+&lt;script src="js/vanduo.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    // Initialize when ready
+    Vanduo.init();
+
+    // Later, when cleaning up (e.g., route change)
+    Vanduo.destroyAll();
+&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="vd-row vd-mt-5">
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3>Lifecycle Methods</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <table class="comparison-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Method</th>
+                                                    <th>Purpose</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>Vanduo.init()</code></td>
+                                                    <td>Initialize all registered components</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>Vanduo.destroyAll()</code></td>
+                                                    <td>Clean up all components</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>Vanduo.reinit(name)</code></td>
+                                                    <td>Reinitialize a specific component</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>Vanduo.register(name, cfg)</code></td>
+                                                    <td>Register a custom component</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-6">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3>SPA Example</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <pre class="code-example"><code>// Router navigation handler
+function onRouteChange(newRoute) {
+  // Clean up previous page
+  Vanduo.destroyAll();
+  
+  // Load new content
+  loadContent(newRoute);
+  
+  // Initialize Vanduo on new DOM
+  Vanduo.init();
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  Vanduo.destroyAll();
+});</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vd-alert vd-alert-info vd-mt-5">
+                            <strong>Note:</strong> The lifecycle manager is approximately 100 lines of code and uses a
+                            simple Map-based registry. This is not a framework—just a lightweight utility for resource
+                            cleanup.
+                        </div>
+                    </section>
+
+                    <!-- Module Formats Section -->
+                    <section id="modules">
+                        <h2 class="demo-title"><i class="ph ph-package"></i>Module Formats</h2>
+                        <p class="vd-mb-6">Vanduo v1.1.0 supports three module formats to work with any project setup,
+                            from simple static sites to modern bundlers.</p>
+
+                        <div class="vd-row">
+                            <div class="vd-col-12 vd-col-md-4">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3><i class="ph ph-globe vd-mr-2"></i>IIFE</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <p class="vd-text-sm vd-mb-3">For traditional script tags. Creates a global
+                                            <code>Vanduo</code> object.
+                                        </p>
+                                        <pre class="code-example"><code>&lt;script src="dist/vanduo.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    Vanduo.init();
+&lt;/script&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-4">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3><i class="ph ph-cube vd-mr-2"></i>ESM</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <p class="vd-text-sm vd-mb-3">For modern bundlers and native ES modules. Enables
+                                            tree-shaking.</p>
+                                        <pre class="code-example"><code>&lt;script type="module"&gt;
+    import { Vanduo } from './dist/vanduo.esm.js';
+    Vanduo.init();
+&lt;/script&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vd-col-12 vd-col-md-4">
+                                <div class="vd-card vd-card-glow demo-card">
+                                    <div class="vd-card-header">
+                                        <h3><i class="ph ph-files vd-mr-2"></i>CJS</h3>
+                                    </div>
+                                    <div class="vd-card-body">
+                                        <p class="vd-text-sm vd-mb-3">For Node.js environments and older bundlers.</p>
+                                        <pre class="code-example"><code>const { Vanduo } = require('./dist/vanduo.cjs.js');
+
+// Initialize
+Vanduo.init();</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Package Exports</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <pre class="code-example"><code>// package.json
+{
+  "exports": {
+    ".": {
+      "import": "./dist/vanduo.esm.js",
+      "require": "./dist/vanduo.cjs.js"
+    },
+    "./css": "./dist/vanduo.min.css",
+    "./css/components/*": "./css/components/*",
+    "./js": {
+      "import": "./dist/vanduo.esm.js",
+      "require": "./dist/vanduo.cjs.js"
+    }
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Migration Guide Section -->
+                    <section id="migration">
+                        <h2 class="demo-title"><i class="ph ph-arrow-right"></i>Migration Guide</h2>
+                        <p class="vd-mb-6">Upgrading from v1.0.x to v1.1.0 requires updating class names and
+                            initialization code. This guide will help you migrate smoothly.</p>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Quick Migration Script</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p>We've created a Node.js migration script to help automate the class name updates:</p>
+                                <pre class="code-example vd-mt-3"><code># Download the migration script
+curl -O https://vanduo.dev/migrate-v1.1.0.js
+
+# Run on your project
+node migrate-v1.1.0.js ./my-project
+
+# Review changes
+git diff</code></pre>
+                                <p class="vd-mt-3">The script handles:</p>
+                                <ul>
+                                    <li>Adding <code>vd-</code> prefix to all framework classes</li>
+                                    <li>Updating CSS variable references</li>
+                                    <li>Converting initialization code</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Breaking Changes Section -->
+                    <section id="breaking-changes">
+                        <h2 class="demo-title"><i class="ph ph-warning-circle"></i>Breaking Changes</h2>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Summary of Breaking Changes in v1.1.0</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <div class="table-responsive">
+                                    <table class="comparison-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Change</th>
+                                                <th>v1.0.x</th>
+                                                <th>v1.1.0</th>
+                                                <th>Impact</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>CSS Classes</td>
+                                                <td><code>.btn</code>, <code>.card</code></td>
+                                                <td><code>.vd-btn</code>, <code>.vd-card</code></td>
+                                                <td>High — All HTML needs updating</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CSS Variables</td>
+                                                <td><code>--color-primary</code></td>
+                                                <td><code>--vd-color-primary</code></td>
+                                                <td>Medium — Custom CSS needs updating</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Initialization</td>
+                                                <td>Auto-init on page load</td>
+                                                <td>Manual <code>Vanduo.init()</code></td>
+                                                <td>High — JS code needs updating</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Module Format</td>
+                                                <td>IIFE only</td>
+                                                <td>IIFE, ESM, CJS</td>
+                                                <td>Low — Backward compatible</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lifecycle</td>
+                                                <td>No cleanup API</td>
+                                                <td><code>Vanduo.destroyAll()</code></td>
+                                                <td>Low — New feature</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Class Prefixes Section -->
+                    <section id="class-prefixes">
+                        <h2 class="demo-title"><i class="ph ph-list-dashes"></i>Class Prefix Reference</h2>
+                        <p class="vd-mb-6">Complete reference of all CSS class prefixes used in Vanduo v1.1.0.</p>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Component Classes</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <div class="vd-row">
+                                    <div class="vd-col-12 vd-col-md-4">
+                                        <h4>Layout</h4>
+                                        <ul class="vd-text-sm">
+                                            <li><code>.vd-container</code></li>
+                                            <li><code>.vd-container-fluid</code></li>
+                                            <li><code>.vd-row</code></li>
+                                            <li><code>.vd-col-*</code></li>
+                                            <li><code>.vd-col-{breakpoint}-*</code></li>
+                                        </ul>
+                                    </div>
+                                    <div class="vd-col-12 vd-col-md-4">
+                                        <h4>Components</h4>
+                                        <ul class="vd-text-sm">
+                                            <li><code>.vd-btn</code>, <code>.vd-btn-*</code></li>
+                                            <li><code>.vd-card</code>, <code>.vd-card-*</code></li>
+                                            <li><code>.vd-alert</code>, <code>.vd-alert-*</code></li>
+                                            <li><code>.vd-badge</code>, <code>.vd-badge-*</code></li>
+                                            <li><code>.vd-modal</code>, <code>.vd-modal-*</code></li>
+                                            <li><code>.vd-navbar</code>, <code>.vd-navbar-*</code></li>
+                                            <li><code>.vd-dropdown</code>, <code>.vd-dropdown-*</code></li>
+                                        </ul>
+                                    </div>
+                                    <div class="vd-col-12 vd-col-md-4">
+                                        <h4>Utilities</h4>
+                                        <ul class="vd-text-sm">
+                                            <li><code>.vd-text-*</code> (colors, sizes)</li>
+                                            <li><code>.vd-bg-*</code> (backgrounds)</li>
+                                            <li><code>.vd-m*</code>, <code>.vd-p*</code> (spacing)</li>
+                                            <li><code>.vd-d-*</code> (display)</li>
+                                            <li><code>.vd-flex-*</code> (flexbox)</li>
+                                            <li><code>.vd-shadow-*</code></li>
+                                            <li><code>.vd-rounded-*</code></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Token Reference Section -->
+                    <section id="token-reference">
+                        <h2 class="demo-title"><i class="ph ph-tokens"></i>CSS Token Reference</h2>
+                        <p class="vd-mb-6">Complete reference of all CSS custom properties (variables) in Vanduo v1.1.0.
+                        </p>
+
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3>Core Tokens</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <pre class="code-example"><code>:root {
+  /* Primary Colors */
+  --vd-color-primary: #22b8cf;
+  --vd-color-primary-dark: #1098ad;
+  --vd-color-primary-light: #66d9e8;
+  
+  /* Semantic Colors */
+  --vd-color-success: #40c057;
+  --vd-color-warning: #fab005;
+  --vd-color-error: #fa5252;
+  --vd-color-info: #228be6;
+  
+  /* Backgrounds */
+  --vd-bg-primary: #ffffff;
+  --vd-bg-secondary: #f8f9fa;
+  --vd-bg-tertiary: #e9ecef;
+  
+  /* Text */
+  --vd-text-primary: #212529;
+  --vd-text-secondary: #495057;
+  --vd-text-muted: #868e96;
+  
+  /* Typography */
+  --vd-font-family-base: 'JetBrains Mono', sans-serif;
+  --vd-font-family-mono: 'JetBrains Mono', monospace;
+  --vd-font-size-base: 1rem;
+  
+  /* Spacing (Fibonacci-based) */
+  --vd-spacing-1: 1px;
+  --vd-spacing-2: 2px;
+  --vd-spacing-3: 3px;
+  --vd-spacing-5: 5px;
+  --vd-spacing-8: 8px;
+  --vd-spacing-13: 13px;
+  --vd-spacing-21: 21px;
+  --vd-spacing-34: 34px;
+  
+  /* Border Radius */
+  --vd-btn-border-radius: 0.25rem;
+  --vd-card-border-radius: 0.5rem;
+  
+  /* Shadows */
+  --vd-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --vd-shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --vd-shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+}</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="vd-footer">
+        <div class="vd-footer-container">
+            <div class="vd-row">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Vanduo Framework</h4>
+                        <p>Essential just like water is.</p>
+                        <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
+                    </div>
+                </div>
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="vd-footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="concepts.html">Concepts & Architecture</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Resources</h4>
+                        <ul class="vd-footer-links">
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Made with Kilo Code Section -->
+            <div class="vd-footer-made-with">
+                <span class="vd-footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+                        rel="noopener noreferrer">Kilo Code</a></span>
+                <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="vd-footer-kilo-link"
+                    title="Kilo Code - AI Coding Assistant">
+                    <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="vd-footer-kilo-logo">
+                </a>
+                <span class="vd-footer-separator" aria-hidden="true"></span>
+                <a href="https://www.buymeacoffee.com/nostromo618" target="_blank" rel="noopener noreferrer"
+                    class="vd-footer-bmac-link" title="Buy Me A Coffee">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+                        class="vd-footer-bmac-logo">
+                </a>
+            </div>
+
+            <div class="vd-footer-bottom">
+                <p class="vd-text-center vd-text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <!-- JavaScript Files -->
+    <script src="./js/utils/helpers.js"></script>
+    <script src="./js/vanduo.js"></script>
+    <script src="./js/components/theme-switcher.js"></script>
+    <script src="./js/components/font-switcher.js"></script>
+    <script src="./js/components/theme-customizer.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/parallax.js"></script>
+    <script src="./js/components/select.js"></script>
+    <script src="./js/components/doc-search.js"></script>
+
+    <script>
+        // Initialize Vanduo
+        if (typeof Vanduo !== 'undefined') {
+            Vanduo.init();
+        }
+
+        // Range input
+        const rangeInput = document.getElementById('range-input');
+        const rangeValue = document.getElementById('range-value');
+        if (rangeInput && rangeValue) {
+            rangeInput.addEventListener('input', function () {
+                rangeValue.textContent = this.value;
+            });
+        }
+
+        // Dismissible alerts
+        document.querySelectorAll('.vd-alert-close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.closest('.vd-alert').remove();
+            });
+        });
+
+        // Dismissible chips
+        document.querySelectorAll('.vd-chip-close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.closest('.vd-chip').remove();
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.querySelector('.doc-sidebar-toggle');
+        const sidebarNav = document.querySelector('.doc-nav');
+        if (sidebarToggle && sidebarNav) {
+            sidebarToggle.addEventListener('click', function () {
+                this.classList.toggle('is-open');
+                sidebarNav.classList.toggle('is-open');
+            });
+        }
+
+        // Scroll-spy for sidebar
+        const navLinks = document.querySelectorAll('.doc-nav-link');
+        const sections = document.querySelectorAll('.doc-content section[id]');
+
+        // Track which sections are visible
+        const visibleSections = new Map();
+
+        const observer = new IntersectionObserver(function (entries) {
+            // Update visibility state for each section
+            entries.forEach(function (entry) {
+                visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            // Find the first visible section in document order
+            let activeSection = null;
+            sections.forEach(function (section) {
+                if (visibleSections.get(section.id) && !activeSection) {
+                    activeSection = section;
+                }
+            });
+
+            // Update navigation links
+            if (activeSection) {
+                navLinks.forEach(function (link) {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector('.doc-nav-link[href="#' + activeSection.id + '"]');
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }, {
+            rootMargin: '-80px 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function (section) {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

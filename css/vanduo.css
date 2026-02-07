@@ -10,6 +10,7 @@
 @import url('core/colors.css');
 @import url('core/fonts.css');
 @import url('core/typography.css');
+@import url('core/vd-aliases.css');
 @import url('core/grid.css');
 @import url('core/helpers.css');
 
@@ -29,6 +30,7 @@
 @import url('components/navbar.css');
 @import url('components/footer.css');
 @import url('components/breadcrumbs.css');
+@import url('components/doc-tabs.css');
 
 /* Components - Phase 5 */
 @import url('components/tooltips.css');

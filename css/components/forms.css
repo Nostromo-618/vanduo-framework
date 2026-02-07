@@ -59,7 +59,7 @@
 }
 
 /* Base Input */
-.input,
+.vd-input,
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -85,7 +85,7 @@ input[type="datetime-local"] {
   appearance: none;
 }
 
-.input:focus,
+.vd-input:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
@@ -101,15 +101,15 @@ input[type="datetime-local"]:focus {
   box-shadow: var(--input-focus-box-shadow);
 }
 
-.input::placeholder,
+.vd-input::placeholder,
 input::placeholder {
   color: var(--text-muted);
   opacity: 1;
 }
 
-.input:disabled,
+.vd-input:disabled,
 input:disabled,
-.input.disabled,
+.vd-input.disabled,
 input.disabled {
   background-color: var(--input-bg-disabled);
   opacity: 0.6;
@@ -163,8 +163,8 @@ textarea.no-resize {
 }
 
 /* Input Sizes - Small */
-.input-sm,
-input.input-sm {
+.vd-input-sm,
+input.vd-input-sm {
   padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
   font-size: var(--input-font-size-sm);
   border-radius: var(--input-border-radius-sm);
@@ -178,8 +178,8 @@ textarea.textarea-sm {
 }
 
 /* Input Sizes - Large */
-.input-lg,
-input.input-lg {
+.vd-input-lg,
+input.vd-input-lg {
   padding: var(--input-padding-y-lg) var(--input-padding-x-lg);
   font-size: var(--input-font-size-lg);
   border-radius: var(--input-border-radius-lg);
@@ -193,17 +193,28 @@ textarea.textarea-lg {
 }
 
 /* Input States - Error */
-.input-error,
-input.input-error,
-.input.is-error,
+.vd-input-error,
+input.vd-input-error,
+.vd-input.is-error,
 input.is-error {
   border-color: var(--color-error);
 }
 
-.input-error:focus,
-input.input-error:focus,
-.input.is-error:focus,
+.vd-input-invalid,
+input.vd-input-invalid {
+  border-color: var(--color-error);
+}
+
+.vd-input-error:focus,
+input.vd-input-error:focus,
+.vd-input.is-error:focus,
 input.is-error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
+}
+
+.vd-input-invalid:focus,
+input.vd-input-invalid:focus {
   border-color: var(--color-error);
   box-shadow: 0 0 0 3px var(--color-error-alpha-10);
 }
@@ -224,17 +235,28 @@ textarea.is-error:focus {
 }
 
 /* Input States - Success */
-.input-success,
-input.input-success,
-.input.is-success,
+.vd-input-success,
+input.vd-input-success,
+.vd-input.is-success,
 input.is-success {
   border-color: var(--color-success);
 }
 
-.input-success:focus,
-input.input-success:focus,
-.input.is-success:focus,
+.vd-input-valid,
+input.vd-input-valid {
+  border-color: var(--color-success);
+}
+
+.vd-input-success:focus,
+input.vd-input-success:focus,
+.vd-input.is-success:focus,
 input.is-success:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
+}
+
+.vd-input-valid:focus,
+input.vd-input-valid:focus {
   border-color: var(--color-success);
   box-shadow: 0 0 0 3px var(--color-success-alpha-10);
 }
@@ -282,17 +304,17 @@ label.label-lg {
 }
 
 /* Form Groups */
-.form-group {
+.vd-form-group {
   margin-bottom: 1.3125rem;
   /* 21px - fib */
 }
 
-.form-group:last-child {
+.vd-form-group:last-child {
   margin-bottom: 0;
 }
 
 /* Validation Messages */
-.form-error,
+.vd-form-error,
 .error-message {
   display: block;
   margin-top: 0.5rem;
@@ -300,7 +322,17 @@ label.label-lg {
   color: var(--color-error);
 }
 
-.form-success,
+.vd-form-feedback {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--font-size-sm);
+}
+
+.vd-form-feedback-invalid {
+  color: var(--color-error);
+}
+
+.vd-form-success,
 .success-message {
   display: block;
   margin-top: 0.5rem;
@@ -308,7 +340,11 @@ label.label-lg {
   color: var(--color-success);
 }
 
-.form-help,
+.vd-form-feedback-valid {
+  color: var(--color-success);
+}
+
+.vd-form-help,
 .help-text {
   display: block;
   margin-top: 0.5rem;
@@ -317,35 +353,35 @@ label.label-lg {
 }
 
 /* Input Groups (with prefix/suffix) */
-.input-group {
+.vd-input-group {
   display: flex;
   width: 100%;
   align-items: stretch;
 }
 
-.input-group>.input,
-.input-group>input {
+.vd-input-group>.vd-input,
+.vd-input-group>input {
   position: relative;
   flex: 1 1 auto;
   width: 1%;
   min-width: 0;
 }
 
-.input-group>.input:not(:first-child),
-.input-group>input:not(:first-child) {
+.vd-input-group>.vd-input:not(:first-child),
+.vd-input-group>input:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   margin-left: -1px;
 }
 
-.input-group>.input:not(:last-child),
-.input-group>input:not(:last-child) {
+.vd-input-group>.vd-input:not(:last-child),
+.vd-input-group>input:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.input-group-prefix,
-.input-group-suffix {
+.vd-input-group-prefix,
+.vd-input-group-suffix {
   display: flex;
   align-items: center;
   padding: var(--input-padding-y) var(--input-padding-x);
@@ -359,23 +395,23 @@ label.label-lg {
   border: var(--input-border-width) solid var(--input-border-color);
 }
 
-.input-group-prefix {
+.vd-input-group-prefix {
   border-right: 0;
   border-radius: var(--input-border-radius) 0 0 var(--input-border-radius);
 }
 
-.input-group-suffix {
+.vd-input-group-suffix {
   border-left: 0;
   border-radius: 0 var(--input-border-radius) var(--input-border-radius) 0;
 }
 
-.input-group>.input-group-prefix+.input,
-.input-group>.input-group-prefix+input {
+.vd-input-group>.vd-input-group-prefix+.vd-input,
+.vd-input-group>.vd-input-group-prefix+input {
   border-left: 0;
 }
 
-.input-group>.input+.input-group-suffix,
-.input-group>input+.input-group-suffix {
+.vd-input-group>.vd-input+.vd-input-group-suffix,
+.vd-input-group>input+.vd-input-group-suffix {
   border-right: 0;
 }
 
@@ -404,7 +440,7 @@ label.label-lg {
 
 /* Checkbox Wrapper */
 .checkbox,
-.form-check {
+.vd-form-check {
   display: flex;
   align-items: center;
   margin-bottom: 0.8125rem;
@@ -421,7 +457,7 @@ label.label-lg {
 
 /* Native checkbox styling (label.checkbox > input + span pattern) */
 .checkbox>input[type="checkbox"],
-.form-check>input[type="checkbox"] {
+.vd-form-check>input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   width: var(--checkbox-size);
@@ -437,13 +473,13 @@ label.label-lg {
 }
 
 .checkbox>input[type="checkbox"]:checked,
-.form-check>input[type="checkbox"]:checked {
+.vd-form-check>input[type="checkbox"]:checked {
   background-color: var(--checkbox-bg-checked);
   border-color: var(--checkbox-bg-checked);
 }
 
 .checkbox>input[type="checkbox"]:checked::after,
-.form-check>input[type="checkbox"]:checked::after {
+.vd-form-check>input[type="checkbox"]:checked::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -456,26 +492,26 @@ label.label-lg {
 }
 
 .checkbox>input[type="checkbox"]:disabled,
-.form-check>input[type="checkbox"]:disabled {
+.vd-form-check>input[type="checkbox"]:disabled {
   background-color: var(--input-bg-disabled);
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 .checkbox>input[type="checkbox"]:disabled+span,
-.form-check>input[type="checkbox"]:disabled+span {
+.vd-form-check>input[type="checkbox"]:disabled+span {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .checkbox>input[type="checkbox"]:focus-visible,
-.form-check>input[type="checkbox"]:focus-visible {
+.vd-form-check>input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 .checkbox-inline,
-.form-check-inline {
+.vd-form-check-inline {
   display: inline-flex;
   margin-right: 1.5rem;
   margin-bottom: 0;
@@ -484,7 +520,7 @@ label.label-lg {
 
 /* Checkbox Input (class-based pattern) */
 .checkbox-input,
-.form-check-input {
+.vd-form-check-input {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -494,7 +530,7 @@ label.label-lg {
 }
 
 .checkbox-label,
-.form-check-label {
+.vd-form-check-label {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -508,7 +544,7 @@ label.label-lg {
 }
 
 .checkbox-label::before,
-.form-check-label::before {
+.vd-form-check-label::before {
   content: '';
   position: absolute;
   left: 0;
@@ -525,14 +561,14 @@ label.label-lg {
 
 .checkbox-input:checked+.checkbox-label::before,
 .checkbox-input:checked~.checkbox-label::before,
-.form-check-input:checked+.form-check-label::before {
+.vd-form-check-input:checked+.vd-form-check-label::before {
   background-color: var(--checkbox-bg-checked);
   border-color: var(--checkbox-bg-checked);
 }
 
 .checkbox-input:checked+.checkbox-label::after,
 .checkbox-input:checked~.checkbox-label::after,
-.form-check-input:checked+.form-check-label::after {
+.vd-form-check-input:checked+.vd-form-check-label::after {
   content: '';
   position: absolute;
   left: calc(var(--checkbox-size) / 2);
@@ -547,14 +583,14 @@ label.label-lg {
 
 .checkbox-input:indeterminate+.checkbox-label::before,
 .checkbox-input:indeterminate~.checkbox-label::before,
-.form-check-input:indeterminate+.form-check-label::before {
+.vd-form-check-input:indeterminate+.vd-form-check-label::before {
   background-color: var(--checkbox-bg-indeterminate);
   border-color: var(--checkbox-bg-indeterminate);
 }
 
 .checkbox-input:indeterminate+.checkbox-label::after,
 .checkbox-input:indeterminate~.checkbox-label::after,
-.form-check-input:indeterminate+.form-check-label::after {
+.vd-form-check-input:indeterminate+.vd-form-check-label::after {
   content: '';
   position: absolute;
   left: calc(var(--checkbox-size) / 2);
@@ -569,21 +605,21 @@ label.label-lg {
 
 .checkbox-input:focus-visible+.checkbox-label::before,
 .checkbox-input:focus-visible~.checkbox-label::before,
-.form-check-input:focus-visible+.form-check-label::before {
+.vd-form-check-input:focus-visible+.vd-form-check-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 .checkbox-input:disabled+.checkbox-label,
 .checkbox-input:disabled~.checkbox-label,
-.form-check-input:disabled+.form-check-label {
+.vd-form-check-input:disabled+.vd-form-check-label {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .checkbox-input:disabled+.checkbox-label::before,
 .checkbox-input:disabled~.checkbox-label::before,
-.form-check-input:disabled+.form-check-label::before {
+.vd-form-check-input:disabled+.vd-form-check-label::before {
   background-color: var(--input-bg-disabled);
   border-color: var(--checkbox-border-color);
   cursor: not-allowed;
@@ -591,49 +627,49 @@ label.label-lg {
 
 /* Checkbox Sizes */
 .checkbox-sm .checkbox-label,
-.checkbox-sm .form-check-label,
-.form-check-sm .checkbox-label,
-.form-check-sm .form-check-label {
+.checkbox-sm .vd-form-check-label,
+.vd-form-check-sm .checkbox-label,
+.vd-form-check-sm .vd-form-check-label {
   font-size: var(--input-font-size-sm);
   padding-left: calc(var(--checkbox-size-sm) + 0.625rem);
   min-height: var(--checkbox-size-sm);
 }
 
 .checkbox-sm .checkbox-label::before,
-.checkbox-sm .form-check-label::before,
-.form-check-sm .checkbox-label::before,
-.form-check-sm .form-check-label::before {
+.checkbox-sm .vd-form-check-label::before,
+.vd-form-check-sm .checkbox-label::before,
+.vd-form-check-sm .vd-form-check-label::before {
   width: var(--checkbox-size-sm);
   height: var(--checkbox-size-sm);
 }
 
 .checkbox-lg .checkbox-label,
-.checkbox-lg .form-check-label,
-.form-check-lg .checkbox-label,
-.form-check-lg .form-check-label {
+.checkbox-lg .vd-form-check-label,
+.vd-form-check-lg .checkbox-label,
+.vd-form-check-lg .vd-form-check-label {
   font-size: var(--input-font-size-lg);
   padding-left: calc(var(--checkbox-size-lg) + 0.875rem);
   min-height: var(--checkbox-size-lg);
 }
 
 .checkbox-lg .checkbox-label::before,
-.checkbox-lg .form-check-label::before,
-.form-check-lg .checkbox-label::before,
-.form-check-lg .form-check-label::before {
+.checkbox-lg .vd-form-check-label::before,
+.vd-form-check-lg .checkbox-label::before,
+.vd-form-check-lg .vd-form-check-label::before {
   width: var(--checkbox-size-lg);
   height: var(--checkbox-size-lg);
 }
 
 /* Checkbox Groups */
 .checkbox-group,
-.form-check-group {
+.vd-form-check-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .checkbox-group-inline,
-.form-check-group-inline {
+.vd-form-check-group-inline {
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -661,7 +697,7 @@ label.label-lg {
 
 /* Radio Wrapper */
 .radio,
-.form-radio {
+.vd-form-radio {
   display: flex;
   align-items: center;
   margin-bottom: 0.75rem;
@@ -676,7 +712,7 @@ label.label-lg {
 
 /* Native radio styling (label.radio > input + span pattern) */
 .radio>input[type="radio"],
-.form-radio>input[type="radio"] {
+.vd-form-radio>input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: var(--radio-size);
@@ -692,12 +728,12 @@ label.label-lg {
 }
 
 .radio>input[type="radio"]:checked,
-.form-radio>input[type="radio"]:checked {
+.vd-form-radio>input[type="radio"]:checked {
   border-color: var(--radio-bg-checked);
 }
 
 .radio>input[type="radio"]:checked::after,
-.form-radio>input[type="radio"]:checked::after {
+.vd-form-radio>input[type="radio"]:checked::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -710,26 +746,26 @@ label.label-lg {
 }
 
 .radio>input[type="radio"]:disabled,
-.form-radio>input[type="radio"]:disabled {
+.vd-form-radio>input[type="radio"]:disabled {
   background-color: var(--input-bg-disabled);
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 .radio>input[type="radio"]:disabled+span,
-.form-radio>input[type="radio"]:disabled+span {
+.vd-form-radio>input[type="radio"]:disabled+span {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .radio>input[type="radio"]:focus-visible,
-.form-radio>input[type="radio"]:focus-visible {
+.vd-form-radio>input[type="radio"]:focus-visible {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 .radio-inline,
-.form-radio-inline {
+.vd-form-radio-inline {
   display: inline-flex;
   margin-right: 1.5rem;
   margin-bottom: 0;
@@ -738,7 +774,7 @@ label.label-lg {
 
 /* Radio Input (class-based pattern) */
 .radio-input,
-.form-radio-input {
+.vd-form-radio-input {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -748,7 +784,7 @@ label.label-lg {
 }
 
 .radio-label,
-.form-radio-label {
+.vd-form-radio-label {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -762,7 +798,7 @@ label.label-lg {
 }
 
 .radio-label::before,
-.form-radio-label::before {
+.vd-form-radio-label::before {
   content: '';
   position: absolute;
   left: 0;
@@ -779,13 +815,13 @@ label.label-lg {
 
 .radio-input:checked+.radio-label::before,
 .radio-input:checked~.radio-label::before,
-.form-radio-input:checked+.form-radio-label::before {
+.vd-form-radio-input:checked+.vd-form-radio-label::before {
   border-color: var(--radio-bg-checked);
 }
 
 .radio-input:checked+.radio-label::after,
 .radio-input:checked~.radio-label::after,
-.form-radio-input:checked+.form-radio-label::after {
+.vd-form-radio-input:checked+.vd-form-radio-label::after {
   content: '';
   position: absolute;
   left: calc(var(--radio-size) / 2);
@@ -800,21 +836,21 @@ label.label-lg {
 
 .radio-input:focus-visible+.radio-label::before,
 .radio-input:focus-visible~.radio-label::before,
-.form-radio-input:focus-visible+.form-radio-label::before {
+.vd-form-radio-input:focus-visible+.vd-form-radio-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 .radio-input:disabled+.radio-label,
 .radio-input:disabled~.radio-label,
-.form-radio-input:disabled+.form-radio-label {
+.vd-form-radio-input:disabled+.vd-form-radio-label {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .radio-input:disabled+.radio-label::before,
 .radio-input:disabled~.radio-label::before,
-.form-radio-input:disabled+.form-radio-label::before {
+.vd-form-radio-input:disabled+.vd-form-radio-label::before {
   background-color: var(--input-bg-disabled);
   border-color: var(--radio-border-color);
   cursor: not-allowed;
@@ -822,65 +858,65 @@ label.label-lg {
 
 /* Radio Sizes */
 .radio-sm .radio-label,
-.radio-sm .form-radio-label,
-.form-radio-sm .radio-label,
-.form-radio-sm .form-radio-label {
+.radio-sm .vd-form-radio-label,
+.vd-form-radio-sm .radio-label,
+.vd-form-radio-sm .vd-form-radio-label {
   font-size: var(--input-font-size-sm);
   padding-left: calc(var(--radio-size-sm) + 0.625rem);
   min-height: var(--radio-size-sm);
 }
 
 .radio-sm .radio-label::before,
-.radio-sm .form-radio-label::before,
-.form-radio-sm .radio-label::before,
-.form-radio-sm .form-radio-label::before {
+.radio-sm .vd-form-radio-label::before,
+.vd-form-radio-sm .radio-label::before,
+.vd-form-radio-sm .vd-form-radio-label::before {
   width: var(--radio-size-sm);
   height: var(--radio-size-sm);
 }
 
 .radio-sm .radio-label::after,
-.radio-sm .form-radio-label::after,
-.form-radio-sm .radio-label::after,
-.form-radio-sm .form-radio-label::after {
+.radio-sm .vd-form-radio-label::after,
+.vd-form-radio-sm .radio-label::after,
+.vd-form-radio-sm .vd-form-radio-label::after {
   width: var(--radio-dot-size-sm);
   height: var(--radio-dot-size-sm);
 }
 
 .radio-lg .radio-label,
-.radio-lg .form-radio-label,
-.form-radio-lg .radio-label,
-.form-radio-lg .form-radio-label {
+.radio-lg .vd-form-radio-label,
+.vd-form-radio-lg .radio-label,
+.vd-form-radio-lg .vd-form-radio-label {
   font-size: var(--input-font-size-lg);
   padding-left: calc(var(--radio-size-lg) + 0.875rem);
   min-height: var(--radio-size-lg);
 }
 
 .radio-lg .radio-label::before,
-.radio-lg .form-radio-label::before,
-.form-radio-lg .radio-label::before,
-.form-radio-lg .form-radio-label::before {
+.radio-lg .vd-form-radio-label::before,
+.vd-form-radio-lg .radio-label::before,
+.vd-form-radio-lg .vd-form-radio-label::before {
   width: var(--radio-size-lg);
   height: var(--radio-size-lg);
 }
 
 .radio-lg .radio-label::after,
-.radio-lg .form-radio-label::after,
-.form-radio-lg .radio-label::after,
-.form-radio-lg .form-radio-label::after {
+.radio-lg .vd-form-radio-label::after,
+.vd-form-radio-lg .radio-label::after,
+.vd-form-radio-lg .vd-form-radio-label::after {
   width: var(--radio-dot-size-lg);
   height: var(--radio-dot-size-lg);
 }
 
 /* Radio Groups */
 .radio-group,
-.form-radio-group {
+.vd-form-radio-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .radio-group-inline,
-.form-radio-group-inline {
+.vd-form-radio-group-inline {
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -1175,7 +1211,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 /* Switch Wrapper */
 .switch,
-.form-switch {
+.vd-form-switch {
   display: flex;
   align-items: center;
   margin-bottom: 0.75rem;
@@ -1244,7 +1280,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 }
 
 .switch-inline,
-.form-switch-inline {
+.vd-form-switch-inline {
   display: inline-flex;
   margin-right: 1.5rem;
   margin-bottom: 0;
@@ -1253,7 +1289,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 /* Switch Input (class-based pattern) */
 .switch-input,
-.form-switch-input {
+.vd-form-switch-input {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -1264,7 +1300,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 /* Switch Label */
 .switch-label,
-.form-switch-label {
+.vd-form-switch-label {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -1277,7 +1313,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 /* Switch Track */
 .switch-label::before,
-.form-switch-label::before {
+.vd-form-switch-label::before {
   content: '';
   position: relative;
   width: var(--switch-width);
@@ -1291,7 +1327,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 /* Switch Thumb */
 .switch-label::after,
-.form-switch-label::after {
+.vd-form-switch-label::after {
   content: '';
   position: absolute;
   left: var(--switch-thumb-offset);
@@ -1308,137 +1344,137 @@ input[type="range"].range-lg::-moz-range-thumb {
 
 .switch-input:checked+.switch-label::before,
 .switch-input:checked~.switch-label::before,
-.form-switch-input:checked+.form-switch-label::before {
+.vd-form-switch-input:checked+.vd-form-switch-label::before {
   background-color: var(--switch-bg-on);
 }
 
 .switch-input:checked+.switch-label::after,
 .switch-input:checked~.switch-label::after,
-.form-switch-input:checked+.form-switch-label::after {
+.vd-form-switch-input:checked+.vd-form-switch-label::after {
   left: calc(var(--switch-width) - var(--switch-thumb-size) - var(--switch-thumb-offset));
 }
 
 .switch-input:focus-visible+.switch-label::before,
 .switch-input:focus-visible~.switch-label::before,
-.form-switch-input:focus-visible+.form-switch-label::before {
+.vd-form-switch-input:focus-visible+.vd-form-switch-label::before {
   outline: 2px solid var(--input-focus-border-color);
   outline-offset: 2px;
 }
 
 .switch-input:disabled+.switch-label,
 .switch-input:disabled~.switch-label,
-.form-switch-input:disabled+.form-switch-label {
+.vd-form-switch-input:disabled+.vd-form-switch-label {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .switch-input:disabled+.switch-label::before,
 .switch-input:disabled~.switch-label::before,
-.form-switch-input:disabled+.form-switch-label::before {
+.vd-form-switch-input:disabled+.vd-form-switch-label::before {
   background-color: var(--input-bg-disabled);
   cursor: not-allowed;
 }
 
 /* Switch Label Position - Right */
 .switch-label-right .switch-label,
-.switch-label-right .form-switch-label {
+.switch-label-right .vd-form-switch-label {
   flex-direction: row-reverse;
 }
 
 .switch-label-right .switch-label::before,
-.switch-label-right .form-switch-label::before {
+.switch-label-right .vd-form-switch-label::before {
   margin-right: 0;
   margin-left: 0.75rem;
 }
 
 .switch-label-right .switch-label::after,
-.switch-label-right .form-switch-label::after {
+.switch-label-right .vd-form-switch-label::after {
   left: auto;
   right: var(--switch-thumb-offset);
 }
 
 .switch-label-right .switch-input:checked+.switch-label::after,
 .switch-label-right .switch-input:checked~.switch-label::after,
-.switch-label-right .form-switch-input:checked+.form-switch-label::after {
+.switch-label-right .vd-form-switch-input:checked+.vd-form-switch-label::after {
   right: calc(var(--switch-width) - var(--switch-thumb-size) - var(--switch-thumb-offset));
   left: auto;
 }
 
 /* Switch Sizes */
 .switch-sm .switch-label,
-.switch-sm .form-switch-label,
-.form-switch-sm .switch-label,
-.form-switch-sm .form-switch-label {
+.switch-sm .vd-form-switch-label,
+.vd-form-switch-sm .switch-label,
+.vd-form-switch-sm .vd-form-switch-label {
   font-size: var(--input-font-size-sm);
 }
 
 .switch-sm .switch-label::before,
-.switch-sm .form-switch-label::before,
-.form-switch-sm .switch-label::before,
-.form-switch-sm .form-switch-label::before {
+.switch-sm .vd-form-switch-label::before,
+.vd-form-switch-sm .switch-label::before,
+.vd-form-switch-sm .vd-form-switch-label::before {
   width: var(--switch-width-sm);
   height: var(--switch-height-sm);
 }
 
 .switch-sm .switch-label::after,
-.switch-sm .form-switch-label::after,
-.form-switch-sm .switch-label::after,
-.form-switch-sm .form-switch-label::after {
+.switch-sm .vd-form-switch-label::after,
+.vd-form-switch-sm .switch-label::after,
+.vd-form-switch-sm .vd-form-switch-label::after {
   width: var(--switch-thumb-size-sm);
   height: var(--switch-thumb-size-sm);
 }
 
 .switch-sm .switch-input:checked+.switch-label::after,
 .switch-sm .switch-input:checked~.switch-label::after,
-.form-switch-sm .form-switch-input:checked+.form-switch-label::after {
+.vd-form-switch-sm .vd-form-switch-input:checked+.vd-form-switch-label::after {
   left: calc(var(--switch-width-sm) - var(--switch-thumb-size-sm) - var(--switch-thumb-offset));
 }
 
 .switch-lg .switch-label,
-.switch-lg .form-switch-label,
-.form-switch-lg .switch-label,
-.form-switch-lg .form-switch-label {
+.switch-lg .vd-form-switch-label,
+.vd-form-switch-lg .switch-label,
+.vd-form-switch-lg .vd-form-switch-label {
   font-size: var(--input-font-size-lg);
 }
 
 .switch-lg .switch-label::before,
-.switch-lg .form-switch-label::before,
-.form-switch-lg .switch-label::before,
-.form-switch-lg .form-switch-label::before {
+.switch-lg .vd-form-switch-label::before,
+.vd-form-switch-lg .switch-label::before,
+.vd-form-switch-lg .vd-form-switch-label::before {
   width: var(--switch-width-lg);
   height: var(--switch-height-lg);
 }
 
 .switch-lg .switch-label::after,
-.switch-lg .form-switch-label::after,
-.form-switch-lg .switch-label::after,
-.form-switch-lg .form-switch-label::after {
+.switch-lg .vd-form-switch-label::after,
+.vd-form-switch-lg .switch-label::after,
+.vd-form-switch-lg .vd-form-switch-label::after {
   width: var(--switch-thumb-size-lg);
   height: var(--switch-thumb-size-lg);
 }
 
 .switch-lg .switch-input:checked+.switch-label::after,
 .switch-lg .switch-input:checked~.switch-label::after,
-.form-switch-lg .form-switch-input:checked+.form-switch-label::after {
+.vd-form-switch-lg .vd-form-switch-input:checked+.vd-form-switch-label::after {
   left: calc(var(--switch-width-lg) - var(--switch-thumb-size-lg) - var(--switch-thumb-offset));
 }
 
 /* Switch Variants */
 .switch-success .switch-input:checked+.switch-label::before,
 .switch-success .switch-input:checked~.switch-label::before,
-.form-switch-success .form-switch-input:checked+.form-switch-label::before {
+.vd-form-switch-success .vd-form-switch-input:checked+.vd-form-switch-label::before {
   background-color: var(--switch-bg-on-success);
 }
 
 .switch-warning .switch-input:checked+.switch-label::before,
 .switch-warning .switch-input:checked~.switch-label::before,
-.form-switch-warning .form-switch-input:checked+.form-switch-label::before {
+.vd-form-switch-warning .vd-form-switch-input:checked+.vd-form-switch-label::before {
   background-color: var(--switch-bg-on-warning);
 }
 
 .switch-error .switch-input:checked+.switch-label::before,
 .switch-error .switch-input:checked~.switch-label::before,
-.form-switch-error .form-switch-input:checked+.form-switch-label::before {
+.vd-form-switch-error .vd-form-switch-input:checked+.vd-form-switch-label::before {
   background-color: var(--switch-bg-on-error);
 }
 
@@ -1501,7 +1537,7 @@ input[type="range"].range-lg::-moz-range-thumb {
 }
 
 /* Select (Enhanced Styling) */
-select.input,
+select.vd-input,
 select,
 .select-input,
 .custom-select-input {
@@ -1526,7 +1562,7 @@ select,
   cursor: pointer;
 }
 
-select.input:focus,
+select.vd-input:focus,
 select:focus,
 .select-input:focus,
 .custom-select-input:focus {
@@ -1536,7 +1572,7 @@ select:focus,
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2322b8cf' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
 
-select.input:disabled,
+select.vd-input:disabled,
 select:disabled,
 .select-input:disabled,
 .custom-select-input:disabled {
@@ -1547,22 +1583,22 @@ select:disabled,
 }
 
 /* Select States */
-select.input.input-error,
-select.input.is-error,
-.select-input.input-error,
+select.vd-input.vd-input-error,
+select.vd-input.is-error,
+.select-input.vd-input-error,
 .select-input.is-error {
   border-color: var(--color-error);
 }
 
-select.input.input-success,
-select.input.is-success,
-.select-input.input-success,
+select.vd-input.vd-input-success,
+select.vd-input.is-success,
+.select-input.vd-input-success,
 .select-input.is-success {
   border-color: var(--color-success);
 }
 
 /* Select Sizes */
-select.input-sm,
+select.vd-input-sm,
 .select-input-sm,
 .custom-select-sm {
   padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
@@ -1572,7 +1608,7 @@ select.input-sm,
   background-size: 14px 10px;
 }
 
-select.input-lg,
+select.vd-input-lg,
 .select-input-lg,
 .custom-select-lg {
   padding: var(--input-padding-y-lg) var(--input-padding-x-lg);
@@ -1583,7 +1619,7 @@ select.input-lg,
 }
 
 /* Multi-Select */
-select[multiple].input,
+select[multiple].vd-input,
 select[multiple],
 .select-input[multiple],
 .custom-select-input[multiple] {
@@ -1593,7 +1629,7 @@ select[multiple],
   min-height: 120px;
 }
 
-select[multiple].input option,
+select[multiple].vd-input option,
 select[multiple] option,
 .select-input[multiple] option,
 .custom-select-input[multiple] option {
@@ -1676,7 +1712,7 @@ select[multiple] option,
 }
 
 /* Dark Mode - Select Arrow Colors */
-[data-theme="dark"] select.input,
+[data-theme="dark"] select.vd-input,
 [data-theme="dark"] select,
 [data-theme="dark"] .select-input,
 [data-theme="dark"] .custom-select-input,
@@ -1684,7 +1720,7 @@ select[multiple] option,
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
 
-[data-theme="dark"] select.input:focus,
+[data-theme="dark"] select.vd-input:focus,
 [data-theme="dark"] select:focus,
 [data-theme="dark"] .select-input:focus,
 [data-theme="dark"] .custom-select-input:focus,
@@ -1692,7 +1728,7 @@ select[multiple] option,
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%233bc9db' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
 
-[data-theme="dark"] select.input:disabled,
+[data-theme="dark"] select.vd-input:disabled,
 [data-theme="dark"] select:disabled,
 [data-theme="dark"] .select-input:disabled,
 [data-theme="dark"] .custom-select-input:disabled,
@@ -1703,7 +1739,7 @@ select[multiple] option,
 /* Mobile Touch Target Optimization */
 @media (max-width: 767px) {
 
-  .input,
+  .vd-input,
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -1726,11 +1762,11 @@ select[multiple] option,
   }
 
   .checkbox-label,
-  .form-check-label,
+  .vd-form-check-label,
   .radio-label,
-  .form-radio-label,
+  .vd-form-radio-label,
   .switch-label,
-  .form-switch-label {
+  .vd-form-switch-label {
     min-height: 44px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;

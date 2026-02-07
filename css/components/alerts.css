@@ -52,7 +52,7 @@
 }
 
 /* Base Alert */
-.alert {
+.vd-alert {
   position: relative;
   padding: var(--alert-padding-y) var(--alert-padding-x);
   margin-bottom: 1rem;
@@ -63,46 +63,46 @@
 }
 
 /* Alert Variants */
-.alert-primary {
+.vd-alert-primary {
   background-color: var(--alert-primary-bg);
   border-color: var(--alert-primary-border);
   color: var(--alert-primary-text);
 }
 
-.alert-success {
+.vd-alert-success {
   background-color: var(--alert-success-bg);
   border-color: var(--alert-success-border);
   color: var(--alert-success-text);
 }
 
-.alert-warning {
+.vd-alert-warning {
   background-color: var(--alert-warning-bg);
   border-color: var(--alert-warning-border);
   color: var(--alert-warning-text);
 }
 
-.alert-error,
-.alert-danger {
+.vd-alert-error,
+.vd-alert-danger {
   background-color: var(--alert-error-bg);
   border-color: var(--alert-error-border);
   color: var(--alert-error-text);
 }
 
-.alert-info {
+.vd-alert-info {
   background-color: var(--alert-info-bg);
   border-color: var(--alert-info-border);
   color: var(--alert-info-text);
 }
 
 /* Alert with Icon */
-.alert-icon {
+.vd-alert-icon {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
 }
 
-.alert-icon > svg,
-.alert-icon > .icon {
+.vd-alert-icon > svg,
+.vd-alert-icon > .icon {
   flex-shrink: 0;
   width: 1.25rem;
   height: 1.25rem;
@@ -110,22 +110,22 @@
 }
 
 /* Alert Title */
-.alert-title {
+.vd-alert-title {
   font-weight: var(--font-weight-semibold);
   margin-bottom: 0.25rem;
 }
 
 /* Alert Content */
-.alert-content {
+.vd-alert-content {
   flex: 1;
 }
 
 /* Dismissible Alert */
-.alert-dismissible {
+.vd-alert-dismissible {
   padding-right: 3rem;
 }
 
-.alert-close {
+.vd-alert-close {
   position: absolute;
   top: 0;
   right: 0;
@@ -140,85 +140,85 @@
   line-height: 1;
 }
 
-.alert-close:hover {
+.vd-alert-close:hover {
   opacity: 1;
 }
 
-.alert-close:focus {
+.vd-alert-close:focus {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 
 /* Alert Link */
-.alert a,
-.alert-link {
+.vd-alert a,
+.vd-alert-link {
   font-weight: var(--font-weight-semibold);
   color: inherit;
   text-decoration: underline;
 }
 
-.alert a:hover,
-.alert-link:hover {
+.vd-alert a:hover,
+.vd-alert-link:hover {
   text-decoration: none;
 }
 
 /* Solid Variants (filled background) */
-.alert-solid.alert-primary {
+.vd-alert-solid.vd-alert-primary {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.alert-solid.alert-success {
+.vd-alert-solid.vd-alert-success {
   background-color: var(--color-success);
   border-color: var(--color-success);
   color: var(--color-white);
 }
 
-.alert-solid.alert-warning {
+.vd-alert-solid.vd-alert-warning {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
   color: var(--color-gray-900);
 }
 
-.alert-solid.alert-error,
-.alert-solid.alert-danger {
+.vd-alert-solid.vd-alert-error,
+.vd-alert-solid.vd-alert-danger {
   background-color: var(--color-error);
   border-color: var(--color-error);
   color: var(--color-white);
 }
 
-.alert-solid.alert-info {
+.vd-alert-solid.vd-alert-info {
   background-color: var(--color-info);
   border-color: var(--color-info);
   color: var(--color-white);
 }
 
 /* Outline Variants */
-.alert-outline {
+.vd-alert-outline {
   background-color: transparent;
 }
 
 /* Alert Sizes */
-.alert-sm {
+.vd-alert-sm {
   padding: 0.3125rem 0.5rem; /* 5px 8px - fib pair */
   font-size: var(--font-size-sm);
 }
 
-.alert-lg {
+.vd-alert-lg {
   padding: 1.3125rem 2.125rem; /* 21px 34px - fib pair */
   font-size: var(--font-size-lg);
 }
 
 /* Alert with Border Left Accent */
-.alert-accent {
+.vd-alert-accent {
   border-left-width: 4px;
   border-radius: 0 var(--alert-border-radius) var(--alert-border-radius) 0;
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .alert-close {
+  .vd-alert-close {
     transition: none;
   }
 }

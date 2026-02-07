@@ -20,7 +20,7 @@
      * Initialize sidenav components
      */
     init: function() {
-      const sidenavs = document.querySelectorAll('.sidenav');
+      const sidenavs = document.querySelectorAll('.vd-sidenav');
 
       sidenavs.forEach(sidenav => {
         if (this.sidenavs.has(sidenav)) {
@@ -62,7 +62,7 @@
      */
     initSidenav: function(sidenav) {
       const overlay = this.createOverlay(sidenav);
-      const closeButton = sidenav.querySelector('.sidenav-close');
+      const closeButton = sidenav.querySelector('.vd-sidenav-close');
       const cleanupFunctions = [];
 
       // Set ARIA attributes
@@ -107,11 +107,11 @@
      * @returns {HTMLElement} Overlay element
      */
     createOverlay: function(sidenav) {
-      let overlay = sidenav.querySelector('.sidenav-overlay');
+      let overlay = sidenav.querySelector('.vd-sidenav-overlay');
       
       if (!overlay) {
         overlay = document.createElement('div');
-        overlay.className = 'sidenav-overlay';
+        overlay.className = 'vd-sidenav-overlay';
         document.body.appendChild(overlay);
       }
       

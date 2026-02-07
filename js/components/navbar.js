@@ -30,7 +30,7 @@
      * Initialize navbar component
      */
     init: function () {
-      const navbars = document.querySelectorAll('.navbar');
+      const navbars = document.querySelectorAll('.vd-navbar');
 
       navbars.forEach(navbar => {
         // Skip if already initialized
@@ -46,9 +46,9 @@
      * @param {HTMLElement} navbar - Navbar element
      */
     initNavbar: function (navbar) {
-      const toggle = navbar.querySelector('.navbar-toggle, .navbar-burger');
-      const menu = navbar.querySelector('.navbar-menu');
-      const overlay = navbar.querySelector('.navbar-overlay') || this.createOverlay(navbar);
+      const toggle = navbar.querySelector('.vd-navbar-toggle, .vd-navbar-burger');
+      const menu = navbar.querySelector('.vd-navbar-menu');
+      const overlay = navbar.querySelector('.vd-navbar-overlay') || this.createOverlay(navbar);
 
       if (!toggle || !menu) {
         return;
@@ -113,14 +113,14 @@
       cleanupFunctions.push(() => document.removeEventListener('click', documentClickHandler));
 
       // Handle dropdown toggles in mobile menu
-      const dropdownToggles = menu.querySelectorAll('.navbar-dropdown > .nav-link');
+      const dropdownToggles = menu.querySelectorAll('.vd-navbar-dropdown > .nav-link');
       dropdownToggles.forEach(dropdownToggle => {
         const dropdownClickHandler = (e) => {
           const breakpoint = this.getBreakpoint();
           if (window.innerWidth < breakpoint) {
             e.preventDefault();
             const dropdown = dropdownToggle.parentElement;
-            const dropdownMenu = dropdown.querySelector('.navbar-dropdown-menu');
+            const dropdownMenu = dropdown.querySelector('.vd-navbar-dropdown-menu');
 
             if (dropdownMenu) {
               dropdownMenu.classList.toggle('is-open');
@@ -230,7 +230,7 @@
       document.body.style.overflow = '';
 
       // Close all dropdown menus
-      const dropdownMenus = menu.querySelectorAll('.navbar-dropdown-menu.is-open');
+      const dropdownMenus = menu.querySelectorAll('.vd-navbar-dropdown-menu.is-open');
       dropdownMenus.forEach(dropdownMenu => {
         dropdownMenu.classList.remove('is-open');
       });
@@ -247,7 +247,7 @@
      */
     createOverlay: function (_navbar) {
       const overlay = document.createElement('div');
-      overlay.className = 'navbar-overlay';
+      overlay.className = 'vd-navbar-overlay';
       document.body.appendChild(overlay);
       return overlay;
     }

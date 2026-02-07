@@ -20,7 +20,7 @@
      * Initialize dropdown components
      */
     init: function() {
-      const dropdowns = document.querySelectorAll('.dropdown');
+      const dropdowns = document.querySelectorAll('.vd-dropdown');
 
       dropdowns.forEach(dropdown => {
         if (this.instances.has(dropdown)) {
@@ -35,8 +35,8 @@
      * @param {HTMLElement} dropdown - Dropdown container
      */
     initDropdown: function(dropdown) {
-      const toggle = dropdown.querySelector('.dropdown-toggle');
-      const menu = dropdown.querySelector('.dropdown-menu');
+      const toggle = dropdown.querySelector('.vd-dropdown-toggle');
+      const menu = dropdown.querySelector('.vd-dropdown-menu');
 
       if (!toggle || !menu) {
         return;
@@ -76,7 +76,7 @@
       cleanupFunctions.push(() => toggle.removeEventListener('keydown', keydownHandler));
 
       // Handle item clicks
-      const items = menu.querySelectorAll('.dropdown-item:not(.disabled):not(.is-disabled)');
+      const items = menu.querySelectorAll('.vd-dropdown-item:not(.disabled):not(.is-disabled)');
       items.forEach(item => {
         const itemClickHandler = (e) => {
           e.preventDefault();
@@ -122,11 +122,11 @@
      */
     openDropdown: function(dropdown, toggle, menu) {
       // Close other open dropdowns
-      const otherOpen = document.querySelectorAll('.dropdown-menu.is-open');
+      const otherOpen = document.querySelectorAll('.vd-dropdown-menu.is-open');
       otherOpen.forEach(otherMenu => {
         if (otherMenu !== menu) {
-          const otherDropdown = otherMenu.closest('.dropdown');
-          const otherToggle = otherDropdown.querySelector('.dropdown-toggle');
+          const otherDropdown = otherMenu.closest('.vd-dropdown');
+          const otherToggle = otherDropdown.querySelector('.vd-dropdown-toggle');
           this.closeDropdown(otherDropdown, otherToggle, otherMenu);
         }
       });
@@ -140,7 +140,7 @@
       this.positionMenu(dropdown, menu);
       
       // Focus first item
-      const firstItem = menu.querySelector('.dropdown-item:not(.disabled):not(.is-disabled)');
+      const firstItem = menu.querySelector('.vd-dropdown-item:not(.disabled):not(.is-disabled)');
       if (firstItem) {
         setTimeout(() => firstItem.focus(), 0);
       }
@@ -176,18 +176,18 @@
       
       // Check if menu overflows right
       if (rect.left + menuRect.width > viewportWidth - padding) {
-        menu.classList.add('dropdown-menu-end');
-        menu.classList.remove('dropdown-menu-start');
+        menu.classList.add('vd-dropdown-menu-end');
+        menu.classList.remove('vd-dropdown-menu-start');
       }
       
       // Check if menu overflows bottom (for top positioning)
       if (menu.classList.contains('dropdown-menu-top')) {
         if (rect.top - menuRect.height < padding) {
-          menu.classList.remove('dropdown-menu-top');
+          menu.classList.remove('vd-dropdown-menu-top');
         }
       } else {
         if (rect.bottom + menuRect.height > viewportHeight - padding) {
-          menu.classList.add('dropdown-menu-top');
+          menu.classList.add('vd-dropdown-menu-top');
         }
       }
     },
@@ -201,7 +201,7 @@
      */
     handleKeydown: function(e, dropdown, toggle, menu) {
       const isOpen = menu.classList.contains('is-open');
-      const items = Array.from(menu.querySelectorAll('.dropdown-item:not(.disabled):not(.is-disabled)'));
+      const items = Array.from(menu.querySelectorAll('.vd-dropdown-item:not(.disabled):not(.is-disabled)'));
       const currentIndex = items.findIndex(item => item === document.activeElement);
       
       switch (e.key) {
@@ -276,7 +276,7 @@
      */
     selectItem: function(item, dropdown, toggle, menu) {
       // Remove active from all items
-      menu.querySelectorAll('.dropdown-item').forEach(i => {
+      menu.querySelectorAll('.vd-dropdown-item').forEach(i => {
         i.classList.remove('active', 'is-active');
       });
       
@@ -305,8 +305,8 @@
     open: function(dropdown) {
       const el = typeof dropdown === 'string' ? document.querySelector(dropdown) : dropdown;
       if (el) {
-        const toggle = el.querySelector('.dropdown-toggle');
-        const menu = el.querySelector('.dropdown-menu');
+        const toggle = el.querySelector('.vd-dropdown-toggle');
+        const menu = el.querySelector('.vd-dropdown-menu');
         if (toggle && menu) {
           this.openDropdown(el, toggle, menu);
         }
@@ -320,8 +320,8 @@
     close: function(dropdown) {
       const el = typeof dropdown === 'string' ? document.querySelector(dropdown) : dropdown;
       if (el) {
-        const toggle = el.querySelector('.dropdown-toggle');
-        const menu = el.querySelector('.dropdown-menu');
+        const toggle = el.querySelector('.vd-dropdown-toggle');
+        const menu = el.querySelector('.vd-dropdown-menu');
         if (toggle && menu) {
           this.closeDropdown(el, toggle, menu);
         }

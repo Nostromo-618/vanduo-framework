@@ -1,0 +1,47 @@
+/**
+ * Vanduo Framework - Legacy vd-* Token Aliases
+ * Maps vd-* custom properties to the current token names.
+ */
+
+:root {
+  /* Colors */
+  --vd-color-primary: var(--color-primary);
+  --vd-color-secondary: var(--color-secondary);
+  --vd-color-success: var(--color-success);
+  --vd-color-warning: var(--color-warning);
+  --vd-color-error: var(--color-error);
+  --vd-color-info: var(--color-info);
+  --vd-color-white: var(--color-white);
+  --vd-color-black: var(--color-black);
+  --vd-color-primary-alpha-10: var(--color-primary-alpha-10);
+  --vd-color-primary-alpha-20: var(--color-primary-alpha-20);
+
+  /* Backgrounds + Text */
+  --vd-bg-primary: var(--bg-primary);
+  --vd-bg-secondary: var(--bg-secondary);
+  --vd-bg-tertiary: var(--bg-tertiary);
+  --vd-text-primary: var(--text-primary);
+  --vd-text-secondary: var(--text-secondary);
+  --vd-text-muted: var(--text-muted);
+
+  /* Borders */
+  --vd-border-color: var(--border-color);
+  --vd-border-color-light: var(--border-color-light);
+
+  /* Shadows */
+  --vd-shadow-sm: var(--shadow-sm);
+  --vd-shadow-md: var(--shadow-md);
+  --vd-shadow-lg: var(--shadow-lg);
+
+  /* Typography */
+  --vd-font-family-base: var(--font-family-sans);
+  --vd-font-family-mono: var(--font-family-mono);
+  --vd-font-size-xs: var(--font-size-xs);
+  --vd-font-size-sm: var(--font-size-sm);
+  --vd-font-size-base: var(--font-size-base);
+
+  /* Radii */
+  --vd-btn-border-radius: var(--btn-border-radius);
+  --vd-btn-border-radius-sm: var(--btn-border-radius-sm);
+  --vd-btn-border-radius-lg: var(--btn-border-radius-lg);
+}

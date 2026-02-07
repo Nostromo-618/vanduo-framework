@@ -217,6 +217,60 @@ async function buildJS(banner) {
     }
 }
 
+// Build JS - ESM format (for modern bundlers)
+async function buildJSESM(banner) {
+    const inputPath = resolve(rootDir, 'js/index.js');
+    const outputPath = resolve(distDir, isMinify ? 'vanduo.esm.min.js' : 'vanduo.esm.js');
+
+    try {
+        await esbuild.build({
+            entryPoints: [inputPath],
+            bundle: true,
+            minify: isMinify,
+            sourcemap: true,
+            outfile: outputPath,
+            format: 'esm',
+            target: ['es2020'],
+            banner: { js: banner },
+            logLevel: 'warning'
+        });
+
+        const stats = readFileSync(outputPath);
+        const sizeKB = (stats.length / 1024).toFixed(1);
+        console.log(`✅ JS (ESM): ${isMinify ? 'vanduo.esm.min.js' : 'vanduo.esm.js'} (${sizeKB} KB)`);
+    } catch (error) {
+        console.error('❌ JS ESM build failed:', error.message);
+        process.exit(1);
+    }
+}
+
+// Build JS - CJS format (for Node.js/require)
+async function buildJSCJS(banner) {
+    const inputPath = resolve(rootDir, 'js/index.js');
+    const outputPath = resolve(distDir, isMinify ? 'vanduo.cjs.min.js' : 'vanduo.cjs.js');
+
+    try {
+        await esbuild.build({
+            entryPoints: [inputPath],
+            bundle: true,
+            minify: isMinify,
+            sourcemap: true,
+            outfile: outputPath,
+            format: 'cjs',
+            target: ['es2020'],
+            banner: { js: banner },
+            logLevel: 'warning'
+        });
+
+        const stats = readFileSync(outputPath);
+        const sizeKB = (stats.length / 1024).toFixed(1);
+        console.log(`✅ JS (CJS): ${isMinify ? 'vanduo.cjs.min.js' : 'vanduo.cjs.js'} (${sizeKB} KB)`);
+    } catch (error) {
+        console.error('❌ JS CJS build failed:', error.message);
+        process.exit(1);
+    }
+}
+
 // Run builds
 async function build() {
     const buildInfo = getBuildInfo();
@@ -229,6 +283,8 @@ async function build() {
     writeBuildInfo(buildInfo);
     await buildCSS(banner);
     await buildJS(banner);
+    await buildJSESM(banner);
+    await buildJSCJS(banner);
     console.log('─'.repeat(50));
     console.log('🎉 Build complete!');
 }

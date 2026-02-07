@@ -43,13 +43,13 @@
 }
 
 /* Base Dropdown */
-.dropdown {
+.vd-dropdown {
   position: relative;
   display: inline-block;
 }
 
 /* Dropdown Toggle */
-.dropdown-toggle {
+.vd-dropdown-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +57,7 @@
   user-select: none;
 }
 
-.dropdown-toggle::after {
+.vd-dropdown-toggle::after {
   content: '';
   display: inline-block;
   width: 0;
@@ -71,12 +71,12 @@
   transition: transform var(--transition-duration-base) var(--transition-ease);
 }
 
-.dropdown.is-open .dropdown-toggle::after {
+.vd-dropdown.is-open .vd-dropdown-toggle::after {
   transform: rotate(180deg);
 }
 
 /* Dropdown Menu */
-.dropdown-menu {
+.vd-dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -96,14 +96,14 @@
               transform var(--transition-duration-base) var(--transition-ease);
 }
 
-.dropdown-menu.is-open {
+.vd-dropdown-menu.is-open {
   display: block;
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Dropdown Menu Positioning - Top */
-.dropdown-menu-top {
+.vd-dropdown-menu-top {
   top: auto;
   bottom: 100%;
   margin-top: 0;
@@ -111,24 +111,24 @@
   transform: translateY(10px);
 }
 
-.dropdown-menu-top.is-open {
+.vd-dropdown-menu-top.is-open {
   transform: translateY(0);
 }
 
 /* Dropdown Menu Positioning - Right */
-.dropdown-menu-right {
+.vd-dropdown-menu-right {
   left: auto;
   right: 0;
 }
 
 /* Dropdown Menu Positioning - Left */
-.dropdown-menu-left {
+.vd-dropdown-menu-left {
   left: auto;
   right: 0;
 }
 
 /* Dropdown Item */
-.dropdown-item {
+.vd-dropdown-item {
   display: block;
   width: 100%;
   padding: var(--dropdown-item-padding-y) var(--dropdown-item-padding-x);
@@ -145,27 +145,27 @@
   user-select: none;
 }
 
-.dropdown-item:hover,
-.dropdown-item:focus {
+.vd-dropdown-item:hover,
+.vd-dropdown-item:focus {
   color: var(--dropdown-item-hover-color);
   background-color: var(--dropdown-item-hover-bg);
   text-decoration: none;
 }
 
-.dropdown-item:focus-visible {
+.vd-dropdown-item:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: -2px;
 }
 
-.dropdown-item.active,
-.dropdown-item.is-active {
+.vd-dropdown-item.active,
+.vd-dropdown-item.is-active {
   color: var(--dropdown-item-active-color);
   background-color: var(--dropdown-item-active-bg);
   font-weight: var(--font-weight-medium);
 }
 
-.dropdown-item.disabled,
-.dropdown-item.is-disabled {
+.vd-dropdown-item.disabled,
+.vd-dropdown-item.is-disabled {
   color: var(--dropdown-item-disabled-color);
   pointer-events: none;
   cursor: not-allowed;
@@ -173,7 +173,7 @@
 }
 
 /* Dropdown Divider */
-.dropdown-divider {
+.vd-dropdown-divider {
   height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
@@ -181,7 +181,7 @@
 }
 
 /* Dropdown Header */
-.dropdown-header {
+.vd-dropdown-header {
   display: block;
   padding: var(--dropdown-header-padding-y) var(--dropdown-header-padding-x);
   margin-bottom: 0;
@@ -194,54 +194,54 @@
 }
 
 /* Dropdown Menu Alignment */
-.dropdown-menu-start {
+.vd-dropdown-menu-start {
   left: 0;
   right: auto;
 }
 
-.dropdown-menu-end {
+.vd-dropdown-menu-end {
   left: auto;
   right: 0;
 }
 
 /* Dropdown Sizes */
-.dropdown-sm .dropdown-menu {
+.vd-dropdown-sm .vd-dropdown-menu {
   min-width: 8rem;
   font-size: var(--font-size-sm);
 }
 
-.dropdown-sm .dropdown-item {
+.vd-dropdown-sm .vd-dropdown-item {
   padding: calc(var(--dropdown-item-padding-y) * 0.75) calc(var(--dropdown-item-padding-x) * 0.75);
 }
 
-.dropdown-lg .dropdown-menu {
+.vd-dropdown-lg .vd-dropdown-menu {
   min-width: 15rem;
   font-size: var(--font-size-lg);
 }
 
-.dropdown-lg .dropdown-item {
+.vd-dropdown-lg .vd-dropdown-item {
   padding: calc(var(--dropdown-item-padding-y) * 1.25) calc(var(--dropdown-item-padding-x) * 1.25);
 }
 
 /* Dropdown with Button Toggle */
-.btn + .dropdown-menu,
-.dropdown-toggle.btn + .dropdown-menu {
+.vd-btn + .vd-dropdown-menu,
+.vd-dropdown-toggle.vd-btn + .vd-dropdown-menu {
   margin-top: 0.125rem;
 }
 
 /* Nested Dropdown (Submenu) */
-.dropdown-submenu {
+.vd-dropdown-submenu {
   position: relative;
 }
 
-.dropdown-submenu > .dropdown-menu {
+.vd-dropdown-submenu > .vd-dropdown-menu {
   top: 0;
   left: 100%;
   margin-top: 0;
   margin-left: 0.125rem;
 }
 
-.dropdown-submenu > .dropdown-item::after {
+.vd-dropdown-submenu > .vd-dropdown-item::after {
   content: '';
   display: inline-block;
   width: 0;
@@ -257,7 +257,7 @@
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
-  .dropdown-menu {
+  .vd-dropdown-menu {
     min-width: 100%;
     left: 0 !important;
     right: 0 !important;

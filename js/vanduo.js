@@ -1,11 +1,7 @@
 /**
  * Vanduo Framework - Main JavaScript File
- * Initializes all framework components
+ * v1.1.0
  */
-
-// Import utilities
-// Note: In a real module system, you would use import/export
-// For now, we'll assume helpers.js is loaded before this file
 
 (function() {
   'use strict';
@@ -14,11 +10,12 @@
    * Vanduo Framework Object
    */
   const Vanduo = {
-    version: '1.0.0',
+    version: '1.1.0',
     components: {},
-    
+
     /**
      * Initialize framework
+     * Call this after DOM is ready and all components are loaded
      */
     init: function() {
       // Initialize components when DOM is ready
@@ -37,25 +34,26 @@
         }
       }
     },
-    
+
     /**
      * Initialize all components
      */
     initComponents: function() {
-      // Component initialization
-      // Note: Navbar auto-initializes when navbar.js is loaded
-      // Other components will be added here as they are developed
-      // Example:
-      // this.initModals();
-      // this.initDropdowns();
-      // this.initTooltips();
-      // this.initCollapsible();
-      // this.initSidenav();
-      // this.initParallax();
-      
-      console.log('Vanduo Framework initialized');
+      // Initialize all registered components
+      Object.keys(this.components).forEach((name) => {
+        const component = this.components[name];
+        if (component.init && typeof component.init === 'function') {
+          try {
+            component.init();
+          } catch (e) {
+            console.warn('[Vanduo] Failed to initialize component "' + name + '":', e);
+          }
+        }
+      });
+
+      console.log('Vanduo Framework v1.1.0 initialized');
     },
-    
+
     /**
      * Register a component
      * @param {string} name - Component name
@@ -63,13 +61,8 @@
      */
     register: function(name, component) {
       this.components[name] = component;
-      if (component.init && typeof component.init === 'function') {
-        try {
-          component.init();
-        } catch (e) {
-          console.warn('[Vanduo] Failed to initialize component "' + name + '":', e);
-        }
-      }
+      // Note: Components are NOT auto-initialized on registration
+      // Call Vanduo.init() explicitly after all components are registered
     },
 
     /**
@@ -89,8 +82,10 @@
 
     /**
      * Destroy all component instances and clean up event listeners
+     * Uses lifecycle manager for memory leak prevention
      */
     destroyAll: function() {
+      // First, destroy components that have their own destroyAll
       var names = Object.keys(this.components);
       for (var i = 0; i < names.length; i++) {
         var component = this.components[names[i]];
@@ -101,6 +96,11 @@
             console.warn('[Vanduo] Failed to destroy component "' + names[i] + '":', e);
           }
         }
+      }
+
+      // Then, cleanup any remaining registered elements via lifecycle manager
+      if (typeof window.VanduoLifecycle !== 'undefined') {
+        window.VanduoLifecycle.destroyAll();
       }
     },
 
@@ -114,11 +114,7 @@
     }
   };
 
-  // Auto-initialize when script loads
-  Vanduo.init();
-
   // Expose to global scope
   window.Vanduo = Vanduo;
 
 })();
-

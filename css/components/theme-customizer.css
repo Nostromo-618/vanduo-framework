@@ -20,7 +20,7 @@
    Dynamic Panel (appended to body)
    ========================================================================== */
 
-body > .theme-customizer-panel {
+body > .vd-theme-customizer-panel {
   position: fixed;
   /* top is set dynamically by JS based on actual navbar height */
   top: 55px;
@@ -40,7 +40,7 @@ body > .theme-customizer-panel {
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
-body > .theme-customizer-panel.is-open {
+body > .vd-theme-customizer-panel.is-open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -307,13 +307,13 @@ body > .theme-customizer-panel.is-open {
    Trigger Button
    ========================================================================== */
 
-.theme-customizer {
+.vd-theme-customizer {
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-.theme-customizer-trigger {
+.vd-theme-customizer-trigger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -328,22 +328,22 @@ body > .theme-customizer-panel.is-open {
   transition: all 0.2s ease;
 }
 
-.theme-customizer-trigger:hover {
+.vd-theme-customizer-trigger:hover {
   background-color: var(--bg-secondary);
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.theme-customizer-trigger:focus-visible {
+.vd-theme-customizer-trigger:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.theme-customizer-trigger i {
+.vd-theme-customizer-trigger i {
   font-size: 1.25rem;
 }
 
-.theme-customizer-trigger[aria-expanded="true"] {
+.vd-theme-customizer-trigger[aria-expanded="true"] {
   background-color: var(--color-primary-alpha-10);
   border-color: var(--color-primary);
   color: var(--color-primary);
@@ -353,7 +353,7 @@ body > .theme-customizer-panel.is-open {
     Panel
     ========================================================================== */
 
-.theme-customizer-panel {
+.vd-theme-customizer-panel {
   position: fixed;
   /* top is set dynamically by JS based on actual navbar height */
   top: 55px;
@@ -373,13 +373,13 @@ body > .theme-customizer-panel.is-open {
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
-.theme-customizer-panel.is-open {
+.vd-theme-customizer-panel.is-open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.theme-customizer-panel-inner {
+.vd-theme-customizer-panel-inner {
   padding: var(--customizer-padding);
 }
 
@@ -560,7 +560,7 @@ body > .theme-customizer-panel.is-open {
   position: relative;
 }
 
-.customizer-font .input {
+.customizer-font .vd-input {
   width: 100%;
   padding-left: 2rem;
 }
@@ -681,8 +681,8 @@ body > .theme-customizer-panel.is-open {
     ========================================================================== */
 
 @media (max-width: 767.98px) {
-  .theme-customizer-panel,
-  body > .theme-customizer-panel {
+  .vd-theme-customizer-panel,
+  body > .vd-theme-customizer-panel {
     position: fixed;
     top: 0;
     right: -100%;
@@ -698,14 +698,14 @@ body > .theme-customizer-panel.is-open {
     transition: right 0.3s ease, visibility 0.3s ease;
   }
 
-  .theme-customizer-panel.is-open,
-  body > .theme-customizer-panel.is-open {
+  .vd-theme-customizer-panel.is-open,
+  body > .vd-theme-customizer-panel.is-open {
     right: 0;
     transform: none;
     visibility: visible;
   }
 
-  .theme-customizer-panel-inner,
+  .vd-theme-customizer-panel-inner,
   .tc-body {
     padding: 1.5rem;
   }
@@ -741,7 +741,7 @@ body > .theme-customizer-panel.is-open {
   }
 
   /* Mobile overlay */
-  .theme-customizer-overlay {
+  .vd-theme-customizer-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -754,7 +754,7 @@ body > .theme-customizer-panel.is-open {
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
-  .theme-customizer-overlay.is-active {
+  .vd-theme-customizer-overlay.is-active {
     opacity: 1;
     visibility: visible;
   }
@@ -765,7 +765,7 @@ body > .theme-customizer-panel.is-open {
     display: none;
   }
 
-  .theme-customizer-overlay {
+  .vd-theme-customizer-overlay {
     display: none;
   }
 }
@@ -774,20 +774,20 @@ body > .theme-customizer-panel.is-open {
    Scrollbar Styling
    ========================================================================== */
 
-.theme-customizer-panel::-webkit-scrollbar {
+.vd-theme-customizer-panel::-webkit-scrollbar {
   width: 6px;
 }
 
-.theme-customizer-panel::-webkit-scrollbar-track {
+.vd-theme-customizer-panel::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.theme-customizer-panel::-webkit-scrollbar-thumb {
+.vd-theme-customizer-panel::-webkit-scrollbar-thumb {
   background-color: var(--border-color);
   border-radius: 3px;
 }
 
-.theme-customizer-panel::-webkit-scrollbar-thumb:hover {
+.vd-theme-customizer-panel::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-muted);
 }
 

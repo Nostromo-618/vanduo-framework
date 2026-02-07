@@ -36,30 +36,30 @@
 }
 
 /* Dark Theme - Light badge needs different colors */
-[data-theme="dark"] .badge-light {
+[data-theme="dark"] .vd-badge-light {
   background-color: var(--color-gray-700);
   color: var(--color-gray-100);
 }
 
-[data-theme="dark"] .badge-outlined.badge-light {
+[data-theme="dark"] .vd-badge-outlined.vd-badge-light {
   color: var(--color-gray-300);
   border-color: var(--color-gray-500);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .badge-light {
+  :root:not([data-theme]) .vd-badge-light {
     background-color: var(--color-gray-700);
     color: var(--color-gray-100);
   }
 
-  :root:not([data-theme]) .badge-outlined.badge-light {
+  :root:not([data-theme]) .vd-badge-outlined.vd-badge-light {
     color: var(--color-gray-300);
     border-color: var(--color-gray-500);
   }
 }
 
 /* Base Badge */
-.badge {
+.vd-badge {
   display: inline-block;
   padding: var(--badge-padding-y) var(--badge-padding-x);
   font-size: var(--badge-font-size);
@@ -74,156 +74,156 @@
 }
 
 /* Badge Variants */
-.badge-primary {
+.vd-badge-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.badge-secondary {
+.vd-badge-secondary {
   background-color: var(--color-secondary);
   color: var(--color-white);
 }
 
-.badge-success {
+.vd-badge-success {
   background-color: var(--color-success);
   color: var(--color-white);
 }
 
-.badge-warning {
+.vd-badge-warning {
   background-color: var(--color-warning);
   color: var(--color-gray-900);
 }
 
-.badge-error {
+.vd-badge-error {
   background-color: var(--color-error);
   color: var(--color-white);
 }
 
-.badge-info {
+.vd-badge-info {
   background-color: var(--color-info);
   color: var(--color-white);
 }
 
-.badge-light {
+.vd-badge-light {
   background-color: var(--color-gray-100);
   color: var(--color-gray-900);
 }
 
-.badge-dark {
+.vd-badge-dark {
   background-color: var(--color-gray-800);
   color: var(--color-white);
 }
 
 /* Badge Sizes */
-.badge-sm {
+.vd-badge-sm {
   padding: var(--badge-padding-y-sm) var(--badge-padding-x-sm);
   font-size: var(--badge-font-size-sm);
 }
 
-.badge-lg {
+.vd-badge-lg {
   padding: var(--badge-padding-y-lg) var(--badge-padding-x-lg);
   font-size: var(--badge-font-size-lg);
 }
 
 /* Badge Styles */
-.badge-pill {
+.vd-badge-pill {
   padding-right: var(--badge-padding-x);
   padding-left: var(--badge-padding-x);
   border-radius: var(--badge-pill-border-radius);
 }
 
-.badge-outlined {
+.vd-badge-outlined {
   background-color: transparent;
   border: 1px solid currentColor;
 }
 
-.badge-outlined.badge-primary {
+.vd-badge-outlined.vd-badge-primary {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.badge-outlined.badge-secondary {
+.vd-badge-outlined.vd-badge-secondary {
   color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
 
-.badge-outlined.badge-success {
+.vd-badge-outlined.vd-badge-success {
   color: var(--color-success);
   border-color: var(--color-success);
 }
 
-.badge-outlined.badge-warning {
+.vd-badge-outlined.vd-badge-warning {
   color: var(--color-warning);
   border-color: var(--color-warning);
 }
 
-.badge-outlined.badge-error {
+.vd-badge-outlined.vd-badge-error {
   color: var(--color-error);
   border-color: var(--color-error);
 }
 
-.badge-outlined.badge-info {
+.vd-badge-outlined.vd-badge-info {
   color: var(--color-info);
   border-color: var(--color-info);
 }
 
-.badge-outlined.badge-light {
+.vd-badge-outlined.vd-badge-light {
   color: var(--color-gray-600);
   border-color: var(--color-gray-300);
 }
 
-.badge-outlined.badge-dark {
+.vd-badge-outlined.vd-badge-dark {
   color: var(--color-gray-800);
   border-color: var(--color-gray-800);
 }
 
 /* Badge Positioning (for use with buttons, avatars, etc.) */
-.badge-top-right,
-.badge-top-left,
-.badge-bottom-right,
-.badge-bottom-left {
+.vd-badge-top-right,
+.vd-badge-top-left,
+.vd-badge-bottom-right,
+.vd-badge-bottom-left {
   position: absolute;
   z-index: 1;
   transform: translate(50%, -50%);
 }
 
-.badge-top-right {
+.vd-badge-top-right {
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
 }
 
-.badge-top-left {
+.vd-badge-top-left {
   top: 0;
   left: 0;
   transform: translate(-50%, -50%);
 }
 
-.badge-bottom-right {
+.vd-badge-bottom-right {
   bottom: 0;
   right: 0;
   transform: translate(50%, 50%);
 }
 
-.badge-bottom-left {
+.vd-badge-bottom-left {
   bottom: 0;
   left: 0;
   transform: translate(-50%, 50%);
 }
 
 /* Badge in Buttons */
-.btn .badge {
+.vd-btn .vd-badge {
   position: relative;
   top: -1px;
 }
 
 /* Badge in Headings */
-h1 .badge,
-h2 .badge,
-h3 .badge,
-h4 .badge,
-h5 .badge,
-h6 .badge {
+h1 .vd-badge,
+h2 .vd-badge,
+h3 .vd-badge,
+h4 .vd-badge,
+h5 .vd-badge,
+h6 .vd-badge {
   font-size: 0.6em;
   vertical-align: middle;
 }

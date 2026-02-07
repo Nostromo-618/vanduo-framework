@@ -21,7 +21,7 @@
      * Initialize modals
      */
     init: function () {
-      const modals = document.querySelectorAll('.modal');
+      const modals = document.querySelectorAll('.vd-modal');
 
       modals.forEach(modal => {
         if (this.modals.has(modal)) {
@@ -55,8 +55,8 @@
      */
     initModal: function (modal) {
       const backdrop = this.createBackdrop(modal);
-      const closeButtons = modal.querySelectorAll('.modal-close, [data-dismiss="modal"]');
-      const dialog = modal.querySelector('.modal-dialog');
+      const closeButtons = modal.querySelectorAll('.vd-modal-close, [data-dismiss="modal"]');
+      const dialog = modal.querySelector('.vd-modal-dialog');
 
       if (!dialog) {
         return;
@@ -75,7 +75,7 @@
       }
 
       // Set aria-labelledby
-      const title = modal.querySelector('.modal-title');
+      const title = modal.querySelector('.vd-modal-title');
       if (title && !title.id) {
         title.id = modal.id + '-title';
         modal.setAttribute('aria-labelledby', title.id);
@@ -120,11 +120,11 @@
      * @returns {HTMLElement} Backdrop element
      */
     createBackdrop: function (modal) {
-      let backdrop = modal.querySelector('.modal-backdrop');
+      let backdrop = modal.querySelector('.vd-modal-backdrop');
 
       if (!backdrop) {
         backdrop = document.createElement('div');
-        backdrop.className = 'modal-backdrop';
+        backdrop.className = 'vd-modal-backdrop';
         document.body.appendChild(backdrop);
       }
 

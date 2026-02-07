@@ -5,6 +5,7 @@
 
 // Utilities
 import './utils/helpers.js';
+import './utils/lifecycle.js';
 
 // Core framework
 import './vanduo.js';

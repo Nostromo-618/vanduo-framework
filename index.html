@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Vanduo Framework. Pure HTML, CSS, JS framework for beautiful static websites. No dependencies, no build tools, just clean code.">
+        content="Vanduo Framework v1.1.0. Pure HTML, CSS, JS framework for beautiful static websites. No dependencies, no build tools, just clean code.">
     <meta name="author" content="Vanduo Framework">
     <meta name="keywords"
         content="CSS framework, HTML framework, JavaScript framework, static website, no dependencies, pure CSS, pure JavaScript, responsive design, UI components, Lithuania">
     <meta name="robots" content="index, follow">
-    <title>Vanduo Framework - Pure HTML, CSS, JS Framework</title>
+    <title>Vanduo Framework v1.1.0 - Pure HTML, CSS, JS Framework</title>
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://vanduo.dev/">
@@ -18,7 +18,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vanduo.dev/">
-    <meta property="og:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
+    <meta property="og:title" content="Vanduo Framework v1.1.0 - Pure HTML, CSS, JS Framework">
     <meta property="og:description"
         content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
     <meta property="og:image" content="https://vanduo.dev/images/og-image.png">
@@ -28,7 +28,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://vanduo.dev/">
-    <meta name="twitter:title" content="Vanduo Framework - Pure HTML, CSS, JS Framework">
+    <meta name="twitter:title" content="Vanduo Framework v1.1.0 - Pure HTML, CSS, JS Framework">
     <meta name="twitter:description"
         content="Essential just like water is. Zero-dependency framework for beautiful static websites.">
     <meta name="twitter:image" content="https://vanduo.dev/images/twitter-card.png">
@@ -41,6 +41,10 @@
 
     <!-- Phosphor Icons -->
     <link rel="stylesheet" href="./css/icons/icons.css">
+    <link rel="stylesheet" href="./icons/phosphor/bold/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/light/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/thin/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/duotone/style.css">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -62,7 +66,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "softwareVersion": "1.0",
+      "softwareVersion": "1.1.0",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["HTML", "CSS", "JavaScript"]
     }
@@ -105,7 +109,7 @@
         }
 
         /* Add space to the left of navbar brand */
-        .navbar-brand {
+        .vd-navbar-brand {
             margin-left: 1rem;
         }
 
@@ -114,8 +118,8 @@
             position: absolute;
             top: -40px;
             left: 0;
-            background: var(--color-primary);
-            color: var(--color-white);
+            background: var(--vd-color-primary);
+            color: var(--vd-color-white);
             padding: 8px;
             text-decoration: none;
             z-index: 100;
@@ -123,6 +127,89 @@
 
         .skip-link:focus {
             top: 0;
+        }
+
+        /* Icons section */
+        .icons-section-title,
+        .icons-section-subtitle {
+            text-align: center;
+        }
+
+        .icons-card {
+            padding: 2rem;
+        }
+
+        .icons-weights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icons-weight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .icons-weight-item i {
+            font-size: 48px;
+        }
+
+        .icons-sample-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 900px;
+        }
+
+        .icons-footer {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        /* Open Color section */
+        .open-color-title,
+        .open-color-subtitle {
+            text-align: center;
+        }
+
+        .open-color-card {
+            padding: 2rem;
+        }
+
+        .open-color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .open-color-swatch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 64px;
+            border-radius: var(--vd-btn-border-radius);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--vd-color-white);
+            letter-spacing: 0.02em;
+        }
+
+        .open-color-swatch.is-light {
+            color: var(--vd-color-gray-900);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .open-color-footer {
+            margin-top: 1.5rem;
+            text-align: center;
         }
 
         /* Section spacing */
@@ -163,20 +250,81 @@
 
         /* Code examples */
         .code-example {
-            background: var(--bg-secondary);
+            background: var(--vd-bg-secondary);
             padding: 1rem;
-            border-radius: var(--btn-border-radius);
+            border-radius: var(--vd-btn-border-radius);
             margin-top: 1rem;
-            font-family: var(--font-family-mono);
-            font-size: var(--font-size-sm);
+            font-family: var(--vd-font-family-mono);
+            font-size: var(--vd-font-size-sm);
             overflow-x: auto;
         }
 
         /* Feature icons */
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--color-primary);
+            color: var(--vd-color-primary);
             margin-bottom: 1rem;
+        }
+
+        /* Philosophy cards: equal vertical and horizontal gap */
+        #philosophy .philosophy-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--grid-gutter);
+            margin-left: 0;
+            margin-right: 0;
+        }
+        #philosophy .philosophy-cards > * {
+            padding-left: 0;
+            padding-right: 0;
+            margin-bottom: 0;
+            min-width: 0;
+            width: auto;
+        }
+        @media (min-width: 768px) {
+            #philosophy .philosophy-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 992px) {
+            #philosophy .philosophy-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* What's New cards: equal vertical/horizontal gap, equal height */
+        #whats-new .whats-new-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--grid-gutter);
+            margin-left: 0;
+            margin-right: 0;
+        }
+        #whats-new .whats-new-cards > * {
+            padding-left: 0;
+            padding-right: 0;
+            margin-bottom: 0;
+            min-width: 0;
+            width: auto;
+        }
+        #whats-new .whats-new-cards .demo-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #whats-new .whats-new-cards .demo-card .vd-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        #whats-new .vd-card-header h3 {
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            #whats-new .whats-new-cards {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 1fr;
+            }
         }
     </style>
 </head>
@@ -186,24 +334,24 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-fixed">
-        <div class="navbar-container">
-            <div class="navbar-brand">
+    <nav class="vd-navbar vd-navbar-fixed">
+        <div class="vd-navbar-container">
+            <div class="vd-navbar-brand">
                 <a href="index.html"><i class="ph-fill ph-drop"
-                        style="color: var(--color-primary); margin-right: 0.25em;"></i>Vanduo</a>
+                        style="color: var(--vd-color-primary); margin-right: 0.25em;"></i>Vanduo</a>
             </div>
-            <button class="navbar-toggle" aria-label="Toggle navigation">
+            <button class="vd-navbar-toggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>
-            <div class="navbar-menu">
-                <ul class="navbar-nav">
-                    <li><a href="index.html" class="nav-link active">Home</a></li>
-                    <li><a href="documentation.html" class="nav-link">Documentation</a></li>
-                    <li><a href="changelog.html" class="nav-link">Changelog</a></li>
+            <div class="vd-navbar-menu">
+                <ul class="vd-navbar-nav">
+                    <li><a href="index.html" class="vd-nav-link active">Home</a></li>
+                    <li><a href="documentation.html" class="vd-nav-link">Documentation</a></li>
+                    <li><a href="changelog.html" class="vd-nav-link">Changelog</a></li>
                 </ul>
 
                 <!-- Theme Customizer Trigger (far right) -->
-                <button class="theme-customizer-trigger" data-theme-customizer-trigger
+                <button class="vd-theme-customizer-trigger" data-theme-customizer-trigger
                     aria-label="Open theme customizer" style="margin-left: auto;">
                     <i class="ph ph-paint-roller"></i>
                 </button>
@@ -212,75 +360,76 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="hero parallax">
-        <div class="parallax-layer" data-speed="0.5"></div>
-        <div class="parallax-content hero-content">
-            <h1><i class="ph-fill ph-drop" style="color: var(--color-primary); margin-right: 0.15em;"></i>Vanduo
+    <section id="hero" class="hero vd-parallax">
+        <div class="vd-parallax-layer" data-speed="0.5"></div>
+        <div class="vd-parallax-content hero-content">
+            <h1><i class="ph-fill ph-drop" style="color: var(--vd-color-primary); margin-right: 0.15em;"></i>Vanduo
                 Framework</h1>
-            <p class="text-lg text-muted">Essential just like water is.</p>
+            <p class="vd-text-lg vd-text-muted">Essential just like water is.</p>
             <p>Pure HTML, CSS, JS framework for designing beautiful static websites. No dependencies, no build tools,
                 just clean and simple code.</p>
-            <div class="mt-10">
-                <a href="documentation.html" class="btn btn-outline btn-lg">Get Started</a>
+            <div class="vd-mt-10">
+                <a href="documentation.html" class="vd-btn vd-btn-outline vd-btn-lg">Get Started</a>
                 <a href="https://github.com/Nostromo-618/vanduo-framework"
-                    class="btn btn-outline btn-lg ml-6">GitHub</a>
+                    class="vd-btn vd-btn-outline vd-btn-lg vd-ml-6">GitHub</a>
             </div>
         </div>
     </section>
 
     <!-- Main Content -->
     <main id="main-content">
-        <div class="container-responsive">
+        <div class="vd-container-responsive">
 
             <!-- Core Philosophy -->
             <section id="philosophy">
-                <h2 class="text-center mb-8">Core Philosophy</h2>
-                <div class="row" style="align-items: stretch;">
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                <h2 class="vd-text-center vd-mb-8">Features</h2>
+                <div class="vd-row philosophy-cards" style="align-items: stretch;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-leaf feature-icon"></i>
                             <h3>Zero Dependencies</h3>
-                            <p class="text-muted">Pure HTML, CSS, and JavaScript. No build tools, no package managers,
+                            <p class="vd-text-muted">Pure HTML, CSS, and JavaScript. No build tools, no package
+                                managers,
                                 no complexity.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-spiral feature-icon"></i>
                             <h3>Fibonacci Design</h3>
-                            <p class="text-muted">Spacing, typography, and grid layouts built on the Golden Ratio and
+                            <p class="vd-text-muted">Spacing, typography, and grid layouts built on the Golden Ratio and
                                 Fibonacci sequence for natural harmony.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-puzzle-piece feature-icon"></i>
                             <h3>Modular CSS</h3>
-                            <p class="text-muted">Import the full framework or pick only the components you need. No
+                            <p class="vd-text-muted">Import the full framework or pick only the components you need. No
                                 bloat, just what you use.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-wheelchair feature-icon"></i>
                             <h3>Accessibility First</h3>
-                            <p class="text-muted">ARIA attributes, focus-visible states, reduced motion support, and
+                            <p class="vd-text-muted">ARIA attributes, focus-visible states, reduced motion support, and
                                 semantic HTML built-in.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-moon-stars feature-icon"></i>
                             <h3>Dark Mode Ready</h3>
-                            <p class="text-muted">Light, dark, and system themes with smooth transitions. Includes a
+                            <p class="vd-text-muted">Light, dark, and system themes with smooth transitions. Includes a
                                 customizable theme switcher component.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-6">
-                        <div class="card card-glow text-center" style="padding: 2rem; height: 100%;">
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 2rem; height: 100%;">
                             <i class="ph ph-lightning feature-icon"></i>
                             <h3>Lightweight & Fast</h3>
-                            <p class="text-muted">Minimal footprint with optimized CSS. No JavaScript required for
+                            <p class="vd-text-muted">Minimal footprint with optimized CSS. No JavaScript required for
                                 styling—scripts are optional enhancements.</p>
                         </div>
                     </div>
@@ -289,39 +438,40 @@
 
             <!-- Icons Overview -->
             <section id="icons">
-                <h2 class="text-center mb-3">Phosphor Icons</h2>
-                <p class="text-center text-muted mb-8">1,500+ icons in 6 weights, bundled locally. No CDN required.</p>
+                <h2 class="icons-section-title vd-mb-3">Phosphor Icons</h2>
+                <p class="icons-section-subtitle vd-text-muted vd-mb-8">1,500+ icons in 6 weights, bundled locally. No CDN
+                    required.</p>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-glow" style="padding: 2rem;">
-                            <div class="row mb-6">
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Regular</p>
+                <div class="vd-row">
+                    <div class="vd-col-12">
+                        <div class="vd-card vd-card-glow icons-card">
+                            <div class="icons-weights">
+                                <div class="icons-weight-item">
+                                    <i class="ph ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Regular</p>
                                 </div>
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph-fill ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Fill</p>
+                                <div class="icons-weight-item">
+                                    <i class="ph-fill ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Fill</p>
                                 </div>
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph-bold ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Bold</p>
+                                <div class="icons-weight-item">
+                                    <i class="ph-bold ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Bold</p>
                                 </div>
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph-light ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Light</p>
+                                <div class="icons-weight-item">
+                                    <i class="ph-light ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Light</p>
                                 </div>
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph-thin ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Thin</p>
+                                <div class="icons-weight-item">
+                                    <i class="ph-thin ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Thin</p>
                                 </div>
-                                <div class="col-6 col-md-2 text-center mb-5">
-                                    <i class="ph-duotone ph-heart" style="font-size: 48px;"></i>
-                                    <p class="text-sm text-muted mt-2">Duotone</p>
+                                <div class="icons-weight-item">
+                                    <i class="ph-duotone ph-heart"></i>
+                                    <p class="vd-text-sm vd-text-muted">Duotone</p>
                                 </div>
                             </div>
-                            <div class="d-flex gap-5 flex-wrap justify-center" style="font-size: 32px;">
+                            <div class="icons-sample-row">
                                 <i class="ph ph-house"></i>
                                 <i class="ph ph-user"></i>
                                 <i class="ph ph-gear"></i>
@@ -332,15 +482,15 @@
                                 <i class="ph ph-upload"></i>
                                 <i class="ph ph-trash"></i>
                                 <i class="ph ph-pencil"></i>
-                                <i class="ph-fill ph-heart" style="color: var(--color-error);"></i>
-                                <i class="ph-fill ph-star" style="color: var(--color-warning);"></i>
-                                <i class="ph ph-check-circle" style="color: var(--color-success);"></i>
-                                <i class="ph ph-warning" style="color: var(--color-warning);"></i>
-                                <i class="ph ph-x-circle" style="color: var(--color-error);"></i>
-                                <i class="ph ph-info" style="color: var(--color-info);"></i>
+                                <i class="ph-fill ph-heart" style="color: var(--vd-color-error);"></i>
+                                <i class="ph-fill ph-star" style="color: var(--vd-color-warning);"></i>
+                                <i class="ph ph-check-circle" style="color: var(--vd-color-success);"></i>
+                                <i class="ph ph-warning" style="color: var(--vd-color-warning);"></i>
+                                <i class="ph ph-x-circle" style="color: var(--vd-color-error);"></i>
+                                <i class="ph ph-info" style="color: var(--vd-color-info);"></i>
                             </div>
-                            <p class="text-center text-sm text-muted mt-5">
-                                <i class="ph ph-heart-straight" style="color: var(--color-error);"></i>
+                            <p class="icons-footer vd-text-sm vd-text-muted">
+                                <i class="ph ph-heart-straight" style="color: var(--vd-color-error);"></i>
                                 Icons by <a href="https://phosphoricons.com" target="_blank"
                                     rel="noopener"><strong>Phosphor Icons</strong></a> — MIT Licensed.
                                 <a href="documentation.html#icons">See full documentation &rarr;</a>
@@ -350,100 +500,112 @@
                 </div>
             </section>
 
-            <!-- Getting Started -->
-            <section id="getting-started">
-                <h2 class="text-center mb-8">Getting Started</h2>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="card card-glow demo-card">
-                            <div class="card-header">
-                                <h3>Quick Start</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Include the CSS and JS files in your HTML. No build tools needed.</p>
-                                <pre class="code-example"><code>&lt;!-- CSS --&gt;
-&lt;link rel="stylesheet" href="css/vanduo.css"&gt;
+            <!-- Open Color Overview -->
+            <section id="open-color">
+                <h2 class="open-color-title vd-mb-3">Open Color Palette</h2>
+                <p class="open-color-subtitle vd-text-muted vd-mb-8">Vanduo is built on the Open Color system — clean,
+                    accessible hues with consistent 10-step scales.</p>
 
-&lt;!-- JS (order matters) --&gt;
-&lt;script src="js/utils/helpers.js"&gt;&lt;/script&gt;
-&lt;script src="js/vanduo.js"&gt;&lt;/script&gt;
-
-&lt;!-- Add only the components you need --&gt;
-&lt;script src="js/components/navbar.js"&gt;&lt;/script&gt;
-&lt;script src="js/components/modals.js"&gt;&lt;/script&gt;
-&lt;!-- ... --&gt;</code></pre>
+                <div class="vd-row">
+                    <div class="vd-col-12">
+                        <div class="vd-card vd-card-glow open-color-card">
+                            <div class="open-color-grid">
+                                <div class="open-color-swatch" style="background: var(--primary-5);">Primary</div>
+                                <div class="open-color-swatch" style="background: var(--secondary-5);">Secondary</div>
+                                <div class="open-color-swatch" style="background: var(--success-5);">Success</div>
+                                <div class="open-color-swatch" style="background: var(--warning-5);">Warning</div>
+                                <div class="open-color-swatch" style="background: var(--error-5);">Error</div>
+                                <div class="open-color-swatch" style="background: var(--info-5);">Info</div>
+                                <div class="open-color-swatch is-light" style="background: var(--gray-1);">Gray 1</div>
+                                <div class="open-color-swatch" style="background: var(--gray-8);">Gray 8</div>
                             </div>
+                            <p class="open-color-footer vd-text-sm vd-text-muted">Based on <a
+                                    href="https://yeun.github.io/open-color/" target="_blank"
+                                    rel="noopener"><strong>Open Color</strong></a> (MIT Licensed). See full palette
+                                in the documentation.</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <div class="card card-glow demo-card">
-                            <div class="card-header">
-                                <h3>Modular CSS Imports</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Import only what you need instead of the full bundle:</p>
-                                <pre class="code-example"><code>&lt;!-- Full framework --&gt;
-&lt;link rel="stylesheet" href="css/vanduo.css"&gt;
-
-&lt;!-- Or pick individual modules --&gt;
-&lt;link rel="stylesheet" href="css/core/reset.css"&gt;
-&lt;link rel="stylesheet" href="css/core/colors.css"&gt;
-&lt;link rel="stylesheet" href="css/core/typography.css"&gt;
-&lt;link rel="stylesheet" href="css/core/grid.css"&gt;
-&lt;link rel="stylesheet" href="css/components/buttons.css"&gt;
-&lt;!-- ... add what you need --&gt;</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-6">
-                    <a href="documentation.html#getting-started" class="btn btn-outline">Full Documentation &rarr;</a>
                 </div>
             </section>
 
-            <!-- Color System -->
-            <section id="colors">
-                <h2 class="text-center mb-8">Color System</h2>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-glow" style="padding: 2rem;">
-                            <div class="row">
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-primary text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Primary</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-secondary text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Secondary</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-success text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Success</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-warning text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Warning</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-error text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Error</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-info text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Info</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-dark text-white p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Dark</div>
-                                </div>
-                                <div class="col-12 col-md-3 col-sm-6">
-                                    <div class="bg-light text-black p-3 mb-2"
-                                        style="border-radius: var(--btn-border-radius);">Light</div>
-                                </div>
+            <!-- What's New v1.1.0 -->
+            <section id="whats-new">
+                <h2 class="vd-text-center vd-mb-8">What's New in v1.1.0</h2>
+                <div class="vd-row whats-new-cards">
+                    <div class="vd-col-12 vd-col-md-6">
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-tag mr-2" style="color: var(--vd-color-primary);"></i>CSS Namespace
+                                </h3>
                             </div>
-                            <p class="text-center text-sm text-muted mt-5">All colors support dark mode and are fully
-                                customizable via CSS variables. <a href="documentation.html#typography">Learn more
-                                    &rarr;</a></p>
+                            <div class="vd-card-body">
+                                <p>All CSS classes now use the <code>vd-</code> prefix to prevent collisions with other
+                                    libraries.</p>
+                                <pre class="code-example"><code>&lt;!-- v1.0.x (old) --&gt;
+&lt;button class="btn btn-primary"&gt;Click&lt;/button&gt;
+
+&lt;!-- v1.1.0 (new) --&gt;
+&lt;button class="vd-btn vd-btn-primary"&gt;Click&lt;/button&gt;</code></pre>
+                                <a href="concepts.html#migration" class="vd-btn vd-btn-sm vd-btn-primary vd-mt-3">View
+                                    Migration Guide</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vd-col-12 vd-col-md-6">
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-cube mr-2" style="color: var(--vd-color-success);"></i>ESM & CJS
+                                    Modules</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p>Three build formats now available: IIFE, ESM, and CommonJS for modern bundler
+                                    compatibility.</p>
+                                <pre class="code-example"><code>&lt;!-- IIFE (Classic) --&gt;
+&lt;script src="vanduo.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- ESM --&gt;
+&lt;script type="module"&gt;
+  import { init } from './vanduo.esm.min.js';
+  init();
+&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vd-col-12 vd-col-md-6">
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-refresh mr-2" style="color: var(--vd-color-info);"></i>Manual
+                                    Initialization</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p>Components no longer auto-initialize. You control when Vanduo starts.</p>
+                                <pre class="code-example"><code>&lt;script src="vanduo.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Initialize when ready
+  Vanduo.init();
+  
+  // Cleanup when needed (SPAs)
+  // Vanduo.destroyAll();
+&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vd-col-12 vd-col-md-6">
+                        <div class="vd-card vd-card-glow demo-card">
+                            <div class="vd-card-header">
+                                <h3><i class="ph ph-palette mr-2" style="color: var(--vd-color-warning);"></i>Design
+                                    Tokens</h3>
+                            </div>
+                            <div class="vd-card-body">
+                                <p>Centralized CSS custom properties with <code>--vd-</code> prefix for consistent
+                                    theming.</p>
+                                <pre class="code-example"><code>:root {
+  --vd-color-primary: #22b8cf;
+  --vd-color-primary-dark: #1098ad;
+  --vd-spacing-8: 8px;
+  --vd-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+}</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -451,14 +613,14 @@
 
             <!-- Call to Action -->
             <section id="cta" style="padding: 5rem 0;">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-glow text-center" style="padding: 3rem 2rem;">
+                <div class="vd-row">
+                    <div class="vd-col-12">
+                        <div class="vd-card vd-card-glow vd-text-center" style="padding: 3rem 2rem;">
                             <i class="ph ph-book-open"
-                                style="font-size: 3rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+                                style="font-size: 3rem; color: var(--vd-color-primary); margin-bottom: 1rem;"></i>
                             <h3>Browse Documentation</h3>
-                            <p class="text-muted mb-5">Explore all components, utilities, and code examples.</p>
-                            <a href="documentation.html" class="btn btn-outline btn-lg">Documentation</a>
+                            <p class="vd-text-muted vd-mb-5">Explore all components, utilities, and code examples.</p>
+                            <a href="documentation.html" class="vd-btn vd-btn-outline vd-btn-lg">Documentation</a>
                         </div>
                     </div>
                 </div>
@@ -468,32 +630,33 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <div class="footer-section">
+    <footer class="vd-footer">
+        <div class="vd-footer-container">
+            <div class="vd-row">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
                         <h4>Vanduo Framework</h4>
                         <p>Essential just like water is.</p>
                         <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="footer-section">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
                         <h4>Quick Links</h4>
-                        <ul class="footer-links">
+                        <ul class="vd-footer-links">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="documentation.html">Documentation</a></li>
                             <li><a href="changelog.html">Changelog</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="footer-section">
+                <div class="vd-footer-section">
                     <h4>Resources</h4>
-                    <ul class="footer-links">
+                    <ul class="vd-footer-links">
                         <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
                         <li><a href="documentation.html">Documentation</a></li>
                         <li><a href="changelog.html">Changelog</a></li>
+                        <li><a href="concepts.html#migration">Migration Guide</a></li>
                         <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
                         </li>
                     </ul>
@@ -502,23 +665,23 @@
         </div>
 
         <!-- Made with Kilo Code Section -->
-        <div class="footer-made-with">
-            <span class="footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+        <div class="vd-footer-made-with">
+            <span class="vd-footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
                     rel="noopener noreferrer">Kilo Code</a></span>
-            <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="footer-kilo-link"
+            <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="vd-footer-kilo-link"
                 title="Kilo Code - AI Coding Assistant">
-                <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="footer-kilo-logo">
+                <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="vd-footer-kilo-logo">
             </a>
-            <span class="footer-separator" aria-hidden="true"></span>
+            <span class="vd-footer-separator" aria-hidden="true"></span>
             <a href="https://www.buymeacoffee.com/nostromo618" target="_blank" rel="noopener noreferrer"
-                class="footer-bmac-link" title="Buy Me A Coffee">
+                class="vd-footer-bmac-link" title="Buy Me A Coffee">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
-                    class="footer-bmac-logo">
+                    class="vd-footer-bmac-logo">
             </a>
         </div>
 
-        <div class="footer-bottom">
-            <p class="text-center text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+        <div class="vd-footer-bottom">
+            <p class="vd-text-center vd-text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
         </div>
         </div>
     </footer>
@@ -532,6 +695,14 @@
     <script src="./js/components/navbar.js"></script>
     <script src="./js/components/parallax.js"></script>
     <script src="./js/components/select.js"></script>
+
+    <!-- Initialize Vanduo -->
+    <script>
+        // Initialize Vanduo framework
+        if (typeof Vanduo !== 'undefined') {
+            Vanduo.init();
+        }
+    </script>
 </body>
 
 </html>

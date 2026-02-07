@@ -43,6 +43,20 @@
      * Create backdrop elements
      */
     createBackdrop: function () {
+      // Prevent duplicate backdrop creation
+      if (this.backdrop || document.querySelector('.image-box-backdrop')) {
+        // If backdrop already exists in DOM, reuse it
+        if (!this.backdrop) {
+          this.backdrop = document.querySelector('.image-box-backdrop');
+          this.container = this.backdrop.querySelector('.image-box-container');
+          this.img = this.backdrop.querySelector('.image-box-img');
+          this.closeBtn = this.backdrop.querySelector('.image-box-close');
+          this.caption = this.backdrop.querySelector('.image-box-caption');
+          this.bindBackdropEvents();
+        }
+        return;
+      }
+
       // Create backdrop
       this.backdrop = document.createElement('div');
       this.backdrop.className = 'image-box-backdrop';

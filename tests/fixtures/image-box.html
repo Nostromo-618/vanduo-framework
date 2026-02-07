@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Box Test Fixture</title>
+    <link rel="stylesheet" href="/css/vanduo.css">
+    <link rel="stylesheet" href="/css/components/image-box.css">
+    <style>
+        .container {
+            padding: 2rem;
+        }
+
+        .test-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .test-image {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        /* Tall page for scroll testing */
+        .spacer {
+            height: 200vh;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Image Box Test Fixture</h1>
+
+        <!-- Basic Image -->
+        <section>
+            <h2>Basic Image</h2>
+            <div class="test-grid">
+                <img id="basic-image" src="/images/thumb1.jpg" alt="Basic test image" data-image-box
+                    class="test-image" />
+            </div>
+        </section>
+
+        <!-- Image with Caption -->
+        <section>
+            <h2>Image with Caption</h2>
+            <div class="test-grid">
+                <img id="image-with-caption" src="/images/thumb2.jpg" alt="Test image" data-image-box
+                    data-image-box-caption="This is a test caption" class="test-image" />
+            </div>
+        </section>
+
+        <!-- Dual Source Image (thumbnail + full) -->
+        <section>
+            <h2>Dual Source Image</h2>
+            <div class="test-grid">
+                <img id="dual-source-image" src="/images/thumb3.jpg" alt="Dual source image" data-image-box
+                    data-image-box-full-src="/images/full3.jpg" class="test-image" />
+            </div>
+        </section>
+
+        <!-- Non-image trigger (link) -->
+        <section>
+            <h2>Link Trigger</h2>
+            <a id="link-trigger" href="/images/photo.jpg" data-image-box data-image-box-caption="Linked image">
+                Click to view image
+            </a>
+        </section>
+
+        <!-- Broken Image -->
+        <section>
+            <h2>Broken Image</h2>
+            <div class="test-grid">
+                <img id="broken-image" src="/images/nonexistent-image-12345.jpg" alt="Broken image test" data-image-box
+                    class="test-image" />
+            </div>
+        </section>
+
+        <!-- Multiple Images for Gallery -->
+        <section>
+            <h2>Gallery</h2>
+            <div class="test-grid" id="gallery">
+                <img src="/images/thumb1.jpg" alt="Gallery 1" data-image-box class="test-image gallery-img" />
+                <img src="/images/thumb2.jpg" alt="Gallery 2" data-image-box class="test-image gallery-img" />
+                <img src="/images/thumb3.jpg" alt="Gallery 3" data-image-box class="test-image gallery-img" />
+            </div>
+        </section>
+
+        <!-- Programmatic Controls -->
+        <section>
+            <h2>Programmatic Controls</h2>
+            <button id="open-programmatic" class="btn btn-primary">Open First Image</button>
+            <button id="close-programmatic" class="btn btn-secondary">Close Image Box</button>
+            <button id="reinit-btn" class="btn btn-outline">Reinit</button>
+        </section>
+
+        <!-- Spacer for scroll testing -->
+        <div class="spacer"></div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/utils/helpers.js"></script>
+    <script src="/js/vanduo.js"></script>
+    <script src="/js/components/image-box.js"></script>
+    <script>
+        // Clean up any duplicate backdrops (can happen in test reruns)
+        const backdrops = document.querySelectorAll('.image-box-backdrop');
+        if (backdrops.length > 1) {
+            for (let i = 1; i < backdrops.length; i++) {
+                backdrops[i].remove();
+            }
+        }
+
+        // Programmatic controls
+        document.getElementById('open-programmatic').addEventListener('click', () => {
+            const trigger = document.getElementById('basic-image');
+            window.VanduoImageBox.open(trigger);
+        });
+
+        document.getElementById('close-programmatic').addEventListener('click', () => {
+            window.VanduoImageBox.close();
+        });
+
+        document.getElementById('reinit-btn').addEventListener('click', () => {
+            window.VanduoImageBox.reinit();
+        });
+
+        // Track events for testing
+        window.imageBoxEvents = [];
+        document.addEventListener('imageBox:open', (e) => {
+            window.imageBoxEvents.push({ type: 'open', src: e.detail.src });
+        });
+        document.addEventListener('imageBox:close', () => {
+            window.imageBoxEvents.push({ type: 'close' });
+        });
+    </script>
+</body>
+
+</html>

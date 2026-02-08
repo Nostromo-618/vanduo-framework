@@ -323,7 +323,7 @@ test.describe('Accessibility @a11y', () => {
     
     // Navigate with arrows
     await page.keyboard.press('ArrowDown');
-    const focusedItem = page.locator('.dropdown-item:focus');
+    const focusedItem = page.locator('.vd-dropdown-item:focus');
     await expect(focusedItem).toBeVisible();
     
     // Close with Escape
@@ -350,11 +350,11 @@ test.describe('Accessibility @a11y', () => {
   test('focus is visible on interactive elements', async ({ page }) => {
     await page.goto('/tests/fixtures/buttons.html');
     
-    await page.focus('.btn-primary');
+    await page.focus('.vd-btn-primary');
     
     // Check that element has visible focus (outline or box-shadow)
     const hasFocusStyle = await page.evaluate(() => {
-      const btn = document.querySelector('.btn-primary');
+      const btn = document.querySelector('.vd-btn-primary');
       if (!btn) return false;
       
       const style = getComputedStyle(btn);

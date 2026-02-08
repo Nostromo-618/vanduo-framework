@@ -73,6 +73,14 @@ Load directly from jsDelivr — no download required:
 <script>Vanduo.init();</script>
 ```
 
+For dynamic DOM updates (SPAs), run cleanup before re-init:
+```html
+<script>
+    Vanduo.destroyAll();
+    Vanduo.init();
+</script>
+```
+
 See [MIGRATION.md](MIGRATION.md) for complete upgrade guide.
 
 ### Option 2: Download
@@ -180,7 +188,5 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Color System**: [Open Color](https://yeun.github.io/open-color/) by Heeyeun Jeong (MIT License)
 - **Icons**: [Phosphor Icons](https://phosphoricons.com) (MIT License)
 
----
-- **Made with Kilo Code(https://kilo.ai)**
 ---
 Vanduo Framework - Built with ❤️ for the web.

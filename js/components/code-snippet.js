@@ -10,6 +10,15 @@
    * Code Snippet Component
    */
   const CodeSnippet = {
+    addListener: function (snippet, target, event, handler) {
+      if (!target) return;
+      target.addEventListener(event, handler);
+      if (!snippet._codeSnippetCleanup) {
+        snippet._codeSnippetCleanup = [];
+      }
+      snippet._codeSnippetCleanup.push(() => target.removeEventListener(event, handler));
+    },
+
     /**
      * Initialize all code snippet components
      */
@@ -29,6 +38,7 @@
      */
     initSnippet: function (snippet) {
       snippet.dataset.initialized = 'true';
+      snippet._codeSnippetCleanup = [];
 
       // Handle collapsible toggle
       const toggle = snippet.querySelector('.vd-code-snippet-toggle');
@@ -77,7 +87,7 @@
       toggle.setAttribute('aria-expanded', isExpanded);
       content.dataset.visible = isExpanded;
 
-      toggle.addEventListener('click', () => {
+      this.addListener(snippet, toggle, 'click', () => {
         const expanded = snippet.dataset.expanded === 'true';
         snippet.dataset.expanded = !expanded;
         toggle.setAttribute('aria-expanded', !expanded);
@@ -131,12 +141,12 @@
         }
 
         // Click handler
-        tab.addEventListener('click', () => {
+        this.addListener(snippet, tab, 'click', () => {
           this.switchTab(snippet, tab, tabs, panes);
         });
 
         // Keyboard navigation
-        tab.addEventListener('keydown', (e) => {
+        this.addListener(snippet, tab, 'keydown', (e) => {
           this.handleTabKeydown(e, snippet, tabs, panes);
         });
       });
@@ -228,7 +238,7 @@
      * @param {HTMLElement} copyBtn - Copy button element
      */
     initCopyButton: function (snippet, copyBtn) {
-      copyBtn.addEventListener('click', async () => {
+      this.addListener(snippet, copyBtn, 'click', async () => {
         await this.copyCode(snippet, copyBtn);
       });
     },
@@ -564,23 +574,34 @@
       if (tab) {
         this.switchTab(snippet, tab, tabs, panes);
       }
+    },
+
+    /**
+     * Destroy a code snippet instance and clean up listeners
+     * @param {string|HTMLElement} snippet - Snippet selector or element
+     */
+    destroy: function (snippet) {
+      if (typeof snippet === 'string') {
+        snippet = document.querySelector(snippet);
+      }
+      if (!snippet) return;
+
+      if (snippet._codeSnippetCleanup) {
+        snippet._codeSnippetCleanup.forEach(fn => fn());
+        delete snippet._codeSnippetCleanup;
+      }
+
+      delete snippet.dataset.initialized;
+    },
+
+    /**
+     * Destroy all code snippet instances
+     */
+    destroyAll: function () {
+      const snippets = document.querySelectorAll('.vd-code-snippet[data-initialized="true"]');
+      snippets.forEach(snippet => this.destroy(snippet));
     }
   };
-
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      CodeSnippet.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        CodeSnippet.init();
-      });
-    } else {
-      CodeSnippet.init();
-    }
-  }
 
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

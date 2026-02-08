@@ -7,11 +7,24 @@
   'use strict';
 
   const ThemeSwitcher = {
+    isInitialized: false,
+    _mediaQuery: null,
+    _onMediaChange: null,
+
     init: function () {
       this.STORAGE_KEY = 'vanduo-theme-preference';
       this.state = {
         preference: this.getPreference() // 'light', 'dark', or 'system'
       };
+
+      if (this.isInitialized) {
+        this.applyTheme();
+        this.renderUI();
+        this.updateUI();
+        return;
+      }
+
+      this.isInitialized = true;
 
       this.applyTheme();
       this.listenForSystemChanges();
@@ -21,14 +34,38 @@
     },
 
     getPreference: function () {
-      return localStorage.getItem(this.STORAGE_KEY) || 'system';
+      return this.getStorageValue(this.STORAGE_KEY, 'system');
     },
 
     setPreference: function (pref) {
       this.state.preference = pref;
-      localStorage.setItem(this.STORAGE_KEY, pref);
+      this.setStorageValue(this.STORAGE_KEY, pref);
       this.applyTheme();
       this.updateUI();
+    },
+
+    getStorageValue: function (key, fallback) {
+      if (typeof safeStorageGet === 'function') {
+        return safeStorageGet(key, fallback);
+      }
+      try {
+        const value = localStorage.getItem(key);
+        return value !== null ? value : fallback;
+      } catch (_e) {
+        return fallback;
+      }
+    },
+
+    setStorageValue: function (key, value) {
+      if (typeof safeStorageSet === 'function') {
+        return safeStorageSet(key, value);
+      }
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch (_e) {
+        return false;
+      }
     },
 
     applyTheme: function () {
@@ -53,12 +90,18 @@
     },
 
     listenForSystemChanges: function () {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', _e => {
+      if (this._mediaQuery && this._onMediaChange) {
+        return;
+      }
+
+      this._mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this._onMediaChange = _e => {
         if (this.state.preference === 'system') {
           // Re-apply (effectively just to ensure consistency, though removing attribute usually suffices)
           this.applyTheme();
         }
-      });
+      };
+      this._mediaQuery.addEventListener('change', this._onMediaChange);
     },
 
     // Helper to facilitate UI creation if needed, though often UI is in HTML
@@ -66,22 +109,33 @@
       // Look for any uninitialized theme toggles
       const toggles = document.querySelectorAll('[data-toggle="theme"]');
       toggles.forEach(toggle => {
+        if (toggle.getAttribute('data-theme-initialized') === 'true') {
+          if (toggle.tagName === 'SELECT') {
+            toggle.value = this.state.preference;
+          }
+          return;
+        }
+
         // Simplified UI Binding - assumes a select or a button cycle
         if (toggle.tagName === 'SELECT') {
           toggle.value = this.state.preference;
-          toggle.addEventListener('change', (e) => {
+          const onChange = (e) => {
             this.setPreference(e.target.value);
-          });
+          };
+          toggle.addEventListener('change', onChange);
+          toggle._themeToggleHandler = onChange;
         } else {
           // Button implementation (cycle)
-          toggle.addEventListener('click', () => {
+          const onClick = () => {
             const modes = ['system', 'light', 'dark'];
             const nextIndex = (modes.indexOf(this.state.preference) + 1) % modes.length;
             this.setPreference(modes[nextIndex]);
-          });
+          };
+          toggle.addEventListener('click', onClick);
+          toggle._themeToggleHandler = onClick;
         }
         // Mark as initialized
-        toggle.setAttribute('data-initialized', 'true');
+        toggle.setAttribute('data-theme-initialized', 'true');
       });
     },
 
@@ -102,16 +156,31 @@
           }
         }
       });
+    },
+
+    destroyAll: function () {
+      const toggles = document.querySelectorAll('[data-toggle="theme"][data-theme-initialized="true"]');
+      toggles.forEach(toggle => {
+        if (toggle._themeToggleHandler) {
+          const eventName = toggle.tagName === 'SELECT' ? 'change' : 'click';
+          toggle.removeEventListener(eventName, toggle._themeToggleHandler);
+          delete toggle._themeToggleHandler;
+        }
+        toggle.removeAttribute('data-theme-initialized');
+      });
+
+      if (this._mediaQuery && this._onMediaChange) {
+        this._mediaQuery.removeEventListener('change', this._onMediaChange);
+      }
+
+      this._mediaQuery = null;
+      this._onMediaChange = null;
+      this.isInitialized = false;
     }
   };
 
   // Register component
   if (window.Vanduo) {
     window.Vanduo.register('themeSwitcher', ThemeSwitcher);
-  } else {
-    // Standalone init if Vanduo core isn't present
-    document.addEventListener('DOMContentLoaded', () => {
-      ThemeSwitcher.init();
-    });
   }
 })();

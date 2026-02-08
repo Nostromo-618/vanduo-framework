@@ -214,21 +214,6 @@
     }
   };
   
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Collapsible.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Collapsible.init();
-      });
-    } else {
-      Collapsible.init();
-    }
-  }
-  
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('collapsible', Collapsible);

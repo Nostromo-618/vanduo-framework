@@ -16,8 +16,8 @@ test.describe('Dropdown Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes with correct ARIA attributes', async ({ page }) => {
-      const toggle = page.locator('#basic-dropdown .dropdown-toggle');
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const toggle = page.locator('#basic-dropdown .vd-dropdown-toggle');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       
       await expect(toggle).toHaveAttribute('aria-haspopup', 'true');
       await expect(toggle).toHaveAttribute('aria-expanded', 'false');
@@ -28,20 +28,20 @@ test.describe('Dropdown Component @component', () => {
 
   test.describe('Opening', () => {
     test('opens on toggle click', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       
       const dropdown = page.locator('#basic-dropdown');
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       
       await expect(dropdown).toHaveClass(/is-open/);
       await expect(menu).toHaveClass(/is-open/);
     });
 
     test('updates ARIA states when opened', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       
-      const toggle = page.locator('#basic-dropdown .dropdown-toggle');
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const toggle = page.locator('#basic-dropdown .vd-dropdown-toggle');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       
       await expect(toggle).toHaveAttribute('aria-expanded', 'true');
       await expect(menu).toHaveAttribute('aria-hidden', 'false');
@@ -50,7 +50,7 @@ test.describe('Dropdown Component @component', () => {
 
   test.describe('Closing', () => {
     test('closes via close API', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       
       // Open first
       await expect(page.locator('#basic-dropdown')).toHaveClass(/is-open/);
@@ -65,7 +65,7 @@ test.describe('Dropdown Component @component', () => {
     });
 
     test('updates ARIA states when closed', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       await expect(page.locator('#basic-dropdown')).toHaveClass(/is-open/);
       
       // Close via programmatic API
@@ -73,8 +73,8 @@ test.describe('Dropdown Component @component', () => {
         (window as any).VanduoDropdown.close('#basic-dropdown');
       });
       
-      const toggle = page.locator('#basic-dropdown .dropdown-toggle');
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const toggle = page.locator('#basic-dropdown .vd-dropdown-toggle');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       
       await expect(toggle).toHaveAttribute('aria-expanded', 'false');
       await expect(menu).toHaveAttribute('aria-hidden', 'true');
@@ -83,7 +83,7 @@ test.describe('Dropdown Component @component', () => {
 
   test.describe('Keyboard Navigation', () => {
     test('opens on Enter key', async ({ page }) => {
-      await page.focus('#basic-dropdown .dropdown-toggle');
+      await page.focus('#basic-dropdown .vd-dropdown-toggle');
       await page.keyboard.press('Enter');
       
       const dropdown = page.locator('#basic-dropdown');
@@ -91,7 +91,7 @@ test.describe('Dropdown Component @component', () => {
     });
 
     test('opens on Space key', async ({ page }) => {
-      await page.focus('#basic-dropdown .dropdown-toggle');
+      await page.focus('#basic-dropdown .vd-dropdown-toggle');
       await page.keyboard.press('Space');
       
       const dropdown = page.locator('#basic-dropdown');
@@ -99,7 +99,7 @@ test.describe('Dropdown Component @component', () => {
     });
 
     test('opens on ArrowDown key', async ({ page }) => {
-      await page.focus('#basic-dropdown .dropdown-toggle');
+      await page.focus('#basic-dropdown .vd-dropdown-toggle');
       await page.keyboard.press('ArrowDown');
       
       const dropdown = page.locator('#basic-dropdown');
@@ -110,8 +110,8 @@ test.describe('Dropdown Component @component', () => {
 
   test.describe('Item Selection', () => {
     test('closes dropdown when item clicked', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
-      await page.click('#basic-dropdown .dropdown-item[data-value="option2"]');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-item[data-value="option2"]');
       
       const dropdown = page.locator('#basic-dropdown');
       await expect(dropdown).not.toHaveClass(/is-open/);
@@ -126,8 +126,8 @@ test.describe('Dropdown Component @component', () => {
         });
       });
       
-      await page.click('#basic-dropdown .dropdown-toggle');
-      await page.click('#basic-dropdown .dropdown-item[data-value="option2"]');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-item[data-value="option2"]');
       
       const detail = await page.evaluate(() => (window as any).selectEventDetail);
       expect(detail).toBeTruthy();
@@ -145,10 +145,10 @@ test.describe('Dropdown Component @component', () => {
         });
       });
       
-      await page.click('#dropdown-with-disabled .dropdown-toggle');
+      await page.click('#dropdown-with-disabled .vd-dropdown-toggle');
       
       // Try to click a disabled item - the implementation prevents this
-      const disabledItem = page.locator('#dropdown-with-disabled .dropdown-item.disabled');
+      const disabledItem = page.locator('#dropdown-with-disabled .vd-dropdown-item.disabled');
       const isDisabled = await disabledItem.evaluate(el => el.classList.contains('disabled'));
       expect(isDisabled).toBe(true);
     });
@@ -165,7 +165,7 @@ test.describe('Dropdown Component @component', () => {
     });
 
     test('closes programmatically via VanduoDropdown.close()', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       
       await page.evaluate(() => {
         (window as any).VanduoDropdown.close('#basic-dropdown');

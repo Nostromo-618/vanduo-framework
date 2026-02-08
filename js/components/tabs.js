@@ -295,21 +295,6 @@
     }
   };
 
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Tabs.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Tabs.init();
-      });
-    } else {
-      Tabs.init();
-    }
-  }
-
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('tabs', Tabs);

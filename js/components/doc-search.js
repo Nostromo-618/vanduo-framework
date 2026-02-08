@@ -2,7 +2,7 @@
  * Vanduo Framework - Search Component
  * Client-side search functionality for content pages
  * 
- * @example Basic usage (auto-initializes with defaults)
+ * @example Basic usage (initialize with defaults)
  * // HTML:
  * // <div class="doc-search">
  * //   <input type="search" class="doc-search-input" placeholder="Search...">
@@ -852,6 +852,10 @@
       }
     },
 
+    destroyAll: function() {
+      this.destroy();
+    },
+
     /**
      * Rebuild the default instance index
      */
@@ -886,24 +890,6 @@
       }
     }
   };
-
-  // Auto-initialize when DOM is ready
-  function autoInit() {
-    // Only auto-init if container exists
-    if (document.querySelector(DEFAULTS.containerSelector)) {
-      Search.init();
-    }
-  }
-
-  if (typeof ready !== 'undefined') {
-    ready(autoInit);
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', autoInit);
-    } else {
-      autoInit();
-    }
-  }
 
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

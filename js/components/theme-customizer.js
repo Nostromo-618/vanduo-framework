@@ -89,6 +89,9 @@
       isOpen: false
     },
 
+    isInitialized: false,
+    _cleanup: [],
+
     // DOM references
     elements: {
       customizer: null,
@@ -101,12 +104,28 @@
      * Initialize the Theme Customizer
      */
     init: function () {
+      if (this.isInitialized) {
+        this.bindExistingElements();
+        this.bindPanelEvents();
+        this.updateUI();
+        return;
+      }
+
+      this.isInitialized = true;
+      this._cleanup = [];
+
       this.loadPreferences();
       this.applyAllPreferences();
       this.bindExistingElements();
       this.bindEvents();
 
       console.log('Vanduo Theme Customizer initialized');
+    },
+
+    addListener: function (target, event, handler, options) {
+      if (!target) return;
+      target.addEventListener(event, handler, options);
+      this._cleanup.push(() => target.removeEventListener(event, handler, options));
     },
 
     /**
@@ -126,18 +145,18 @@
      * Load preferences from localStorage
      */
     loadPreferences: function () {
-      this.state.theme = localStorage.getItem(this.STORAGE_KEYS.THEME) || this.DEFAULTS.THEME;
-      this.state.primary = localStorage.getItem(this.STORAGE_KEYS.PRIMARY) || this.getDefaultPrimary(this.state.theme);
-      this.state.neutral = localStorage.getItem(this.STORAGE_KEYS.NEUTRAL) || this.DEFAULTS.NEUTRAL;
-      this.state.radius = localStorage.getItem(this.STORAGE_KEYS.RADIUS) || this.DEFAULTS.RADIUS;
-      this.state.font = localStorage.getItem(this.STORAGE_KEYS.FONT) || this.DEFAULTS.FONT;
+      this.state.theme = this.getStorageValue(this.STORAGE_KEYS.THEME, this.DEFAULTS.THEME);
+      this.state.primary = this.getStorageValue(this.STORAGE_KEYS.PRIMARY, this.getDefaultPrimary(this.state.theme));
+      this.state.neutral = this.getStorageValue(this.STORAGE_KEYS.NEUTRAL, this.DEFAULTS.NEUTRAL);
+      this.state.radius = this.getStorageValue(this.STORAGE_KEYS.RADIUS, this.DEFAULTS.RADIUS);
+      this.state.font = this.getStorageValue(this.STORAGE_KEYS.FONT, this.DEFAULTS.FONT);
     },
 
     /**
      * Save a preference to localStorage
      */
     savePreference: function (key, value) {
-      localStorage.setItem(key, value);
+      this.setStorageValue(key, value);
     },
 
     /**
@@ -343,7 +362,7 @@
       this.bindPanelEvents();
 
       // Reposition on resize
-      window.addEventListener('resize', () => this.positionPanel());
+      this.addListener(window, 'resize', () => this.positionPanel());
     },
 
     /**
@@ -391,10 +410,13 @@
      */
     bindPanelEvents: function () {
       if (!this.elements.panel) return;
+      if (this.elements.panel.getAttribute('data-customizer-initialized') === 'true') return;
+
+      this.elements.panel.setAttribute('data-customizer-initialized', 'true');
 
       // Primary color swatches
       this.elements.panel.querySelectorAll('[data-color]').forEach(swatch => {
-        swatch.addEventListener('click', () => {
+        this.addListener(swatch, 'click', () => {
           this.applyPrimary(swatch.dataset.color);
           this.updateUI();
         });
@@ -402,7 +424,7 @@
 
       // Neutral color swatches
       this.elements.panel.querySelectorAll('[data-neutral]').forEach(swatch => {
-        swatch.addEventListener('click', () => {
+        this.addListener(swatch, 'click', () => {
           this.applyNeutral(swatch.dataset.neutral);
           this.updateUI();
         });
@@ -410,7 +432,7 @@
 
       // Radius buttons
       this.elements.panel.querySelectorAll('[data-radius]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        this.addListener(btn, 'click', () => {
           this.applyRadius(btn.dataset.radius);
           this.updateUI();
         });
@@ -419,7 +441,7 @@
       // Font selector
       const fontSelect = this.elements.panel.querySelector('[data-customizer-font]');
       if (fontSelect) {
-        fontSelect.addEventListener('change', (e) => {
+        this.addListener(fontSelect, 'change', (e) => {
           this.applyFont(e.target.value);
           this.updateUI();
         });
@@ -427,7 +449,7 @@
 
       // Mode buttons
       this.elements.panel.querySelectorAll('[data-mode]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        this.addListener(btn, 'click', () => {
           this.applyTheme(btn.dataset.mode);
           this.updateUI();
         });
@@ -436,7 +458,7 @@
       // Reset button
       const resetBtn = this.elements.panel.querySelector('.customizer-reset');
       if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
+        this.addListener(resetBtn, 'click', () => {
           this.reset();
         });
       }
@@ -444,14 +466,14 @@
       // Mobile close button
       const closeBtn = this.elements.panel.querySelector('.customizer-mobile-close');
       if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
+        this.addListener(closeBtn, 'click', () => {
           this.close();
         });
       }
 
       // Overlay click
       if (this.elements.overlay) {
-        this.elements.overlay.addEventListener('click', () => {
+        this.addListener(this.elements.overlay, 'click', () => {
           this.close();
         });
       }
@@ -547,92 +569,24 @@
     bindEvents: function () {
       // Trigger click - bind to any trigger button
       if (this.elements.trigger) {
-        this.elements.trigger.addEventListener('click', (e) => {
+        this.addListener(this.elements.trigger, 'click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           this.toggle();
         });
       }
 
-      // If no panel exists yet, we can't bind panel events
-      if (!this.elements.panel) return;
-
-      // Panel interactions
-      if (this.elements.panel) {
-        // Primary color swatches
-        this.elements.panel.querySelectorAll('[data-color]').forEach(swatch => {
-          swatch.addEventListener('click', () => {
-            this.applyPrimary(swatch.dataset.color);
-            this.updateUI();
-          });
-        });
-
-        // Neutral color swatches
-        this.elements.panel.querySelectorAll('[data-neutral]').forEach(swatch => {
-          swatch.addEventListener('click', () => {
-            this.applyNeutral(swatch.dataset.neutral);
-            this.updateUI();
-          });
-        });
-
-        // Radius buttons
-        this.elements.panel.querySelectorAll('[data-radius]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            this.applyRadius(btn.dataset.radius);
-            this.updateUI();
-          });
-        });
-
-        // Font selector
-        const fontSelect = this.elements.panel.querySelector('[data-customizer-font]');
-        if (fontSelect) {
-          fontSelect.addEventListener('change', (e) => {
-            this.applyFont(e.target.value);
-            this.updateUI();
-          });
-        }
-
-        // Mode buttons
-        this.elements.panel.querySelectorAll('[data-mode]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            this.applyTheme(btn.dataset.mode);
-            this.updateUI();
-          });
-        });
-
-        // Reset button
-        const resetBtn = this.elements.panel.querySelector('.customizer-reset');
-        if (resetBtn) {
-          resetBtn.addEventListener('click', () => {
-            this.reset();
-          });
-        }
-
-        // Mobile close button
-        const closeBtn = this.elements.panel.querySelector('.customizer-mobile-close');
-        if (closeBtn) {
-          closeBtn.addEventListener('click', () => {
-            this.close();
-          });
-        }
-      }
-
-      // Overlay click
-      if (this.elements.overlay) {
-        this.elements.overlay.addEventListener('click', () => {
-          this.close();
-        });
-      }
+      this.bindPanelEvents();
 
       // Close on outside click
-      document.addEventListener('click', (e) => {
+      this.addListener(document, 'click', (e) => {
         if (this.state.isOpen && this.elements.customizer && !this.elements.customizer.contains(e.target)) {
           this.close();
         }
       });
 
       // Close on Escape key
-      document.addEventListener('keydown', (e) => {
+      this.addListener(document, 'keydown', (e) => {
         if (e.key === 'Escape' && this.state.isOpen) {
           this.close();
         }
@@ -756,17 +710,48 @@
       if (prefs.font) this.applyFont(prefs.font);
       if (prefs.theme) this.applyTheme(prefs.theme);
       this.updateUI();
+    },
+
+    getStorageValue: function (key, fallback) {
+      if (typeof safeStorageGet === 'function') {
+        return safeStorageGet(key, fallback);
+      }
+      try {
+        const value = localStorage.getItem(key);
+        return value !== null ? value : fallback;
+      } catch (_e) {
+        return fallback;
+      }
+    },
+
+    setStorageValue: function (key, value) {
+      if (typeof safeStorageSet === 'function') {
+        return safeStorageSet(key, value);
+      }
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch (_e) {
+        return false;
+      }
+    },
+
+    destroyAll: function () {
+      this._cleanup.forEach(fn => fn());
+      this._cleanup = [];
+
+      if (this.elements.panel) {
+        this.elements.panel.removeAttribute('data-customizer-initialized');
+      }
+
+      this.close();
+      this.isInitialized = false;
     }
   };
 
   // Register component
   if (window.Vanduo) {
     window.Vanduo.register('themeCustomizer', ThemeCustomizer);
-  } else {
-    // Standalone init if Vanduo core isn't present
-    document.addEventListener('DOMContentLoaded', () => {
-      ThemeCustomizer.init();
-    });
   }
 
   // Expose globally for convenience

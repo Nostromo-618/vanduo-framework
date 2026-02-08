@@ -15,9 +15,9 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes with correct ARIA attributes', async ({ page }) => {
-      const tabList = page.locator('#basic-tabs .tab-list');
-      const firstTab = page.locator('#basic-tabs .tab-link').first();
-      const firstPane = page.locator('#basic-tabs .tab-pane').first();
+      const tabList = page.locator('#basic-tabs .vd-tab-list');
+      const firstTab = page.locator('#basic-tabs .vd-tab-link').first();
+      const firstPane = page.locator('#basic-tabs .vd-tab-pane').first();
 
       await expect(tabList).toHaveAttribute('role', 'tablist');
       await expect(firstTab).toHaveAttribute('role', 'tab');
@@ -26,15 +26,15 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('sets initial active tab state correctly', async ({ page }) => {
-      const activeTab = page.locator('#basic-tabs .tab-link.is-active');
-      const activePane = page.locator('#basic-tabs .tab-pane.is-active');
+      const activeTab = page.locator('#basic-tabs .vd-tab-link.is-active');
+      const activePane = page.locator('#basic-tabs .vd-tab-pane.is-active');
 
       await expect(activeTab).toHaveText('Tab 1');
       await expect(activePane).toHaveAttribute('id', 'tab1');
     });
 
     test('inactive tabs have correct ARIA state', async ({ page }) => {
-      const inactiveTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const inactiveTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
 
       await expect(inactiveTab).toHaveAttribute('aria-selected', 'false');
       await expect(inactiveTab).toHaveAttribute('tabindex', '-1');
@@ -43,8 +43,8 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Tab Switching', () => {
     test('switches tab on click', async ({ page }) => {
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
-      const secondPane = page.locator('#basic-tabs .tab-pane').nth(1);
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
+      const secondPane = page.locator('#basic-tabs .vd-tab-pane').nth(1);
 
       await secondTab.click();
 
@@ -54,8 +54,8 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('deactivates previous tab when switching', async ({ page }) => {
-      const firstTab = page.locator('#basic-tabs .tab-link').first();
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const firstTab = page.locator('#basic-tabs .vd-tab-link').first();
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
 
       await secondTab.click();
 
@@ -71,7 +71,7 @@ test.describe('Tabs Component @component', () => {
         });
       });
 
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
       await secondTab.click();
 
       const eventDetail = await page.evaluate(() => (window as any).tabChangeEvent);
@@ -82,8 +82,8 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Keyboard Navigation', () => {
     test('navigates with ArrowRight key', async ({ page }) => {
-      const firstTab = page.locator('#basic-tabs .tab-link').first();
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const firstTab = page.locator('#basic-tabs .vd-tab-link').first();
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
 
       await firstTab.focus();
       await page.waitForTimeout(100);
@@ -95,7 +95,7 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('navigates with ArrowLeft key', async ({ page }) => {
-      const tabs = page.locator('#basic-tabs .tab-link');
+      const tabs = page.locator('#basic-tabs .vd-tab-link');
       const lastTab = tabs.last();
       const secondLastTab = tabs.nth(1);
 
@@ -109,8 +109,8 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('navigates to first tab with Home key', async ({ page }) => {
-      const lastTab = page.locator('#basic-tabs .tab-link').last();
-      const firstTab = page.locator('#basic-tabs .tab-link').first();
+      const lastTab = page.locator('#basic-tabs .vd-tab-link').last();
+      const firstTab = page.locator('#basic-tabs .vd-tab-link').first();
 
       await lastTab.focus();
       await page.keyboard.press('Home');
@@ -120,8 +120,8 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('navigates to last tab with End key', async ({ page }) => {
-      const firstTab = page.locator('#basic-tabs .tab-link').first();
-      const lastTab = page.locator('#basic-tabs .tab-link').last();
+      const firstTab = page.locator('#basic-tabs .vd-tab-link').first();
+      const lastTab = page.locator('#basic-tabs .vd-tab-link').last();
 
       await firstTab.focus();
       await page.keyboard.press('End');
@@ -131,7 +131,7 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('activates tab with Enter key', async ({ page }) => {
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
 
       await secondTab.focus();
       await page.keyboard.press('Enter');
@@ -140,7 +140,7 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('activates tab with Space key', async ({ page }) => {
-      const secondTab = page.locator('#basic-tabs .tab-link').nth(1);
+      const secondTab = page.locator('#basic-tabs .vd-tab-link').nth(1);
 
       await secondTab.focus();
       await page.keyboard.press('Space');
@@ -151,8 +151,8 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Vertical Tabs', () => {
     test('navigates vertical tabs with ArrowDown', async ({ page }) => {
-      const firstTab = page.locator('#vertical-tabs .tab-link').first();
-      const secondTab = page.locator('#vertical-tabs .tab-link').nth(1);
+      const firstTab = page.locator('#vertical-tabs .vd-tab-link').first();
+      const secondTab = page.locator('#vertical-tabs .vd-tab-link').nth(1);
 
       await firstTab.focus();
       await page.keyboard.press('ArrowDown');
@@ -161,8 +161,8 @@ test.describe('Tabs Component @component', () => {
     });
 
     test('navigates vertical tabs with ArrowUp', async ({ page }) => {
-      const firstTab = page.locator('#vertical-tabs .tab-link').first();
-      const secondTab = page.locator('#vertical-tabs .tab-link').nth(1);
+      const firstTab = page.locator('#vertical-tabs .vd-tab-link').first();
+      const secondTab = page.locator('#vertical-tabs .vd-tab-link').nth(1);
 
       await secondTab.focus();
       await page.keyboard.press('ArrowUp');
@@ -173,15 +173,15 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Disabled Tabs', () => {
     test('disabled tab has correct attributes', async ({ page }) => {
-      const disabledTab = page.locator('#disabled-tabs .tab-link.disabled');
+      const disabledTab = page.locator('#disabled-tabs .vd-tab-link.disabled');
 
       await expect(disabledTab).toHaveAttribute('tabindex', '-1');
       await expect(disabledTab).toHaveAttribute('aria-selected', 'false');
     });
 
     test('does not activate disabled tab on click', async ({ page }) => {
-      const disabledTab = page.locator('#disabled-tabs .tab-link.disabled');
-      const activeTab = page.locator('#disabled-tabs .tab-link.is-active');
+      const disabledTab = page.locator('#disabled-tabs .vd-tab-link.disabled');
+      const activeTab = page.locator('#disabled-tabs .vd-tab-link.is-active');
 
       // Use force to click through any parent element interception
       await disabledTab.click({ force: true });
@@ -193,8 +193,8 @@ test.describe('Tabs Component @component', () => {
 
   test.describe('Programmatic API', () => {
     test('tab switching works via click (user interaction)', async ({ page }) => {
-      const thirdTab = page.locator('#basic-tabs .tab-link').nth(2);
-      const thirdPane = page.locator('#basic-tabs .tab-pane').nth(2);
+      const thirdTab = page.locator('#basic-tabs .vd-tab-link').nth(2);
+      const thirdPane = page.locator('#basic-tabs .vd-tab-pane').nth(2);
 
       await thirdTab.click();
 

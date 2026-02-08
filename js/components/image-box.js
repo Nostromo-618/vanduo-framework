@@ -354,23 +354,12 @@
       this.caption = null;
       this.currentTrigger = null;
       this.isOpen = false;
+    },
+
+    destroyAll: function () {
+      this.destroy();
     }
   };
-
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(function () {
-      ImageBox.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () {
-        ImageBox.init();
-      });
-    } else {
-      ImageBox.init();
-    }
-  }
 
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

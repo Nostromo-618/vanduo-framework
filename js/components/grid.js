@@ -268,21 +268,6 @@
     }
   };
 
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(function () {
-      GridLayout.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () {
-        GridLayout.init();
-      });
-    } else {
-      GridLayout.init();
-    }
-  }
-
   // Register with Vanduo framework
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('gridLayout', GridLayout);

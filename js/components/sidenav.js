@@ -279,21 +279,6 @@
     }
   };
   
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Sidenav.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Sidenav.init();
-      });
-    } else {
-      Sidenav.init();
-    }
-  }
-  
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('sidenav', Sidenav);

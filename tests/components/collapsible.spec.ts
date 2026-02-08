@@ -15,12 +15,12 @@ test.describe('Collapsible Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes collapsible items', async ({ page }) => {
-      const items = page.locator('#basic-collapsible .collapsible-item');
+      const items = page.locator('#basic-collapsible .vd-collapsible-item');
       await expect(items).toHaveCount(2);
     });
 
     test('sets correct aria-expanded on items', async ({ page }) => {
-      const firstItem = page.locator('#basic-collapsible .collapsible-item').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
       await expect(firstItem).toHaveAttribute('aria-expanded', 'false');
     });
 
@@ -33,8 +33,8 @@ test.describe('Collapsible Component @component', () => {
 
   test.describe('Toggle', () => {
     test('opens item on header click', async ({ page }) => {
-      const firstHeader = page.locator('#basic-collapsible .collapsible-header').first();
-      const firstItem = page.locator('#basic-collapsible .collapsible-item').first();
+      const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
 
       await firstHeader.click();
 
@@ -43,8 +43,8 @@ test.describe('Collapsible Component @component', () => {
     });
 
     test('closes item on second header click', async ({ page }) => {
-      const firstHeader = page.locator('#basic-collapsible .collapsible-header').first();
-      const firstItem = page.locator('#basic-collapsible .collapsible-item').first();
+      const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
 
       await firstHeader.click();
       await expect(firstItem).toHaveClass(/is-open/);
@@ -61,7 +61,7 @@ test.describe('Collapsible Component @component', () => {
         });
       });
 
-      await page.locator('#basic-collapsible .collapsible-header').first().click();
+      await page.locator('#basic-collapsible .vd-collapsible-header').first().click();
 
       const eventFired = await page.evaluate(() => (window as any).openEvent);
       expect(eventFired).toBe(true);
@@ -75,7 +75,7 @@ test.describe('Collapsible Component @component', () => {
         });
       });
 
-      const header = page.locator('#basic-collapsible .collapsible-header').first();
+      const header = page.locator('#basic-collapsible .vd-collapsible-header').first();
       await header.click();
       await header.click();
 
@@ -104,22 +104,22 @@ test.describe('Collapsible Component @component', () => {
     test('opens item via open()', async ({ page }) => {
       await page.click('#open-first');
 
-      const firstItem = page.locator('#basic-collapsible .collapsible-item').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
       await expect(firstItem).toHaveClass(/is-open/);
     });
 
     test('closes item via close()', async ({ page }) => {
       // First open it
       await page.click('#open-first');
-      await expect(page.locator('#basic-collapsible .collapsible-item').first()).toHaveClass(/is-open/);
+      await expect(page.locator('#basic-collapsible .vd-collapsible-item').first()).toHaveClass(/is-open/);
 
       // Then close
       await page.click('#close-first');
-      await expect(page.locator('#basic-collapsible .collapsible-item').first()).not.toHaveClass(/is-open/);
+      await expect(page.locator('#basic-collapsible .vd-collapsible-item').first()).not.toHaveClass(/is-open/);
     });
 
     test('toggles item via toggle()', async ({ page }) => {
-      const firstItem = page.locator('#basic-collapsible .collapsible-item').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
 
       // Toggle open
       await page.click('#toggle-first');

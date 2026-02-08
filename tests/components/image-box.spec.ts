@@ -26,12 +26,12 @@ test.describe('Image Box Component @component', () => {
         });
 
         test('creates backdrop element in DOM', async ({ page }) => {
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toBeAttached();
         });
 
         test('backdrop has correct ARIA attributes', async ({ page }) => {
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveAttribute('role', 'dialog');
             await expect(backdrop).toHaveAttribute('aria-modal', 'true');
             await expect(backdrop).toHaveAttribute('aria-label', 'Image viewer');
@@ -48,33 +48,33 @@ test.describe('Image Box Component @component', () => {
     test.describe('Open Behavior', () => {
         test('opens on image click', async ({ page }) => {
             await page.click('#basic-image');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveClass(/is-visible/);
         });
 
         test('displays correct image source', async ({ page }) => {
             await page.click('#basic-image');
-            const img = page.locator('.image-box-img').first();
+            const img = page.locator('.vd-image-box-img').first();
             await expect(img).toHaveAttribute('src', /thumb1\.jpg/);
         });
 
         test('opens with Enter key', async ({ page }) => {
             await page.focus('#basic-image');
             await page.keyboard.press('Enter');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveClass(/is-visible/);
         });
 
         test('opens with Space key', async ({ page }) => {
             await page.focus('#basic-image');
             await page.keyboard.press('Space');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveClass(/is-visible/);
         });
 
         test('uses full-src attribute when available', async ({ page }) => {
             await page.click('#dual-source-image');
-            const img = page.locator('.image-box-img').first();
+            const img = page.locator('.vd-image-box-img').first();
             await expect(img).toHaveAttribute('src', /full3\.jpg/);
         });
 
@@ -95,24 +95,24 @@ test.describe('Image Box Component @component', () => {
         test('closes on backdrop click', async ({ page }) => {
             await page.click('#basic-image');
             await page.waitForTimeout(100);
-            await page.click('.image-box-backdrop');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            await page.click('.vd-image-box-backdrop');
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).not.toHaveClass(/is-visible/);
         });
 
         test('closes on image click', async ({ page }) => {
             await page.click('#basic-image');
             await page.waitForTimeout(100);
-            await page.click('.image-box-img');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            await page.click('.vd-image-box-img');
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).not.toHaveClass(/is-visible/);
         });
 
         test('closes on close button click', async ({ page }) => {
             await page.click('#basic-image');
             await page.waitForTimeout(100);
-            await page.click('.image-box-close');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            await page.click('.vd-image-box-close');
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).not.toHaveClass(/is-visible/);
         });
 
@@ -120,7 +120,7 @@ test.describe('Image Box Component @component', () => {
             await page.click('#basic-image');
             await page.waitForTimeout(100);
             await page.keyboard.press('Escape');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).not.toHaveClass(/is-visible/);
         });
 
@@ -153,14 +153,18 @@ test.describe('Image Box Component @component', () => {
     test.describe('Caption Display', () => {
         test('displays caption when data-image-box-caption is set', async ({ page }) => {
             await page.click('#image-with-caption');
-            const caption = page.locator('.image-box-caption').first();
+            const caption = page.locator('.vd-image-box-caption').first();
             await expect(caption).toBeVisible();
             await expect(caption).toHaveText('This is a test caption');
         });
 
         test('hides caption when not provided', async ({ page }) => {
+            await page.evaluate(() => {
+                const img = document.querySelector('#basic-image');
+                img?.removeAttribute('alt');
+            });
             await page.click('#basic-image');
-            const caption = page.locator('.image-box-caption').first();
+            const caption = page.locator('.vd-image-box-caption').first();
             await expect(caption).not.toBeVisible();
         });
 
@@ -170,7 +174,7 @@ test.describe('Image Box Component @component', () => {
             const trigger = page.locator('#basic-image');
             const altText = await trigger.getAttribute('alt');
             await trigger.click();
-            const caption = page.locator('.image-box-caption').first();
+            const caption = page.locator('.vd-image-box-caption').first();
 
             // Check if caption shows alt text (if implemented that way)
             const captionText = await caption.textContent();
@@ -182,13 +186,13 @@ test.describe('Image Box Component @component', () => {
     test.describe('Link Trigger', () => {
         test('works with anchor elements', async ({ page }) => {
             await page.click('#link-trigger');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveClass(/is-visible/);
         });
 
         test('uses href as image source for links', async ({ page }) => {
             await page.click('#link-trigger');
-            const img = page.locator('.image-box-img').first();
+            const img = page.locator('.vd-image-box-img').first();
             await expect(img).toHaveAttribute('src', /photo\.jpg/);
         });
 
@@ -217,7 +221,7 @@ test.describe('Image Box Component @component', () => {
 
         test('open method works programmatically', async ({ page }) => {
             await page.click('#open-programmatic');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveClass(/is-visible/);
         });
 
@@ -225,7 +229,7 @@ test.describe('Image Box Component @component', () => {
             await page.click('#open-programmatic');
             await page.waitForTimeout(100);
             await page.click('#close-programmatic');
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).not.toHaveClass(/is-visible/);
         });
 
@@ -267,7 +271,7 @@ test.describe('Image Box Component @component', () => {
 
     test.describe('Accessibility', () => {
         test('close button has aria-label', async ({ page }) => {
-            const closeBtn = page.locator('.image-box-close').first();
+            const closeBtn = page.locator('.vd-image-box-close').first();
             await expect(closeBtn).toHaveAttribute('aria-label', 'Close image viewer');
         });
 
@@ -277,12 +281,12 @@ test.describe('Image Box Component @component', () => {
             await page.waitForTimeout(200);
 
             // Check that the active element is within the backdrop (close button or backdrop itself)
-            const focusedElement = await page.evaluate(() => document.activeElement?.closest('.image-box-backdrop'));
+            const focusedElement = await page.evaluate(() => document.activeElement?.closest('.vd-image-box-backdrop'));
             expect(focusedElement).not.toBeNull();
         });
 
         test('backdrop has tabindex for focus', async ({ page }) => {
-            const backdrop = page.locator('.image-box-backdrop').first();
+            const backdrop = page.locator('.vd-image-box-backdrop').first();
             await expect(backdrop).toHaveAttribute('tabindex', '-1');
         });
     });
@@ -296,7 +300,7 @@ test.describe('Image Box Component @component', () => {
             // Check each image can open
             for (let i = 0; i < count; i++) {
                 await galleryImages.nth(i).click();
-                const backdrop = page.locator('.image-box-backdrop').first();
+                const backdrop = page.locator('.vd-image-box-backdrop').first();
                 await expect(backdrop).toHaveClass(/is-visible/);
                 await page.keyboard.press('Escape');
                 await page.waitForTimeout(200);

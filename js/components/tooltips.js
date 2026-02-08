@@ -295,21 +295,6 @@
     }
   };
 
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Tooltips.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Tooltips.init();
-      });
-    } else {
-      Tooltips.init();
-    }
-  }
-
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('tooltips', Tooltips);

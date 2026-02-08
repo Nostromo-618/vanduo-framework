@@ -158,23 +158,18 @@
           this.hide(el);
         }
       }
+    },
+
+    /**
+     * Destroy all progress bar instances
+     */
+    destroyAll: function() {
+      const progressBars = document.querySelectorAll('.progress-bar[data-progress-initialized="true"]');
+      progressBars.forEach(bar => {
+        delete bar.dataset.progressInitialized;
+      });
     }
   };
-  
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Preloader.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Preloader.init();
-      });
-    } else {
-      Preloader.init();
-    }
-  }
   
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

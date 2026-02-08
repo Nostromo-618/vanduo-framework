@@ -14,11 +14,21 @@
     ticking: false,
     isMobile: window.innerWidth < 768,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    isInitialized: false,
+    _onScroll: null,
+    _onResize: null,
 
     /**
      * Initialize parallax components
      */
     init: function () {
+      if (this.isInitialized) {
+        this.refresh();
+        return;
+      }
+
+      this.isInitialized = true;
+
       // Check for reduced motion preference
       if (this.reducedMotion) {
         return; // Don't initialize if user prefers reduced motion
@@ -34,15 +44,17 @@
 
       // Handle scroll
       this.handleScroll();
-      window.addEventListener('scroll', () => {
+      this._onScroll = () => {
         this.handleScroll();
-      }, { passive: true });
+      };
+      window.addEventListener('scroll', this._onScroll, { passive: true });
 
       // Handle resize
-      window.addEventListener('resize', () => {
+      this._onResize = () => {
         this.isMobile = window.innerWidth < 768;
         this.updateAll();
-      });
+      };
+      window.addEventListener('resize', this._onResize);
     },
 
     /**
@@ -170,23 +182,27 @@
      */
     refresh: function () {
       this.updateAll();
+    },
+
+    destroyAll: function () {
+      this.parallaxElements.forEach((_config, element) => {
+        this.destroy(element);
+      });
+      this.parallaxElements.clear();
+
+      if (this._onScroll) {
+        window.removeEventListener('scroll', this._onScroll);
+        this._onScroll = null;
+      }
+
+      if (this._onResize) {
+        window.removeEventListener('resize', this._onResize);
+        this._onResize = null;
+      }
+
+      this.isInitialized = false;
     }
   };
-
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Parallax.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Parallax.init();
-      });
-    } else {
-      Parallax.init();
-    }
-  }
 
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

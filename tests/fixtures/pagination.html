@@ -12,38 +12,38 @@
 
     <!-- Basic Pagination -->
     <nav aria-label="Basic pagination">
-      <ul class="pagination" id="basic-pagination" data-pagination data-total-pages="10" data-current-page="1" data-max-visible="7">
+      <ul class="vd-pagination pagination" id="basic-pagination" data-pagination data-total-pages="10" data-current-page="1" data-max-visible="7">
         <!-- Dynamically generated -->
       </ul>
     </nav>
 
     <!-- Pagination on middle page -->
     <nav aria-label="Middle page pagination">
-      <ul class="pagination" id="middle-pagination" data-pagination data-total-pages="20" data-current-page="10" data-max-visible="7">
+      <ul class="vd-pagination pagination" id="middle-pagination" data-pagination data-total-pages="20" data-current-page="10" data-max-visible="7">
       </ul>
     </nav>
 
     <!-- Pagination with few pages -->
     <nav aria-label="Few pages pagination">
-      <ul class="pagination" id="few-pages" data-pagination data-total-pages="3" data-current-page="2" data-max-visible="7">
+      <ul class="vd-pagination pagination" id="few-pages" data-pagination data-total-pages="3" data-current-page="2" data-max-visible="7">
       </ul>
     </nav>
 
     <!-- Pagination on last page -->
     <nav aria-label="Last page pagination">
-      <ul class="pagination" id="last-page" data-pagination data-total-pages="15" data-current-page="15" data-max-visible="7">
+      <ul class="vd-pagination pagination" id="last-page" data-pagination data-total-pages="15" data-current-page="15" data-max-visible="7">
       </ul>
     </nav>
 
     <!-- Pagination with many pages (ellipses) -->
     <nav aria-label="Many pages pagination">
-      <ul class="pagination" id="many-pages" data-pagination data-total-pages="50" data-current-page="25" data-max-visible="7">
+      <ul class="vd-pagination pagination" id="many-pages" data-pagination data-total-pages="50" data-current-page="25" data-max-visible="7">
       </ul>
     </nav>
 
     <!-- API Test Pagination -->
     <nav aria-label="API test pagination">
-      <ul class="pagination" id="api-pagination" data-pagination data-total-pages="5" data-current-page="1" data-max-visible="5">
+      <ul class="vd-pagination pagination" id="api-pagination" data-pagination data-total-pages="5" data-current-page="1" data-max-visible="5">
       </ul>
     </nav>
 
@@ -59,6 +59,7 @@
   </div>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/pagination.js"></script>
   <script>
     // Track page changes for testing
@@ -82,5 +83,6 @@
       window.VanduoPagination.update('#api-pagination', { totalPages: 20 });
     });
   </script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

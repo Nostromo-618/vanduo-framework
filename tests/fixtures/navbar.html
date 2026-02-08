@@ -12,17 +12,17 @@
 </head>
 <body>
   <!-- Basic Navbar -->
-  <nav class="navbar" id="basic-navbar">
-    <div class="navbar-brand">
-      <a href="#" class="navbar-item">Brand</a>
-      <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+  <nav class="vd-navbar navbar" id="basic-navbar">
+    <div class="vd-navbar-brand navbar-brand">
+      <a href="#" class="vd-navbar-item navbar-item">Brand</a>
+      <button class="vd-navbar-toggle navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
-    <div class="navbar-menu" aria-hidden="true">
-      <div class="navbar-start">
+    <div class="vd-navbar-menu navbar-menu" aria-hidden="true">
+      <div class="vd-navbar-start navbar-start">
         <a href="#" class="nav-link">Home</a>
         <a href="#" class="nav-link">About</a>
         <a href="#" class="nav-link">Contact</a>
@@ -31,21 +31,21 @@
   </nav>
 
   <!-- Navbar with Dropdown -->
-  <nav class="navbar" id="navbar-with-dropdown">
-    <div class="navbar-brand">
-      <a href="#" class="navbar-item">Brand</a>
-      <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+  <nav class="vd-navbar navbar" id="navbar-with-dropdown">
+    <div class="vd-navbar-brand navbar-brand">
+      <a href="#" class="vd-navbar-item navbar-item">Brand</a>
+      <button class="vd-navbar-toggle navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
-    <div class="navbar-menu" aria-hidden="true">
-      <div class="navbar-start">
+    <div class="vd-navbar-menu navbar-menu" aria-hidden="true">
+      <div class="vd-navbar-start navbar-start">
         <a href="#" class="nav-link">Home</a>
-        <div class="navbar-dropdown">
+        <div class="vd-navbar-dropdown navbar-dropdown">
           <a href="#" class="nav-link">Products</a>
-          <div class="navbar-dropdown-menu">
+          <div class="vd-navbar-dropdown-menu navbar-dropdown-menu">
             <a href="#" class="nav-link">Product 1</a>
             <a href="#" class="nav-link">Product 2</a>
             <a href="#" class="nav-link">Product 3</a>
@@ -57,17 +57,17 @@
   </nav>
 
   <!-- Programmatic API Test Navbar -->
-  <nav class="navbar" id="api-navbar">
-    <div class="navbar-brand">
-      <a href="#" class="navbar-item">API Test</a>
-      <button class="navbar-toggle" id="api-toggle" aria-label="Toggle navigation" aria-expanded="false">
+  <nav class="vd-navbar navbar" id="api-navbar">
+    <div class="vd-navbar-brand navbar-brand">
+      <a href="#" class="vd-navbar-item navbar-item">API Test</a>
+      <button class="vd-navbar-toggle navbar-toggle" id="api-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
-    <div class="navbar-menu" id="api-menu" aria-hidden="true">
-      <div class="navbar-start">
+    <div class="vd-navbar-menu navbar-menu" id="api-menu" aria-hidden="true">
+      <div class="vd-navbar-start navbar-start">
         <a href="#" class="nav-link">Item 1</a>
         <a href="#" class="nav-link">Item 2</a>
       </div>
@@ -80,6 +80,8 @@
   </main>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/navbar.js"></script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

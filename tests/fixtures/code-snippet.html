@@ -11,42 +11,42 @@
     <h1>Code Snippet Test Fixture</h1>
 
     <!-- Basic Code Snippet -->
-    <div class="code-snippet" id="basic-snippet" data-expanded="true">
-      <div class="code-snippet-header">
-        <span class="code-snippet-title">Example Code</span>
-        <button class="code-snippet-copy" aria-label="Copy code">
+    <div class="vd-code-snippet code-snippet" id="basic-snippet" data-expanded="true">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <span class="vd-code-snippet-title code-snippet-title">Example Code</span>
+        <button class="vd-code-snippet-copy code-snippet-copy" aria-label="Copy code">
           <i class="ph ph-copy"></i>
         </button>
       </div>
-      <div class="code-snippet-content" data-visible="true">
-        <pre class="code-snippet-pane is-active" data-lang="html"><code><div class="button">
+      <div class="vd-code-snippet-content code-snippet-content" data-visible="true">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active" data-lang="html"><code><div class="button">
   <button>Click me</button>
 </div></code></pre>
       </div>
     </div>
 
     <!-- Code Snippet with Tabs -->
-    <div class="code-snippet" id="tabbed-snippet" data-expanded="true">
-      <div class="code-snippet-header">
-        <div class="code-snippet-tabs">
-          <button class="code-snippet-tab is-active" data-lang="html" role="tab" aria-selected="true">HTML</button>
-          <button class="code-snippet-tab" data-lang="css" role="tab" aria-selected="false">CSS</button>
-          <button class="code-snippet-tab" data-lang="js" role="tab" aria-selected="false">JS</button>
+    <div class="vd-code-snippet code-snippet" id="tabbed-snippet" data-expanded="true">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <div class="vd-code-snippet-tabs code-snippet-tabs">
+          <button class="vd-code-snippet-tab code-snippet-tab is-active" data-lang="html" role="tab" aria-selected="true">HTML</button>
+          <button class="vd-code-snippet-tab code-snippet-tab" data-lang="css" role="tab" aria-selected="false">CSS</button>
+          <button class="vd-code-snippet-tab code-snippet-tab" data-lang="js" role="tab" aria-selected="false">JS</button>
         </div>
-        <button class="code-snippet-copy" aria-label="Copy code">
+        <button class="vd-code-snippet-copy code-snippet-copy" aria-label="Copy code">
           <i class="ph ph-copy"></i>
         </button>
       </div>
-      <div class="code-snippet-content" data-visible="true">
-        <pre class="code-snippet-pane is-active" data-lang="html"><code><div class="card">
+      <div class="vd-code-snippet-content code-snippet-content" data-visible="true">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active" data-lang="html"><code><div class="card">
   <h2>Title</h2>
   <p>Content</p>
 </div></code></pre>
-        <pre class="code-snippet-pane" data-lang="css"><code>.card {
+        <pre class="vd-code-snippet-pane code-snippet-pane" data-lang="css"><code>.card {
   border: 1px solid #ccc;
   padding: 1rem;
 }</code></pre>
-        <pre class="code-snippet-pane" data-lang="js"><code>const card = document.querySelector('.card');
+        <pre class="vd-code-snippet-pane code-snippet-pane" data-lang="js"><code>const card = document.querySelector('.card');
 card.addEventListener('click', () => {
   console.log('Card clicked');
 });</code></pre>
@@ -54,18 +54,18 @@ card.addEventListener('click', () => {
     </div>
 
     <!-- Collapsible Code Snippet -->
-    <div class="code-snippet" id="collapsible-snippet" data-expanded="false">
-      <div class="code-snippet-header">
-        <span class="code-snippet-title">Collapsible Code</span>
-        <button class="code-snippet-toggle" aria-expanded="false" aria-label="Toggle code">
+    <div class="vd-code-snippet code-snippet" id="collapsible-snippet" data-expanded="false">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <span class="vd-code-snippet-title code-snippet-title">Collapsible Code</span>
+        <button class="vd-code-snippet-toggle code-snippet-toggle" aria-expanded="false" aria-label="Toggle code">
           <i class="ph ph-caret-down"></i>
         </button>
-        <button class="code-snippet-copy" aria-label="Copy code">
+        <button class="vd-code-snippet-copy code-snippet-copy" aria-label="Copy code">
           <i class="ph ph-copy"></i>
         </button>
       </div>
-      <div class="code-snippet-content" data-visible="false">
-        <pre class="code-snippet-pane is-active" data-lang="html"><code><!-- Hidden by default -->
+      <div class="vd-code-snippet-content code-snippet-content" data-visible="false">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active" data-lang="html"><code><!-- Hidden by default -->
 <div class="secret">
   <p>Secret content</p>
 </div></code></pre>
@@ -73,15 +73,15 @@ card.addEventListener('click', () => {
     </div>
 
     <!-- Code Snippet with Line Numbers -->
-    <div class="code-snippet" id="line-numbers-snippet" data-expanded="true">
-      <div class="code-snippet-header">
-        <span class="code-snippet-title">With Line Numbers</span>
-        <button class="code-snippet-copy" aria-label="Copy code">
+    <div class="vd-code-snippet code-snippet" id="line-numbers-snippet" data-expanded="true">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <span class="vd-code-snippet-title code-snippet-title">With Line Numbers</span>
+        <button class="vd-code-snippet-copy code-snippet-copy" aria-label="Copy code">
           <i class="ph ph-copy"></i>
         </button>
       </div>
-      <div class="code-snippet-content" data-visible="true">
-        <pre class="code-snippet-pane is-active has-line-numbers" data-lang="js"><code>function greet(name) {
+      <div class="vd-code-snippet-content code-snippet-content" data-visible="true">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active has-line-numbers" data-lang="js"><code>function greet(name) {
   console.log(`Hello, ${name}!`);
   return true;
 }
@@ -91,19 +91,19 @@ greet('World');</code></pre>
     </div>
 
     <!-- API Test Snippet -->
-    <div class="code-snippet" id="api-snippet" data-expanded="true">
-      <div class="code-snippet-header">
-        <div class="code-snippet-tabs">
-          <button class="code-snippet-tab is-active" data-lang="html" role="tab">HTML</button>
-          <button class="code-snippet-tab" data-lang="css" role="tab">CSS</button>
+    <div class="vd-code-snippet code-snippet" id="api-snippet" data-expanded="true">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <div class="vd-code-snippet-tabs code-snippet-tabs">
+          <button class="vd-code-snippet-tab code-snippet-tab is-active" data-lang="html" role="tab">HTML</button>
+          <button class="vd-code-snippet-tab code-snippet-tab" data-lang="css" role="tab">CSS</button>
         </div>
-        <button class="code-snippet-copy" id="api-copy-btn" aria-label="Copy code">
+        <button class="vd-code-snippet-copy code-snippet-copy" id="api-copy-btn" aria-label="Copy code">
           <i class="ph ph-copy"></i>
         </button>
       </div>
-      <div class="code-snippet-content" id="api-content" data-visible="true">
-        <pre class="code-snippet-pane is-active" data-lang="html"><code><div>API Test</div></code></pre>
-        <pre class="code-snippet-pane" data-lang="css"><code>.api { color: red; }</code></pre>
+      <div class="vd-code-snippet-content code-snippet-content" id="api-content" data-visible="true">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active" data-lang="html"><code><div>API Test</div></code></pre>
+        <pre class="vd-code-snippet-pane code-snippet-pane" data-lang="css"><code>.api { color: red; }</code></pre>
       </div>
     </div>
 
@@ -113,17 +113,19 @@ greet('World');</code></pre>
     </div>
 
     <!-- Snippet with extraction -->
-    <div class="code-snippet" id="extract-snippet" data-expanded="true">
-      <div class="code-snippet-header">
-        <span class="code-snippet-title">Extracted HTML</span>
+    <div class="vd-code-snippet code-snippet" id="extract-snippet" data-expanded="true">
+      <div class="vd-code-snippet-header code-snippet-header">
+        <span class="vd-code-snippet-title code-snippet-title">Extracted HTML</span>
       </div>
-      <div class="code-snippet-content" data-visible="true">
-        <pre class="code-snippet-pane is-active" data-lang="html" data-extract="#demo-source"><code></code></pre>
+      <div class="vd-code-snippet-content code-snippet-content" data-visible="true">
+        <pre class="vd-code-snippet-pane code-snippet-pane is-active" data-lang="html" data-extract="#demo-source"><code></code></pre>
       </div>
     </div>
   </div>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/code-snippet.js"></script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

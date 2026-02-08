@@ -253,21 +253,6 @@
     }
   };
 
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Navbar.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Navbar.init();
-      });
-    } else {
-      Navbar.init();
-    }
-  }
-
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('navbar', Navbar);

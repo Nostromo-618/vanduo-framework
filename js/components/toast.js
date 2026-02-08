@@ -117,12 +117,16 @@
       // Add to container
       container.appendChild(toast);
 
+      toast._toastCleanup = [];
+
       // Set up close button handler
       if (config.dismissible) {
         const closeBtn = toast.querySelector('.vd-toast-close');
-        closeBtn.addEventListener('click', () => {
+        const onClose = () => {
           this.dismiss(toast);
-        });
+        };
+        closeBtn.addEventListener('click', onClose);
+        toast._toastCleanup.push(() => closeBtn.removeEventListener('click', onClose));
       }
 
       // Pause on hover
@@ -136,6 +140,7 @@
           timeoutId = setTimeout(() => {
             this.dismiss(toast);
           }, remainingTime);
+          toast._toastTimeoutId = timeoutId;
 
           // Resume progress animation
           const progress = toast.querySelector('.vd-toast-progress');
@@ -149,6 +154,7 @@
         if (timeoutId) {
           clearTimeout(timeoutId);
           timeoutId = null;
+          toast._toastTimeoutId = null;
           remainingTime -= Date.now() - startTime;
 
           // Pause progress animation
@@ -162,6 +168,10 @@
       if (config.pauseOnHover) {
         toast.addEventListener('mouseenter', pauseTimer);
         toast.addEventListener('mouseleave', startTimer);
+        toast._toastCleanup.push(
+          () => toast.removeEventListener('mouseenter', pauseTimer),
+          () => toast.removeEventListener('mouseleave', startTimer)
+        );
       }
 
       // Trigger enter animation
@@ -190,6 +200,11 @@
     dismiss: function(toast) {
       if (!toast || toast.classList.contains('is-exiting')) return;
 
+      if (toast._toastTimeoutId) {
+        clearTimeout(toast._toastTimeoutId);
+        toast._toastTimeoutId = null;
+      }
+
       toast.classList.remove('is-visible');
       toast.classList.add('is-exiting');
 
@@ -203,6 +218,10 @@
       // Remove after animation
       const handleTransitionEnd = () => {
         toast.removeEventListener('transitionend', handleTransitionEnd);
+        if (toast._toastCleanup) {
+          toast._toastCleanup.forEach(fn => fn());
+          delete toast._toastCleanup;
+        }
         if (toast.parentElement) {
           toast.parentElement.removeChild(toast);
         }
@@ -212,10 +231,44 @@
 
       // Fallback removal if transition doesn't fire
       setTimeout(() => {
+        if (toast._toastCleanup) {
+          toast._toastCleanup.forEach(fn => fn());
+          delete toast._toastCleanup;
+        }
         if (toast.parentElement) {
           toast.parentElement.removeChild(toast);
         }
       }, 400);
+    },
+
+    /**
+     * Destroy all toasts and containers
+     */
+    destroyAll: function() {
+      Object.keys(this.containers).forEach(position => {
+        const container = this.containers[position];
+        if (!container) return;
+
+        const toasts = container.querySelectorAll('.vd-toast');
+        toasts.forEach(toast => {
+          if (toast._toastTimeoutId) {
+            clearTimeout(toast._toastTimeoutId);
+          }
+          if (toast._toastCleanup) {
+            toast._toastCleanup.forEach(fn => fn());
+            delete toast._toastCleanup;
+          }
+          if (toast.parentElement) {
+            toast.parentElement.removeChild(toast);
+          }
+        });
+
+        if (container.parentElement) {
+          container.parentElement.removeChild(container);
+        }
+      });
+
+      this.containers = {};
     },
 
     /**

@@ -15,7 +15,7 @@ test.describe('Code Snippet Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes all code snippets', async ({ page }) => {
-      const snippets = page.locator('.code-snippet');
+      const snippets = page.locator('.vd-code-snippet');
       await expect(snippets).toHaveCount(6);
     });
 
@@ -26,7 +26,7 @@ test.describe('Code Snippet Component @component', () => {
 
     test('expanded snippet has visible content', async ({ page }) => {
       const snippet = page.locator('#basic-snippet');
-      const content = snippet.locator('.code-snippet-content');
+      const content = snippet.locator('.vd-code-snippet-content');
       
       await expect(snippet).toHaveAttribute('data-expanded', 'true');
       await expect(content).toHaveAttribute('data-visible', 'true');
@@ -34,7 +34,7 @@ test.describe('Code Snippet Component @component', () => {
 
     test('collapsed snippet has hidden content', async ({ page }) => {
       const snippet = page.locator('#collapsible-snippet');
-      const content = snippet.locator('.code-snippet-content');
+      const content = snippet.locator('.vd-code-snippet-content');
       
       await expect(snippet).toHaveAttribute('data-expanded', 'false');
       await expect(content).toHaveAttribute('data-visible', 'false');
@@ -43,7 +43,7 @@ test.describe('Code Snippet Component @component', () => {
 
   test.describe('Copy Button', () => {
     test('copy button exists in snippets', async ({ page }) => {
-      const copyButtons = page.locator('#basic-snippet .code-snippet-copy');
+      const copyButtons = page.locator('#basic-snippet .vd-code-snippet-copy');
       await expect(copyButtons).toHaveCount(1);
     });
 
@@ -51,7 +51,7 @@ test.describe('Code Snippet Component @component', () => {
       // Clipboard permissions vary by browser
       test.skip(browserName !== 'chromium', 'Clipboard API behavior varies by browser');
 
-      const copyButton = page.locator('#basic-snippet .code-snippet-copy');
+      const copyButton = page.locator('#basic-snippet .vd-code-snippet-copy');
       
       // Grant clipboard permissions for the test
       await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
@@ -64,33 +64,33 @@ test.describe('Code Snippet Component @component', () => {
     });
 
     test('copy button has correct aria-label', async ({ page }) => {
-      const copyButton = page.locator('#basic-snippet .code-snippet-copy');
+      const copyButton = page.locator('#basic-snippet .vd-code-snippet-copy');
       await expect(copyButton).toHaveAttribute('aria-label', 'Copy code');
     });
   });
 
   test.describe('Tab Navigation', () => {
     test('tab list has correct role', async ({ page }) => {
-      const tabList = page.locator('#tabbed-snippet .code-snippet-tabs');
+      const tabList = page.locator('#tabbed-snippet .vd-code-snippet-tabs');
       await expect(tabList).toHaveAttribute('role', 'tablist');
     });
 
     test('tabs have correct attributes', async ({ page }) => {
-      const activeTab = page.locator('#tabbed-snippet .code-snippet-tab.is-active');
+      const activeTab = page.locator('#tabbed-snippet .vd-code-snippet-tab.is-active');
       
       await expect(activeTab).toHaveAttribute('role', 'tab');
       await expect(activeTab).toHaveAttribute('aria-selected', 'true');
     });
 
     test('inactive tabs have correct aria-selected', async ({ page }) => {
-      const inactiveTab = page.locator('#tabbed-snippet .code-snippet-tab').nth(1);
+      const inactiveTab = page.locator('#tabbed-snippet .vd-code-snippet-tab').nth(1);
       
       await expect(inactiveTab).toHaveAttribute('aria-selected', 'false');
     });
 
     test('clicking tab switches to that language', async ({ page }) => {
-      const cssTab = page.locator('#tabbed-snippet .code-snippet-tab[data-lang="css"]');
-      const cssPane = page.locator('#tabbed-snippet .code-snippet-pane[data-lang="css"]');
+      const cssTab = page.locator('#tabbed-snippet .vd-code-snippet-tab[data-lang="css"]');
+      const cssPane = page.locator('#tabbed-snippet .vd-code-snippet-pane[data-lang="css"]');
 
       await cssTab.click();
 
@@ -100,9 +100,9 @@ test.describe('Code Snippet Component @component', () => {
     });
 
     test('switches active pane when tab is clicked', async ({ page }) => {
-      const jsTab = page.locator('#tabbed-snippet .code-snippet-tab[data-lang="js"]');
-      const jsPane = page.locator('#tabbed-snippet .code-snippet-pane[data-lang="js"]');
-      const htmlPane = page.locator('#tabbed-snippet .code-snippet-pane[data-lang="html"]');
+      const jsTab = page.locator('#tabbed-snippet .vd-code-snippet-tab[data-lang="js"]');
+      const jsPane = page.locator('#tabbed-snippet .vd-code-snippet-pane[data-lang="js"]');
+      const htmlPane = page.locator('#tabbed-snippet .vd-code-snippet-pane[data-lang="html"]');
 
       await jsTab.click();
 
@@ -118,7 +118,7 @@ test.describe('Code Snippet Component @component', () => {
         });
       });
 
-      await page.locator('#tabbed-snippet .code-snippet-tab[data-lang="css"]').click();
+      await page.locator('#tabbed-snippet .vd-code-snippet-tab[data-lang="css"]').click();
 
       const eventDetail = await page.evaluate(() => (window as any).tabChangeEvent);
       expect(eventDetail).not.toBeNull();
@@ -126,17 +126,17 @@ test.describe('Code Snippet Component @component', () => {
     });
 
     test('keyboard navigation with ArrowRight', async ({ page }) => {
-      const firstTab = page.locator('#tabbed-snippet .code-snippet-tab').first();
+      const firstTab = page.locator('#tabbed-snippet .vd-code-snippet-tab').first();
       
       await firstTab.focus();
       await page.keyboard.press('ArrowRight');
 
-      const secondTab = page.locator('#tabbed-snippet .code-snippet-tab').nth(1);
+      const secondTab = page.locator('#tabbed-snippet .vd-code-snippet-tab').nth(1);
       await expect(secondTab).toBeFocused();
     });
 
     test('keyboard navigation with ArrowLeft', async ({ page }) => {
-      const tabs = page.locator('#tabbed-snippet .code-snippet-tab');
+      const tabs = page.locator('#tabbed-snippet .vd-code-snippet-tab');
       
       await tabs.nth(1).focus();
       await page.keyboard.press('ArrowLeft');
@@ -145,7 +145,7 @@ test.describe('Code Snippet Component @component', () => {
     });
 
     test('keyboard navigation with Home key', async ({ page }) => {
-      const tabs = page.locator('#tabbed-snippet .code-snippet-tab');
+      const tabs = page.locator('#tabbed-snippet .vd-code-snippet-tab');
       
       await tabs.nth(2).focus();
       await page.keyboard.press('Home');
@@ -154,7 +154,7 @@ test.describe('Code Snippet Component @component', () => {
     });
 
     test('keyboard navigation with End key', async ({ page }) => {
-      const tabs = page.locator('#tabbed-snippet .code-snippet-tab');
+      const tabs = page.locator('#tabbed-snippet .vd-code-snippet-tab');
       
       await tabs.first().focus();
       await page.keyboard.press('End');
@@ -166,7 +166,7 @@ test.describe('Code Snippet Component @component', () => {
   test.describe('Collapsible Behavior', () => {
     test('collapsed snippet has correct initial state', async ({ page }) => {
       const snippet = page.locator('#collapsible-snippet');
-      const toggle = snippet.locator('.code-snippet-toggle');
+      const toggle = snippet.locator('.vd-code-snippet-toggle');
       
       // Verify initial collapsed state
       await expect(snippet).toHaveAttribute('data-expanded', 'false');
@@ -216,13 +216,13 @@ test.describe('Code Snippet Component @component', () => {
   test.describe('Line Numbers', () => {
     test('has line numbers container when has-line-numbers class present', async ({ page }) => {
       const pane = page.locator('#line-numbers-snippet .has-line-numbers');
-      const lineNumbers = pane.locator('.code-snippet-line-numbers');
+      const lineNumbers = pane.locator('.vd-code-snippet-line-numbers');
       
       await expect(lineNumbers).toHaveCount(1);
     });
 
     test('line numbers have aria-hidden', async ({ page }) => {
-      const lineNumbers = page.locator('#line-numbers-snippet .code-snippet-line-numbers');
+      const lineNumbers = page.locator('#line-numbers-snippet .vd-code-snippet-line-numbers');
       await expect(lineNumbers).toHaveAttribute('aria-hidden', 'true');
     });
   });
@@ -283,8 +283,8 @@ test.describe('Code Snippet Component @component', () => {
         (window as any).CodeSnippet.showLang('#api-snippet', 'css');
       });
 
-      const cssTab = page.locator('#api-snippet .code-snippet-tab[data-lang="css"]');
-      const cssPane = page.locator('#api-snippet .code-snippet-pane[data-lang="css"]');
+      const cssTab = page.locator('#api-snippet .vd-code-snippet-tab[data-lang="css"]');
+      const cssPane = page.locator('#api-snippet .vd-code-snippet-pane[data-lang="css"]');
 
       await expect(cssTab).toHaveClass(/is-active/);
       await expect(cssPane).toHaveClass(/is-active/);
@@ -294,7 +294,7 @@ test.describe('Code Snippet Component @component', () => {
   test.describe('HTML Extraction', () => {
     test('extracts HTML from source element', async ({ page }) => {
       // The extraction should happen on init
-      const pane = page.locator('#extract-snippet .code-snippet-pane');
+      const pane = page.locator('#extract-snippet .vd-code-snippet-pane');
       const code = pane.locator('code');
       
       const content = await code.textContent();

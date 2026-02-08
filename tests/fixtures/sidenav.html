@@ -12,10 +12,10 @@
 </head>
 <body>
   <!-- Basic Sidenav -->
-  <nav class="sidenav" id="basic-sidenav" aria-label="Main navigation">
+  <nav class="vd-sidenav sidenav" id="basic-sidenav" aria-label="Main navigation">
     <div class="sidenav-header">
       <h3>Navigation</h3>
-      <button class="sidenav-close" aria-label="Close navigation">
+      <button class="vd-sidenav-close sidenav-close" aria-label="Close navigation">
         <i class="ph ph-x"></i>
       </button>
     </div>
@@ -30,10 +30,10 @@
   </nav>
 
   <!-- Right-aligned Sidenav -->
-  <nav class="sidenav sidenav-right" id="right-sidenav" aria-label="Right navigation">
+  <nav class="vd-sidenav sidenav sidenav-right" id="right-sidenav" aria-label="Right navigation">
     <div class="sidenav-header">
       <h3>Settings</h3>
-      <button class="sidenav-close" aria-label="Close navigation">
+      <button class="vd-sidenav-close sidenav-close" aria-label="Close navigation">
         <i class="ph ph-x"></i>
       </button>
     </div>
@@ -47,10 +47,10 @@
   </nav>
 
   <!-- Static Backdrop Sidenav -->
-  <nav class="sidenav" id="static-sidenav" data-backdrop="static" aria-label="Static navigation">
+  <nav class="vd-sidenav sidenav" id="static-sidenav" data-backdrop="static" aria-label="Static navigation">
     <div class="sidenav-header">
       <h3>Static Nav</h3>
-      <button class="sidenav-close" aria-label="Close navigation">
+      <button class="vd-sidenav-close sidenav-close" aria-label="Close navigation">
         <i class="ph ph-x"></i>
       </button>
     </div>
@@ -63,10 +63,10 @@
   </nav>
 
   <!-- No Keyboard Close Sidenav -->
-  <nav class="sidenav" id="no-keyboard-sidenav" data-keyboard="false" aria-label="No keyboard nav">
+  <nav class="vd-sidenav sidenav" id="no-keyboard-sidenav" data-keyboard="false" aria-label="No keyboard nav">
     <div class="sidenav-header">
       <h3>No ESC Close</h3>
-      <button class="sidenav-close" aria-label="Close navigation">
+      <button class="vd-sidenav-close sidenav-close" aria-label="Close navigation">
         <i class="ph ph-x"></i>
       </button>
     </div>
@@ -99,6 +99,7 @@
   </main>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/sidenav.js"></script>
   <script>
     // Programmatic controls
@@ -114,5 +115,6 @@
       window.VanduoSidenav.toggle('#basic-sidenav');
     });
   </script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

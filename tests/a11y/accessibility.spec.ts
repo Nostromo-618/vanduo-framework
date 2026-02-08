@@ -35,7 +35,7 @@ test.describe('Accessibility Tests @a11y', () => {
     });
 
     test('close button has aria-label', async ({ page }) => {
-      const closeButton = page.locator('#test-modal .modal-close');
+      const closeButton = page.locator('#test-modal .vd-modal-close');
       await expect(closeButton).toHaveAttribute('aria-label', 'Close');
     });
   });
@@ -47,12 +47,12 @@ test.describe('Accessibility Tests @a11y', () => {
     });
 
     test('dropdown toggle has aria-haspopup', async ({ page }) => {
-      const toggle = page.locator('#basic-dropdown .dropdown-toggle');
+      const toggle = page.locator('#basic-dropdown .vd-dropdown-toggle');
       await expect(toggle).toHaveAttribute('aria-haspopup', 'true');
     });
 
     test('aria-expanded reflects dropdown state', async ({ page }) => {
-      const toggle = page.locator('#basic-dropdown .dropdown-toggle');
+      const toggle = page.locator('#basic-dropdown .vd-dropdown-toggle');
       
       // Closed by default
       await expect(toggle).toHaveAttribute('aria-expanded', 'false');
@@ -69,23 +69,23 @@ test.describe('Accessibility Tests @a11y', () => {
     });
 
     test('dropdown menu has role="menu"', async ({ page }) => {
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       await expect(menu).toHaveAttribute('role', 'menu');
     });
 
     test('menu aria-hidden reflects visibility', async ({ page }) => {
-      const menu = page.locator('#basic-dropdown .dropdown-menu');
+      const menu = page.locator('#basic-dropdown .vd-dropdown-menu');
       
       // Hidden by default
       await expect(menu).toHaveAttribute('aria-hidden', 'true');
       
       // Open dropdown
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       await expect(menu).toHaveAttribute('aria-hidden', 'false');
     });
 
     test('dropdown can be closed with API', async ({ page }) => {
-      await page.click('#basic-dropdown .dropdown-toggle');
+      await page.click('#basic-dropdown .vd-dropdown-toggle');
       
       // Should be open
       await expect(page.locator('#basic-dropdown')).toHaveClass(/is-open/);

@@ -85,8 +85,8 @@
       let html = '';
       
       // Previous button
-      html += `<li class="pagination-item pagination-prev ${currentPage === 1 ? 'disabled' : ''}">`;
-      html += `<a class="pagination-link" href="#" aria-label="Previous">Previous</a>`;
+      html += `<li class="vd-pagination-item vd-pagination-prev pagination-item pagination-prev ${currentPage === 1 ? 'disabled' : ''}">`;
+      html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Previous">Previous</a>`;
       html += `</li>`;
       
       // Calculate page range
@@ -96,21 +96,21 @@
       let lastPage = 0;
       pages.forEach(page => {
         if (page === 'ellipsis') {
-          html += `<li class="pagination-item"><span class="pagination-ellipsis">…</span></li>`;
+          html += `<li class="vd-pagination-item pagination-item"><span class="vd-pagination-ellipsis pagination-ellipsis">…</span></li>`;
         } else {
           if (page !== lastPage + 1 && lastPage > 0) {
-            html += `<li class="pagination-item"><span class="pagination-ellipsis">…</span></li>`;
+            html += `<li class="vd-pagination-item pagination-item"><span class="vd-pagination-ellipsis pagination-ellipsis">…</span></li>`;
           }
-          html += `<li class="pagination-item ${page === currentPage ? 'active' : ''}" data-page="${page}">`;
-          html += `<a class="pagination-link" href="#" aria-label="Page ${page}">${page}</a>`;
+          html += `<li class="vd-pagination-item pagination-item ${page === currentPage ? 'active' : ''}" data-page="${page}">`;
+          html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Page ${page}">${page}</a>`;
           html += `</li>`;
           lastPage = page;
         }
       });
       
       // Next button
-      html += `<li class="pagination-item pagination-next ${currentPage === totalPages ? 'disabled' : ''}">`;
-      html += `<a class="pagination-link" href="#" aria-label="Next">Next</a>`;
+      html += `<li class="vd-pagination-item vd-pagination-next pagination-item pagination-next ${currentPage === totalPages ? 'disabled' : ''}">`;
+      html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Next">Next</a>`;
       html += `</li>`;
       
       pagination.innerHTML = html;
@@ -272,21 +272,6 @@
       });
     }
   };
-  
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Pagination.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Pagination.init();
-      });
-    } else {
-      Pagination.init();
-    }
-  }
   
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {

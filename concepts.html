@@ -751,6 +751,12 @@ window.addEventListener('beforeunload', () => {
                             simple Map-based registry. This is not a framework—just a lightweight utility for resource
                             cleanup.
                         </div>
+
+                        <div class="vd-alert vd-alert-warning vd-mt-4">
+                            <strong>Tip:</strong> When adding new DOM in SPAs, run <code>Vanduo.destroyAll()</code>
+                            (or a component's <code>destroyAll()</code>) before <code>Vanduo.reinit(name)</code> so
+                            cached instances are rebuilt for new elements.
+                        </div>
                     </section>
 
                     <!-- Module Formats Section -->

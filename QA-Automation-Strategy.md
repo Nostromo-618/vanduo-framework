@@ -56,7 +56,7 @@ This document outlines a comprehensive QA automation strategy for the **Vanduo F
 
 - Ensure cross-browser compatibility (Chromium, Firefox, WebKit)
 - Validate responsive design (Desktop, Mobile, Tablet)
-- Maintain visual consistency through screenshot comparison
+- Maintain visual consistency via DOM/state checks (no screenshots)
 - Verify accessibility compliance with WCAG 2.1 AA
 - Test all JavaScript component interactions
 - Keep dependencies minimal (Playwright only)
@@ -79,7 +79,7 @@ This document outlines a comprehensive QA automation strategy for the **Vanduo F
 2. **Test User Behavior** - Focus on what users experience
 3. **Cross-Browser Parity** - Consistent behavior across all engines
 4. **Accessibility-First** - Every component tested for a11y
-5. **Visual Consistency** - Screenshot-based regression testing
+5. **Visual Consistency** - DOM/state assertions (no screenshots)
 6. **Responsive by Default** - All tests run across viewports
 
 ---
@@ -101,10 +101,10 @@ This document outlines a comprehensive QA automation strategy for the **Vanduo F
 │                                                                 │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
 │  │   Visual     │  │    E2E       │  │Accessibility │          │
-│  │ Regression   │  │    Tests     │  │    Tests     │          │
+│  │ (disabled)   │  │    Tests     │  │    Tests     │          │
 │  │              │  │              │  │              │          │
-│  │ Screenshots  │  │ User flows   │  │ ARIA checks  │          │
-│  │ Comparison   │  │ Doc site     │  │ Focus mgmt   │          │
+│  │ Not run      │  │ User flows   │  │ ARIA checks  │          │
+│  │              │  │ Doc site     │  │ Focus mgmt   │          │
 │  └──────────────┘  └──────────────┘  └──────────────┘          │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
@@ -244,7 +244,7 @@ test.describe('Modal Component', () => {
 
   test('closes on backdrop click', async ({ page }) => {
     await page.click('[data-modal="#test-modal"]');
-    await page.locator('.modal-backdrop').click();
+    await page.locator('.vd-modal-backdrop').click();
     
     await expect(page.locator('#test-modal')).not.toHaveClass(/is-open/);
   });
@@ -275,51 +275,9 @@ test.describe('Modal Component', () => {
 });
 ```
 
-### 3. Visual Regression Tests
+### 3. Visual Regression Tests (Disabled)
 
-Use Playwright's built-in screenshot comparison.
-
-```typescript
-// tests/visual/components.visual.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('Visual Regression @visual', () => {
-  test.describe('Buttons', () => {
-    test('default states', async ({ page }) => {
-      await page.goto('/tests/fixtures/buttons.html');
-      
-      await expect(page.locator('.button-showcase')).toHaveScreenshot('buttons-default.png', {
-        maxDiffPixelRatio: 0.01,
-      });
-    });
-
-    test('hover state', async ({ page }) => {
-      await page.goto('/tests/fixtures/buttons.html');
-      await page.hover('.btn-primary');
-      
-      await expect(page.locator('.btn-primary')).toHaveScreenshot('button-primary-hover.png');
-    });
-
-    test('focus state', async ({ page }) => {
-      await page.goto('/tests/fixtures/buttons.html');
-      await page.focus('.btn-primary');
-      
-      await expect(page.locator('.btn-primary')).toHaveScreenshot('button-primary-focus.png');
-    });
-  });
-
-  test.describe('Cards', () => {
-    test('card variants', async ({ page }) => {
-      await page.goto('/tests/fixtures/cards.html');
-      
-      await expect(page).toHaveScreenshot('cards-all-variants.png', {
-        fullPage: true,
-        maxDiffPixelRatio: 0.01,
-      });
-    });
-  });
-});
-```
+Screenshot-based visual regression is currently disabled. Visual checks are done via DOM/state assertions only.
 
 ### 4. Accessibility Tests
 
@@ -351,8 +309,8 @@ test.describe('Accessibility @a11y', () => {
   test('dropdown has keyboard navigation', async ({ page }) => {
     await page.goto('/tests/fixtures/dropdown.html');
     
-    const toggle = page.locator('.dropdown-toggle');
-    const menu = page.locator('.dropdown-menu');
+    const toggle = page.locator('.vd-dropdown-toggle');
+    const menu = page.locator('.vd-dropdown-menu');
     
     // Check ARIA attributes
     await expect(toggle).toHaveAttribute('aria-haspopup', 'true');
@@ -411,154 +369,32 @@ test.describe('Accessibility @a11y', () => {
 });
 ```
 
-### 5. Integration Tests
+### 5. Integration Tests (Planned)
 
-Test multi-component interactions.
+Integration tests are planned but not yet implemented.
 
-```typescript
-// tests/integration/navbar-mobile.spec.ts
-import { test, expect, devices } from '@playwright/test';
+### 6. E2E Tests (Planned)
 
-test.describe('Navbar Mobile Integration', () => {
-  test.use({ ...devices['iPhone 14'] });
+E2E flows are planned but not yet implemented.
 
-  test('mobile menu flow', async ({ page }) => {
-    await page.goto('/');
-    
-    // Open mobile menu
-    await page.click('.navbar-toggle');
-    await expect(page.locator('.navbar-menu')).toHaveClass(/is-open/);
-    
-    // Verify overlay
-    await expect(page.locator('.navbar-overlay')).toHaveClass(/is-active/);
-    
-    // Close on overlay click
-    await page.locator('.navbar-overlay').click();
-    await expect(page.locator('.navbar-menu')).not.toHaveClass(/is-open/);
-  });
-});
-```
+### 7. Performance Tests (Planned)
 
-### 6. E2E Tests
-
-Test full user journeys.
-
-```typescript
-// tests/e2e/documentation.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('Documentation Site @e2e', () => {
-  test('user can browse documentation', async ({ page }) => {
-    await page.goto('/documentation.html');
-    
-    // Verify page loaded
-    await expect(page).toHaveTitle(/Documentation/);
-    
-    // Navigate to components section
-    const componentsLink = page.locator('a[href*="components"]');
-    if (await componentsLink.count() > 0) {
-      await componentsLink.first().click();
-    }
-    
-    // Interact with a demo component
-    const modalTrigger = page.locator('[data-modal]').first();
-    if (await modalTrigger.count() > 0) {
-      await modalTrigger.click();
-      
-      // Close modal
-      await page.keyboard.press('Escape');
-    }
-  });
-
-  test('theme switcher works', async ({ page }) => {
-    await page.goto('/');
-    
-    // Check initial theme
-    const initialTheme = await page.evaluate(() => {
-      return document.documentElement.dataset.theme || 'light';
-    });
-    
-    // Toggle theme (if switcher exists)
-    const themeSwitcher = page.locator('[data-theme-toggle], .theme-switcher');
-    if (await themeSwitcher.count() > 0) {
-      await themeSwitcher.click();
-      
-      const newTheme = await page.evaluate(() => {
-        return document.documentElement.dataset.theme;
-      });
-      
-      expect(newTheme).not.toBe(initialTheme);
-    }
-  });
-});
-```
-
-### 7. Performance Tests
-
-Use browser Performance API.
-
-```typescript
-// tests/performance/metrics.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('Performance @perf', () => {
-  test('page loads under 2 seconds', async ({ page }) => {
-    const start = Date.now();
-    await page.goto('/');
-    const loadTime = Date.now() - start;
-    
-    expect(loadTime).toBeLessThan(2000);
-  });
-
-  test('modal opens within 300ms', async ({ page }) => {
-    await page.goto('/tests/fixtures/modals.html');
-    
-    const start = Date.now();
-    await page.click('[data-modal="#test-modal"]');
-    await page.locator('#test-modal.is-open').waitFor({ state: 'visible' });
-    const duration = Date.now() - start;
-    
-    expect(duration).toBeLessThan(300);
-  });
-
-  test('no memory leaks on component destroy', async ({ page }) => {
-    await page.goto('/tests/fixtures/modals.html');
-    
-    // Open and close modal multiple times
-    for (let i = 0; i < 10; i++) {
-      await page.click('[data-modal="#test-modal"]');
-      await page.keyboard.press('Escape');
-    }
-    
-    // Check for lingering event listeners (simplified check)
-    const listenerCount = await page.evaluate(() => {
-      // This checks if the modal's internal cleanup worked
-      const modals = document.querySelectorAll('.modal-backdrop');
-      return modals.length;
-    });
-    
-    // Should only have the original backdrop, not 10 copies
-    expect(listenerCount).toBeLessThanOrEqual(1);
-  });
-});
-```
+Performance checks are planned but not yet implemented.
 
 ---
 
 ## Component Testing Matrix
 
-| Component | Unit | Component | Integration | A11y | E2E |
-|-----------|:----:|:---------:|:-----------:|:----:|:---:|
-| Modals | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Dropdown | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Navbar | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Tabs | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Toast | ✅ | ✅ | ◐ | ✅ | ◐ |
-| Tooltips | ✅ | ✅ | ◐ | ✅ | ◐ |
-| Collapsible | ✅ | ✅ | ◐ | ✅ | ◐ |
-| Sidenav | ✅ | ✅ | ✅ | ✅ | ✅ |
-
-> **Note:** Visual/pixel-comparison testing column has been removed as these tests are not currently run per project direction. Testing focuses on functional behavior and DOM state assertions.
+| Component | Unit | Component | A11y |
+|-----------|:----:|:---------:|:----:|
+| Modals | ✅ | ✅ | ✅ |
+| Dropdown | ✅ | ✅ | ✅ |
+| Navbar | ✅ | ✅ | ✅ |
+| Tabs | ✅ | ✅ | ✅ |
+| Toast | ✅ | ✅ | ✅ |
+| Tooltips | ✅ | ✅ | ✅ |
+| Collapsible | ✅ | ✅ | ✅ |
+| Sidenav | ✅ | ✅ | ✅ |
 
 ---
 
@@ -571,30 +407,23 @@ vanduo-framework/
 │   │   └── helpers.spec.ts
 │   │
 │   ├── components/              # Component interaction tests
-│   │   ├── modals.spec.ts
+│   │   ├── code-snippet.spec.ts
+│   │   ├── collapsible.spec.ts
 │   │   ├── dropdown.spec.ts
+│   │   ├── font-switcher.spec.ts
+│   │   ├── image-box.spec.ts
+│   │   ├── modals.spec.ts
 │   │   ├── navbar.spec.ts
+│   │   ├── pagination.spec.ts
+│   │   ├── select.spec.ts
+│   │   ├── sidenav.spec.ts
 │   │   ├── tabs.spec.ts
+│   │   ├── theme-switcher.spec.ts
 │   │   ├── toast.spec.ts
-│   │   ├── tooltips.spec.ts
-│   │   └── collapsible.spec.ts
-│   │
-│   ├── integration/             # Multi-component tests
-│   │   ├── navbar-mobile.spec.ts
-│   │   └── theme-switching.spec.ts
-│   │
-│   ├── visual/                  # Visual regression tests
-│   │   ├── components.visual.spec.ts
-│   │   └── typography.visual.spec.ts
-│   │
-│   ├── e2e/                     # End-to-end flows
-│   │   └── documentation.spec.ts
+│   │   └── tooltips.spec.ts
 │   │
 │   ├── a11y/                    # Accessibility tests
 │   │   └── accessibility.spec.ts
-│   │
-│   ├── performance/             # Performance tests
-│   │   └── metrics.spec.ts
 │   │
 │   └── fixtures/                # Test HTML pages
 │       ├── helpers.html         # Loads helpers.js for unit tests
@@ -634,7 +463,7 @@ vanduo-framework/
 
   // Note: Visual/pixel-comparison test scripts removed as per project direction.
   "devDependencies": {
-    "@playwright/test": "^1.50.0"
+    "@playwright/test": "^1.58.2"
   }
 }
 ```
@@ -658,7 +487,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:8787',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -711,8 +540,8 @@ export default defineConfig({
 
   // Local server - uses Python's built-in HTTP server (no extra dependency)
   webServer: {
-    command: 'python3 -m http.server 8080',
-    url: 'http://localhost:8080',
+    command: 'python3 -m http.server 8787',
+    url: 'http://localhost:8787',
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,
   },
@@ -806,6 +635,8 @@ jobs:
 
 ## Best Practices
 
+Fixtures should include `/js/vanduo.js` and call `Vanduo.init()` before assertions. Prefer `vd-` class selectors when verifying DOM output.
+
 ### 1. Test Naming
 ```typescript
 test('Component: behavior description', async ({ page }) => {
@@ -815,8 +646,8 @@ test('Component: behavior description', async ({ page }) => {
 
 ### 2. Use Tags for Filtering
 ```typescript
-test.describe('Feature @visual @a11y', () => {
-  // Tests here can be filtered with --grep @visual or @a11y
+test.describe('Feature @a11y', () => {
+  // Tests here can be filtered with --grep @a11y
 });
 ```
 
@@ -847,17 +678,19 @@ await expect(page.locator('.result')).toBeVisible();
 <body>
   <button data-modal="#test-modal">Open Modal</button>
   
-  <div id="test-modal" class="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <h2 class="modal-title">Test Modal</h2>
-        <button class="modal-close">Close</button>
+  <div id="test-modal" class="vd-modal">
+    <div class="vd-modal-dialog">
+      <div class="vd-modal-content">
+        <h2 class="vd-modal-title">Test Modal</h2>
+        <button class="vd-modal-close">Close</button>
       </div>
     </div>
   </div>
   
-  <script src="/js/utils/helpers.js"></script>
-  <script src="/js/components/modals.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
 </body>
 </html>
 ```
@@ -873,11 +706,10 @@ This strategy enables comprehensive testing of the Vanduo Framework with **a sin
 All testing needs are covered:
 - ✅ Unit testing (via `page.evaluate()`)
 - ✅ Component testing (native Playwright)
-- ✅ Integration testing (native Playwright)
-- ✅ ~~Visual regression (built-in `toHaveScreenshot()`)~~ (not currently run)
 - ✅ Accessibility testing (manual ARIA checks)
-- ✅ E2E testing (native Playwright)
-- ✅ Performance testing (browser Performance API)
+- ◐ Integration testing (planned)
+- ◐ E2E testing (planned)
+- ◐ Performance testing (planned)
 - ✅ Cross-browser (Chromium, Firefox, WebKit)
 - ✅ Responsive (Desktop, Mobile, Tablet)
 

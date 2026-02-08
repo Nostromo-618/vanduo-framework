@@ -17,25 +17,25 @@ test.describe('Navbar Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes navbar elements', async ({ page }) => {
-      const navbars = page.locator('.navbar');
+      const navbars = page.locator('.vd-navbar');
       await expect(navbars).toHaveCount(3);
     });
 
     test('sets correct aria-expanded on toggle buttons', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
       await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     });
 
     test('sets correct aria-hidden on menus', async ({ page }) => {
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
       await expect(menu).toHaveAttribute('aria-hidden', 'true');
     });
   });
 
   test.describe('Mobile Menu Toggle', () => {
     test('opens menu on toggle click', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
 
       await toggle.click();
 
@@ -45,8 +45,8 @@ test.describe('Navbar Component @component', () => {
     });
 
     test('closes menu on second toggle click', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
 
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
@@ -57,21 +57,21 @@ test.describe('Navbar Component @component', () => {
     });
 
     test('closes menu on overlay click', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
 
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
 
       // Click on the overlay (use force to bypass navbar menu element)
-      await page.locator('.navbar-overlay.is-active').click({ force: true });
+      await page.locator('.vd-navbar-overlay.is-active').click({ force: true });
 
       await expect(menu).not.toHaveClass(/is-open/);
     });
 
     test('closes menu on outside click', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
 
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
@@ -85,7 +85,7 @@ test.describe('Navbar Component @component', () => {
     });
 
     test('toggle button gets is-active class when menu is open', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
 
       await toggle.click();
 
@@ -95,8 +95,8 @@ test.describe('Navbar Component @component', () => {
 
   test.describe('Keyboard Navigation', () => {
     test('closes menu on Escape key', async ({ page }) => {
-      const toggle = page.locator('#basic-navbar .navbar-toggle');
-      const menu = page.locator('#basic-navbar .navbar-menu');
+      const toggle = page.locator('#basic-navbar .vd-navbar-toggle');
+      const menu = page.locator('#basic-navbar .vd-navbar-menu');
 
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
@@ -109,14 +109,14 @@ test.describe('Navbar Component @component', () => {
 
   test.describe('Dropdown in Mobile Menu', () => {
     test('toggles dropdown on click in mobile view', async ({ page }) => {
-      const toggle = page.locator('#navbar-with-dropdown .navbar-toggle');
-      const menu = page.locator('#navbar-with-dropdown .navbar-menu');
+      const toggle = page.locator('#navbar-with-dropdown .vd-navbar-toggle');
+      const menu = page.locator('#navbar-with-dropdown .vd-navbar-menu');
 
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
 
-      const dropdownLink = page.locator('#navbar-with-dropdown .navbar-dropdown > .nav-link').first();
-      const dropdownMenu = page.locator('#navbar-with-dropdown .navbar-dropdown-menu');
+      const dropdownLink = page.locator('#navbar-with-dropdown .vd-navbar-dropdown > .nav-link').first();
+      const dropdownMenu = page.locator('#navbar-with-dropdown .vd-navbar-dropdown-menu');
 
       await dropdownLink.click();
 
@@ -170,7 +170,7 @@ test.describe('Navbar Component @component', () => {
         const navbar = document.querySelector('#api-navbar') as HTMLElement;
         const toggle = document.querySelector('#api-toggle') as HTMLElement;
         const menuEl = document.querySelector('#api-menu') as HTMLElement;
-        const overlay = document.querySelector('.navbar-overlay') as HTMLElement | null;
+        const overlay = document.querySelector('.vd-navbar-overlay') as HTMLElement | null;
         window.VanduoNavbar.openMenu(navbar, toggle, menuEl, overlay);
       });
 

@@ -43,7 +43,7 @@ test.describe('Modal Component @component', () => {
       await page.click('[data-modal="#test-modal"]');
       
       // Use first() since there might be multiple backdrops
-      const backdrop = page.locator('.modal-backdrop').first();
+      const backdrop = page.locator('.vd-modal-backdrop').first();
       await expect(backdrop).toHaveClass(/is-visible/);
     });
 
@@ -61,7 +61,7 @@ test.describe('Modal Component @component', () => {
   test.describe('Closing', () => {
     test('closes on close button click', async ({ page }) => {
       await page.click('[data-modal="#test-modal"]');
-      await page.click('#test-modal .modal-close');
+      await page.click('#test-modal .vd-modal-close');
       
       const modal = page.locator('#test-modal');
       await expect(modal).not.toHaveClass(/is-open/);
@@ -84,7 +84,7 @@ test.describe('Modal Component @component', () => {
       await expect(modal).toHaveClass(/is-open/);
       
       // Can close via close button
-      await page.click('#static-backdrop-modal .modal-close');
+      await page.click('#static-backdrop-modal .vd-modal-close');
       await expect(modal).not.toHaveClass(/is-open/);
     });
 

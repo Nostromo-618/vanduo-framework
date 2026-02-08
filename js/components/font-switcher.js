@@ -8,6 +8,7 @@
 
   const FontSwitcher = {
     STORAGE_KEY: 'vanduo-font-preference',
+    isInitialized: false,
 
     // Available fonts configuration
     fonts: {
@@ -66,6 +67,15 @@
         preference: this.getPreference()
       };
 
+      if (this.isInitialized) {
+        this.applyFont();
+        this.renderUI();
+        this.updateUI();
+        return;
+      }
+
+      this.isInitialized = true;
+
       this.applyFont();
       this.renderUI();
 
@@ -77,7 +87,7 @@
      * @returns {string} Font key or 'ubuntu' (default)
      */
     getPreference: function() {
-      return localStorage.getItem(this.STORAGE_KEY) || 'ubuntu';
+      return this.getStorageValue(this.STORAGE_KEY, 'ubuntu');
     },
 
     /**
@@ -91,7 +101,7 @@
       }
 
       this.state.preference = fontKey;
-      localStorage.setItem(this.STORAGE_KEY, fontKey);
+      this.setStorageValue(this.STORAGE_KEY, fontKey);
       this.applyFont();
       this.updateUI();
 
@@ -125,24 +135,33 @@
       const toggles = document.querySelectorAll('[data-toggle="font"]');
 
       toggles.forEach(toggle => {
-        if (toggle.getAttribute('data-font-initialized')) return;
+        if (toggle.getAttribute('data-font-initialized') === 'true') {
+          if (toggle.tagName === 'SELECT') {
+            toggle.value = this.state.preference;
+          }
+          return;
+        }
 
         if (toggle.tagName === 'SELECT') {
           // Set initial value
           toggle.value = this.state.preference;
 
           // Listen for changes
-          toggle.addEventListener('change', (e) => {
+          const onChange = (e) => {
             this.setPreference(e.target.value);
-          });
+          };
+          toggle.addEventListener('change', onChange);
+          toggle._fontToggleHandler = onChange;
         } else {
           // Button implementation - cycle through fonts
-          toggle.addEventListener('click', () => {
+          const onClick = () => {
             const fontKeys = Object.keys(this.fonts);
             const currentIndex = fontKeys.indexOf(this.state.preference);
             const nextIndex = (currentIndex + 1) % fontKeys.length;
             this.setPreference(fontKeys[nextIndex]);
-          });
+          };
+          toggle.addEventListener('click', onClick);
+          toggle._fontToggleHandler = onClick;
         }
 
         toggle.setAttribute('data-font-initialized', 'true');
@@ -183,17 +202,50 @@
      */
     getFontData: function(fontKey) {
       return this.fonts[fontKey] || null;
+    },
+
+    destroyAll: function() {
+      const toggles = document.querySelectorAll('[data-toggle="font"][data-font-initialized="true"]');
+      toggles.forEach(toggle => {
+        if (toggle._fontToggleHandler) {
+          const eventName = toggle.tagName === 'SELECT' ? 'change' : 'click';
+          toggle.removeEventListener(eventName, toggle._fontToggleHandler);
+          delete toggle._fontToggleHandler;
+        }
+        toggle.removeAttribute('data-font-initialized');
+      });
+
+      this.isInitialized = false;
+    },
+
+    getStorageValue: function(key, fallback) {
+      if (typeof safeStorageGet === 'function') {
+        return safeStorageGet(key, fallback);
+      }
+      try {
+        const value = localStorage.getItem(key);
+        return value !== null ? value : fallback;
+      } catch (_e) {
+        return fallback;
+      }
+    },
+
+    setStorageValue: function(key, value) {
+      if (typeof safeStorageSet === 'function') {
+        return safeStorageSet(key, value);
+      }
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch (_e) {
+        return false;
+      }
     }
   };
 
   // Register component
   if (window.Vanduo) {
     window.Vanduo.register('fontSwitcher', FontSwitcher);
-  } else {
-    // Standalone init if Vanduo core isn't present
-    document.addEventListener('DOMContentLoaded', () => {
-      FontSwitcher.init();
-    });
   }
 
   // Expose globally for convenience

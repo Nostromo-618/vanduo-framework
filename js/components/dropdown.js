@@ -350,21 +350,6 @@
     }
   };
   
-  // Initialize when DOM is ready
-  if (typeof ready !== 'undefined') {
-    ready(() => {
-      Dropdown.init();
-    });
-  } else {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        Dropdown.init();
-      });
-    } else {
-      Dropdown.init();
-    }
-  }
-  
   // Register with Vanduo framework if available
   if (typeof window.Vanduo !== 'undefined') {
     window.Vanduo.register('dropdown', Dropdown);

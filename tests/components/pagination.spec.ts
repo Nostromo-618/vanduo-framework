@@ -15,41 +15,41 @@ test.describe('Pagination Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes pagination components', async ({ page }) => {
-      const paginations = page.locator('.pagination[data-pagination]');
+      const paginations = page.locator('.vd-pagination[data-pagination]');
       await expect(paginations).toHaveCount(6);
     });
 
     test('renders pagination items', async ({ page }) => {
-      const items = page.locator('#basic-pagination .pagination-item');
+      const items = page.locator('#basic-pagination .vd-pagination-item');
       // Should have prev + page numbers + next (at least 3)
       const count = await items.count();
       expect(count).toBeGreaterThanOrEqual(3);
     });
 
     test('renders previous button', async ({ page }) => {
-      const prevButton = page.locator('#basic-pagination .pagination-prev');
+      const prevButton = page.locator('#basic-pagination .vd-pagination-prev');
       await expect(prevButton).toHaveCount(1);
     });
 
     test('renders next button', async ({ page }) => {
-      const nextButton = page.locator('#basic-pagination .pagination-next');
+      const nextButton = page.locator('#basic-pagination .vd-pagination-next');
       await expect(nextButton).toHaveCount(1);
     });
 
     test('previous button is disabled on first page', async ({ page }) => {
-      const prevButton = page.locator('#basic-pagination .pagination-prev');
+      const prevButton = page.locator('#basic-pagination .vd-pagination-prev');
       await expect(prevButton).toHaveClass(/disabled/);
     });
 
     test('next button is enabled when not on last page', async ({ page }) => {
-      const nextButton = page.locator('#basic-pagination .pagination-next');
+      const nextButton = page.locator('#basic-pagination .vd-pagination-next');
       await expect(nextButton).not.toHaveClass(/disabled/);
     });
   });
 
   test.describe('Page Navigation', () => {
     test('clicking page number changes active page', async ({ page }) => {
-      const page3 = page.locator('#basic-pagination .pagination-item[data-page="3"]');
+      const page3 = page.locator('#basic-pagination .vd-pagination-item[data-page="3"]');
       
       await page3.click();
 
@@ -57,25 +57,25 @@ test.describe('Pagination Component @component', () => {
     });
 
     test('clicking next button increments page', async ({ page }) => {
-      const nextButton = page.locator('#basic-pagination .pagination-next');
+      const nextButton = page.locator('#basic-pagination .vd-pagination-next');
       
       await nextButton.click();
 
-      const activePage = page.locator('#basic-pagination .pagination-item.active');
+      const activePage = page.locator('#basic-pagination .vd-pagination-item.active');
       await expect(activePage).toHaveAttribute('data-page', '2');
     });
 
     test('previous button becomes enabled after navigating forward', async ({ page }) => {
-      const nextButton = page.locator('#basic-pagination .pagination-next');
+      const nextButton = page.locator('#basic-pagination .vd-pagination-next');
       await nextButton.click();
 
-      const prevButton = page.locator('#basic-pagination .pagination-prev');
+      const prevButton = page.locator('#basic-pagination .vd-pagination-prev');
       await expect(prevButton).not.toHaveClass(/disabled/);
     });
 
     test('next button is disabled on last page', async ({ page }) => {
       const lastPagePagination = page.locator('#last-page');
-      const nextButton = lastPagePagination.locator('.pagination-next');
+      const nextButton = lastPagePagination.locator('.vd-pagination-next');
       
       await expect(nextButton).toHaveClass(/disabled/);
     });
@@ -84,7 +84,7 @@ test.describe('Pagination Component @component', () => {
   test.describe('Ellipsis Rendering', () => {
     test('shows ellipsis for many pages', async ({ page }) => {
       const manyPagesPagination = page.locator('#many-pages');
-      const ellipsis = manyPagesPagination.locator('.pagination-ellipsis');
+      const ellipsis = manyPagesPagination.locator('.vd-pagination-ellipsis');
       
       // Should have at least one ellipsis
       const count = await ellipsis.count();
@@ -93,7 +93,7 @@ test.describe('Pagination Component @component', () => {
 
     test('does not show ellipsis for few pages', async ({ page }) => {
       const fewPagesPagination = page.locator('#few-pages');
-      const ellipsis = fewPagesPagination.locator('.pagination-ellipsis');
+      const ellipsis = fewPagesPagination.locator('.vd-pagination-ellipsis');
       
       await expect(ellipsis).toHaveCount(0);
     });
@@ -101,25 +101,25 @@ test.describe('Pagination Component @component', () => {
 
   test.describe('Active Page State', () => {
     test('active page has correct class', async ({ page }) => {
-      const activePage = page.locator('#basic-pagination .pagination-item.active');
+      const activePage = page.locator('#basic-pagination .vd-pagination-item.active');
       await expect(activePage).toHaveCount(1);
       await expect(activePage).toHaveAttribute('data-page', '1');
     });
 
     test('active page link has aria-label', async ({ page }) => {
-      const activePage = page.locator('#basic-pagination .pagination-item.active');
-      const link = activePage.locator('.pagination-link');
+      const activePage = page.locator('#basic-pagination .vd-pagination-item.active');
+      const link = activePage.locator('.vd-pagination-link');
       
       await expect(link).toHaveAttribute('aria-label', /Page 1/i);
     });
 
     test('disabled item cannot be clicked', async ({ page }) => {
-      const prevButton = page.locator('#basic-pagination .pagination-prev');
+      const prevButton = page.locator('#basic-pagination .vd-pagination-prev');
       
       // Clicking disabled prev should not change page
       await prevButton.click();
 
-      const activePage = page.locator('#basic-pagination .pagination-item.active');
+      const activePage = page.locator('#basic-pagination .vd-pagination-item.active');
       await expect(activePage).toHaveAttribute('data-page', '1');
     });
   });
@@ -133,7 +133,7 @@ test.describe('Pagination Component @component', () => {
         });
       });
 
-      await page.locator('#basic-pagination .pagination-item[data-page="3"]').click();
+      await page.locator('#basic-pagination .vd-pagination-item[data-page="3"]').click();
 
       const eventDetail = await page.evaluate(() => (window as any).pageChangeEvent);
       expect(eventDetail).not.toBeNull();
@@ -180,7 +180,7 @@ test.describe('Pagination Component @component', () => {
       await page.click('#go-to-page-3');
 
       const apiPagination = page.locator('#api-pagination');
-      const activePage = apiPagination.locator('.pagination-item.active');
+      const activePage = apiPagination.locator('.vd-pagination-item.active');
       
       await expect(activePage).toHaveAttribute('data-page', '3');
     });
@@ -193,7 +193,7 @@ test.describe('Pagination Component @component', () => {
       await page.click('#prev-page');
 
       const apiPagination = page.locator('#api-pagination');
-      const activePage = apiPagination.locator('.pagination-item.active');
+      const activePage = apiPagination.locator('.vd-pagination-item.active');
       
       await expect(activePage).toHaveAttribute('data-page', '2');
     });
@@ -202,7 +202,7 @@ test.describe('Pagination Component @component', () => {
       await page.click('#next-page');
 
       const apiPagination = page.locator('#api-pagination');
-      const activePage = apiPagination.locator('.pagination-item.active');
+      const activePage = apiPagination.locator('.vd-pagination-item.active');
       
       await expect(activePage).toHaveAttribute('data-page', '2');
     });
@@ -236,17 +236,17 @@ test.describe('Pagination Component @component', () => {
     });
 
     test('page links have aria-label', async ({ page }) => {
-      const pageLink = page.locator('#basic-pagination .pagination-item[data-page="2"] .pagination-link');
+      const pageLink = page.locator('#basic-pagination .vd-pagination-item[data-page="2"] .vd-pagination-link');
       await expect(pageLink).toHaveAttribute('aria-label', /Page 2/i);
     });
 
     test('previous button has aria-label', async ({ page }) => {
-      const prevLink = page.locator('#basic-pagination .pagination-prev .pagination-link');
+      const prevLink = page.locator('#basic-pagination .vd-pagination-prev .vd-pagination-link');
       await expect(prevLink).toHaveAttribute('aria-label', /Previous/i);
     });
 
     test('next button has aria-label', async ({ page }) => {
-      const nextLink = page.locator('#basic-pagination .pagination-next .pagination-link');
+      const nextLink = page.locator('#basic-pagination .vd-pagination-next .vd-pagination-link');
       await expect(nextLink).toHaveAttribute('aria-label', /Next/i);
     });
   });

@@ -11,66 +11,66 @@
     <h1>Tabs Component Test Fixture</h1>
 
     <!-- Basic Tabs -->
-    <div class="tabs" id="basic-tabs" data-tabs>
-      <ul class="tab-list">
-        <li class="tab-item">
-          <a href="#tab1" class="tab-link is-active" data-tab="tab1">Tab 1</a>
+    <div class="vd-tabs tabs" id="basic-tabs" data-tabs>
+      <ul class="vd-tab-list tab-list">
+        <li class="vd-tab-item tab-item">
+          <a href="#tab1" class="vd-tab-link tab-link is-active" data-tab="tab1">Tab 1</a>
         </li>
-        <li class="tab-item">
-          <a href="#tab2" class="tab-link" data-tab="tab2">Tab 2</a>
+        <li class="vd-tab-item tab-item">
+          <a href="#tab2" class="vd-tab-link tab-link" data-tab="tab2">Tab 2</a>
         </li>
-        <li class="tab-item">
-          <a href="#tab3" class="tab-link" data-tab="tab3">Tab 3</a>
+        <li class="vd-tab-item tab-item">
+          <a href="#tab3" class="vd-tab-link tab-link" data-tab="tab3">Tab 3</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane is-active" data-tab-pane="tab1" id="tab1">
+        <div class="vd-tab-pane tab-pane is-active" data-tab-pane="tab1" id="tab1">
           <p>Content for Tab 1</p>
         </div>
-        <div class="tab-pane" data-tab-pane="tab2" id="tab2">
+        <div class="vd-tab-pane tab-pane" data-tab-pane="tab2" id="tab2">
           <p>Content for Tab 2</p>
         </div>
-        <div class="tab-pane" data-tab-pane="tab3" id="tab3">
+        <div class="vd-tab-pane tab-pane" data-tab-pane="tab3" id="tab3">
           <p>Content for Tab 3</p>
         </div>
       </div>
     </div>
 
     <!-- Vertical Tabs -->
-    <div class="tabs tabs-vertical" id="vertical-tabs" data-tabs>
-      <ul class="tab-list">
-        <li class="tab-item">
-          <a href="#vtab1" class="tab-link is-active" data-tab="vtab1">Vertical 1</a>
+    <div class="vd-tabs tabs tabs-vertical" id="vertical-tabs" data-tabs>
+      <ul class="vd-tab-list tab-list">
+        <li class="vd-tab-item tab-item">
+          <a href="#vtab1" class="vd-tab-link tab-link is-active" data-tab="vtab1">Vertical 1</a>
         </li>
-        <li class="tab-item">
-          <a href="#vtab2" class="tab-link" data-tab="vtab2">Vertical 2</a>
+        <li class="vd-tab-item tab-item">
+          <a href="#vtab2" class="vd-tab-link tab-link" data-tab="vtab2">Vertical 2</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane is-active" data-tab-pane="vtab1" id="vtab1">
+        <div class="vd-tab-pane tab-pane is-active" data-tab-pane="vtab1" id="vtab1">
           <p>Vertical Tab 1 Content</p>
         </div>
-        <div class="tab-pane" data-tab-pane="vtab2" id="vtab2">
+        <div class="vd-tab-pane tab-pane" data-tab-pane="vtab2" id="vtab2">
           <p>Vertical Tab 2 Content</p>
         </div>
       </div>
     </div>
 
     <!-- Tabs with Disabled Tab -->
-    <div class="tabs" id="disabled-tabs" data-tabs>
-      <ul class="tab-list">
-        <li class="tab-item">
-          <a href="#dtab1" class="tab-link is-active" data-tab="dtab1">Active</a>
+    <div class="vd-tabs tabs" id="disabled-tabs" data-tabs>
+      <ul class="vd-tab-list tab-list">
+        <li class="vd-tab-item tab-item">
+          <a href="#dtab1" class="vd-tab-link tab-link is-active" data-tab="dtab1">Active</a>
         </li>
-        <li class="tab-item">
-          <a href="#dtab2" class="tab-link disabled" data-tab="dtab2">Disabled</a>
+        <li class="vd-tab-item tab-item">
+          <a href="#dtab2" class="vd-tab-link tab-link disabled" data-tab="dtab2">Disabled</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane is-active" data-tab-pane="dtab1" id="dtab1">
+        <div class="vd-tab-pane tab-pane is-active" data-tab-pane="dtab1" id="dtab1">
           <p>Active Tab Content</p>
         </div>
-        <div class="tab-pane" data-tab-pane="dtab2" id="dtab2">
+        <div class="vd-tab-pane tab-pane" data-tab-pane="dtab2" id="dtab2">
           <p>Disabled Tab Content</p>
         </div>
       </div>
@@ -78,6 +78,8 @@
   </div>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/tabs.js"></script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

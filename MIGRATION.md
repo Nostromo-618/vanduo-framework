@@ -176,8 +176,13 @@ The framework no longer auto-initializes. You must explicitly call `Vanduo.init(
 ### For Dynamic Content (SPAs)
 ```javascript
 // After adding new content to DOM
-Vanduo.reinit('dropdown');  // Re-init specific component
-Vanduo.init();              // Or re-init all components
+// Some components cache instances; destroy before re-init for new DOM
+Vanduo.destroyAll();         // Or call component.destroyAll() if available
+Vanduo.init();               // Re-init all components
+
+// If you only need one component:
+Vanduo.getComponent('dropdown')?.destroyAll?.();
+Vanduo.reinit('dropdown');
 ```
 
 ### Cleanup (SPAs)

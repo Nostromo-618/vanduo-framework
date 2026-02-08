@@ -11,16 +11,16 @@
     <h1>Collapsible Component Test Fixture</h1>
 
     <!-- Basic Collapsible -->
-    <div class="collapsible" id="basic-collapsible">
-      <div class="collapsible-item">
-        <div class="collapsible-header">Header 1</div>
-        <div class="collapsible-body">
+    <div class="vd-collapsible collapsible" id="basic-collapsible">
+      <div class="vd-collapsible-item collapsible-item">
+        <div class="vd-collapsible-header collapsible-header">Header 1</div>
+        <div class="vd-collapsible-body collapsible-body">
           <p>Content for item 1</p>
         </div>
       </div>
-      <div class="collapsible-item">
-        <div class="collapsible-header">Header 2</div>
-        <div class="collapsible-body">
+      <div class="vd-collapsible-item collapsible-item">
+        <div class="vd-collapsible-header collapsible-header">Header 2</div>
+        <div class="vd-collapsible-body collapsible-body">
           <p>Content for item 2</p>
         </div>
       </div>
@@ -54,6 +54,7 @@
   </div>
 
   <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
   <script src="/js/components/collapsible.js"></script>
   <script>
     document.getElementById('open-first').addEventListener('click', () => {
@@ -66,5 +67,6 @@
       VanduoCollapsible.toggle('#basic-collapsible .collapsible-item:first-child');
     });
   </script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

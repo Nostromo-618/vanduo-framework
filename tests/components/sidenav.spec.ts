@@ -17,7 +17,7 @@ test.describe('Sidenav Component @component', () => {
 
   test.describe('Initialization', () => {
     test('initializes sidenav components', async ({ page }) => {
-      const sidenavs = page.locator('.sidenav');
+      const sidenavs = page.locator('.vd-sidenav');
       await expect(sidenavs).toHaveCount(4);
     });
 
@@ -51,7 +51,7 @@ test.describe('Sidenav Component @component', () => {
 
     test('closes sidenav on close button click', async ({ page }) => {
       const toggle = page.locator('[data-sidenav-toggle="#basic-sidenav"]');
-      const closeBtn = page.locator('#basic-sidenav .sidenav-close');
+      const closeBtn = page.locator('#basic-sidenav .vd-sidenav-close');
       const sidenav = page.locator('#basic-sidenav');
 
       await toggle.click();
@@ -68,8 +68,11 @@ test.describe('Sidenav Component @component', () => {
       await toggle.click();
       await expect(sidenav).toHaveClass(/is-open/);
 
-      // Click on the overlay (use force to bypass sidenav body element)
-      await page.locator('.sidenav-overlay.is-visible').click({ force: true });
+      // Dispatch a direct click on the visible overlay to avoid pointer interception issues
+      await page.evaluate(() => {
+        const overlay = document.querySelector('.vd-sidenav-overlay.is-visible');
+        overlay?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
 
       await expect(sidenav).not.toHaveClass(/is-open/);
     });
@@ -79,7 +82,7 @@ test.describe('Sidenav Component @component', () => {
 
       await toggle.click();
 
-      const overlay = page.locator('.sidenav-overlay.is-visible');
+      const overlay = page.locator('.vd-sidenav-overlay.is-visible');
       await expect(overlay).toBeVisible();
     });
   });
@@ -93,7 +96,7 @@ test.describe('Sidenav Component @component', () => {
       await expect(sidenav).toHaveClass(/is-open/);
 
       // Try clicking overlay (use force to bypass sidenav body element)
-      const overlay = page.locator('.sidenav-overlay.is-visible');
+      const overlay = page.locator('.vd-sidenav-overlay.is-visible');
       if (await overlay.isVisible().catch(() => false)) {
         await overlay.click({ force: true });
       }
@@ -144,7 +147,7 @@ test.describe('Sidenav Component @component', () => {
 
     test('removes body class when sidenav is closed', async ({ page }) => {
       const toggle = page.locator('[data-sidenav-toggle="#basic-sidenav"]');
-      const closeBtn = page.locator('#basic-sidenav .sidenav-close');
+      const closeBtn = page.locator('#basic-sidenav .vd-sidenav-close');
 
       await toggle.click();
       await closeBtn.click();
@@ -193,7 +196,7 @@ test.describe('Sidenav Component @component', () => {
 
       const toggle = page.locator('[data-sidenav-toggle="#basic-sidenav"]');
       await toggle.click();
-      await page.locator('#basic-sidenav .sidenav-close').click();
+      await page.locator('#basic-sidenav .vd-sidenav-close').click();
 
       const eventFired = await page.evaluate(() => (window as any).closeEventFired);
       expect(eventFired).toBe(true);

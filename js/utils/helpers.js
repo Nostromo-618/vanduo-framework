@@ -37,6 +37,36 @@ function ready(callback) {
 }
 
 /**
+ * Safely get a value from localStorage
+ * @param {string} key - Storage key
+ * @param {string|null} fallback - Fallback when storage is unavailable
+ * @returns {string|null}
+ */
+function safeStorageGet(key, fallback = null) {
+  try {
+    const value = localStorage.getItem(key);
+    return value !== null ? value : fallback;
+  } catch (_e) {
+    return fallback;
+  }
+}
+
+/**
+ * Safely set a value in localStorage
+ * @param {string} key - Storage key
+ * @param {string} value - Value to store
+ * @returns {boolean}
+ */
+function safeStorageSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (_e) {
+    return false;
+  }
+}
+
+/**
  * Add event listener with delegation support
  * @param {string|HTMLElement} target - Target element or selector
  * @param {string} event - Event type

@@ -250,6 +250,50 @@
                                     <p>Prevented theme customizer sync from writing to an uninitialized theme switcher state during component startup order.</p>
                                 </div>
                             </li>
+                            <li class="change-item">
+                                <i class="ph ph-database" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Safe storage fallbacks</strong>
+                                    <p>Theme and font preferences now use guarded storage access to avoid crashes when localStorage is unavailable.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-list" style="color: var(--color-success);"></i>
+                                <div>
+                                    <strong>Pagination class consistency</strong>
+                                    <p>Rendered items now include <code>vd-</code> prefixed classes so click handling and styling stay aligned.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Improvements -->
+                    <div class="change-category">
+                        <h4 style="color: var(--color-info);">
+                            <i class="ph ph-arrow-up"></i> Improvements
+                        </h4>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <i class="ph ph-play" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Manual initialization is consistent</strong>
+                                    <p>Removed component auto-init blocks so <code>Vanduo.init()</code> is the single entry point.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-repeat" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>Idempotent init and cleanup hooks</strong>
+                                    <p>Repeated <code>Vanduo.init()</code> calls no longer duplicate listeners, and cleanup is standardized across components.</p>
+                                </div>
+                            </li>
+                            <li class="change-item">
+                                <i class="ph ph-broom" style="color: var(--color-info);"></i>
+                                <div>
+                                    <strong>DestroyAll coverage expanded</strong>
+                                    <p>Search and Image Box now participate in <code>Vanduo.destroyAll()</code> for SPA cleanup.</p>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ test.describe('Tooltips Component @component', () => {
 
   test.describe('Initialization', () => {
     test('creates tooltip element on init', async ({ page }) => {
-      const tooltip = page.locator('.tooltip').first();
+      const tooltip = page.locator('.vd-tooltip').first();
       await expect(tooltip).toBeAttached();
     });
 
@@ -34,7 +34,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-top').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip').first();
+      const tooltip = page.locator('.vd-tooltip').first();
       await expect(tooltip).toContainText('Tooltip on top');
     });
   });
@@ -44,7 +44,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-top').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible').first();
+      const tooltip = page.locator('.vd-tooltip.is-visible').first();
       await expect(tooltip).toBeVisible();
     });
 
@@ -52,7 +52,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-top').focus();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible').first();
+      const tooltip = page.locator('.vd-tooltip.is-visible').first();
       await expect(tooltip).toBeVisible();
     });
 
@@ -63,7 +63,7 @@ test.describe('Tooltips Component @component', () => {
       await page.mouse.move(0, 0);
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveCount(0);
     });
   });
@@ -73,7 +73,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-top').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveClass(/tooltip-top/);
     });
 
@@ -81,7 +81,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-bottom').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveClass(/tooltip-bottom/);
     });
 
@@ -89,7 +89,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-left').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveClass(/tooltip-left/);
     });
 
@@ -97,7 +97,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-right').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveClass(/tooltip-right/);
     });
   });
@@ -107,13 +107,13 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-delayed').hover();
 
       // Should not be visible immediately
-      let tooltip = page.locator('.tooltip.is-visible');
+      let tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveCount(0);
 
       // Wait for delay
       await page.waitForTimeout(600);
 
-      tooltip = page.locator('.tooltip.is-visible');
+      tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toBeVisible();
     });
   });
@@ -123,7 +123,7 @@ test.describe('Tooltips Component @component', () => {
       await page.locator('#tooltip-html').hover();
       await page.waitForTimeout(100);
 
-      const tooltip = page.locator('.tooltip.tooltip-html');
+      const tooltip = page.locator('.vd-tooltip.vd-tooltip-html');
       await expect(tooltip).toBeVisible();
       await expect(tooltip.locator('strong')).toContainText('Bold');
     });
@@ -135,7 +135,7 @@ test.describe('Tooltips Component @component', () => {
         (window as any).VanduoTooltips.show('#tooltip-top');
       });
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toBeVisible();
     });
 
@@ -147,7 +147,7 @@ test.describe('Tooltips Component @component', () => {
         (window as any).VanduoTooltips.hide('#tooltip-top');
       });
 
-      const tooltip = page.locator('.tooltip.is-visible');
+      const tooltip = page.locator('.vd-tooltip.is-visible');
       await expect(tooltip).toHaveCount(0);
     });
   });

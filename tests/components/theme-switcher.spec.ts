@@ -21,7 +21,7 @@ test.describe('Theme Switcher Component @component', () => {
   test.describe('Initialization', () => {
     test('initializes theme switcher', async ({ page }) => {
       const themeSelect = page.locator('#theme-select');
-      await expect(themeSelect).toHaveAttribute('data-initialized', 'true');
+      await expect(themeSelect).toHaveAttribute('data-theme-initialized', 'true');
     });
 
     test('sets default preference to system', async ({ page }) => {
@@ -145,7 +145,7 @@ test.describe('Theme Switcher Component @component', () => {
     test('ThemeSwitcher functionality exists', async ({ page }) => {
       // Check that the theme switcher is working by verifying UI is initialized
       const themeSelect = page.locator('#theme-select');
-      await expect(themeSelect).toHaveAttribute('data-initialized', 'true');
+      await expect(themeSelect).toHaveAttribute('data-theme-initialized', 'true');
     });
 
     test('programmatic theme change via localStorage', async ({ page }) => {

@@ -19,11 +19,11 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY_LIGHT: 'blue',
-      PRIMARY_DARK: 'blue',
-      NEUTRAL: 'zinc',
+      PRIMARY_LIGHT: 'amber',
+      PRIMARY_DARK: 'amber',
+      NEUTRAL: 'slate',
       RADIUS: '0.5',
-      FONT: 'open-sans',
+      FONT: 'jetbrains-mono',
       THEME: 'system'
     },
 

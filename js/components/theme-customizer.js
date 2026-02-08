@@ -253,7 +253,10 @@
 
       // Also update the existing ThemeSwitcher if available
       if (window.Vanduo && window.Vanduo.components.themeSwitcher) {
-        window.Vanduo.components.themeSwitcher.state.preference = mode;
+        const themeSwitcher = window.Vanduo.components.themeSwitcher;
+        if (themeSwitcher.state) {
+          themeSwitcher.state.preference = mode;
+        }
       }
 
       this.dispatchEvent('mode-change', { mode: mode });

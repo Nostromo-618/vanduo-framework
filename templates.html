@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vanduo Framework Templates. Start your next project with free, open-source templates built with Vanduo Framework.">
+    <meta name="author" content="Vanduo Framework">
+    <meta name="keywords"
+        content="CSS framework templates, HTML templates, website templates, admin dashboard template, landing page template, free templates">
+    <meta name="robots" content="index, follow">
+    <title>Templates - Vanduo Framework</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vanduo.dev/templates.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vanduo.dev/templates.html">
+    <meta property="og:title" content="Templates - Vanduo Framework">
+    <meta property="og:description"
+        content="Start your next project with free, open-source templates built with Vanduo Framework.">
+    <meta property="og:image" content="https://vanduo.dev/images/og-image.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vanduo Framework">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vanduo.dev/templates.html">
+    <meta name="twitter:title" content="Templates - Vanduo Framework">
+    <meta name="twitter:description"
+        content="Start your next project with free, open-source templates built with Vanduo Framework.">
+    <meta name="twitter:image" content="https://vanduo.dev/images/twitter-card.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+    <!-- Vanduo Framework CSS -->
+    <link rel="stylesheet" href="./css/vanduo.css">
+
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="./css/icons/icons.css">
+    <link rel="stylesheet" href="./icons/phosphor/bold/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/light/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/thin/style.css">
+    <link rel="stylesheet" href="./icons/phosphor/duotone/style.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://vanduo.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Templates",
+          "item": "https://vanduo.dev/templates.html"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add space to the left of navbar brand */
+        .vd-navbar-brand {
+            margin-left: 1rem;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--vd-color-primary);
+            color: var(--vd-color-white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Hero section */
+        section.hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 180px;
+            padding-bottom: 80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            margin: 0 auto;
+        }
+
+        /* Template cards */
+        .template-card {
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--vd-shadow-lg);
+        }
+
+        .template-preview {
+            height: 200px;
+            background-color: var(--vd-bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-preview i {
+            font-size: 64px;
+            color: var(--vd-text-muted);
+            opacity: 0.5;
+        }
+
+        .template-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .template-card:hover .template-preview img {
+            transform: scale(1.05);
+        }
+
+        .template-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .template-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background-color: var(--vd-bg-tertiary);
+            color: var(--vd-text-muted);
+        }
+        
+        .template-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 1rem;
+            padding-top: 1.5rem;
+        }
+
+        .template-card.disabled {
+            opacity: 0.6;
+            filter: grayscale(100%);
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .template-card.disabled .vd-btn {
+            pointer-events: none;
+            tabindex: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="vd-navbar vd-navbar-fixed">
+        <div class="vd-navbar-container">
+            <div class="vd-navbar-brand">
+                <a href="index.html"><i class="ph-fill ph-drop"
+                        style="color: var(--vd-color-primary); margin-right: 0.25em;"></i>Vanduo</a>
+            </div>
+            <button class="vd-navbar-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="vd-navbar-menu">
+                <ul class="vd-navbar-nav">
+                    <li><a href="index.html" class="vd-nav-link">Home</a></li>
+                    <li><a href="documentation.html" class="vd-nav-link">Documentation</a></li>
+                    <li><a href="templates.html" class="vd-nav-link active">Templates</a></li>
+                    <li><a href="changelog.html" class="vd-nav-link">Changelog</a></li>
+                </ul>
+
+                <!-- Theme Customizer Trigger (far right) -->
+                <button class="vd-theme-customizer-trigger" data-theme-customizer-trigger
+                    aria-label="Open theme customizer" style="margin-left: auto;">
+                    <i class="ph ph-paint-roller"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero vd-parallax">
+        <div class="vd-parallax-layer" data-speed="0.5"></div>
+        <div class="vd-parallax-content hero-content">
+            <h1><i class="ph-duotone ph-squares-four" style="color: var(--vd-color-primary); margin-right: 0.15em;"></i>Templates</h1>
+            <p class="vd-text-lg vd-text-muted">Jumpstart your development.</p>
+            <p>Production-ready templates built with Vanduo Framework. Fully responsive, accessible, and easy to customize.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="vd-container-responsive">
+
+            <!-- Templates Grid -->
+            <section id="templates" style="padding-bottom: 5rem;">
+                <div class="vd-row">
+                    
+                    <!-- Landing Page -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card disabled">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-rocket-launch"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>SaaS Landing Page</h3>
+                                <p class="vd-text-muted vd-mb-4">Modern landing page with hero section, features grid, pricing tables, and newsletter signup.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Marketing</span>
+                                    <span class="template-tag">Responsive</span>
+                                    <span class="template-tag">Pricing</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="#" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card disabled">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-chart-bar"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>Admin Dashboard</h3>
+                                <p class="vd-text-muted vd-mb-4">Clean admin interface with sidebar navigation, data widgets, charts layout, and tables.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Admin</span>
+                                    <span class="template-tag">Dashboard</span>
+                                    <span class="template-tag">Charts</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="#" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card disabled">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-user-circle"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>Creative Portfolio</h3>
+                                <p class="vd-text-muted vd-mb-4">Minimalist portfolio for designers and developers to showcase work and case studies.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Portfolio</span>
+                                    <span class="template-tag">Creative</span>
+                                    <span class="template-tag">Gallery</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="#" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blog -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-article"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>Modern Blog</h3>
+                                <p class="vd-text-muted vd-mb-4">Typography-focused blog layout with featured posts, categories, and author profiles.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Blog</span>
+                                    <span class="template-tag">Content</span>
+                                    <span class="template-tag">Typography</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="template-blog.html" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Login -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card disabled">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-lock-key"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>Authentication</h3>
+                                <p class="vd-text-muted vd-mb-4">Beautiful login, registration, and password recovery pages with form validation styles.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Auth</span>
+                                    <span class="template-tag">Forms</span>
+                                    <span class="template-tag">Security</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="#" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- E-commerce -->
+                    <div class="vd-col-12 vd-col-md-6 vd-col-lg-4 vd-mb-6">
+                        <div class="vd-card template-card disabled">
+                            <div class="template-preview">
+                                <i class="ph-duotone ph-shopping-cart"></i>
+                            </div>
+                            <div class="template-body">
+                                <h3>E-commerce Store</h3>
+                                <p class="vd-text-muted vd-mb-4">Product listing, product details, cart, and checkout flow templates.</p>
+                                <div class="template-tags">
+                                    <span class="template-tag">Shop</span>
+                                    <span class="template-tag">E-commerce</span>
+                                    <span class="template-tag">Products</span>
+                                </div>
+                                <div class="template-actions">
+                                    <a href="#" class="vd-btn vd-btn-primary vd-btn-block">View Demo</a>
+                                    <a href="#" class="vd-btn vd-btn-outline vd-btn-block">Source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="vd-footer">
+        <div class="vd-footer-container">
+            <div class="vd-row">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Vanduo Framework</h4>
+                        <p>Essential just like water is.</p>
+                        <p>Pure HTML, CSS, JS framework for beautiful static websites.</p>
+                    </div>
+                </div>
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="vd-footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="templates.html">Templates</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vd-footer-section">
+                    <h4>Resources</h4>
+                    <ul class="vd-footer-links">
+                        <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="changelog.html">Changelog</a></li>
+                        <li><a href="concepts.html#migration">Migration Guide</a></li>
+                        <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Made with Kilo Code Section -->
+        <div class="vd-footer-made-with">
+            <span class="vd-footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank"
+                    rel="noopener noreferrer">Kilo Code</a></span>
+            <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer" class="vd-footer-kilo-link"
+                title="Kilo Code - AI Coding Assistant">
+                <img src="./images/kilo_code-logo.png" alt="Kilo Code" class="vd-footer-kilo-logo">
+            </a>
+            <span class="vd-footer-separator" aria-hidden="true"></span>
+            <a href="https://www.buymeacoffee.com/nostromo618" target="_blank" rel="noopener noreferrer"
+                class="vd-footer-bmac-link" title="Buy Me A Coffee">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+                    class="vd-footer-bmac-logo">
+            </a>
+        </div>
+
+        <div class="vd-footer-bottom">
+            <p class="vd-text-center vd-text-muted">&copy; 2026, Vanduo Framework. MIT License.</p>
+        </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/utils/helpers.js"></script>
+    <script src="./js/vanduo.js"></script>
+    <script src="./js/components/theme-switcher.js"></script>
+    <script src="./js/components/font-switcher.js"></script>
+    <script src="./js/components/theme-customizer.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/parallax.js"></script>
+    <script src="./js/components/select.js"></script>
+
+    <!-- Initialize Vanduo -->
+    <script>
+        // Initialize Vanduo framework
+        document.addEventListener('DOMContentLoaded', () => {
+            Vanduo.init();
+        });
+    </script>
+</body>
+
+</html>

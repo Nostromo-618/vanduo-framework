@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog Template - Vanduo Framework</title>
+    <link rel="stylesheet" href="css/vanduo.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .blog-hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--vd-color-gray-0) 0%, var(--vd-color-gray-1) 100%);
+        }
+        
+        .blog-featured-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 992px) {
+            .blog-featured-card {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+        
+        .blog-featured-image {
+            height: 100%;
+            min-height: 300px;
+            background: var(--vd-color-gray-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--vd-radius-lg);
+        }
+        
+        .blog-card-image {
+            height: 200px;
+            background: var(--vd-color-gray-1);
+            border-radius: var(--vd-radius-md);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--vd-color-gray-6);
+        }
+        
+        .blog-author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--vd-color-gray-3);
+        }
+        
+        .sidebar-widget {
+            margin-bottom: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="vd-navbar">
+        <div class="vd-container">
+            <div class="vd-navbar-brand">
+                <a href="index.html" class="vd-logo">
+                    <span class="vd-logo-icon"></span>
+                    Vanduo
+                </a>
+            </div>
+            <div class="vd-navbar-menu">
+                <ul class="vd-navbar-nav">
+                    <li><a href="index.html" class="vd-nav-link">Home</a></li>
+                    <li><a href="documentation.html" class="vd-nav-link">Documentation</a></li>
+                    <li><a href="templates.html" class="vd-nav-link active">Templates</a></li>
+                    <li><a href="changelog.html" class="vd-nav-link">Changelog</a></li>
+                </ul>
+                <div class="vd-navbar-actions">
+                    <a href="https://github.com/Nostromo-618/vanduo-framework" class="vd-btn vd-btn-icon" aria-label="GitHub">
+                        <i class="ph ph-github-logo"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <header class="blog-hero">
+        <div class="vd-container">
+            <div class="vd-row vd-items-center">
+                <div class="vd-col-12 vd-text-center">
+                    <h1 class="vd-display-1 vd-mb-4">The Journal</h1>
+                    <p class="vd-lead vd-text-muted" style="max-width: 600px; margin: 0 auto;">Thoughts, stories and ideas about design, technology, and the future of the web.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Post -->
+    <section class="vd-section">
+        <div class="vd-container">
+            <div class="vd-card vd-p-0 vd-mb-8">
+                <div class="vd-card-body">
+                    <div class="blog-featured-card">
+                        <div class="blog-featured-image">
+                            <i class="ph-duotone ph-image" style="font-size: 4rem; color: var(--vd-color-gray-4);"></i>
+                        </div>
+                        <div class="vd-p-6 vd-flex vd-flex-col vd-justify-center">
+                            <div class="vd-badge vd-badge-primary vd-mb-4">Featured</div>
+                            <h2 class="vd-h2 vd-mb-4"><a href="#" class="vd-link-reset">The Future of Digital Design Systems</a></h2>
+                            <p class="vd-text-muted vd-mb-6">Explore how design systems are evolving to meet the needs of modern product development teams and the challenges they face in scaling consistency.</p>
+                            <div class="blog-meta">
+                                <div class="blog-author-img"></div>
+                                <div>
+                                    <div class="vd-text-bold">Sarah Chen</div>
+                                    <div>Oct 24, 2025 · 8 min read</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vd-row">
+                <!-- Main Content -->
+                <div class="vd-col-12 vd-col-lg-8">
+                    <div class="vd-row">
+                        <!-- Post 1 -->
+                        <div class="vd-col-12 vd-col-md-6 vd-mb-6">
+                            <article class="vd-card vd-h-full">
+                                <div class="vd-card-body">
+                                    <div class="blog-card-image">
+                                        <i class="ph-duotone ph-pen-nib" style="font-size: 3rem; color: var(--vd-color-gray-4);"></i>
+                                    </div>
+                                    <div class="vd-badge vd-badge-outline vd-mb-3">Typography</div>
+                                    <h3 class="vd-h4 vd-mb-3"><a href="#" class="vd-link-reset">Mastering Vertical Rhythm</a></h3>
+                                    <p class="vd-text-sm vd-text-muted vd-mb-4">Why spacing consistency matters more than you think in web layout design.</p>
+                                    <div class="blog-meta">
+                                        <span class="vd-text-xs">Oct 22, 2025 · 5 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Post 2 -->
+                        <div class="vd-col-12 vd-col-md-6 vd-mb-6">
+                            <article class="vd-card vd-h-full">
+                                <div class="vd-card-body">
+                                    <div class="blog-card-image">
+                                        <i class="ph-duotone ph-code" style="font-size: 3rem; color: var(--vd-color-gray-4);"></i>
+                                    </div>
+                                    <div class="vd-badge vd-badge-outline vd-mb-3">Development</div>
+                                    <h3 class="vd-h4 vd-mb-3"><a href="#" class="vd-link-reset">CSS Variables Power Guide</a></h3>
+                                    <p class="vd-text-sm vd-text-muted vd-mb-4">Everything you need to know about custom properties in modern CSS.</p>
+                                    <div class="blog-meta">
+                                        <span class="vd-text-xs">Oct 20, 2025 · 12 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Post 3 -->
+                        <div class="vd-col-12 vd-col-md-6 vd-mb-6">
+                            <article class="vd-card vd-h-full">
+                                <div class="vd-card-body">
+                                    <div class="blog-card-image">
+                                        <i class="ph-duotone ph-paint-brush" style="font-size: 3rem; color: var(--vd-color-gray-4);"></i>
+                                    </div>
+                                    <div class="vd-badge vd-badge-outline vd-mb-3">Design</div>
+                                    <h3 class="vd-h4 vd-mb-3"><a href="#" class="vd-link-reset">Color Theory for UI</a></h3>
+                                    <p class="vd-text-sm vd-text-muted vd-mb-4">How to create accessible and beautiful color palettes for your applications.</p>
+                                    <div class="blog-meta">
+                                        <span class="vd-text-xs">Oct 18, 2025 · 6 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Post 4 -->
+                        <div class="vd-col-12 vd-col-md-6 vd-mb-6">
+                            <article class="vd-card vd-h-full">
+                                <div class="vd-card-body">
+                                    <div class="blog-card-image">
+                                        <i class="ph-duotone ph-lightning" style="font-size: 3rem; color: var(--vd-color-gray-4);"></i>
+                                    </div>
+                                    <div class="vd-badge vd-badge-outline vd-mb-3">Performance</div>
+                                    <h3 class="vd-h4 vd-mb-3"><a href="#" class="vd-link-reset">Optimizing Web Vitals</a></h3>
+                                    <p class="vd-text-sm vd-text-muted vd-mb-4">Practical tips to improve your site's loading speed and user experience.</p>
+                                    <div class="blog-meta">
+                                        <span class="vd-text-xs">Oct 15, 2025 · 8 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="vd-flex vd-justify-center vd-mt-8">
+                        <nav aria-label="Page navigation">
+                            <ul class="vd-pagination">
+                                <li><a href="#" class="vd-btn vd-btn-outline disabled">Previous</a></li>
+                                <li><a href="#" class="vd-btn vd-btn-primary">1</a></li>
+                                <li><a href="#" class="vd-btn vd-btn-outline">2</a></li>
+                                <li><a href="#" class="vd-btn vd-btn-outline">3</a></li>
+                                <li><a href="#" class="vd-btn vd-btn-outline">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="vd-col-12 vd-col-lg-4">
+                    <div class="vd-sticky" style="top: 6rem;">
+                        <!-- Search Widget -->
+                        <div class="sidebar-widget">
+                            <div class="vd-input-group">
+                                <span class="vd-input-icon"><i class="ph ph-magnifying-glass"></i></span>
+                                <input type="text" class="vd-input" placeholder="Search articles...">
+                            </div>
+                        </div>
+
+                        <!-- Categories Widget -->
+                        <div class="sidebar-widget">
+                            <h4 class="vd-h6 vd-mb-4 vd-text-uppercase vd-text-muted">Categories</h4>
+                            <ul class="vd-list-group">
+                                <li class="vd-list-item vd-flex vd-justify-between vd-items-center">
+                                    <a href="#" class="vd-link-reset">Design</a>
+                                    <span class="vd-badge vd-badge-sm vd-badge-gray">12</span>
+                                </li>
+                                <li class="vd-list-item vd-flex vd-justify-between vd-items-center">
+                                    <a href="#" class="vd-link-reset">Development</a>
+                                    <span class="vd-badge vd-badge-sm vd-badge-gray">8</span>
+                                </li>
+                                <li class="vd-list-item vd-flex vd-justify-between vd-items-center">
+                                    <a href="#" class="vd-link-reset">Tutorials</a>
+                                    <span class="vd-badge vd-badge-sm vd-badge-gray">5</span>
+                                </li>
+                                <li class="vd-list-item vd-flex vd-justify-between vd-items-center">
+                                    <a href="#" class="vd-link-reset">Resources</a>
+                                    <span class="vd-badge vd-badge-sm vd-badge-gray">3</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Newsletter Widget -->
+                        <div class="sidebar-widget">
+                            <div class="vd-card vd-bg-primary-light">
+                                <div class="vd-card-body">
+                                    <h4 class="vd-h5 vd-mb-3">Subscribe</h4>
+                                    <p class="vd-text-sm vd-mb-4">Get the latest posts delivered right to your inbox.</p>
+                                    <form>
+                                        <input type="email" class="vd-input vd-mb-3" placeholder="Enter your email">
+                                        <button type="button" class="vd-btn vd-btn-primary vd-btn-block">Subscribe</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="vd-footer">
+        <div class="vd-container">
+            <div class="vd-row">
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-brand">
+                        <span class="vd-logo-icon"></span>
+                        <span class="vd-footer-logo-text">Vanduo</span>
+                    </div>
+                    <p class="vd-footer-desc">A modern, lightweight CSS framework for building beautiful user interfaces with the Golden Ratio.</p>
+                </div>
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="vd-footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="templates.html">Templates</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vd-col-12 vd-col-md-4">
+                    <div class="vd-footer-section">
+                        <h4>Resources</h4>
+                        <ul class="vd-footer-links">
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework">GitHub</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="changelog.html">Changelog</a></li>
+                            <li><a href="https://github.com/Nostromo-618/vanduo-framework/blob/main/LICENSE">License</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vd-footer-made-with">
+                <span class="vd-footer-made-with-text">Made with <a href="https://kilo.ai/" target="_blank" rel="noopener noreferrer">Kilo Code</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/vanduo.js"></script>
+</body>
+</html>

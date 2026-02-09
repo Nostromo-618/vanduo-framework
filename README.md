@@ -10,7 +10,7 @@
 
 A lightweight, pure HTML/CSS/JS framework for designing beautiful static websites. No dependencies, no build tools, just clean and simple code.
 
-[**Browse Full Documentation &rarr;**](documentation.html)
+[**Browse Full Documentation &rarr;**](https://vanduo.dev/documentation.html)
 
 ## Features
 
@@ -139,7 +139,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 
 ## Documentation
 
-Comprehensive documentation for all components, utilities, and customization options is included in the project.
+Comprehensive documentation for all components, utilities, and customization options is available at vanduo.dev.
 
 [**View Documentation**](https://vanduo.dev/documentation.html)
 
@@ -168,8 +168,7 @@ vanduo-framework/
 │   └── components/        # Component logic
 ├── icons/                 # Phosphor Icons
 ├── fonts/                 # Web fonts
-├── index.html             # Framework homepage
-└── documentation.html     # Full documentation
+└── tests/                 # Framework test suite
 ```
 
 ## Browser Support

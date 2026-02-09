@@ -31,19 +31,13 @@ jobs:
         run: pnpm install
 
       - name: Run CSS linting
-        run: pnpm run lint:css || true
-        continue-on-error: true
+        run: pnpm run lint:css
 
       - name: Run JS linting
-        run: pnpm run lint:js || true
-        continue-on-error: true
+        run: pnpm run lint:js
 
       - name: Run tests
-        run: pnpm test || true
-        continue-on-error: true
-
-      - name: Report status
-        run: echo "CI completed - lint issues are pre-existing, not from test code"
+        run: pnpm test
 
       - name: Build production assets
         run: pnpm run build

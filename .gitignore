@@ -11,6 +11,7 @@ node_modules/
 # OS files
 .DS_Store
 plans/
+.vscode/
 
 # Downloaded icon assets (use icons/ folder instead)
 /phosphor-icons

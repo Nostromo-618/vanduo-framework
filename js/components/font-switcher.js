@@ -219,8 +219,8 @@
     },
 
     getStorageValue: function(key, fallback) {
-      if (typeof safeStorageGet === 'function') {
-        return safeStorageGet(key, fallback);
+      if (typeof window.safeStorageGet === 'function') {
+        return window.safeStorageGet(key, fallback);
       }
       try {
         const value = localStorage.getItem(key);
@@ -231,8 +231,8 @@
     },
 
     setStorageValue: function(key, value) {
-      if (typeof safeStorageSet === 'function') {
-        return safeStorageSet(key, value);
+      if (typeof window.safeStorageSet === 'function') {
+        return window.safeStorageSet(key, value);
       }
       try {
         localStorage.setItem(key, value);

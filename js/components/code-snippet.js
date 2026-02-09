@@ -203,7 +203,7 @@
     handleTabKeydown: function (e, snippet, tabs, panes) {
       const tabArray = Array.from(tabs);
       const currentIndex = tabArray.indexOf(e.target);
-      let newIndex = currentIndex;
+      let newIndex;
 
       switch (e.key) {
         case 'ArrowLeft':

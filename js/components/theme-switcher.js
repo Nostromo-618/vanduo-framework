@@ -45,8 +45,8 @@
     },
 
     getStorageValue: function (key, fallback) {
-      if (typeof safeStorageGet === 'function') {
-        return safeStorageGet(key, fallback);
+      if (typeof window.safeStorageGet === 'function') {
+        return window.safeStorageGet(key, fallback);
       }
       try {
         const value = localStorage.getItem(key);
@@ -57,8 +57,8 @@
     },
 
     setStorageValue: function (key, value) {
-      if (typeof safeStorageSet === 'function') {
-        return safeStorageSet(key, value);
+      if (typeof window.safeStorageSet === 'function') {
+        return window.safeStorageSet(key, value);
       }
       try {
         localStorage.setItem(key, value);
@@ -70,11 +70,8 @@
 
     applyTheme: function () {
       const pref = this.state.preference;
-      let themeToApply = pref;
 
       if (pref === 'system') {
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        themeToApply = systemDark ? 'dark' : 'light';
         // When in system mode, we remove the data attribute to let the media query take over
         // or we can explicitly set it. Explicitly setting it ensures consistency if we rely on [data-theme]
         // But if we rely on @media in CSS, we might want to remove attributes.
@@ -85,7 +82,7 @@
         // If preference is system, REMOVE data-theme attribute. Let CSS media queries handle it.
         document.documentElement.removeAttribute('data-theme');
       } else {
-        document.documentElement.setAttribute('data-theme', themeToApply);
+        document.documentElement.setAttribute('data-theme', pref);
       }
     },
 

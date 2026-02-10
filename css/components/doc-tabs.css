@@ -1,0 +1,38 @@
+/**
+ * Vanduo Documentation Tabs Component
+ * Provides styled tab navigation for documentation sections
+ */
+
+.doc-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+}
+
+.doc-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--btn-border-radius);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.doc-tab:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-alpha-08);
+}
+
+.doc-tab.active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-alpha-12);
+    box-shadow: 0 0 0 1px var(--color-primary-alpha-20);
+}

@@ -6,7 +6,7 @@
 import { transform } from 'lightningcss';
 import * as esbuild from 'esbuild';
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync } from 'fs';
-import { resolve, dirname, join } from 'path';
+import { resolve, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 
@@ -114,10 +114,36 @@ function copyAssets() {
 }
 
 /**
- * Read CSS file and resolve @import statements
+ * Read CSS file and resolve @import statements.
+ * Rewrites url() references in imported files to be relative to the entry
+ * CSS directory so that asset paths survive inlining.
  */
-function resolveCSSImports(filePath, basePath) {
+function resolveCSSImports(filePath, basePath, entryDir) {
+    if (!entryDir) entryDir = basePath;
     let css = readFileSync(filePath, 'utf8');
+
+    // Rewrite non-import url() references to be relative to the entry CSS
+    // directory. This ensures font/icon asset paths stay valid after CSS
+    // files from different directory depths are inlined together.
+    if (basePath !== entryDir) {
+        // Temporarily replace @import lines with placeholders so they are
+        // not affected by the url() rewriting below.
+        const imports = [];
+        css = css.replace(/@import\s+url\([^)]+\);?/g, (m) => {
+            imports.push(m);
+            return `__IMPORT_PLACEHOLDER_${imports.length - 1}__`;
+        });
+
+        // Rewrite remaining url() references (fonts, icons, images, etc.)
+        css = css.replace(/url\(\s*['"]?(?!data:|https?:|#)([^'")\s]+)['"]?\s*\)/g, (match, urlPath) => {
+            const absoluteUrl = resolve(basePath, urlPath);
+            const newPath = relative(entryDir, absoluteUrl);
+            return `url('${newPath}')`;
+        });
+
+        // Restore @import lines
+        css = css.replace(/__IMPORT_PLACEHOLDER_(\d+)__/g, (_, i) => imports[parseInt(i)]);
+    }
 
     // Find all @import url('...') statements
     const importRegex = /@import\s+url\(['"']?([^'")\s]+)['"']?\);?/g;
@@ -128,7 +154,7 @@ function resolveCSSImports(filePath, basePath) {
         const fullPath = resolve(basePath, importPath);
 
         if (existsSync(fullPath)) {
-            const importedCSS = resolveCSSImports(fullPath, dirname(fullPath));
+            const importedCSS = resolveCSSImports(fullPath, dirname(fullPath), entryDir);
             css = css.replace(match[0], importedCSS);
         } else {
             console.warn(`⚠️  Import not found: ${importPath}`);
@@ -142,11 +168,11 @@ function resolveCSSImports(filePath, basePath) {
  * Rewrite asset paths in CSS for dist folder structure
  */
 function rewriteAssetPaths(css) {
-    // Rewrite font paths: ../../fonts/ -> ./fonts/
-    css = css.replace(/url\(['"']?\.\.\/\.\.\/fonts\//g, "url('./fonts/");
+    // Rewrite font paths: any number of ../ followed by fonts/ -> ./fonts/
+    css = css.replace(/url\(\s*['"]?(?:\.\.\/)+fonts\//g, "url('./fonts/");
 
-    // Rewrite icon paths: ../../icons/ -> ./icons/
-    css = css.replace(/url\(['"']?\.\.\/\.\.\/icons\//g, "url('./icons/");
+    // Rewrite icon paths: any number of ../ followed by icons/ -> ./icons/
+    css = css.replace(/url\(\s*['"]?(?:\.\.\/)+icons\//g, "url('./icons/");
 
     return css;
 }
@@ -202,7 +228,11 @@ async function buildJS(banner) {
             sourcemap: true,
             outfile: outputPath,
             format: 'iife',
-            globalName: 'Vanduo',
+            // NOTE: Do NOT use globalName here. All components register
+            // themselves via side effects (window.Vanduo.register(...)).
+            // Using globalName would cause esbuild to assign the module's
+            // export wrapper { default: ..., __esModule: true } to a global,
+            // which would shadow the real window.Vanduo object.
             target: ['es2020'],
             banner: { js: banner },
             logLevel: 'warning'

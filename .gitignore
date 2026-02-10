@@ -38,3 +38,5 @@ tests/**/*.spec.ts-snapshots/
 blob-report/
 playwright/.auth/
 .kilocode
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md

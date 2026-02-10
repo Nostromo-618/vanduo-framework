@@ -540,7 +540,10 @@ export default defineConfig({
 
   // Local server - uses Python's built-in HTTP server (no extra dependency)
   webServer: {
-    command: 'python3 -m http.server 8787',
+    // CI suppresses server logs to keep workflow output focused on test results.
+    command: process.env.CI
+      ? 'python3 -m http.server 8787 >/dev/null 2>&1'
+      : 'python3 -m http.server 8787',
     url: 'http://localhost:8787',
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,
@@ -551,6 +554,9 @@ export default defineConfig({
 ---
 
 ## CI/CD Integration
+
+Note: CI suppresses the local web server access logs so GitHub Actions output
+stays focused on test failures. Local runs keep logs for debugging asset loads.
 
 ### GitHub Actions Workflow
 

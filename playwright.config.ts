@@ -92,7 +92,9 @@ export default defineConfig({
   /* Run local dev server before starting the tests */
   /* Uses Python's built-in HTTP server - no extra dependency needed */
   webServer: {
-    command: 'python3 -m http.server 8787',
+    command: process.env.CI
+      ? 'python3 -m http.server 8787 >/dev/null 2>&1'
+      : 'python3 -m http.server 8787',
     url: 'http://localhost:8787',
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,

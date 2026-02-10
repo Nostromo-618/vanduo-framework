@@ -1,4 +1,4 @@
-# Vanduo Framework v1.1.1
+# Vanduo Framework v1.1.2
 
 **Essential just like water is.** 
 

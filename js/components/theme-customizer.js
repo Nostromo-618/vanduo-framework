@@ -384,7 +384,7 @@
         // Desktop: position directly below the trigger button, aligned to its right edge
         const triggerRect = this.elements.trigger.getBoundingClientRect();
         const panelWidth = 320; // --customizer-width
-        const panelTop = triggerRect.bottom;
+        const panelTop = triggerRect.bottom + 8;
 
         // Calculate right position: align panel's right edge with trigger's right edge
         // But ensure it doesn't overflow the viewport

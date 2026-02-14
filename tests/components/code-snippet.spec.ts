@@ -70,6 +70,32 @@ test.describe('Code Snippet Component @component', () => {
   });
 
   test.describe('Tab Navigation', () => {
+    test('tab ids are unique across snippets and linked to panels', async ({ page }) => {
+      const tabMeta = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll('.vd-code-snippet-tab')).map(tab => {
+          const controls = tab.getAttribute('aria-controls');
+          const panel = controls ? document.getElementById(controls) : null;
+          return {
+            id: tab.id,
+            controls,
+            panelExists: Boolean(panel),
+            panelLabelledBy: panel ? panel.getAttribute('aria-labelledby') : null
+          };
+        });
+      });
+
+      const ids = tabMeta.map(item => item.id).filter(Boolean);
+      expect(ids.length).toBeGreaterThan(0);
+      expect(new Set(ids).size).toBe(ids.length);
+
+      for (const item of tabMeta) {
+        expect(item.id).toBeTruthy();
+        expect(item.controls).toBeTruthy();
+        expect(item.panelExists).toBe(true);
+        expect(item.panelLabelledBy).toBe(item.id);
+      }
+    });
+
     test('tab list has correct role', async ({ page }) => {
       const tabList = page.locator('#tabbed-snippet .vd-code-snippet-tabs');
       await expect(tabList).toHaveAttribute('role', 'tablist');

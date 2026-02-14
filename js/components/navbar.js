@@ -113,7 +113,7 @@
       cleanupFunctions.push(() => document.removeEventListener('click', documentClickHandler));
 
       // Handle dropdown toggles in mobile menu
-      const dropdownToggles = menu.querySelectorAll('.vd-navbar-dropdown > .nav-link');
+      const dropdownToggles = menu.querySelectorAll('.vd-navbar-dropdown > .vd-nav-link, .vd-navbar-dropdown > .nav-link');
       dropdownToggles.forEach(dropdownToggle => {
         const dropdownClickHandler = (e) => {
           const breakpoint = this.getBreakpoint();

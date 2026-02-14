@@ -16,6 +16,18 @@
     // Global cleanup functions (toggles, resize)
     _globalCleanups: [],
 
+    isFixedVariant: function(sidenav) {
+      return sidenav.classList.contains('vd-sidenav-fixed') || sidenav.classList.contains('sidenav-fixed');
+    },
+
+    isPushVariant: function(sidenav) {
+      return sidenav.classList.contains('vd-sidenav-push') || sidenav.classList.contains('sidenav-push');
+    },
+
+    isRightVariant: function(sidenav) {
+      return sidenav.classList.contains('vd-sidenav-right') || sidenav.classList.contains('sidenav-right');
+    },
+
     /**
      * Initialize sidenav components
      */
@@ -132,7 +144,7 @@
       const { overlay } = this.sidenavs.get(el);
       
       // Show overlay (if not fixed)
-      if (!el.classList.contains('sidenav-fixed')) {
+      if (!this.isFixedVariant(el)) {
         overlay.classList.add('is-visible');
       }
       
@@ -144,7 +156,7 @@
       document.body.classList.add('body-sidenav-open');
       
       // Handle push variant
-      if (el.classList.contains('sidenav-push')) {
+      if (this.isPushVariant(el)) {
         this.handlePushVariant(el, true);
       }
       
@@ -176,7 +188,7 @@
       document.body.classList.remove('body-sidenav-open');
       
       // Handle push variant
-      if (el.classList.contains('sidenav-push')) {
+      if (this.isPushVariant(el)) {
         this.handlePushVariant(el, false);
       }
       
@@ -210,7 +222,7 @@
       
       if (isOpen) {
         if (window.innerWidth >= this.breakpoint) {
-          if (sidenav.classList.contains('sidenav-right')) {
+          if (this.isRightVariant(sidenav)) {
             content.style.marginRight = sidenav.offsetWidth + 'px';
           } else {
             content.style.marginLeft = sidenav.offsetWidth + 'px';
@@ -229,7 +241,7 @@
       this.sidenavs.forEach(({ overlay }, sidenav) => {
         // Close overlay sidenavs on resize to desktop if they're open
         if (window.innerWidth >= this.breakpoint) {
-          if (sidenav.classList.contains('sidenav-fixed') && !sidenav.classList.contains('is-open')) {
+          if (this.isFixedVariant(sidenav) && !sidenav.classList.contains('is-open')) {
             // Fixed sidenavs should be visible on desktop
             sidenav.classList.add('is-open');
             sidenav.setAttribute('aria-hidden', 'false');
@@ -237,7 +249,7 @@
           }
         } else {
           // On mobile, fixed sidenavs become overlay
-          if (sidenav.classList.contains('sidenav-fixed') && sidenav.classList.contains('is-open')) {
+          if (this.isFixedVariant(sidenav) && sidenav.classList.contains('is-open')) {
             this.close(sidenav);
           }
         }

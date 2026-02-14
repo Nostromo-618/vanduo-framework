@@ -10,6 +10,24 @@
    * Code Snippet Component
    */
   const CodeSnippet = {
+    _snippetIdCounter: 0,
+
+    getSnippetInstanceId: function (snippet) {
+      if (snippet.dataset.codeSnippetId) {
+        return snippet.dataset.codeSnippetId;
+      }
+
+      const baseId = (snippet.id || '').trim();
+      if (baseId) {
+        snippet.dataset.codeSnippetId = `snippet-${baseId}`;
+        return snippet.dataset.codeSnippetId;
+      }
+
+      this._snippetIdCounter += 1;
+      snippet.dataset.codeSnippetId = `snippet-auto-${this._snippetIdCounter}`;
+      return snippet.dataset.codeSnippetId;
+    },
+
     addListener: function (snippet, target, event, handler) {
       if (!target) return;
       target.addEventListener(event, handler);
@@ -117,6 +135,8 @@
      * @param {NodeList} panes - Code panes
      */
     initTabs: function (snippet, tabs, panes) {
+      const snippetId = this.getSnippetInstanceId(snippet);
+
       // Set up ARIA attributes
       const tabList = snippet.querySelector('.vd-code-snippet-tabs');
       if (tabList) {
@@ -131,12 +151,14 @@
         tab.setAttribute('role', 'tab');
         tab.setAttribute('aria-selected', isActive);
         tab.setAttribute('tabindex', isActive ? '0' : '-1');
-        tab.id = tab.id || `code-tab-${snippet.dataset.initialized}-${index}`;
+        tab.id = tab.id || `code-tab-${snippetId}-${lang || 'tab'}-${index}`;
 
         // Find corresponding pane
         const pane = snippet.querySelector(`.vd-code-snippet-pane[data-lang="${lang}"]`);
         if (pane) {
+          pane.id = pane.id || `code-pane-${snippetId}-${lang || 'pane'}-${index}`;
           pane.setAttribute('role', 'tabpanel');
+          tab.setAttribute('aria-controls', pane.id);
           pane.setAttribute('aria-labelledby', tab.id);
         }
 

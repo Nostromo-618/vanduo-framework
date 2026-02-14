@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
 
 /**
  * Playwright Configuration for Vanduo Framework
@@ -93,8 +97,8 @@ export default defineConfig({
   /* Uses Python's built-in HTTP server - no extra dependency needed */
   webServer: {
     command: process.env.CI
-      ? 'python3 -m http.server 8787 >/dev/null 2>&1'
-      : 'python3 -m http.server 8787',
+      ? `python3 -m http.server 8787 --directory "${projectRoot}" >/dev/null 2>&1`
+      : `python3 -m http.server 8787 --directory "${projectRoot}"`,
     url: 'http://localhost:8787',
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,

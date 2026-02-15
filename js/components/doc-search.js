@@ -96,6 +96,7 @@
     
     // Instance state
     var state = {
+      initialized: false,
       index: [],
       results: [],
       activeIndex: -1,
@@ -110,10 +111,17 @@
 
     /**
      * Initialize the search component
+     * Idempotent — safe to call more than once on the same instance.
+     * Returns the instance on success, null if required DOM elements are missing.
      */
     function init() {
+      if (state.initialized) {
+        return instance;
+      }
+
       state.container = document.querySelector(config.containerSelector);
       if (!state.container) {
+        state.initialized = false;
         return null;
       }
 
@@ -121,6 +129,7 @@
       state.resultsContainer = state.container.querySelector(config.resultsSelector);
 
       if (!state.input || !state.resultsContainer) {
+        state.initialized = false;
         return null;
       }
 
@@ -138,6 +147,7 @@
       // Set up ARIA attributes
       setupAria();
 
+      state.initialized = true;
       return instance;
     }
 
@@ -157,7 +167,8 @@
             categorySlug: slugify(item.category || ''),
             content: item.content || '',
             keywords: item.keywords || extractKeywordsFromText(item.title + ' ' + item.content),
-            url: item.url || '#' + (item.id || slugify(item.title))
+            url: item.url || '#' + (item.id || slugify(item.title)),
+            icon: item.icon || ''
           });
         });
         return;
@@ -176,6 +187,16 @@
         var category = categoryMap[id] || 'Documentation';
         var content = extractContent(section);
         var keywords = extractKeywords(section, title);
+        var iconEl = titleEl ? titleEl.querySelector('i.ph') : null;
+        var icon = '';
+        if (iconEl && iconEl.classList) {
+          for (var ci = 0; ci < iconEl.classList.length; ci++) {
+            if (iconEl.classList[ci].indexOf('ph-') === 0) {
+              icon = iconEl.classList[ci];
+              break;
+            }
+          }
+        }
 
         state.index.push({
           id: id,
@@ -184,7 +205,8 @@
           categorySlug: slugify(category),
           content: content,
           keywords: keywords,
-          url: '#' + id
+          url: '#' + id,
+          icon: icon
         });
       });
     }
@@ -496,6 +518,7 @@
             categorySlug: entry.categorySlug,
             content: entry.content,
             url: entry.url,
+            icon: entry.icon,
             score: score
           });
         }
@@ -521,7 +544,7 @@
 
       state.results.forEach(function(result, index) {
         var isActive = index === state.activeIndex;
-        var icon = getCategoryIcon(result.categorySlug);
+        var icon = result.icon || getCategoryIcon(result.categorySlug);
         var excerpt = getExcerpt(result.content, state.query);
 
         html += '<li class="vd-doc-search-result' + (isActive ? ' is-active' : '') + '"' +
@@ -755,6 +778,7 @@
     function destroy() {
       unbindEvents();
       
+      state.initialized = false;
       state.index = [];
       state.results = [];
       state.isOpen = false;
@@ -817,8 +841,16 @@
    * Search Component (singleton for backward compatibility)
    */
   var Search = {
-    // Factory method
-    create: createSearch,
+    // Factory method — creates and auto-initializes a new independent instance.
+    // Always returns the instance so callers retain a reference even if the
+    // DOM container is not yet available (they can retry init() later).
+    create: function(options) {
+      var instance = createSearch(options);
+      if (instance) {
+        instance.init();
+      }
+      return instance || null;
+    },
     
     // Default instance
     _instance: null,

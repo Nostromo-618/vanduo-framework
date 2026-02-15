@@ -157,7 +157,8 @@
             categorySlug: slugify(item.category || ''),
             content: item.content || '',
             keywords: item.keywords || extractKeywordsFromText(item.title + ' ' + item.content),
-            url: item.url || '#' + (item.id || slugify(item.title))
+            url: item.url || '#' + (item.id || slugify(item.title)),
+            icon: item.icon || ''
           });
         });
         return;
@@ -176,6 +177,8 @@
         var category = categoryMap[id] || 'Documentation';
         var content = extractContent(section);
         var keywords = extractKeywords(section, title);
+        var iconEl = titleEl ? titleEl.querySelector('i.ph') : null;
+        var icon = iconEl && iconEl.className ? ((iconEl.className.match(/ph-[a-z0-9-]+/) || [])[0] || '') : '';
 
         state.index.push({
           id: id,
@@ -184,7 +187,8 @@
           categorySlug: slugify(category),
           content: content,
           keywords: keywords,
-          url: '#' + id
+          url: '#' + id,
+          icon: icon
         });
       });
     }
@@ -496,6 +500,7 @@
             categorySlug: entry.categorySlug,
             content: entry.content,
             url: entry.url,
+            icon: entry.icon,
             score: score
           });
         }
@@ -521,7 +526,7 @@
 
       state.results.forEach(function(result, index) {
         var isActive = index === state.activeIndex;
-        var icon = getCategoryIcon(result.categorySlug);
+        var icon = result.icon || getCategoryIcon(result.categorySlug);
         var excerpt = getExcerpt(result.content, state.query);
 
         html += '<li class="vd-doc-search-result' + (isActive ? ' is-active' : '') + '"' +
@@ -817,8 +822,11 @@
    * Search Component (singleton for backward compatibility)
    */
   var Search = {
-    // Factory method
-    create: createSearch,
+    // Factory method — creates and initializes a new independent instance
+    create: function(options) {
+      var instance = createSearch(options);
+      return instance ? instance.init() : null;
+    },
     
     // Default instance
     _instance: null,

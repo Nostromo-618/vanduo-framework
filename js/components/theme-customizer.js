@@ -23,7 +23,7 @@
       PRIMARY_DARK: 'amber',
       NEUTRAL: 'slate',
       RADIUS: '0.5',
-      FONT: 'jetbrains-mono',
+      FONT: 'ubuntu',
       THEME: 'system'
     },
 

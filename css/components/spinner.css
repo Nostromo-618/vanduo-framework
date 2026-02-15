@@ -95,6 +95,43 @@
   padding: var(--spacing-5, 1rem);
 }
 
+/* Quad-Spinner Loader — signature Vanduo 2x2 grid loader */
+.vd-dynamic-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  gap: 1rem;
+}
+
+.vd-dynamic-loader-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.vd-dynamic-loader-text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm, 0.8125rem);
+}
+
+/* Quad-Spinner overlaying a skeleton card */
+.vd-dynamic-loader-card {
+  position: relative;
+  min-height: 300px;
+  padding: 2rem;
+  overflow: hidden;
+  border-radius: var(--btn-border-radius, 0.5rem);
+  border: 1px solid var(--border-color);
+}
+
+.vd-dynamic-loader-card > .vd-dynamic-loader {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .vd-spinner,

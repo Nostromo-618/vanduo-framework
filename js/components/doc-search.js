@@ -112,6 +112,7 @@
     /**
      * Initialize the search component
      * Idempotent — safe to call more than once on the same instance.
+     * Returns the instance on success, null if required DOM elements are missing.
      */
     function init() {
       if (state.initialized) {
@@ -120,6 +121,7 @@
 
       state.container = document.querySelector(config.containerSelector);
       if (!state.container) {
+        state.initialized = false;
         return null;
       }
 
@@ -127,6 +129,7 @@
       state.resultsContainer = state.container.querySelector(config.resultsSelector);
 
       if (!state.input || !state.resultsContainer) {
+        state.initialized = false;
         return null;
       }
 
@@ -185,7 +188,15 @@
         var content = extractContent(section);
         var keywords = extractKeywords(section, title);
         var iconEl = titleEl ? titleEl.querySelector('i.ph') : null;
-        var icon = iconEl && iconEl.className ? ((iconEl.className.match(/ph-[a-z0-9-]+/) || [])[0] || '') : '';
+        var icon = '';
+        if (iconEl && iconEl.classList) {
+          for (var ci = 0; ci < iconEl.classList.length; ci++) {
+            if (iconEl.classList[ci].indexOf('ph-') === 0) {
+              icon = iconEl.classList[ci];
+              break;
+            }
+          }
+        }
 
         state.index.push({
           id: id,
@@ -830,10 +841,15 @@
    * Search Component (singleton for backward compatibility)
    */
   var Search = {
-    // Factory method — creates and initializes a new independent instance
+    // Factory method — creates and auto-initializes a new independent instance.
+    // Always returns the instance so callers retain a reference even if the
+    // DOM container is not yet available (they can retry init() later).
     create: function(options) {
       var instance = createSearch(options);
-      return instance ? instance.init() : null;
+      if (instance) {
+        instance.init();
+      }
+      return instance || null;
     },
     
     // Default instance

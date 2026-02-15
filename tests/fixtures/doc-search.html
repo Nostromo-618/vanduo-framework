@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doc Search Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <main class="container" style="padding: 2rem;">
+    <h1>Doc Search Test Fixture</h1>
+
+    <!-- Sidebar navigation (for category mapping) -->
+    <nav id="doc-nav">
+      <div class="doc-nav-section">Getting Started</div>
+      <a href="#section-intro" class="doc-nav-link">Introduction</a>
+      <a href="#section-install" class="doc-nav-link">Installation</a>
+      <div class="doc-nav-section">Components</div>
+      <a href="#section-buttons" class="doc-nav-link">Buttons</a>
+      <a href="#section-icons" class="doc-nav-link">Icons</a>
+    </nav>
+
+    <!-- Search widget -->
+    <div class="vd-doc-search" id="test-search">
+      <input type="search" class="vd-doc-search-input" placeholder="Search...">
+      <div class="vd-doc-search-results" id="test-search-results"></div>
+    </div>
+
+    <!-- Second search widget (for multi-instance testing) -->
+    <div class="vd-doc-search" id="test-search-2" style="display: none;">
+      <input type="search" class="vd-doc-search-input">
+      <div class="vd-doc-search-results"></div>
+    </div>
+
+    <!-- Searchable content sections -->
+    <div class="doc-content">
+      <section id="section-intro">
+        <h2 class="demo-title"><i class="ph ph-rocket-launch"></i> Introduction</h2>
+        <p>Welcome to the Vanduo framework. This is a CSS and JavaScript toolkit for building modern web interfaces.</p>
+      </section>
+
+      <section id="section-install">
+        <h2 class="demo-title">Installation</h2>
+        <p>Install via npm or include the CDN link in your HTML page.</p>
+        <code>.vd-container</code>
+      </section>
+
+      <section id="section-buttons">
+        <h2 class="demo-title"><i class="ph ph-cursor-click"></i> Buttons</h2>
+        <p>Buttons come in various styles including primary, secondary, and outline variants.</p>
+        <code>.vd-btn-primary</code>
+      </section>
+
+      <section id="section-icons">
+        <h2 class="demo-title"><i class="ph ph-star extra-class"></i> Icons</h2>
+        <p>Icon support via Phosphor icons. Use the ph class prefix.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/doc-search.js"></script>
+  <script>Vanduo.init();</script>
+</body>
+</html>

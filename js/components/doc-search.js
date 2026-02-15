@@ -96,6 +96,7 @@
     
     // Instance state
     var state = {
+      initialized: false,
       index: [],
       results: [],
       activeIndex: -1,
@@ -110,8 +111,13 @@
 
     /**
      * Initialize the search component
+     * Idempotent — safe to call more than once on the same instance.
      */
     function init() {
+      if (state.initialized) {
+        return instance;
+      }
+
       state.container = document.querySelector(config.containerSelector);
       if (!state.container) {
         return null;
@@ -138,6 +144,7 @@
       // Set up ARIA attributes
       setupAria();
 
+      state.initialized = true;
       return instance;
     }
 
@@ -760,6 +767,7 @@
     function destroy() {
       unbindEvents();
       
+      state.initialized = false;
       state.index = [];
       state.results = [];
       state.isOpen = false;

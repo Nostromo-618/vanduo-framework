@@ -1,4 +1,4 @@
-/*! Vanduo v1.1.6 | Built: 2026-02-16T18:11:51.871Z | git:d7fcd5e | development */
+/*! Vanduo v1.1.6 | Built: 2026-02-16T19:05:49.626Z | git:4d08700 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -512,7 +512,7 @@
             indent = Math.max(0, indent - indentSize);
           }
           formattedLines.push(" ".repeat(indent) + line);
-          if (line.match(/<\w[^>]*[^/]>/) && !line.match(/<\w[^>]*\/>/)) {
+          if (line.match(/<\w[^>]*(?<!\/)>/) && !line.match(/<\w[^>]*\/>/)) {
             if (!line.match(/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)/i)) {
               if (!line.match(/<\/\w+>$/)) {
                 indent += indentSize;
@@ -550,8 +550,8 @@
        * @returns {string} CSS with syntax highlighting spans
        */
       highlightCss: function(css) {
-        css = css.replace(/([.#]?[\w-]+)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
-        css = css.replace(/([\w-]+)(\s*:)/g, '<span class="code-property">$1</span>$2');
+        css = css.replace(/([.#]?[a-zA-Z][\w-]*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
+        css = css.replace(/([a-zA-Z][\w-]*)(\s*:)/g, '<span class="code-property">$1</span>$2');
         css = css.replace(/:\s*([^;{}]+)(;)/g, ': <span class="code-value">$1</span>$2');
         css = css.replace(/(\d+)(px|rem|em|%|vh|vw|deg|s|ms)/g, '<span class="code-number">$1</span><span class="code-unit">$2</span>');
         css = css.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
@@ -568,7 +568,7 @@
           const regex = new RegExp(`\\b(${kw})\\b`, "g");
           js = js.replace(regex, '<span class="code-keyword">$1</span>');
         });
-        js = js.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)/g, '<span class="code-string">$1</span>');
+        js = js.replace(/('(?:[^'\\]|\\.){0,10000}'|"(?:[^"\\]|\\.){0,10000}"|`(?:[^`\\]|\\.){0,10000}`)/g, '<span class="code-string">$1</span>');
         js = js.replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');
         js = js.replace(/\b([\w]+)(\s*\()/g, '<span class="code-function">$1</span>$2');
         js = js.replace(/(\/\/.*$)/gm, '<span class="code-comment">$1</span>');
@@ -2388,8 +2388,9 @@
             if (page !== lastPage + 1 && lastPage > 0) {
               html += `<li class="vd-pagination-item pagination-item"><span class="vd-pagination-ellipsis pagination-ellipsis">\u2026</span></li>`;
             }
-            html += `<li class="vd-pagination-item pagination-item ${page === currentPage ? "active" : ""}" data-page="${page}">`;
-            html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Page ${page}">${page}</a>`;
+            const safePage = Number(page);
+            html += `<li class="vd-pagination-item pagination-item ${safePage === currentPage ? "active" : ""}" data-page="${safePage}">`;
+            html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Page ${safePage}">${safePage}</a>`;
             html += `</li>`;
             lastPage = page;
           }
@@ -4467,14 +4468,17 @@
         } else if (config.type) {
           html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;
         }
+        const _esc = typeof escapeHtml === "function" ? escapeHtml : function(s) {
+          const d = document.createElement("div");
+          d.appendChild(document.createTextNode(s));
+          return d.innerHTML;
+        };
         html += '<div class="vd-toast-content">';
         if (config.title) {
-          const safeTitle = typeof escapeHtml === "function" ? escapeHtml(config.title) : config.title;
-          html += `<div class="vd-toast-title">${safeTitle}</div>`;
+          html += `<div class="vd-toast-title">${_esc(String(config.title))}</div>`;
         }
         if (config.message) {
-          const safeMessage = typeof escapeHtml === "function" ? escapeHtml(config.message) : config.message;
-          html += `<div class="vd-toast-message">${safeMessage}</div>`;
+          html += `<div class="vd-toast-message">${_esc(String(config.message))}</div>`;
         }
         html += "</div>";
         if (config.dismissible) {

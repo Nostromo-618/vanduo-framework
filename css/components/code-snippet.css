@@ -297,6 +297,7 @@
 
 .vd-code-snippet-copy.is-copied .vd-code-snippet-copy-text::after {
   content: 'd!';
+  font-size: var(--code-font-size);
 }
 
 .vd-code-snippet-copy.is-copied .vd-code-snippet-copy-text {

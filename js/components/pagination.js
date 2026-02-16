@@ -101,8 +101,9 @@
           if (page !== lastPage + 1 && lastPage > 0) {
             html += `<li class="vd-pagination-item pagination-item"><span class="vd-pagination-ellipsis pagination-ellipsis">…</span></li>`;
           }
-          html += `<li class="vd-pagination-item pagination-item ${page === currentPage ? 'active' : ''}" data-page="${page}">`;
-          html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Page ${page}">${page}</a>`;
+          const safePage = Number(page);
+          html += `<li class="vd-pagination-item pagination-item ${safePage === currentPage ? 'active' : ''}" data-page="${safePage}">`;
+          html += `<a class="vd-pagination-link pagination-link" href="#" aria-label="Page ${safePage}">${safePage}</a>`;
           html += `</li>`;
           lastPage = page;
         }

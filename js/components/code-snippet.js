@@ -410,7 +410,8 @@
         formattedLines.push(' '.repeat(indent) + line);
 
         // Check for opening tags (not self-closing)
-        if (line.match(/<\w[^>]*(?<!\/)>/) && !line.match(/<\w[^>]*\/>/)) {
+        // Use [^>\/]* to avoid backtracking between [^>]* and the slash check
+        if (line.match(/<\w[^>\/]*>/) && !line.match(/<\w[^>]*\/>/)) {
           // Don't indent for void elements
           if (!line.match(/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)/i)) {
             // Only indent if not also closing on same line
@@ -462,11 +463,11 @@
      * @returns {string} CSS with syntax highlighting spans
      */
     highlightCss: function (css) {
-      // Highlight selectors
-      css = css.replace(/([.#]?[a-zA-Z][\w-]*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
+      // Highlight selectors — anchor to letter start, limit identifier length
+      css = css.replace(/([.#]?[a-zA-Z]\w{0,100}(?:-\w{1,100})*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
 
-      // Highlight properties
-      css = css.replace(/([a-zA-Z][\w-]*)(\s*:)/g, '<span class="code-property">$1</span>$2');
+      // Highlight properties — anchor to letter start, limit identifier length
+      css = css.replace(/([a-zA-Z]\w{0,100}(?:-\w{1,100})*)(\s*:)/g, '<span class="code-property">$1</span>$2');
 
       // Highlight values
       css = css.replace(/:\s*([^;{}]+)(;)/g, ': <span class="code-value">$1</span>$2');

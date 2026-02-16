@@ -117,7 +117,8 @@
 
       // Progress bar
       if (config.showProgress && config.duration > 0) {
-        html += `<div class="vd-toast-progress" style="animation-duration: ${config.duration}ms"></div>`;
+        const safeDuration = parseInt(config.duration, 10) || 0;
+        html += `<div class="vd-toast-progress" style="animation-duration: ${safeDuration}ms"></div>`;
       }
 
       toast.innerHTML = html;

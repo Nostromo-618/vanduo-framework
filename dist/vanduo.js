@@ -1,4 +1,4 @@
-/*! Vanduo v1.1.6 | Built: 2026-02-16T19:05:49.626Z | git:4d08700 | development */
+/*! Vanduo v1.1.6 | Built: 2026-02-16T19:09:04.984Z | git:b6e5ebe | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -512,7 +512,7 @@
             indent = Math.max(0, indent - indentSize);
           }
           formattedLines.push(" ".repeat(indent) + line);
-          if (line.match(/<\w[^>]*(?<!\/)>/) && !line.match(/<\w[^>]*\/>/)) {
+          if (line.match(/<\w[^>\/]*>/) && !line.match(/<\w[^>]*\/>/)) {
             if (!line.match(/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)/i)) {
               if (!line.match(/<\/\w+>$/)) {
                 indent += indentSize;
@@ -550,8 +550,8 @@
        * @returns {string} CSS with syntax highlighting spans
        */
       highlightCss: function(css) {
-        css = css.replace(/([.#]?[a-zA-Z][\w-]*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
-        css = css.replace(/([a-zA-Z][\w-]*)(\s*:)/g, '<span class="code-property">$1</span>$2');
+        css = css.replace(/([.#]?[a-zA-Z]\w{0,100}(?:-\w{1,100})*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
+        css = css.replace(/([a-zA-Z]\w{0,100}(?:-\w{1,100})*)(\s*:)/g, '<span class="code-property">$1</span>$2');
         css = css.replace(/:\s*([^;{}]+)(;)/g, ': <span class="code-value">$1</span>$2');
         css = css.replace(/(\d+)(px|rem|em|%|vh|vw|deg|s|ms)/g, '<span class="code-number">$1</span><span class="code-unit">$2</span>');
         css = css.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
@@ -4485,7 +4485,8 @@
           html += '<button type="button" class="vd-toast-close" aria-label="Close"></button>';
         }
         if (config.showProgress && config.duration > 0) {
-          html += `<div class="vd-toast-progress" style="animation-duration: ${config.duration}ms"></div>`;
+          const safeDuration = parseInt(config.duration, 10) || 0;
+          html += `<div class="vd-toast-progress" style="animation-duration: ${safeDuration}ms"></div>`;
         }
         toast.innerHTML = html;
         container.appendChild(toast);

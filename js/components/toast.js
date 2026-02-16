@@ -90,15 +90,23 @@
         html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;
       }
 
+      // Local escape helper — guarantees HTML-safe output even if the
+      // global escapeHtml utility is not loaded in the current bundle.
+      const _esc = typeof escapeHtml === 'function'
+        ? escapeHtml
+        : function (s) {
+          const d = document.createElement('div');
+          d.appendChild(document.createTextNode(s));
+          return d.innerHTML;
+        };
+
       // Content (escape text to prevent injection)
       html += '<div class="vd-toast-content">';
       if (config.title) {
-        const safeTitle = typeof escapeHtml === 'function' ? escapeHtml(config.title) : config.title;
-        html += `<div class="vd-toast-title">${safeTitle}</div>`;
+        html += `<div class="vd-toast-title">${_esc(String(config.title))}</div>`;
       }
       if (config.message) {
-        const safeMessage = typeof escapeHtml === 'function' ? escapeHtml(config.message) : config.message;
-        html += `<div class="vd-toast-message">${safeMessage}</div>`;
+        html += `<div class="vd-toast-message">${_esc(String(config.message))}</div>`;
       }
       html += '</div>';
 

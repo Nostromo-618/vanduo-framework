@@ -410,7 +410,7 @@
         formattedLines.push(' '.repeat(indent) + line);
 
         // Check for opening tags (not self-closing)
-        if (line.match(/<\w[^>]*[^/]>/) && !line.match(/<\w[^>]*\/>/)) {
+        if (line.match(/<\w[^>]*(?<!\/)>/) && !line.match(/<\w[^>]*\/>/)) {
           // Don't indent for void elements
           if (!line.match(/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)/i)) {
             // Only indent if not also closing on same line
@@ -463,10 +463,10 @@
      */
     highlightCss: function (css) {
       // Highlight selectors
-      css = css.replace(/([.#]?[\w-]+)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
+      css = css.replace(/([.#]?[a-zA-Z][\w-]*)(\s*\{)/g, '<span class="code-selector">$1</span>$2');
 
       // Highlight properties
-      css = css.replace(/([\w-]+)(\s*:)/g, '<span class="code-property">$1</span>$2');
+      css = css.replace(/([a-zA-Z][\w-]*)(\s*:)/g, '<span class="code-property">$1</span>$2');
 
       // Highlight values
       css = css.replace(/:\s*([^;{}]+)(;)/g, ': <span class="code-value">$1</span>$2');
@@ -493,8 +493,8 @@
         js = js.replace(regex, '<span class="code-keyword">$1</span>');
       });
 
-      // Highlight strings
-      js = js.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)/g, '<span class="code-string">$1</span>');
+      // Highlight strings (limit to 10 000 chars to prevent polynomial backtracking)
+      js = js.replace(/('(?:[^'\\]|\\.){0,10000}'|"(?:[^"\\]|\\.){0,10000}"|`(?:[^`\\]|\\.){0,10000}`)/g, '<span class="code-string">$1</span>');
 
       // Highlight numbers
       js = js.replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');

@@ -10,6 +10,8 @@ node_modules/
 
 # OS files
 .DS_Store
+**/.DS_Store
+._*
 plans/
 .vscode/
 

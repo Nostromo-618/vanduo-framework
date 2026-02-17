@@ -137,6 +137,20 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 
 ---
 
+## Release Assets (Maintainers)
+
+Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
+
+```bash
+pnpm run release:assets -- v1.1.6
+```
+
+Notes:
+- If tag is omitted, it defaults to `v` + version from `package.json`.
+- Use `--dry-run` to preview files without uploading.
+
+---
+
 ## Documentation
 
 Comprehensive documentation for all components, utilities, and customization options is available at vanduo.dev.

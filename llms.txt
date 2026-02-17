@@ -1,18 +1,18 @@
-# Vanduo Framework v1.1.0 — LLM Context
+# Vanduo Framework v1.1.6 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** with **no build steps**, **zero runtime dependencies**, and a **Fibonacci / Golden Ratio design system**. v1.1.0 introduced **global `vd-` class prefixing** and **manual JS initialization**.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.1.0 introduced **global `vd-` class prefixing** and **manual JS initialization**. The repository itself uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
 ## Core Principles
-- **No build tools**: include CSS in `<head>`, JS at end of `<body>`.
+- **No build tools for consumers**: include CSS in `<head>`, JS at end of `<body>`.
 - **Naming safety**: all framework classes are prefixed with `vd-`.
 - **Design system**: spacing, type, and layout follow Fibonacci / Golden Ratio.
 - **Themeable**: runtime theme customizer + data attributes on `<html>`.
 
 ---
 
-## Defaults (v1.1.0)
+## Defaults (v1.1.x)
 Set by Theme Customizer when no user preference exists:
 - Primary color: `blue`
 - Neutral color: `zinc`
@@ -55,8 +55,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.6/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.6/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -124,7 +124,7 @@ These values persist via `localStorage`.
 
 ## JavaScript API
 ```js
-Vanduo.init();             // required in v1.1.0
+Vanduo.init();             // required in v1.1.x
 Vanduo.reinit('dropdown'); // reinitialize a component
 Vanduo.destroyAll();       // cleanup all components
 
@@ -164,3 +164,21 @@ Phosphor Icons are bundled locally:
 <i class="ph ph-house"></i>
 <i class="ph-fill ph-heart"></i>
 ```
+
+---
+
+## Testing and Tooling
+
+- Tests use **Playwright Test** only (`@playwright/test`).
+- Main scripts (from package.json):
+  - `pnpm test` – full Playwright suite
+  - `pnpm test:a11y` – accessibility-focused tests (`@a11y` tag)
+  - `pnpm test:mobile`, `pnpm test:desktop` – viewport-specific runs
+  - `pnpm test:chromium`, `pnpm test:firefox`, `pnpm test:webkit` – engine-specific runs
+- Configuration:
+  - `playwright.config.ts` defines desktop, mobile, and tablet projects.
+  - Local server uses Python’s `http.server` to serve the repo at `http://localhost:8787`.
+
+Linting and build:
+- `pnpm lint` – runs Stylelint for CSS and ESLint for JS.
+- `pnpm build` – runs the minimal build pipeline to generate `dist/`.

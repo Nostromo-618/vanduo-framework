@@ -11,9 +11,9 @@
 
 ## ⚠️ SINGLE DEPENDENCY PHILOSOPHY
 
-**This strategy mandates a single testing dependency: `@playwright/test`**
+**This strategy mandates a single automated testing framework dependency: `@playwright/test`**
 
-The Vanduo Framework is built on zero-dependency principles. Our testing strategy follows the same philosophy:
+The Vanduo Framework is built on zero-dependency principles for runtime usage. Our testing strategy follows the same philosophy for the test runner:
 
 | Requirement | Solution | Dependency |
 |-------------|----------|------------|
@@ -28,7 +28,7 @@ The Vanduo Framework is built on zero-dependency principles. Our testing strateg
 
 > ⚠️ **Note:** Visual/pixel-comparison tests have been removed from the test suite as per project direction. Testing focuses on functional behavior, ARIA attributes, and DOM state rather than screenshot comparisons.
 
-**Total dependencies: 1 (one)**
+**Total test framework dependencies: 1 (one)** (`@playwright/test`). Other dev tooling such as ESLint, Stylelint, and the build pipeline are outside the scope of this testing dependency count.
 
 ---
 
@@ -434,14 +434,16 @@ vanduo-framework/
 │       └── tabs.html
 │
 ├── playwright.config.ts         # Playwright configuration (ONLY config file)
-└── package.json                 # Only @playwright/test dependency
+├── eslint.config.js             # JavaScript lint configuration
+├── stylelint.config.js          # CSS lint configuration
+└── package.json                 # Playwright and lint/build dev tooling
 ```
 
 ---
 
 ## Configuration
 
-### package.json (Test scripts only)
+### package.json (Test and tooling scripts)
 
 ```json
 {
@@ -461,9 +463,15 @@ vanduo-framework/
     "report": "playwright show-report"
   },
 
-  // Note: Visual/pixel-comparison test scripts removed as per project direction.
   "devDependencies": {
-    "@playwright/test": "^1.58.2"
+    "@playwright/test": "^1.58.2",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "stylelint": "^17.1.1",
+    "stylelint-config-standard": "^40.0.0",
+    "esbuild": "^0.27.3",
+    "lightningcss": "^1.31.1",
+    "husky": "^9.1.7"
   }
 }
 ```
@@ -611,31 +619,31 @@ jobs:
 
 ### Phase 1: Foundation ✅
 - [x] Strategy document (this file)
-- [ ] Install `@playwright/test`
-- [ ] Create `playwright.config.ts`
-- [ ] Create test fixtures directory
-- [ ] Create first test fixture HTML files
+- [x] Install `@playwright/test`
+- [x] Create `playwright.config.ts`
+- [x] Create test fixtures directory
+- [x] Create initial test fixture HTML files
 
-### Phase 2: Core Component Tests
-- [ ] Modal tests
-- [ ] Dropdown tests
-- [ ] Navbar tests
-- [ ] Tabs tests
+### Phase 2: Core Component Tests ✅
+- [x] Modal tests
+- [x] Dropdown tests
+- [x] Navbar tests
+- [x] Tabs tests
 
-### Phase 3: Extended Tests
-- [ ] Toast tests
-- [ ] Tooltips tests
-- [ ] Collapsible tests
-- [ ] Unit-level tests for helpers.js
+### Phase 3: Extended Tests ✅
+- [x] Toast tests
+- [x] Tooltips tests
+- [x] Collapsible tests
+- [x] Unit-level tests for helpers.js
 
-### Phase 4: Quality Assurance
-- [ ] Visual regression baselines
-- [ ] Accessibility test suite
+### Phase 4: Quality Assurance ◐
+- [ ] Additional visual regression guidance (non-pixel DOM/state patterns)
+- [x] Accessibility test suite
 - [ ] Integration tests
 
-### Phase 5: CI/CD
-- [ ] GitHub Actions workflow
-- [ ] Documentation
+### Phase 5: CI/CD ✅
+- [x] GitHub Actions workflow
+- [x] Documentation (this file and repository README references)
 
 ---
 

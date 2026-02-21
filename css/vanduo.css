@@ -73,5 +73,8 @@
 /* Effects - Phase 7 */
 @import url('effects/parallax.css');
 
+/* Components - Phase 9 (New) */
+@import url('components/draggable.css');
+
 /* Print Styles */
 @import url('utilities/print.css');

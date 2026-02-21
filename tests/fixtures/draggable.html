@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Component Test Fixture</title>
+    <link rel="stylesheet" href="/css/vanduo.css">
+    <style>
+        body {
+            margin: 20px;
+            font-family: var(--font-family-base);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <h1>Draggable Component Test Fixture</h1>
+
+        <div class="demo-section">
+            <h2>Basic Draggable Elements</h2>
+            <div class="vd-draggable-container">
+                <div class="vd-draggable" data-draggable="item-1">
+                    <span class="vd-draggable-handle">☰</span>
+                    Draggable Item 1
+                </div>
+                <div class="vd-draggable" data-draggable="item-2">
+                    <span class="vd-draggable-handle">☰</span>
+                    Draggable Item 2
+                </div>
+                <div class="vd-draggable" data-draggable="item-3">
+                    <span class="vd-draggable-handle">☰</span>
+                    Draggable Item 3
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Vertical Draggable Container</h2>
+            <div class="vd-draggable-container vd-draggable-container-vertical">
+                <div class="vd-draggable-item" data-draggable="vertical-1">
+                    <span class="vd-draggable-handle">☰</span>
+                    Vertical Item 1
+                </div>
+                <div class="vd-draggable-item" data-draggable="vertical-2">
+                    <span class="vd-draggable-handle">☰</span>
+                    Vertical Item 2
+                </div>
+                <div class="vd-draggable-item" data-draggable="vertical-3">
+                    <span class="vd-draggable-handle">☰</span>
+                    Vertical Item 3
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Drop Zones</h2>
+            <div class="vd-row">
+                <div class="vd-col-6">
+                    <div class="vd-draggable-container">
+                        <div class="vd-draggable" data-draggable="drop-item-1">
+                            <span class="vd-draggable-handle">☰</span>
+                            Draggable Item A
+                        </div>
+                        <div class="vd-draggable" data-draggable="drop-item-2">
+                            <span class="vd-draggable-handle">☰</span>
+                            Draggable Item B
+                        </div>
+                    </div>
+                </div>
+                <div class="vd-col-6">
+                    <div class="vd-drop-zone" id="demo-drop-zone">
+                        <p>Drop items here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Programmatic Control</h2>
+            <div class="demo-controls">
+                <button class="vd-btn vd-btn-primary" id="make-draggable-btn">Make Element Draggable</button>
+                <button class="vd-btn vd-btn-secondary" id="remove-draggable-btn">Remove Draggable</button>
+            </div>
+            <div id="programmatic-element" class="mt-3 p-3 bg-light rounded">
+                This element can be made draggable
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Disabled Draggable</h2>
+            <div class="vd-draggable is-disabled" data-draggable="disabled-item">
+                <span class="vd-draggable-handle">☰</span>
+                Disabled Draggable Item
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Custom Styles</h2>
+            <style>
+                .custom-draggable {
+                    --draggable-bg: #ffeb3b;
+                    --draggable-border-color: #fbc02d;
+                    --draggable-hover-bg: #fff9c4;
+                    --draggable-hover-border-color: #f9a825;
+                    --draggable-dragging-bg: #fff59d;
+                    --draggable-dragging-border-color: #f57f17;
+                    --draggable-dragging-shadow: 0 10px 20px rgba(251, 192, 45, 0.3);
+                }
+            </style>
+            <div class="vd-draggable custom-draggable" data-draggable="custom-item">
+                <span class="vd-draggable-handle">☰</span>
+                Custom Styled Draggable
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils/helpers.js"></script>
+    <script src="/js/vanduo.js"></script>
+    <script src="/js/components/draggable.js"></script>
+    <script>
+        // Initialize the framework (registers draggable component)
+        Vanduo.init();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Drop zone example
+            const dropZone = document.querySelector('#demo-drop-zone');
+            dropZone.addEventListener('draggable:drop', function (e) {
+                const droppedItem = e.detail.element;
+                const dropZone = e.detail.zone;
+                dropZone.appendChild(droppedItem);
+            });
+
+            // Programmatic control example
+            const element = document.querySelector('#programmatic-element');
+            document.querySelector('#make-draggable-btn').addEventListener('click', function () {
+                VanduoDraggable.makeDraggable(element, {
+                    data: 'programmatic-item'
+                });
+            });
+            document.querySelector('#remove-draggable-btn').addEventListener('click', function () {
+                VanduoDraggable.removeDraggable(element);
+            });
+        });
+    </script>
+</body>
+
+</html>

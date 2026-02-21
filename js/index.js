@@ -44,6 +44,7 @@ import './components/theme-switcher.js';
 import './components/toast.js';
 import './components/tooltips.js';
 import './components/doc-search.js';
+import './components/draggable.js';
 
 // Re-export for ESM / CJS consumers
 const Vanduo = window.Vanduo;

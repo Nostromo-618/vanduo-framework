@@ -19,9 +19,9 @@
 
     // Default values
     DEFAULTS: {
-      PRIMARY_LIGHT: 'amber',
+      PRIMARY_LIGHT: 'black',
       PRIMARY_DARK: 'amber',
-      NEUTRAL: 'slate',
+      NEUTRAL: 'neutral',
       RADIUS: '0.5',
       FONT: 'ubuntu',
       THEME: 'system'
@@ -566,6 +566,15 @@
     /**
      * Bind event listeners
      */
+    /**
+     * Check whether the current primary color is one of the auto-defaults
+     * (i.e. the user hasn't explicitly picked a non-default color).
+     */
+    isUsingDefaultPrimary: function () {
+      return this.state.primary === this.DEFAULTS.PRIMARY_LIGHT ||
+             this.state.primary === this.DEFAULTS.PRIMARY_DARK;
+    },
+
     bindEvents: function () {
       // Trigger click - bind to any trigger button
       if (this.elements.trigger) {
@@ -577,6 +586,22 @@
       }
 
       this.bindPanelEvents();
+
+      // Listen for OS dark/light changes so we can swap the default primary
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const handler = () => {
+          if (this.state.theme === 'system' && this.isUsingDefaultPrimary()) {
+            const newDefault = this.getDefaultPrimary('system');
+            if (newDefault !== this.state.primary) {
+              this.applyPrimary(newDefault);
+              this.updateUI();
+            }
+          }
+        };
+        mq.addEventListener('change', handler);
+        this._cleanup.push(() => mq.removeEventListener('change', handler));
+      }
 
       // Close on outside click
       this.addListener(document, 'click', (e) => {

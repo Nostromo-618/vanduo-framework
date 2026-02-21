@@ -487,9 +487,9 @@
     /**
      * Handle drag over event
      * @param {DragEvent} e - Drag event
-     * @param {HTMLElement} zone - Drop zone element
+     * @param {HTMLElement} _zone - Drop zone element
      */
-    handleDragOver: function (e, zone) {
+    handleDragOver: function (e, _zone) {
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
     },

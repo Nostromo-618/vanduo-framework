@@ -1,4 +1,4 @@
-# Vanduo Framework v1.1.6
+# Vanduo Framework v1.1.8
 
 **Essential just like water is.** 
 
@@ -54,8 +54,8 @@ Load directly from jsDelivr — no download required:
 
 **Pin to a specific version** (recommended for production):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.6/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.6/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.8/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Nostromo-618/vanduo-framework@v1.1.8/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -142,7 +142,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.1.6
+pnpm run release:assets -- v1.1.8
 ```
 
 Notes:

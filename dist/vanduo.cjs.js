@@ -132,7 +132,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.2.4" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.2.5" : "0.0.0-dev";
   const Vanduo2 = {
     version: VANDUO_VERSION,
     components: {},

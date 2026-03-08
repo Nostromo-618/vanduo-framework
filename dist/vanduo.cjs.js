@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.5 | Built: 2026-03-08T10:14:43.558Z | git:b766c3e | development */
+/*! Vanduo v1.2.4 | Built: 2026-03-08T10:07:40.230Z | git:b766c3e | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -4037,12 +4037,6 @@ module.exports = __toCommonJS(index_exports);
           this.updateUI();
         });
       }
-      this.elements.panel.querySelectorAll("[data-mode]").forEach((btn) => {
-        this.addListener(btn, "click", () => {
-          this.applyTheme(btn.dataset.mode);
-          this.updateUI();
-        });
-      });
       const resetBtn = this.elements.panel.querySelector(".customizer-reset");
       if (resetBtn) {
         this.addListener(resetBtn, "click", () => {
@@ -4093,15 +4087,6 @@ module.exports = __toCommonJS(index_exports);
       for (const [key, value] of Object.entries(this.FONT_OPTIONS)) {
         fontOptions += `<option value="${esc(key)}"${key === this.state.font ? " selected" : ""}>${esc(value.name)}</option>`;
       }
-      const modeIcons = {
-        "system": "ph-desktop",
-        "dark": "ph-moon",
-        "light": "ph-sun"
-      };
-      let modeButtons = "";
-      this.THEME_MODES.forEach((mode) => {
-        modeButtons += `<button class="tc-mode-btn${mode === this.state.theme ? " is-active" : ""}" data-mode="${mode}"><i class="ph ${modeIcons[mode]}"></i><span>${mode.charAt(0).toUpperCase() + mode.slice(1)}</span></button>`;
-      });
       return `
         <div class="tc-header">
           <h3 class="tc-title">Customize Theme</h3>
@@ -4110,12 +4095,7 @@ module.exports = __toCommonJS(index_exports);
           </button>
         </div>
         <div class="tc-body">
-          <div class="tc-section">
-            <label class="tc-label">Color Mode</label>
-            <div class="tc-mode-group">
-              ${modeButtons}
-            </div>
-          </div>
+
           <div class="tc-section">
             <label class="tc-label">Primary Color</label>
             <div class="tc-color-grid">
@@ -4251,9 +4231,6 @@ module.exports = __toCommonJS(index_exports);
       if (fontSelect) {
         fontSelect.value = this.state.font;
       }
-      this.elements.panel.querySelectorAll("[data-mode]").forEach((btn) => {
-        btn.classList.toggle("is-active", btn.dataset.mode === this.state.theme);
-      });
     },
     /**
      * Reset all preferences to defaults

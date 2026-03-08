@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.4 | Built: 2026-03-04T19:15:26.258Z | git:a524dfc | development */
+/*! Vanduo v1.2.4 | Built: 2026-03-08T10:07:40.230Z | git:b766c3e | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -60273,7 +60273,7 @@ input.vd-doc-search-input {
 
 .vd-table th, .vd-table td, .table th, .table td {
   padding: var(--table-padding-y) var(--table-padding-x);
-  vertical-align: top;
+  vertical-align: middle;
   border-top: 1px solid var(--table-border-color);
 }
 

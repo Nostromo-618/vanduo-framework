@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+
+function releaseExists(tag) {
+  const r = spawnSync('gh', ['release', 'view', tag], { encoding: 'utf8' });
+  return r.status === 0;
+}
 
 const ROOT = process.cwd();
 const DIST_DIR = path.join(ROOT, 'dist');
@@ -68,6 +73,11 @@ if (dryRun) {
   console.log('Assets to upload:');
   assetPaths.forEach((assetPath) => console.log(`- ${assetPath}`));
   process.exit(0);
+}
+
+if (!releaseExists(tag)) {
+  console.log(`Creating GitHub release ${tag}...`);
+  execFileSync('gh', ['release', 'create', tag, '--generate-notes'], { stdio: 'inherit' });
 }
 
 execFileSync('gh', ['release', 'upload', tag, ...assetPaths, '--clobber'], {

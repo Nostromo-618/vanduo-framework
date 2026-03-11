@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/timeline.css">
+</head>
+<body style="padding:2rem;">
+  <!-- Basic timeline -->
+  <ul id="basic-timeline" class="vd-timeline">
+    <li class="vd-timeline-item">
+      <div class="vd-timeline-marker"></div>
+      <div class="vd-timeline-content">
+        <div class="vd-timeline-date">Jan 2025</div>
+        <h4 class="vd-timeline-title">Project Started</h4>
+        <p class="vd-timeline-text">Initial commit and setup.</p>
+      </div>
+    </li>
+    <li class="vd-timeline-item vd-timeline-success">
+      <div class="vd-timeline-marker"></div>
+      <div class="vd-timeline-content">
+        <div class="vd-timeline-date">Mar 2025</div>
+        <h4 class="vd-timeline-title">Beta Release</h4>
+        <p class="vd-timeline-text">First public beta.</p>
+      </div>
+    </li>
+    <li class="vd-timeline-item vd-timeline-danger">
+      <div class="vd-timeline-marker"></div>
+      <div class="vd-timeline-content">
+        <div class="vd-timeline-date">Jun 2025</div>
+        <h4 class="vd-timeline-title">Critical Bug</h4>
+        <p class="vd-timeline-text">Major issue found.</p>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Alternating timeline -->
+  <ul id="alt-timeline" class="vd-timeline vd-timeline-alternating" style="margin-top:3rem;">
+    <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Event A</h4></div></li>
+    <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Event B</h4></div></li>
+  </ul>
+</body>
+</html>

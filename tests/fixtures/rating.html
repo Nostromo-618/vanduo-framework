@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rating Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/rating.css">
+</head>
+<body style="padding:2rem;">
+  <div id="rating-basic" data-vd-rating data-vd-rating-max="5" data-vd-rating-value="3"></div>
+  <div id="rating-empty" data-vd-rating data-vd-rating-max="5"></div>
+  <div id="rating-readonly" data-vd-rating data-vd-rating-max="5" data-vd-rating-value="4" class="vd-rating-readonly"></div>
+  <div id="rating-10" data-vd-rating data-vd-rating-max="10" data-vd-rating-value="7"></div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/rating.js"></script>
+  <script>Vanduo.init();</script>
+</body>
+</html>

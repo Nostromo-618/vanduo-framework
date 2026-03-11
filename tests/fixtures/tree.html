@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tree View Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/tree.css">
+</head>
+<body style="padding:2rem;">
+  <div id="basic-tree" data-vd-tree='[
+    {"id":"src","label":"src","open":true,"children":[
+      {"id":"components","label":"components","children":[
+        {"id":"btn","label":"Button.js"},
+        {"id":"card","label":"Card.js"}
+      ]},
+      {"id":"utils","label":"utils","children":[
+        {"id":"helpers","label":"helpers.js"}
+      ]}
+    ]},
+    {"id":"readme","label":"README.md"}
+  ]'></div>
+
+  <div id="checkbox-tree" data-vd-tree='[
+    {"id":"a","label":"Parent A","children":[
+      {"id":"a1","label":"Child A1"},
+      {"id":"a2","label":"Child A2"}
+    ]},
+    {"id":"b","label":"Leaf B"}
+  ]' data-vd-tree-checkbox style="margin-top:2rem;"></div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/tree.js"></script>
+  <script>Vanduo.init();</script>
+</body>
+</html>

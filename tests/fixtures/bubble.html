@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble (Popover) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/bubble.css">
+</head>
+<body style="padding: 100px;">
+  <!-- Basic popover -->
+  <button id="basic-bubble" class="vd-btn vd-btn-primary"
+    data-vd-bubble="This is popover content"
+    data-vd-bubble-title="My Popover">
+    Click me
+  </button>
+
+  <!-- No title -->
+  <button id="no-title-bubble" class="vd-btn"
+    data-vd-bubble="Just content, no title">
+    No Title
+  </button>
+
+  <!-- HTML content -->
+  <button id="html-bubble" class="vd-btn"
+    data-vd-bubble-html="&lt;strong&gt;Bold text&lt;/strong&gt; and more"
+    data-vd-bubble-title="HTML Content">
+    HTML Bubble
+  </button>
+
+  <!-- Placement variants -->
+  <button id="top-bubble" class="vd-btn"
+    data-vd-bubble="Top popover"
+    data-vd-bubble-placement="top">
+    Top
+  </button>
+
+  <button id="left-bubble" class="vd-btn"
+    data-vd-bubble="Left popover"
+    data-vd-bubble-placement="left">
+    Left
+  </button>
+
+  <button id="right-bubble" class="vd-btn"
+    data-vd-bubble="Right popover"
+    data-vd-bubble-placement="right">
+    Right
+  </button>
+
+  <!-- Alias -->
+  <button id="alias-bubble" class="vd-btn"
+    data-vd-popover="Alias content"
+    data-vd-popover-title="Alias Title">
+    Alias
+  </button>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/bubble.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

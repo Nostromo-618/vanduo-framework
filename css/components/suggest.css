@@ -1,0 +1,119 @@
+/**
+ * Vanduo Framework - Suggest (Autocomplete)
+ * Dropdown suggestion list for text inputs
+ * Primary: .vd-suggest | Alias: .vd-autocomplete
+ */
+
+:root {
+  /* Suggest Colors */
+  --suggest-bg: var(--card-bg, #fff);
+  --suggest-border-color: var(--border-color, #dee2e6);
+  --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.1); /* 4px 13px - fib */
+  --suggest-item-hover-bg: var(--bg-secondary, #f8f9fa);
+  --suggest-item-active-bg: var(--color-primary, #0d6efd);
+  --suggest-item-active-color: #fff;
+  --suggest-highlight-color: var(--color-primary, #0d6efd);
+
+  /* Suggest Spacing (Fibonacci) */
+  --suggest-padding: 0.3125rem 0; /* 5px - fib */
+  --suggest-item-padding: 0.5rem 0.8125rem; /* 8px 13px - fib */
+  --suggest-max-height: 15rem;
+  --suggest-border-radius: var(--border-radius, 0.5rem);
+
+  /* Suggest Z-index */
+  --suggest-z-index: 1050;
+}
+
+[data-theme="dark"] {
+  --suggest-bg: var(--card-bg, #2d2d44);
+  --suggest-border-color: var(--border-color, #3d3d5c);
+  --suggest-item-hover-bg: var(--bg-primary, #1a1a2e);
+  --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --suggest-bg: var(--card-bg, #2d2d44);
+    --suggest-border-color: var(--border-color, #3d3d5c);
+    --suggest-item-hover-bg: var(--bg-primary, #1a1a2e);
+    --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ========== Wrapper ========== */
+
+.vd-suggest-wrapper,
+.vd-autocomplete-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* ========== Dropdown List ========== */
+
+.vd-suggest-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--suggest-z-index);
+  margin-top: 2px;
+  padding: var(--suggest-padding);
+  max-height: var(--suggest-max-height);
+  overflow-y: auto;
+  background: var(--suggest-bg);
+  border: 1px solid var(--suggest-border-color);
+  border-radius: var(--suggest-border-radius);
+  box-shadow: var(--suggest-shadow);
+  list-style: none;
+  display: none;
+}
+
+.vd-suggest-list.is-open {
+  display: block;
+}
+
+/* ========== Items ========== */
+
+.vd-suggest-item {
+  padding: var(--suggest-item-padding);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-size: var(--font-size-base, 1rem);
+}
+
+.vd-suggest-item:hover,
+.vd-suggest-item.is-highlighted {
+  background: var(--suggest-item-hover-bg);
+}
+
+.vd-suggest-item.is-active {
+  background: var(--suggest-item-active-bg);
+  color: var(--suggest-item-active-color);
+}
+
+/* Match highlight */
+.vd-suggest-match {
+  font-weight: 600;
+  color: var(--suggest-highlight-color);
+}
+
+.vd-suggest-item.is-active .vd-suggest-match {
+  color: inherit;
+}
+
+/* ========== No Results ========== */
+
+.vd-suggest-empty {
+  padding: var(--suggest-item-padding);
+  color: var(--text-muted, #6c757d);
+  font-style: italic;
+}
+
+/* ========== Loading ========== */
+
+.vd-suggest-loading {
+  padding: var(--suggest-item-padding);
+  text-align: center;
+  color: var(--text-muted, #6c757d);
+}

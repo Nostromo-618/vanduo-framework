@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waypoint (Scrollspy) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/waypoint.css">
+  <style>
+    body { margin: 0; }
+    .scroll-container { height: 100vh; overflow-y: auto; }
+    nav { position: fixed; top: 0; left: 0; width: 200px; padding: 1rem; background: #f8f9fa; height: 100vh; z-index: 10; }
+    nav a { display: block; padding: 0.5rem; text-decoration: none; color: #333; }
+    main { margin-left: 220px; }
+    section { min-height: 600px; padding: 2rem; border-bottom: 1px solid #ddd; }
+    #section-1 { background: #e3f2fd; }
+    #section-2 { background: #f3e5f5; }
+    #section-3 { background: #e8f5e9; }
+    #section-4 { background: #fff3e0; }
+  </style>
+</head>
+<body>
+  <nav id="spy-nav" data-vd-waypoint-nav>
+    <a href="#section-1">Section 1</a>
+    <a href="#section-2">Section 2</a>
+    <a href="#section-3">Section 3</a>
+    <a href="#section-4">Section 4</a>
+  </nav>
+
+  <main>
+    <section id="section-1"><h2>Section 1</h2><p>Content</p></section>
+    <section id="section-2"><h2>Section 2</h2><p>Content</p></section>
+    <section id="section-3"><h2>Section 3</h2><p>Content</p></section>
+    <section id="section-4"><h2>Section 4</h2><p>Content</p></section>
+  </main>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/waypoint.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

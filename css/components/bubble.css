@@ -1,0 +1,165 @@
+/**
+ * Vanduo Framework - Bubble (Popover)
+ * Click-triggered rich content popover
+ * Primary: .vd-bubble | Alias: .vd-popover
+ */
+
+:root {
+  /* Bubble Colors */
+  --bubble-bg: var(--card-bg, #fff);
+  --bubble-text: var(--text-primary, #212529);
+  --bubble-border-color: var(--border-color, #dee2e6);
+  --bubble-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.12); /* 8px 21px - fib */
+
+  /* Bubble Spacing (Fibonacci) */
+  --bubble-padding: 0.8125rem; /* 13px - fib */
+  --bubble-header-padding: 0.5rem 0.8125rem; /* 8px 13px */
+  --bubble-arrow-size: 8px; /* fib */
+
+  /* Bubble Sizing */
+  --bubble-max-width: 21rem; /* 336px - fib×16 */
+  --bubble-min-width: 8rem;
+  --bubble-border-radius: var(--border-radius, 0.5rem);
+
+  /* Bubble Z-index */
+  --bubble-z-index: 1060;
+
+  /* Bubble Font */
+  --bubble-font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bubble-bg: var(--card-bg, #2d2d44);
+  --bubble-border-color: var(--border-color, #3d3d5c);
+  --bubble-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bubble-bg: var(--card-bg, #2d2d44);
+    --bubble-border-color: var(--border-color, #3d3d5c);
+    --bubble-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-bubble-content,
+.vd-popover-content {
+  position: absolute;
+  z-index: var(--bubble-z-index);
+  max-width: var(--bubble-max-width);
+  min-width: var(--bubble-min-width);
+  background: var(--bubble-bg);
+  color: var(--bubble-text);
+  border: 1px solid var(--bubble-border-color);
+  border-radius: var(--bubble-border-radius);
+  box-shadow: var(--bubble-shadow);
+  font-size: var(--bubble-font-size);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.vd-bubble-content.is-visible,
+.vd-popover-content.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* ========== Header ========== */
+
+.vd-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--bubble-header-padding);
+  border-bottom: 1px solid var(--bubble-border-color);
+  font-weight: 600;
+}
+
+/* ========== Body ========== */
+
+.vd-bubble-body {
+  padding: var(--bubble-padding);
+}
+
+/* ========== Close Button ========== */
+
+.vd-bubble-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin-left: 0.5rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--bubble-text);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.vd-bubble-close:hover { opacity: 1; }
+
+/* ========== Arrow ========== */
+
+.vd-bubble-content::before,
+.vd-popover-content::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: var(--bubble-arrow-size) solid transparent;
+}
+
+/* Arrow: top placement (popover below trigger) */
+.vd-bubble-content[data-placement="bottom"]::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--bubble-border-color);
+}
+
+.vd-bubble-content[data-placement="top"]::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--bubble-border-color);
+}
+
+.vd-bubble-content[data-placement="left"]::before {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--bubble-border-color);
+}
+
+.vd-bubble-content[data-placement="right"]::before {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--bubble-border-color);
+}
+
+/* ========== Size Variants ========== */
+
+.vd-bubble-sm .vd-bubble-body {
+  --bubble-padding: 0.5rem; /* 8px - fib */
+  --bubble-font-size: var(--font-size-xs, 0.75rem);
+}
+
+.vd-bubble-lg .vd-bubble-body {
+  --bubble-padding: 1.3125rem; /* 21px - fib */
+  --bubble-max-width: 34rem;
+}

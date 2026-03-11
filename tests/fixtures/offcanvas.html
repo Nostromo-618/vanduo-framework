@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offcanvas (Sidenav Enhancement) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <!-- Top offcanvas -->
+  <div id="offcanvas-top" class="vd-offcanvas vd-offcanvas-top">
+    <div class="vd-sidenav-header">
+      <h5 class="vd-sidenav-title">Top Panel</h5>
+      <button class="vd-sidenav-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="vd-sidenav-body"><p>Top content</p></div>
+  </div>
+
+  <!-- Bottom offcanvas -->
+  <div id="offcanvas-bottom" class="vd-offcanvas vd-offcanvas-bottom">
+    <div class="vd-sidenav-header">
+      <h5 class="vd-sidenav-title">Bottom Panel</h5>
+      <button class="vd-sidenav-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="vd-sidenav-body"><p>Bottom content</p></div>
+  </div>
+
+  <!-- Right offcanvas -->
+  <div id="offcanvas-right" class="vd-offcanvas vd-offcanvas-right">
+    <div class="vd-sidenav-header">
+      <h5 class="vd-sidenav-title">Right Panel</h5>
+      <button class="vd-sidenav-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="vd-sidenav-body"><p>Right content</p></div>
+  </div>
+
+  <!-- data-vd-position variant -->
+  <div id="offcanvas-data" class="vd-sidenav" data-vd-position="bottom">
+    <div class="vd-sidenav-header">
+      <h5 class="vd-sidenav-title">Data Position</h5>
+      <button class="vd-sidenav-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="vd-sidenav-body"><p>Data-driven bottom</p></div>
+  </div>
+
+  <button id="open-top" data-sidenav-toggle="#offcanvas-top">Open Top</button>
+  <button id="open-bottom" data-sidenav-toggle="#offcanvas-bottom">Open Bottom</button>
+  <button id="open-right" data-sidenav-toggle="#offcanvas-right">Open Right</button>
+  <button id="open-data" data-sidenav-toggle="#offcanvas-data">Open Data</button>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/utils/lifecycle.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/sidenav.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

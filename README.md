@@ -1,4 +1,4 @@
-# Vanduo Framework v1.2.6
+# Vanduo Framework v1.2.7
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -19,7 +19,7 @@
 
 ## Overview
 
-A lightweight, pure HTML/CSS/JS framework for designing beautiful interfaces. Zero runtime dependencies, no mandatory build tools, just clean and simple code.
+A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing beautiful interfaces. Zero runtime dependencies, no mandatory build tools, just clean and simple code.
 
 [**Browse Full Documentation →**](https://vanduo.dev/#docs)
 
@@ -34,6 +34,32 @@ A lightweight, pure HTML/CSS/JS framework for designing beautiful interfaces. Ze
 - 🌙 **Dark Mode** - Automatic OS preference detection + manual toggle
 - 🎛️ **Theme Customizer** - Real-time color, radius, font, and mode customization
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
+
+---
+
+## What's New in v1.2.7
+
+v1.2.7 adds **17 new components**, bringing the total to **45+**. Each component ships with dedicated CSS, JavaScript (where applicable), full Playwright test coverage, and comprehensive documentation.
+
+| Component | Vanduo Name | Type |
+|---|---|---|
+| Carousel | Flow | CSS + JS |
+| Popover | Bubble | CSS + JS |
+| Scrollspy | Waypoint | CSS + JS |
+| Offcanvas | — (enhanced Sidenav) | CSS + JS |
+| Ripple / Waves | Ripple | CSS + JS |
+| Floating Action Button | FAB | CSS-only |
+| Sticky | Affix | CSS + JS |
+| Autocomplete | Suggest | CSS + JS |
+| Form Validation | Validate | JS |
+| Date Picker | Datepicker | CSS + JS |
+| Time Picker | Timepicker | CSS + JS |
+| Stepper | Stepper | CSS + JS |
+| Timeline | Timeline | CSS-only |
+| Rating | Rating | CSS + JS |
+| Transfer / Multi-select | Transfer | CSS + JS |
+| Tree View | Tree | CSS + JS |
+| Spotlight / Feature Discovery | Spotlight | CSS + JS |
 
 ---
 
@@ -54,8 +80,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.5/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.5/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -118,7 +144,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.2.5
+pnpm run release:assets -- v1.2.7
 ```
 
 Notes:

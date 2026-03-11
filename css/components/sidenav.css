@@ -267,6 +267,76 @@
   margin-right: var(--sidenav-width-lg);
 }
 
+/* ========== Offcanvas Alias ========== */
+
+.vd-offcanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--sidenav-z-index);
+  width: var(--sidenav-width);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sidenav-bg);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-100%);
+  transition: var(--sidenav-transition);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.vd-offcanvas.is-open {
+  transform: translateX(0) translateY(0);
+}
+
+/* Top direction */
+.vd-sidenav-top,
+.vd-offcanvas-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  transform: translateY(-100%);
+}
+
+.vd-sidenav-top.is-open,
+.vd-offcanvas-top.is-open {
+  transform: translateY(0);
+}
+
+/* Bottom direction */
+.vd-sidenav-bottom,
+.vd-offcanvas-bottom {
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  transform: translateY(100%);
+}
+
+.vd-sidenav-bottom.is-open,
+.vd-offcanvas-bottom.is-open {
+  transform: translateY(0);
+}
+
+/* Right alias for offcanvas */
+.vd-offcanvas-right {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+}
+
+.vd-offcanvas-right.is-open {
+  transform: translateX(0);
+}
+
 /* Body Scroll Lock */
 .body-sidenav-open {
   overflow: hidden;

@@ -1,6 +1,6 @@
-# Vanduo Framework v1.2.3 — LLM Context
+# Vanduo Framework v1.2.7 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.2.3 includes the migration to the `vanduo-oss` GitHub organization and npm scope (`@vanduo-oss/framework`), strict-mode and JS hardening improvements, and the **Draggable component** introduced in v1.1.8. The repository itself uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.2.7 ships **45+ components** including 17 new ones (Carousel/Flow, Popover/Bubble, Scrollspy/Waypoint, Ripple, FAB, Sticky/Affix, Autocomplete/Suggest, Form Validation, Date Picker, Time Picker, Stepper, Timeline, Rating, Transfer, Tree View, Spotlight, and enhanced multi-direction Offcanvas). The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -9,6 +9,7 @@ You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS fra
 - **Naming safety**: all framework classes are prefixed with `vd-`.
 - **Design system**: spacing, type, and layout follow Fibonacci / Golden Ratio.
 - **Themeable**: runtime theme customizer + data attributes on `<html>`.
+- **Dual naming**: many components have a standard name and a unique Vanduo alias (e.g., Carousel → Flow, Popover → Bubble, Scrollspy → Waypoint).
 
 ---
 
@@ -55,8 +56,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.3/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.3/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -125,63 +126,284 @@ These values persist via `localStorage`.
 - **Spacing**: `vd-m-5`, `vd-p-8`, `vd-gap-5`, `vd-gap-fib-13`
 - **Text**: `vd-text-primary`, `vd-text-muted`, `vd-text-sm`
 - **BG**: `vd-bg-primary`, `vd-bg-success`, `vd-bg-dark`
+- **Per-hue colors** (v1.2.6+): `vd-bg-{color}-{shade}`, `vd-text-{color}-{shade}` (13 hues × 10 shades)
 - **Borders**: `vd-border`, `vd-border-primary`, `vd-rounded-md`
 - **Shadows/Glow**: `vd-shadow-lg`, `vd-hover-glow`
 
 ---
 
-## Components (Common)
-- Buttons, Cards, Forms, Navbars
-- Tabs, Accordions, Modals, Dropdowns
-- Alerts, Badges, Chips, Toasts
-- Pagination, Breadcrumbs, Collections
-- Tables, Avatars, Skeletons
-- Preloader / Progress
-- Theme Customizer, Image Box, Doc Search
-- **Draggable (v1.1.8+)**: `.vd-draggable`, `.vd-draggable-container`, `.vd-drop-zone`
+## Complete Component Inventory (45+)
+
+### Layout & Navigation
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Navbar | `.vd-navbar` | `navbar` | Fixed/sticky, responsive hamburger |
+| Sidenav | `.vd-sidenav` | `sidenav` | Slide-in drawer, overlay |
+| Offcanvas | `.vd-offcanvas` | `sidenav` | Multi-direction (top/right/bottom/left) via `data-vd-position` |
+| Breadcrumbs | `.vd-breadcrumb` | — | CSS-only |
+| Pagination | `.vd-pagination` | `pagination` | |
+| Footer | `.vd-footer` | — | CSS-only |
+| Tabs | `.vd-tabs` | `tabs` | |
+| Stepper | `.vd-stepper` | `stepper` | Linear/free-form wizard steps |
+
+### Data Display
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Cards | `.vd-card` | — | Glow, actionable, image variants |
+| Collections | `.vd-collection` | — | CSS-only lists |
+| Badges | `.vd-badge` | — | CSS-only |
+| Chips | `.vd-chip` | — | CSS-only |
+| Alerts | `.vd-alert` | — | CSS-only |
+| Avatar | `.vd-avatar` | — | CSS-only |
+| Skeleton | `.vd-skeleton` | — | CSS-only loading placeholder |
+| Timeline | `.vd-timeline` | — | CSS-only vertical timeline |
+| Tree View | `.vd-tree` | `tree` | Expandable/checkable nested lists |
+| Code Snippet | `.vd-code-snippet` | `code-snippet` | Syntax display with copy |
+
+### Overlays & Feedback
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Modals | `.vd-modal` | `modals` | |
+| Toast | `.vd-toast` | `toast` | Programmatic via `Vanduo.components.toast.show()` |
+| Tooltips | `.vd-tooltip` | `tooltips` | `data-tooltip`, `data-tooltip-placement` |
+| Popover / Bubble | `.vd-bubble` | `bubble` | Rich content, smart positioning |
+| Dropdown | `.vd-dropdown` | `dropdown` | |
+| Spotlight | `.vd-spotlight` | `spotlight` | Feature discovery / guided tour |
+
+### Forms & Input
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Forms | `.vd-input`, `.vd-form-group` | — | CSS-only base |
+| Select | `.vd-select` | `select` | Enhanced native select |
+| Autocomplete / Suggest | `.vd-suggest` | `suggest` | Filterable dropdown suggestions |
+| Form Validation | `.vd-validate-error` | `validate` | Custom rules, real-time feedback |
+| Date Picker | `.vd-datepicker` | `datepicker` | Calendar popup, range support |
+| Time Picker | `.vd-timepicker` | `timepicker` | Hour/minute/period selector |
+| Rating | `.vd-rating` | `rating` | Star rating with half-star support |
+| Transfer | `.vd-transfer` | `transfer` | Dual-list multi-select |
+
+### Media & Interaction
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Carousel / Flow | `.vd-flow` | `flow` | Slides, indicators, auto-play |
+| Image Box | `.vd-image-box` | `image-box` | Lightbox zoom |
+| Draggable | `.vd-draggable` | `draggable` | Drag-and-drop, sortable containers |
+| Parallax | — | `parallax` | Scroll-based parallax effect |
+| Lazy Load | — | `lazy-load` | Image lazy loading |
+
+### Effects & Enhancements
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Ripple / Waves | `.vd-ripple` | `ripple` | Material-style click ripple |
+| FAB | `.vd-fab` | — | CSS-only floating action button |
+| Sticky / Affix | `.vd-affix` | `affix` | Sticks on scroll via IntersectionObserver |
+| Scrollspy / Waypoint | `.vd-waypoint` | `waypoint` | Active-link tracking via IntersectionObserver |
+
+### Progress & Loading
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Preloader | `.vd-preloader` | `preloader` | Full-page loading screen |
+| Progress | `.vd-progress` | — | CSS-only progress bars |
+| Spinner | `.vd-spinner` | — | CSS-only spinner |
+
+### Accordion & Collapse
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Collapsible / Accordion | `.vd-collapsible` | `collapsible` | Supports exclusive-open mode |
+
+### Tooling
+| Component | CSS Class | JS Module | Notes |
+|---|---|---|---|
+| Theme Customizer | `.vd-theme-customizer` | `theme-customizer` | Runtime theming UI |
+| Theme Switcher | — | `theme-switcher` | Light/dark toggle |
+| Font Switcher | — | `font-switcher` | Font family swap |
+| Doc Search | `.vd-doc-search` | `doc-search` | Documentation search modal |
+| Grid Toggle | — | `grid` | Fibonacci/standard layout switch |
 
 ---
 
 ## JavaScript API
-```js
-Vanduo.init();             // required in v1.2.x
-Vanduo.reinit('dropdown'); // reinitialize a component
-Vanduo.destroyAll();       // cleanup all components
 
+### Core
+```js
+Vanduo.init();             // initialize all components (required)
+Vanduo.reinit('dropdown'); // reinitialize a specific component
+Vanduo.destroyAll();       // cleanup all components
+```
+
+### Toast (programmatic)
+```js
 Vanduo.components.toast.show({
   title: 'Success',
   message: 'Saved.',
-  type: 'success',
+  type: 'success',      // success | error | warning | info
   duration: 3000
 });
 ```
 
+### Carousel / Flow
+```js
+Vanduo.components.flow.next(element);
+Vanduo.components.flow.prev(element);
+Vanduo.components.flow.goTo(element, index);
+Vanduo.components.flow.destroy(element);
+```
+
+### Popover / Bubble
+```js
+Vanduo.components.bubble.show(trigger);
+Vanduo.components.bubble.hide(trigger);
+Vanduo.components.bubble.hideAll();
+Vanduo.components.bubble.destroy(trigger);
+```
+
+### Scrollspy / Waypoint
+```js
+Vanduo.components.waypoint.refresh(navElement);
+Vanduo.components.waypoint.destroy(navElement);
+```
+
+### Stepper
+```js
+Vanduo.components.stepper.setStep(element, index);
+Vanduo.components.stepper.next(element);
+Vanduo.components.stepper.prev(element);
+Vanduo.components.stepper.destroy(element);
+```
+
+### Rating
+```js
+Vanduo.components.rating.getValue(element);   // returns number
+Vanduo.components.rating.setValue(element, 4); // set to 4 stars
+Vanduo.components.rating.destroy(element);
+```
+
+### Transfer
+```js
+Vanduo.components.transfer.getSelected(element); // returns selected items
+Vanduo.components.transfer.destroy(element);
+```
+
+### Tree View
+```js
+Vanduo.components.tree.getChecked(element); // returns checked node values
+Vanduo.components.tree.destroy(element);
+```
+
+### Spotlight / Feature Discovery
+```js
+Vanduo.components.spotlight.start([
+  { target: '#step1', title: 'Welcome', content: 'Start here.' },
+  { target: '#step2', title: 'Next', content: 'Then this.' }
+]);
+Vanduo.components.spotlight.next();
+Vanduo.components.spotlight.prev();
+Vanduo.components.spotlight.stop();
+```
+
+### Form Validation
+```js
+Vanduo.components.validate.validateForm(formElement);
+Vanduo.components.validate.addRule('customRule', validatorFn, 'Error message');
+Vanduo.components.validate.destroy(formElement);
+```
+
+### Draggable (v1.1.8+)
+```js
+Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
+```
+
 ---
 
-## Data Attributes (Common)
+## Data Attributes (Complete)
+
+### Core / Existing
 - `data-modal="#id"` / `data-dismiss="modal"`
 - `data-tooltip="text"` / `data-tooltip-placement="top|right|bottom|left"`
 - `data-toggle="theme"` / `data-toggle="font"`
 - `data-collapsible`
 - `data-grid-toggle="#selector"`
 - `data-theme-customizer-trigger`
-- `data-draggable="value"` (used with `.vd-draggable`)
-- `data-sidenav-toggle="#css-selector"` — value **must be a CSS selector** (include the `#`); e.g. `data-sidenav-toggle="#main-sidenav"` not `data-sidenav-toggle="main-sidenav"`
+- `data-draggable="value"`
+- `data-sidenav-toggle="#css-selector"` — value **must be a CSS selector** (include the `#`)
+
+### New in v1.2.7
+- `data-vd-flow` — carousel container marker
+- `data-vd-bubble` — popover trigger, value is the ID of the popover element
+- `data-vd-waypoint` — scrollspy navigation container
+- `data-vd-position="top|right|bottom|left"` — offcanvas/sidenav direction
+- `data-vd-affix` — sticky element marker
+- `data-vd-suggest` — autocomplete input marker
+- `data-vd-validate` — form validation marker
+- `data-vd-datepicker` — date picker input marker
+- `data-vd-timepicker` — time picker input marker
+- `data-vd-stepper` — stepper container marker
+- `data-vd-rating` — rating widget marker
+- `data-vd-transfer` — transfer list marker
+- `data-vd-tree` — tree view container marker
+- `data-vd-spotlight` — spotlight step target (used programmatically)
 
 ---
 
-## Draggable API (v1.1.8+)
-- **Classes**: `.vd-draggable` (single item), `.vd-draggable-handle` (grab point), `.vd-draggable-container` (auto-sorting grid list), `.vd-draggable-container-vertical` (auto-sorting vertical list), `.vd-drop-zone`
-- **Events**: `draggable:start`, `draggable:drag`, `draggable:end`, `draggable:drop`, `draggable:reorder`
-- **JS Control**: `Vanduo.components.draggable.makeDraggable(element, { data: 'value' })`
+## Key CSS Classes (New in v1.2.7)
+
+### Carousel / Flow
+`.vd-flow`, `.vd-flow-track`, `.vd-flow-slide`, `.vd-flow-prev`, `.vd-flow-next`, `.vd-flow-indicators`
+
+### Popover / Bubble
+`.vd-bubble`, `.vd-bubble-top`, `.vd-bubble-right`, `.vd-bubble-bottom`, `.vd-bubble-left`
+
+### Scrollspy / Waypoint
+`.vd-waypoint`, `.vd-waypoint-nav`, `.is-active` (applied to active link)
+
+### Offcanvas
+`.vd-offcanvas`, `.vd-offcanvas-top`, `.vd-offcanvas-right`, `.vd-offcanvas-bottom`, `.vd-offcanvas-close`
+
+### Ripple
+`.vd-ripple`
+
+### FAB
+`.vd-fab`, `.vd-fab-fixed`, `.vd-fab-mini`
+
+### Sticky / Affix
+`.vd-affix`, `.is-stuck` (applied when stuck)
+
+### Autocomplete / Suggest
+`.vd-suggest`, `.vd-suggest-list`, `.vd-suggest-item`
+
+### Date Picker
+`.vd-datepicker`, `.vd-datepicker-calendar`, `.vd-datepicker-header`
+
+### Time Picker
+`.vd-timepicker`, `.vd-timepicker-dropdown`
+
+### Stepper
+`.vd-stepper`, `.vd-stepper-step`, `.is-active`, `.is-completed`
+
+### Timeline
+`.vd-timeline`, `.vd-timeline-item`, `.vd-timeline-marker`, `.vd-timeline-content`
+
+### Rating
+`.vd-rating`, `.vd-rating-star`
+
+### Transfer
+`.vd-transfer`, `.vd-transfer-panel`, `.vd-transfer-controls`
+
+### Tree View
+`.vd-tree`, `.vd-tree-node`, `.vd-tree-toggle`, `.vd-tree-checkbox`
+
+### Spotlight
+`.vd-spotlight-overlay`, `.vd-spotlight-tooltip`, `.vd-spotlight-highlight`
 
 ---
 
 ## Key Files
-- `css/vanduo.css` — master stylesheet
+- `css/vanduo.css` — master stylesheet (imports all component CSS)
 - `js/vanduo.js` — global JS entry (manual init)
+- `js/index.js` — bundled JS entry (imports all component JS)
 - `css/core/` — tokens, colors, typography, grid
-- `css/components/` — buttons, cards, forms, etc
+- `css/components/` — 45 component stylesheets
+- `js/components/` — 35 component scripts
 - `css/utilities/` — shadows, tables, transitions, transforms
 - `dist/` — production-ready minified build
 
@@ -206,7 +428,7 @@ Phosphor Icons are bundled locally:
   - `pnpm test:chromium`, `pnpm test:firefox`, `pnpm test:webkit` – engine-specific runs
 - Configuration:
   - `playwright.config.ts` defines desktop, mobile, and tablet projects.
-  - Local server uses Python’s `http.server` to serve the repo at `http://localhost:8787`.
+  - Local server uses Python's `http.server` to serve the repo at `http://localhost:8787`.
 
 Linting and build:
 - `pnpm lint` – runs Stylelint for CSS and ESLint for JS.

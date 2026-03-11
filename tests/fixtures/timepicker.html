@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timepicker Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/timepicker.css">
+</head>
+<body style="padding:2rem;">
+  <h1>Timepicker Test</h1>
+
+  <div style="margin-bottom:2rem;">
+    <label for="time-12h">12h format (30min step):</label>
+    <input id="time-12h" type="text" class="vd-input" data-vd-timepicker placeholder="Select time">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="time-24h">24h format:</label>
+    <input id="time-24h" type="text" class="vd-input" data-vd-timepicker data-vd-timepicker-format="24h" placeholder="Select time">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="time-15min">15 minute step:</label>
+    <input id="time-15min" type="text" class="vd-input" data-vd-timepicker data-vd-timepicker-step="15" placeholder="Select time">
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/timepicker.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

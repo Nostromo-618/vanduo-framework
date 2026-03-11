@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affix (Sticky) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/affix.css">
+  <style>
+    .spacer { height: 200px; background: #f0f0f0; display:flex; align-items:center; justify-content:center; }
+    .sticky-bar { padding: 1rem; background: #0d6efd; color: white; text-align: center; }
+    .content { height: 2000px; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="spacer">Scroll down to see sticky behavior</div>
+
+  <div id="sticky-bar" class="sticky-bar vd-affix">
+    Sticky Navigation Bar
+  </div>
+
+  <div class="content">
+    <p>Long scrollable content...</p>
+  </div>
+
+  <div class="spacer">
+    <div id="sticky-offset" class="vd-affix" data-vd-affix-offset="50" style="padding:1rem;background:#198754;color:white;">
+      Sticky with offset
+    </div>
+  </div>
+
+  <div class="content">
+    <p>More content...</p>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/affix.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

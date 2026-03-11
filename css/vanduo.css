@@ -70,6 +70,9 @@
 @import url('utilities/media.css');
 @import url('utilities/table.css');
 
+/* Utilities - Color palette (per-hue bg/text classes) */
+@import url('utilities/color-utilities.css');
+
 /* Effects - Phase 7 */
 @import url('effects/parallax.css');
 

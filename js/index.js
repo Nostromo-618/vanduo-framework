@@ -47,6 +47,22 @@ import './components/doc-search.js';
 import './components/draggable.js';
 import './components/lazy-load.js';
 
+// Phase 10 (v1.2.7) components
+import './components/flow.js';
+import './components/bubble.js';
+import './components/waypoint.js';
+import './components/ripple.js';
+import './components/affix.js';
+import './components/suggest.js';
+import './components/validate.js';
+import './components/datepicker.js';
+import './components/timepicker.js';
+import './components/stepper.js';
+import './components/rating.js';
+import './components/transfer.js';
+import './components/tree.js';
+import './components/spotlight.js';
+
 // Re-export for ESM / CJS consumers
 const Vanduo = window.Vanduo;
 export { Vanduo };

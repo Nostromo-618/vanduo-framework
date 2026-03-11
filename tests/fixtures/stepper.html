@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stepper Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/stepper.css">
+</head>
+<body style="padding:2rem;">
+  <!-- Horizontal stepper -->
+  <div id="stepper-h" class="vd-stepper">
+    <div class="vd-stepper-item is-completed"><div class="vd-stepper-circle">1</div><div class="vd-stepper-label">Account</div></div>
+    <div class="vd-stepper-item is-active"><div class="vd-stepper-circle">2</div><div class="vd-stepper-label">Details</div></div>
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">3</div><div class="vd-stepper-label">Review</div></div>
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">4</div><div class="vd-stepper-label">Confirm</div></div>
+  </div>
+
+  <!-- Clickable stepper -->
+  <div id="stepper-click" class="vd-stepper vd-stepper-clickable" style="margin-top:2rem;">
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">1</div><div class="vd-stepper-label">Step 1</div></div>
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">2</div><div class="vd-stepper-label">Step 2</div></div>
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">3</div><div class="vd-stepper-label">Step 3</div></div>
+  </div>
+
+  <!-- Vertical stepper -->
+  <div id="stepper-v" class="vd-stepper vd-stepper-vertical" style="margin-top:2rem;">
+    <div class="vd-stepper-item is-active"><div class="vd-stepper-circle">1</div><div class="vd-stepper-content"><div class="vd-stepper-label">First</div><div class="vd-stepper-description">Do the first thing</div></div></div>
+    <div class="vd-stepper-item"><div class="vd-stepper-circle">2</div><div class="vd-stepper-content"><div class="vd-stepper-label">Second</div></div></div>
+  </div>
+
+  <button id="next-btn" onclick="VanduoStepper.next(document.getElementById('stepper-h'))">Next</button>
+  <button id="prev-btn" onclick="VanduoStepper.prev(document.getElementById('stepper-h'))">Prev</button>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/stepper.js"></script>
+  <script>Vanduo.init();</script>
+</body>
+</html>

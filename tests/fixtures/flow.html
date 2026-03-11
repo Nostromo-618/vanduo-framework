@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow (Carousel) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/flow.css">
+  <style>
+    .demo-slide { display:flex; align-items:center; justify-content:center; height:200px; font-size:2rem; font-weight:700; color:#fff; }
+    .demo-slide:nth-child(1) { background:#0d6efd; }
+    .demo-slide:nth-child(2) { background:#198754; }
+    .demo-slide:nth-child(3) { background:#dc3545; }
+  </style>
+</head>
+<body>
+  <!-- Basic carousel -->
+  <div id="basic-flow" class="vd-flow">
+    <div class="vd-flow-track">
+      <div class="vd-flow-slide demo-slide">Slide 1</div>
+      <div class="vd-flow-slide demo-slide">Slide 2</div>
+      <div class="vd-flow-slide demo-slide">Slide 3</div>
+    </div>
+    <button class="vd-flow-prev" aria-label="Previous slide">&#8249;</button>
+    <button class="vd-flow-next" aria-label="Next slide">&#8250;</button>
+    <div class="vd-flow-indicators">
+      <button class="vd-flow-indicator is-active"></button>
+      <button class="vd-flow-indicator"></button>
+      <button class="vd-flow-indicator"></button>
+    </div>
+  </div>
+
+  <!-- Autoplay carousel -->
+  <div id="autoplay-flow" class="vd-flow" data-vd-autoplay data-vd-interval="1000">
+    <div class="vd-flow-track">
+      <div class="vd-flow-slide demo-slide">Auto 1</div>
+      <div class="vd-flow-slide demo-slide">Auto 2</div>
+      <div class="vd-flow-slide demo-slide">Auto 3</div>
+    </div>
+    <div class="vd-flow-indicators">
+      <button class="vd-flow-indicator is-active"></button>
+      <button class="vd-flow-indicator"></button>
+      <button class="vd-flow-indicator"></button>
+    </div>
+  </div>
+
+  <!-- Fade variant -->
+  <div id="fade-flow" class="vd-flow vd-flow-fade">
+    <div class="vd-flow-track">
+      <div class="vd-flow-slide demo-slide">Fade 1</div>
+      <div class="vd-flow-slide demo-slide">Fade 2</div>
+      <div class="vd-flow-slide demo-slide">Fade 3</div>
+    </div>
+    <button class="vd-flow-prev" aria-label="Previous slide">&#8249;</button>
+    <button class="vd-flow-next" aria-label="Next slide">&#8250;</button>
+  </div>
+
+  <!-- Alias class -->
+  <div id="alias-flow" class="vd-carousel">
+    <div class="vd-flow-track">
+      <div class="vd-flow-slide demo-slide">Alias 1</div>
+      <div class="vd-flow-slide demo-slide">Alias 2</div>
+    </div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/flow.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

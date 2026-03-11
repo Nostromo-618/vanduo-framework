@@ -1,0 +1,176 @@
+/**
+ * Vanduo Framework - Stepper
+ * Multi-step progress indicator with states
+ */
+
+:root {
+  /* Stepper Colors */
+  --stepper-active-color: var(--color-primary, #0d6efd);
+  --stepper-completed-color: var(--color-success, #198754);
+  --stepper-error-color: var(--color-danger, #dc3545);
+  --stepper-pending-color: var(--color-gray-400, #ced4da);
+  --stepper-text-color: var(--text-primary, #212529);
+  --stepper-line-color: var(--border-color, #dee2e6);
+
+  /* Stepper Dimensions (Fibonacci) */
+  --stepper-circle-size: 2.125rem; /* 34px ~ fib */
+  --stepper-line-width: 2px;
+  --stepper-gap: 0.5rem;          /* 8px - fib */
+  --stepper-connector-gap: 0.8125rem; /* 13px - fib */
+}
+
+[data-theme="dark"] {
+  --stepper-pending-color: var(--color-gray-600, #6c757d);
+  --stepper-line-color: var(--color-gray-600, #6c757d);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --stepper-pending-color: var(--color-gray-600, #6c757d);
+    --stepper-line-color: var(--color-gray-600, #6c757d);
+  }
+}
+
+/* ========== Horizontal (default) ========== */
+
+.vd-stepper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  counter-reset: step;
+}
+
+.vd-stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+/* Connector line */
+.vd-stepper-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--stepper-circle-size) / 2);
+  left: calc(50% + var(--stepper-circle-size) / 2 + var(--stepper-connector-gap));
+  right: calc(-50% + var(--stepper-circle-size) / 2 + var(--stepper-connector-gap));
+  height: var(--stepper-line-width);
+  background: var(--stepper-line-color);
+  z-index: 0;
+}
+
+/* Circle indicator */
+.vd-stepper-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--stepper-circle-size);
+  height: var(--stepper-circle-size);
+  border-radius: 50%;
+  border: var(--stepper-line-width) solid var(--stepper-pending-color);
+  background: var(--bg-primary, #fff);
+  font-weight: 600;
+  font-size: 0.875rem;
+  z-index: 1;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  counter-increment: step;
+}
+
+.vd-stepper-label {
+  margin-top: var(--stepper-gap);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted, #6c757d);
+}
+
+.vd-stepper-description {
+  font-size: 0.75rem;
+  color: var(--text-muted, #6c757d);
+  margin-top: 0.125rem;
+}
+
+/* ========== States ========== */
+
+.vd-stepper-item.is-active .vd-stepper-circle {
+  border-color: var(--stepper-active-color);
+  background: var(--stepper-active-color);
+  color: #fff;
+}
+
+.vd-stepper-item.is-active .vd-stepper-label {
+  color: var(--stepper-active-color);
+  font-weight: 600;
+}
+
+.vd-stepper-item.is-completed .vd-stepper-circle {
+  border-color: var(--stepper-completed-color);
+  background: var(--stepper-completed-color);
+  color: #fff;
+}
+
+.vd-stepper-item.is-completed::after {
+  background: var(--stepper-completed-color);
+}
+
+.vd-stepper-item.is-completed .vd-stepper-label {
+  color: var(--stepper-text-color);
+}
+
+.vd-stepper-item.is-error .vd-stepper-circle {
+  border-color: var(--stepper-error-color);
+  background: var(--stepper-error-color);
+  color: #fff;
+}
+
+.vd-stepper-item.is-error .vd-stepper-label {
+  color: var(--stepper-error-color);
+}
+
+/* ========== Vertical ========== */
+
+.vd-stepper-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vd-stepper-vertical .vd-stepper-item {
+  flex-direction: row;
+  align-items: flex-start;
+  flex: none;
+  text-align: left;
+  padding-bottom: 1.3125rem; /* 21px - fib */
+}
+
+.vd-stepper-vertical .vd-stepper-item:not(:last-child)::after {
+  top: calc(var(--stepper-circle-size) + var(--stepper-connector-gap));
+  left: calc(var(--stepper-circle-size) / 2);
+  right: auto;
+  bottom: 0;
+  width: var(--stepper-line-width);
+  height: auto;
+}
+
+.vd-stepper-vertical .vd-stepper-label,
+.vd-stepper-vertical .vd-stepper-description {
+  margin-top: 0;
+  margin-left: 0.8125rem; /* 13px - fib */
+}
+
+.vd-stepper-vertical .vd-stepper-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.8125rem;
+}
+
+/* ========== Clickable ========== */
+
+.vd-stepper-clickable .vd-stepper-item {
+  cursor: pointer;
+}
+
+.vd-stepper-clickable .vd-stepper-circle:hover {
+  transform: scale(1.1);
+  transition: transform 0.15s ease;
+}

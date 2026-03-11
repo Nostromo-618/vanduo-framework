@@ -79,5 +79,22 @@
 /* Components - Phase 9 (New) */
 @import url('components/draggable.css');
 
+/* Components - Phase 10 (v1.2.7) */
+@import url('components/flow.css');
+@import url('components/bubble.css');
+@import url('components/waypoint.css');
+@import url('components/ripple.css');
+@import url('components/fab.css');
+@import url('components/affix.css');
+@import url('components/suggest.css');
+@import url('components/datepicker.css');
+@import url('components/timepicker.css');
+@import url('components/stepper.css');
+@import url('components/timeline.css');
+@import url('components/rating.css');
+@import url('components/transfer.css');
+@import url('components/tree.css');
+@import url('components/spotlight.css');
+
 /* Print Styles */
 @import url('utilities/print.css');

@@ -1,0 +1,63 @@
+/**
+ * Vanduo Framework - Ripple (Waves Effect)
+ * Click-position-based expanding circle animation
+ */
+
+:root {
+  --ripple-color: rgba(255, 255, 255, 0.35);
+  --ripple-duration: 0.6s;
+  --ripple-timing: cubic-bezier(0, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --ripple-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --ripple-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-ripple,
+[data-vd-ripple] {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The animated circle */
+.vd-ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ripple-color);
+  transform: scale(0);
+  animation: vd-ripple-expand var(--ripple-duration) var(--ripple-timing) forwards;
+  pointer-events: none;
+}
+
+@keyframes vd-ripple-expand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ========== Color Variants ========== */
+
+.vd-ripple-dark,
+[data-vd-ripple="dark"] {
+  --ripple-color: rgba(0, 0, 0, 0.15);
+}
+
+.vd-ripple-primary,
+[data-vd-ripple="primary"] {
+  --ripple-color: rgba(13, 110, 253, 0.3);
+}
+
+.vd-ripple-light,
+[data-vd-ripple="light"] {
+  --ripple-color: rgba(255, 255, 255, 0.5);
+}

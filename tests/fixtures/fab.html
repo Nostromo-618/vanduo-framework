@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAB Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/fab.css">
+</head>
+<body style="min-height:200vh; padding:2rem;">
+  <h1>FAB Test</h1>
+
+  <button id="basic-fab" class="vd-fab" aria-label="Add">+</button>
+
+  <button id="fab-sm" class="vd-fab vd-fab-sm" aria-label="Small">+</button>
+  <button id="fab-lg" class="vd-fab vd-fab-lg" aria-label="Large">+</button>
+
+  <button id="fab-extended" class="vd-fab vd-fab-extended" aria-label="Create">
+    <span>+</span> <span>Create</span>
+  </button>
+
+  <button id="fab-bottom-left" class="vd-fab vd-fab-bottom-left" aria-label="Add">+</button>
+
+  <button id="fab-success" class="vd-fab vd-fab-success" aria-label="Success">&#10003;</button>
+  <button id="fab-danger" class="vd-fab vd-fab-danger" aria-label="Delete">&#10005;</button>
+
+  <!-- Speed dial -->
+  <div id="fab-speed-dial">
+    <div id="fab-menu" class="vd-fab-menu">
+      <button class="vd-fab-action" aria-label="Action 1">1</button>
+      <button class="vd-fab-action" aria-label="Action 2">2</button>
+      <button class="vd-fab-action" aria-label="Action 3">3</button>
+    </div>
+    <button id="fab-main" class="vd-fab" aria-label="Menu" onclick="document.getElementById('fab-menu').classList.toggle('is-open')">+</button>
+  </div>
+</body>
+</html>

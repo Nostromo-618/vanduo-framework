@@ -1,0 +1,59 @@
+/**
+ * Vanduo Framework - Waypoint (Scrollspy)
+ * Scroll-position-aware navigation highlighting
+ * Primary: .vd-waypoint | Alias: .vd-scrollspy
+ */
+
+:root {
+  /* Waypoint active indicator */
+  --waypoint-active-color: var(--color-primary, #0d6efd);
+  --waypoint-active-bg: transparent;
+  --waypoint-active-border-width: 2px;
+  --waypoint-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="dark"] {
+  --waypoint-active-color: var(--color-primary-light, #6ea8fe);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --waypoint-active-color: var(--color-primary-light, #6ea8fe);
+  }
+}
+
+/* ========== Nav Link Active State ========== */
+
+[data-vd-waypoint-nav] a.is-active,
+[data-vd-scrollspy-nav] a.is-active,
+.vd-waypoint-nav a.is-active {
+  color: var(--waypoint-active-color);
+  font-weight: 600;
+  transition: var(--waypoint-transition);
+}
+
+/* Sidebar variant: left border indicator */
+.vd-sidenav [data-vd-waypoint-nav] a.is-active,
+.vd-waypoint-nav.vd-waypoint-border a.is-active {
+  border-left: var(--waypoint-active-border-width) solid var(--waypoint-active-color);
+  padding-left: calc(0.8125rem - var(--waypoint-active-border-width)); /* 13px - border */
+}
+
+/* Pill variant */
+.vd-waypoint-nav.vd-waypoint-pill a.is-active {
+  background-color: var(--waypoint-active-color);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.25rem 0.8125rem; /* 4px 13px */
+}
+
+/* Underline variant (for horizontal navs) */
+.vd-waypoint-nav.vd-waypoint-underline a.is-active {
+  border-bottom: var(--waypoint-active-border-width) solid var(--waypoint-active-color);
+}
+
+/* ========== Smooth Scroll Target ========== */
+
+[data-vd-waypoint-section] {
+  scroll-margin-top: 5rem; /* offset for fixed headers */
+}

@@ -1,0 +1,173 @@
+/**
+ * Vanduo Framework - Tree View
+ * Hierarchical collapsible tree structure with checkbox selection
+ */
+
+:root {
+  --tree-indent: 1.3125rem;     /* 21px - fib */
+  --tree-line-color: var(--border-color, #dee2e6);
+  --tree-line-width: 1px;
+  --tree-item-padding: 0.25rem 0.3125rem; /* 4px 5px */
+  --tree-item-hover-bg: var(--bg-secondary, #f8f9fa);
+  --tree-icon-size: 1rem;
+  --tree-toggle-size: 1.125rem;
+}
+
+[data-theme="dark"] {
+  --tree-line-color: var(--color-gray-600, #6c757d);
+  --tree-item-hover-bg: var(--bg-primary, #1a1a2e);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --tree-line-color: var(--color-gray-600, #6c757d);
+    --tree-item-hover-bg: var(--bg-primary, #1a1a2e);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vd-tree .vd-tree {
+  padding-left: var(--tree-indent);
+}
+
+/* ========== Node ========== */
+
+.vd-tree-node {
+  position: relative;
+}
+
+.vd-tree-node-content {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem; /* 5px - fib */
+  padding: var(--tree-item-padding);
+  border-radius: 0.25rem;
+  cursor: default;
+  font-size: 0.875rem;
+  transition: background 0.15s ease;
+}
+
+.vd-tree-node-content:hover {
+  background: var(--tree-item-hover-bg);
+}
+
+/* ========== Toggle ========== */
+
+.vd-tree-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tree-toggle-size);
+  height: var(--tree-toggle-size);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.625rem;
+  color: var(--text-muted, #6c757d);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vd-tree-toggle::before {
+  content: '\25B6'; /* right-pointing triangle */
+}
+
+.vd-tree-node.is-open > .vd-tree-node-content .vd-tree-toggle {
+  transform: rotate(90deg);
+}
+
+/* Placeholder for leaf nodes (no children) */
+.vd-tree-toggle-placeholder {
+  width: var(--tree-toggle-size);
+  flex-shrink: 0;
+}
+
+/* ========== Checkbox ========== */
+
+.vd-tree-checkbox {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* ========== Icon ========== */
+
+.vd-tree-icon {
+  font-size: var(--tree-icon-size);
+  flex-shrink: 0;
+  color: var(--text-muted, #6c757d);
+}
+
+.vd-tree-node.is-open > .vd-tree-node-content .vd-tree-icon-folder::before {
+  content: '\1F4C2'; /* open folder */
+}
+
+.vd-tree-icon-folder::before {
+  content: '\1F4C1'; /* closed folder */
+}
+
+.vd-tree-icon-file::before {
+  content: '\1F4C4'; /* file */
+}
+
+/* ========== Label ========== */
+
+.vd-tree-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vd-tree-node.is-selected > .vd-tree-node-content .vd-tree-label {
+  font-weight: 600;
+  color: var(--color-primary, #0d6efd);
+}
+
+/* ========== Children Container ========== */
+
+.vd-tree-children {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-left: var(--tree-indent);
+}
+
+.vd-tree-node.is-open > .vd-tree-children {
+  display: block;
+}
+
+/* ========== Connection Lines ========== */
+
+.vd-tree-lines .vd-tree-children {
+  position: relative;
+}
+
+.vd-tree-lines .vd-tree-children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--tree-toggle-size) / 2);
+  bottom: 0.75rem;
+  width: var(--tree-line-width);
+  background: var(--tree-line-color);
+}
+
+.vd-tree-lines .vd-tree-children .vd-tree-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--tree-toggle-size) / 2 - var(--tree-indent));
+  width: 0.5rem;
+  height: var(--tree-line-width);
+  background: var(--tree-line-color);
+}

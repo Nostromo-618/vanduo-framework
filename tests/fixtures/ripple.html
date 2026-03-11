@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ripple Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/ripple.css">
+</head>
+<body style="padding: 2rem;">
+  <button id="ripple-btn" class="vd-btn vd-btn-primary vd-ripple">Ripple Button</button>
+  <button id="ripple-dark" class="vd-btn vd-ripple vd-ripple-dark">Dark Ripple</button>
+  <button id="ripple-data" class="vd-btn vd-btn-primary" data-vd-ripple>Data Attr Ripple</button>
+  <button id="ripple-data-primary" class="vd-btn" data-vd-ripple="primary">Primary Ripple</button>
+  <div id="ripple-div" class="vd-ripple" style="width:200px;height:100px;background:#eee;display:flex;align-items:center;justify-content:center;">Click me</div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/ripple.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/**
+ * Vanduo Framework - Affix (Sticky)
+ * Scroll-aware sticky positioning with is-stuck state
+ * Primary: .vd-affix | Alias: .vd-sticky
+ */
+
+:root {
+  --affix-top-offset: 0;
+  --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --affix-transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  --affix-z-index: 1020;
+}
+
+[data-theme="dark"] {
+  --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-affix,
+.vd-sticky,
+[data-vd-affix] {
+  position: relative;
+  transition: var(--affix-transition);
+}
+
+/* ========== Stuck State ========== */
+
+.vd-affix.is-stuck,
+.vd-sticky.is-stuck,
+[data-vd-affix].is-stuck {
+  position: fixed;
+  top: var(--affix-top-offset);
+  left: 0;
+  right: 0;
+  z-index: var(--affix-z-index);
+  box-shadow: var(--affix-shadow);
+}
+
+/* Placeholder to prevent layout shift */
+.vd-affix-placeholder {
+  display: none;
+}
+
+.vd-affix-placeholder.is-active {
+  display: block;
+}
+
+/* ========== Variants ========== */
+
+.vd-affix-no-shadow.is-stuck {
+  box-shadow: none;
+}
+
+.vd-affix-bordered.is-stuck {
+  box-shadow: none;
+  border-bottom: 1px solid var(--border-color, #dee2e6);
+}

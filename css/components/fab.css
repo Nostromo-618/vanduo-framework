@@ -1,0 +1,194 @@
+/**
+ * Vanduo Framework - FAB (Floating Action Button)
+ * Fixed-position primary action button with optional speed-dial menu
+ */
+
+:root {
+  /* FAB Dimensions (Fibonacci) */
+  --fab-size: 3.5rem;           /* 56px */
+  --fab-size-sm: 2.5rem;        /* 40px */
+  --fab-size-lg: 4.5rem;        /* 72px */
+  --fab-icon-size: 1.5rem;
+
+  /* FAB Colors */
+  --fab-bg: var(--color-primary, #0d6efd);
+  --fab-color: #fff;
+  --fab-hover-bg: var(--color-primary-dark, #0b5ed7);
+  --fab-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
+  --fab-hover-shadow: 0 5px 13px rgba(0, 0, 0, 0.3), 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  /* FAB Position */
+  --fab-offset: 1.3125rem;      /* 21px - fib */
+  --fab-z-index: 1030;
+
+  /* FAB Menu */
+  --fab-menu-gap: 0.8125rem;    /* 13px - fib */
+}
+
+[data-theme="dark"] {
+  --fab-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --fab-hover-shadow: 0 5px 13px rgba(0, 0, 0, 0.6), 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --fab-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+    --fab-hover-shadow: 0 5px 13px rgba(0, 0, 0, 0.6), 0 2px 5px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-fab {
+  position: fixed;
+  bottom: var(--fab-offset);
+  right: var(--fab-offset);
+  z-index: var(--fab-z-index);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--fab-bg);
+  color: var(--fab-color);
+  font-size: var(--fab-icon-size);
+  box-shadow: var(--fab-shadow);
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.vd-fab:hover {
+  background: var(--fab-hover-bg);
+  box-shadow: var(--fab-hover-shadow);
+  transform: scale(1.05);
+}
+
+.vd-fab:active {
+  transform: scale(0.95);
+}
+
+.vd-fab:focus-visible {
+  outline: 2px solid var(--fab-bg);
+  outline-offset: 3px;
+}
+
+/* ========== Sizes ========== */
+
+.vd-fab-sm {
+  width: var(--fab-size-sm);
+  height: var(--fab-size-sm);
+  font-size: 1.125rem;
+}
+
+.vd-fab-lg {
+  width: var(--fab-size-lg);
+  height: var(--fab-size-lg);
+  font-size: 2rem;
+}
+
+/* ========== Extended (with label) ========== */
+
+.vd-fab-extended {
+  border-radius: 1.75rem;
+  width: auto;
+  padding: 0 1.3125rem; /* 21px - fib */
+  gap: 0.5rem;
+}
+
+/* ========== Position Variants ========== */
+
+.vd-fab-bottom-left {
+  right: auto;
+  left: var(--fab-offset);
+}
+
+.vd-fab-top-right {
+  bottom: auto;
+  top: var(--fab-offset);
+}
+
+.vd-fab-top-left {
+  bottom: auto;
+  right: auto;
+  top: var(--fab-offset);
+  left: var(--fab-offset);
+}
+
+.vd-fab-center {
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.vd-fab-center:hover {
+  transform: translateX(50%) scale(1.05);
+}
+
+/* ========== Color Variants ========== */
+
+.vd-fab-secondary {
+  --fab-bg: var(--color-gray-600, #6c757d);
+  --fab-hover-bg: var(--color-gray-700, #5c636a);
+}
+
+.vd-fab-success {
+  --fab-bg: var(--color-success, #198754);
+  --fab-hover-bg: #157347;
+}
+
+.vd-fab-danger {
+  --fab-bg: var(--color-danger, #dc3545);
+  --fab-hover-bg: #bb2d3b;
+}
+
+/* ========== Speed Dial Menu ========== */
+
+.vd-fab-menu {
+  position: fixed;
+  bottom: calc(var(--fab-offset) + var(--fab-size) + var(--fab-menu-gap));
+  right: var(--fab-offset);
+  z-index: calc(var(--fab-z-index) - 1);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--fab-menu-gap);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.5rem);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.vd-fab-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.vd-fab-menu .vd-fab-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fab-size-sm);
+  height: var(--fab-size-sm);
+  border: none;
+  border-radius: 50%;
+  background: var(--fab-bg);
+  color: var(--fab-color);
+  font-size: 1rem;
+  box-shadow: var(--fab-shadow);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.vd-fab-menu .vd-fab-action:hover {
+  transform: scale(1.1);
+  background: var(--fab-hover-bg);
+}
+
+/* Staggered entrance */
+.vd-fab-menu.is-open .vd-fab-action:nth-child(1) { transition-delay: 0s; }
+.vd-fab-menu.is-open .vd-fab-action:nth-child(2) { transition-delay: 0.05s; }
+.vd-fab-menu.is-open .vd-fab-action:nth-child(3) { transition-delay: 0.1s; }
+.vd-fab-menu.is-open .vd-fab-action:nth-child(4) { transition-delay: 0.15s; }

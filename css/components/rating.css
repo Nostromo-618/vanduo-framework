@@ -1,0 +1,112 @@
+/**
+ * Vanduo Framework - Rating
+ * Star/icon-based rating input with read-only mode
+ */
+
+:root {
+  /* Rating Colors */
+  --rating-active-color: #f59e0b;
+  --rating-inactive-color: var(--color-gray-300, #dee2e6);
+  --rating-hover-color: #fbbf24;
+
+  /* Rating Dimensions (Fibonacci) */
+  --rating-size: 1.3125rem;  /* 21px - fib */
+  --rating-size-sm: 1rem;
+  --rating-size-lg: 2.125rem; /* 34px ~ fib */
+  --rating-gap: 0.125rem;     /* 2px */
+}
+
+[data-theme="dark"] {
+  --rating-inactive-color: var(--color-gray-600, #6c757d);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --rating-inactive-color: var(--color-gray-600, #6c757d);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rating-gap);
+}
+
+.vd-rating-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--rating-size);
+  color: var(--rating-inactive-color);
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+  user-select: none;
+  border: none;
+  background: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.vd-rating-star::before {
+  content: '\2605'; /* filled star */
+}
+
+.vd-rating-star:hover {
+  transform: scale(1.2);
+}
+
+.vd-rating-star.is-active {
+  color: var(--rating-active-color);
+}
+
+.vd-rating-star.is-hovered {
+  color: var(--rating-hover-color);
+}
+
+/* Half-star support */
+.vd-rating-star.is-half {
+  position: relative;
+  color: var(--rating-inactive-color);
+}
+
+.vd-rating-star.is-half::after {
+  content: '\2605';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: var(--rating-active-color);
+}
+
+/* ========== Read-only ========== */
+
+.vd-rating-readonly .vd-rating-star {
+  cursor: default;
+  pointer-events: none;
+}
+
+.vd-rating-readonly .vd-rating-star:hover {
+  transform: none;
+}
+
+/* ========== Sizes ========== */
+
+.vd-rating-sm .vd-rating-star {
+  font-size: var(--rating-size-sm);
+}
+
+.vd-rating-lg .vd-rating-star {
+  font-size: var(--rating-size-lg);
+}
+
+/* ========== Value Display ========== */
+
+.vd-rating-value {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary, #212529);
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suggest (Autocomplete) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/suggest.css">
+</head>
+<body style="padding:2rem;">
+  <h1>Suggest Test</h1>
+
+  <div style="margin-bottom:2rem;">
+    <label for="fruits">Fruits (static array):</label>
+    <input id="fruits" type="text" class="vd-input"
+      data-vd-suggest='["Apple","Apricot","Banana","Blueberry","Cherry","Date","Fig","Grape","Kiwi","Lemon","Mango","Orange","Peach","Pear","Plum","Raspberry","Strawberry"]'>
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="csv-input">CSV list:</label>
+    <input id="csv-input" type="text" class="vd-input"
+      data-vd-suggest="Red, Green, Blue, Yellow, Purple, Orange, Pink, Cyan">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="min-chars">Min 2 chars:</label>
+    <input id="min-chars" type="text" class="vd-input"
+      data-vd-suggest='["Alpha","Beta","Gamma","Delta"]'
+      data-vd-suggest-min-chars="2">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="alias-input">Alias (data-vd-autocomplete):</label>
+    <input id="alias-input" type="text" class="vd-input"
+      data-vd-autocomplete='["One","Two","Three"]'>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/suggest.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

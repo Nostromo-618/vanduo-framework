@@ -1,0 +1,265 @@
+/**
+ * Vanduo Framework - Flow (Carousel/Slider)
+ * Content carousel with slide/fade transitions, touch support
+ * Primary: .vd-flow | Alias: .vd-carousel
+ */
+
+:root {
+  /* Flow Dimensions */
+  --flow-height: auto;
+  --flow-min-height: 13rem;          /* 208px - fib */
+
+  /* Flow Spacing (Fibonacci) */
+  --flow-padding: 0;
+  --flow-gap: 0;
+  --flow-indicator-size: 0.5rem;     /* 8px - fib */
+  --flow-indicator-gap: 0.5rem;      /* 8px - fib */
+  --flow-control-size: 2.5rem;       /* 40px */
+  --flow-control-offset: 0.8125rem;  /* 13px - fib */
+
+  /* Flow Colors */
+  --flow-bg: var(--bg-primary, #fff);
+  --flow-indicator-bg: rgba(255, 255, 255, 0.5);
+  --flow-indicator-active-bg: #fff;
+  --flow-control-bg: rgba(0, 0, 0, 0.3);
+  --flow-control-hover-bg: rgba(0, 0, 0, 0.5);
+  --flow-control-color: #fff;
+
+  /* Flow Transitions */
+  --flow-transition-duration: 0.5s;
+  --flow-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Flow Border */
+  --flow-border-radius: var(--border-radius, 0.5rem);
+
+  /* Flow Z-index */
+  --flow-z-controls: 10;
+  --flow-z-indicators: 10;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --flow-bg: var(--bg-primary, #1a1a2e);
+  --flow-control-bg: rgba(255, 255, 255, 0.2);
+  --flow-control-hover-bg: rgba(255, 255, 255, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --flow-bg: var(--bg-primary, #1a1a2e);
+    --flow-control-bg: rgba(255, 255, 255, 0.2);
+    --flow-control-hover-bg: rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* ========== Base ========== */
+
+.vd-flow,
+.vd-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: var(--flow-min-height);
+  height: var(--flow-height);
+  background-color: var(--flow-bg);
+  border-radius: var(--flow-border-radius);
+}
+
+/* ========== Track ========== */
+
+.vd-flow-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--flow-transition-duration) var(--flow-transition-timing);
+  will-change: transform;
+}
+
+.vd-flow.is-dragging .vd-flow-track {
+  transition: none;
+  cursor: grabbing;
+}
+
+/* ========== Slides ========== */
+
+.vd-flow-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: var(--flow-min-height);
+  overflow: hidden;
+}
+
+.vd-flow-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fade transition variant */
+.vd-flow-fade .vd-flow-track {
+  transition: none;
+}
+
+.vd-flow-fade .vd-flow-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity var(--flow-transition-duration) var(--flow-transition-timing);
+  pointer-events: none;
+}
+
+.vd-flow-fade .vd-flow-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+}
+
+/* ========== Controls ========== */
+
+.vd-flow-prev,
+.vd-flow-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--flow-z-controls);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--flow-control-size);
+  height: var(--flow-control-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--flow-control-bg);
+  color: var(--flow-control-color);
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.vd-flow:hover .vd-flow-prev,
+.vd-flow:hover .vd-flow-next,
+.vd-flow:focus-within .vd-flow-prev,
+.vd-flow:focus-within .vd-flow-next {
+  opacity: 1;
+}
+
+.vd-flow-prev:hover,
+.vd-flow-next:hover {
+  background: var(--flow-control-hover-bg);
+}
+
+.vd-flow-prev:focus-visible,
+.vd-flow-next:focus-visible {
+  outline: 2px solid var(--flow-control-color);
+  outline-offset: 2px;
+}
+
+.vd-flow-prev {
+  left: var(--flow-control-offset);
+}
+
+.vd-flow-next {
+  right: var(--flow-control-offset);
+}
+
+/* ========== Indicators ========== */
+
+.vd-flow-indicators {
+  position: absolute;
+  bottom: 0.8125rem; /* 13px - fib */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--flow-z-indicators);
+  display: flex;
+  gap: var(--flow-indicator-gap);
+  padding: 0.3125rem 0.5rem; /* 5px 8px - fib */
+  margin: 0;
+  list-style: none;
+  border-radius: 1rem;
+}
+
+.vd-flow-indicator {
+  width: var(--flow-indicator-size);
+  height: var(--flow-indicator-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--flow-indicator-bg);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.vd-flow-indicator:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.vd-flow-indicator.is-active {
+  background: var(--flow-indicator-active-bg);
+  transform: scale(1.3);
+}
+
+.vd-flow-indicator:focus-visible {
+  outline: 2px solid var(--flow-indicator-active-bg);
+  outline-offset: 2px;
+}
+
+/* ========== Slide Content Overlay ========== */
+
+.vd-flow-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.3125rem 1.3125rem 2.625rem; /* 21px 21px 42px - fib */
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  color: #fff;
+}
+
+.vd-flow-caption h3,
+.vd-flow-caption .vd-flow-title {
+  margin: 0 0 0.3125rem; /* 5px - fib */
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.vd-flow-caption p,
+.vd-flow-caption .vd-flow-description {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+/* ========== Size Variants ========== */
+
+.vd-flow-compact {
+  --flow-min-height: 8rem;
+  --flow-control-size: 2rem;
+}
+
+.vd-flow-lg {
+  --flow-min-height: 21rem; /* 336px - fib×16 */
+  --flow-control-size: 3rem;
+}
+
+.vd-flow-fullscreen {
+  --flow-min-height: 100vh;
+  --flow-border-radius: 0;
+}
+
+/* ========== Responsive ========== */
+
+@media (max-width: 768px) {
+  .vd-flow-prev,
+  .vd-flow-next {
+    opacity: 1;
+    --flow-control-size: 2rem;
+  }
+
+  .vd-flow-caption {
+    padding: 0.8125rem 0.8125rem 2rem;
+  }
+}

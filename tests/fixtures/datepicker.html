@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datepicker Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/datepicker.css">
+</head>
+<body style="padding:2rem;">
+  <h1>Datepicker Test</h1>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-basic">Basic date:</label>
+    <input id="date-basic" type="text" class="vd-input" data-vd-datepicker placeholder="yyyy-mm-dd">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-preselected">Pre-selected:</label>
+    <input id="date-preselected" type="text" class="vd-input" data-vd-datepicker value="2025-06-15">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-min-max">Min/Max:</label>
+    <input id="date-min-max" type="text" class="vd-input" data-vd-datepicker
+      data-vd-datepicker-min="2025-01-01" data-vd-datepicker-max="2025-12-31"
+      placeholder="2025 only">
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/datepicker.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

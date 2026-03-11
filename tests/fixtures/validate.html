@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate (Form Validation) Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    .vd-validate-error { color: #dc3545; font-size: 0.8125rem; margin-top: 0.25rem; }
+    .vd-form-group { margin-bottom: 1rem; }
+  </style>
+</head>
+<body style="padding:2rem;">
+  <form id="test-form" data-vd-validate>
+    <div class="vd-form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" class="vd-input" data-vd-rules="required|min:3" data-vd-msg-required="Name is required">
+    </div>
+    <div class="vd-form-group">
+      <label for="email">Email</label>
+      <input id="email" type="text" class="vd-input" data-vd-rules="required|email">
+    </div>
+    <div class="vd-form-group">
+      <label for="age">Age</label>
+      <input id="age" type="text" class="vd-input" data-vd-rules="number|minVal:18|maxVal:120">
+    </div>
+    <div class="vd-form-group">
+      <label for="website">Website</label>
+      <input id="website" type="text" class="vd-input" data-vd-rules="url">
+    </div>
+    <div class="vd-form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" class="vd-input" data-vd-rules="required|min:6">
+    </div>
+    <div class="vd-form-group">
+      <label for="confirm">Confirm Password</label>
+      <input id="confirm" type="password" class="vd-input" data-vd-rules="required|match:password">
+    </div>
+    <button id="submit-btn" type="submit" class="vd-btn vd-btn-primary">Submit</button>
+  </form>
+
+  <!-- Blur mode form -->
+  <form id="blur-form" data-vd-validate data-vd-validate-mode="blur">
+    <div class="vd-form-group">
+      <label for="blur-name">Name</label>
+      <input id="blur-name" type="text" class="vd-input" data-vd-rules="required">
+    </div>
+  </form>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/validate.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

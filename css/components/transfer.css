@@ -1,0 +1,165 @@
+/**
+ * Vanduo Framework - Transfer (Dual-list)
+ * Source/target list transfer panel
+ */
+
+:root {
+  --transfer-bg: var(--card-bg, #fff);
+  --transfer-border-color: var(--border-color, #dee2e6);
+  --transfer-item-hover-bg: var(--bg-secondary, #f8f9fa);
+  --transfer-item-selected-bg: var(--color-primary-alpha-10, rgba(13, 110, 253, 0.1));
+  --transfer-header-bg: var(--bg-secondary, #f8f9fa);
+  --transfer-padding: 0.5rem;
+  --transfer-list-height: 15rem;
+  --transfer-border-radius: var(--border-radius, 0.5rem);
+  --transfer-gap: 0.8125rem; /* 13px - fib */
+}
+
+[data-theme="dark"] {
+  --transfer-bg: var(--card-bg, #2d2d44);
+  --transfer-border-color: var(--border-color, #3d3d5c);
+  --transfer-item-hover-bg: var(--bg-primary, #1a1a2e);
+  --transfer-header-bg: var(--bg-primary, #1a1a2e);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --transfer-bg: var(--card-bg, #2d2d44);
+    --transfer-border-color: var(--border-color, #3d3d5c);
+    --transfer-item-hover-bg: var(--bg-primary, #1a1a2e);
+    --transfer-header-bg: var(--bg-primary, #1a1a2e);
+  }
+}
+
+/* ========== Layout ========== */
+
+.vd-transfer {
+  display: flex;
+  align-items: stretch;
+  gap: var(--transfer-gap);
+}
+
+.vd-transfer-panel {
+  flex: 1;
+  border: 1px solid var(--transfer-border-color);
+  border-radius: var(--transfer-border-radius);
+  background: var(--transfer-bg);
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+/* ========== Panel Header ========== */
+
+.vd-transfer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--transfer-padding) 0.8125rem;
+  background: var(--transfer-header-bg);
+  border-bottom: 1px solid var(--transfer-border-color);
+  border-radius: var(--transfer-border-radius) var(--transfer-border-radius) 0 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.vd-transfer-count {
+  font-weight: 400;
+  color: var(--text-muted, #6c757d);
+}
+
+/* ========== Search ========== */
+
+.vd-transfer-search {
+  padding: var(--transfer-padding);
+  border-bottom: 1px solid var(--transfer-border-color);
+}
+
+.vd-transfer-search input {
+  width: 100%;
+  padding: 0.3125rem 0.5rem;
+  border: 1px solid var(--transfer-border-color);
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  background: var(--transfer-bg);
+  color: var(--text-primary, #212529);
+}
+
+/* ========== List ========== */
+
+.vd-transfer-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: var(--transfer-list-height);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vd-transfer-item {
+  display: flex;
+  align-items: center;
+  padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s ease;
+  gap: 0.5rem;
+}
+
+.vd-transfer-item:hover {
+  background: var(--transfer-item-hover-bg);
+}
+
+.vd-transfer-item.is-selected {
+  background: var(--transfer-item-selected-bg);
+}
+
+.vd-transfer-item input[type="checkbox"] {
+  margin: 0;
+}
+
+/* ========== Actions ========== */
+
+.vd-transfer-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3125rem; /* 5px - fib */
+}
+
+.vd-transfer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--transfer-border-color);
+  border-radius: 0.25rem;
+  background: var(--transfer-bg);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.vd-transfer-btn:hover {
+  background: var(--transfer-item-hover-bg);
+}
+
+.vd-transfer-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ========== Responsive ========== */
+
+@media (max-width: 576px) {
+  .vd-transfer {
+    flex-direction: column;
+  }
+
+  .vd-transfer-actions {
+    flex-direction: row;
+  }
+}

@@ -32,7 +32,7 @@
      * Initialize sidenav components
      */
     init: function() {
-      const sidenavs = document.querySelectorAll('.vd-sidenav');
+      const sidenavs = document.querySelectorAll('.vd-sidenav, .vd-offcanvas');
 
       sidenavs.forEach(sidenav => {
         if (this.sidenavs.has(sidenav)) {
@@ -73,8 +73,15 @@
      * @param {HTMLElement} sidenav - Sidenav element
      */
     initSidenav: function(sidenav) {
+      // Apply data-vd-position direction class if specified
+      const position = sidenav.getAttribute('data-vd-position');
+      if (position) {
+        const prefix = sidenav.classList.contains('vd-offcanvas') ? 'vd-offcanvas' : 'vd-sidenav';
+        sidenav.classList.add(prefix + '-' + position);
+      }
+
       const overlay = this.createOverlay(sidenav);
-      const closeButton = sidenav.querySelector('.vd-sidenav-close');
+      const closeButton = sidenav.querySelector('.vd-sidenav-close, .vd-offcanvas-close');
       const cleanupFunctions = [];
 
       // Set ARIA attributes

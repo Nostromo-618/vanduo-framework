@@ -1,0 +1,119 @@
+/**
+ * Vanduo Framework - Spotlight (Feature Discovery)
+ * Overlay highlight + tooltip tour system
+ */
+
+:root {
+  --spotlight-overlay-bg: rgba(0, 0, 0, 0.5);
+  --spotlight-tooltip-bg: var(--card-bg, #fff);
+  --spotlight-tooltip-color: var(--text-primary, #212529);
+  --spotlight-tooltip-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.15);
+  --spotlight-tooltip-padding: 1.3125rem; /* 21px - fib */
+  --spotlight-tooltip-radius: var(--border-radius, 0.5rem);
+  --spotlight-tooltip-max-width: 21rem; /* 336px - fib×16 */
+  --spotlight-highlight-padding: 0.5rem; /* 8px - fib */
+  --spotlight-z-index: 1080;
+}
+
+[data-theme="dark"] {
+  --spotlight-tooltip-bg: var(--card-bg, #2d2d44);
+  --spotlight-tooltip-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --spotlight-tooltip-bg: var(--card-bg, #2d2d44);
+    --spotlight-tooltip-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ========== Overlay ========== */
+
+.vd-spotlight-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: var(--spotlight-z-index);
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+
+/* ========== Tooltip ========== */
+
+.vd-spotlight-tooltip {
+  position: absolute;
+  z-index: calc(var(--spotlight-z-index) + 2);
+  background: var(--spotlight-tooltip-bg);
+  color: var(--spotlight-tooltip-color);
+  padding: var(--spotlight-tooltip-padding);
+  border-radius: var(--spotlight-tooltip-radius);
+  box-shadow: var(--spotlight-tooltip-shadow);
+  max-width: var(--spotlight-tooltip-max-width);
+}
+
+.vd-spotlight-title {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.vd-spotlight-description {
+  margin: 0 0 0.8125rem; /* 13px - fib */
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ========== Footer (nav buttons) ========== */
+
+.vd-spotlight-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.vd-spotlight-counter {
+  font-size: 0.75rem;
+  color: var(--text-muted, #6c757d);
+}
+
+.vd-spotlight-actions {
+  display: flex;
+  gap: 0.3125rem; /* 5px - fib */
+}
+
+.vd-spotlight-btn {
+  padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 0.25rem;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  transition: background 0.15s ease;
+}
+
+.vd-spotlight-btn:hover {
+  background: var(--bg-secondary, #f8f9fa);
+}
+
+.vd-spotlight-btn-primary {
+  background: var(--color-primary, #0d6efd);
+  color: #fff;
+  border-color: var(--color-primary, #0d6efd);
+}
+
+.vd-spotlight-btn-primary:hover {
+  background: var(--color-primary-dark, #0b5ed7);
+}
+
+/* ========== Highlighted Target ========== */
+
+.vd-spotlight-target {
+  position: relative;
+  z-index: calc(var(--spotlight-z-index) + 1);
+  box-shadow: 0 0 0 var(--spotlight-highlight-padding) rgba(13, 110, 253, 0.25),
+              0 0 0 9999px var(--spotlight-overlay-bg);
+  border-radius: 0.25rem;
+}

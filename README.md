@@ -1,4 +1,4 @@
-# Vanduo Framework v1.2.5
+# Vanduo Framework v1.2.6
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">

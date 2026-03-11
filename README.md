@@ -1,5 +1,7 @@
 # Vanduo Framework v1.2.7
 
+## RELEASE v1.2.7 POSTPONED until bug fixing will be done! ETA: 2026-03-15 ; Recommended v126 for stable experience;
+
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
 </p>

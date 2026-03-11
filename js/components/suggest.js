@@ -129,7 +129,7 @@
         if (url) {
           try {
             const separator = url.includes('?') ? '&' : '?';
-            const res = await fetch(url + separator + 'q=' + encodeURIComponent(query));
+            const res = await window.fetch(url + separator + 'q=' + encodeURIComponent(query));
             filtered = await res.json();
           } catch (_e) {
             filtered = [];

@@ -73,7 +73,7 @@
         el.appendChild(targetPanel);
       };
 
-      const createPanel = (title, data, selected, side) => {
+      const createPanel = (title, data, selected, _side) => {
         const panel = document.createElement('div');
         panel.className = 'vd-transfer-panel';
 

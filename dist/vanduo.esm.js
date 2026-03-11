@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.7 | Built: 2026-03-11T11:29:51.182Z | git:ef379cc | development */
+/*! Vanduo v1.2.7 | Built: 2026-03-11T11:32:49.156Z | git:f923363 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -7073,7 +7073,7 @@
         if (url) {
           try {
             const separator = url.includes("?") ? "&" : "?";
-            const res = await fetch(url + separator + "q=" + encodeURIComponent(query));
+            const res = await window.fetch(url + separator + "q=" + encodeURIComponent(query));
             filtered = await res.json();
           } catch (_e) {
             filtered = [];
@@ -7970,7 +7970,7 @@
         el.appendChild(actions);
         el.appendChild(targetPanel);
       };
-      const createPanel = (title, data, selected, side) => {
+      const createPanel = (title, data, selected, _side) => {
         const panel = document.createElement("div");
         panel.className = "vd-transfer-panel";
         const header = document.createElement("div");

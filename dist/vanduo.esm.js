@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.7 | Built: 2026-03-11T11:32:49.156Z | git:f923363 | development */
+/*! Vanduo v1.2.7 | Built: 2026-03-11T11:51:20.269Z | git:b32e38a | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -7177,7 +7177,13 @@
       max: (value, param) => value.length <= parseInt(param, 10),
       minVal: (value, param) => parseFloat(value) >= parseFloat(param),
       maxVal: (value, param) => parseFloat(value) <= parseFloat(param),
-      pattern: (value, param) => new RegExp(param).test(value),
+      pattern: (value, param) => {
+        try {
+          return new RegExp(param).test(value);
+        } catch (_e) {
+          return false;
+        }
+      },
       match: (value, param) => {
         const other = document.querySelector('[name="' + param + '"]');
         return other ? value === other.value : false;
@@ -7277,12 +7283,13 @@
         if (!errorEl) {
           errorEl = document.createElement("div");
           errorEl.className = "vd-validate-error";
+          errorEl.id = "vd-err-" + Math.random().toString(36).slice(2, 9);
           errorEl.setAttribute("role", "alert");
           wrapper.appendChild(errorEl);
         }
         errorEl.textContent = errors[0];
         errorEl.style.display = "";
-        field.setAttribute("aria-describedby", errorEl.id || "");
+        field.setAttribute("aria-describedby", errorEl.id);
       } else if (field.value.trim()) {
         field.classList.add("is-valid");
         field.removeAttribute("aria-invalid");
@@ -7996,7 +8003,10 @@
         list.setAttribute("role", "listbox");
         const renderList = (filter) => {
           list.innerHTML = "";
-          const filtered = filter ? data.filter((d) => d.label.toLowerCase().includes(filter.toLowerCase())) : data;
+          const filtered = filter ? data.filter((d) => {
+            const label = (d.label || d.text || String(d)).toLowerCase();
+            return label.includes(filter.toLowerCase());
+          }) : data;
           filtered.forEach((item) => {
             const li = document.createElement("li");
             li.className = "vd-transfer-item";

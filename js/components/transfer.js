@@ -105,7 +105,10 @@
 
         const renderList = (filter) => {
           list.innerHTML = '';
-          const filtered = filter ? data.filter(d => d.label.toLowerCase().includes(filter.toLowerCase())) : data;
+          const filtered = filter ? data.filter(d => {
+            const label = (d.label || d.text || String(d)).toLowerCase();
+            return label.includes(filter.toLowerCase());
+          }) : data;
           filtered.forEach(item => {
             const li = document.createElement('li');
             li.className = 'vd-transfer-item';

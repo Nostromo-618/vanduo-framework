@@ -45,10 +45,11 @@ test.describe('Waypoint (Scrollspy) Component @component', () => {
   test.describe('Click Navigation', () => {
     test('clicking nav link scrolls to section', async ({ page }) => {
       await page.click('#spy-nav a[href="#section-2"]');
-      await page.waitForTimeout(800);
 
-      const link2 = page.locator('#spy-nav a[href="#section-2"]');
-      await expect(link2).toHaveClass(/is-active/);
+      await expect(async () => {
+        const cls = await page.locator('#spy-nav a[href="#section-2"]').getAttribute('class');
+        expect(cls).toContain('is-active');
+      }).toPass({ timeout: 8000 });
     });
   });
 

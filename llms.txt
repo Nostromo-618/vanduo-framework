@@ -168,7 +168,7 @@ These values persist via `localStorage`.
 | Tooltips | `.vd-tooltip` | `tooltips` | `data-tooltip`, `data-tooltip-placement` |
 | Popover / Bubble | `.vd-bubble` | `bubble` | Rich content, smart positioning |
 | Dropdown | `.vd-dropdown` | `dropdown` | |
-| Spotlight | `.vd-spotlight` | `spotlight` | Feature discovery / guided tour |
+| Spotlight | `.vd-spotlight` | `spotlight` | Feature discovery tours with programmatic start and declarative `data-vd-spotlight` triggers |
 
 ### Forms & Input
 | Component | CSS Class | JS Module | Notes |
@@ -189,14 +189,14 @@ These values persist via `localStorage`.
 | Image Box | `.vd-image-box` | `image-box` | Lightbox zoom |
 | Draggable | `.vd-draggable` | `draggable` | Drag-and-drop, sortable containers |
 | Parallax | — | `parallax` | Scroll-based parallax effect |
-| Lazy Load | — | `lazy-load` | Image lazy loading |
+| Lazy Load | — | `lazy-load` | IntersectionObserver-based HTML section fetching and viewport callbacks; documented in the Guides section |
 
 ### Effects & Enhancements
 | Component | CSS Class | JS Module | Notes |
 |---|---|---|---|
 | Ripple / Waves | `.vd-ripple` | `ripple` | Material-style click ripple |
 | FAB | `.vd-fab` | — | CSS-only floating action button |
-| Sticky / Affix | `.vd-affix` | `affix` | Sticks on scroll via IntersectionObserver |
+| Sticky / Affix | `.vd-affix` | `affix` | Automatically sticks within the nearest scrollable container, with viewport fallback and `is-stuck` events |
 | Scrollspy / Waypoint | `.vd-waypoint` | `waypoint` | Active-link tracking via IntersectionObserver |
 
 ### Progress & Loading
@@ -293,8 +293,8 @@ Vanduo.components.tree.destroy(element);
 ### Spotlight / Feature Discovery
 ```js
 Vanduo.components.spotlight.start([
-  { target: '#step1', title: 'Welcome', content: 'Start here.' },
-  { target: '#step2', title: 'Next', content: 'Then this.' }
+  { target: '#step1', title: 'Welcome', description: 'Start here.' },
+  { target: '#step2', title: 'Next', description: 'Then this.' }
 ]);
 Vanduo.components.spotlight.next();
 Vanduo.components.spotlight.prev();
@@ -341,7 +341,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `data-vd-rating` — rating widget marker
 - `data-vd-transfer` — transfer list marker
 - `data-vd-tree` — tree view container marker
-- `data-vd-spotlight` — spotlight step target (used programmatically)
+- `data-vd-spotlight` — JSON array of tour steps attached to a trigger element for declarative startup
 
 ---
 
@@ -363,7 +363,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 `.vd-ripple`
 
 ### FAB
-`.vd-fab`, `.vd-fab-fixed`, `.vd-fab-mini`
+`.vd-fab`, `.vd-fab-fixed`, `.vd-fab-sm`, `.vd-fab-lg`, `.vd-fab-extended`, `.vd-fab-menu`, `.vd-fab-actions`
 
 ### Sticky / Affix
 `.vd-affix`, `.is-stuck` (applied when stuck)
@@ -393,7 +393,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 `.vd-tree`, `.vd-tree-node`, `.vd-tree-toggle`, `.vd-tree-checkbox`
 
 ### Spotlight
-`.vd-spotlight-overlay`, `.vd-spotlight-tooltip`, `.vd-spotlight-highlight`
+`.vd-spotlight-overlay`, `.vd-spotlight-tooltip`, `.vd-spotlight-target`
 
 ---
 

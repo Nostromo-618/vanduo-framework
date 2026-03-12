@@ -7,9 +7,52 @@
   <link rel="stylesheet" href="/css/vanduo.css">
   <link rel="stylesheet" href="/css/components/affix.css">
   <style>
+    body { font-family: sans-serif; }
     .spacer { height: 200px; background: #f0f0f0; display:flex; align-items:center; justify-content:center; }
     .sticky-bar { padding: 1rem; background: #0d6efd; color: white; text-align: center; }
-    .content { height: 2000px; padding: 2rem; }
+    .content { height: 1200px; padding: 2rem; }
+    .panel {
+      height: 260px;
+      overflow-y: auto;
+      border: 1px solid #ced4da;
+      margin: 2rem;
+      background: #fff;
+    }
+    .panel-inner {
+      padding: 1rem;
+    }
+    .panel-intro {
+      min-height: 120px;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+    .panel-content {
+      min-height: 700px;
+      padding: 1rem;
+    }
+    .container-sticky {
+      padding: 1rem;
+      background: #6610f2;
+      color: white;
+    }
+    .nested-shell {
+      padding: 1rem;
+      min-height: 500px;
+    }
+    .nested-inner {
+      height: 220px;
+      overflow-y: auto;
+      border: 1px solid #adb5bd;
+      background: #f8f9fa;
+    }
+    .nested-spacer {
+      min-height: 120px;
+      padding: 1rem;
+    }
+    .nested-content {
+      min-height: 500px;
+      padding: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -31,6 +74,39 @@
 
   <div class="content">
     <p>More content...</p>
+  </div>
+
+  <div id="scroll-panel" class="panel">
+    <div class="panel-intro">Scroll this panel to test automatic scroll-parent detection.</div>
+    <div id="container-sticky" class="container-sticky vd-affix">
+      Sticky inside nearest scroll container
+    </div>
+    <div class="panel-content">
+      <p>Panel content line 1</p>
+      <p>Panel content line 2</p>
+      <p>Panel content line 3</p>
+      <p>Panel content line 4</p>
+      <p>Panel content line 5</p>
+    </div>
+  </div>
+
+  <div id="outer-scroll" class="panel">
+    <div class="nested-shell">
+      <div class="panel-intro">The inner scroller should win over this outer container.</div>
+      <div id="inner-scroll" class="nested-inner">
+        <div class="nested-spacer">Nested intro content before the sticky bar.</div>
+        <div id="nested-sticky" class="container-sticky vd-affix" data-vd-affix-offset="20">
+          Nested sticky with inner offset
+        </div>
+        <div class="nested-content">
+          <p>Nested content line 1</p>
+          <p>Nested content line 2</p>
+          <p>Nested content line 3</p>
+          <p>Nested content line 4</p>
+          <p>Nested content line 5</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="/js/utils/helpers.js"></script>

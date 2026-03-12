@@ -2,7 +2,7 @@
  * FAB (Floating Action Button) Component Tests
  *
  * Tests for css/components/fab.css
- * Covers: rendering, sizes, positions, variants, speed dial
+ * Covers: rendering, fixed positioning, sizes, positions, variants, speed dial
  */
 
 import { test, expect } from '@playwright/test';
@@ -14,17 +14,39 @@ test.describe('FAB Component @component', () => {
   });
 
   test.describe('Rendering', () => {
-    test('basic FAB renders with fixed position', async ({ page }) => {
+    test('basic FAB renders without fixed position', async ({ page }) => {
       const fab = page.locator('#basic-fab');
+      await expect(fab).toBeVisible();
+
+      const position = await fab.evaluate(el => getComputedStyle(el).position);
+      expect(position).not.toBe('fixed');
+    });
+
+    test('FAB has correct ARIA label', async ({ page }) => {
+      const fab = page.locator('#basic-fab');
+      await expect(fab).toHaveAttribute('aria-label', 'Add');
+    });
+
+    test('FAB renders as inline-flex', async ({ page }) => {
+      const fab = page.locator('#basic-fab');
+      const display = await fab.evaluate(el => getComputedStyle(el).display);
+      expect(display).toBe('inline-flex');
+    });
+  });
+
+  test.describe('Fixed Positioning', () => {
+    test('.vd-fab-fixed applies position: fixed', async ({ page }) => {
+      const fab = page.locator('#fab-fixed');
       await expect(fab).toBeVisible();
 
       const position = await fab.evaluate(el => getComputedStyle(el).position);
       expect(position).toBe('fixed');
     });
 
-    test('FAB has correct ARIA label', async ({ page }) => {
-      const fab = page.locator('#basic-fab');
-      await expect(fab).toHaveAttribute('aria-label', 'Add');
+    test('.vd-fab-bottom-left applies position: fixed', async ({ page }) => {
+      const fab = page.locator('#fab-bottom-left');
+      const position = await fab.evaluate(el => getComputedStyle(el).position);
+      expect(position).toBe('fixed');
     });
   });
 
@@ -80,13 +102,30 @@ test.describe('FAB Component @component', () => {
       await expect(menu).not.toHaveClass(/is-open/);
     });
 
+    test('speed dial actions are invisible by default', async ({ page }) => {
+      const actions = page.locator('#fab-menu .vd-fab-actions');
+      const opacity = await actions.evaluate(el => getComputedStyle(el).opacity);
+      expect(opacity).toBe('0');
+    });
+
     test('clicking main FAB opens speed dial', async ({ page }) => {
       await page.click('#fab-main');
       const menu = page.locator('#fab-menu');
       await expect(menu).toHaveClass(/is-open/);
 
-      const actions = menu.locator('.vd-fab-action');
+      const actions = menu.locator('.vd-fab-actions .vd-fab');
       await expect(actions).toHaveCount(3);
+    });
+
+    test('clicking main FAB toggles aria-expanded', async ({ page }) => {
+      const trigger = page.locator('#fab-main');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+      await trigger.click();
+      await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+      await trigger.click();
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     });
   });
 });

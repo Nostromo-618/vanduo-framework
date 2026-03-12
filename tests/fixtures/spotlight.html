@@ -16,6 +16,12 @@
   <div id="target-3" class="box">Feature Three</div>
 
   <button id="start-tour" onclick="startTour()">Start Tour</button>
+  <button id="start-tour-declarative" data-vd-spotlight='[
+    {"target":"#target-1","title":"Step 1","description":"This is the first feature."},
+    {"target":"#target-2","title":"Step 2","description":"This is the second feature."},
+    {"target":"#target-3","title":"Step 3","description":"This is the third feature."}
+  ]'>Start Declarative Tour</button>
+  <button id="start-tour-invalid" data-vd-spotlight='not valid json'>Start Invalid Tour</button>
 
   <script src="/js/utils/helpers.js"></script>
   <script src="/js/vanduo.js"></script>

@@ -26,8 +26,10 @@
 .vd-affix,
 .vd-sticky,
 [data-vd-affix] {
-  position: relative;
+  position: sticky;
+  top: var(--affix-top-offset);
   transition: var(--affix-transition);
+  z-index: calc(var(--affix-z-index) - 1);
 }
 
 /* ========== Stuck State ========== */
@@ -35,21 +37,8 @@
 .vd-affix.is-stuck,
 .vd-sticky.is-stuck,
 [data-vd-affix].is-stuck {
-  position: fixed;
-  top: var(--affix-top-offset);
-  left: 0;
-  right: 0;
   z-index: var(--affix-z-index);
   box-shadow: var(--affix-shadow);
-}
-
-/* Placeholder to prevent layout shift */
-.vd-affix-placeholder {
-  display: none;
-}
-
-.vd-affix-placeholder.is-active {
-  display: block;
 }
 
 /* ========== Variants ========== */

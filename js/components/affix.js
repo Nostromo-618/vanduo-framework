@@ -1,10 +1,33 @@
 /**
  * Vanduo Framework - Affix (Sticky) Component
- * Uses IntersectionObserver to toggle .is-stuck class with placeholder for layout stability
+ * Uses IntersectionObserver to toggle .is-stuck within the nearest scrollable parent
  */
 
 (function () {
   'use strict';
+
+  function isScrollable(element) {
+    if (!element || element === document.body) return false;
+
+    const style = window.getComputedStyle(element);
+    const overflowY = style.overflowY;
+    const overflowX = style.overflowX;
+    const canScrollY = /(auto|scroll|overlay)/.test(overflowY) && element.scrollHeight > element.clientHeight;
+    const canScrollX = /(auto|scroll|overlay)/.test(overflowX) && element.scrollWidth > element.clientWidth;
+
+    return canScrollY || canScrollX;
+  }
+
+  function getScrollParent(element) {
+    let parent = element.parentElement;
+
+    while (parent && parent !== document.body && parent !== document.documentElement) {
+      if (isScrollable(parent)) return parent;
+      parent = parent.parentElement;
+    }
+
+    return null;
+  }
 
   const Affix = {
     instances: new Map(),
@@ -19,36 +42,53 @@
 
     initInstance: function (el) {
       const cleanup = [];
-      const offset = parseInt(el.getAttribute('data-vd-affix-offset') || '0', 10);
+      const parsedOffset = parseInt(el.getAttribute('data-vd-affix-offset') || '0', 10);
+      const offset = Number.isNaN(parsedOffset) ? 0 : parsedOffset;
+      const scrollParent = getScrollParent(el);
+      let isStuck = false;
 
-      // Create sentinel element (placed right before the affix element)
       const sentinel = document.createElement('div');
-      sentinel.style.cssText = 'height:0;width:0;visibility:hidden;pointer-events:none;';
+      sentinel.style.cssText = 'display:block;height:1px;margin-bottom:-1px;visibility:hidden;pointer-events:none;';
       el.parentNode.insertBefore(sentinel, el);
 
-      // Create placeholder to reserve space when element becomes fixed
-      const placeholder = document.createElement('div');
-      placeholder.className = 'vd-affix-placeholder';
-      el.parentNode.insertBefore(placeholder, el);
+      el.style.setProperty('--affix-top-offset', offset + 'px');
 
-      const observer = new IntersectionObserver((entries) => {
+      function stick() {
+        if (isStuck) return;
+        isStuck = true;
+        el.classList.add('is-stuck');
+        el.dispatchEvent(new CustomEvent('affix:stuck', {
+          bubbles: true,
+          detail: {
+            offset: offset,
+            root: scrollParent || window
+          }
+        }));
+      }
+
+      function unstick() {
+        if (!isStuck) return;
+        isStuck = false;
+        el.classList.remove('is-stuck');
+        el.dispatchEvent(new CustomEvent('affix:unstuck', {
+          bubbles: true,
+          detail: {
+            offset: offset,
+            root: scrollParent || window
+          }
+        }));
+      }
+
+      const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
           if (!entry.isIntersecting) {
-            // Sentinel scrolled out — stick the element
-            const rect = el.getBoundingClientRect();
-            placeholder.style.height = rect.height + 'px';
-            placeholder.classList.add('is-active');
-            el.classList.add('is-stuck');
-            el.style.setProperty('--affix-top-offset', offset + 'px');
-            el.dispatchEvent(new CustomEvent('affix:stuck', { bubbles: true }));
+            stick();
           } else {
-            // Sentinel visible — unstick
-            placeholder.classList.remove('is-active');
-            el.classList.remove('is-stuck');
-            el.dispatchEvent(new CustomEvent('affix:unstuck', { bubbles: true }));
+            unstick();
           }
         });
       }, {
+        root: scrollParent,
         rootMargin: '-' + offset + 'px 0px 0px 0px',
         threshold: 0
       });
@@ -58,10 +98,13 @@
       cleanup.push(
         () => observer.disconnect(),
         () => { if (sentinel.parentNode) sentinel.parentNode.removeChild(sentinel); },
-        () => { if (placeholder.parentNode) placeholder.parentNode.removeChild(placeholder); }
+        () => {
+          el.classList.remove('is-stuck');
+          el.style.removeProperty('--affix-top-offset');
+        }
       );
 
-      this.instances.set(el, { cleanup, observer, sentinel, placeholder });
+      this.instances.set(el, { cleanup, observer, sentinel, scrollParent });
     },
 
     destroy: function (el) {

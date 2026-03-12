@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.7 | Built: 2026-03-11T11:51:20.269Z | git:b32e38a | development */
+/*! Vanduo v1.2.7 | Built: 2026-03-12T16:17:38.253Z | git:2c1277a | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -6897,6 +6897,23 @@
   // js/components/affix.js
   (function() {
     "use strict";
+    function isScrollable(element) {
+      if (!element || element === document.body) return false;
+      const style = window.getComputedStyle(element);
+      const overflowY = style.overflowY;
+      const overflowX = style.overflowX;
+      const canScrollY = /(auto|scroll|overlay)/.test(overflowY) && element.scrollHeight > element.clientHeight;
+      const canScrollX = /(auto|scroll|overlay)/.test(overflowX) && element.scrollWidth > element.clientWidth;
+      return canScrollY || canScrollX;
+    }
+    function getScrollParent(element) {
+      let parent = element.parentElement;
+      while (parent && parent !== document.body && parent !== document.documentElement) {
+        if (isScrollable(parent)) return parent;
+        parent = parent.parentElement;
+      }
+      return null;
+    }
     const Affix = {
       instances: /* @__PURE__ */ new Map(),
       init: function() {
@@ -6908,29 +6925,48 @@
       },
       initInstance: function(el) {
         const cleanup = [];
-        const offset = parseInt(el.getAttribute("data-vd-affix-offset") || "0", 10);
+        const parsedOffset = parseInt(el.getAttribute("data-vd-affix-offset") || "0", 10);
+        const offset = Number.isNaN(parsedOffset) ? 0 : parsedOffset;
+        const scrollParent = getScrollParent(el);
+        let isStuck = false;
         const sentinel = document.createElement("div");
-        sentinel.style.cssText = "height:0;width:0;visibility:hidden;pointer-events:none;";
+        sentinel.style.cssText = "display:block;height:1px;margin-bottom:-1px;visibility:hidden;pointer-events:none;";
         el.parentNode.insertBefore(sentinel, el);
-        const placeholder = document.createElement("div");
-        placeholder.className = "vd-affix-placeholder";
-        el.parentNode.insertBefore(placeholder, el);
-        const observer = new IntersectionObserver((entries) => {
+        el.style.setProperty("--affix-top-offset", offset + "px");
+        function stick() {
+          if (isStuck) return;
+          isStuck = true;
+          el.classList.add("is-stuck");
+          el.dispatchEvent(new CustomEvent("affix:stuck", {
+            bubbles: true,
+            detail: {
+              offset,
+              root: scrollParent || window
+            }
+          }));
+        }
+        function unstick() {
+          if (!isStuck) return;
+          isStuck = false;
+          el.classList.remove("is-stuck");
+          el.dispatchEvent(new CustomEvent("affix:unstuck", {
+            bubbles: true,
+            detail: {
+              offset,
+              root: scrollParent || window
+            }
+          }));
+        }
+        const observer = new IntersectionObserver(function(entries) {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) {
-              const rect = el.getBoundingClientRect();
-              placeholder.style.height = rect.height + "px";
-              placeholder.classList.add("is-active");
-              el.classList.add("is-stuck");
-              el.style.setProperty("--affix-top-offset", offset + "px");
-              el.dispatchEvent(new CustomEvent("affix:stuck", { bubbles: true }));
+              stick();
             } else {
-              placeholder.classList.remove("is-active");
-              el.classList.remove("is-stuck");
-              el.dispatchEvent(new CustomEvent("affix:unstuck", { bubbles: true }));
+              unstick();
             }
           });
         }, {
+          root: scrollParent,
           rootMargin: "-" + offset + "px 0px 0px 0px",
           threshold: 0
         });
@@ -6941,10 +6977,11 @@
             if (sentinel.parentNode) sentinel.parentNode.removeChild(sentinel);
           },
           () => {
-            if (placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+            el.classList.remove("is-stuck");
+            el.style.removeProperty("--affix-top-offset");
           }
         );
-        this.instances.set(el, { cleanup, observer, sentinel, placeholder });
+        this.instances.set(el, { cleanup, observer, sentinel, scrollParent });
       },
       destroy: function(el) {
         const instance = this.instances.get(el);
@@ -8254,21 +8291,68 @@
       _currentStep: 0,
       _elements: {},
       _cleanup: [],
+      _boundTriggers: /* @__PURE__ */ new WeakMap(),
+      _triggerElement: null,
       init: function() {
+        const triggers = document.querySelectorAll("[data-vd-spotlight]");
+        triggers.forEach((trigger) => {
+          if (this._boundTriggers.has(trigger)) return;
+          const clickHandler = (event) => {
+            event.preventDefault();
+            const steps = this._parseSteps(trigger.getAttribute("data-vd-spotlight"));
+            if (steps.length === 0) return;
+            this.start(steps, { trigger });
+          };
+          trigger.addEventListener("click", clickHandler);
+          this._boundTriggers.set(trigger, clickHandler);
+        });
       },
-      start: function(steps) {
+      _parseSteps: function(raw) {
+        if (typeof raw !== "string" || raw.trim() === "") return [];
+        try {
+          const parsed = JSON.parse(raw);
+          return this._normalizeSteps(parsed);
+        } catch (error) {
+          console.error("VanduoSpotlight: invalid data-vd-spotlight payload.", error);
+          return [];
+        }
+      },
+      _normalizeStep: function(step) {
+        if (!step || typeof step !== "object") return null;
+        const target = step.target;
+        const hasSelectorTarget = typeof target === "string" && target.trim() !== "";
+        const hasElementTarget = typeof Element !== "undefined" && target instanceof Element;
+        if (!hasSelectorTarget && !hasElementTarget) return null;
+        const title = typeof step.title === "string" ? step.title : "";
+        const description = typeof step.description === "string" ? step.description : typeof step.content === "string" ? step.content : "";
+        return {
+          target,
+          title,
+          description
+        };
+      },
+      _normalizeSteps: function(steps) {
+        if (!Array.isArray(steps)) return [];
+        return steps.map((step) => this._normalizeStep(step)).filter(Boolean);
+      },
+      start: function(steps, options) {
         if (this._active) this.stop();
-        if (!steps || steps.length === 0) return;
-        this._steps = steps;
+        const normalizedSteps = this._normalizeSteps(steps);
+        if (normalizedSteps.length === 0) return;
+        const startOptions = options || {};
+        this._steps = normalizedSteps;
         this._currentStep = 0;
         this._active = true;
+        this._triggerElement = startOptions.trigger || (document.activeElement instanceof HTMLElement ? document.activeElement : null);
         const overlay = document.createElement("div");
         overlay.className = "vd-spotlight-overlay";
+        overlay.setAttribute("aria-hidden", "true");
         document.body.appendChild(overlay);
         const tooltip = document.createElement("div");
         tooltip.className = "vd-spotlight-tooltip";
         tooltip.setAttribute("role", "dialog");
         tooltip.setAttribute("aria-modal", "true");
+        tooltip.tabIndex = -1;
         document.body.appendChild(tooltip);
         this._elements = { overlay, tooltip };
         const escHandler = (e) => {
@@ -8293,20 +8377,27 @@
         }
         const total = this._steps.length;
         tooltip.innerHTML = "";
+        tooltip.removeAttribute("aria-labelledby");
+        tooltip.removeAttribute("aria-describedby");
         if (step.title) {
           const title = document.createElement("h4");
           title.className = "vd-spotlight-title";
+          title.id = "vd-spotlight-title-" + index + "-" + Date.now();
           title.textContent = step.title;
           tooltip.appendChild(title);
+          tooltip.setAttribute("aria-labelledby", title.id);
         }
         if (step.description) {
           const desc = document.createElement("p");
           desc.className = "vd-spotlight-description";
+          desc.id = "vd-spotlight-description-" + index + "-" + Date.now();
           desc.textContent = step.description;
           tooltip.appendChild(desc);
+          tooltip.setAttribute("aria-describedby", desc.id);
         }
         const footer = document.createElement("div");
         footer.className = "vd-spotlight-footer";
+        footer.setAttribute("aria-label", "Step " + (index + 1) + " of " + total);
         const counter = document.createElement("span");
         counter.className = "vd-spotlight-counter";
         counter.textContent = index + 1 + " / " + total;
@@ -8359,7 +8450,7 @@
           });
         }
         document.dispatchEvent(new CustomEvent("spotlight:step", {
-          detail: { step: index, total, data: step }
+          detail: { index, step: index, total, data: step }
         }));
       },
       next: function() {
@@ -8376,6 +8467,12 @@
       },
       stop: function() {
         if (!this._active) return;
+        const total = this._steps.length;
+        const detail = {
+          completedSteps: total === 0 ? 0 : Math.min(this._currentStep + 1, total),
+          total,
+          completed: total > 0 && this._currentStep >= total - 1
+        };
         this._active = false;
         document.querySelectorAll(".vd-spotlight-target").forEach((el) => {
           el.classList.remove("vd-spotlight-target");
@@ -8389,7 +8486,13 @@
         this._cleanup.forEach((fn) => fn());
         this._cleanup = [];
         this._elements = {};
-        document.dispatchEvent(new CustomEvent("spotlight:end"));
+        this._steps = [];
+        this._currentStep = 0;
+        if (this._triggerElement && this._triggerElement.isConnected && typeof this._triggerElement.focus === "function") {
+          this._triggerElement.focus();
+        }
+        this._triggerElement = null;
+        document.dispatchEvent(new CustomEvent("spotlight:end", { detail }));
       },
       destroyAll: function() {
         this.stop();

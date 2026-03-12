@@ -12,6 +12,8 @@
 
   <button id="basic-fab" class="vd-fab" aria-label="Add">+</button>
 
+  <button id="fab-fixed" class="vd-fab vd-fab-fixed" aria-label="Fixed add">+</button>
+
   <button id="fab-sm" class="vd-fab vd-fab-sm" aria-label="Small">+</button>
   <button id="fab-lg" class="vd-fab vd-fab-lg" aria-label="Large">+</button>
 
@@ -27,11 +29,14 @@
   <!-- Speed dial -->
   <div id="fab-speed-dial">
     <div id="fab-menu" class="vd-fab-menu">
-      <button class="vd-fab-action" aria-label="Action 1">1</button>
-      <button class="vd-fab-action" aria-label="Action 2">2</button>
-      <button class="vd-fab-action" aria-label="Action 3">3</button>
+      <button id="fab-main" class="vd-fab" aria-label="Menu" aria-expanded="false"
+              onclick="var m=this.parentElement; m.classList.toggle('is-open'); this.setAttribute('aria-expanded', m.classList.contains('is-open'));">+</button>
+      <div class="vd-fab-actions">
+        <button class="vd-fab vd-fab-sm" aria-label="Action 1">1</button>
+        <button class="vd-fab vd-fab-sm" aria-label="Action 2">2</button>
+        <button class="vd-fab vd-fab-sm" aria-label="Action 3">3</button>
+      </div>
     </div>
-    <button id="fab-main" class="vd-fab" aria-label="Menu" onclick="document.getElementById('fab-menu').classList.toggle('is-open')">+</button>
   </div>
 </body>
 </html>

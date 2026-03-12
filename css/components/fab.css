@@ -1,6 +1,6 @@
 /**
  * Vanduo Framework - FAB (Floating Action Button)
- * Fixed-position primary action button with optional speed-dial menu
+ * Elevated circular action button with optional fixed positioning and speed-dial menu
  */
 
 :root {
@@ -40,10 +40,6 @@
 /* ========== Base ========== */
 
 .vd-fab {
-  position: fixed;
-  bottom: var(--fab-offset);
-  right: var(--fab-offset);
-  z-index: var(--fab-z-index);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,19 +94,36 @@
   gap: 0.5rem;
 }
 
-/* ========== Position Variants ========== */
+/* ========== Fixed Positioning ========== */
+
+.vd-fab-fixed {
+  position: fixed;
+  bottom: var(--fab-offset);
+  right: var(--fab-offset);
+  z-index: var(--fab-z-index);
+}
+
+/* ========== Position Variants (all include position: fixed) ========== */
 
 .vd-fab-bottom-left {
+  position: fixed;
+  z-index: var(--fab-z-index);
+  bottom: var(--fab-offset);
   right: auto;
   left: var(--fab-offset);
 }
 
 .vd-fab-top-right {
+  position: fixed;
+  z-index: var(--fab-z-index);
   bottom: auto;
+  right: var(--fab-offset);
   top: var(--fab-offset);
 }
 
 .vd-fab-top-left {
+  position: fixed;
+  z-index: var(--fab-z-index);
   bottom: auto;
   right: auto;
   top: var(--fab-offset);
@@ -118,6 +131,9 @@
 }
 
 .vd-fab-center {
+  position: fixed;
+  z-index: var(--fab-z-index);
+  bottom: var(--fab-offset);
   right: 50%;
   transform: translateX(50%);
 }
@@ -146,12 +162,16 @@
 /* ========== Speed Dial Menu ========== */
 
 .vd-fab-menu {
-  position: fixed;
-  bottom: calc(var(--fab-offset) + var(--fab-size) + var(--fab-menu-gap));
-  right: var(--fab-offset);
-  z-index: calc(var(--fab-z-index) - 1);
-  display: flex;
+  position: relative;
+  display: inline-flex;
   flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--fab-menu-gap);
+}
+
+.vd-fab-menu .vd-fab-actions {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--fab-menu-gap);
   opacity: 0;
@@ -160,10 +180,17 @@
   transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 }
 
-.vd-fab-menu.is-open {
+.vd-fab-menu.is-open .vd-fab-actions {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.vd-fab-menu.vd-fab-fixed {
+  position: fixed;
+  bottom: var(--fab-offset);
+  right: var(--fab-offset);
+  z-index: var(--fab-z-index);
 }
 
 .vd-fab-menu .vd-fab-action {
@@ -187,8 +214,12 @@
   background: var(--fab-hover-bg);
 }
 
-/* Staggered entrance */
+/* Staggered entrance for action buttons */
+.vd-fab-menu.is-open .vd-fab-actions .vd-fab:nth-child(1),
 .vd-fab-menu.is-open .vd-fab-action:nth-child(1) { transition-delay: 0s; }
+.vd-fab-menu.is-open .vd-fab-actions .vd-fab:nth-child(2),
 .vd-fab-menu.is-open .vd-fab-action:nth-child(2) { transition-delay: 0.05s; }
+.vd-fab-menu.is-open .vd-fab-actions .vd-fab:nth-child(3),
 .vd-fab-menu.is-open .vd-fab-action:nth-child(3) { transition-delay: 0.1s; }
+.vd-fab-menu.is-open .vd-fab-actions .vd-fab:nth-child(4),
 .vd-fab-menu.is-open .vd-fab-action:nth-child(4) { transition-delay: 0.15s; }

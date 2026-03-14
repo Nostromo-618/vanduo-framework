@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.8 | Built: 2026-03-14T13:27:33.728Z | git:33b7071 | development */
+/*! Vanduo v1.2.8 | Built: 2026-03-14T13:35:54.636Z | git:f306379 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -52099,7 +52099,7 @@ a.vd-btn, a.vd-btn:hover {
   position: absolute;
   top: 45%;
   left: 50%;
-  transform: translate(-50%, -50%)rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .checkbox > input[type="checkbox"]:disabled, .vd-form-check > input[type="checkbox"]:disabled {
@@ -52177,7 +52177,7 @@ a.vd-btn, a.vd-btn:hover {
   height: .75rem;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -60%)rotate(45deg);
+  transform: translate(-50%, -60%) rotate(45deg);
 }
 
 .checkbox-input:indeterminate + .checkbox-label:before, .checkbox-input:indeterminate ~ .checkbox-label:before, .vd-form-check-input:indeterminate + .vd-form-check-label:before {
@@ -53524,7 +53524,7 @@ a.vd-card:active {
 }
 
 .vd-navbar-toggle.is-active span:first-child, .vd-navbar-burger.is-active span:first-child {
-  transform: rotate(45deg)translate(5px, 5px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .vd-navbar-toggle.is-active span:nth-child(2), .vd-navbar-burger.is-active span:nth-child(2) {
@@ -53532,7 +53532,7 @@ a.vd-card:active {
 }
 
 .vd-navbar-toggle.is-active span:nth-child(3), .vd-navbar-burger.is-active span:nth-child(3) {
-  transform: rotate(-45deg)translate(7px, -6px);
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 .vd-navbar-menu {
@@ -56046,7 +56046,7 @@ h1 .vd-badge, h2 .vd-badge, h3 .vd-badge, h4 .vd-badge, h5 .vd-badge, h6 .vd-bad
 }
 
 .vd-offcanvas.is-open {
-  transform: translateX(0)translateY(0);
+  transform: translateX(0) translateY(0);
 }
 
 .vd-sidenav-top, .vd-offcanvas-top {
@@ -62532,7 +62532,7 @@ input.vd-doc-search-input {
 }
 
 .vd-fab-center:hover {
-  transform: translateX(50%)scale(1.05);
+  transform: translateX(50%) scale(1.05);
 }
 
 .vd-fab-secondary {

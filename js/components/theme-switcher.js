@@ -41,6 +41,13 @@
       this.state.preference = pref;
       this.setStorageValue(this.STORAGE_KEY, pref);
       this.applyTheme();
+      
+      // Coordinate with ThemeCustomizer for primary color swap if available
+      // Check _isApplying flag to prevent circular updates
+      if (window.ThemeCustomizer && window.ThemeCustomizer.applyTheme && !window.ThemeCustomizer._isApplying) {
+        window.ThemeCustomizer.applyTheme(pref);
+      }
+      
       this.updateUI();
     },
 

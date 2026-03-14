@@ -5,14 +5,53 @@
  * Covers: initialization, light/dark/system toggle, localStorage persistence
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+
+const THEME_CUSTOMIZER_DEFAULTS_KEY = 'vanduo-test-theme-customizer-defaults';
+const SHARED_THEME_STORAGE_KEYS = [
+  'vanduo-theme-preference',
+  'vanduo-primary-color',
+  'vanduo-neutral-color',
+  'vanduo-radius',
+  'vanduo-font-preference'
+];
+
+async function reloadWithThemeCustomizerDefaults(
+  page: Page,
+  defaults: { PRIMARY_LIGHT: string; PRIMARY_DARK: string }
+) {
+  await page.evaluate((payload: {
+    key: string;
+    value: { PRIMARY_LIGHT: string; PRIMARY_DARK: string };
+    storageKeys: string[];
+  }) => {
+    const { key, value, storageKeys } = payload;
+    storageKeys.forEach((storageKey) => {
+      localStorage.removeItem(storageKey);
+    });
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }, {
+    key: THEME_CUSTOMIZER_DEFAULTS_KEY,
+    value: defaults,
+    storageKeys: SHARED_THEME_STORAGE_KEYS
+  });
+
+  await page.reload();
+  await page.waitForTimeout(100);
+}
 
 test.describe('Theme Switcher Component @component', () => {
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
     await page.goto('/tests/fixtures/theme-switcher.html');
-    await page.evaluate(() => {
-      localStorage.removeItem('vanduo-theme-preference');
+    await page.evaluate(({ defaultsKey, storageKeys }) => {
+      storageKeys.forEach((storageKey) => {
+        localStorage.removeItem(storageKey);
+      });
+      sessionStorage.removeItem(defaultsKey);
+    }, {
+      defaultsKey: THEME_CUSTOMIZER_DEFAULTS_KEY,
+      storageKeys: SHARED_THEME_STORAGE_KEYS
     });
     await page.reload();
     await page.waitForTimeout(100);
@@ -24,12 +63,13 @@ test.describe('Theme Switcher Component @component', () => {
       await expect(themeSelect).toHaveAttribute('data-theme-initialized', 'true');
     });
 
-    test('sets default preference to system', async ({ page }) => {
+    test('persists shared system preference on init', async ({ page }) => {
       const storagePref = await page.evaluate(() => {
         return localStorage.getItem('vanduo-theme-preference');
       });
-      // Initially null, but component treats as 'system'
-      expect(storagePref).toBeNull();
+
+      // ThemeCustomizer initializes first in this fixture and persists the shared mode.
+      expect(storagePref).toBe('system');
     });
 
     test('select reflects current preference', async ({ page }) => {
@@ -183,6 +223,84 @@ test.describe('Theme Switcher Component @component', () => {
       // System theme should remove data-theme attribute
       const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
       expect(theme).toBeNull();
+    });
+  });
+
+  test.describe('ThemeCustomizer Coordination', () => {
+    test('syncs primary color with ThemeCustomizer on theme change', async ({ page }) => {
+      await reloadWithThemeCustomizerDefaults(page, {
+        PRIMARY_LIGHT: 'blue',
+        PRIMARY_DARK: 'red'
+      });
+
+      const themeSelect = page.locator('#theme-select');
+
+      // Start with light theme
+      await themeSelect.selectOption('light');
+      await page.waitForTimeout(100);
+
+      // Check primary color in light mode
+      let primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('blue');
+
+      // Switch to dark theme
+      await themeSelect.selectOption('dark');
+      await page.waitForTimeout(100);
+
+      // Primary color should swap to dark mode default
+      primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('red');
+
+      // Switch back to light
+      await themeSelect.selectOption('light');
+      await page.waitForTimeout(100);
+
+      // Primary should swap back
+      primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('blue');
+    });
+
+    test('does not override user-selected primary color', async ({ page }) => {
+      await reloadWithThemeCustomizerDefaults(page, {
+        PRIMARY_LIGHT: 'blue',
+        PRIMARY_DARK: 'red'
+      });
+
+      await page.evaluate(() => {
+        // @ts-ignore
+        if (window.ThemeCustomizer) {
+          // User manually selects green
+          // @ts-ignore
+          window.ThemeCustomizer.applyPrimary('green');
+        }
+      });
+
+      // Verify green is set
+      let primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('green');
+
+      // Switch to dark theme
+      await page.locator('#theme-select').selectOption('dark');
+      await page.waitForTimeout(100);
+
+      // Primary should stay green (user's choice)
+      primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('green');
+    });
+
+    test('handles ThemeCustomizer not being present', async ({ page }) => {
+      // Remove ThemeCustomizer temporarily
+      await page.evaluate(() => {
+        // @ts-ignore
+        delete window.ThemeCustomizer;
+      });
+
+      // ThemeSwitcher should still work without errors
+      await page.locator('#theme-select').selectOption('dark');
+      await page.waitForTimeout(100);
+
+      const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(theme).toBe('dark');
     });
   });
 });

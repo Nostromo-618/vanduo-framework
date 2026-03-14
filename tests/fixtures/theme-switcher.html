@@ -49,6 +49,27 @@
 
   <script src="/js/utils/helpers.js"></script>
   <script src="/js/vanduo.js"></script>
+  <script>
+    (function () {
+      const defaultsKey = 'vanduo-test-theme-customizer-defaults';
+      try {
+        const rawDefaults = sessionStorage.getItem(defaultsKey);
+        if (!rawDefaults) {
+          return;
+        }
+
+        window.__vdThemeCustomizerDefaults = JSON.parse(rawDefaults);
+      } catch (_e) {
+        sessionStorage.removeItem(defaultsKey);
+      }
+    })();
+  </script>
+  <script src="/js/components/theme-customizer.js"></script>
+  <script>
+    if (window.ThemeCustomizer && window.__vdThemeCustomizerDefaults) {
+      Object.assign(window.ThemeCustomizer.DEFAULTS, window.__vdThemeCustomizerDefaults);
+    }
+  </script>
   <script src="/js/components/theme-switcher.js"></script>
   <script>
     // Update display

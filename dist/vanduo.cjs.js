@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.7 | Built: 2026-03-12T16:17:38.253Z | git:2c1277a | development */
+/*! Vanduo v1.2.8 | Built: 2026-03-14T13:27:33.728Z | git:33b7071 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -132,7 +132,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.2.7" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.2.8" : "0.0.0-dev";
   const Vanduo2 = {
     version: VANDUO_VERSION,
     components: {},
@@ -3902,7 +3902,9 @@ module.exports = __toCommonJS(index_exports);
       if (!this.THEME_MODES.includes(mode)) {
         mode = this.DEFAULTS.THEME;
       }
-      const oldDefault = this.getDefaultPrimary(this.state.theme);
+      this._isApplying = true;
+      const currentMode = this.state.theme;
+      const oldDefault = this.getDefaultPrimary(currentMode);
       if (this.state.primary === oldDefault) {
         const newDefault = this.getDefaultPrimary(mode);
         if (newDefault !== this.state.primary) {
@@ -3918,10 +3920,12 @@ module.exports = __toCommonJS(index_exports);
       this.savePreference(this.STORAGE_KEYS.THEME, mode);
       if (window.Vanduo && window.Vanduo.components.themeSwitcher) {
         const themeSwitcher = window.Vanduo.components.themeSwitcher;
-        if (themeSwitcher.state) {
+        if (themeSwitcher.state && themeSwitcher.state.preference !== mode) {
           themeSwitcher.state.preference = mode;
+          themeSwitcher.savePreference(themeSwitcher.STORAGE_KEY, mode);
         }
       }
+      this._isApplying = false;
       this.dispatchEvent("mode-change", { mode });
     },
     /**
@@ -4337,6 +4341,9 @@ module.exports = __toCommonJS(index_exports);
       this.state.preference = pref;
       this.setStorageValue(this.STORAGE_KEY, pref);
       this.applyTheme();
+      if (window.ThemeCustomizer && window.ThemeCustomizer.applyTheme && !window.ThemeCustomizer._isApplying) {
+        window.ThemeCustomizer.applyTheme(pref);
+      }
       this.updateUI();
     },
     getStorageValue: function(key, fallback) {

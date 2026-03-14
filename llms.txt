@@ -1,6 +1,6 @@
-# Vanduo Framework v1.2.7 — LLM Context
+# Vanduo Framework v1.2.8 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.2.7 ships **45+ components** including 17 new ones (Carousel/Flow, Popover/Bubble, Scrollspy/Waypoint, Ripple, FAB, Sticky/Affix, Autocomplete/Suggest, Form Validation, Date Picker, Time Picker, Stepper, Timeline, Rating, Transfer, Tree View, Spotlight, and enhanced multi-direction Offcanvas). The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.2.8 ships **45+ components** and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -8,17 +8,18 @@ You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS fra
 - **No build tools for consumers**: include CSS in `<head>`, JS at end of `<body>`.
 - **Naming safety**: all framework classes are prefixed with `vd-`.
 - **Design system**: spacing, type, and layout follow Fibonacci / Golden Ratio.
-- **Themeable**: runtime theme customizer + data attributes on `<html>`.
+- **Themeable**: separate runtime Theme Switcher and Theme Customizer surfaces + data attributes on `<html>`.
 - **Dual naming**: many components have a standard name and a unique Vanduo alias (e.g., Carousel → Flow, Popover → Bubble, Scrollspy → Waypoint).
 
 ---
 
 ## Defaults (v1.2.x)
 Set by Theme Customizer when no user preference exists:
-- Primary color: `blue`
-- Neutral color: `zinc`
+- Primary color in light mode: `black`
+- Primary color in dark mode: `amber`
+- Neutral color: `neutral`
 - Border radius: `0.5`
-- Font family: `open-sans`
+- Font family: `ubuntu`
 - Theme: `system` (follows OS)
 
 ---
@@ -56,8 +57,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.8/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.8/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -101,6 +102,8 @@ Theme Customizer writes attributes to `<html>`:
 - `data-font="open-sans|ubuntu|rubik|..."`
 
 These values persist via `localStorage`.
+
+When Theme Switcher and Theme Customizer are both present, they share `vanduo-theme-preference` and Theme Customizer only swaps between `PRIMARY_LIGHT` and `PRIMARY_DARK` while the active primary color is still on the per-theme default.
 
 ---
 
@@ -214,8 +217,8 @@ These values persist via `localStorage`.
 ### Tooling
 | Component | CSS Class | JS Module | Notes |
 |---|---|---|---|
-| Theme Customizer | `.vd-theme-customizer` | `theme-customizer` | Runtime theming UI |
-| Theme Switcher | — | `theme-switcher` | Light/dark toggle |
+| Theme Customizer | `.vd-theme-customizer` | `theme-customizer` | Runtime theming UI with primary/neutral/radius/font/theme controls; coordinates with Theme Switcher when both are loaded |
+| Theme Switcher | — | `theme-switcher` | Light/dark/system toggle with shared theme preference |
 | Font Switcher | — | `font-switcher` | Font family swap |
 | Doc Search | `.vd-doc-search` | `doc-search` | Documentation search modal |
 | Grid Toggle | — | `grid` | Fibonacci/standard layout switch |
@@ -327,7 +330,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `data-draggable="value"`
 - `data-sidenav-toggle="#css-selector"` — value **must be a CSS selector** (include the `#`)
 
-### New in v1.2.7
+### Introduced in v1.2.7
 - `data-vd-flow` — carousel container marker
 - `data-vd-bubble` — popover trigger, value is the ID of the popover element
 - `data-vd-waypoint` — scrollspy navigation container
@@ -345,7 +348,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 
 ---
 
-## Key CSS Classes (New in v1.2.7)
+## Key CSS Classes (Introduced in v1.2.7)
 
 ### Carousel / Flow
 `.vd-flow`, `.vd-flow-track`, `.vd-flow-slide`, `.vd-flow-prev`, `.vd-flow-next`, `.vd-flow-indicators`

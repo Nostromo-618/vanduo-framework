@@ -200,15 +200,21 @@ test.describe('LazyLoad Component @component', () => {
         });
 
         test('dispatches lazysection:loaded on containerEl', async ({ page }) => {
-            // Set up a side-effect flag before triggering the load
             await page.evaluate(() => {
                 window.__observeCallbackFired = false;
                 const el = document.getElementById('prog-target')!;
                 el.addEventListener('lazysection:loaded', () => {
                     window.__observeCallbackFired = true;
                 }, { once: true });
+
+                el.scrollIntoView();
+                window.VanduoLazyLoad.loadSection(
+                    '/tests/fixtures/lazy-load-partial.html',
+                    el,
+                    { placeholder: 'spinner' }
+                );
             });
-            await page.click('#btn-load-section');
+
             await page.waitForFunction(
                 () => window.__observeCallbackFired === true,
                 { timeout: 5000 }

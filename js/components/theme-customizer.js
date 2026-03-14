@@ -251,8 +251,14 @@
         mode = this.DEFAULTS.THEME;
       }
 
+      // Prevent circular updates
+      this._isApplying = true;
+
       // Check if we should switch primary color (if using default)
-      const oldDefault = this.getDefaultPrimary(this.state.theme);
+      // Use the incoming mode for both old and new default checks since
+      // ThemeSwitcher calls this with the new mode before updating its own state
+      const currentMode = this.state.theme;
+      const oldDefault = this.getDefaultPrimary(currentMode);
       if (this.state.primary === oldDefault) {
         const newDefault = this.getDefaultPrimary(mode);
         if (newDefault !== this.state.primary) {
@@ -271,13 +277,16 @@
       this.savePreference(this.STORAGE_KEYS.THEME, mode);
 
       // Also update the existing ThemeSwitcher if available
+      // Only update state, don't call setPreference to avoid circular calls
       if (window.Vanduo && window.Vanduo.components.themeSwitcher) {
         const themeSwitcher = window.Vanduo.components.themeSwitcher;
-        if (themeSwitcher.state) {
+        if (themeSwitcher.state && themeSwitcher.state.preference !== mode) {
           themeSwitcher.state.preference = mode;
+          themeSwitcher.savePreference(themeSwitcher.STORAGE_KEY, mode);
         }
       }
 
+      this._isApplying = false;
       this.dispatchEvent('mode-change', { mode: mode });
     },
 

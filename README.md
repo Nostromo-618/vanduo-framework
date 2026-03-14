@@ -1,4 +1,4 @@
-# Vanduo Framework v1.2.7
+# Vanduo Framework v1.2.8
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -32,14 +32,21 @@ A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing 
 - 🧩 **Modular** - Import only what you need
 - ♿ **Accessible** - Built with accessibility in mind (WCAG 2.1 AA)
 - 🌙 **Dark Mode** - Automatic OS preference detection + manual toggle
+- 🌗 **Theme Switcher** - Lightweight light/dark/system toggle with shared preference storage
 - 🎛️ **Theme Customizer** - Real-time color, radius, font, and mode customization
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
 
 ---
 
-## What's New in v1.2.7
+## What's New in v1.2.8
 
-v1.2.7 adds **17 new components**, bringing the total to **45+**. Each component ships with dedicated CSS, JavaScript (where applicable), full Playwright test coverage, and comprehensive documentation.
+v1.2.8 focuses on theme-system clarity and release-surface alignment:
+
+- **Theme Switcher and Theme Customizer are now treated as distinct tooling components.** Use Theme Switcher for lightweight system/light/dark toggles and Theme Customizer for full palette, neutral, radius, font, and mode control.
+- **Shared theme coordination is more predictable.** When both components are present, they keep the shared theme preference synchronized and only swap between default per-theme primary colors when the user is still on the default primary.
+- **Release-facing docs were refreshed for v1.2.8.** The docs site now has dedicated Theme Switcher documentation, expanded Theme Customizer coordination guidance, and aligned versioned release copy.
+
+The framework still ships **45+ components**, including the v1.2.7 additions below.
 
 | Component | Vanduo Name | Type |
 |---|---|---|
@@ -80,8 +87,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.7/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.8/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.8/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -144,7 +151,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.2.7
+pnpm run release:assets -- v1.2.8
 ```
 
 Notes:
@@ -162,6 +169,7 @@ Comprehensive documentation for all components, utilities, and customization opt
 ### Key Capabilities
 
 *   **Dark Mode**: Works automatically with system preferences. Can be forced via `data-theme="dark"` on `<html>`.
+*   **Theme Switcher**: Lightweight light/dark/system toggle that can coexist with Theme Customizer.
 *   **Theme Customizer**: Built-in runtime tool to change colors, fonts, and radius.
 *   **Modular Imports**: Import only specific components (e.g., `css/components/buttons.css`) to keep your site lean.
 *   **Icons**: Includes [Phosphor Icons](https://phosphoricons.com) (Regular + Fill weights bundled).

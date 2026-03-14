@@ -302,5 +302,32 @@ test.describe('Theme Switcher Component @component', () => {
       const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
       expect(theme).toBe('dark');
     });
+
+    test('reset keeps ThemeSwitcher storage and UI in sync', async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'light' });
+      await reloadWithThemeCustomizerDefaults(page, {
+        PRIMARY_LIGHT: 'blue',
+        PRIMARY_DARK: 'red'
+      });
+
+      await page.locator('#theme-select').selectOption('dark');
+      await page.waitForTimeout(100);
+
+      const resetState = await page.evaluate(() => {
+        // @ts-ignore
+        window.ThemeCustomizer.reset();
+
+        return {
+          theme: document.documentElement.getAttribute('data-theme'),
+          primary: document.documentElement.getAttribute('data-primary'),
+          storagePref: localStorage.getItem('vanduo-theme-preference')
+        };
+      });
+
+      expect(resetState.theme).toBeNull();
+      expect(resetState.primary).toBe('blue');
+      expect(resetState.storagePref).toBe('system');
+      await expect(page.locator('#theme-select')).toHaveValue('system');
+    });
   });
 });

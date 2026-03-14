@@ -282,7 +282,12 @@
         const themeSwitcher = window.Vanduo.components.themeSwitcher;
         if (themeSwitcher.state && themeSwitcher.state.preference !== mode) {
           themeSwitcher.state.preference = mode;
-          themeSwitcher.savePreference(themeSwitcher.STORAGE_KEY, mode);
+          if (typeof themeSwitcher.setStorageValue === 'function') {
+            themeSwitcher.setStorageValue(themeSwitcher.STORAGE_KEY, mode);
+          }
+          if (typeof themeSwitcher.updateUI === 'function') {
+            themeSwitcher.updateUI();
+          }
         }
       }
 

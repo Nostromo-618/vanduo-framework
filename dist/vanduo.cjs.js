@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.8 | Built: 2026-03-14T13:35:54.636Z | git:f306379 | development */
+/*! Vanduo v1.2.8 | Built: 2026-03-14T17:55:11.632Z | git:7aac196 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -3922,7 +3922,12 @@ module.exports = __toCommonJS(index_exports);
         const themeSwitcher = window.Vanduo.components.themeSwitcher;
         if (themeSwitcher.state && themeSwitcher.state.preference !== mode) {
           themeSwitcher.state.preference = mode;
-          themeSwitcher.savePreference(themeSwitcher.STORAGE_KEY, mode);
+          if (typeof themeSwitcher.setStorageValue === "function") {
+            themeSwitcher.setStorageValue(themeSwitcher.STORAGE_KEY, mode);
+          }
+          if (typeof themeSwitcher.updateUI === "function") {
+            themeSwitcher.updateUI();
+          }
         }
       }
       this._isApplying = false;

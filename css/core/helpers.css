@@ -1498,6 +1498,8 @@
 .vd-mt-3 { margin-top: var(--spacing-3); }
 .vd-mt-4 { margin-top: var(--spacing-4); }
 .vd-mt-5 { margin-top: var(--spacing-5); }
+.vd-mt-6 { margin-top: var(--spacing-6); }
+.vd-mt-8 { margin-top: var(--spacing-8); }
 .vd-mb-0 { margin-bottom: var(--spacing-0); }
 .vd-mb-2 { margin-bottom: var(--spacing-2); }
 .vd-mb-3 { margin-bottom: var(--spacing-3); }

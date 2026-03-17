@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.9 | Built: 2026-03-17T08:01:23.158Z | git:b559e8a | development */
+/*! Vanduo v1.2.9 | Built: 2026-03-17T14:12:59.139Z | git:495bdbe | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -1346,6 +1346,10 @@ pre code {
 
 .vd-font-bold {
   font-weight: var(--font-weight-bold);
+}
+
+.vd-text-italic {
+  font-style: italic;
 }
 
 .vd-font-extrabold {
@@ -4511,6 +4515,14 @@ pre code {
 
 .vd-mt-5 {
   margin-top: var(--spacing-5);
+}
+
+.vd-mt-6 {
+  margin-top: var(--spacing-6);
+}
+
+.vd-mt-8 {
+  margin-top: var(--spacing-8);
 }
 
 .vd-mb-0 {

@@ -318,6 +318,10 @@ pre code {
   font-weight: var(--font-weight-bold);
 }
 
+.vd-text-italic {
+  font-style: italic;
+}
+
 .vd-font-extrabold {
   font-weight: var(--font-weight-extrabold);
 }

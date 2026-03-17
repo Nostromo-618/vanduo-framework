@@ -1,4 +1,4 @@
-/*! Vanduo v1.2.9 | Built: 2026-03-14T18:56:04.214Z | git:800b9f0 | development */
+/*! Vanduo v1.2.9 | Built: 2026-03-17T08:01:23.158Z | git:b559e8a | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -59753,8 +59753,8 @@ body > .vd-theme-customizer-panel.is-open {
 
 .doc-tab.active {
   border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-primary-alpha-12);
+  color: var(--text-on-primary);
+  background: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary-alpha-20);
 }
 

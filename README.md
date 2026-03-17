@@ -1,4 +1,4 @@
-# Vanduo Framework v1.2.9
+# Vanduo Framework v1.3.0
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -38,13 +38,14 @@ A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing 
 
 ---
 
-## What's New in v1.2.9
+## What's New in v1.3.0
 
-v1.2.9 is a patch release focused on theme-sync correctness and release continuity:
+v1.3.0 is a maintenance release focused on documentation improvements and framework consistency:
 
-- **Theme Customizer now syncs cleanly with Theme Switcher.** The runtime no longer calls a missing `savePreference()` path while applying themes, which removes the regression seen when both tools coexist.
-- **Shared theme preference updates stay on the supported API path.** Theme changes now persist through the same preference flow used by Theme Switcher instead of relying on an undefined helper.
-- **Release artifacts and docs are aligned for v1.2.9.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at the current version.
+- **Added missing spacing utilities and text-italic class.** The framework now includes `.vd-mt-6` and `.vd-mt-8` spacing utilities, plus `.vd-text-italic` for text styling.
+- **Fixed phantom class references in documentation.** Updated docs to use correct class names that match the actual framework implementation.
+- **Improved documentation structure.** Added inline sidebar filter for Components & Guides pages, unified component documentation structure, and refreshed visual styling.
+- **Release artifacts and docs are aligned for v1.3.0.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at the current version.
 
 The framework still ships **45+ components**, including the v1.2.7 additions below.
 
@@ -87,8 +88,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.9/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.2.9/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.0/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -151,7 +152,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.2.9
+pnpm run release:assets -- v1.3.0
 ```
 
 Notes:

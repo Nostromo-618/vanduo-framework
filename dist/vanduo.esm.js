@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.1 | Built: 2026-03-20T20:23:20.564Z | git:3ef9c05 | development */
+/*! Vanduo v1.3.1 | Built: 2026-03-20T21:40:34.658Z | git:0db4524 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -418,15 +418,14 @@
       }
       const codeElement = activePane.querySelector("code") || activePane;
       const code = codeElement.textContent;
-      let copySuccess = false;
+      let copySuccess;
       try {
         await navigator.clipboard.writeText(code);
         copySuccess = true;
-        this.showCopyFeedback(copyBtn, true);
       } catch (_err) {
         copySuccess = this.fallbackCopy(code);
-        this.showCopyFeedback(copyBtn, copySuccess);
       }
+      this.showCopyFeedback(copyBtn, copySuccess);
       const event = new CustomEvent("codesnippet:copy", {
         bubbles: true,
         detail: { snippet, code, success: copySuccess }

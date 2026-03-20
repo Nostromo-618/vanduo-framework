@@ -282,16 +282,15 @@
       const codeElement = activePane.querySelector('code') || activePane;
       const code = codeElement.textContent;
 
-      let copySuccess = false;
+      let copySuccess;
       try {
         await navigator.clipboard.writeText(code);
         copySuccess = true;
-        this.showCopyFeedback(copyBtn, true);
       } catch (_err) {
         // Fallback for older browsers
         copySuccess = this.fallbackCopy(code);
-        this.showCopyFeedback(copyBtn, copySuccess);
       }
+      this.showCopyFeedback(copyBtn, copySuccess);
 
       // Dispatch event
       const event = new CustomEvent('codesnippet:copy', {

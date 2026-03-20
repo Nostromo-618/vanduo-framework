@@ -528,3 +528,8 @@
   display: none;
 }
 
+/* Body Scroll Lock - class-based to avoid conflicts with modals */
+.body-navbar-open {
+  overflow: hidden;
+}
+

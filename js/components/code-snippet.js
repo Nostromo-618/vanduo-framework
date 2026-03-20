@@ -282,19 +282,21 @@
       const codeElement = activePane.querySelector('code') || activePane;
       const code = codeElement.textContent;
 
+      let copySuccess = false;
       try {
         await navigator.clipboard.writeText(code);
+        copySuccess = true;
         this.showCopyFeedback(copyBtn, true);
       } catch (_err) {
         // Fallback for older browsers
-        const success = this.fallbackCopy(code);
-        this.showCopyFeedback(copyBtn, success);
+        copySuccess = this.fallbackCopy(code);
+        this.showCopyFeedback(copyBtn, copySuccess);
       }
 
       // Dispatch event
       const event = new CustomEvent('codesnippet:copy', {
         bubbles: true,
-        detail: { snippet, code, success: true }
+        detail: { snippet, code, success: copySuccess }
       });
       snippet.dispatchEvent(event);
     },

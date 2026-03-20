@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.0 | Built: 2026-03-17T16:46:03.216Z | git:ea44b23 | development */
+/*! Vanduo v1.3.1 | Built: 2026-03-20T20:21:33.534Z | git:b282bfa | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -132,7 +132,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.3.0" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.3.1" : "0.0.0-dev";
   const Vanduo2 = {
     version: VANDUO_VERSION,
     components: {},
@@ -443,16 +443,18 @@ module.exports = __toCommonJS(index_exports);
       }
       const codeElement = activePane.querySelector("code") || activePane;
       const code = codeElement.textContent;
+      let copySuccess = false;
       try {
         await navigator.clipboard.writeText(code);
+        copySuccess = true;
         this.showCopyFeedback(copyBtn, true);
       } catch (_err) {
-        const success = this.fallbackCopy(code);
-        this.showCopyFeedback(copyBtn, success);
+        copySuccess = this.fallbackCopy(code);
+        this.showCopyFeedback(copyBtn, copySuccess);
       }
       const event = new CustomEvent("codesnippet:copy", {
         bubbles: true,
-        detail: { snippet, code, success: true }
+        detail: { snippet, code, success: copySuccess }
       });
       snippet.dispatchEvent(event);
     },
@@ -889,9 +891,6 @@ module.exports = __toCommonJS(index_exports);
   const Dropdown = {
     // Store initialized dropdowns and their cleanup functions
     instances: /* @__PURE__ */ new Map(),
-    // Typeahead state
-    _typeaheadBuffer: "",
-    _typeaheadTimer: null,
     /**
      * Initialize dropdown components
      */
@@ -955,7 +954,7 @@ module.exports = __toCommonJS(index_exports);
         item.addEventListener("keydown", itemKeydownHandler);
         cleanupFunctions.push(() => item.removeEventListener("keydown", itemKeydownHandler));
       });
-      this.instances.set(dropdown, { toggle, menu, cleanup: cleanupFunctions });
+      this.instances.set(dropdown, { toggle, menu, cleanup: cleanupFunctions, typeaheadBuffer: "", typeaheadTimer: null });
     },
     /**
      * Toggle dropdown
@@ -1084,16 +1083,18 @@ module.exports = __toCommonJS(index_exports);
           break;
         default:
           if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            clearTimeout(this._typeaheadTimer);
-            this._typeaheadBuffer += e.key.toLowerCase();
+            const instance = this.instances.get(dropdown);
+            if (!instance) break;
+            clearTimeout(instance.typeaheadTimer);
+            instance.typeaheadBuffer += e.key.toLowerCase();
             const match = items.find(
-              (item) => item.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+              (item) => item.textContent.trim().toLowerCase().startsWith(instance.typeaheadBuffer)
             );
             if (match) {
               match.focus();
             }
-            this._typeaheadTimer = setTimeout(() => {
-              this._typeaheadBuffer = "";
+            instance.typeaheadTimer = setTimeout(() => {
+              instance.typeaheadBuffer = "";
             }, 500);
           }
           break;
@@ -1801,9 +1802,10 @@ module.exports = __toCommonJS(index_exports);
       }));
       if (!this.img.complete) {
         this.img.style.opacity = "0";
-        this.img.onload = () => {
+        this._imgLoadHandler = () => {
           this.img.style.opacity = "";
         };
+        this.img.addEventListener("load", this._imgLoadHandler, { once: true });
       }
     },
     /**
@@ -1822,6 +1824,10 @@ module.exports = __toCommonJS(index_exports);
       }
       setTimeout(() => {
         if (!this.isOpen) {
+          if (this._imgLoadHandler) {
+            this.img.removeEventListener("load", this._imgLoadHandler);
+            this._imgLoadHandler = null;
+          }
           this.img.src = "";
           this.img.alt = "";
         }
@@ -1881,6 +1887,8 @@ module.exports = __toCommonJS(index_exports);
     zIndexCounter: 1050,
     // Store trigger cleanup functions
     _triggerCleanups: [],
+    // Shared ESC key handler (installed once)
+    _sharedEscHandler: null,
     /**
      * Initialize modals
      */
@@ -1945,16 +1953,17 @@ module.exports = __toCommonJS(index_exports);
       };
       backdrop.addEventListener("click", backdropClickHandler);
       cleanupFunctions.push(() => backdrop.removeEventListener("click", backdropClickHandler));
-      const escKeyHandler = (e) => {
-        if (e.key === "Escape" && this.openModals.length > 0) {
-          const topModal = this.openModals[this.openModals.length - 1];
-          if (topModal === modal && topModal.dataset.keyboard !== "false") {
-            this.close(topModal);
+      if (!this._sharedEscHandler) {
+        this._sharedEscHandler = (e) => {
+          if (e.key === "Escape" && this.openModals.length > 0) {
+            const topModal = this.openModals[this.openModals.length - 1];
+            if (topModal.dataset.keyboard !== "false") {
+              this.close(topModal);
+            }
           }
-        }
-      };
-      document.addEventListener("keydown", escKeyHandler);
-      cleanupFunctions.push(() => document.removeEventListener("keydown", escKeyHandler));
+        };
+        document.addEventListener("keydown", this._sharedEscHandler);
+      }
       this.modals.set(modal, { backdrop, dialog, trapHandler: null, cleanup: cleanupFunctions });
     },
     /**
@@ -2134,6 +2143,10 @@ module.exports = __toCommonJS(index_exports);
       });
       this._triggerCleanups.forEach((fn) => fn());
       this._triggerCleanups = [];
+      if (this._sharedEscHandler) {
+        document.removeEventListener("keydown", this._sharedEscHandler);
+        this._sharedEscHandler = null;
+      }
     }
   };
   if (typeof window.Vanduo !== "undefined") {
@@ -2299,7 +2312,7 @@ module.exports = __toCommonJS(index_exports);
       if (overlay) {
         overlay.classList.add("is-active");
       }
-      document.body.style.overflow = "hidden";
+      document.body.classList.add("body-navbar-open");
       toggle.setAttribute("aria-expanded", "true");
       menu.setAttribute("aria-hidden", "false");
     },
@@ -2316,7 +2329,7 @@ module.exports = __toCommonJS(index_exports);
       if (overlay) {
         overlay.classList.remove("is-active");
       }
-      document.body.style.overflow = "";
+      document.body.classList.remove("body-navbar-open");
       const dropdownMenus = menu.querySelectorAll(".vd-navbar-dropdown-menu.is-open");
       dropdownMenus.forEach((dropdownMenu) => {
         dropdownMenu.classList.remove("is-open");
@@ -2875,9 +2888,6 @@ module.exports = __toCommonJS(index_exports);
   const Select = {
     // Store initialized selects and their cleanup functions
     instances: /* @__PURE__ */ new Map(),
-    // Typeahead state
-    _typeaheadBuffer: "",
-    _typeaheadTimer: null,
     /**
      * Initialize select components
      */
@@ -2958,7 +2968,7 @@ module.exports = __toCommonJS(index_exports);
       };
       select.addEventListener("change", changeHandler);
       cleanupFunctions.push(() => select.removeEventListener("change", changeHandler));
-      this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions });
+      this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions, typeaheadBuffer: "", typeaheadTimer: null });
     },
     /**
      * Build options in dropdown
@@ -3052,7 +3062,7 @@ module.exports = __toCommonJS(index_exports);
      * @param {HTMLElement} dropdown - Dropdown container
      */
     updateSelectedOptions: function(select, dropdown) {
-      const options = dropdown.querySelectorAll(".vd-custom-select-option");
+      const options = dropdown.querySelectorAll(".custom-select-option");
       const selectedValues = Array.from(select.selectedOptions).map((opt) => opt.value);
       options.forEach((optionEl) => {
         const value = optionEl.dataset.value;
@@ -3086,7 +3096,7 @@ module.exports = __toCommonJS(index_exports);
     openDropdown: function(button, dropdown) {
       dropdown.classList.add("is-open");
       button.setAttribute("aria-expanded", "true");
-      const firstOption = dropdown.querySelector(".vd-custom-select-option:not(.is-disabled)");
+      const firstOption = dropdown.querySelector(".custom-select-option:not(.is-disabled)");
       if (firstOption) {
         firstOption.focus();
       }
@@ -3109,7 +3119,7 @@ module.exports = __toCommonJS(index_exports);
      */
     handleKeydown: function(e, select, button, dropdown) {
       const isOpen = dropdown.classList.contains("is-open");
-      const options = Array.from(dropdown.querySelectorAll(".vd-custom-select-option:not(.is-disabled)"));
+      const options = Array.from(dropdown.querySelectorAll(".custom-select-option:not(.is-disabled)"));
       const currentIndex = options.findIndex((opt) => opt === document.activeElement);
       switch (e.key) {
         case "Enter":
@@ -3160,16 +3170,18 @@ module.exports = __toCommonJS(index_exports);
           break;
         default:
           if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            clearTimeout(this._typeaheadTimer);
-            this._typeaheadBuffer += e.key.toLowerCase();
+            const instance = this.instances.get(select);
+            if (!instance) break;
+            clearTimeout(instance.typeaheadTimer);
+            instance.typeaheadBuffer += e.key.toLowerCase();
             const match = options.find(
-              (opt) => opt.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+              (opt) => opt.textContent.trim().toLowerCase().startsWith(instance.typeaheadBuffer)
             );
             if (match) {
               match.focus();
             }
-            this._typeaheadTimer = setTimeout(() => {
-              this._typeaheadBuffer = "";
+            instance.typeaheadTimer = setTimeout(() => {
+              instance.typeaheadBuffer = "";
             }, 500);
           }
           break;
@@ -3201,7 +3213,9 @@ module.exports = __toCommonJS(index_exports);
       if (element.id) {
         return element.id;
       }
-      return "select-" + Math.random().toString(36).substr(2, 9);
+      const id = "select-" + Math.random().toString(36).substr(2, 9);
+      element.id = id;
+      return id;
     },
     /**
      * Destroy a select instance and clean up event listeners
@@ -4255,7 +4269,6 @@ module.exports = __toCommonJS(index_exports);
       this.applyNeutral(this.DEFAULTS.NEUTRAL);
       this.applyRadius(this.DEFAULTS.RADIUS);
       this.applyFont(this.DEFAULTS.FONT);
-      this.applyTheme(this.DEFAULTS.THEME);
       this.updateUI();
       this.dispatchEvent("reset", { state: { ...this.state } });
     },
@@ -7040,6 +7053,11 @@ module.exports = __toCommonJS(index_exports);
 // js/components/suggest.js
 (function() {
   "use strict";
+  function _escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
   const Suggest = {
     instances: /* @__PURE__ */ new Map(),
     init: function() {
@@ -7099,8 +7117,9 @@ module.exports = __toCommonJS(index_exports);
           li.id = listId + "-item-" + i;
           const text = typeof item === "object" ? item.label || item.text || String(item) : String(item);
           if (query) {
+            const escaped = _escapeHtml(text);
             const re = new RegExp("(" + query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
-            li.innerHTML = text.replace(re, '<span class="vd-suggest-match">$1</span>');
+            li.innerHTML = escaped.replace(re, '<span class="vd-suggest-match">$1</span>');
           } else {
             li.textContent = text;
           }
@@ -7253,14 +7272,20 @@ module.exports = __toCommonJS(index_exports);
       maxVal: (value, param) => parseFloat(value) <= parseFloat(param),
       pattern: (value, param) => {
         try {
+          if (param.length > 100) return false;
           return new RegExp(param).test(value);
         } catch (_e) {
           return false;
         }
       },
       match: (value, param) => {
-        const other = document.querySelector('[name="' + param + '"]');
-        return other ? value === other.value : false;
+        try {
+          const escaped = typeof CSS !== "undefined" && CSS.escape ? CSS.escape(param) : param;
+          const other = document.querySelector('[name="' + escaped + '"]');
+          return other ? value === other.value : false;
+        } catch (_e) {
+          return false;
+        }
       }
     },
     messages: {

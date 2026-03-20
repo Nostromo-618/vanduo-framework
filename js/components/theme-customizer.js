@@ -714,7 +714,6 @@
       this.applyNeutral(this.DEFAULTS.NEUTRAL);
       this.applyRadius(this.DEFAULTS.RADIUS);
       this.applyFont(this.DEFAULTS.FONT);
-      this.applyTheme(this.DEFAULTS.THEME);
       this.updateUI();
 
       this.dispatchEvent('reset', { state: { ...this.state } });

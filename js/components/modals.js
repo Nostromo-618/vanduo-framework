@@ -16,6 +16,8 @@
 
     // Store trigger cleanup functions
     _triggerCleanups: [],
+    // Shared ESC key handler (installed once)
+    _sharedEscHandler: null,
 
     /**
      * Initialize modals
@@ -99,17 +101,18 @@
       backdrop.addEventListener('click', backdropClickHandler);
       cleanupFunctions.push(() => backdrop.removeEventListener('click', backdropClickHandler));
 
-      // ESC key handler
-      const escKeyHandler = (e) => {
-        if (e.key === 'Escape' && this.openModals.length > 0) {
-          const topModal = this.openModals[this.openModals.length - 1];
-          if (topModal === modal && topModal.dataset.keyboard !== 'false') {
-            this.close(topModal);
+      // ESC key handler — use a single shared handler instead of one-per-modal
+      if (!this._sharedEscHandler) {
+        this._sharedEscHandler = (e) => {
+          if (e.key === 'Escape' && this.openModals.length > 0) {
+            const topModal = this.openModals[this.openModals.length - 1];
+            if (topModal.dataset.keyboard !== 'false') {
+              this.close(topModal);
+            }
           }
-        }
-      };
-      document.addEventListener('keydown', escKeyHandler);
-      cleanupFunctions.push(() => document.removeEventListener('keydown', escKeyHandler));
+        };
+        document.addEventListener('keydown', this._sharedEscHandler);
+      }
 
       this.modals.set(modal, { backdrop, dialog, trapHandler: null, cleanup: cleanupFunctions });
     },
@@ -352,6 +355,11 @@
       // Clean up trigger listeners
       this._triggerCleanups.forEach(fn => fn());
       this._triggerCleanups = [];
+      // Remove shared ESC handler
+      if (this._sharedEscHandler) {
+        document.removeEventListener('keydown', this._sharedEscHandler);
+        this._sharedEscHandler = null;
+      }
     }
   };
 

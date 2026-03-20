@@ -12,9 +12,6 @@
   const Dropdown = {
     // Store initialized dropdowns and their cleanup functions
     instances: new Map(),
-    // Typeahead state
-    _typeaheadBuffer: '',
-    _typeaheadTimer: null,
 
     /**
      * Initialize dropdown components
@@ -95,7 +92,7 @@
         cleanupFunctions.push(() => item.removeEventListener('keydown', itemKeydownHandler));
       });
 
-      this.instances.set(dropdown, { toggle, menu, cleanup: cleanupFunctions });
+      this.instances.set(dropdown, { toggle, menu, cleanup: cleanupFunctions, typeaheadBuffer: '', typeaheadTimer: null });
     },
     
     /**
@@ -249,18 +246,21 @@
         default:
           // Typeahead: jump to matching item when typing printable characters
           if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            clearTimeout(this._typeaheadTimer);
-            this._typeaheadBuffer += e.key.toLowerCase();
+            // Per-instance typeahead state to avoid cross-instance corruption
+            const instance = this.instances.get(dropdown);
+            if (!instance) break;
+            clearTimeout(instance.typeaheadTimer);
+            instance.typeaheadBuffer += e.key.toLowerCase();
 
             const match = items.find(item =>
-              item.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+              item.textContent.trim().toLowerCase().startsWith(instance.typeaheadBuffer)
             );
             if (match) {
               match.focus();
             }
 
-            this._typeaheadTimer = setTimeout(() => {
-              this._typeaheadBuffer = '';
+            instance.typeaheadTimer = setTimeout(() => {
+              instance.typeaheadBuffer = '';
             }, 500);
           }
           break;

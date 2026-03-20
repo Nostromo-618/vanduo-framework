@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.0 | Built: 2026-03-17T16:46:03.216Z | git:ea44b23 | development */
+/*! Vanduo v1.3.1 | Built: 2026-03-20T21:40:34.658Z | git:0db4524 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -53856,6 +53856,10 @@ a.vd-card:active {
 
 .vd-navbar-expand .vd-navbar-toggle {
   display: none;
+}
+
+.body-navbar-open {
+  overflow: hidden;
 }
 
 :root {

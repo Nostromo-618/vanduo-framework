@@ -274,9 +274,10 @@
       // Handle image load
       if (!this.img.complete) {
         this.img.style.opacity = '0';
-        this.img.onload = () => {
+        this._imgLoadHandler = () => {
           this.img.style.opacity = '';
         };
+        this.img.addEventListener('load', this._imgLoadHandler, { once: true });
       }
     },
 
@@ -305,6 +306,11 @@
       // Clear image after transition
       setTimeout(() => {
         if (!this.isOpen) {
+          // Clean up load handler if still pending
+          if (this._imgLoadHandler) {
+            this.img.removeEventListener('load', this._imgLoadHandler);
+            this._imgLoadHandler = null;
+          }
           this.img.src = '';
           this.img.alt = '';
         }

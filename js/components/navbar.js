@@ -203,8 +203,8 @@
         overlay.classList.add('is-active');
       }
 
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
+      // Prevent body scroll when menu is open (use class to avoid conflicts with modals)
+      document.body.classList.add('body-navbar-open');
 
       // Set ARIA attributes
       toggle.setAttribute('aria-expanded', 'true');
@@ -227,7 +227,7 @@
       }
 
       // Restore body scroll
-      document.body.style.overflow = '';
+      document.body.classList.remove('body-navbar-open');
 
       // Close all dropdown menus
       const dropdownMenus = menu.querySelectorAll('.vd-navbar-dropdown-menu.is-open');

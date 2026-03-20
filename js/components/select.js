@@ -12,9 +12,6 @@
   const Select = {
     // Store initialized selects and their cleanup functions
     instances: new Map(),
-    // Typeahead state
-    _typeaheadBuffer: '',
-    _typeaheadTimer: null,
 
     /**
      * Initialize select components
@@ -123,7 +120,7 @@
       select.addEventListener('change', changeHandler);
       cleanupFunctions.push(() => select.removeEventListener('change', changeHandler));
 
-      this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions });
+      this.instances.set(select, { wrapper, button, dropdown, cleanup: cleanupFunctions, typeaheadBuffer: '', typeaheadTimer: null });
     },
 
     /**
@@ -233,7 +230,7 @@
      * @param {HTMLElement} dropdown - Dropdown container
      */
     updateSelectedOptions: function (select, dropdown) {
-      const options = dropdown.querySelectorAll('.vd-custom-select-option');
+      const options = dropdown.querySelectorAll('.custom-select-option');
       const selectedValues = Array.from(select.selectedOptions).map(opt => opt.value);
 
       options.forEach(optionEl => {
@@ -273,7 +270,7 @@
       button.setAttribute('aria-expanded', 'true');
 
       // Focus first option
-      const firstOption = dropdown.querySelector('.vd-custom-select-option:not(.is-disabled)');
+      const firstOption = dropdown.querySelector('.custom-select-option:not(.is-disabled)');
       if (firstOption) {
         firstOption.focus();
       }
@@ -298,7 +295,7 @@
      */
     handleKeydown: function (e, select, button, dropdown) {
       const isOpen = dropdown.classList.contains('is-open');
-      const options = Array.from(dropdown.querySelectorAll('.vd-custom-select-option:not(.is-disabled)'));
+      const options = Array.from(dropdown.querySelectorAll('.custom-select-option:not(.is-disabled)'));
       const currentIndex = options.findIndex(opt => opt === document.activeElement);
 
       switch (e.key) {
@@ -357,18 +354,21 @@
         default:
           // Typeahead: jump to matching option when typing printable characters
           if (isOpen && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            clearTimeout(this._typeaheadTimer);
-            this._typeaheadBuffer += e.key.toLowerCase();
+            // Per-instance typeahead state to avoid cross-instance corruption
+            const instance = this.instances.get(select);
+            if (!instance) break;
+            clearTimeout(instance.typeaheadTimer);
+            instance.typeaheadBuffer += e.key.toLowerCase();
 
             const match = options.find(opt =>
-              opt.textContent.trim().toLowerCase().startsWith(this._typeaheadBuffer)
+              opt.textContent.trim().toLowerCase().startsWith(instance.typeaheadBuffer)
             );
             if (match) {
               match.focus();
             }
 
-            this._typeaheadTimer = setTimeout(() => {
-              this._typeaheadBuffer = '';
+            instance.typeaheadTimer = setTimeout(() => {
+              instance.typeaheadBuffer = '';
             }, 500);
           }
           break;
@@ -403,7 +403,9 @@
       if (element.id) {
         return element.id;
       }
-      return 'select-' + Math.random().toString(36).substr(2, 9);
+      const id = 'select-' + Math.random().toString(36).substr(2, 9);
+      element.id = id;
+      return id;
     },
 
     /**

@@ -6,6 +6,17 @@
 (function () {
   'use strict';
 
+  /**
+   * Escape HTML entities to prevent XSS when inserting into innerHTML
+   * @param {string} text
+   * @returns {string}
+   */
+  function _escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   const Suggest = {
     instances: new Map(),
 
@@ -77,8 +88,10 @@
 
           const text = typeof item === 'object' ? (item.label || item.text || String(item)) : String(item);
           if (query) {
+            // Escape HTML first to prevent XSS, then highlight matches in the safe string
+            const escaped = _escapeHtml(text);
             const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-            li.innerHTML = text.replace(re, '<span class="vd-suggest-match">$1</span>');
+            li.innerHTML = escaped.replace(re, '<span class="vd-suggest-match">$1</span>');
           } else {
             li.textContent = text;
           }

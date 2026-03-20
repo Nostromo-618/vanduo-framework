@@ -74,6 +74,7 @@ function safeStorageSet(key, value) {
  * @param {string} event - Event type
  * @param {string|Function} handlerOrSelector - Event handler or selector for delegation
  * @param {Function} handler - Event handler (if using delegation)
+ * @returns {Function|undefined} The actual bound handler (use this with off() to remove delegation listeners)
  */
 function on(target, event, handlerOrSelector, handler) {
   const element = typeof target === 'string' ? $(target) : target;
@@ -83,9 +84,10 @@ function on(target, event, handlerOrSelector, handler) {
   if (typeof handlerOrSelector === 'function') {
     // Direct event binding
     element.addEventListener(event, handlerOrSelector);
+    return handlerOrSelector;
   } else {
-    // Event delegation
-    element.addEventListener(event, function (e) {
+    // Event delegation — return the wrapper so callers can remove it via off()
+    const wrapper = function (e) {
       const delegateTarget = e.target.closest(handlerOrSelector);
       if (delegateTarget && element.contains(delegateTarget)) {
         try {
@@ -94,7 +96,9 @@ function on(target, event, handlerOrSelector, handler) {
           console.warn('[Vanduo Helpers] Delegated handler error:', error);
         }
       }
-    });
+    };
+    element.addEventListener(event, wrapper);
+    return wrapper;
   }
 }
 

@@ -18,10 +18,21 @@
       max: (value, param) => value.length <= parseInt(param, 10),
       minVal: (value, param) => parseFloat(value) >= parseFloat(param),
       maxVal: (value, param) => parseFloat(value) <= parseFloat(param),
-      pattern: (value, param) => { try { return new RegExp(param).test(value); } catch (_e) { return false; } },
+      pattern: (value, param) => {
+        try {
+          // Cap regex length to prevent ReDoS from excessively complex patterns
+          if (param.length > 100) return false;
+          return new RegExp(param).test(value);
+        } catch (_e) { return false; }
+      },
       match: (value, param) => {
-        const other = document.querySelector('[name="' + param + '"]');
-        return other ? value === other.value : false;
+        try {
+          const escaped = typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(param) : param;
+          const other = document.querySelector('[name="' + escaped + '"]');
+          return other ? value === other.value : false;
+        } catch (_e) {
+          return false;
+        }
       }
     },
 

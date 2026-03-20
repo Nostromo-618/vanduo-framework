@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.0
+# Vanduo Framework v1.3.1
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -38,14 +38,16 @@ A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing 
 
 ---
 
-## What's New in v1.3.0
+## What's New in v1.3.1
 
-v1.3.0 is a maintenance release focused on documentation improvements and framework consistency:
+v1.3.1 is a security and correctness release (12 issues fixed, 0 breaking changes):
 
-- **Added missing spacing utilities and text-italic class.** The framework now includes `.vd-mt-6` and `.vd-mt-8` spacing utilities, plus `.vd-text-italic` for text styling.
-- **Fixed phantom class references in documentation.** Updated docs to use correct class names that match the actual framework implementation.
-- **Improved documentation structure.** Added inline sidebar filter for Components & Guides pages, unified component documentation structure, and refreshed visual styling.
-- **Release artifacts and docs are aligned for v1.3.0.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at the current version.
+- **XSS fix in Suggest.** `renderItems()` now escapes user/server data before `innerHTML` highlight injection.
+- **Select component repairs.** Fixed 3 broken `querySelector` selectors (keyboard nav + programmatic updates); `generateId()` now assigns `element.id` so ARIA `aria-labelledby` resolves correctly.
+- **Typeahead isolation.** `_typeaheadBuffer` / `_typeaheadTimer` moved to per-instance state in Dropdown and Select — typing in one instance no longer corrupts another.
+- **Navbar scroll-lock fix.** CSS class `body-navbar-open` replaces inline `overflow:hidden`, preventing conflicts with modal scroll locks.
+- **Validate hardening.** 100-char limit on user regex patterns (ReDoS prevention); `CSS.escape()` applied to `match` rule param (selector injection fix).
+- **Release artifacts and docs are aligned for v1.3.1.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at the current version.
 
 The framework still ships **45+ components**, including the v1.2.7 additions below.
 
@@ -88,8 +90,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -152,7 +154,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.3.0
+pnpm run release:assets -- v1.3.1
 ```
 
 Notes:

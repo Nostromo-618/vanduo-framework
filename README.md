@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.1
+# Vanduo Framework v1.3.2
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -19,7 +19,7 @@
 
 ## Overview
 
-A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing beautiful interfaces. Zero runtime dependencies, no mandatory build tools, just clean and simple code.
+A lightweight, pure HTML/CSS/JS framework with **46+ components** for designing beautiful interfaces. Zero runtime dependencies, no mandatory build tools, just clean and simple code.
 
 [**Browse Full Documentation →**](https://vanduo.dev/#docs)
 
@@ -38,22 +38,21 @@ A lightweight, pure HTML/CSS/JS framework with **45+ components** for designing 
 
 ---
 
-## What's New in v1.3.1
+## What's New in v1.3.2
 
-v1.3.1 is a security and correctness release (12 issues fixed, 0 breaking changes):
+v1.3.2 is a component release centered on audio playback, with no breaking changes:
 
-- **XSS fix in Suggest.** `renderItems()` now escapes user/server data before `innerHTML` highlight injection.
-- **Select component repairs.** Fixed 3 broken `querySelector` selectors (keyboard nav + programmatic updates); `generateId()` now assigns `element.id` so ARIA `aria-labelledby` resolves correctly.
-- **Typeahead isolation.** `_typeaheadBuffer` / `_typeaheadTimer` moved to per-instance state in Dropdown and Select — typing in one instance no longer corrupts another.
-- **Navbar scroll-lock fix.** CSS class `body-navbar-open` replaces inline `overflow:hidden`, preventing conflicts with modal scroll locks.
-- **Validate hardening.** 100-char limit on user regex patterns (ReDoS prevention); `CSS.escape()` applied to `match` rule param (selector injection fix).
-- **Release artifacts and docs are aligned for v1.3.1.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at the current version.
+- **New Music Player component.** Ships a zero-dependency HTML5 audio player with play/pause, previous/next, volume, track title, and optional progress, shuffle, and playlist controls.
+- **Framework-friendly API.** Accepts a plain JavaScript tracks array (`[{ name, url }]`), exposes custom events, and supports programmatic control through `window.VanduoMusicPlayer`.
+- **Responsive player layout.** Control wrapping and volume sizing were tuned so the component stays usable across compact, inline, and mobile layouts.
+- **Release coverage and artifacts updated.** Package metadata, generated bundles, `llms.txt`, and release-facing README examples now point at v1.3.2.
 
-The framework still ships **45+ components**, including the v1.2.7 additions below.
+The framework now ships **46+ components**, including the new Music Player and the additions below.
 
 | Component | Vanduo Name | Type |
 |---|---|---|
 | Carousel | Flow | CSS + JS |
+| Music Player | Music Player | CSS + JS |
 | Popover | Bubble | CSS + JS |
 | Scrollspy | Waypoint | CSS + JS |
 | Offcanvas | — (enhanced Sidenav) | CSS + JS |
@@ -90,8 +89,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -154,7 +153,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.3.1
+pnpm run release:assets -- v1.3.2
 ```
 
 Notes:

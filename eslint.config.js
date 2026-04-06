@@ -26,6 +26,7 @@ export default [
                 MutationObserver: 'readonly',
                 ResizeObserver: 'readonly',
                 IntersectionObserver: 'readonly',
+                Audio: 'readonly',
                 HTMLElement: 'readonly',
                 Element: 'readonly',
                 Node: 'readonly',

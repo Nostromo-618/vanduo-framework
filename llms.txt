@@ -1,6 +1,6 @@
-# Vanduo Framework v1.3.1 — LLM Context
+# Vanduo Framework v1.3.2 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.1 ships **45+ components** and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.2 ships **46+ components** and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -13,7 +13,7 @@ You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS fra
 
 ---
 
-## Defaults (v1.2.x)
+## Defaults (v1.3.x)
 Set by Theme Customizer when no user preference exists:
 - Primary color in light mode: `black`
 - Primary color in dark mode: `amber`
@@ -57,8 +57,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -135,7 +135,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 
 ---
 
-## Complete Component Inventory (45+)
+## Complete Component Inventory (46+)
 
 ### Layout & Navigation
 | Component | CSS Class | JS Module | Notes |
@@ -189,6 +189,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 | Component | CSS Class | JS Module | Notes |
 |---|---|---|---|
 | Carousel / Flow | `.vd-flow` | `flow` | Slides, indicators, auto-play |
+| Music Player | `.vd-music-player` | `music-player` | HTML5 audio player with transport controls, optional progress, shuffle, and playlist |
 | Image Box | `.vd-image-box` | `image-box` | Lightbox zoom |
 | Draggable | `.vd-draggable` | `draggable` | Drag-and-drop, sortable containers |
 | Parallax | — | `parallax` | Scroll-based parallax effect |
@@ -258,6 +259,27 @@ Vanduo.components.bubble.show(trigger);
 Vanduo.components.bubble.hide(trigger);
 Vanduo.components.bubble.hideAll();
 Vanduo.components.bubble.destroy(trigger);
+```
+
+### Music Player
+```js
+VanduoMusicPlayer.init();
+VanduoMusicPlayer.initPlayer(element, {
+  tracks: [{ name: 'Track', url: '/audio/track.mp3' }],
+  showProgress: true,
+  showPlaylist: true,
+  shuffle: false,
+  volume: 0.5
+});
+
+VanduoMusicPlayer.play(element);
+VanduoMusicPlayer.pause(element);
+VanduoMusicPlayer.next(element);
+VanduoMusicPlayer.previous(element);
+VanduoMusicPlayer.setVolume(element, 0.8);
+VanduoMusicPlayer.setTrack(element, 1);
+VanduoMusicPlayer.getState(element);
+VanduoMusicPlayer.destroy(element);
 ```
 
 ### Scrollspy / Waypoint

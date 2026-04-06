@@ -62,6 +62,7 @@ import './components/rating.js';
 import './components/transfer.js';
 import './components/tree.js';
 import './components/spotlight.js';
+import './components/music-player.js';
 
 // Re-export for ESM / CJS consumers
 const Vanduo = window.Vanduo;

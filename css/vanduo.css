@@ -95,6 +95,7 @@
 @import url('components/transfer.css');
 @import url('components/tree.css');
 @import url('components/spotlight.css');
+@import url('components/music-player.css');
 
 /* Print Styles */
 @import url('utilities/print.css');

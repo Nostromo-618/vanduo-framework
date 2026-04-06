@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Test Fixture</title>
+    <link rel="stylesheet" href="/css/vanduo.css">
+    <style>
+        .container { padding: 2rem; }
+        section { margin-bottom: 2rem; }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Music Player Test Fixture</h1>
+
+        <!-- Minimal player (2 tracks) -->
+        <section>
+            <h2>Minimal Player</h2>
+            <div id="player-minimal" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player with progress bar -->
+        <section>
+            <h2>With Progress Bar</h2>
+            <div id="player-progress" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player with playlist -->
+        <section>
+            <h2>With Playlist</h2>
+            <div id="player-playlist" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player with shuffle enabled -->
+        <section>
+            <h2>With Shuffle</h2>
+            <div id="player-shuffle" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player with no tracks -->
+        <section>
+            <h2>No Tracks</h2>
+            <div id="player-no-tracks" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player via data attribute -->
+        <section>
+            <h2>Data Attribute Init</h2>
+            <div id="player-data-attr"
+                 class="vd-music-player"
+                 data-music-player
+                 data-music-player-options='{"tracks":[{"name":"Data Track 01","url":"/tests/fixtures/audio/d1.mp3"},{"name":"Data Track 02","url":"/tests/fixtures/audio/d2.mp3"}]}'></div>
+        </section>
+
+        <!-- Player with all features -->
+        <section>
+            <h2>All Features</h2>
+            <div id="player-all" class="vd-music-player"></div>
+        </section>
+
+        <!-- Player for destroy test -->
+        <section>
+            <h2>Destroy Test</h2>
+            <div id="player-destroy" class="vd-music-player"></div>
+        </section>
+    </main>
+
+    <script src="/js/utils/helpers.js"></script>
+    <script src="/js/vanduo.js"></script>
+    <script src="/js/components/music-player.js"></script>
+    <script>
+        (function () {
+            // Placeholder URLs — non-empty so they pass track filtering.
+            // Audio will not load, but DOM and state tests work correctly.
+            var tracks = [
+                { name: 'Test Track A', url: '/tests/fixtures/audio/a.mp3' },
+                { name: 'Test Track B', url: '/tests/fixtures/audio/b.mp3' },
+                { name: 'Test Track C', url: '/tests/fixtures/audio/c.mp3' },
+            ];
+
+            // Minimal
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-minimal'),
+                { tracks: [tracks[0], tracks[1]] }
+            );
+
+            // Progress
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-progress'),
+                { tracks: tracks, showProgress: true }
+            );
+
+            // Playlist
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-playlist'),
+                { tracks: tracks, showPlaylist: true }
+            );
+
+            // Shuffle
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-shuffle'),
+                { tracks: tracks, shuffle: true }
+            );
+
+            // No tracks
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-no-tracks'),
+                { tracks: [] }
+            );
+
+            // All features
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-all'),
+                { tracks: tracks, showProgress: true, showPlaylist: true, shuffle: false, volume: 0.8 }
+            );
+
+            // Destroy test
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-destroy'),
+                { tracks: [tracks[0]] }
+            );
+
+            // Auto-init data-attribute player
+            VanduoMusicPlayer.init();
+        })();
+    </script>
+</body>
+
+</html>

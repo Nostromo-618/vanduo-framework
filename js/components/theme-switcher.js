@@ -103,6 +103,10 @@
         if (this.state.preference === 'system') {
           // Re-apply (effectively just to ensure consistency, though removing attribute usually suffices)
           this.applyTheme();
+          // Keep default primary (black/amber) aligned when OS scheme changes while in system mode
+          if (window.ThemeCustomizer && typeof window.ThemeCustomizer.applyTheme === 'function' && !window.ThemeCustomizer._isApplying) {
+            window.ThemeCustomizer.applyTheme('system');
+          }
         }
       };
       this._mediaQuery.addEventListener('change', this._onMediaChange);

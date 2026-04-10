@@ -303,6 +303,58 @@ test.describe('Theme Switcher Component @component', () => {
       expect(theme).toBe('dark');
     });
 
+    test('normalizes stale default primary amber when theme is light on reload', async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'light' });
+      await page.evaluate(() => {
+        localStorage.setItem('vanduo-theme-preference', 'light');
+        localStorage.setItem('vanduo-primary-color', 'amber');
+      });
+      await page.reload();
+      await page.waitForTimeout(100);
+
+      const primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('black');
+    });
+
+    test('normalizes stale default primary black when theme is dark on reload', async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'light' });
+      await page.evaluate(() => {
+        localStorage.setItem('vanduo-theme-preference', 'dark');
+        localStorage.setItem('vanduo-primary-color', 'black');
+      });
+      await page.reload();
+      await page.waitForTimeout(100);
+
+      const primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('amber');
+    });
+
+    test('system mode normalizes primary to black when OS is light on reload', async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'light' });
+      await page.evaluate(() => {
+        localStorage.setItem('vanduo-theme-preference', 'system');
+        localStorage.setItem('vanduo-primary-color', 'amber');
+      });
+      await page.reload();
+      await page.waitForTimeout(100);
+
+      const primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('black');
+    });
+
+    test('system mode normalizes primary to amber when OS is dark on reload', async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.evaluate(() => {
+        localStorage.setItem('vanduo-theme-preference', 'system');
+        localStorage.setItem('vanduo-primary-color', 'black');
+      });
+      await page.reload();
+      await page.waitForTimeout(100);
+
+      const primary = await page.evaluate(() => document.documentElement.getAttribute('data-primary'));
+      expect(primary).toBe('amber');
+    });
+
     test('reset keeps ThemeSwitcher storage and UI in sync', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'light' });
       await reloadWithThemeCustomizerDefaults(page, {

@@ -147,6 +147,7 @@
     loadPreferences: function () {
       this.state.theme = this.getStorageValue(this.STORAGE_KEYS.THEME, this.DEFAULTS.THEME);
       this.state.primary = this.getStorageValue(this.STORAGE_KEYS.PRIMARY, this.getDefaultPrimary(this.state.theme));
+      this._normalizeDefaultPrimaryIfStaleWithStoredTheme();
       this.state.neutral = this.getStorageValue(this.STORAGE_KEYS.NEUTRAL, this.DEFAULTS.NEUTRAL);
       this.state.radius = this.getStorageValue(this.STORAGE_KEYS.RADIUS, this.DEFAULTS.RADIUS);
       this.state.font = this.getStorageValue(this.STORAGE_KEYS.FONT, this.DEFAULTS.FONT);
@@ -254,15 +255,12 @@
       // Prevent circular updates
       this._isApplying = true;
 
-      // Check if we should switch primary color (if using default)
-      // Use the incoming mode for both old and new default checks since
-      // ThemeSwitcher calls this with the new mode before updating its own state
-      const currentMode = this.state.theme;
-      const oldDefault = this.getDefaultPrimary(currentMode);
-      if (this.state.primary === oldDefault) {
-        const newDefault = this.getDefaultPrimary(mode);
-        if (newDefault !== this.state.primary) {
-          this.applyPrimary(newDefault);
+      // Re-align black/amber when they don't match the effective primary for the target mode.
+      // Covers theme toggles and stale localStorage (e.g. amber saved while theme is light).
+      if (this.isUsingDefaultPrimary()) {
+        const expected = this.getDefaultPrimary(mode);
+        if (this.state.primary !== expected) {
+          this.applyPrimary(expected);
         }
       }
 
@@ -579,6 +577,21 @@
     isUsingDefaultPrimary: function () {
       return this.state.primary === this.DEFAULTS.PRIMARY_LIGHT ||
         this.state.primary === this.DEFAULTS.PRIMARY_DARK;
+    },
+
+    /**
+     * When primary is still one of the auto-default palette keys (black/amber) but
+     * localStorage was written under a different theme (or OS changed in system mode),
+     * align in-memory state before applyAllPreferences runs — avoids amber+light / black+dark drift.
+     */
+    _normalizeDefaultPrimaryIfStaleWithStoredTheme: function () {
+      if (!this.isUsingDefaultPrimary()) {
+        return;
+      }
+      const expected = this.getDefaultPrimary(this.state.theme);
+      if (this.state.primary !== expected) {
+        this.state.primary = expected;
+      }
     },
 
     bindEvents: function () {

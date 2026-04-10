@@ -114,6 +114,116 @@ test.describe('Draggable Component', () => {
     expect(firstItemText?.trim()).toBe(secondText?.trim());
   });
 
+  test('supports touch reorder in vertical-only and dual-class containers @e2e', async ({ page }) => {
+    const results = await page.evaluate(() => {
+      const draggableApi = (window as any).VanduoDraggable;
+
+      const simulateTouchDragToBottom = (item: HTMLElement, container: HTMLElement) => {
+        const itemRect = item.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const startX = itemRect.left + itemRect.width / 2;
+        const startY = itemRect.top + itemRect.height / 2;
+        const endX = startX;
+        const endY = containerRect.bottom - 4;
+        const preventDefault = () => {};
+
+        draggableApi.handleTouchStart(
+          { touches: [{ clientX: startX, clientY: startY }] },
+          item
+        );
+        draggableApi.handleTouchMove(
+          {
+            touches: [{ clientX: endX, clientY: endY }],
+            cancelable: true,
+            preventDefault
+          },
+          item
+        );
+        draggableApi.handleTouchEnd(
+          {
+            changedTouches: [{ clientX: endX, clientY: endY }],
+            cancelable: true,
+            preventDefault
+          },
+          item
+        );
+      };
+
+      const dualContainer = document.querySelector('.vd-draggable-container.vd-draggable-container-vertical') as HTMLElement;
+      const dualFirst = dualContainer.querySelector('.vd-draggable-item[data-draggable="vertical-1"]') as HTMLElement;
+      simulateTouchDragToBottom(dualFirst, dualContainer);
+      const dualOrder = Array.from(dualContainer.querySelectorAll('.vd-draggable-item')).map((el) => el.getAttribute('data-draggable'));
+
+      const verticalOnly = document.createElement('div');
+      verticalOnly.className = 'vd-draggable-container-vertical';
+      verticalOnly.innerHTML = `
+        <div class="vd-draggable-item" data-draggable="touch-a">A</div>
+        <div class="vd-draggable-item" data-draggable="touch-b">B</div>
+        <div class="vd-draggable-item" data-draggable="touch-c">C</div>
+      `;
+      document.body.appendChild(verticalOnly);
+      draggableApi.init();
+
+      const verticalOnlyFirst = verticalOnly.querySelector('.vd-draggable-item[data-draggable="touch-a"]') as HTMLElement;
+      simulateTouchDragToBottom(verticalOnlyFirst, verticalOnly);
+      const verticalOnlyOrder = Array.from(verticalOnly.querySelectorAll('.vd-draggable-item')).map((el) => el.getAttribute('data-draggable'));
+
+      return { dualOrder, verticalOnlyOrder };
+    });
+
+    expect(results.dualOrder).toEqual(['vertical-2', 'vertical-3', 'vertical-1']);
+    expect(results.verticalOnlyOrder).toEqual(['touch-b', 'touch-c', 'touch-a']);
+  });
+
+  test('keeps touch feedback anchored to the initial touch point @e2e', async ({ page }) => {
+    const result = await page.evaluate(() => {
+      const draggableApi = (window as any).VanduoDraggable;
+      const draggable = document.querySelector('[data-draggable="item-1"]') as HTMLElement;
+      const rect = draggable.getBoundingClientRect();
+      const startX = rect.left + 10;
+      const startY = rect.top + 12;
+      const moveX = startX + 40;
+      const moveY = startY + 30;
+      const preventDefault = () => {};
+
+      draggableApi.handleTouchStart(
+        { touches: [{ clientX: startX, clientY: startY }] },
+        draggable
+      );
+      draggableApi.handleTouchMove(
+        {
+          touches: [{ clientX: moveX, clientY: moveY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+
+      const feedback = document.querySelector('.vd-drag-feedback') as HTMLElement;
+      const left = parseFloat(feedback.style.left);
+      const top = parseFloat(feedback.style.top);
+
+      draggableApi.handleTouchEnd(
+        {
+          changedTouches: [{ clientX: moveX, clientY: moveY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+
+      return {
+        left,
+        top,
+        expectedLeft: moveX - 10,
+        expectedTop: moveY - 12
+      };
+    });
+
+    expect(result.left).toBeCloseTo(result.expectedLeft, 1);
+    expect(result.top).toBeCloseTo(result.expectedTop, 1);
+  });
+
   test('Escape cancels drag', async ({ page }) => {
     await page.evaluate(() => {
       const el = document.querySelector('.vd-draggable');
@@ -137,6 +247,113 @@ test.describe('Draggable Component', () => {
       );
     });
     expect(value).toBe('item-1');
+  });
+
+  test('dispatches draggable:drop for touch release over a drop zone @e2e', async ({ page }) => {
+    const result = await page.evaluate(() => {
+      const draggableApi = (window as any).VanduoDraggable;
+      const draggable = document.querySelector('[data-draggable="drop-item-1"]') as HTMLElement;
+      const zone = document.querySelector('#demo-drop-zone') as HTMLElement;
+      zone.scrollIntoView({ block: 'center' });
+      const draggableRect = draggable.getBoundingClientRect();
+      const zoneRect = zone.getBoundingClientRect();
+      const startX = draggableRect.left + draggableRect.width / 2;
+      const startY = draggableRect.top + draggableRect.height / 2;
+      const endX = zoneRect.left + zoneRect.width / 2;
+      const endY = zoneRect.top + zoneRect.height / 2;
+      const preventDefault = () => {};
+      let dropDetail: any = null;
+
+      zone.addEventListener('draggable:drop', (event: Event) => {
+        const customEvent = event as CustomEvent;
+        dropDetail = customEvent.detail;
+        if (dropDetail?.element) {
+          zone.appendChild(dropDetail.element);
+        }
+      }, { once: true });
+
+      draggableApi.handleTouchStart(
+        { touches: [{ clientX: startX, clientY: startY }] },
+        draggable
+      );
+      draggableApi.handleTouchMove(
+        {
+          touches: [{ clientX: endX, clientY: endY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+      draggableApi.handleTouchEnd(
+        {
+          changedTouches: [{ clientX: endX, clientY: endY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+
+      return {
+        dropped: !!dropDetail,
+        droppedData: dropDetail?.data,
+        droppedElementData: dropDetail?.element?.dataset?.draggable,
+        inZone: zone.contains(draggable)
+      };
+    });
+
+    expect(result.dropped).toBe(true);
+    expect(result.droppedData).toBe('drop-item-1');
+    expect(result.droppedElementData).toBe('drop-item-1');
+    expect(result.inZone).toBe(true);
+  });
+
+  test('touch drop uses last hovered drop-zone when touchend point misses @e2e', async ({ page }) => {
+    const result = await page.evaluate(() => {
+      const draggableApi = (window as any).VanduoDraggable;
+      const draggable = document.querySelector('[data-draggable="drop-item-2"]') as HTMLElement;
+      const zone = document.querySelector('#demo-drop-zone') as HTMLElement;
+      zone.scrollIntoView({ block: 'center' });
+
+      const draggableRect = draggable.getBoundingClientRect();
+      const zoneRect = zone.getBoundingClientRect();
+      const startX = draggableRect.left + draggableRect.width / 2;
+      const startY = draggableRect.top + draggableRect.height / 2;
+      const hoverX = zoneRect.left + zoneRect.width / 2;
+      const hoverY = zoneRect.top + zoneRect.height / 2;
+      const missX = Math.max(0, zoneRect.left - 20);
+      const missY = Math.max(0, zoneRect.top - 20);
+      const preventDefault = () => {};
+      let dropped = false;
+
+      zone.addEventListener('draggable:drop', () => {
+        dropped = true;
+      }, { once: true });
+
+      draggableApi.handleTouchStart(
+        { touches: [{ clientX: startX, clientY: startY }] },
+        draggable
+      );
+      draggableApi.handleTouchMove(
+        {
+          touches: [{ clientX: hoverX, clientY: hoverY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+      draggableApi.handleTouchEnd(
+        {
+          changedTouches: [{ clientX: missX, clientY: missY }],
+          cancelable: true,
+          preventDefault
+        },
+        draggable
+      );
+
+      return { dropped };
+    });
+
+    expect(result.dropped).toBe(true);
   });
 
   test('programmatic makeDraggable and removeDraggable @e2e', async ({ page }) => {

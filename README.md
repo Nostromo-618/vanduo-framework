@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.2
+# Vanduo Framework v1.3.3
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -35,6 +35,15 @@ A lightweight, pure HTML/CSS/JS framework with **46+ components** for designing 
 - 🌗 **Theme Switcher** - Lightweight light/dark/system toggle with shared preference storage
 - 🎛️ **Theme Customizer** - Real-time color, radius, font, and mode customization
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
+
+---
+
+## What's New in v1.3.3
+
+v1.3.3 is a maintenance release with no breaking changes:
+
+- **Theme default primary alignment.** `ThemeCustomizer` and `ThemeSwitcher` normalize stale `black`/`amber` primary pairs against `localStorage` and `prefers-color-scheme`, so light, dark, and system modes stay consistent with `data-primary` after reloads and OS theme changes.
+- **Documentation site.** Theme customizer demo storage keys align with framework (`vanduo-radius`, `vanduo-font-preference`); changelog and CDN pins updated to v1.3.3.
 
 ---
 
@@ -89,8 +98,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.2/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.3/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.3/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -153,7 +162,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.3.2
+pnpm run release:assets -- v1.3.3
 ```
 
 Notes:

@@ -18,6 +18,8 @@
     touchState: null,
     // Feedback element
     feedbackElement: null,
+    // Shared selector used by init and touch reorder
+    containerSelector: '.vd-draggable-container, .vd-draggable-container-vertical',
 
     /**
      * Initialize draggable components
@@ -32,7 +34,7 @@
         this.initDraggable(element);
       });
 
-      const containers = document.querySelectorAll('.vd-draggable-container, .vd-draggable-container-vertical');
+      const containers = document.querySelectorAll(this.containerSelector);
       containers.forEach(container => {
         if (!this.instances.has(container)) {
           this.initContainer(container);
@@ -369,10 +371,16 @@
       // Don't prevent default here — it blocks scrolling.
       // We only prevent default in touchmove once drag threshold is reached.
       const touch = e.touches[0];
+      const rect = element.getBoundingClientRect();
       this.touchState = {
         element: element,
         startX: touch.clientX,
         startY: touch.clientY,
+        lastX: touch.clientX,
+        lastY: touch.clientY,
+        // Keep preview anchored to the original grab point.
+        offsetX: touch.clientX - rect.left,
+        offsetY: touch.clientY - rect.top,
         startTime: Date.now(),
         isDragging: false
       };
@@ -387,6 +395,8 @@
       if (!this.touchState) return;
 
       const touch = e.touches[0];
+      this.touchState.lastX = touch.clientX;
+      this.touchState.lastY = touch.clientY;
       const deltaX = touch.clientX - this.touchState.startX;
       const deltaY = touch.clientY - this.touchState.startY;
 
@@ -405,7 +415,10 @@
             element: element,
             initialPosition: { x: this.touchState.startX, y: this.touchState.startY },
             initialBounds: element.getBoundingClientRect(),
-            data: this.getData(element)
+            data: this.getData(element),
+            // Preserve where inside the element the drag started for accurate ghost positioning.
+            offsetX: this.touchState.offsetX,
+            offsetY: this.touchState.offsetY
           };
 
           // Dispatch event
@@ -434,8 +447,10 @@
             }
           }));
 
+          this.updateTouchDropZone(touch.clientX, touch.clientY);
+
           // Reorder for touch
-          const container = element.closest('.vd-draggable-container');
+          const container = element.closest(this.containerSelector);
           if (container && container.contains(element)) {
             this.handleReorder(container, element, touch.clientX, touch.clientY);
           }
@@ -451,6 +466,18 @@
     handleTouchEnd: function (e, element) {
       if (this.touchState && this.touchState.isDragging) {
         if (e.cancelable) e.preventDefault();
+        const endTouch = e.changedTouches?.[0];
+        const endPosition = {
+          x: endTouch?.clientX ?? this.touchState.lastX ?? this.touchState.startX,
+          y: endTouch?.clientY ?? this.touchState.lastY ?? this.touchState.startY
+        };
+
+        const dropZone = this.resolveDropZoneAtPoint(endPosition.x, endPosition.y) || this.touchState.overZone;
+        if (dropZone) {
+          this.dispatchDrop(dropZone, endPosition);
+        } else if (this.touchState.overZone) {
+          this.touchState.overZone.classList.remove('is-drag-over');
+        }
 
         element.classList.remove('is-dragging');
         element.classList.add('is-dropped');
@@ -463,7 +490,6 @@
         }
 
         // Dispatch event
-        const endTouch = e.changedTouches[0];
         const data = this.currentDrag?.data || this.getData(element);
         const startX = this.touchState?.startX || 0;
         const startY = this.touchState?.startY || 0;
@@ -473,10 +499,10 @@
           detail: {
             element: element,
             data: data,
-            position: { x: endTouch.clientX, y: endTouch.clientY },
+            position: endPosition,
             delta: {
-              x: endTouch.clientX - startX,
-              y: endTouch.clientY - startY
+              x: endPosition.x - startX,
+              y: endPosition.y - startY
             }
           }
         }));
@@ -523,16 +549,79 @@
      */
     handleDrop: function (e, zone) {
       e.preventDefault();
-      zone.classList.remove('is-drag-over');
+      this.dispatchDrop(zone, { x: e.clientX, y: e.clientY });
+    },
 
-      // Dispatch event
+    /**
+     * Resolve a drop zone from viewport coordinates
+     * @param {number} x
+     * @param {number} y
+     * @returns {HTMLElement|null}
+     */
+    resolveDropZoneAtPoint: function (x, y) {
+      if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+
+      // Prefer the full stacking list so overlays/top elements don't hide real drop targets.
+      if (typeof document.elementsFromPoint === 'function') {
+        const stacked = document.elementsFromPoint(x, y);
+        for (const element of stacked) {
+          const zone = element.closest('.vd-drop-zone');
+          if (zone) return zone;
+        }
+      }
+
+      const target = document.elementFromPoint(x, y);
+      const targetZone = target ? target.closest('.vd-drop-zone') : null;
+      if (targetZone) return targetZone;
+
+      // Last-resort fallback for mobile emulation edge cases.
+      const zones = document.querySelectorAll('.vd-drop-zone');
+      for (const zone of zones) {
+        const rect = zone.getBoundingClientRect();
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          return zone;
+        }
+      }
+
+      return null;
+    },
+
+    /**
+     * Track and update active drop-zone hover state on touch devices
+     * @param {number} x
+     * @param {number} y
+     */
+    updateTouchDropZone: function (x, y) {
+      if (!this.touchState) return;
+
+      const nextZone = this.resolveDropZoneAtPoint(x, y);
+      const prevZone = this.touchState.overZone || null;
+
+      if (prevZone && prevZone !== nextZone) {
+        prevZone.classList.remove('is-drag-over');
+      }
+
+      if (nextZone && nextZone !== prevZone) {
+        nextZone.classList.add('is-drag-over');
+      }
+
+      this.touchState.overZone = nextZone || null;
+    },
+
+    /**
+     * Dispatch a normalized drop event for mouse and touch flows
+     * @param {HTMLElement} zone
+     * @param {{x:number, y:number}} position
+     */
+    dispatchDrop: function (zone, position) {
+      zone.classList.remove('is-drag-over');
       zone.dispatchEvent(new CustomEvent('draggable:drop', {
         bubbles: true,
         detail: {
           zone: zone,
           element: this.currentDrag?.element,
           data: this.currentDrag?.data,
-          position: { x: e.clientX, y: e.clientY }
+          position: position
         }
       }));
     },
@@ -650,9 +739,11 @@
       this.feedbackElement.appendChild(clone);
 
       // Set styles
+      const offsetX = this.currentDrag.offsetX ?? 20;
+      const offsetY = this.currentDrag.offsetY ?? 20;
       Object.assign(this.feedbackElement.style, {
-        left: (x - 20) + 'px',
-        top: (y - 20) + 'px',
+        left: (x - offsetX) + 'px',
+        top: (y - offsetY) + 'px',
         width: rect.width + 'px',
         height: rect.height + 'px'
       });

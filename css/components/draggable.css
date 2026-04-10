@@ -187,6 +187,8 @@
   border: 1px solid var(--draggable-border-color);
   border-radius: var(--btn-border-radius);
   cursor: grab;
+  user-select: none;
+  touch-action: none;
   transition: var(--draggable-transition);
 }
 
@@ -224,7 +226,7 @@
   pointer-events: none;
   z-index: 9999;
   opacity: 0.9;
-  transform: scale(0.8);
+  transform: none;
   transition: opacity 0.2s ease;
 }
 

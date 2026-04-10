@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.2 | Built: 2026-04-06T19:04:41.601Z | git:8e08b38 | development */
+/*! Vanduo v1.3.3 | Built: 2026-04-10T21:45:12.664Z | git:281f4f6 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -61863,6 +61863,8 @@ input.vd-doc-search-input {
   border: 1px solid var(--draggable-border-color);
   border-radius: var(--btn-border-radius);
   cursor: grab;
+  user-select: none;
+  touch-action: none;
   transition: var(--draggable-transition);
   flex: none;
 }
@@ -61899,7 +61901,7 @@ input.vd-doc-search-input {
   opacity: .9;
   transition: opacity .2s;
   position: fixed;
-  transform: scale(.8);
+  transform: none;
 }
 
 .vd-drag-feedback.hidden {

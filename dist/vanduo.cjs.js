@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.2 | Built: 2026-04-06T19:04:41.601Z | git:8e08b38 | development */
+/*! Vanduo v1.3.3 | Built: 2026-04-10T21:45:12.664Z | git:281f4f6 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -132,7 +132,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.3.2" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.3.3" : "0.0.0-dev";
   const Vanduo2 = {
     version: VANDUO_VERSION,
     components: {},
@@ -3831,6 +3831,7 @@ module.exports = __toCommonJS(index_exports);
     loadPreferences: function() {
       this.state.theme = this.getStorageValue(this.STORAGE_KEYS.THEME, this.DEFAULTS.THEME);
       this.state.primary = this.getStorageValue(this.STORAGE_KEYS.PRIMARY, this.getDefaultPrimary(this.state.theme));
+      this._normalizeDefaultPrimaryIfStaleWithStoredTheme();
       this.state.neutral = this.getStorageValue(this.STORAGE_KEYS.NEUTRAL, this.DEFAULTS.NEUTRAL);
       this.state.radius = this.getStorageValue(this.STORAGE_KEYS.RADIUS, this.DEFAULTS.RADIUS);
       this.state.font = this.getStorageValue(this.STORAGE_KEYS.FONT, this.DEFAULTS.FONT);
@@ -3916,12 +3917,10 @@ module.exports = __toCommonJS(index_exports);
         mode = this.DEFAULTS.THEME;
       }
       this._isApplying = true;
-      const currentMode = this.state.theme;
-      const oldDefault = this.getDefaultPrimary(currentMode);
-      if (this.state.primary === oldDefault) {
-        const newDefault = this.getDefaultPrimary(mode);
-        if (newDefault !== this.state.primary) {
-          this.applyPrimary(newDefault);
+      if (this.isUsingDefaultPrimary()) {
+        const expected = this.getDefaultPrimary(mode);
+        if (this.state.primary !== expected) {
+          this.applyPrimary(expected);
         }
       }
       this.state.theme = mode;
@@ -4163,6 +4162,20 @@ module.exports = __toCommonJS(index_exports);
     isUsingDefaultPrimary: function() {
       return this.state.primary === this.DEFAULTS.PRIMARY_LIGHT || this.state.primary === this.DEFAULTS.PRIMARY_DARK;
     },
+    /**
+     * When primary is still one of the auto-default palette keys (black/amber) but
+     * localStorage was written under a different theme (or OS changed in system mode),
+     * align in-memory state before applyAllPreferences runs — avoids amber+light / black+dark drift.
+     */
+    _normalizeDefaultPrimaryIfStaleWithStoredTheme: function() {
+      if (!this.isUsingDefaultPrimary()) {
+        return;
+      }
+      const expected = this.getDefaultPrimary(this.state.theme);
+      if (this.state.primary !== expected) {
+        this.state.primary = expected;
+      }
+    },
     bindEvents: function() {
       if (this.elements.trigger) {
         this.addListener(this.elements.trigger, "click", (e) => {
@@ -4401,6 +4414,9 @@ module.exports = __toCommonJS(index_exports);
       this._onMediaChange = (_e) => {
         if (this.state.preference === "system") {
           this.applyTheme();
+          if (window.ThemeCustomizer && typeof window.ThemeCustomizer.applyTheme === "function" && !window.ThemeCustomizer._isApplying) {
+            window.ThemeCustomizer.applyTheme("system");
+          }
         }
       };
       this._mediaQuery.addEventListener("change", this._onMediaChange);
@@ -5632,6 +5648,8 @@ module.exports = __toCommonJS(index_exports);
     touchState: null,
     // Feedback element
     feedbackElement: null,
+    // Shared selector used by init and touch reorder
+    containerSelector: ".vd-draggable-container, .vd-draggable-container-vertical",
     /**
      * Initialize draggable components
      */
@@ -5643,7 +5661,7 @@ module.exports = __toCommonJS(index_exports);
         }
         this.initDraggable(element);
       });
-      const containers = document.querySelectorAll(".vd-draggable-container, .vd-draggable-container-vertical");
+      const containers = document.querySelectorAll(this.containerSelector);
       containers.forEach((container) => {
         if (!this.instances.has(container)) {
           this.initContainer(container);
@@ -5887,10 +5905,16 @@ module.exports = __toCommonJS(index_exports);
      */
     handleTouchStart: function(e, element) {
       const touch = e.touches[0];
+      const rect = element.getBoundingClientRect();
       this.touchState = {
         element,
         startX: touch.clientX,
         startY: touch.clientY,
+        lastX: touch.clientX,
+        lastY: touch.clientY,
+        // Keep preview anchored to the original grab point.
+        offsetX: touch.clientX - rect.left,
+        offsetY: touch.clientY - rect.top,
         startTime: Date.now(),
         isDragging: false
       };
@@ -5903,6 +5927,8 @@ module.exports = __toCommonJS(index_exports);
     handleTouchMove: function(e, element) {
       if (!this.touchState) return;
       const touch = e.touches[0];
+      this.touchState.lastX = touch.clientX;
+      this.touchState.lastY = touch.clientY;
       const deltaX = touch.clientX - this.touchState.startX;
       const deltaY = touch.clientY - this.touchState.startY;
       if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
@@ -5915,7 +5941,10 @@ module.exports = __toCommonJS(index_exports);
             element,
             initialPosition: { x: this.touchState.startX, y: this.touchState.startY },
             initialBounds: element.getBoundingClientRect(),
-            data: this.getData(element)
+            data: this.getData(element),
+            // Preserve where inside the element the drag started for accurate ghost positioning.
+            offsetX: this.touchState.offsetX,
+            offsetY: this.touchState.offsetY
           };
           element.dispatchEvent(new CustomEvent("draggable:start", {
             bubbles: true,
@@ -5937,7 +5966,8 @@ module.exports = __toCommonJS(index_exports);
               delta: { x: deltaX, y: deltaY }
             }
           }));
-          const container = element.closest(".vd-draggable-container");
+          this.updateTouchDropZone(touch.clientX, touch.clientY);
+          const container = element.closest(this.containerSelector);
           if (container && container.contains(element)) {
             this.handleReorder(container, element, touch.clientX, touch.clientY);
           }
@@ -5952,6 +5982,17 @@ module.exports = __toCommonJS(index_exports);
     handleTouchEnd: function(e, element) {
       if (this.touchState && this.touchState.isDragging) {
         if (e.cancelable) e.preventDefault();
+        const endTouch = e.changedTouches?.[0];
+        const endPosition = {
+          x: endTouch?.clientX ?? this.touchState.lastX ?? this.touchState.startX,
+          y: endTouch?.clientY ?? this.touchState.lastY ?? this.touchState.startY
+        };
+        const dropZone = this.resolveDropZoneAtPoint(endPosition.x, endPosition.y) || this.touchState.overZone;
+        if (dropZone) {
+          this.dispatchDrop(dropZone, endPosition);
+        } else if (this.touchState.overZone) {
+          this.touchState.overZone.classList.remove("is-drag-over");
+        }
         element.classList.remove("is-dragging");
         element.classList.add("is-dropped");
         element.setAttribute("aria-grabbed", "false");
@@ -5959,7 +6000,6 @@ module.exports = __toCommonJS(index_exports);
         if (this.feedbackElement) {
           this.feedbackElement.classList.add("hidden");
         }
-        const endTouch = e.changedTouches[0];
         const data = this.currentDrag?.data || this.getData(element);
         const startX = this.touchState?.startX || 0;
         const startY = this.touchState?.startY || 0;
@@ -5968,10 +6008,10 @@ module.exports = __toCommonJS(index_exports);
           detail: {
             element,
             data,
-            position: { x: endTouch.clientX, y: endTouch.clientY },
+            position: endPosition,
             delta: {
-              x: endTouch.clientX - startX,
-              y: endTouch.clientY - startY
+              x: endPosition.x - startX,
+              y: endPosition.y - startY
             }
           }
         }));
@@ -6012,6 +6052,58 @@ module.exports = __toCommonJS(index_exports);
      */
     handleDrop: function(e, zone) {
       e.preventDefault();
+      this.dispatchDrop(zone, { x: e.clientX, y: e.clientY });
+    },
+    /**
+     * Resolve a drop zone from viewport coordinates
+     * @param {number} x
+     * @param {number} y
+     * @returns {HTMLElement|null}
+     */
+    resolveDropZoneAtPoint: function(x, y) {
+      if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+      if (typeof document.elementsFromPoint === "function") {
+        const stacked = document.elementsFromPoint(x, y);
+        for (const element of stacked) {
+          const zone = element.closest(".vd-drop-zone");
+          if (zone) return zone;
+        }
+      }
+      const target = document.elementFromPoint(x, y);
+      const targetZone = target ? target.closest(".vd-drop-zone") : null;
+      if (targetZone) return targetZone;
+      const zones = document.querySelectorAll(".vd-drop-zone");
+      for (const zone of zones) {
+        const rect = zone.getBoundingClientRect();
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          return zone;
+        }
+      }
+      return null;
+    },
+    /**
+     * Track and update active drop-zone hover state on touch devices
+     * @param {number} x
+     * @param {number} y
+     */
+    updateTouchDropZone: function(x, y) {
+      if (!this.touchState) return;
+      const nextZone = this.resolveDropZoneAtPoint(x, y);
+      const prevZone = this.touchState.overZone || null;
+      if (prevZone && prevZone !== nextZone) {
+        prevZone.classList.remove("is-drag-over");
+      }
+      if (nextZone && nextZone !== prevZone) {
+        nextZone.classList.add("is-drag-over");
+      }
+      this.touchState.overZone = nextZone || null;
+    },
+    /**
+     * Dispatch a normalized drop event for mouse and touch flows
+     * @param {HTMLElement} zone
+     * @param {{x:number, y:number}} position
+     */
+    dispatchDrop: function(zone, position) {
       zone.classList.remove("is-drag-over");
       zone.dispatchEvent(new CustomEvent("draggable:drop", {
         bubbles: true,
@@ -6019,7 +6111,7 @@ module.exports = __toCommonJS(index_exports);
           zone,
           element: this.currentDrag?.element,
           data: this.currentDrag?.data,
-          position: { x: e.clientX, y: e.clientY }
+          position
         }
       }));
     },
@@ -6120,9 +6212,11 @@ module.exports = __toCommonJS(index_exports);
       this.feedbackElement.innerHTML = "";
       const clone = this.currentDrag.element.cloneNode(true);
       this.feedbackElement.appendChild(clone);
+      const offsetX = this.currentDrag.offsetX ?? 20;
+      const offsetY = this.currentDrag.offsetY ?? 20;
       Object.assign(this.feedbackElement.style, {
-        left: x - 20 + "px",
-        top: y - 20 + "px",
+        left: x - offsetX + "px",
+        top: y - offsetY + "px",
         width: rect.width + "px",
         height: rect.height + "px"
       });

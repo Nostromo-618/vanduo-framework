@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.3
+# Vanduo Framework v1.3.4
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -37,6 +37,16 @@ A lightweight, pure HTML/CSS/JS framework with **46+ components** for designing 
 - 🔍 **SEO-Ready** - Comprehensive meta tags, structured data, and sitemap
 
 ---
+
+## What's New in v1.3.4
+
+v1.3.4 introduces the Glass Effects system — no breaking changes:
+
+- **New `effects/glass.css` module.** Core `.vd-glass` class with `backdrop-filter` blur, translucent background, specular highlight, and noise texture. Size variants (`vd-glass-sm / md / lg / xl`), modifiers (`vd-glass-tinted`, `vd-glass-floating`, `vd-glass-contrast`), and full `prefers-reduced-transparency` / `@supports not (backdrop-filter)` fallbacks.
+- **Glass design tokens.** `--vd-glass-blur`, `--vd-glass-saturate`, `--vd-glass-bg-opacity`, `--vd-glass-bg-light/dark`, `--vd-glass-border-light/dark`, `--vd-glass-shadow`, `--vd-glass-highlight-alpha`, `--vd-glass-noise-opacity` — all with automatic dark-mode overrides and `--vd-glass-*` aliases.
+- **Component glass variants.** Opt-in `.vd-*-glass` modifier added to Navbar, Modal, Dropdown, Tooltip, Toast, Card, and FAB.
+- **Scroll-activated glass.** `initScrollWatcher()` in `navbar.js` activates `.vd-navbar-glass` transparently at rest and frosted on scroll (configurable via `data-scroll-threshold`). Generic `data-glass-scroll` + `data-glass-sentinel` attribute API (new `glass.js`, `IntersectionObserver`) brings the same pattern to any element via `.is-glass-active`.
+- **vd-hex selection fix.** `VdHexGrid` re-syncs `selectedHex` references after grid regeneration, preventing stale coordinates during rotation.
 
 ## What's New in v1.3.3
 
@@ -98,8 +108,8 @@ The quickest way to get started — no install, no build step. Add two lines to 
 
 **Pin to a specific version** for production:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.3/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.3/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.4/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.4/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -162,7 +172,7 @@ This project includes an [`llms.txt`](llms.txt) file — a structured markdown s
 Use the hardened upload script to attach only approved bundle artifacts from `dist/`:
 
 ```bash
-pnpm run release:assets -- v1.3.3
+pnpm run release:assets -- v1.3.4
 ```
 
 Notes:

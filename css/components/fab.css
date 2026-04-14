@@ -56,10 +56,24 @@
   transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
+.vd-fab-glass {
+  background: var(--vd-glass-bg-light);
+  color: var(--text-primary);
+  border: 1px solid var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+}
+
 .vd-fab:hover {
   background: var(--fab-hover-bg);
   box-shadow: var(--fab-hover-shadow);
   transform: scale(1.05);
+}
+
+.vd-fab-glass:hover {
+  background: var(--vd-glass-bg-light);
+  box-shadow: var(--vd-glass-float-shadow, var(--vd-glass-shadow));
 }
 
 .vd-fab:active {

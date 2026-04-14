@@ -55,6 +55,11 @@
   pointer-events: none;
 }
 
+.vd-modal-backdrop.vd-modal-glass-backdrop {
+  backdrop-filter: blur(calc(var(--vd-glass-blur) * 0.5));
+  -webkit-backdrop-filter: blur(calc(var(--vd-glass-blur) * 0.5));
+}
+
 .vd-modal-backdrop.is-visible {
   opacity: 1;
   pointer-events: all;
@@ -112,6 +117,14 @@
   border-radius: var(--btn-border-radius-lg);
   box-shadow: var(--shadow-2xl);
   outline: 0;
+}
+
+.vd-modal-glass .vd-modal-content {
+  background: var(--vd-glass-bg-light);
+  border-color: var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
 }
 
 /* Modal Header */

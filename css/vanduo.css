@@ -75,6 +75,7 @@
 
 /* Effects - Phase 7 */
 @import url('effects/parallax.css');
+@import url('effects/glass.css');
 
 /* Components - Phase 9 (New) */
 @import url('components/draggable.css');

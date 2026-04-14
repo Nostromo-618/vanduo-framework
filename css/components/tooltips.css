@@ -78,6 +78,15 @@
   transition: opacity var(--transition-duration-base) var(--transition-ease);
 }
 
+.vd-tooltip-glass {
+  background: var(--vd-glass-bg-light);
+  border: 1px solid var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  color: var(--text-primary);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+}
+
 .vd-tooltip.is-visible {
   opacity: 1;
 }
@@ -149,6 +158,26 @@
   transform: translateY(-50%);
   border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
   border-color: transparent var(--tooltip-bg) transparent transparent;
+}
+
+.vd-tooltip-glass.vd-tooltip-top::before,
+.vd-tooltip-glass[data-placement="top"]::before {
+  border-color: var(--vd-glass-bg-light) transparent transparent;
+}
+
+.vd-tooltip-glass.vd-tooltip-bottom::before,
+.vd-tooltip-glass[data-placement="bottom"]::before {
+  border-color: transparent transparent var(--vd-glass-bg-light);
+}
+
+.vd-tooltip-glass.vd-tooltip-left::before,
+.vd-tooltip-glass[data-placement="left"]::before {
+  border-color: transparent transparent transparent var(--vd-glass-bg-light);
+}
+
+.vd-tooltip-glass.vd-tooltip-right::before,
+.vd-tooltip-glass[data-placement="right"]::before {
+  border-color: transparent var(--vd-glass-bg-light) transparent transparent;
 }
 
 /* Tooltip Variants - Light */

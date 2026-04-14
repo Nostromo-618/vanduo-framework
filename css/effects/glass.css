@@ -1,0 +1,154 @@
+/**
+ * Vanduo Framework - Glass Effects
+ * Frosted glass utility surfaces and modifiers
+ */
+
+:root {
+  --vd-glass-float-shadow: 0 14px 42px rgba(0, 0, 0, 0.2);
+  --vd-glass-float-translate-y: -2px;
+}
+
+.vd-glass,
+.vd-glass-md {
+  position: relative;
+  overflow: hidden;
+  background: var(--vd-glass-bg-light);
+  border: 1px solid var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  isolation: isolate;
+}
+
+.vd-glass::before,
+.vd-glass-md::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, var(--vd-glass-highlight-alpha)) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vd-glass::after,
+.vd-glass-md::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+  opacity: var(--vd-glass-noise-opacity);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vd-glass > *,
+.vd-glass-md > * {
+  position: relative;
+  z-index: 3;
+}
+
+.vd-glass-sm {
+  --vd-glass-blur: 6px;
+  --vd-glass-saturate: 1.4;
+  --vd-glass-bg-opacity: 0.55;
+}
+
+.vd-glass-lg {
+  --vd-glass-blur: 20px;
+  --vd-glass-saturate: 2;
+  --vd-glass-bg-opacity: 0.72;
+}
+
+.vd-glass-xl {
+  --vd-glass-blur: 28px;
+  --vd-glass-saturate: 2.2;
+  --vd-glass-bg-opacity: 0.78;
+}
+
+.vd-glass-tinted {
+  background: linear-gradient(
+      135deg,
+      var(--vd-glass-tint, var(--vd-color-primary-alpha-10)) 0%,
+      transparent 70%
+    ),
+    var(--vd-glass-bg-light);
+}
+
+.vd-glass-floating {
+  transition: transform var(--vd-transition-normal), box-shadow var(--vd-transition-normal);
+}
+
+.vd-glass-floating:hover,
+.vd-glass-floating:focus-within {
+  transform: translateY(var(--vd-glass-float-translate-y));
+  box-shadow: var(--vd-glass-float-shadow);
+}
+
+.vd-glass-contrast {
+  --vd-glass-bg-opacity: 0.82;
+  --vd-glass-border-alpha: 0.26;
+}
+
+/* Scroll-activated glass: inactive until .is-glass-active is set by glass.js */
+[data-glass-scroll] {
+  transition:
+    background var(--vd-transition-normal, 0.25s ease),
+    border-color var(--vd-transition-normal, 0.25s ease),
+    box-shadow var(--vd-transition-normal, 0.25s ease),
+    backdrop-filter var(--vd-transition-normal, 0.25s ease);
+}
+
+[data-glass-scroll]:not(.is-glass-active) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-glass-scroll]:not(.is-glass-active)::before,
+[data-glass-scroll]:not(.is-glass-active)::after {
+  opacity: 0;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vd-glass,
+  .vd-glass-md {
+    background: var(--vd-bg-primary);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .vd-glass,
+  .vd-glass-sm,
+  .vd-glass-md,
+  .vd-glass-lg,
+  .vd-glass-xl {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--vd-bg-primary);
+    border-color: var(--vd-border-color);
+  }
+
+  .vd-glass::before,
+  .vd-glass::after,
+  .vd-glass-md::before,
+  .vd-glass-md::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-glass-floating {
+    transition: none;
+  }
+
+  .vd-glass-floating:hover,
+  .vd-glass-floating:focus-within {
+    transform: none;
+  }
+}

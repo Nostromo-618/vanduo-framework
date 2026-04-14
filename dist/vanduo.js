@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.3 | Built: 2026-04-10T21:45:12.664Z | git:281f4f6 | development */
+/*! Vanduo v1.3.4 | Built: 2026-04-14T21:21:55.517Z | git:73e3db5 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -107,7 +107,7 @@
   // js/vanduo.js
   (function() {
     "use strict";
-    const VANDUO_VERSION = true ? "1.3.3" : "0.0.0-dev";
+    const VANDUO_VERSION = true ? "1.3.4" : "0.0.0-dev";
     const Vanduo2 = {
       version: VANDUO_VERSION,
       components: {},
@@ -2158,6 +2158,31 @@
         });
       },
       /**
+       * Initialize scroll-aware glass/transparent behaviour for a navbar.
+       * Adds/removes `.vd-navbar-scrolled` when the page scrolls past a threshold.
+       * Threshold: `data-scroll-threshold` attribute (px) or the navbar's own height.
+       * @param {HTMLElement} navbar - Navbar element
+       * @returns {Function|null} Cleanup function, or null if not applicable
+       */
+      initScrollWatcher: function(navbar) {
+        const isGlass = navbar.classList.contains("vd-navbar-glass");
+        const isTransparent = navbar.classList.contains("vd-navbar-transparent");
+        if (!isGlass && !isTransparent) {
+          return null;
+        }
+        const getThreshold = () => {
+          const attr = parseInt(navbar.dataset.scrollThreshold, 10);
+          return isNaN(attr) ? navbar.offsetHeight || 60 : attr;
+        };
+        const onScroll = () => {
+          const scrolled = window.scrollY > getThreshold();
+          navbar.classList.toggle("vd-navbar-scrolled", scrolled);
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+      },
+      /**
        * Initialize a single navbar
        * @param {HTMLElement} navbar - Navbar element
        */
@@ -2165,10 +2190,17 @@
         const toggle = navbar.querySelector(".vd-navbar-toggle, .vd-navbar-burger");
         const menu = navbar.querySelector(".vd-navbar-menu");
         const overlay = navbar.querySelector(".vd-navbar-overlay") || this.createOverlay(navbar);
+        const cleanupFunctions = [];
+        const scrollWatcherCleanup = this.initScrollWatcher(navbar);
+        if (scrollWatcherCleanup) {
+          cleanupFunctions.push(scrollWatcherCleanup);
+        }
         if (!toggle || !menu) {
+          if (cleanupFunctions.length) {
+            this.instances.set(navbar, { toggle: null, menu: null, overlay: null, cleanup: cleanupFunctions });
+          }
           return;
         }
-        const cleanupFunctions = [];
         const toggleClickHandler = (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -6477,6 +6509,67 @@
       window.Vanduo.register("LazyLoad", VanduoLazyLoad);
     }
     window.VanduoLazyLoad = VanduoLazyLoad;
+  })();
+
+  // js/components/glass.js
+  (function() {
+    "use strict";
+    const GlassScroll = {
+      /** @type {Map<Element, IntersectionObserver>} */
+      observers: /* @__PURE__ */ new Map(),
+      init: function() {
+        document.querySelectorAll("[data-glass-scroll]").forEach((el) => {
+          if (this.observers.has(el)) return;
+          this.initElement(el);
+        });
+      },
+      /**
+       * Wire up a single scroll-activated glass element.
+       * @param {HTMLElement} el
+       */
+      initElement: function(el) {
+        const sentinelSelector = el.dataset.glassSentinel;
+        let sentinel;
+        if (sentinelSelector) {
+          sentinel = document.querySelector(sentinelSelector);
+        }
+        if (!sentinel) {
+          sentinel = el.previousElementSibling;
+        }
+        if (!sentinel) {
+          el.classList.add("is-glass-active");
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              el.classList.toggle("is-glass-active", !entry.isIntersecting);
+            });
+          },
+          { threshold: 0, rootMargin: "0px" }
+        );
+        observer.observe(sentinel);
+        this.observers.set(el, observer);
+      },
+      /**
+       * Disconnect and remove a single element's observer.
+       * @param {HTMLElement} el
+       */
+      destroy: function(el) {
+        const observer = this.observers.get(el);
+        if (observer) {
+          observer.disconnect();
+          this.observers.delete(el);
+        }
+      },
+      destroyAll: function() {
+        this.observers.forEach((observer, el) => this.destroy(el));
+      }
+    };
+    if (typeof window.Vanduo !== "undefined") {
+      window.Vanduo.register("glassScroll", GlassScroll);
+    }
+    window.VanduoGlassScroll = GlassScroll;
   })();
 
   // js/components/flow.js

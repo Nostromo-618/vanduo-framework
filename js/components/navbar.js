@@ -42,6 +42,37 @@
     },
 
     /**
+     * Initialize scroll-aware glass/transparent behaviour for a navbar.
+     * Adds/removes `.vd-navbar-scrolled` when the page scrolls past a threshold.
+     * Threshold: `data-scroll-threshold` attribute (px) or the navbar's own height.
+     * @param {HTMLElement} navbar - Navbar element
+     * @returns {Function|null} Cleanup function, or null if not applicable
+     */
+    initScrollWatcher: function (navbar) {
+      const isGlass = navbar.classList.contains('vd-navbar-glass');
+      const isTransparent = navbar.classList.contains('vd-navbar-transparent');
+
+      if (!isGlass && !isTransparent) {
+        return null;
+      }
+
+      const getThreshold = () => {
+        const attr = parseInt(navbar.dataset.scrollThreshold, 10);
+        return isNaN(attr) ? (navbar.offsetHeight || 60) : attr;
+      };
+
+      const onScroll = () => {
+        const scrolled = window.scrollY > getThreshold();
+        navbar.classList.toggle('vd-navbar-scrolled', scrolled);
+      };
+
+      onScroll(); // set initial state without waiting for first scroll
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      return () => window.removeEventListener('scroll', onScroll);
+    },
+
+    /**
      * Initialize a single navbar
      * @param {HTMLElement} navbar - Navbar element
      */
@@ -50,12 +81,22 @@
       const menu = navbar.querySelector('.vd-navbar-menu');
       const overlay = navbar.querySelector('.vd-navbar-overlay') || this.createOverlay(navbar);
 
-      if (!toggle || !menu) {
-        return;
-      }
-
       // Store cleanup functions for this navbar instance
       const cleanupFunctions = [];
+
+      // Wire up scroll-aware glass/transparent behaviour regardless of mobile menu
+      const scrollWatcherCleanup = this.initScrollWatcher(navbar);
+      if (scrollWatcherCleanup) {
+        cleanupFunctions.push(scrollWatcherCleanup);
+      }
+
+      if (!toggle || !menu) {
+        // Still store the instance so scroll-watcher cleanup is tracked
+        if (cleanupFunctions.length) {
+          this.instances.set(navbar, { toggle: null, menu: null, overlay: null, cleanup: cleanupFunctions });
+        }
+        return;
+      }
 
       // Toggle menu on button click
       const toggleClickHandler = (e) => {

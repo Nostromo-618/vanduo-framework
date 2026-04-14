@@ -47,6 +47,9 @@ import './components/doc-search.js';
 import './components/draggable.js';
 import './components/lazy-load.js';
 
+// Effects (glass scroll activation)
+import './components/glass.js';
+
 // Phase 10 (v1.2.7) components
 import './components/flow.js';
 import './components/bubble.js';

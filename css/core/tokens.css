@@ -143,6 +143,33 @@
   --vd-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
   /* ============================================
+   * GLASS TOKENS
+   * ============================================ */
+  --glass-blur: 12px;
+  --glass-saturate: 1.8;
+  --glass-bg-opacity: 0.65;
+  --glass-bg-light: rgba(255, 255, 255, var(--glass-bg-opacity));
+  --glass-bg-dark: rgba(30, 30, 30, var(--glass-bg-opacity));
+  --glass-border-alpha: 0.18;
+  --glass-border-light: rgba(255, 255, 255, var(--glass-border-alpha));
+  --glass-border-dark: rgba(255, 255, 255, 0.08);
+  --glass-highlight-alpha: 0.25;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --glass-noise-opacity: 0.03;
+
+  --vd-glass-blur: var(--glass-blur);
+  --vd-glass-saturate: var(--glass-saturate);
+  --vd-glass-bg-opacity: var(--glass-bg-opacity);
+  --vd-glass-bg-light: var(--glass-bg-light);
+  --vd-glass-bg-dark: var(--glass-bg-dark);
+  --vd-glass-border-alpha: var(--glass-border-alpha);
+  --vd-glass-border-light: var(--glass-border-light);
+  --vd-glass-border-dark: var(--glass-border-dark);
+  --vd-glass-highlight-alpha: var(--glass-highlight-alpha);
+  --vd-glass-shadow: var(--glass-shadow);
+  --vd-glass-noise-opacity: var(--glass-noise-opacity);
+
+  /* ============================================
    * TRANSITION TOKENS
    * ============================================ */
   --vd-transition-fast: 150ms ease;
@@ -190,6 +217,11 @@
   --vd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
   --vd-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+  --glass-bg-light: var(--glass-bg-dark);
+  --glass-border-light: var(--glass-border-dark);
+  --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --glass-highlight-alpha: 0.16;
 }
 
 /* Dark mode via prefers-color-scheme */
@@ -209,5 +241,10 @@
     --vd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
     --vd-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+    --glass-bg-light: var(--glass-bg-dark);
+    --glass-border-light: var(--glass-border-dark);
+    --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    --glass-highlight-alpha: 0.16;
   }
 }

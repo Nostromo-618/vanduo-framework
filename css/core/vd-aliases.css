@@ -33,6 +33,19 @@
   --vd-shadow-md: var(--shadow-md);
   --vd-shadow-lg: var(--shadow-lg);
 
+  /* Glass */
+  --vd-glass-blur: var(--glass-blur, 12px);
+  --vd-glass-saturate: var(--glass-saturate, 1.8);
+  --vd-glass-bg-opacity: var(--glass-bg-opacity, 0.65);
+  --vd-glass-bg-light: var(--glass-bg-light, rgba(255, 255, 255, var(--vd-glass-bg-opacity)));
+  --vd-glass-bg-dark: var(--glass-bg-dark, rgba(30, 30, 30, var(--vd-glass-bg-opacity)));
+  --vd-glass-border-alpha: var(--glass-border-alpha, 0.18);
+  --vd-glass-border-light: var(--glass-border-light, rgba(255, 255, 255, var(--vd-glass-border-alpha)));
+  --vd-glass-border-dark: var(--glass-border-dark, rgba(255, 255, 255, 0.08));
+  --vd-glass-highlight-alpha: var(--glass-highlight-alpha, 0.25);
+  --vd-glass-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.12));
+  --vd-glass-noise-opacity: var(--glass-noise-opacity, 0.03);
+
   /* Typography */
   --vd-font-family-base: var(--font-family-sans);
   --vd-font-family-mono: var(--font-family-mono);

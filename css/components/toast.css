@@ -101,6 +101,14 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.vd-toast-glass {
+  background: var(--vd-glass-bg-light);
+  border-color: var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+}
+
 /* Toast Visible State */
 .vd-toast.is-visible {
   opacity: 1;

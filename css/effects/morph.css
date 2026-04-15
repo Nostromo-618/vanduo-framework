@@ -1,0 +1,259 @@
+/**
+ * Vanduo Framework - Water Morph Effect
+ * Liquid wave content-swap animation on click
+ *
+ * Usage:
+ *   Add `.vd-morph` (or `data-vd-morph`) to any element.
+ *   Inside it, place:
+ *     .vd-morph-wave     — radial wave layer (auto-created by JS if missing)
+ *     .vd-morph-shine    — light-sweep layer (auto-created by JS if missing)
+ *     .vd-morph-content.vd-morph-current — visible state
+ *     .vd-morph-content.vd-morph-next    — hidden next state
+ */
+
+:root {
+  --morph-duration: 0.75s;
+  --morph-easing: cubic-bezier(0.2, 0.8, 0.35, 1);
+  --morph-blur-peak: 11px;
+  --morph-wave-color: var(--color-primary, #3b82f6);
+}
+
+/* ========== Base ========== */
+
+.vd-morph,
+[data-vd-morph] {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ========== Wave Layer ========== */
+
+.vd-morph-wave {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%,
+      color-mix(in srgb, #fff 55%, transparent) 0%,
+      color-mix(in srgb, #fff 18%, transparent) 18%,
+      transparent 38%),
+    radial-gradient(circle at 68% 70%,
+      color-mix(in srgb, #fff 30%, transparent) 0%,
+      transparent 30%),
+    radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--morph-wave-color) 96%, #a8d8ff) 0%,
+      color-mix(in srgb, var(--morph-wave-color) 82%, #7ec8ff) 35%,
+      color-mix(in srgb, var(--morph-wave-color) 70%, #5ba4f5) 65%,
+      color-mix(in srgb, var(--morph-wave-color) 90%, #4478f0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  will-change: width, height, opacity, filter;
+}
+
+.vd-morph.is-morphing .vd-morph-wave {
+  animation: vd-morph-expand var(--morph-duration) var(--morph-easing) forwards;
+}
+
+.vd-morph.is-morphing .vd-morph-wave::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--morph-wave-color) 70%, #b0e0ff) 0%,
+      color-mix(in srgb, var(--morph-wave-color) 50%, #88c0ff) 45%,
+      transparent 80%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: vd-morph-expand2 var(--morph-duration) var(--morph-easing) 0.08s forwards;
+}
+
+@keyframes vd-morph-expand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    filter: blur(0px) saturate(2);
+  }
+  6% {
+    opacity: 1;
+    filter: blur(1px) saturate(2.2);
+  }
+  35% {
+    opacity: 0.92;
+    filter: blur(6px) saturate(1.7);
+  }
+  68% {
+    width: 360%;
+    height: 360%;
+    opacity: 0.6;
+    filter: blur(var(--morph-blur-peak)) saturate(1.3);
+  }
+  100% {
+    width: 360%;
+    height: 360%;
+    opacity: 0;
+    filter: blur(7px) saturate(1);
+  }
+}
+
+@keyframes vd-morph-expand2 {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    filter: blur(0px);
+  }
+  10% {
+    opacity: 0.7;
+    filter: blur(3px);
+  }
+  60% {
+    width: 280%;
+    height: 280%;
+    opacity: 0.38;
+    filter: blur(14px);
+  }
+  100% {
+    width: 280%;
+    height: 280%;
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+/* ========== Shine Sweep ========== */
+
+.vd-morph-shine {
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    color-mix(in srgb, #fff 10%, transparent) 35%,
+    color-mix(in srgb, #fff 52%, transparent) 50%,
+    color-mix(in srgb, #fff 10%, transparent) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transform: skewX(-12deg);
+  will-change: left, opacity;
+}
+
+.vd-morph.is-morphing .vd-morph-shine {
+  animation: vd-morph-shine 0.72s cubic-bezier(0.3, 0.65, 0.5, 1) 0.04s forwards;
+}
+
+@keyframes vd-morph-shine {
+  0% {
+    left: -110%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.4;
+  }
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+/* ========== Completion Bounce ========== */
+
+.vd-morph.morph-done {
+  animation: vd-morph-bounce 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes vd-morph-bounce {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+/* ========== Content Layers ========== */
+
+.vd-morph-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  pointer-events: none;
+  will-change: opacity, transform, filter;
+}
+
+.vd-morph-current {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0px);
+  z-index: 2;
+  transition:
+    opacity 0.28s cubic-bezier(0.4, 0, 0.6, 1),
+    transform 0.28s cubic-bezier(0.4, 0, 0.6, 1),
+    filter 0.28s ease;
+}
+
+.vd-morph-next {
+  opacity: 0;
+  transform: scale(0.86) translateY(4px);
+  filter: blur(3px);
+  z-index: 1;
+  transition:
+    opacity 0.3s cubic-bezier(0, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0, 0, 0.2, 1),
+    filter 0.3s ease;
+}
+
+.vd-morph.is-morphing .vd-morph-current {
+  opacity: 0;
+  transform: scale(0.82) translateY(-4px);
+  filter: blur(4px);
+  transition-duration: 0.2s;
+  transition-delay: 0s;
+}
+
+.vd-morph.is-morphing .vd-morph-next {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0px);
+  transition-duration: 0.3s;
+  transition-delay: 0.25s;
+}
+
+/* ========== Size Variants ========== */
+
+.vd-morph-sm {
+  --morph-duration: 0.5s;
+  --morph-blur-peak: 7px;
+}
+
+.vd-morph-lg {
+  --morph-duration: 1s;
+  --morph-blur-peak: 16px;
+}
+
+/* ========== Accessibility ========== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-morph,
+  .vd-morph-content,
+  .vd-morph-wave,
+  .vd-morph-shine {
+    transition: none !important;
+    animation: none !important;
+  }
+}

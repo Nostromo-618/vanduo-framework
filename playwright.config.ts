@@ -85,11 +85,17 @@ export default defineConfig({
     // ===== Tablet Browsers - P1 Priority =====
     {
       name: 'Chromium Tablet',
-      use: { ...devices['iPad Pro 11'] },
+      use: {
+        ...devices['iPad Pro 11'],
+        browserName: 'chromium',
+      },
     },
     {
       name: 'WebKit Tablet',
-      use: { ...devices['iPad Pro 11'] },
+      use: {
+        ...devices['iPad Pro 11'],
+        browserName: 'webkit',
+      },
     },
   ],
 

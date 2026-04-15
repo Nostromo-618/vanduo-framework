@@ -47,8 +47,9 @@ import './components/doc-search.js';
 import './components/draggable.js';
 import './components/lazy-load.js';
 
-// Effects (glass scroll activation)
+// Effects (glass scroll activation, water morph)
 import './components/glass.js';
+import './components/morph.js';
 
 // Phase 10 (v1.2.7) components
 import './components/flow.js';

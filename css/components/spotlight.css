@@ -9,9 +9,11 @@
   --spotlight-tooltip-color: var(--text-primary, #212529);
   --spotlight-tooltip-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.15);
   --spotlight-tooltip-padding: 1.3125rem; /* 21px - fib */
-  --spotlight-tooltip-radius: var(--border-radius, 0.5rem);
+  --spotlight-tooltip-radius: var(--card-border-radius, var(--btn-border-radius-lg, 0.5rem));
   --spotlight-tooltip-max-width: 21rem; /* 336px - fib×16 */
   --spotlight-highlight-padding: 0.5rem; /* 8px - fib */
+  /* Match card/modal surfaces so the cutout reads like other rounded UI (not the smaller base button token). */
+  --spotlight-target-radius: var(--card-border-radius, var(--btn-border-radius-lg, var(--btn-border-radius, 0.25rem)));
   --spotlight-z-index: 1080;
 }
 
@@ -87,7 +89,7 @@
 .vd-spotlight-btn {
   padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
   border: 1px solid var(--border-color, #dee2e6);
-  border-radius: 0.25rem;
+  border-radius: var(--btn-border-radius-sm, 0.25rem);
   background: transparent;
   cursor: pointer;
   font-size: 0.8125rem;
@@ -113,7 +115,10 @@
 .vd-spotlight-target {
   position: relative;
   z-index: calc(var(--spotlight-z-index) + 1);
+  isolation: isolate;
+  overflow: visible;
+  /* box-shadow cutout follows border-radius; !important wins over consumer utilities (e.g. docs demos) */
+  border-radius: var(--spotlight-target-radius) !important;
   box-shadow: 0 0 0 var(--spotlight-highlight-padding) rgba(13, 110, 253, 0.25),
               0 0 0 9999px var(--spotlight-overlay-bg);
-  border-radius: 0.25rem;
 }

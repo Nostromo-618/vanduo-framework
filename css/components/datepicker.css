@@ -103,6 +103,14 @@
   background: var(--dp-day-hover-bg);
 }
 
+/* ========== Calendar grid (weekday row + week rows) ========== */
+
+.vd-datepicker-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dp-gap);
+}
+
 /* ========== Weekday Headers ========== */
 
 .vd-datepicker-weekdays {
@@ -118,7 +126,8 @@
 
 /* ========== Days Grid ========== */
 
-.vd-datepicker-days {
+.vd-datepicker-days,
+.vd-datepicker-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--dp-gap);

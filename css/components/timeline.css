@@ -199,3 +199,50 @@
     right: auto;
   }
 }
+
+/* ========== Animated reveal (opt-in) ========== */
+
+.vd-timeline-animated .vd-timeline-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.35, 1);
+  transition-delay: var(--vd-timeline-reveal-delay, 0s);
+}
+
+.vd-timeline-animated .vd-timeline-item .vd-timeline-marker {
+  transform: scale(0.4);
+  transform-origin: center center;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--vd-timeline-reveal-delay, 0s) + 0.12s);
+}
+
+.vd-timeline-animated .vd-timeline-item.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.vd-timeline-animated .vd-timeline-item.is-revealed .vd-timeline-marker {
+  transform: scale(1);
+}
+
+/* Alternating + animated: entrance from each side (desktop only; narrow uses base vertical slide) */
+@media (min-width: 769px) {
+  .vd-timeline-alternating.vd-timeline-animated .vd-timeline-item:nth-child(odd):not(.is-revealed) {
+    transform: translate(-12px, 12px);
+  }
+
+  .vd-timeline-alternating.vd-timeline-animated .vd-timeline-item:nth-child(even):not(.is-revealed) {
+    transform: translate(12px, 12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-timeline-animated .vd-timeline-item,
+  .vd-timeline-animated .vd-timeline-item .vd-timeline-marker {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

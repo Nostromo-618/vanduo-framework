@@ -120,9 +120,6 @@
           next.classList.add('vd-morph-current');
         }
 
-        el.classList.add('morph-done');
-        setTimeout(function () { el.classList.remove('morph-done'); }, 350);
-
         if (typeof onComplete === 'function') onComplete();
       }, duration);
     }

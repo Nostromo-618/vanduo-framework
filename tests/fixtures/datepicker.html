@@ -12,7 +12,7 @@
 
   <div style="margin-bottom:2rem;">
     <label for="date-basic">Basic date:</label>
-    <input id="date-basic" type="text" class="vd-input" data-vd-datepicker placeholder="yyyy-mm-dd">
+    <input id="date-basic" type="text" class="vd-input" data-vd-datepicker placeholder="YYYY-MM-DD">
   </div>
 
   <div style="margin-bottom:2rem;">
@@ -25,6 +25,25 @@
     <input id="date-min-max" type="text" class="vd-input" data-vd-datepicker
       data-vd-datepicker-min="2025-01-01" data-vd-datepicker-max="2025-12-31"
       placeholder="2025 only">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-us-format">US format:</label>
+    <input id="date-us-format" type="text" class="vd-input" data-vd-datepicker
+      data-vd-datepicker-format="MM/DD/YYYY" placeholder="MM/DD/YYYY">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-de-format">DE format (pre-selected):</label>
+    <input id="date-de-format" type="text" class="vd-input" data-vd-datepicker
+      data-vd-datepicker-format="DD.MM.YYYY" value="15.03.2025">
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <label for="date-partial-range">Partial month range:</label>
+    <input id="date-partial-range" type="text" class="vd-input" data-vd-datepicker
+      data-vd-datepicker-min="2025-06-01" data-vd-datepicker-max="2025-06-20"
+      value="2025-06-15">
   </div>
 
   <script src="/js/utils/helpers.js"></script>

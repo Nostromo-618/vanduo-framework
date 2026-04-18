@@ -1,6 +1,6 @@
-# Vanduo Framework v1.3.5 — LLM Context
+# Vanduo Framework v1.3.7 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.5 ships **46+ components** plus Glass Effects and the new Water Morph effect, and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.7 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -57,8 +57,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.5/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.5/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -135,7 +135,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 
 ---
 
-## Complete Component Inventory (46+)
+## Complete Component Inventory (47+)
 
 ### Layout & Navigation
 | Component | CSS Class | JS Module | Notes |
@@ -159,7 +159,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 | Alerts | `.vd-alert` | — | CSS-only |
 | Avatar | `.vd-avatar` | — | CSS-only |
 | Skeleton | `.vd-skeleton` | — | CSS-only loading placeholder |
-| Timeline | `.vd-timeline` | — | CSS-only vertical timeline |
+| Timeline | `.vd-timeline` | `timeline` (optional) | CSS-only vertical timeline; add `.vd-timeline-animated` for staggered reveal. Scroll mode: one `IntersectionObserver`. With `.vd-timeline-alternating`, desktop entrance is left/right (narrow: vertical). With `.vd-timeline-playback`, use `data-vd-timeline-prev|next|play|pause` buttons (no observer). Respects `prefers-reduced-motion` |
 | Tree View | `.vd-tree` | `tree` | Expandable/checkable nested lists |
 | Code Snippet | `.vd-code-snippet` | `code-snippet` | Syntax display with copy |
 
@@ -428,7 +428,7 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 `.vd-stepper`, `.vd-stepper-step`, `.is-active`, `.is-completed`
 
 ### Timeline
-`.vd-timeline`, `.vd-timeline-item`, `.vd-timeline-marker`, `.vd-timeline-content`
+`.vd-timeline`, `.vd-timeline-alternating`, `.vd-timeline-animated`, `.vd-timeline-playback`, `.vd-timeline-item`, `.vd-timeline-item.is-revealed`, `.vd-timeline-marker`, `.vd-timeline-content`, `data-vd-timeline-prev`, `data-vd-timeline-next`, `data-vd-timeline-play`, `data-vd-timeline-pause`
 
 ### Rating
 `.vd-rating`, `.vd-rating-star`
@@ -449,12 +449,15 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `js/vanduo.js` — global JS entry (manual init)
 - `js/index.js` — bundled JS entry (imports all component JS)
 - `css/core/` — tokens, colors, typography, grid
-- `css/components/` — 46 component stylesheets
+- `css/components/` — 47 component stylesheets
 - `css/effects/glass.css` — frosted glass effect system (new in v1.3.4)
 - `css/effects/morph.css` — water morph effect (new in v1.3.5)
+- `css/components/expanding-cards.css` — expanding flex image strip (new in v1.3.7, MIT CodePen adaptation)
 - `js/components/glass.js` — scroll-activated glass via IntersectionObserver (new in v1.3.4)
 - `js/components/morph.js` — water morph click handler and programmatic API (new in v1.3.5)
-- `js/components/` — 37 component scripts
+- `js/components/expanding-cards.js` — expanding cards click + keyboard focus (new in v1.3.7)
+- `js/components/timeline.js` — timeline reveal: `IntersectionObserver` for scroll mode, or playback controls for `.vd-timeline-playback` (staggered `.is-revealed` on `.vd-timeline-animated`; new in v1.3.7)
+- `js/components/` — 38 component scripts
 - `css/utilities/` — shadows, tables, transitions, transforms
 - `dist/` — production-ready minified build
 

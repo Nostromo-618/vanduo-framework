@@ -7,7 +7,126 @@
   'use strict';
 
   const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function escapeRegexChar(c) {
+    return c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function buildParseFormat(format) {
+    let regex = '^';
+    const order = [];
+    let i = 0;
+    while (i < format.length) {
+      const slice = format.slice(i).toLowerCase();
+      if (slice.startsWith('yyyy')) {
+        regex += '(\\d{4})';
+        order.push('y');
+        i += 4;
+      } else if (slice.startsWith('mm')) {
+        regex += '(\\d{2})';
+        order.push('m');
+        i += 2;
+      } else if (slice.startsWith('dd')) {
+        regex += '(\\d{2})';
+        order.push('d');
+        i += 2;
+      } else {
+        regex += escapeRegexChar(format[i]);
+        i++;
+      }
+    }
+    regex += '$';
+    return { regex: new RegExp(regex), order };
+  }
+
+  function parseDateFromFormat(value, format) {
+    if (!value || !format) return null;
+    const { regex, order } = buildParseFormat(format);
+    const m = value.trim().match(regex);
+    if (!m) return null;
+    let y;
+    let mo;
+    let d;
+    let ci = 1;
+    for (let k = 0; k < order.length; k++) {
+      const part = order[k];
+      const v = parseInt(m[ci++], 10);
+      if (Number.isNaN(v)) return null;
+      if (part === 'y') y = v;
+      else if (part === 'm') mo = v - 1;
+      else if (part === 'd') d = v;
+    }
+    if (y === undefined || mo === undefined || d === undefined) return null;
+    const dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+
+  function formatDate(d, format) {
+    const yyyy = String(d.getFullYear());
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    let out = '';
+    let i = 0;
+    while (i < format.length) {
+      const slice = format.slice(i).toLowerCase();
+      if (slice.startsWith('yyyy')) {
+        out += yyyy;
+        i += 4;
+      } else if (slice.startsWith('mm')) {
+        out += mm;
+        i += 2;
+      } else if (slice.startsWith('dd')) {
+        out += dd;
+        i += 2;
+      } else {
+        out += format[i];
+        i++;
+      }
+    }
+    return out;
+  }
+
+  function dateKey(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function addDays(d, n) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() + n);
+    return x;
+  }
+
+  function addMonthsClamped(d, n) {
+    return new Date(d.getFullYear(), d.getMonth() + n, d.getDate());
+  }
+
+  function parseYmdLocal(ymd) {
+    if (!ymd || typeof ymd !== 'string') return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd.trim());
+    if (!m) return null;
+    const y = +m[1];
+    const mo = +m[2] - 1;
+    const day = +m[3];
+    const dt = new Date(y, mo, day);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== day) return null;
+    return dt;
+  }
+
+  function startOfWeekSunday(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    x.setDate(x.getDate() - day);
+    return x;
+  }
+
+  function endOfWeekSunday(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    x.setDate(x.getDate() + (6 - day));
+    return x;
+  }
 
   const Datepicker = {
     instances: new Map(),
@@ -22,33 +141,79 @@
 
     initInstance: function (input) {
       const cleanup = [];
-      const format = input.getAttribute('data-vd-datepicker-format') || 'yyyy-mm-dd';
+      const format = input.getAttribute('data-vd-datepicker-format') || 'YYYY-MM-DD';
       const minStr = input.getAttribute('data-vd-datepicker-min');
       const maxStr = input.getAttribute('data-vd-datepicker-max');
-      const minDate = minStr ? new Date(minStr) : null;
-      const maxDate = maxStr ? new Date(maxStr) : null;
+      const minDate = minStr ? parseYmdLocal(minStr) : null;
+      const maxDate = maxStr ? parseYmdLocal(maxStr) : null;
 
       const today = new Date();
       let viewYear = today.getFullYear();
       let viewMonth = today.getMonth();
       let selectedDate = null;
       let viewMode = 'days'; // days | months | years
+      let focusedDate = null;
+      /** Prevents focus() after close from immediately re-opening the popup */
+      let skipNextFocusOpen = false;
 
-      // Parse existing value
+      const isDisabled = (d) => {
+        if (minDate) {
+          const t = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+          if (t < minDate.getTime()) return true;
+        }
+        if (maxDate) {
+          const t = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+          if (t > maxDate.getTime()) return true;
+        }
+        return false;
+      };
+
+      const ensureMonthInRange = (y, m) => {
+        if (!minDate && !maxDate) return { y: y, m: m };
+        const first = new Date(y, m, 1);
+        const last = new Date(y, m + 1, 0);
+        if (minDate && last.getTime() < minDate.getTime()) {
+          return { y: minDate.getFullYear(), m: minDate.getMonth() };
+        }
+        if (maxDate && first.getTime() > maxDate.getTime()) {
+          return { y: maxDate.getFullYear(), m: maxDate.getMonth() };
+        }
+        return { y: y, m: m };
+      };
+
+      const firstSelectableInMonth = (y, m) => {
+        const last = new Date(y, m + 1, 0).getDate();
+        for (let day = 1; day <= last; day++) {
+          const dt = new Date(y, m, day);
+          if (!isDisabled(dt)) return dt;
+        }
+        return new Date(y, m, 1);
+      };
+
       if (input.value) {
-        const parsed = new Date(input.value);
-        if (!isNaN(parsed.getTime())) {
+        const trimmed = input.value.trim();
+        let parsed = parseDateFromFormat(trimmed, format);
+        if (!parsed) {
+          const fallback = new Date(trimmed);
+          if (!isNaN(fallback.getTime())) parsed = fallback;
+        }
+        if (parsed) {
           selectedDate = parsed;
           viewYear = parsed.getFullYear();
           viewMonth = parsed.getMonth();
         }
       }
 
+      const clampedInit = ensureMonthInRange(viewYear, viewMonth);
+      viewYear = clampedInit.y;
+      viewMonth = clampedInit.m;
+
       // Create popup
       const popup = document.createElement('div');
       popup.className = 'vd-datepicker-popup';
       popup.setAttribute('role', 'dialog');
       popup.setAttribute('aria-label', 'Choose date');
+      popup.tabIndex = -1;
 
       const wrapper = document.createElement('div');
       wrapper.className = 'vd-suggest-wrapper';
@@ -58,23 +223,93 @@
       wrapper.appendChild(input);
       wrapper.appendChild(popup);
 
-      const formatDate = (d) => {
-        const yyyy = d.getFullYear();
-        const mm = String(d.getMonth() + 1).padStart(2, '0');
-        const dd = String(d.getDate()).padStart(2, '0');
-        return format.replace('yyyy', yyyy).replace('mm', mm).replace('dd', dd);
-      };
-
-      const isDisabled = (d) => {
-        if (minDate && d < minDate) return true;
-        if (maxDate && d > maxDate) return true;
-        return false;
-      };
-
       const isSameDay = (a, b) => a && b &&
         a.getFullYear() === b.getFullYear() &&
         a.getMonth() === b.getMonth() &&
         a.getDate() === b.getDate();
+
+      const selectDate = (date) => {
+        selectedDate = date;
+        viewYear = date.getFullYear();
+        viewMonth = date.getMonth();
+        input.value = formatDate(date, format);
+        skipNextFocusOpen = true;
+        close();
+        input.dispatchEvent(new CustomEvent('datepicker:select', {
+          detail: { date: date, formatted: input.value },
+          bubbles: true
+        }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        input.focus();
+      };
+
+      const focusFocusedDay = () => {
+        if (viewMode !== 'days' || !focusedDate) return;
+        const key = dateKey(focusedDate);
+        const btn = popup.querySelector('[data-vd-date="' + key + '"]');
+        if (btn && !btn.classList.contains('is-outside') && btn.getAttribute('aria-disabled') !== 'true') {
+          btn.focus();
+        }
+      };
+
+      const skipDisabled = (d, stepDir, maxSteps) => {
+        let x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const step = stepDir > 0 ? 1 : -1;
+        for (let i = 0; i < maxSteps; i++) {
+          if (!isDisabled(x)) return x;
+          x = addDays(x, step);
+        }
+        return d;
+      };
+
+      const createDayBtn = (day, outside, date) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'vd-datepicker-day';
+        btn.textContent = day;
+        btn.setAttribute('role', 'gridcell');
+
+        if (outside) {
+          btn.classList.add('is-outside');
+          btn.tabIndex = -1;
+          btn.setAttribute('aria-disabled', 'true');
+          return btn;
+        }
+
+        btn.setAttribute('data-vd-date', dateKey(date));
+
+        if (date && isSameDay(date, today)) btn.classList.add('is-today');
+        if (date && isSameDay(date, selectedDate)) btn.classList.add('is-selected');
+        if (date && isDisabled(date)) {
+          btn.classList.add('is-disabled');
+          btn.setAttribute('aria-disabled', 'true');
+          btn.tabIndex = -1;
+          return btn;
+        }
+
+        if (date) {
+          const isFocused = focusedDate && isSameDay(date, focusedDate);
+          btn.tabIndex = isFocused ? 0 : -1;
+
+          btn.addEventListener('click', () => {
+            selectedDate = date;
+            viewYear = date.getFullYear();
+            viewMonth = date.getMonth();
+            focusedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            input.value = formatDate(date, format);
+            skipNextFocusOpen = true;
+            close();
+            input.dispatchEvent(new CustomEvent('datepicker:select', {
+              detail: { date: date, formatted: input.value },
+              bubbles: true
+            }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            input.focus();
+          });
+        }
+
+        return btn;
+      };
 
       const render = () => {
         popup.innerHTML = '';
@@ -121,46 +356,61 @@
         popup.appendChild(header);
 
         if (viewMode === 'days') {
-          // Weekday headers
+          const gridWrap = document.createElement('div');
+          gridWrap.className = 'vd-datepicker-grid';
+          gridWrap.setAttribute('role', 'grid');
+          gridWrap.setAttribute('aria-label', 'Calendar');
+
           const weekdays = document.createElement('div');
           weekdays.className = 'vd-datepicker-weekdays';
-          DAYS.forEach(d => {
+          weekdays.setAttribute('role', 'row');
+          DAYS.forEach(function (d) {
             const span = document.createElement('span');
+            span.setAttribute('role', 'columnheader');
+            span.setAttribute('aria-label', d);
             span.textContent = d;
             weekdays.appendChild(span);
           });
-          popup.appendChild(weekdays);
-
-          // Days grid
-          const grid = document.createElement('div');
-          grid.className = 'vd-datepicker-days';
+          gridWrap.appendChild(weekdays);
 
           const firstDay = new Date(viewYear, viewMonth, 1).getDay();
           const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
           const daysInPrev = new Date(viewYear, viewMonth, 0).getDate();
 
-          // Previous month padding
+          const cells = [];
+
           for (let i = firstDay - 1; i >= 0; i--) {
-            const btn = createDayBtn(daysInPrev - i, true);
-            grid.appendChild(btn);
+            const dayNum = daysInPrev - i;
+            const prevMonth = viewMonth === 0 ? 11 : viewMonth - 1;
+            const prevYear = viewMonth === 0 ? viewYear - 1 : viewYear;
+            const date = new Date(prevYear, prevMonth, dayNum);
+            cells.push({ day: dayNum, outside: true, date: date });
           }
 
-          // Current month
           for (let d = 1; d <= daysInMonth; d++) {
             const date = new Date(viewYear, viewMonth, d);
-            const btn = createDayBtn(d, false, date);
-            grid.appendChild(btn);
+            cells.push({ day: d, outside: false, date: date });
           }
 
-          // Next month padding
           const totalCells = firstDay + daysInMonth;
           const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
           for (let i = 1; i <= remaining; i++) {
-            const btn = createDayBtn(i, true);
-            grid.appendChild(btn);
+            const date = new Date(viewYear, viewMonth + 1, i);
+            cells.push({ day: i, outside: true, date: date });
           }
 
-          popup.appendChild(grid);
+          for (let r = 0; r < cells.length; r += 7) {
+            const row = document.createElement('div');
+            row.className = 'vd-datepicker-row';
+            row.setAttribute('role', 'row');
+            for (let c = 0; c < 7; c++) {
+              const cell = cells[r + c];
+              row.appendChild(createDayBtn(cell.day, cell.outside, cell.date));
+            }
+            gridWrap.appendChild(row);
+          }
+
+          popup.appendChild(gridWrap);
         } else if (viewMode === 'months') {
           const grid = document.createElement('div');
           grid.className = 'vd-datepicker-months';
@@ -194,47 +444,105 @@
         }
       };
 
-      const createDayBtn = (day, outside, date) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'vd-datepicker-day';
-        btn.textContent = day;
+      const handleGridKeydown = (e) => {
+        if (!popup.classList.contains('is-open') || viewMode !== 'days') return;
+        const grid = popup.querySelector('.vd-datepicker-grid');
+        if (!grid || !grid.contains(e.target)) return;
 
-        if (outside) {
-          btn.classList.add('is-outside');
-          btn.tabIndex = -1;
-          return btn;
+        const key = e.key;
+        if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'ArrowUp' && key !== 'ArrowDown' &&
+            key !== 'Home' && key !== 'End' && key !== 'PageUp' && key !== 'PageDown' &&
+            key !== 'Enter' && key !== ' ' && key !== 'Escape') {
+          return;
         }
 
-        if (date && isSameDay(date, today)) btn.classList.add('is-today');
-        if (date && isSameDay(date, selectedDate)) btn.classList.add('is-selected');
-        if (date && isDisabled(date)) {
-          btn.classList.add('is-disabled');
-          return btn;
+        if (key === 'Escape') {
+          e.preventDefault();
+          e.stopPropagation();
+          skipNextFocusOpen = true;
+          close();
+          input.focus();
+          return;
         }
 
-        if (date) {
-          btn.addEventListener('click', () => {
-            selectedDate = date;
-            viewYear = date.getFullYear();
-            viewMonth = date.getMonth();
-            input.value = formatDate(date);
-            close();
-            input.dispatchEvent(new CustomEvent('datepicker:select', {
-              detail: { date, formatted: input.value },
-              bubbles: true
-            }));
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-          });
+        if (!focusedDate) {
+          focusedDate = firstSelectableInMonth(viewYear, viewMonth);
         }
 
-        return btn;
+        if (key === 'Enter' || key === ' ') {
+          e.preventDefault();
+          if (focusedDate && !isDisabled(focusedDate)) {
+            selectDate(new Date(focusedDate.getFullYear(), focusedDate.getMonth(), focusedDate.getDate()));
+          }
+          return;
+        }
+
+        e.preventDefault();
+
+        let next = new Date(focusedDate.getFullYear(), focusedDate.getMonth(), focusedDate.getDate());
+        let skipDir = 1;
+
+        if (key === 'ArrowLeft') {
+          next = addDays(next, -1);
+          skipDir = -1;
+        } else if (key === 'ArrowRight') {
+          next = addDays(next, 1);
+          skipDir = 1;
+        } else if (key === 'ArrowUp') {
+          next = addDays(next, -7);
+          skipDir = -1;
+        } else if (key === 'ArrowDown') {
+          next = addDays(next, 7);
+          skipDir = 1;
+        } else if (key === 'Home') {
+          next = startOfWeekSunday(next);
+          skipDir = 1;
+        } else if (key === 'End') {
+          next = endOfWeekSunday(next);
+          skipDir = -1;
+        } else if (key === 'PageUp') {
+          next = addMonthsClamped(next, -1);
+          skipDir = -1;
+        } else if (key === 'PageDown') {
+          next = addMonthsClamped(next, 1);
+          skipDir = 1;
+        }
+
+        next = skipDisabled(next, skipDir, 400);
+
+        if (next.getMonth() !== viewMonth || next.getFullYear() !== viewYear) {
+          viewYear = next.getFullYear();
+          viewMonth = next.getMonth();
+          const cl = ensureMonthInRange(viewYear, viewMonth);
+          viewYear = cl.y;
+          viewMonth = cl.m;
+        }
+
+        focusedDate = next;
+        render();
+        requestAnimationFrame(focusFocusedDay);
       };
 
       const open = () => {
+        viewMode = 'days';
+        if (selectedDate) {
+          viewYear = selectedDate.getFullYear();
+          viewMonth = selectedDate.getMonth();
+        }
+        const cl = ensureMonthInRange(viewYear, viewMonth);
+        viewYear = cl.y;
+        viewMonth = cl.m;
+
+        if (selectedDate) {
+          focusedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+        } else {
+          focusedDate = firstSelectableInMonth(viewYear, viewMonth);
+        }
+
         render();
         popup.classList.add('is-open');
         input.setAttribute('aria-expanded', 'true');
+        requestAnimationFrame(focusFocusedDay);
       };
 
       const close = () => {
@@ -243,16 +551,29 @@
         viewMode = 'days';
       };
 
-      // Events
-      const focusHandler = () => open();
+      const focusHandler = () => {
+        if (skipNextFocusOpen) {
+          skipNextFocusOpen = false;
+          return;
+        }
+        open();
+      };
       const outsideHandler = (e) => {
         if (!wrapper.contains(e.target)) close();
       };
-      const escHandler = (e) => { if (e.key === 'Escape') close(); };
+      const escHandler = (e) => {
+        if (e.key === 'Escape' && popup.classList.contains('is-open')) {
+          skipNextFocusOpen = true;
+          close();
+          input.focus();
+        }
+      };
 
       input.addEventListener('focus', focusHandler);
       document.addEventListener('click', outsideHandler, true);
       document.addEventListener('keydown', escHandler);
+      popup.addEventListener('keydown', handleGridKeydown);
+
       input.setAttribute('aria-haspopup', 'dialog');
       input.setAttribute('aria-expanded', 'false');
       input.setAttribute('autocomplete', 'off');
@@ -260,10 +581,11 @@
       cleanup.push(
         () => input.removeEventListener('focus', focusHandler),
         () => document.removeEventListener('click', outsideHandler, true),
-        () => document.removeEventListener('keydown', escHandler)
+        () => document.removeEventListener('keydown', escHandler),
+        () => popup.removeEventListener('keydown', handleGridKeydown)
       );
 
-      this.instances.set(input, { cleanup, open, close, popup });
+      this.instances.set(input, { cleanup: cleanup, open: open, close: close, popup: popup });
     },
 
     destroy: function (el) {

@@ -23,7 +23,7 @@
 
   /* Card Shadow */
   --card-shadow: var(--shadow-sm);
-  --card-shadow-elevated: var(--shadow-sm);
+  --card-shadow-elevated: var(--shadow-md);
 
   /* Card Glow Effect - uses primary color scale */
   --card-glow-color: var(--primary-2);
@@ -34,6 +34,8 @@
 [data-theme="dark"] {
   --card-bg: var(--bg-secondary);
   --card-bg-filled: var(--bg-primary);
+  /* Stronger elevation on dark surfaces */
+  --card-shadow-elevated: var(--shadow-lg);
   /* Glow uses lighter primary shades for dark mode visibility */
   --card-glow-color: var(--primary-3);
   --card-glow-border-color: var(--primary-4);
@@ -43,6 +45,7 @@
   :root:not([data-theme]) {
     --card-bg: var(--bg-secondary);
     --card-bg-filled: var(--bg-primary);
+    --card-shadow-elevated: var(--shadow-lg);
     /* Glow uses lighter primary shades for dark mode visibility */
     --card-glow-color: var(--primary-3);
     --card-glow-border-color: var(--primary-4);
@@ -75,6 +78,13 @@
 .vd-card-elevated,
 .vd-card {
   box-shadow: var(--card-shadow-elevated);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Subtle lift on hover — skip links (they have their own hover) and non-elevated variants */
+.vd-card:not(a):not(.vd-card-outlined):not(.vd-card-filled):not(.vd-card-glass):not(.vd-card-glow):hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 /* Card Variants - Outlined */

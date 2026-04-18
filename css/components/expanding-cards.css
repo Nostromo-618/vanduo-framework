@@ -1,0 +1,215 @@
+/**
+ * Vanduo Framework — Expanding flex cards
+ *
+ * Adapted from MIT-licensed CodePen "Expanding flex cards" by Zed Dash:
+ * https://codepen.io/z-/pen/OBPJKK
+ *
+ * Usage:
+ *   <div class="vd-expanding-cards" data-vd-expanding-cards>
+ *     <div class="vd-expanding-card is-active" style="--vd-expanding-card-bg: url(...)">
+ *       <div class="vd-expanding-card-shadow"></div>
+ *       <div class="vd-expanding-card-label">...</div>
+ *     </div>
+ *   </div>
+ */
+
+.vd-expanding-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+  min-width: 600px;
+  max-width: 900px;
+  width: calc(100% - 100px);
+  height: 400px;
+}
+
+.vd-expanding-card {
+  position: relative;
+  overflow: hidden;
+  min-width: 60px;
+  margin: 10px;
+  flex-grow: 1;
+  border-radius: 30px;
+  cursor: pointer;
+  background: var(--vd-expanding-card-bg, var(--vd-expanding-card-bg-default, #e6e9ed));
+  background-size: auto 120%;
+  background-position: center;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+
+.vd-expanding-card:nth-child(1) {
+  --vd-expanding-card-bg-default: #ed5565;
+}
+
+.vd-expanding-card:nth-child(2) {
+  --vd-expanding-card-bg-default: #fc6e51;
+}
+
+.vd-expanding-card:nth-child(3) {
+  --vd-expanding-card-bg-default: #ffce54;
+}
+
+.vd-expanding-card:nth-child(4) {
+  --vd-expanding-card-bg-default: #2ecc71;
+}
+
+.vd-expanding-card:nth-child(5) {
+  --vd-expanding-card-bg-default: #5d9cec;
+}
+
+.vd-expanding-card:nth-child(6) {
+  --vd-expanding-card-bg-default: #ac92ec;
+}
+
+.vd-expanding-card.is-active {
+  flex-grow: 10000;
+  transform: scale(1);
+  max-width: 600px;
+  margin: 0;
+  border-radius: 40px;
+  background-size: auto 100%;
+}
+
+.vd-expanding-card.is-active .vd-expanding-card-shadow {
+  box-shadow:
+    inset 0 -120px 120px -120px black,
+    inset 0 -120px 120px -100px black;
+}
+
+.vd-expanding-card.is-active .vd-expanding-card-label {
+  bottom: 20px;
+  left: 20px;
+}
+
+.vd-expanding-card.is-active .vd-expanding-card-info > div {
+  left: 0;
+  opacity: 1;
+}
+
+.vd-expanding-card:not(.is-active) {
+  flex-grow: 1;
+  border-radius: 30px;
+}
+
+.vd-expanding-card:not(.is-active) .vd-expanding-card-shadow {
+  bottom: -40px;
+  box-shadow:
+    inset 0 -120px 0 -120px black,
+    inset 0 -120px 0 -100px black;
+}
+
+.vd-expanding-card:not(.is-active) .vd-expanding-card-label {
+  bottom: 10px;
+  left: 10px;
+}
+
+.vd-expanding-card:not(.is-active) .vd-expanding-card-info > div {
+  left: 20px;
+  opacity: 0;
+}
+
+.vd-expanding-card-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+
+.vd-expanding-card-label {
+  display: flex;
+  position: absolute;
+  right: 0;
+  height: 40px;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+
+.vd-expanding-card-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #fff;
+  color: var(--vd-expanding-card-bg-default, var(--color-primary, #3b82f6));
+}
+
+.vd-expanding-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  color: #fff;
+  white-space: pre;
+}
+
+.vd-expanding-card-info > div {
+  position: relative;
+  transition:
+    0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+    opacity 0.5s ease-out;
+}
+
+.vd-expanding-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.vd-expanding-card-subtitle {
+  transition-delay: 0.1s;
+}
+
+/* Progressive hide: narrow viewports hide rightmost cards (matches original) */
+@media screen and (max-width: 718px) {
+  .vd-expanding-cards {
+    min-width: 520px;
+  }
+
+  .vd-expanding-card:nth-child(5) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 638px) {
+  .vd-expanding-cards {
+    min-width: 440px;
+  }
+
+  .vd-expanding-card:nth-child(4) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 558px) {
+  .vd-expanding-cards {
+    min-width: 360px;
+  }
+
+  .vd-expanding-card:nth-child(3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 478px) {
+  .vd-expanding-cards {
+    min-width: 280px;
+  }
+
+  .vd-expanding-card:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-expanding-card,
+  .vd-expanding-card-shadow,
+  .vd-expanding-card-label,
+  .vd-expanding-card-info > div {
+    transition: none !important;
+  }
+}

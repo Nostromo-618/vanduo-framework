@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.5 | Built: 2026-04-15T18:39:53.955Z | git:3ca4f62 | development */
+/*! Vanduo v1.3.7 | Built: 2026-04-18T11:53:11.606Z | git:ff3bb53 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -107,7 +107,7 @@
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.3.5" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.3.7" : "0.0.0-dev";
   const Vanduo2 = {
     version: VANDUO_VERSION,
     components: {},
@@ -6669,10 +6669,6 @@
           next.classList.remove("vd-morph-next");
           next.classList.add("vd-morph-current");
         }
-        el.classList.add("morph-done");
-        setTimeout(function() {
-          el.classList.remove("morph-done");
-        }, 350);
         if (typeof onComplete === "function") onComplete();
       }, duration);
     }
@@ -6681,6 +6677,303 @@
     window.Vanduo.register("morph", Morph);
   }
   window.VanduoMorph = Morph;
+})();
+
+// js/components/expanding-cards.js
+(function() {
+  "use strict";
+  const ExpandingCards = {
+    instances: /* @__PURE__ */ new Map(),
+    init: function() {
+      document.querySelectorAll(".vd-expanding-cards").forEach(function(el) {
+        if (el.getAttribute("data-vd-expanding-cards") === "manual") return;
+        if (ExpandingCards.instances.has(el)) return;
+        ExpandingCards.initContainer(el);
+      });
+    },
+    initContainer: function(container) {
+      const cleanup = [];
+      const getCards = function() {
+        return Array.prototype.slice.call(container.querySelectorAll(".vd-expanding-card"));
+      };
+      const setActive = function(card) {
+        const cards = getCards();
+        if (!card || cards.indexOf(card) === -1) return;
+        cards.forEach(function(c) {
+          c.classList.toggle("is-active", c === card);
+        });
+        card.focus({ preventScroll: true });
+      };
+      const onClick = function(e) {
+        const t = e.target;
+        const card = t.closest ? t.closest(".vd-expanding-card") : null;
+        if (!card || !container.contains(card)) return;
+        setActive(card);
+      };
+      const onKeydown = function(e) {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Home" && e.key !== "End") {
+          return;
+        }
+        const cards = getCards().filter(function(c) {
+          return c.offsetParent !== null || c.getClientRects().length > 0;
+        });
+        if (!cards.length) return;
+        const activeEl = document.activeElement;
+        let idx = cards.indexOf(activeEl);
+        if (idx < 0) {
+          idx = cards.findIndex(function(c) {
+            return c.classList.contains("is-active");
+          });
+        }
+        if (idx < 0) idx = 0;
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          setActive(cards[Math.max(0, idx - 1)]);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          setActive(cards[Math.min(cards.length - 1, idx + 1)]);
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          setActive(cards[0]);
+        } else if (e.key === "End") {
+          e.preventDefault();
+          setActive(cards[cards.length - 1]);
+        }
+      };
+      container.addEventListener("click", onClick);
+      cleanup.push(function() {
+        container.removeEventListener("click", onClick);
+      });
+      container.addEventListener("keydown", onKeydown);
+      cleanup.push(function() {
+        container.removeEventListener("keydown", onKeydown);
+      });
+      getCards().forEach(function(card) {
+        if (!card.hasAttribute("tabindex")) {
+          card.setAttribute("tabindex", "0");
+        }
+        card.setAttribute("role", "button");
+        if (!card.hasAttribute("aria-pressed")) {
+          card.setAttribute("aria-pressed", card.classList.contains("is-active") ? "true" : "false");
+        }
+      });
+      const syncAria = function() {
+        getCards().forEach(function(card) {
+          card.setAttribute("aria-pressed", card.classList.contains("is-active") ? "true" : "false");
+        });
+      };
+      const mo = new MutationObserver(syncAria);
+      mo.observe(container, { attributes: true, subtree: true, attributeFilter: ["class"] });
+      cleanup.push(function() {
+        mo.disconnect();
+      });
+      syncAria();
+      ExpandingCards.instances.set(container, { cleanup });
+    },
+    destroy: function(container) {
+      const inst = this.instances.get(container);
+      if (!inst) return;
+      inst.cleanup.forEach(function(fn) {
+        fn();
+      });
+      this.instances.delete(container);
+    },
+    destroyAll: function() {
+      this.instances.forEach(function(_, el) {
+        ExpandingCards.destroy(el);
+      });
+    }
+  };
+  if (typeof window.Vanduo !== "undefined") {
+    window.Vanduo.register("expandingCards", ExpandingCards);
+  }
+  window.VanduoExpandingCards = ExpandingCards;
+})();
+
+// js/components/timeline.js
+(function() {
+  "use strict";
+  const STAGGER_MS = 140;
+  const MAX_STAGGER_INDEX = 7;
+  const PLAY_INTERVAL_MS = 800;
+  function countRevealedPrefix(items) {
+    let count = 0;
+    for (let i = 0; i < items.length; i++) {
+      if (!items[i].classList.contains("is-revealed")) break;
+      count++;
+    }
+    return count;
+  }
+  function findPlaybackControls(container) {
+    return container.parentElement || document.body;
+  }
+  function initPlayback(container, items, cleanup) {
+    items.forEach(function(item) {
+      item.classList.remove("is-revealed");
+    });
+    const scope = findPlaybackControls(container);
+    const prevBtn = scope.querySelector("[data-vd-timeline-prev]");
+    const nextBtn = scope.querySelector("[data-vd-timeline-next]");
+    const playBtn = scope.querySelector("[data-vd-timeline-play]");
+    const pauseBtn = scope.querySelector("[data-vd-timeline-pause]");
+    let playTimer = null;
+    function updateNavButtons() {
+      const k = countRevealedPrefix(items);
+      const n = items.length;
+      if (prevBtn) {
+        const atStart = k === 0;
+        prevBtn.disabled = atStart;
+        prevBtn.setAttribute("aria-disabled", atStart ? "true" : "false");
+      }
+      if (nextBtn) {
+        const atEnd = k >= n;
+        nextBtn.disabled = atEnd;
+        nextBtn.setAttribute("aria-disabled", atEnd ? "true" : "false");
+      }
+      if (playBtn) {
+        playBtn.setAttribute("aria-pressed", playTimer ? "true" : "false");
+      }
+      if (pauseBtn) {
+        pauseBtn.disabled = !playTimer;
+      }
+    }
+    function stepNext() {
+      const k = countRevealedPrefix(items);
+      if (k < items.length) {
+        items[k].classList.add("is-revealed");
+      }
+      updateNavButtons();
+    }
+    function stepPrev() {
+      const k = countRevealedPrefix(items);
+      if (k > 0) {
+        items[k - 1].classList.remove("is-revealed");
+      }
+      updateNavButtons();
+    }
+    function play() {
+      if (playTimer) return;
+      playTimer = setInterval(function() {
+        if (countRevealedPrefix(items) >= items.length) {
+          pause();
+          return;
+        }
+        stepNext();
+      }, PLAY_INTERVAL_MS);
+      updateNavButtons();
+    }
+    function pause() {
+      if (playTimer) {
+        clearInterval(playTimer);
+        playTimer = null;
+      }
+      updateNavButtons();
+    }
+    function addClick(el, fn) {
+      if (!el) return;
+      const handler = function(e) {
+        e.preventDefault();
+        fn();
+      };
+      el.addEventListener("click", handler);
+      cleanup.push(function() {
+        el.removeEventListener("click", handler);
+      });
+    }
+    addClick(prevBtn, stepPrev);
+    addClick(nextBtn, stepNext);
+    addClick(playBtn, play);
+    addClick(pauseBtn, pause);
+    cleanup.push(function() {
+      pause();
+    });
+    updateNavButtons();
+    return {
+      stepNext,
+      stepPrev,
+      play,
+      pause
+    };
+  }
+  const Timeline = {
+    instances: /* @__PURE__ */ new Map(),
+    init: function() {
+      document.querySelectorAll(".vd-timeline.vd-timeline-animated").forEach(function(el) {
+        if (Timeline.instances.has(el)) return;
+        Timeline.initInstance(el);
+      });
+    },
+    reinit: function() {
+      Timeline.destroyAll();
+      Timeline.init();
+    },
+    initInstance: function(container) {
+      const cleanup = [];
+      const items = Array.prototype.filter.call(container.children, function(child) {
+        return child.classList && child.classList.contains("vd-timeline-item");
+      });
+      items.forEach(function(item, i) {
+        const idx = Math.min(i, MAX_STAGGER_INDEX);
+        item.style.setProperty("--vd-timeline-reveal-delay", idx * STAGGER_MS + "ms");
+      });
+      const reducedMotion = typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion) {
+        items.forEach(function(item) {
+          item.classList.add("is-revealed");
+        });
+        Timeline.instances.set(container, { cleanup });
+        return;
+      }
+      const playback = container.classList && container.classList.contains("vd-timeline-playback");
+      if (playback) {
+        const playbackApi = initPlayback(container, items, cleanup);
+        Timeline.instances.set(container, { cleanup, playback: playbackApi });
+        return;
+      }
+      if (typeof IntersectionObserver === "undefined") {
+        items.forEach(function(item) {
+          item.classList.add("is-revealed");
+        });
+        Timeline.instances.set(container, { cleanup });
+        return;
+      }
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        });
+      }, {
+        root: null,
+        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.15
+      });
+      items.forEach(function(item) {
+        observer.observe(item);
+      });
+      cleanup.push(function() {
+        observer.disconnect();
+      });
+      Timeline.instances.set(container, { cleanup });
+    },
+    destroy: function(container) {
+      const inst = this.instances.get(container);
+      if (!inst) return;
+      inst.cleanup.forEach(function(fn) {
+        fn();
+      });
+      this.instances.delete(container);
+    },
+    destroyAll: function() {
+      this.instances.forEach(function(_, el) {
+        Timeline.destroy(el);
+      });
+    }
+  };
+  if (typeof window.Vanduo !== "undefined") {
+    window.Vanduo.register("timeline", Timeline);
+  }
+  window.VanduoTimeline = Timeline;
 })();
 
 // js/components/flow.js
@@ -7699,6 +7992,115 @@
   "use strict";
   const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function escapeRegexChar(c) {
+    return c.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+  function buildParseFormat(format) {
+    let regex = "^";
+    const order = [];
+    let i = 0;
+    while (i < format.length) {
+      const slice = format.slice(i).toLowerCase();
+      if (slice.startsWith("yyyy")) {
+        regex += "(\\d{4})";
+        order.push("y");
+        i += 4;
+      } else if (slice.startsWith("mm")) {
+        regex += "(\\d{2})";
+        order.push("m");
+        i += 2;
+      } else if (slice.startsWith("dd")) {
+        regex += "(\\d{2})";
+        order.push("d");
+        i += 2;
+      } else {
+        regex += escapeRegexChar(format[i]);
+        i++;
+      }
+    }
+    regex += "$";
+    return { regex: new RegExp(regex), order };
+  }
+  function parseDateFromFormat(value, format) {
+    if (!value || !format) return null;
+    const { regex, order } = buildParseFormat(format);
+    const m = value.trim().match(regex);
+    if (!m) return null;
+    let y;
+    let mo;
+    let d;
+    let ci = 1;
+    for (let k = 0; k < order.length; k++) {
+      const part = order[k];
+      const v = parseInt(m[ci++], 10);
+      if (Number.isNaN(v)) return null;
+      if (part === "y") y = v;
+      else if (part === "m") mo = v - 1;
+      else if (part === "d") d = v;
+    }
+    if (y === void 0 || mo === void 0 || d === void 0) return null;
+    const dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+  function formatDate(d, format) {
+    const yyyy = String(d.getFullYear());
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    let out = "";
+    let i = 0;
+    while (i < format.length) {
+      const slice = format.slice(i).toLowerCase();
+      if (slice.startsWith("yyyy")) {
+        out += yyyy;
+        i += 4;
+      } else if (slice.startsWith("mm")) {
+        out += mm;
+        i += 2;
+      } else if (slice.startsWith("dd")) {
+        out += dd;
+        i += 2;
+      } else {
+        out += format[i];
+        i++;
+      }
+    }
+    return out;
+  }
+  function dateKey(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function addDays(d, n) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() + n);
+    return x;
+  }
+  function addMonthsClamped(d, n) {
+    return new Date(d.getFullYear(), d.getMonth() + n, d.getDate());
+  }
+  function parseYmdLocal(ymd) {
+    if (!ymd || typeof ymd !== "string") return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd.trim());
+    if (!m) return null;
+    const y = +m[1];
+    const mo = +m[2] - 1;
+    const day = +m[3];
+    const dt = new Date(y, mo, day);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== day) return null;
+    return dt;
+  }
+  function startOfWeekSunday(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    x.setDate(x.getDate() - day);
+    return x;
+  }
+  function endOfWeekSunday(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const day = x.getDay();
+    x.setDate(x.getDate() + (6 - day));
+    return x;
+  }
   const Datepicker = {
     instances: /* @__PURE__ */ new Map(),
     init: function() {
@@ -7710,28 +8112,70 @@
     },
     initInstance: function(input) {
       const cleanup = [];
-      const format = input.getAttribute("data-vd-datepicker-format") || "yyyy-mm-dd";
+      const format = input.getAttribute("data-vd-datepicker-format") || "YYYY-MM-DD";
       const minStr = input.getAttribute("data-vd-datepicker-min");
       const maxStr = input.getAttribute("data-vd-datepicker-max");
-      const minDate = minStr ? new Date(minStr) : null;
-      const maxDate = maxStr ? new Date(maxStr) : null;
+      const minDate = minStr ? parseYmdLocal(minStr) : null;
+      const maxDate = maxStr ? parseYmdLocal(maxStr) : null;
       const today = /* @__PURE__ */ new Date();
       let viewYear = today.getFullYear();
       let viewMonth = today.getMonth();
       let selectedDate = null;
       let viewMode = "days";
+      let focusedDate = null;
+      let skipNextFocusOpen = false;
+      const isDisabled = (d) => {
+        if (minDate) {
+          const t = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+          if (t < minDate.getTime()) return true;
+        }
+        if (maxDate) {
+          const t = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+          if (t > maxDate.getTime()) return true;
+        }
+        return false;
+      };
+      const ensureMonthInRange = (y, m) => {
+        if (!minDate && !maxDate) return { y, m };
+        const first = new Date(y, m, 1);
+        const last = new Date(y, m + 1, 0);
+        if (minDate && last.getTime() < minDate.getTime()) {
+          return { y: minDate.getFullYear(), m: minDate.getMonth() };
+        }
+        if (maxDate && first.getTime() > maxDate.getTime()) {
+          return { y: maxDate.getFullYear(), m: maxDate.getMonth() };
+        }
+        return { y, m };
+      };
+      const firstSelectableInMonth = (y, m) => {
+        const last = new Date(y, m + 1, 0).getDate();
+        for (let day = 1; day <= last; day++) {
+          const dt = new Date(y, m, day);
+          if (!isDisabled(dt)) return dt;
+        }
+        return new Date(y, m, 1);
+      };
       if (input.value) {
-        const parsed = new Date(input.value);
-        if (!isNaN(parsed.getTime())) {
+        const trimmed = input.value.trim();
+        let parsed = parseDateFromFormat(trimmed, format);
+        if (!parsed) {
+          const fallback = new Date(trimmed);
+          if (!isNaN(fallback.getTime())) parsed = fallback;
+        }
+        if (parsed) {
           selectedDate = parsed;
           viewYear = parsed.getFullYear();
           viewMonth = parsed.getMonth();
         }
       }
+      const clampedInit = ensureMonthInRange(viewYear, viewMonth);
+      viewYear = clampedInit.y;
+      viewMonth = clampedInit.m;
       const popup = document.createElement("div");
       popup.className = "vd-datepicker-popup";
       popup.setAttribute("role", "dialog");
       popup.setAttribute("aria-label", "Choose date");
+      popup.tabIndex = -1;
       const wrapper = document.createElement("div");
       wrapper.className = "vd-suggest-wrapper";
       wrapper.style.position = "relative";
@@ -7739,18 +8183,80 @@
       input.parentNode.insertBefore(wrapper, input);
       wrapper.appendChild(input);
       wrapper.appendChild(popup);
-      const formatDate = (d) => {
-        const yyyy = d.getFullYear();
-        const mm = String(d.getMonth() + 1).padStart(2, "0");
-        const dd = String(d.getDate()).padStart(2, "0");
-        return format.replace("yyyy", yyyy).replace("mm", mm).replace("dd", dd);
-      };
-      const isDisabled = (d) => {
-        if (minDate && d < minDate) return true;
-        if (maxDate && d > maxDate) return true;
-        return false;
-      };
       const isSameDay = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+      const selectDate = (date) => {
+        selectedDate = date;
+        viewYear = date.getFullYear();
+        viewMonth = date.getMonth();
+        input.value = formatDate(date, format);
+        skipNextFocusOpen = true;
+        close();
+        input.dispatchEvent(new CustomEvent("datepicker:select", {
+          detail: { date, formatted: input.value },
+          bubbles: true
+        }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        input.focus();
+      };
+      const focusFocusedDay = () => {
+        if (viewMode !== "days" || !focusedDate) return;
+        const key = dateKey(focusedDate);
+        const btn = popup.querySelector('[data-vd-date="' + key + '"]');
+        if (btn && !btn.classList.contains("is-outside") && btn.getAttribute("aria-disabled") !== "true") {
+          btn.focus();
+        }
+      };
+      const skipDisabled = (d, stepDir, maxSteps) => {
+        let x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const step = stepDir > 0 ? 1 : -1;
+        for (let i = 0; i < maxSteps; i++) {
+          if (!isDisabled(x)) return x;
+          x = addDays(x, step);
+        }
+        return d;
+      };
+      const createDayBtn = (day, outside, date) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "vd-datepicker-day";
+        btn.textContent = day;
+        btn.setAttribute("role", "gridcell");
+        if (outside) {
+          btn.classList.add("is-outside");
+          btn.tabIndex = -1;
+          btn.setAttribute("aria-disabled", "true");
+          return btn;
+        }
+        btn.setAttribute("data-vd-date", dateKey(date));
+        if (date && isSameDay(date, today)) btn.classList.add("is-today");
+        if (date && isSameDay(date, selectedDate)) btn.classList.add("is-selected");
+        if (date && isDisabled(date)) {
+          btn.classList.add("is-disabled");
+          btn.setAttribute("aria-disabled", "true");
+          btn.tabIndex = -1;
+          return btn;
+        }
+        if (date) {
+          const isFocused = focusedDate && isSameDay(date, focusedDate);
+          btn.tabIndex = isFocused ? 0 : -1;
+          btn.addEventListener("click", () => {
+            selectedDate = date;
+            viewYear = date.getFullYear();
+            viewMonth = date.getMonth();
+            focusedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            input.value = formatDate(date, format);
+            skipNextFocusOpen = true;
+            close();
+            input.dispatchEvent(new CustomEvent("datepicker:select", {
+              detail: { date, formatted: input.value },
+              bubbles: true
+            }));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+            input.focus();
+          });
+        }
+        return btn;
+      };
       const render = () => {
         popup.innerHTML = "";
         const header = document.createElement("div");
@@ -7820,35 +8326,53 @@
         header.appendChild(nextBtn);
         popup.appendChild(header);
         if (viewMode === "days") {
+          const gridWrap = document.createElement("div");
+          gridWrap.className = "vd-datepicker-grid";
+          gridWrap.setAttribute("role", "grid");
+          gridWrap.setAttribute("aria-label", "Calendar");
           const weekdays = document.createElement("div");
           weekdays.className = "vd-datepicker-weekdays";
-          DAYS.forEach((d) => {
+          weekdays.setAttribute("role", "row");
+          DAYS.forEach(function(d) {
             const span = document.createElement("span");
+            span.setAttribute("role", "columnheader");
+            span.setAttribute("aria-label", d);
             span.textContent = d;
             weekdays.appendChild(span);
           });
-          popup.appendChild(weekdays);
-          const grid = document.createElement("div");
-          grid.className = "vd-datepicker-days";
+          gridWrap.appendChild(weekdays);
           const firstDay = new Date(viewYear, viewMonth, 1).getDay();
           const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
           const daysInPrev = new Date(viewYear, viewMonth, 0).getDate();
+          const cells = [];
           for (let i = firstDay - 1; i >= 0; i--) {
-            const btn = createDayBtn(daysInPrev - i, true);
-            grid.appendChild(btn);
+            const dayNum = daysInPrev - i;
+            const prevMonth = viewMonth === 0 ? 11 : viewMonth - 1;
+            const prevYear = viewMonth === 0 ? viewYear - 1 : viewYear;
+            const date = new Date(prevYear, prevMonth, dayNum);
+            cells.push({ day: dayNum, outside: true, date });
           }
           for (let d = 1; d <= daysInMonth; d++) {
             const date = new Date(viewYear, viewMonth, d);
-            const btn = createDayBtn(d, false, date);
-            grid.appendChild(btn);
+            cells.push({ day: d, outside: false, date });
           }
           const totalCells = firstDay + daysInMonth;
           const remaining = totalCells % 7 === 0 ? 0 : 7 - totalCells % 7;
           for (let i = 1; i <= remaining; i++) {
-            const btn = createDayBtn(i, true);
-            grid.appendChild(btn);
+            const date = new Date(viewYear, viewMonth + 1, i);
+            cells.push({ day: i, outside: true, date });
           }
-          popup.appendChild(grid);
+          for (let r = 0; r < cells.length; r += 7) {
+            const row = document.createElement("div");
+            row.className = "vd-datepicker-row";
+            row.setAttribute("role", "row");
+            for (let c = 0; c < 7; c++) {
+              const cell = cells[r + c];
+              row.appendChild(createDayBtn(cell.day, cell.outside, cell.date));
+            }
+            gridWrap.appendChild(row);
+          }
+          popup.appendChild(gridWrap);
         } else if (viewMode === "months") {
           const grid = document.createElement("div");
           grid.className = "vd-datepicker-months";
@@ -7889,65 +8413,125 @@
           popup.appendChild(grid);
         }
       };
-      const createDayBtn = (day, outside, date) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "vd-datepicker-day";
-        btn.textContent = day;
-        if (outside) {
-          btn.classList.add("is-outside");
-          btn.tabIndex = -1;
-          return btn;
+      const handleGridKeydown = (e) => {
+        if (!popup.classList.contains("is-open") || viewMode !== "days") return;
+        const grid = popup.querySelector(".vd-datepicker-grid");
+        if (!grid || !grid.contains(e.target)) return;
+        const key = e.key;
+        if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "ArrowUp" && key !== "ArrowDown" && key !== "Home" && key !== "End" && key !== "PageUp" && key !== "PageDown" && key !== "Enter" && key !== " " && key !== "Escape") {
+          return;
         }
-        if (date && isSameDay(date, today)) btn.classList.add("is-today");
-        if (date && isSameDay(date, selectedDate)) btn.classList.add("is-selected");
-        if (date && isDisabled(date)) {
-          btn.classList.add("is-disabled");
-          return btn;
+        if (key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          skipNextFocusOpen = true;
+          close();
+          input.focus();
+          return;
         }
-        if (date) {
-          btn.addEventListener("click", () => {
-            selectedDate = date;
-            viewYear = date.getFullYear();
-            viewMonth = date.getMonth();
-            input.value = formatDate(date);
-            close();
-            input.dispatchEvent(new CustomEvent("datepicker:select", {
-              detail: { date, formatted: input.value },
-              bubbles: true
-            }));
-            input.dispatchEvent(new Event("change", { bubbles: true }));
-          });
+        if (!focusedDate) {
+          focusedDate = firstSelectableInMonth(viewYear, viewMonth);
         }
-        return btn;
+        if (key === "Enter" || key === " ") {
+          e.preventDefault();
+          if (focusedDate && !isDisabled(focusedDate)) {
+            selectDate(new Date(focusedDate.getFullYear(), focusedDate.getMonth(), focusedDate.getDate()));
+          }
+          return;
+        }
+        e.preventDefault();
+        let next = new Date(focusedDate.getFullYear(), focusedDate.getMonth(), focusedDate.getDate());
+        let skipDir = 1;
+        if (key === "ArrowLeft") {
+          next = addDays(next, -1);
+          skipDir = -1;
+        } else if (key === "ArrowRight") {
+          next = addDays(next, 1);
+          skipDir = 1;
+        } else if (key === "ArrowUp") {
+          next = addDays(next, -7);
+          skipDir = -1;
+        } else if (key === "ArrowDown") {
+          next = addDays(next, 7);
+          skipDir = 1;
+        } else if (key === "Home") {
+          next = startOfWeekSunday(next);
+          skipDir = 1;
+        } else if (key === "End") {
+          next = endOfWeekSunday(next);
+          skipDir = -1;
+        } else if (key === "PageUp") {
+          next = addMonthsClamped(next, -1);
+          skipDir = -1;
+        } else if (key === "PageDown") {
+          next = addMonthsClamped(next, 1);
+          skipDir = 1;
+        }
+        next = skipDisabled(next, skipDir, 400);
+        if (next.getMonth() !== viewMonth || next.getFullYear() !== viewYear) {
+          viewYear = next.getFullYear();
+          viewMonth = next.getMonth();
+          const cl = ensureMonthInRange(viewYear, viewMonth);
+          viewYear = cl.y;
+          viewMonth = cl.m;
+        }
+        focusedDate = next;
+        render();
+        requestAnimationFrame(focusFocusedDay);
       };
       const open = () => {
+        viewMode = "days";
+        if (selectedDate) {
+          viewYear = selectedDate.getFullYear();
+          viewMonth = selectedDate.getMonth();
+        }
+        const cl = ensureMonthInRange(viewYear, viewMonth);
+        viewYear = cl.y;
+        viewMonth = cl.m;
+        if (selectedDate) {
+          focusedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+        } else {
+          focusedDate = firstSelectableInMonth(viewYear, viewMonth);
+        }
         render();
         popup.classList.add("is-open");
         input.setAttribute("aria-expanded", "true");
+        requestAnimationFrame(focusFocusedDay);
       };
       const close = () => {
         popup.classList.remove("is-open");
         input.setAttribute("aria-expanded", "false");
         viewMode = "days";
       };
-      const focusHandler = () => open();
+      const focusHandler = () => {
+        if (skipNextFocusOpen) {
+          skipNextFocusOpen = false;
+          return;
+        }
+        open();
+      };
       const outsideHandler = (e) => {
         if (!wrapper.contains(e.target)) close();
       };
       const escHandler = (e) => {
-        if (e.key === "Escape") close();
+        if (e.key === "Escape" && popup.classList.contains("is-open")) {
+          skipNextFocusOpen = true;
+          close();
+          input.focus();
+        }
       };
       input.addEventListener("focus", focusHandler);
       document.addEventListener("click", outsideHandler, true);
       document.addEventListener("keydown", escHandler);
+      popup.addEventListener("keydown", handleGridKeydown);
       input.setAttribute("aria-haspopup", "dialog");
       input.setAttribute("aria-expanded", "false");
       input.setAttribute("autocomplete", "off");
       cleanup.push(
         () => input.removeEventListener("focus", focusHandler),
         () => document.removeEventListener("click", outsideHandler, true),
-        () => document.removeEventListener("keydown", escHandler)
+        () => document.removeEventListener("keydown", escHandler),
+        () => popup.removeEventListener("keydown", handleGridKeydown)
       );
       this.instances.set(input, { cleanup, open, close, popup });
     },

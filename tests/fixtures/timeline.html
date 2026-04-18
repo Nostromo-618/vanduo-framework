@@ -41,5 +41,32 @@
     <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Event A</h4></div></li>
     <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Event B</h4></div></li>
   </ul>
+
+  <!-- Alternating + animated (playback scope = parent only; no buttons here so items stay hidden for CSS tests) -->
+  <div id="choreography-only" style="margin-top:3rem;">
+    <ul id="choreography-alt" class="vd-timeline vd-timeline-alternating vd-timeline-animated vd-timeline-playback">
+      <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Left</h4></div></li>
+      <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">Right</h4></div></li>
+    </ul>
+  </div>
+
+  <!-- Playback (controls + stepped reveal) -->
+  <div id="playback-wrap" style="margin-top:3rem;">
+    <div class="vd-btn-group" role="toolbar" aria-label="Timeline playback test">
+      <button type="button" id="pb-prev" class="vd-btn vd-btn-outline-secondary vd-btn-sm" data-vd-timeline-prev aria-label="Previous">Prev</button>
+      <button type="button" id="pb-next" class="vd-btn vd-btn-outline-secondary vd-btn-sm" data-vd-timeline-next aria-label="Next">Next</button>
+      <button type="button" id="pb-play" class="vd-btn vd-btn-outline-secondary vd-btn-sm" data-vd-timeline-play aria-label="Play">Play</button>
+      <button type="button" id="pb-pause" class="vd-btn vd-btn-outline-secondary vd-btn-sm" data-vd-timeline-pause aria-label="Pause" disabled>Pause</button>
+    </div>
+    <ul id="playback-timeline" class="vd-timeline vd-timeline-animated vd-timeline-playback">
+      <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">P1</h4></div></li>
+      <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">P2</h4></div></li>
+      <li class="vd-timeline-item"><div class="vd-timeline-marker"></div><div class="vd-timeline-content"><h4 class="vd-timeline-title">P3</h4></div></li>
+    </ul>
+  </div>
+
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/timeline.js"></script>
+  <script>Vanduo.init();</script>
 </body>
 </html>

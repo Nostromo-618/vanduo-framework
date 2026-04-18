@@ -116,4 +116,56 @@ test.describe('Datepicker Component @component', () => {
       await expect(popup).toHaveCount(0);
     });
   });
+
+  test.describe('Custom format', () => {
+    test('MM/DD/YYYY writes formatted value on pick', async ({ page }) => {
+      await page.click('#date-us-format');
+      await page.waitForTimeout(200);
+
+      const popup = page.locator('.vd-datepicker-popup.is-open');
+      const day7 = popup.locator('.vd-datepicker-day:not(.is-outside):not(.is-disabled)').filter({ hasText: /^7$/ });
+      await day7.first().click();
+      await page.waitForTimeout(200);
+
+      const value = await page.locator('#date-us-format').inputValue();
+      expect(value).toMatch(/^\d{2}\/\d{2}\/\d{4}$/);
+      expect(value.split('/')[0]).toMatch(/^(0[1-9]|1[0-2])$/);
+    });
+
+    test('DD.MM.YYYY pre-selected value highlights correct day', async ({ page }) => {
+      await page.click('#date-de-format');
+      await page.waitForTimeout(200);
+
+      const popup = page.locator('.vd-datepicker-popup.is-open');
+      const selected = popup.locator('.vd-datepicker-day.is-selected');
+      await expect(selected.first()).toHaveText('15');
+    });
+  });
+
+  test.describe('Min / max', () => {
+    test('disabled in-range days expose aria-disabled', async ({ page }) => {
+      await page.click('#date-partial-range');
+      await page.waitForTimeout(200);
+
+      const popup = page.locator('.vd-datepicker-popup.is-open');
+      const disabled = popup.locator('[data-vd-date="2025-06-25"]');
+      await expect(disabled).toHaveAttribute('aria-disabled', 'true');
+      await expect(disabled).toHaveClass(/is-disabled/);
+    });
+  });
+
+  test.describe('Keyboard navigation', () => {
+    test('ArrowRight then Enter selects focused date', async ({ page }) => {
+      await page.click('#date-basic');
+      await page.waitForTimeout(200);
+
+      await page.keyboard.press('ArrowRight');
+      await page.waitForTimeout(100);
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(200);
+
+      const value = await page.locator('#date-basic').inputValue();
+      expect(value).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    });
+  });
 });

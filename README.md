@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.5
+# Vanduo Framework v1.3.7
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -12,7 +12,7 @@
 
 **Essential just like water is.**
 
-Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS, and JavaScript. It ships 46+ components, responsive utilities, dark mode support, and a flexible theming system.
+Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS, and JavaScript. It ships 47+ components, responsive utilities, dark mode support, and a flexible theming system.
 
 [Browse Docs](https://vanduo.dev/#docs)
 
@@ -20,6 +20,7 @@ Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS,
 
 - Pure CSS/JS with no runtime dependencies
 - Modular architecture with optional per-component imports
+- 47+ components, including Expanding Cards and animated Timeline controls in v1.3.7
 - Built-in dark/light/system theme switching
 - Runtime Theme Customizer for color, font, and radius tokens
 - Accessibility-focused components and utilities
@@ -29,8 +30,8 @@ Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS,
 ### CDN (recommended)
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.5/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.5/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 

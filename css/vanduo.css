@@ -29,6 +29,7 @@
 @import url('components/buttons.css');
 @import url('components/forms.css');
 @import url('components/cards.css');
+@import url('components/expanding-cards.css');
 
 /* Components - Phase 3 */
 @import url('components/navbar.css');

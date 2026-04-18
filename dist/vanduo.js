@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.7 | Built: 2026-04-18T11:53:11.606Z | git:ff3bb53 | development */
+/*! Vanduo v1.3.7 | Built: 2026-04-18T12:05:32.603Z | git:20b2d08 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -8000,16 +8000,16 @@
       const order = [];
       let i = 0;
       while (i < format.length) {
-        const slice = format.slice(i).toLowerCase();
-        if (slice.startsWith("yyyy")) {
+        const slice = format.slice(i);
+        if (slice.toLowerCase().startsWith("yyyy")) {
           regex += "(\\d{4})";
           order.push("y");
           i += 4;
-        } else if (slice.startsWith("mm")) {
+        } else if (slice.toLowerCase().startsWith("mm")) {
           regex += "(\\d{2})";
           order.push("m");
           i += 2;
-        } else if (slice.startsWith("dd")) {
+        } else if (slice.toLowerCase().startsWith("dd")) {
           regex += "(\\d{2})";
           order.push("d");
           i += 2;
@@ -8050,14 +8050,14 @@
       let out = "";
       let i = 0;
       while (i < format.length) {
-        const slice = format.slice(i).toLowerCase();
-        if (slice.startsWith("yyyy")) {
+        const slice = format.slice(i);
+        if (slice.toLowerCase().startsWith("yyyy")) {
           out += yyyy;
           i += 4;
-        } else if (slice.startsWith("mm")) {
+        } else if (slice.toLowerCase().startsWith("mm")) {
           out += mm;
           i += 2;
-        } else if (slice.startsWith("dd")) {
+        } else if (slice.toLowerCase().startsWith("dd")) {
           out += dd;
           i += 2;
         } else {

@@ -17,6 +17,22 @@
     return div.innerHTML;
   }
 
+  /**
+   * Allow same-origin URLs by default, or an explicit allowlist of origins.
+   * @param {string} url
+   * @param {string[]} allowlist
+   * @returns {boolean}
+   */
+  function _isSafeUrl(url, allowlist) {
+    try {
+      const resolved = new URL(url, window.location.href);
+      if (resolved.origin === window.location.origin) return true;
+      return allowlist.includes(resolved.origin);
+    } catch (_e) {
+      return false;
+    }
+  }
+
   const Suggest = {
     instances: new Map(),
 
@@ -32,6 +48,11 @@
       const cleanup = [];
       const minChars = parseInt(input.getAttribute('data-vd-suggest-min-chars') || '1', 10);
       const url = input.getAttribute('data-vd-suggest-url') || '';
+      const allowlistAttr = input.getAttribute('data-vd-suggest-allowlist') || '';
+      const allowlist = allowlistAttr
+        .split(',')
+        .map(value => value.trim())
+        .filter(Boolean);
       const staticData = input.getAttribute('data-vd-suggest') || input.getAttribute('data-vd-autocomplete') || '';
       let items = [];
 
@@ -141,9 +162,14 @@
         let filtered;
         if (url) {
           try {
-            const separator = url.includes('?') ? '&' : '?';
-            const res = await window.fetch(url + separator + 'q=' + encodeURIComponent(query));
-            filtered = await res.json();
+            if (!_isSafeUrl(url, allowlist)) {
+              console.warn('[VanduoSuggest] Blocked non-allowlisted URL:', url);
+              filtered = [];
+            } else {
+              const separator = url.includes('?') ? '&' : '?';
+              const res = await window.fetch(url + separator + 'q=' + encodeURIComponent(query));
+              filtered = await res.json();
+            }
           } catch (_e) {
             filtered = [];
           }

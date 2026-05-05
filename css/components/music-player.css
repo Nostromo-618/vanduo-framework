@@ -40,6 +40,16 @@
 
   /* Transitions */
   --music-player-transition: 0.15s ease;
+
+  /* Glass (uses framework glass tokens; music-player-glass can override) */
+  --music-player-glass-bg: var(--vd-glass-bg-light, rgba(255, 255, 255, 0.72));
+  --music-player-glass-border: var(--vd-glass-border-light, rgba(255, 255, 255, 0.5));
+  --music-player-glass-shadow: var(--vd-glass-shadow, 0 4px 24px rgba(0, 0, 0, 0.12));
+  --music-player-floating-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  --music-player-floating-z: 10050;
+  --music-player-floating-offset: 1rem;
+  --music-player-toolbar-gap: 0.375rem;
+  --music-player-handle-size: 1.5rem;
 }
 
 /* Dark Theme */
@@ -48,6 +58,8 @@
   --music-player-bg-secondary: var(--color-gray-800);
   --music-player-btn-hover-bg: var(--color-gray-700);
   --music-player-playlist-hover: var(--color-gray-700);
+  --music-player-glass-bg: var(--vd-glass-bg-dark, rgba(30, 30, 40, 0.72));
+  --music-player-glass-border: var(--vd-glass-border-dark, rgba(255, 255, 255, 0.14));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,6 +68,8 @@
     --music-player-bg-secondary: var(--color-gray-800);
     --music-player-btn-hover-bg: var(--color-gray-700);
     --music-player-playlist-hover: var(--color-gray-700);
+    --music-player-glass-bg: var(--vd-glass-bg-dark, rgba(30, 30, 40, 0.72));
+    --music-player-glass-border: var(--vd-glass-border-dark, rgba(255, 255, 255, 0.14));
   }
 }
 
@@ -544,8 +558,209 @@
 }
 
 /* ============================================================
+   Glass variant — frosted surface (aligns with effects/glass.css)
+   ============================================================ */
+
+.vd-music-player-glass {
+  position: relative;
+  overflow: hidden;
+  background: var(--music-player-glass-bg);
+  border-color: var(--music-player-glass-border);
+  box-shadow: var(--music-player-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur, 12px)) saturate(var(--vd-glass-saturate, 1.8));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur, 12px)) saturate(var(--vd-glass-saturate, 1.8));
+  isolation: isolate;
+}
+
+.vd-music-player-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, var(--vd-glass-highlight-alpha, 0.12)) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.vd-music-player-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+  opacity: var(--vd-glass-noise-opacity, 0.12);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.vd-music-player-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vd-music-player-glass {
+    background: var(--music-player-bg);
+  }
+
+  .vd-music-player-glass::before,
+  .vd-music-player-glass::after {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Floating / detached — fixed overlay above page content
+   ============================================================ */
+
+.vd-music-player.vd-music-player-floating {
+  position: fixed;
+  z-index: var(--music-player-floating-z);
+  max-width: min(28rem, calc(100vw - 2 * var(--music-player-floating-offset)));
+  width: min(28rem, calc(100vw - 2 * var(--music-player-floating-offset)));
+  margin: 0;
+  box-shadow: var(--music-player-floating-shadow);
+  transition:
+    box-shadow var(--music-player-transition),
+    transform var(--music-player-transition);
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-left,
+.vd-music-player-floating.vd-music-player-floating-bottom-right {
+  bottom: var(--music-player-floating-offset);
+  top: auto;
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-left {
+  left: var(--music-player-floating-offset);
+  right: auto;
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-right {
+  right: var(--music-player-floating-offset);
+  left: auto;
+}
+
+.vd-music-player-floating:hover {
+  box-shadow: var(--vd-glass-float-shadow, 0 14px 42px rgba(0, 0, 0, 0.2));
+}
+
+/* Custom coordinates (set via JS) override corner presets */
+.vd-music-player-floating.is-position-custom {
+  top: var(--music-player-floating-top, 1rem) !important;
+  left: var(--music-player-floating-left, 1rem) !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+/* ============================================================
+   Toolbar — drag handle, detach, minimize
+   ============================================================ */
+
+.vd-music-player-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--music-player-toolbar-gap);
+  margin: calc(-0.25rem) calc(-0.25rem) 0.5rem calc(-0.25rem);
+  min-height: var(--music-player-handle-size);
+  position: relative;
+  z-index: 2;
+}
+
+.vd-music-player-drag-handle {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: var(--music-player-handle-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--music-player-border-radius);
+  background: transparent;
+  color: var(--music-player-text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.vd-music-player-drag-handle:active {
+  cursor: grabbing;
+}
+
+.vd-music-player-drag-handle .ph {
+  font-size: 1.125rem;
+  pointer-events: none;
+}
+
+.vd-music-player-detached.vd-music-player-draggable .vd-music-player-drag-handle {
+  display: inline-flex;
+}
+
+.vd-music-player-toolbar-spacer {
+  flex: 1 1 auto;
+  min-width: 0.5rem;
+}
+
+.vd-music-player-btn-attach,
+.vd-music-player-btn-detach,
+.vd-music-player-btn-minimize {
+  flex-shrink: 0;
+}
+
+/* Detach: show detach when inline; after detach show attach + optional drag */
+.vd-music-player.vd-music-player-detached .vd-music-player-btn-detach {
+  display: none;
+}
+
+.vd-music-player .vd-music-player-btn-attach {
+  display: none;
+}
+
+.vd-music-player.vd-music-player-detached .vd-music-player-btn-attach {
+  display: inline-flex;
+}
+
+/* ============================================================
+   Minimized — compact transport + volume only
+   ============================================================ */
+
+.vd-music-player-minimized .vd-music-player-info,
+.vd-music-player-minimized .vd-music-player-progress,
+.vd-music-player-minimized .vd-music-player-playlist {
+  display: none !important;
+}
+
+.vd-music-player-minimized .vd-music-player-btn-shuffle,
+.vd-music-player-minimized .vd-music-player-btn-playlist {
+  display: none;
+}
+
+.vd-music-player-minimized {
+  min-width: auto;
+  max-width: min(22rem, 100vw);
+}
+
+/* ============================================================
    Reduced Motion
    ============================================================ */
+
+@media (prefers-reduced-transparency: reduce) {
+  .vd-music-player-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--music-player-bg);
+    border-color: var(--music-player-border);
+  }
+
+  .vd-music-player-glass::before,
+  .vd-music-player-glass::after {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .vd-music-player-btn,
@@ -553,8 +768,13 @@
   .vd-music-player-volume-slider::-moz-range-thumb,
   .vd-music-player-progress-bar::-webkit-slider-thumb,
   .vd-music-player-progress-bar::-moz-range-thumb,
-  .vd-music-player-playlist-item {
+  .vd-music-player-playlist-item,
+  .vd-music-player-floating {
     transition: none;
+  }
+
+  .vd-music-player-floating:hover {
+    box-shadow: var(--music-player-floating-shadow);
   }
 }
 

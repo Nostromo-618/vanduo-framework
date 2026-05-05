@@ -23,7 +23,7 @@
       PRIMARY_DARK: 'amber',
       NEUTRAL: 'neutral',
       RADIUS: '0.5',
-      FONT: 'ubuntu',
+      FONT: 'lato',
       THEME: 'system'
     },
 
@@ -64,16 +64,10 @@
     // Font options
     FONT_OPTIONS: {
       'jetbrains-mono': { name: 'JetBrains Mono', family: "'JetBrains Mono', monospace" },
-      'inter': { name: 'Inter', family: "'Inter', sans-serif" },
-      'source-sans': { name: 'Source Sans 3', family: "'Source Sans 3', sans-serif" },
-      'fira-sans': { name: 'Fira Sans', family: "'Fira Sans', sans-serif" },
-      'ibm-plex': { name: 'IBM Plex Sans', family: "'IBM Plex Sans', sans-serif" },
       'system': { name: 'System Default', family: null },
-      // Google Fonts Collection
       'ubuntu': { name: 'Ubuntu', family: "'Ubuntu', sans-serif" },
-      'open-sans': { name: 'Open Sans', family: "'Open Sans', sans-serif" },
-      'rubik': { name: 'Rubik', family: "'Rubik', sans-serif" },
-      'titillium-web': { name: 'Titillium Web', family: "'Titillium Web', sans-serif" }
+      'lato': { name: 'Lato', family: "'Lato', sans-serif" },
+      'open-sans': { name: 'Open Sans', family: "'Open Sans', sans-serif" }
     },
 
     // Theme mode options
@@ -96,6 +90,7 @@
     elements: {
       customizer: null,
       trigger: null,
+      triggers: [],
       panel: null,
       overlay: null
     },
@@ -106,6 +101,7 @@
     init: function () {
       if (this.isInitialized) {
         this.bindExistingElements();
+        this.bindTriggerEvents();
         this.bindPanelEvents();
         this.updateUI();
         return;
@@ -321,16 +317,19 @@
     bindExistingElements: function () {
       // First check for existing full structure
       this.elements.customizer = document.querySelector('.vd-theme-customizer');
+      this.elements.triggers = Array.from(document.querySelectorAll('[data-theme-customizer-trigger]'));
+      if (!this.elements.trigger && this.elements.triggers.length) {
+        this.elements.trigger = this.elements.triggers[0];
+      }
 
       if (this.elements.customizer) {
-        this.elements.trigger = this.elements.customizer.querySelector('.vd-theme-customizer-trigger');
+        this.elements.trigger = this.elements.customizer.querySelector('.vd-theme-customizer-trigger') || this.elements.trigger;
         this.elements.panel = this.elements.customizer.querySelector('.vd-theme-customizer-panel');
         this.elements.overlay = this.elements.customizer.querySelector('.vd-theme-customizer-overlay');
       } else {
-        // Look for standalone trigger button with data attribute
-        const standaloneTrigger = document.querySelector('[data-theme-customizer-trigger]');
-        if (standaloneTrigger) {
-          this.createDynamicPanel(standaloneTrigger);
+        // Look for standalone trigger buttons with data attribute
+        if (this.elements.triggers.length) {
+          this.createDynamicPanel();
         }
       }
 
@@ -341,13 +340,11 @@
     /**
      * Create the panel dynamically when only a trigger button exists
      */
-    createDynamicPanel: function (triggerButton) {
-      // Create wrapper
-      const wrapper = document.createElement('div');
-      wrapper.className = 'vd-theme-customizer';
-
-      // Move trigger into wrapper or create reference
-      this.elements.trigger = triggerButton;
+    createDynamicPanel: function () {
+      if (!this.elements.triggers.length) {
+        return;
+      }
+      this.elements.trigger = this.elements.triggers[0];
 
       // Create overlay
       const overlay = document.createElement('div');
@@ -365,7 +362,9 @@
       // Store references
       this.elements.panel = panel;
       this.elements.overlay = overlay;
-      this.elements.customizer = { contains: (el) => panel.contains(el) || triggerButton.contains(el) };
+      this.elements.customizer = {
+        contains: (el) => panel.contains(el) || this.elements.triggers.some((trigger) => trigger.contains(el))
+      };
 
       // Position panel below trigger on desktop
       this.positionPanel();
@@ -382,6 +381,7 @@
      */
     positionPanel: function () {
       if (!this.elements.panel || !this.elements.trigger) return;
+      const anchorTrigger = this.elements.activeTrigger || this.elements.trigger;
 
       const isMobile = window.innerWidth < 768;
 
@@ -394,7 +394,7 @@
         this.elements.panel.style.maxHeight = '';
       } else {
         // Desktop: position directly below the trigger button, aligned to its right edge
-        const triggerRect = this.elements.trigger.getBoundingClientRect();
+        const triggerRect = anchorTrigger.getBoundingClientRect();
         const panelWidth = 320; // --customizer-width
         const panelTop = triggerRect.bottom + 8;
 
@@ -595,14 +595,7 @@
     },
 
     bindEvents: function () {
-      // Trigger click - bind to any trigger button
-      if (this.elements.trigger) {
-        this.addListener(this.elements.trigger, 'click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          this.toggle();
-        });
-      }
+      this.bindTriggerEvents();
 
       this.bindPanelEvents();
 
@@ -637,6 +630,22 @@
       });
     },
 
+    bindTriggerEvents: function () {
+      this.elements.triggers.forEach((trigger) => {
+        if (trigger.getAttribute('data-customizer-trigger-initialized') === 'true') {
+          return;
+        }
+        this.addListener(trigger, 'click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.elements.activeTrigger = trigger;
+          this.elements.trigger = trigger;
+          this.toggle();
+        });
+        trigger.setAttribute('data-customizer-trigger-initialized', 'true');
+      });
+    },
+
     /**
      * Toggle panel open/close
      */
@@ -660,9 +669,8 @@
       if (this.elements.panel) {
         this.elements.panel.classList.add('is-open');
       }
-      if (this.elements.trigger) {
-        this.elements.trigger.setAttribute('aria-expanded', 'true');
-      }
+      this.elements.triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
+      if (this.elements.trigger) this.elements.trigger.setAttribute('aria-expanded', 'true');
       if (this.elements.overlay) {
         this.elements.overlay.classList.add('is-active');
       }
@@ -679,9 +687,7 @@
       if (this.elements.panel) {
         this.elements.panel.classList.remove('is-open');
       }
-      if (this.elements.trigger) {
-        this.elements.trigger.setAttribute('aria-expanded', 'false');
-      }
+      this.elements.triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
       if (this.elements.overlay) {
         this.elements.overlay.classList.remove('is-active');
       }

@@ -16,11 +16,12 @@
     /**
      * Sanitize HTML — delegates to shared sanitizeHtml from helpers.js
      * @param {string} input
+     * @param {{ allowSvg?: boolean }} [options]
      * @returns {string} sanitized HTML
      */
-    sanitizeHtml: function (input) {
+    sanitizeHtml: function (input, options) {
       if (typeof sanitizeHtml === 'function') {
-        return sanitizeHtml(input);
+        return sanitizeHtml(input, options);
       }
       // Fallback: strip all HTML
       const div = document.createElement('div');
@@ -92,7 +93,8 @@
       const textContent = element.dataset.tooltip;
 
       if (htmlContent) {
-        tooltip.innerHTML = this.sanitizeHtml(htmlContent);
+        const allowSvg = element.hasAttribute('data-tooltip-allow-svg');
+        tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg });
         tooltip.classList.add('vd-tooltip-html');
       } else if (textContent) {
         tooltip.textContent = textContent;
@@ -251,7 +253,8 @@
       if (el && this.tooltips.has(el)) {
         const { tooltip } = this.tooltips.get(el);
         if (isHtml) {
-          tooltip.innerHTML = this.sanitizeHtml(content);
+          const allowSvg = el.hasAttribute('data-tooltip-allow-svg');
+          tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg });
           tooltip.classList.add('vd-tooltip-html');
         } else {
           tooltip.textContent = content;

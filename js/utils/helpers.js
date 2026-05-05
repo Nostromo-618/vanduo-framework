@@ -258,9 +258,10 @@ function escapeHtml(str) {
  * Keeps a small set of tags and strips disallowed tags and attributes. Safe for
  * simple rich text (use server-side or DOMPurify for stronger guarantees).
  * @param {string} input
+ * @param {{ allowSvg?: boolean }} [options]
  * @returns {string} sanitized HTML
  */
-function sanitizeHtml(input) {
+function sanitizeHtml(input, options = {}) {
   if (!input) return '';
   let doc;
   try {
@@ -269,7 +270,10 @@ function sanitizeHtml(input) {
     // Fail closed to plain escaped text if parser is unavailable/fails.
     return escapeHtml(input);
   }
-  const allowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U', 'SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
+  const allowSvg = options && options.allowSvg === true;
+  const baseAllowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U'];
+  const svgAllowed = ['SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
+  const allowed = allowSvg ? baseAllowed.concat(svgAllowed) : baseAllowed;
 
   const sanitizeNode = function (node) {
     const children = Array.from(node.childNodes);
@@ -294,7 +298,7 @@ function sanitizeHtml(input) {
         }
         child.removeAttribute('target');
         child.removeAttribute('rel');
-      } else if (child.nodeName === 'SVG' || child.closest && child.closest('svg')) {
+      } else if (allowSvg && (child.nodeName === 'SVG' || child.closest && child.closest('svg'))) {
         // Allow safe SVG presentation attributes only
         const safeSvgAttrs = ['xmlns', 'width', 'height', 'viewBox', 'fill', 'stroke', 'stroke-width',
           'stroke-linecap', 'stroke-linejoin', 'd', 'cx', 'cy', 'r', 'x1', 'y1', 'x2', 'y2', 'points',

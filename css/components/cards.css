@@ -78,13 +78,16 @@
 .vd-card-elevated,
 .vd-card {
   box-shadow: var(--card-shadow-elevated);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  /* Fix Safari disappearing bug during transform transitions */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Subtle lift on hover — skip links (they have their own hover) and non-elevated variants */
 .vd-card:not(a):not(.vd-card-outlined):not(.vd-card-filled):not(.vd-card-glass):not(.vd-card-glow):hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
 }
 
 /* Card Variants - Outlined */
@@ -290,7 +293,7 @@ a.vd-card {
 
 a.vd-card:hover {
   text-decoration: none;
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: var(--shadow-xl);
 }
 
@@ -300,7 +303,7 @@ a.vd-card.vd-card-glow:hover {
 }
 
 a.vd-card:active {
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 /* Card Groups (for multiple cards) */

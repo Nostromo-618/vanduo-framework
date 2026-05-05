@@ -1,6 +1,6 @@
-# Vanduo Framework v1.3.7 — LLM Context
+# Vanduo Framework v1.3.8 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.7 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.8 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -57,8 +57,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.7/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.8/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.8/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -452,11 +452,11 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `css/components/` — 47 component stylesheets
 - `css/effects/glass.css` — frosted glass effect system (new in v1.3.4)
 - `css/effects/morph.css` — water morph effect (new in v1.3.5)
-- `css/components/expanding-cards.css` — expanding flex image strip (new in v1.3.7, MIT CodePen adaptation)
+- `css/components/expanding-cards.css` — expanding flex image strip (new in v1.3.8, MIT CodePen adaptation)
 - `js/components/glass.js` — scroll-activated glass via IntersectionObserver (new in v1.3.4)
 - `js/components/morph.js` — water morph click handler and programmatic API (new in v1.3.5)
-- `js/components/expanding-cards.js` — expanding cards click + keyboard focus (new in v1.3.7)
-- `js/components/timeline.js` — timeline reveal: `IntersectionObserver` for scroll mode, or playback controls for `.vd-timeline-playback` (staggered `.is-revealed` on `.vd-timeline-animated`; new in v1.3.7)
+- `js/components/expanding-cards.js` — expanding cards click + keyboard focus (new in v1.3.8)
+- `js/components/timeline.js` — timeline reveal: `IntersectionObserver` for scroll mode, or playback controls for `.vd-timeline-playback` (staggered `.is-revealed` on `.vd-timeline-animated`; new in v1.3.8)
 - `js/components/` — 38 component scripts
 - `css/utilities/` — shadows, tables, transitions, transforms
 - `dist/` — production-ready minified build

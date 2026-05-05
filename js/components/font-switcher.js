@@ -16,22 +16,6 @@
         name: 'System Default',
         family: null // Uses CSS default
       },
-      'inter': {
-        name: 'Inter',
-        family: "'Inter', sans-serif"
-      },
-      'source-sans': {
-        name: 'Source Sans 3',
-        family: "'Source Sans 3', sans-serif"
-      },
-      'fira-sans': {
-        name: 'Fira Sans',
-        family: "'Fira Sans', sans-serif"
-      },
-      'ibm-plex': {
-        name: 'IBM Plex Sans',
-        family: "'IBM Plex Sans', sans-serif"
-      },
       'jetbrains-mono': {
         name: 'JetBrains Mono',
         family: "'JetBrains Mono', monospace"
@@ -48,17 +32,11 @@
         category: 'sans-serif',
         description: 'Neutral, highly readable'
       },
-      'rubik': {
-        name: 'Rubik',
-        family: "'Rubik', sans-serif",
+      'lato': {
+        name: 'Lato',
+        family: "'Lato', sans-serif",
         category: 'sans-serif',
-        description: 'Modern, geometric'
-      },
-      'titillium-web': {
-        name: 'Titillium Web',
-        family: "'Titillium Web', sans-serif",
-        category: 'sans-serif',
-        description: 'Technical, elegant'
+        description: 'Friendly, rounded sans-serif'
       }
     },
 
@@ -66,6 +44,10 @@
       this.state = {
         preference: this.getPreference()
       };
+      if (!this.fonts[this.state.preference]) {
+        this.state.preference = 'lato';
+        this.setStorageValue(this.STORAGE_KEY, this.state.preference);
+      }
 
       if (this.isInitialized) {
         this.applyFont();
@@ -84,10 +66,10 @@
 
     /**
      * Get saved font preference from localStorage
-     * @returns {string} Font key or 'ubuntu' (default)
+     * @returns {string} Font key or 'lato' (default)
      */
     getPreference: function() {
-      return this.getStorageValue(this.STORAGE_KEY, 'ubuntu');
+      return this.getStorageValue(this.STORAGE_KEY, 'lato');
     },
 
     /**

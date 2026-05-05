@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.7 | Built: 2026-04-18T12:05:32.603Z | git:20b2d08 | development */
+/*! Vanduo v1.3.8 | Built: 2026-05-05T21:02:00.090Z | git:f7cfd78 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -1011,6 +1011,22 @@ table {
 }
 
 @font-face {
+  font-family: Lato;
+  src: url("./fonts/lato/lato-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("./fonts/lato/lato-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: Open Sans;
   src: url("./fonts/open-sans/open-sans-regular.woff2") format("woff2");
   font-weight: 400;
@@ -1082,6 +1098,14 @@ table {
   font-display: swap;
 }
 
+@font-face {
+  font-family: Zen Dots;
+  src: url("./fonts/zen-dots/zen-dots-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-family-serif: Georgia, "Times New Roman", Times, serif;
@@ -1113,8 +1137,16 @@ table {
   --font-family-sans: "Ubuntu", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+[data-font="lato"] {
+  --font-family-sans: "Lato", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 [data-font="open-sans"] {
   --font-family-sans: "Open Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-font="zen-dots"] {
+  --font-family-sans: "Zen Dots", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 [data-font="rubik"] {
@@ -4584,6 +4616,10 @@ pre code {
 
 .vd-mb-5 {
   margin-bottom: var(--spacing-5);
+}
+
+.vd-mb-6 {
+  margin-bottom: var(--spacing-6);
 }
 
 .vd-mb-8 {
@@ -53214,12 +53250,14 @@ select[multiple].vd-input option, select[multiple] option, .select-input[multipl
 
 .vd-card-elevated, .vd-card {
   box-shadow: var(--card-shadow-elevated);
-  transition: box-shadow .2s, transform .2s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: box-shadow .2s;
+  transform: translateZ(0);
 }
 
 .vd-card:not(a):not(.vd-card-outlined):not(.vd-card-filled):not(.vd-card-glass):not(.vd-card-glow):hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
 }
 
 .vd-card-outlined {
@@ -53402,7 +53440,7 @@ a.vd-card {
 a.vd-card:hover {
   box-shadow: var(--shadow-xl);
   text-decoration: none;
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 a.vd-card.vd-card-glow:hover {
@@ -53411,7 +53449,7 @@ a.vd-card.vd-card-glow:hover {
 }
 
 a.vd-card:active {
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .vd-card-group {
@@ -64623,6 +64661,14 @@ input.vd-doc-search-input {
   --music-player-playlist-active-bg: var(--color-primary-alpha-10, rgba(var(--color-primary-rgb, 59,130,246), .1));
   --music-player-playlist-active-text: var(--color-primary);
   --music-player-transition: .15s ease;
+  --music-player-glass-bg: var(--vd-glass-bg-light, #ffffffb8);
+  --music-player-glass-border: var(--vd-glass-border-light, #ffffff80);
+  --music-player-glass-shadow: var(--vd-glass-shadow, 0 4px 24px #0000001f);
+  --music-player-floating-shadow: 0 12px 40px #0000002e;
+  --music-player-floating-z: 10050;
+  --music-player-floating-offset: 1rem;
+  --music-player-toolbar-gap: .375rem;
+  --music-player-handle-size: 1.5rem;
 }
 
 [data-theme="dark"] {
@@ -64630,6 +64676,8 @@ input.vd-doc-search-input {
   --music-player-bg-secondary: var(--color-gray-800);
   --music-player-btn-hover-bg: var(--color-gray-700);
   --music-player-playlist-hover: var(--color-gray-700);
+  --music-player-glass-bg: var(--vd-glass-bg-dark, #1e1e28b8);
+  --music-player-glass-border: var(--vd-glass-border-dark, #ffffff24);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64638,6 +64686,8 @@ input.vd-doc-search-input {
     --music-player-bg-secondary: var(--color-gray-800);
     --music-player-btn-hover-bg: var(--color-gray-700);
     --music-player-playlist-hover: var(--color-gray-700);
+    --music-player-glass-bg: var(--vd-glass-bg-dark, #1e1e28b8);
+    --music-player-glass-border: var(--vd-glass-border-dark, #ffffff24);
   }
 }
 
@@ -65074,9 +65124,179 @@ input.vd-doc-search-input {
   --music-player-btn-active-bg: var(--bg-secondary);
 }
 
+.vd-music-player-glass {
+  background: var(--music-player-glass-bg);
+  border-color: var(--music-player-glass-border);
+  box-shadow: var(--music-player-glass-shadow);
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur, 12px)) saturate(var(--vd-glass-saturate, 1.8));
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+}
+
+.vd-music-player-glass:before {
+  content: "";
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, var(--vd-glass-highlight-alpha, .12)) 0%,
+    #fff0 45%);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+}
+
+.vd-music-player-glass:after {
+  content: "";
+  opacity: var(--vd-glass-noise-opacity, .12);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url('components/%23n')' opacity='0.25'/%3E%3C/svg%3E");
+  position: absolute;
+  inset: 0;
+}
+
+.vd-music-player-glass > * {
+  z-index: 1;
+  position: relative;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .vd-music-player-glass {
+    background: var(--music-player-bg);
+  }
+
+  .vd-music-player-glass:before, .vd-music-player-glass:after {
+    display: none;
+  }
+}
+
+.vd-music-player.vd-music-player-floating {
+  z-index: var(--music-player-floating-z);
+  max-width: min(28rem, calc(100vw - 2 * var(--music-player-floating-offset)));
+  width: min(28rem, calc(100vw - 2 * var(--music-player-floating-offset)));
+  box-shadow: var(--music-player-floating-shadow);
+  transition: box-shadow var(--music-player-transition),
+    transform var(--music-player-transition);
+  margin: 0;
+  position: fixed;
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-left, .vd-music-player-floating.vd-music-player-floating-bottom-right {
+  bottom: var(--music-player-floating-offset);
+  top: auto;
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-left {
+  left: var(--music-player-floating-offset);
+  right: auto;
+}
+
+.vd-music-player-floating.vd-music-player-floating-bottom-right {
+  right: var(--music-player-floating-offset);
+  left: auto;
+}
+
+.vd-music-player-floating:hover {
+  box-shadow: var(--vd-glass-float-shadow, 0 14px 42px #0003);
+}
+
+.vd-music-player-floating.is-position-custom {
+  top: var(--music-player-floating-top, 1rem) !important;
+  left: var(--music-player-floating-left, 1rem) !important;
+  bottom: auto !important;
+  right: auto !important;
+}
+
+.vd-music-player-toolbar {
+  align-items: center;
+  gap: var(--music-player-toolbar-gap);
+  min-height: var(--music-player-handle-size);
+  z-index: 2;
+  margin: -.25rem -.25rem .5rem;
+  display: flex;
+  position: relative;
+}
+
+.vd-music-player-drag-handle {
+  width: 2.25rem;
+  height: var(--music-player-handle-size);
+  border-radius: var(--music-player-border-radius);
+  color: var(--music-player-text-muted);
+  cursor: grab;
+  touch-action: none;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  display: none;
+}
+
+.vd-music-player-drag-handle:active {
+  cursor: grabbing;
+}
+
+.vd-music-player-drag-handle .ph {
+  pointer-events: none;
+  font-size: 1.125rem;
+}
+
+.vd-music-player-detached.vd-music-player-draggable .vd-music-player-drag-handle {
+  display: inline-flex;
+}
+
+.vd-music-player-toolbar-spacer {
+  flex: auto;
+  min-width: .5rem;
+}
+
+.vd-music-player-btn-attach, .vd-music-player-btn-detach, .vd-music-player-btn-minimize {
+  flex-shrink: 0;
+}
+
+.vd-music-player.vd-music-player-detached .vd-music-player-btn-detach, .vd-music-player .vd-music-player-btn-attach {
+  display: none;
+}
+
+.vd-music-player.vd-music-player-detached .vd-music-player-btn-attach {
+  display: inline-flex;
+}
+
+.vd-music-player-minimized .vd-music-player-info, .vd-music-player-minimized .vd-music-player-progress, .vd-music-player-minimized .vd-music-player-playlist {
+  display: none !important;
+}
+
+.vd-music-player-minimized .vd-music-player-btn-shuffle, .vd-music-player-minimized .vd-music-player-btn-playlist {
+  display: none;
+}
+
+.vd-music-player-minimized {
+  min-width: auto;
+  max-width: min(22rem, 100vw);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .vd-music-player-glass {
+    -webkit-backdrop-filter: none;
+    background: var(--music-player-bg);
+    border-color: var(--music-player-border);
+  }
+
+  .vd-music-player-glass:before, .vd-music-player-glass:after {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .vd-music-player-btn, .vd-music-player-volume-slider::-webkit-slider-thumb, .vd-music-player-volume-slider::-moz-range-thumb, .vd-music-player-progress-bar::-webkit-slider-thumb, .vd-music-player-progress-bar::-moz-range-thumb, .vd-music-player-playlist-item {
+  .vd-music-player-btn, .vd-music-player-volume-slider::-webkit-slider-thumb, .vd-music-player-volume-slider::-moz-range-thumb, .vd-music-player-progress-bar::-webkit-slider-thumb, .vd-music-player-progress-bar::-moz-range-thumb, .vd-music-player-playlist-item, .vd-music-player-floating {
     transition: none;
+  }
+
+  .vd-music-player-floating:hover {
+    box-shadow: var(--music-player-floating-shadow);
   }
 }
 

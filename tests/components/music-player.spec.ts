@@ -3,7 +3,7 @@
  *
  * Tests for js/components/music-player.js
  * Covers: initialization, play/pause, track navigation, volume, shuffle,
- * progress bar, playlist panel, programmatic API, custom events, destroy.
+ * progress bar, playlist panel, glass/floating, programmatic API, custom events, destroy.
  *
  * Note: Audio playback is not tested as URL strings in the fixture are empty.
  * Tests verify DOM state, ARIA, and programmatic API behaviour.
@@ -427,6 +427,8 @@ test.describe('Music Player Component @component', () => {
                 volume: expect.any(Number),
                 shuffle: expect.any(Boolean),
                 tracks: expect.any(Array),
+                isDetached: expect.any(Boolean),
+                isMinimized: expect.any(Boolean),
             });
             expect(state.currentTrack).toMatchObject({ name: expect.any(String) });
         });
@@ -437,6 +439,43 @@ test.describe('Music Player Component @component', () => {
                 return VanduoMusicPlayer.getState(div);
             });
             expect(state).toBeNull();
+        });
+    });
+
+    // ────────────────────────────────────────────────────
+    // GLASS / FLOATING
+    // ────────────────────────────────────────────────────
+    test.describe('Glass and floating', () => {
+        test('applies glass class when glass option is true', async ({ page }) => {
+            await expect(page.locator('#player-float')).toHaveClass(/vd-music-player-glass/);
+        });
+
+        test('detach and attach restore DOM and isDetached state', async ({ page }) => {
+            const result = await page.evaluate(() => {
+                const el = document.getElementById('player-float');
+                if (!el) return 'no-el';
+                const before = el.parentElement;
+                VanduoMusicPlayer.detach(el, 'bottom-right');
+                if (el.parentElement !== document.body) return 'not-body';
+                if (!VanduoMusicPlayer.getState(el).isDetached) return 'not-detached';
+                VanduoMusicPlayer.attach(el);
+                if (el.parentElement !== before) return 'wrong-parent';
+                if (VanduoMusicPlayer.getState(el).isDetached) return 'still-detached';
+                return 'ok';
+            });
+            expect(result).toBe('ok');
+        });
+
+        test('minimize toggles class', async ({ page }) => {
+            const result = await page.evaluate(() => {
+                const el = document.getElementById('player-float');
+                VanduoMusicPlayer.minimize(el);
+                if (!el.classList.contains('vd-music-player-minimized')) return 'min-fail';
+                VanduoMusicPlayer.expand(el);
+                if (el.classList.contains('vd-music-player-minimized')) return 'exp-fail';
+                return 'ok';
+            });
+            expect(result).toBe('ok');
         });
     });
 

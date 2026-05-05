@@ -84,7 +84,10 @@
 
       // Icon (sanitize custom icons, default icons are trusted SVG)
       if (config.icon) {
-        const safeIcon = typeof sanitizeHtml === 'function' ? sanitizeHtml(config.icon) : escapeHtml(config.icon);
+        const allowSvg = config.iconAllowSvg === true;
+        const safeIcon = typeof sanitizeHtml === 'function'
+          ? sanitizeHtml(config.icon, { allowSvg })
+          : escapeHtml(config.icon);
         html += `<span class="vd-toast-icon">${safeIcon}</span>`;
       } else if (config.type) {
         html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;

@@ -56,7 +56,9 @@
       const content = trigger.getAttribute('data-vd-bubble') ||
                       trigger.getAttribute('data-vd-popover') || '';
       const htmlContent = trigger.getAttribute('data-vd-bubble-html') ||
-                          trigger.getAttribute('data-vd-popover-html');
+              trigger.getAttribute('data-vd-popover-html');
+      const allowSvg = trigger.hasAttribute('data-vd-bubble-allow-svg') ||
+               trigger.hasAttribute('data-vd-popover-allow-svg');
 
       if (title) {
         const header = document.createElement('div');
@@ -80,7 +82,7 @@
       body.className = 'vd-bubble-body';
       if (htmlContent) {
         if (typeof sanitizeHtml === 'function') {
-          body.innerHTML = sanitizeHtml(htmlContent);
+          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
         } else {
           body.textContent = htmlContent;
         }

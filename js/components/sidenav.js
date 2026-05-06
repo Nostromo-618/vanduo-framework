@@ -12,6 +12,7 @@
   const Sidenav = {
     sidenavs: new Map(),
     breakpoint: 992, // Desktop breakpoint
+    restoreDelayMs: 450,
     
     // Global cleanup functions (toggles, resize)
     _globalCleanups: [],
@@ -26,6 +27,114 @@
 
     isRightVariant: function(sidenav) {
       return sidenav.classList.contains('vd-sidenav-right') || sidenav.classList.contains('sidenav-right');
+    },
+
+    getPortalState: function(sidenav) {
+      if (!sidenav._vdPortalState) {
+        sidenav._vdPortalState = {
+          originalParent: null,
+          originalNextSibling: null,
+          placeholder: null,
+          restoreTimer: null,
+          restoreHandler: null
+        };
+      }
+      return sidenav._vdPortalState;
+    },
+
+    cancelScheduledRestore: function(sidenav) {
+      const state = this.getPortalState(sidenav);
+
+      if (state.restoreHandler) {
+        sidenav.removeEventListener('transitionend', state.restoreHandler);
+        state.restoreHandler = null;
+      }
+
+      if (state.restoreTimer) {
+        window.clearTimeout(state.restoreTimer);
+        state.restoreTimer = null;
+      }
+    },
+
+    portalToBody: function(sidenav) {
+      if (!sidenav) {
+        return;
+      }
+
+      if (sidenav.parentNode === document.body) {
+        this.cancelScheduledRestore(sidenav);
+        return;
+      }
+
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+
+      state.originalParent = sidenav.parentNode;
+      state.originalNextSibling = sidenav.nextSibling;
+
+      if (!state.placeholder) {
+        state.placeholder = document.createComment('vd-sidenav-placeholder');
+      }
+
+      state.originalParent.insertBefore(state.placeholder, sidenav);
+      document.body.appendChild(sidenav);
+      sidenav.dataset.vdPortaled = 'true';
+    },
+
+    restoreFromPortal: function(sidenav) {
+      if (!sidenav) {
+        return;
+      }
+
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+
+      if (!state.placeholder) {
+        delete sidenav.dataset.vdPortaled;
+        return;
+      }
+
+      if (state.placeholder.parentNode) {
+        state.placeholder.parentNode.insertBefore(sidenav, state.placeholder);
+        state.placeholder.parentNode.removeChild(state.placeholder);
+      } else if (state.originalParent && state.originalParent.isConnected) {
+        if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+          state.originalParent.insertBefore(sidenav, state.originalNextSibling);
+        } else {
+          state.originalParent.appendChild(sidenav);
+        }
+      }
+
+      state.originalParent = null;
+      state.originalNextSibling = null;
+      state.placeholder = null;
+      delete sidenav.dataset.vdPortaled;
+    },
+
+    scheduleRestoreFromPortal: function(sidenav) {
+      if (!sidenav || sidenav.parentNode !== document.body) {
+        return;
+      }
+
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+
+      const finalizeRestore = () => {
+        this.restoreFromPortal(sidenav);
+      };
+
+      const transitionEndHandler = (event) => {
+        if (event.target !== sidenav || event.propertyName !== 'transform') {
+          return;
+        }
+        finalizeRestore();
+      };
+
+      state.restoreHandler = transitionEndHandler;
+      sidenav.addEventListener('transitionend', transitionEndHandler);
+      state.restoreTimer = window.setTimeout(() => {
+        finalizeRestore();
+      }, this.restoreDelayMs);
     },
 
     /**
@@ -149,6 +258,8 @@
       }
       
       const { overlay } = this.sidenavs.get(el);
+
+      this.portalToBody(el);
       
       // Show overlay (if not fixed)
       if (!this.isFixedVariant(el)) {
@@ -201,6 +312,8 @@
       
       // Dispatch event
       el.dispatchEvent(new CustomEvent('sidenav:close', { bubbles: true }));
+
+      this.scheduleRestoreFromPortal(el);
     },
     
     /**
@@ -271,10 +384,14 @@
       const data = this.sidenavs.get(sidenav);
       if (!data) return;
 
-      // Close if open
       if (sidenav.classList.contains('is-open')) {
-        this.close(sidenav);
+        data.overlay.classList.remove('is-visible');
+        sidenav.classList.remove('is-open');
+        sidenav.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('body-sidenav-open');
       }
+
+      this.restoreFromPortal(sidenav);
 
       data.cleanup.forEach(fn => fn());
 

@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.8 | Built: 2026-05-05T21:02:00.090Z | git:f7cfd78 | development */
+/*! Vanduo v1.3.8 | Built: 2026-05-06T18:32:43.703Z | git:6042eac | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -993,18 +993,21 @@
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       const padding = 8;
+      menu.classList.remove("vd-dropdown-menu-end", "vd-dropdown-menu-start", "vd-dropdown-menu-top");
+      if (dropdown.classList.contains("vd-dropdown-dropup")) {
+        menu.classList.add("vd-dropdown-menu-top");
+        return;
+      }
+      if (dropdown.classList.contains("vd-dropdown-dropright") || dropdown.classList.contains("vd-dropdown-dropleft")) {
+        return;
+      }
       if (rect.left + menuRect.width > viewportWidth - padding) {
         menu.classList.add("vd-dropdown-menu-end");
-        menu.classList.remove("vd-dropdown-menu-start");
-      }
-      if (menu.classList.contains("dropdown-menu-top")) {
-        if (rect.top - menuRect.height < padding) {
-          menu.classList.remove("vd-dropdown-menu-top");
-        }
       } else {
-        if (rect.bottom + menuRect.height > viewportHeight - padding) {
-          menu.classList.add("vd-dropdown-menu-top");
-        }
+        menu.classList.add("vd-dropdown-menu-start");
+      }
+      if (rect.bottom + menuRect.height > viewportHeight - padding && rect.top - menuRect.height > padding) {
+        menu.classList.add("vd-dropdown-menu-top");
       }
     },
     /**
@@ -1845,6 +1848,54 @@
     _triggerCleanups: [],
     // Shared ESC key handler (installed once)
     _sharedEscHandler: null,
+    getPortalState: function(modal) {
+      if (!modal._vdPortalState) {
+        modal._vdPortalState = {
+          originalParent: null,
+          originalNextSibling: null,
+          placeholder: null
+        };
+      }
+      return modal._vdPortalState;
+    },
+    portalToBody: function(modal) {
+      if (!modal || modal.parentNode === document.body) {
+        return;
+      }
+      const state = this.getPortalState(modal);
+      state.originalParent = modal.parentNode;
+      state.originalNextSibling = modal.nextSibling;
+      if (!state.placeholder) {
+        state.placeholder = document.createComment("vd-modal-placeholder");
+      }
+      state.originalParent.insertBefore(state.placeholder, modal);
+      document.body.appendChild(modal);
+      modal.dataset.vdPortaled = "true";
+    },
+    restoreFromPortal: function(modal) {
+      if (!modal) {
+        return;
+      }
+      const state = this.getPortalState(modal);
+      if (!state.placeholder) {
+        delete modal.dataset.vdPortaled;
+        return;
+      }
+      if (state.placeholder.parentNode) {
+        state.placeholder.parentNode.insertBefore(modal, state.placeholder);
+        state.placeholder.parentNode.removeChild(state.placeholder);
+      } else if (state.originalParent && state.originalParent.isConnected) {
+        if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+          state.originalParent.insertBefore(modal, state.originalNextSibling);
+        } else {
+          state.originalParent.appendChild(modal);
+        }
+      }
+      state.originalParent = null;
+      state.originalNextSibling = null;
+      state.placeholder = null;
+      delete modal.dataset.vdPortaled;
+    },
     /**
      * Initialize modals
      */
@@ -1952,6 +2003,7 @@
       }
       const modalData = this.modals.get(el);
       const { backdrop, dialog: _dialog } = modalData;
+      this.portalToBody(el);
       this.zIndexCounter += 10;
       el.style.zIndex = this.zIndexCounter;
       backdrop.style.zIndex = this.zIndexCounter - 1;
@@ -2017,6 +2069,7 @@
         trigger.focus();
       }
       el.dispatchEvent(new CustomEvent("modal:close", { bubbles: true }));
+      this.restoreFromPortal(el);
     },
     /**
      * Trap focus within modal
@@ -2080,8 +2133,20 @@
       const modalData = this.modals.get(modal);
       if (!modalData) return;
       if (modal.classList.contains("is-open")) {
-        this.close(modal);
+        const index = this.openModals.indexOf(modal);
+        if (index > -1) {
+          this.openModals.splice(index, 1);
+        }
+        modalData.backdrop.classList.remove("is-visible");
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        if (this.openModals.length === 0) {
+          document.body.classList.remove("body-modal-open");
+          document.body.style.paddingRight = "";
+          this.zIndexCounter = 1050;
+        }
       }
+      this.restoreFromPortal(modal);
       if (modalData.cleanup) {
         modalData.cleanup.forEach((fn) => fn());
       }
@@ -2737,7 +2802,7 @@
      * Initialize preloader components
      */
     init: function() {
-      const progressBars = document.querySelectorAll(".progress-bar[data-progress]");
+      const progressBars = document.querySelectorAll(".vd-progress-bar[data-progress], .progress-bar[data-progress]");
       progressBars.forEach((bar) => {
         if (!bar.dataset.progressInitialized) {
           this.initProgressBar(bar);
@@ -2777,7 +2842,7 @@
       el.setAttribute("aria-valuenow", value);
       el.setAttribute("aria-valuemin", 0);
       el.setAttribute("aria-valuemax", 100);
-      const text = el.querySelector(".progress-text");
+      const text = el.querySelector(".vd-progress-text, .progress-text");
       if (text) {
         text.textContent = value + "%";
       }
@@ -2858,7 +2923,7 @@
      * Destroy all progress bar instances
      */
     destroyAll: function() {
-      const progressBars = document.querySelectorAll('.progress-bar[data-progress-initialized="true"]');
+      const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress-initialized="true"], .progress-bar[data-progress-initialized="true"]');
       progressBars.forEach((bar) => {
         delete bar.dataset.progressInitialized;
       });
@@ -3240,6 +3305,7 @@
     sidenavs: /* @__PURE__ */ new Map(),
     breakpoint: 992,
     // Desktop breakpoint
+    restoreDelayMs: 450,
     // Global cleanup functions (toggles, resize)
     _globalCleanups: [],
     isFixedVariant: function(sidenav) {
@@ -3250,6 +3316,94 @@
     },
     isRightVariant: function(sidenav) {
       return sidenav.classList.contains("vd-sidenav-right") || sidenav.classList.contains("sidenav-right");
+    },
+    getPortalState: function(sidenav) {
+      if (!sidenav._vdPortalState) {
+        sidenav._vdPortalState = {
+          originalParent: null,
+          originalNextSibling: null,
+          placeholder: null,
+          restoreTimer: null,
+          restoreHandler: null
+        };
+      }
+      return sidenav._vdPortalState;
+    },
+    cancelScheduledRestore: function(sidenav) {
+      const state = this.getPortalState(sidenav);
+      if (state.restoreHandler) {
+        sidenav.removeEventListener("transitionend", state.restoreHandler);
+        state.restoreHandler = null;
+      }
+      if (state.restoreTimer) {
+        window.clearTimeout(state.restoreTimer);
+        state.restoreTimer = null;
+      }
+    },
+    portalToBody: function(sidenav) {
+      if (!sidenav) {
+        return;
+      }
+      if (sidenav.parentNode === document.body) {
+        this.cancelScheduledRestore(sidenav);
+        return;
+      }
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+      state.originalParent = sidenav.parentNode;
+      state.originalNextSibling = sidenav.nextSibling;
+      if (!state.placeholder) {
+        state.placeholder = document.createComment("vd-sidenav-placeholder");
+      }
+      state.originalParent.insertBefore(state.placeholder, sidenav);
+      document.body.appendChild(sidenav);
+      sidenav.dataset.vdPortaled = "true";
+    },
+    restoreFromPortal: function(sidenav) {
+      if (!sidenav) {
+        return;
+      }
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+      if (!state.placeholder) {
+        delete sidenav.dataset.vdPortaled;
+        return;
+      }
+      if (state.placeholder.parentNode) {
+        state.placeholder.parentNode.insertBefore(sidenav, state.placeholder);
+        state.placeholder.parentNode.removeChild(state.placeholder);
+      } else if (state.originalParent && state.originalParent.isConnected) {
+        if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+          state.originalParent.insertBefore(sidenav, state.originalNextSibling);
+        } else {
+          state.originalParent.appendChild(sidenav);
+        }
+      }
+      state.originalParent = null;
+      state.originalNextSibling = null;
+      state.placeholder = null;
+      delete sidenav.dataset.vdPortaled;
+    },
+    scheduleRestoreFromPortal: function(sidenav) {
+      if (!sidenav || sidenav.parentNode !== document.body) {
+        return;
+      }
+      const state = this.getPortalState(sidenav);
+      this.cancelScheduledRestore(sidenav);
+      const finalizeRestore = () => {
+        this.restoreFromPortal(sidenav);
+      };
+      const transitionEndHandler = (event) => {
+        if (event.target !== sidenav || event.propertyName !== "transform") {
+          return;
+        }
+        finalizeRestore();
+      };
+      state.restoreHandler = transitionEndHandler;
+      sidenav.addEventListener("transitionend", transitionEndHandler);
+      state.restoreTimer = window.setTimeout(() => {
+        finalizeRestore();
+      }, this.restoreDelayMs);
     },
     /**
      * Initialize sidenav components
@@ -3348,6 +3502,7 @@
         return;
       }
       const { overlay } = this.sidenavs.get(el);
+      this.portalToBody(el);
       if (!this.isFixedVariant(el)) {
         overlay.classList.add("is-visible");
       }
@@ -3377,6 +3532,7 @@
         this.handlePushVariant(el, false);
       }
       el.dispatchEvent(new CustomEvent("sidenav:close", { bubbles: true }));
+      this.scheduleRestoreFromPortal(el);
     },
     /**
      * Toggle sidenav
@@ -3438,8 +3594,12 @@
       const data = this.sidenavs.get(sidenav);
       if (!data) return;
       if (sidenav.classList.contains("is-open")) {
-        this.close(sidenav);
+        data.overlay.classList.remove("is-visible");
+        sidenav.classList.remove("is-open");
+        sidenav.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("body-sidenav-open");
       }
+      this.restoreFromPortal(sidenav);
       data.cleanup.forEach((fn) => fn());
       if (data.overlay && data.overlay.parentNode) {
         data.overlay.parentNode.removeChild(data.overlay);
@@ -3493,7 +3653,7 @@
       const cleanupFunctions = [];
       tabList.setAttribute("role", "tablist");
       tabLinks.forEach((link, index) => {
-        const tabId = link.dataset.tab || link.getAttribute("href")?.replace("#", "") || `tab-${index}`;
+        const tabId = this.getTabId(link, index);
         const pane = this.findPane(container, tabId, tabPanes);
         link.setAttribute("role", "tab");
         link.setAttribute("aria-selected", link.classList.contains("is-active") ? "true" : "false");
@@ -3530,6 +3690,15 @@
       this.instances.set(container, { cleanup: cleanupFunctions });
     },
     /**
+     * Get the pane identifier associated with a tab link.
+     * @param {HTMLElement} link - Tab link element
+     * @param {number} [fallbackIndex] - Optional fallback index
+     * @returns {string} Tab identifier
+     */
+    getTabId: function(link, fallbackIndex) {
+      return link.dataset.tabTarget || link.dataset.tab || link.getAttribute("href")?.replace("#", "") || (typeof fallbackIndex === "number" ? `tab-${fallbackIndex}` : link.id);
+    },
+    /**
      * Find the pane associated with a tab
      * @param {HTMLElement} container - Tabs container
      * @param {string} tabId - Tab identifier
@@ -3544,7 +3713,7 @@
       if (!pane) {
         const tabLinks = container.querySelectorAll(".vd-tab-link, [data-tab]");
         tabLinks.forEach((link, index) => {
-          const linkTabId = link.dataset.tab || link.getAttribute("href")?.replace("#", "");
+          const linkTabId = this.getTabId(link, index);
           if (linkTabId === tabId && tabPanes[index]) {
             pane = tabPanes[index];
           }
@@ -3560,7 +3729,8 @@
      * @param {NodeList} allPanes - All tab panes
      */
     activateTab: function(container, tab, allTabs, allPanes) {
-      const tabId = tab.dataset.tab || tab.getAttribute("href")?.replace("#", "") || tab.id;
+      const tabIndex = Array.from(allTabs).indexOf(tab);
+      const tabId = this.getTabId(tab, tabIndex);
       allTabs.forEach((t) => {
         t.classList.remove("is-active");
         t.setAttribute("aria-selected", "false");
@@ -3601,7 +3771,7 @@
      * @param {NodeList} allPanes - All tab panes
      */
     handleKeydown: function(e, container, currentTab, allTabs, allPanes) {
-      const isVertical = container.classList.contains("tabs-vertical");
+      const isVertical = container.classList.contains("vd-tabs-vertical") || container.classList.contains("tabs-vertical");
       const tabs = Array.from(allTabs).filter((t) => !t.classList.contains("disabled") && !t.disabled);
       const currentIndex = tabs.indexOf(currentTab);
       let newIndex = currentIndex;
@@ -3658,7 +3828,7 @@
     show: function(tab) {
       let tabElement;
       if (typeof tab === "string") {
-        tabElement = document.querySelector(`[data-tab="${tab}"], [href="#${tab}"]`);
+        tabElement = document.querySelector(`[data-tab-target="${tab}"], [data-tab="${tab}"], [href="#${tab}"]`);
       } else {
         tabElement = tab;
       }
@@ -4525,11 +4695,17 @@
      */
     show: function(options, type, duration) {
       if (typeof options === "string") {
-        options = {
-          message: options,
-          type,
-          duration
-        };
+        if (type && typeof type === "object") {
+          options = Object.assign({}, type, {
+            message: options
+          });
+        } else {
+          options = {
+            message: options,
+            type,
+            duration
+          };
+        }
       }
       const config = Object.assign({}, this.defaults, options);
       const container = this.getContainer(config.position);
@@ -4762,9 +4938,7 @@
       if (typeof sanitizeHtml === "function") {
         return sanitizeHtml(input, options);
       }
-      const div = document.createElement("div");
-      div.textContent = input || "";
-      return div.innerHTML;
+      return input || "";
     },
     /**
      * Initialize tooltips
@@ -6324,10 +6498,10 @@
     });
   }
   function _skeletonHtml() {
-    return '<div class="vd-skeleton-card" style="position:relative;min-height:200px;padding:2rem;overflow:hidden;"><div class="vd-skeleton vd-skeleton-heading-lg" style="margin-bottom:1.5rem;"></div><div class="vd-skeleton vd-skeleton-paragraph"><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div></div><div class="vd-dynamic-loader" style="position:absolute;inset:0;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div></div>';
+    return '<div class="vd-skeleton-card" style="position:relative;min-height:200px;padding:2rem;overflow:hidden;"><div class="vd-skeleton vd-skeleton-heading-lg" style="margin-bottom:1.5rem;"></div><div class="vd-skeleton vd-skeleton-paragraph"><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div></div><div class="vd-dynamic-loader" style="position:absolute;inset:0;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div></div>';
   }
   function _spinnerHtml() {
-    return '<div class="vd-dynamic-loader" style="min-height:180px;display:flex;align-items:center;justify-content:center;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div>';
+    return '<div class="vd-dynamic-loader" style="min-height:180px;display:flex;align-items:center;justify-content:center;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div>';
   }
   function _resolvePlaceholder(placeholder) {
     if (!placeholder || placeholder === "skeleton") return _skeletonHtml();
@@ -7320,14 +7494,20 @@
       requestAnimationFrame(() => {
         this.position(trigger, popover, placement);
       });
-      trigger.dispatchEvent(new CustomEvent("bubble:show", { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent("bubble:show", {
+        bubbles: true,
+        detail: { trigger, placement }
+      }));
     },
     hide: function(trigger) {
       const instance = this.instances.get(trigger);
       if (!instance) return;
       instance.popover.classList.remove("is-visible");
       trigger.setAttribute("aria-expanded", "false");
-      trigger.dispatchEvent(new CustomEvent("bubble:hide", { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent("bubble:hide", {
+        bubbles: true,
+        detail: { trigger }
+      }));
     },
     hideAll: function() {
       this.instances.forEach((_, trigger) => this.hide(trigger));

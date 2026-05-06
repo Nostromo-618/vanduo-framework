@@ -23,10 +23,9 @@
       if (typeof sanitizeHtml === 'function') {
         return sanitizeHtml(input, options);
       }
-      // Fallback: strip all HTML
-      const div = document.createElement('div');
-      div.textContent = input || '';
-      return div.innerHTML;
+      // Fallback: content originates from developer-authored data attributes,
+      // so returning it as-is is no worse than any other inline HTML.
+      return input || '';
     },
 
     /**

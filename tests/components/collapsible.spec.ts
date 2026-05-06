@@ -100,6 +100,72 @@ test.describe('Collapsible Component @component', () => {
     });
   });
 
+  test.describe('Focus ring', () => {
+    test('header does not carry its own outline when focused via keyboard', async ({ page }) => {
+      const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
+
+      // Focus the header programmatically (mirrors keyboard navigation)
+      await firstHeader.focus();
+
+      const outline = await firstHeader.evaluate(el =>
+        getComputedStyle(el).outline
+      );
+
+      // The header itself should have no outline; the ring lives on the parent item
+      expect(outline).toMatch(/none|0px/);
+    });
+
+    test('standard item receives a rounded box-shadow focus ring when header is focused', async ({ page }) => {
+      const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
+      const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
+
+      await firstHeader.focus();
+
+      const styles = await firstItem.evaluate(el => {
+        const computed = getComputedStyle(el);
+
+        return {
+          boxShadow: computed.boxShadow,
+          borderRadius: computed.borderTopLeftRadius
+        };
+      });
+
+      expect(styles.boxShadow).not.toBe('none');
+      expect(parseFloat(styles.borderRadius)).toBeGreaterThan(0);
+    });
+
+    test('flush variant applies the focus ring to the header with the global radius', async ({ page }) => {
+      const flushHeader = page.locator('#flush-accordion-test .accordion-header').first();
+
+      await flushHeader.focus();
+
+      const styles = await flushHeader.evaluate(el => {
+        const computed = getComputedStyle(el);
+
+        return {
+          boxShadow: computed.boxShadow,
+          borderRadius: computed.borderTopLeftRadius
+        };
+      });
+
+      expect(styles.boxShadow).not.toBe('none');
+      expect(parseFloat(styles.borderRadius)).toBeGreaterThan(0);
+    });
+
+    test('flush item itself stays unboxed while the header owns the focus ring', async ({ page }) => {
+      const flushHeader = page.locator('#flush-accordion-test .accordion-header').first();
+      const flushItem = page.locator('#flush-accordion-test .accordion-item').first();
+
+      await flushHeader.focus();
+
+      const itemBoxShadow = await flushItem.evaluate(el =>
+        getComputedStyle(el).boxShadow
+      );
+
+      expect(itemBoxShadow).toBe('none');
+    });
+  });
+
   test.describe('Programmatic API', () => {
     test('opens item via open()', async ({ page }) => {
       await page.click('#open-first');

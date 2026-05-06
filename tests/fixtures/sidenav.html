@@ -11,6 +11,29 @@
   </style>
 </head>
 <body>
+  <div class="vd-card" style="max-width: 24rem; margin: 1.5rem;">
+    <div class="vd-card-header">
+      <h3>Card-hosted sidenav</h3>
+    </div>
+    <div class="vd-card-body" id="card-sidenav-body">
+      <button class="btn btn-primary" data-sidenav-toggle="#card-sidenav">Open Card Sidenav</button>
+      <p class="vd-mt-3">This wrapper keeps the default card transform enabled.</p>
+      <nav class="vd-sidenav sidenav" id="card-sidenav" aria-label="Card navigation">
+        <div class="sidenav-header">
+          <h3>Card Navigation</h3>
+          <button class="vd-sidenav-close sidenav-close" aria-label="Close navigation">
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+        <div class="sidenav-body">
+          <ul class="nav-list">
+            <li><a href="#" class="nav-link">Card item</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
   <!-- Basic Sidenav -->
   <nav class="vd-sidenav sidenav" id="basic-sidenav" aria-label="Main navigation">
     <div class="sidenav-header">
@@ -86,6 +109,7 @@
       <button class="btn btn-secondary" data-sidenav-toggle="#right-sidenav">Open Right Sidenav</button>
       <button class="btn btn-info" data-sidenav-toggle="#static-sidenav">Open Static Sidenav</button>
       <button class="btn btn-warning" data-sidenav-toggle="#no-keyboard-sidenav">Open No Keyboard Sidenav</button>
+      <button class="btn btn-dark" data-sidenav-toggle="#card-sidenav">Open Card Sidenav</button>
     </div>
 
     <!-- Programmatic controls -->

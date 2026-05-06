@@ -24,14 +24,14 @@ test.describe('Font Switcher Component @component', () => {
       await expect(fontSelect).toHaveAttribute('data-font-initialized', 'true');
     });
 
-    test('sets default font to ubuntu', async ({ page }) => {
+    test('sets default font to lato', async ({ page }) => {
       const font = await page.evaluate(() => document.documentElement.getAttribute('data-font'));
-      expect(font).toBe('ubuntu');
+      expect(font).toBe('lato');
     });
 
     test('select reflects current font', async ({ page }) => {
       const fontSelect = page.locator('#font-select');
-      await expect(fontSelect).toHaveValue('ubuntu');
+      await expect(fontSelect).toHaveValue('lato');
     });
   });
 
@@ -39,10 +39,10 @@ test.describe('Font Switcher Component @component', () => {
     test('changes font via select', async ({ page }) => {
       const fontSelect = page.locator('#font-select');
       
-      await fontSelect.selectOption('inter');
+      await fontSelect.selectOption('ubuntu');
 
       const font = await page.evaluate(() => document.documentElement.getAttribute('data-font'));
-      expect(font).toBe('inter');
+      expect(font).toBe('ubuntu');
     });
 
     test('changes to system font removes data-font attribute', async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe('Font Switcher Component @component', () => {
 
     test('can select various fonts', async ({ page }) => {
       const fontSelect = page.locator('#font-select');
-      const fonts = ['inter', 'fira-sans', 'ibm-plex', 'open-sans'];
+      const fonts = ['ubuntu', 'open-sans', 'jetbrains-mono'];
 
       for (const font of fonts) {
         await fontSelect.selectOption(font);
@@ -83,17 +83,17 @@ test.describe('Font Switcher Component @component', () => {
     test('saves font preference to localStorage', async ({ page }) => {
       const fontSelect = page.locator('#font-select');
       
-      await fontSelect.selectOption('inter');
+      await fontSelect.selectOption('ubuntu');
 
       const storagePref = await page.evaluate(() => {
         return localStorage.getItem('vanduo-font-preference');
       });
-      expect(storagePref).toBe('inter');
+      expect(storagePref).toBe('ubuntu');
     });
 
     test('restores preference from localStorage on reload', async ({ page }) => {
       // Set preference
-      await page.locator('#font-select').selectOption('fira-sans');
+      await page.locator('#font-select').selectOption('open-sans');
       
       // Reload page
       await page.reload();
@@ -101,10 +101,10 @@ test.describe('Font Switcher Component @component', () => {
 
       // Check that preference was restored
       const font = await page.evaluate(() => document.documentElement.getAttribute('data-font'));
-      expect(font).toBe('fira-sans');
+      expect(font).toBe('open-sans');
 
       const selectValue = await page.locator('#font-select').inputValue();
-      expect(selectValue).toBe('fira-sans');
+      expect(selectValue).toBe('open-sans');
     });
   });
 
@@ -113,9 +113,9 @@ test.describe('Font Switcher Component @component', () => {
       const fontSelect = page.locator('#font-select');
       const fontLabel = page.locator('.font-current-label');
 
-      await fontSelect.selectOption('inter');
+      await fontSelect.selectOption('ubuntu');
 
-      await expect(fontLabel).toContainText('Inter');
+      await expect(fontLabel).toContainText('Ubuntu');
     });
 
     test('select updates when button is clicked', async ({ page }) => {
@@ -139,11 +139,11 @@ test.describe('Font Switcher Component @component', () => {
         });
       });
 
-      await page.locator('#font-select').selectOption('inter');
+      await page.locator('#font-select').selectOption('ubuntu');
 
       const eventDetail = await page.evaluate(() => (window as any).fontChangeEvent);
       expect(eventDetail).not.toBeNull();
-      expect(eventDetail.font).toBe('inter');
+      expect(eventDetail.font).toBe('ubuntu');
     });
   });
 
@@ -182,22 +182,22 @@ test.describe('Font Switcher Component @component', () => {
       await page.click('#set-inter');
 
       const font = await page.evaluate(() => document.documentElement.getAttribute('data-font'));
-      expect(font).toBe('inter');
+      expect(font).toBe('ubuntu');
     });
 
     test('getCurrentFont returns current font', async ({ page }) => {
       await page.click('#get-font');
 
       const display = await page.locator('#font-display').textContent();
-      expect(display).toContain('ubuntu');
+      expect(display).toContain('lato');
     });
 
     test('getFontData returns font information', async ({ page }) => {
       await page.click('#get-font-data');
 
       const display = await page.locator('#font-display').textContent();
-      expect(display).toContain('Inter');
-      expect(display).toContain('Inter\', sans-serif');
+      expect(display).toContain('Ubuntu');
+      expect(display).toContain('Ubuntu\', sans-serif');
     });
 
     test('getFontData returns null for unknown font', async ({ page }) => {
@@ -215,19 +215,19 @@ test.describe('Font Switcher Component @component', () => {
       });
 
       expect(fonts).toContain('system');
-      expect(fonts).toContain('inter');
       expect(fonts).toContain('ubuntu');
       expect(fonts).toContain('open-sans');
+      expect(fonts).toContain('lato');
       expect(fonts).toContain('jetbrains-mono');
     });
 
     test('font data includes name and family', async ({ page }) => {
       const fontData = await page.evaluate(() => {
-        return (window as any).FontSwitcher.getFontData('inter');
+        return (window as any).FontSwitcher.getFontData('ubuntu');
       });
 
-      expect(fontData.name).toBe('Inter');
-      expect(fontData.family).toBe("'Inter', sans-serif");
+      expect(fontData.name).toBe('Ubuntu');
+      expect(fontData.family).toBe("'Ubuntu', sans-serif");
     });
   });
 });

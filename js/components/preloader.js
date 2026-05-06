@@ -14,7 +14,7 @@
      * Initialize preloader components
      */
     init: function() {
-      const progressBars = document.querySelectorAll('.progress-bar[data-progress]');
+      const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress], .progress-bar[data-progress]');
       
       progressBars.forEach(bar => {
         if (!bar.dataset.progressInitialized) {
@@ -66,7 +66,7 @@
       el.setAttribute('aria-valuemax', 100);
       
       // Update text if exists
-      const text = el.querySelector('.progress-text');
+      const text = el.querySelector('.vd-progress-text, .progress-text');
       if (text) {
         text.textContent = value + '%';
       }
@@ -164,7 +164,7 @@
      * Destroy all progress bar instances
      */
     destroyAll: function() {
-      const progressBars = document.querySelectorAll('.progress-bar[data-progress-initialized="true"]');
+      const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress-initialized="true"], .progress-bar[data-progress-initialized="true"]');
       progressBars.forEach(bar => {
         delete bar.dataset.progressInitialized;
       });

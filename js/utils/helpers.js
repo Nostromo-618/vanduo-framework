@@ -271,7 +271,7 @@ function sanitizeHtml(input, options = {}) {
     return escapeHtml(input);
   }
   const allowSvg = options && options.allowSvg === true;
-  const baseAllowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U'];
+  const baseAllowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U', 'DIV', 'P', 'KBD', 'CODE', 'SMALL', 'MARK'];
   const svgAllowed = ['SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
   const allowed = allowSvg ? baseAllowed.concat(svgAllowed) : baseAllowed;
 
@@ -310,8 +310,12 @@ function sanitizeHtml(input, options = {}) {
           }
         });
       } else {
+        // Keep class and style; strip everything else (no event handlers, no src, etc.)
+        const safeAttrs = new Set(['class', 'style']);
         const otherAttrs = Array.from(child.attributes || []);
-        otherAttrs.forEach(function (a) { child.removeAttribute(a.name); });
+        otherAttrs.forEach(function (a) {
+          if (!safeAttrs.has(a.name)) { child.removeAttribute(a.name); }
+        });
       }
 
       sanitizeNode(child);

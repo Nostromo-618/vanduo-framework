@@ -9,6 +9,34 @@
 <body>
   <main class="container">
     <h1>Modal Test Fixture</h1>
+
+    <div class="vd-card" style="max-width: 28rem; margin-bottom: 1.5rem;">
+      <div class="vd-card-header">
+        <h2>Card-hosted modal</h2>
+      </div>
+      <div class="vd-card-body" id="card-modal-body">
+        <button data-modal="#card-hosted-modal" class="btn btn-primary">Open Card Hosted Modal</button>
+        <p class="vd-mt-3">This card keeps the default transform so the modal must escape it.</p>
+        <div id="card-hosted-modal" class="vd-modal modal">
+          <div class="vd-modal-dialog modal-dialog">
+            <div class="vd-modal-content modal-content">
+              <div class="vd-modal-header modal-header">
+                <h2 class="vd-modal-title modal-title" id="card-hosted-modal-title">Card Hosted Modal</h2>
+                <button type="button" class="vd-modal-close modal-close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="vd-modal-body modal-body">
+                <p>This modal starts inside a transformed card container.</p>
+              </div>
+              <div class="vd-modal-footer modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- Modal Triggers -->
     <button data-modal="#test-modal" class="btn btn-primary">Open Test Modal</button>
@@ -90,6 +118,7 @@
         </div>
       </div>
     </div>
+
   </main>
 
   <!-- Scripts -->

@@ -262,6 +262,8 @@
 }
 
 .vd-tabs-vertical .vd-tab-link {
+  box-sizing: border-box;
+  width: 100%;
   border-bottom: none;
   border-right: var(--tab-border-width) solid transparent;
   justify-content: flex-start;

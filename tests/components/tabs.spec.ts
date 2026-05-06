@@ -78,6 +78,19 @@ test.describe('Tabs Component @component', () => {
       expect(eventDetail).toBeTruthy();
       expect(eventDetail.tabId).toBe('tab2');
     });
+
+    test('switches button tabs using data-tab-target', async ({ page }) => {
+      const secondTab = page.locator('#target-tabs .vd-tab-link').nth(1);
+      const secondPane = page.locator('#target-tab-2');
+
+      await secondTab.click();
+
+      await expect(secondTab).toHaveClass(/is-active/);
+      await expect(secondTab).toHaveAttribute('aria-selected', 'true');
+      await expect(secondPane).toHaveClass(/is-active/);
+      await expect(secondPane).toBeVisible();
+      await expect(secondPane).toContainText('Features target content remains visible after switching');
+    });
   });
 
   test.describe('Keyboard Navigation', () => {
@@ -168,6 +181,22 @@ test.describe('Tabs Component @component', () => {
       await page.keyboard.press('ArrowUp');
 
       await expect(firstTab).toBeFocused();
+    });
+
+    test('aligns active indicators for different label lengths', async ({ page }) => {
+      const tabEdges = await page.locator('#vertical-tabs .vd-tab-link').evaluateAll((tabs) =>
+        tabs.map((tab) => {
+          const rect = tab.getBoundingClientRect();
+
+          return {
+            right: Math.round(rect.right),
+            width: Math.round(rect.width)
+          };
+        })
+      );
+
+      expect(new Set(tabEdges.map((edge) => edge.right)).size).toBe(1);
+      expect(new Set(tabEdges.map((edge) => edge.width)).size).toBe(1);
     });
   });
 

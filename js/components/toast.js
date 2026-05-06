@@ -51,13 +51,21 @@
      * @returns {HTMLElement} Toast element
      */
     show: function(options, type, duration) {
-      // Support simple API: Toast.show('Message', 'success', 3000)
+      // Support simple API:
+      // - Toast.show('Message', 'success', 3000)
+      // - Toast.show('Message', { type: 'success', duration: 3000 })
       if (typeof options === 'string') {
-        options = {
-          message: options,
-          type: type,
-          duration: duration
-        };
+        if (type && typeof type === 'object') {
+          options = Object.assign({}, type, {
+            message: options
+          });
+        } else {
+          options = {
+            message: options,
+            type: type,
+            duration: duration
+          };
+        }
       }
 
       const config = Object.assign({}, this.defaults, options);

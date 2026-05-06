@@ -15,22 +15,17 @@
       <label for="font-select">Select Font</label>
       <select id="font-select" data-toggle="font">
         <option value="system">System Default</option>
-        <option value="inter">Inter</option>
-        <option value="source-sans">Source Sans 3</option>
-        <option value="fira-sans">Fira Sans</option>
-        <option value="ibm-plex">IBM Plex Sans</option>
-        <option value="ubuntu" selected>Ubuntu</option>
-        <option value="open-sans">Open Sans</option>
-        <option value="rubik">Rubik</option>
-        <option value="titillium-web">Titillium Web</option>
         <option value="jetbrains-mono">JetBrains Mono</option>
+        <option value="ubuntu">Ubuntu</option>
+        <option value="open-sans">Open Sans</option>
+        <option value="lato" selected>Lato</option>
       </select>
     </div>
 
     <!-- Button-based Font Toggle -->
     <div class="form-group">
       <button id="font-button" class="btn btn-primary" data-toggle="font">
-        Font: <span class="font-current-label">Ubuntu</span>
+        Font: <span class="font-current-label">Lato</span>
       </button>
     </div>
 
@@ -38,7 +33,7 @@
     <div class="card">
       <div class="card-body">
         <h3>Current Font State</h3>
-        <p>data-font attribute: <code id="font-attr">ubuntu</code></p>
+        <p>data-font attribute: <code id="font-attr">lato</code></p>
         <p>localStorage preference: <code id="storage-pref">-</code></p>
       </div>
     </div>
@@ -56,7 +51,7 @@
 
     <!-- Programmatic controls -->
     <div class="form-group">
-      <button id="set-inter" class="btn btn-secondary">Set Inter</button>
+      <button id="set-inter" class="btn btn-secondary">Set Ubuntu</button>
       <button id="set-system" class="btn btn-secondary">Set System</button>
       <button id="get-font" class="btn btn-info">Get Current Font</button>
       <button id="get-font-data" class="btn btn-info">Get Font Data</button>
@@ -88,7 +83,7 @@
     // Programmatic controls
     document.getElementById('set-inter').addEventListener('click', function() {
       const fs = window.FontSwitcher;
-      if (fs) fs.setPreference('inter');
+      if (fs) fs.setPreference('ubuntu');
       updateFontDisplay();
     });
 
@@ -106,7 +101,7 @@
 
     document.getElementById('get-font-data').addEventListener('click', function() {
       const fs = window.FontSwitcher;
-      const data = fs ? fs.getFontData('inter') : null;
+      const data = fs ? fs.getFontData('ubuntu') : null;
       document.getElementById('font-display').textContent = data ? 
         'Font: ' + data.name + ', Family: ' + data.family : 'No data';
     });

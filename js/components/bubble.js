@@ -161,7 +161,10 @@
         this.position(trigger, popover, placement);
       });
 
-      trigger.dispatchEvent(new CustomEvent('bubble:show', { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent('bubble:show', {
+        bubbles: true,
+        detail: { trigger: trigger, placement: placement }
+      }));
     },
 
     hide: function (trigger) {
@@ -169,7 +172,10 @@
       if (!instance) return;
       instance.popover.classList.remove('is-visible');
       trigger.setAttribute('aria-expanded', 'false');
-      trigger.dispatchEvent(new CustomEvent('bubble:hide', { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent('bubble:hide', {
+        bubbles: true,
+        detail: { trigger: trigger }
+      }));
     },
 
     hideAll: function () {

@@ -13,13 +13,19 @@
     <!-- Basic Collapsible -->
     <div class="vd-collapsible collapsible" id="basic-collapsible">
       <div class="vd-collapsible-item collapsible-item">
-        <div class="vd-collapsible-header collapsible-header">Header 1</div>
+        <button class="vd-collapsible-header collapsible-header">
+          <span>Header 1</span>
+          <span class="vd-collapsible-icon"></span>
+        </button>
         <div class="vd-collapsible-body collapsible-body">
           <p>Content for item 1</p>
         </div>
       </div>
       <div class="vd-collapsible-item collapsible-item">
-        <div class="vd-collapsible-header collapsible-header">Header 2</div>
+        <button class="vd-collapsible-header collapsible-header">
+          <span>Header 2</span>
+          <span class="vd-collapsible-icon"></span>
+        </button>
         <div class="vd-collapsible-body collapsible-body">
           <p>Content for item 2</p>
         </div>
@@ -29,21 +35,52 @@
     <!-- Accordion (only one open at a time) -->
     <div class="accordion" id="accordion-test">
       <div class="accordion-item">
-        <div class="accordion-header">Accordion 1</div>
+        <button class="accordion-header">
+          <span>Accordion 1</span>
+          <span class="accordion-icon"></span>
+        </button>
         <div class="accordion-body">
           <p>Accordion content 1</p>
         </div>
       </div>
       <div class="accordion-item">
-        <div class="accordion-header">Accordion 2</div>
+        <button class="accordion-header">
+          <span>Accordion 2</span>
+          <span class="accordion-icon"></span>
+        </button>
         <div class="accordion-body">
           <p>Accordion content 2</p>
         </div>
       </div>
       <div class="accordion-item is-open">
-        <div class="accordion-header">Accordion 3 (Open)</div>
+        <button class="accordion-header">
+          <span>Accordion 3 (Open)</span>
+          <span class="accordion-icon"></span>
+        </button>
         <div class="accordion-body">
           <p>Accordion content 3</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flush Accordion -->
+    <div class="accordion accordion-flush" id="flush-accordion-test">
+      <div class="accordion-item">
+        <button class="accordion-header">
+          <span>Flush 1</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body">
+          <p>Flush accordion content 1</p>
+        </div>
+      </div>
+      <div class="accordion-item is-open">
+        <button class="accordion-header">
+          <span>Flush 2</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body">
+          <p>Flush accordion content 2</p>
         </div>
       </div>
     </div>

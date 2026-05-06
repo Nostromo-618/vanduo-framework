@@ -19,6 +19,63 @@
     // Shared ESC key handler (installed once)
     _sharedEscHandler: null,
 
+    getPortalState: function (modal) {
+      if (!modal._vdPortalState) {
+        modal._vdPortalState = {
+          originalParent: null,
+          originalNextSibling: null,
+          placeholder: null
+        };
+      }
+      return modal._vdPortalState;
+    },
+
+    portalToBody: function (modal) {
+      if (!modal || modal.parentNode === document.body) {
+        return;
+      }
+
+      const state = this.getPortalState(modal);
+      state.originalParent = modal.parentNode;
+      state.originalNextSibling = modal.nextSibling;
+
+      if (!state.placeholder) {
+        state.placeholder = document.createComment('vd-modal-placeholder');
+      }
+
+      state.originalParent.insertBefore(state.placeholder, modal);
+      document.body.appendChild(modal);
+      modal.dataset.vdPortaled = 'true';
+    },
+
+    restoreFromPortal: function (modal) {
+      if (!modal) {
+        return;
+      }
+
+      const state = this.getPortalState(modal);
+      if (!state.placeholder) {
+        delete modal.dataset.vdPortaled;
+        return;
+      }
+
+      if (state.placeholder.parentNode) {
+        state.placeholder.parentNode.insertBefore(modal, state.placeholder);
+        state.placeholder.parentNode.removeChild(state.placeholder);
+      } else if (state.originalParent && state.originalParent.isConnected) {
+        if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+          state.originalParent.insertBefore(modal, state.originalNextSibling);
+        } else {
+          state.originalParent.appendChild(modal);
+        }
+      }
+
+      state.originalParent = null;
+      state.originalNextSibling = null;
+      state.placeholder = null;
+      delete modal.dataset.vdPortaled;
+    },
+
     /**
      * Initialize modals
      */
@@ -154,6 +211,8 @@
       const modalData = this.modals.get(el);
       const { backdrop, dialog: _dialog } = modalData;
 
+      this.portalToBody(el);
+
       // Increment z-index for stacking
       this.zIndexCounter += 10;
       el.style.zIndex = this.zIndexCounter;
@@ -252,6 +311,8 @@
 
       // Dispatch event
       el.dispatchEvent(new CustomEvent('modal:close', { bubbles: true }));
+
+      this.restoreFromPortal(el);
     },
 
     /**
@@ -327,10 +388,22 @@
       const modalData = this.modals.get(modal);
       if (!modalData) return;
 
-      // Close if open
       if (modal.classList.contains('is-open')) {
-        this.close(modal);
+        const index = this.openModals.indexOf(modal);
+        if (index > -1) {
+          this.openModals.splice(index, 1);
+        }
+        modalData.backdrop.classList.remove('is-visible');
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        if (this.openModals.length === 0) {
+          document.body.classList.remove('body-modal-open');
+          document.body.style.paddingRight = '';
+          this.zIndexCounter = 1050;
+        }
       }
+
+      this.restoreFromPortal(modal);
 
       // Run all cleanup functions
       if (modalData.cleanup) {

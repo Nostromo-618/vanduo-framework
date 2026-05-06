@@ -61,6 +61,12 @@
             <div id="player-all" class="vd-music-player"></div>
         </section>
 
+        <!-- Detachable / glass (floating API) -->
+        <section>
+            <h2>Floating options</h2>
+            <div id="player-float" class="vd-music-player"></div>
+        </section>
+
         <!-- Player for destroy test -->
         <section>
             <h2>Destroy Test</h2>
@@ -115,6 +121,20 @@
             VanduoMusicPlayer.initPlayer(
                 document.getElementById('player-all'),
                 { tracks: tracks, showProgress: true, showPlaylist: true, shuffle: false, volume: 0.8 }
+            );
+
+            // Float / glass (detach/attach / minimize exercised in tests)
+            VanduoMusicPlayer.initPlayer(
+                document.getElementById('player-float'),
+                {
+                    tracks: [tracks[0]],
+                    showProgress: true,
+                    glass: true,
+                    detachable: true,
+                    draggable: true,
+                    minimizable: true,
+                    floatingPosition: 'bottom-left',
+                }
             );
 
             // Destroy test

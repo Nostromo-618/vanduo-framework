@@ -36,8 +36,16 @@
   --font-family-sans: 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+[data-font="lato"] {
+  --font-family-sans: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 [data-font="open-sans"] {
   --font-family-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-font="zen-dots"] {
+  --font-family-sans: 'Zen Dots', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 [data-font="rubik"] {

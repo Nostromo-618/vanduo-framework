@@ -5,17 +5,17 @@
 
 :root {
   /* Badge Padding (x/y ratio ~ phi) */
-  --badge-padding-y: 0.25em;
-  --badge-padding-x: 0.4em;      /* 0.4/0.25 = 1.6 ~ phi */
-  --badge-padding-y-sm: 0.15em;
-  --badge-padding-x-sm: 0.25em;  /* 0.25/0.15 = 1.67 ~ phi */
-  --badge-padding-y-lg: 0.35em;
-  --badge-padding-x-lg: 0.55em;  /* 0.55/0.35 = 1.57 ~ phi */
+  --badge-padding-y: 0.3em;
+  --badge-padding-x: 0.48em;     /* 0.48/0.3 = 1.6 ~ phi */
+  --badge-padding-y-sm: 0.18em;
+  --badge-padding-x-sm: 0.3em;   /* 0.3/0.18 = 1.67 ~ phi */
+  --badge-padding-y-lg: 0.42em;
+  --badge-padding-x-lg: 0.65em;    /* 0.65/0.42 = 1.55 ~ phi */
   
   /* Badge Font */
-  --badge-font-size: 0.75em;
-  --badge-font-size-sm: 0.65em;
-  --badge-font-size-lg: 0.875em;
+  --badge-font-size: 0.8125em;
+  --badge-font-size-sm: 0.7em;
+  --badge-font-size-lg: 0.9375em;
   --badge-font-weight: var(--font-weight-semibold);
   --badge-line-height: 1;
   

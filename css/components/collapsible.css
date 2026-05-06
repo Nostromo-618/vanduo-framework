@@ -10,6 +10,7 @@
   --collapsible-header-bg: var(--bg-secondary);
   --collapsible-header-bg-hover: var(--bg-secondary);
   --collapsible-header-bg-active: var(--bg-secondary);
+  --collapsible-focus-ring: 0 0 0 2px var(--input-focus-border-color);
   
   /* Collapsible Spacing (Fibonacci) */
   --collapsible-padding-y: 0.8125rem;    /* 13px - fib */
@@ -54,6 +55,7 @@
   margin-bottom: 0.5rem;
   overflow: hidden;
   background-color: var(--collapsible-bg);
+  position: relative;
 }
 
 .vd-collapsible-item:last-child,
@@ -86,10 +88,18 @@
   background-color: var(--collapsible-header-bg-hover);
 }
 
-.vd-collapsible-header:focus,
-.accordion-header:focus {
-  outline: 2px solid var(--input-focus-border-color);
-  outline-offset: -2px;
+.vd-collapsible-header:focus-visible,
+.accordion-header:focus-visible {
+  outline: none;
+}
+
+/* Focus ring on the parent item so it follows the outer rounded border */
+.vd-collapsible-item:has(.vd-collapsible-header:focus-visible),
+.vd-collapsible-item:has(.vd-collapsible-trigger:focus-visible),
+.accordion-item:has(.accordion-header:focus-visible),
+.accordion-item:has(.accordion-trigger:focus-visible) {
+  box-shadow: var(--collapsible-focus-ring);
+  z-index: 1;
 }
 
 .vd-collapsible-item.is-open .vd-collapsible-header,
@@ -116,8 +126,8 @@
   cursor: pointer;
 }
 
-.vd-collapsible-trigger:focus,
-.accordion-trigger:focus {
+.vd-collapsible-trigger:focus-visible,
+.accordion-trigger:focus-visible {
   outline: none;
 }
 
@@ -210,11 +220,45 @@
   border: none;
   border-radius: 0;
   border-bottom: 1px solid var(--collapsible-border-color);
+  margin-bottom: 0;
+  background-color: transparent;
+  overflow: visible;
 }
 
 .vd-collapsible-flush .vd-collapsible-item:last-child,
 .accordion-flush .accordion-item:last-child {
   border-bottom: none;
+}
+
+.vd-collapsible-flush .vd-collapsible-header,
+.vd-collapsible-flush .vd-collapsible-trigger,
+.accordion-flush .accordion-header,
+.accordion-flush .accordion-trigger {
+  background-color: transparent;
+}
+
+.vd-collapsible-flush .vd-collapsible-header:hover,
+.vd-collapsible-flush .vd-collapsible-trigger:hover,
+.accordion-flush .accordion-header:hover,
+.accordion-flush .accordion-trigger:hover {
+  border-radius: var(--btn-border-radius);
+}
+
+.vd-collapsible-flush .vd-collapsible-item:has(.vd-collapsible-header:focus-visible),
+.vd-collapsible-flush .vd-collapsible-item:has(.vd-collapsible-trigger:focus-visible),
+.accordion-flush .accordion-item:has(.accordion-header:focus-visible),
+.accordion-flush .accordion-item:has(.accordion-trigger:focus-visible) {
+  box-shadow: none;
+}
+
+.vd-collapsible-flush .vd-collapsible-header:focus-visible,
+.vd-collapsible-flush .vd-collapsible-trigger:focus-visible,
+.accordion-flush .accordion-header:focus-visible,
+.accordion-flush .accordion-trigger:focus-visible {
+  border-radius: var(--btn-border-radius);
+  box-shadow: var(--collapsible-focus-ring);
+  position: relative;
+  z-index: 1;
 }
 
 /* Collapsible Sizes */

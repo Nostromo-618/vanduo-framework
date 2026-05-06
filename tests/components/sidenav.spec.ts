@@ -18,7 +18,7 @@ test.describe('Sidenav Component @component', () => {
   test.describe('Initialization', () => {
     test('initializes sidenav components', async ({ page }) => {
       const sidenavs = page.locator('.vd-sidenav');
-      await expect(sidenavs).toHaveCount(4);
+      await expect(sidenavs).toHaveCount(5);
     });
 
     test('sets correct ARIA attributes', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Sidenav Component @component', () => {
 
     test('toggle buttons are initialized', async ({ page }) => {
       const toggles = page.locator('[data-sidenav-toggle]');
-      await expect(toggles).toHaveCount(4);
+      await expect(toggles).toHaveCount(6);
     });
 
     test('toggle buttons have initialized attribute', async ({ page }) => {
@@ -84,6 +84,24 @@ test.describe('Sidenav Component @component', () => {
 
       const overlay = page.locator('.vd-sidenav-overlay.is-visible');
       await expect(overlay).toBeVisible();
+    });
+
+    test('card-hosted sidenav portals to the viewport while open', async ({ page }) => {
+      const sidenav = page.locator('#card-sidenav');
+
+      await expect.poll(() => sidenav.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('card-sidenav-body');
+
+      await page.locator('[data-sidenav-toggle="#card-sidenav"]').first().click();
+      await expect(sidenav).toHaveClass(/is-open/);
+      await expect.poll(() => sidenav.evaluate((node) => node.parentElement === document.body)).toBe(true);
+
+      const left = await sidenav.evaluate((node) => node.getBoundingClientRect().left);
+      expect(Math.abs(left)).toBeLessThanOrEqual(1);
+
+      await page.keyboard.press('Escape');
+      await expect(sidenav).not.toHaveClass(/is-open/);
+      await page.waitForTimeout(500);
+      await expect.poll(() => sidenav.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('card-sidenav-body');
     });
   });
 

@@ -5,8 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Offcanvas (Sidenav Enhancement) Test Fixture</title>
   <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    .vd-offcanvas:not(.is-open) {
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
+  <div class="vd-card" style="max-width: 24rem; margin: 1.5rem;">
+    <div class="vd-card-header">
+      <h5>Card-hosted offcanvas</h5>
+    </div>
+    <div class="vd-card-body" id="offcanvas-card-body">
+      <button id="open-card-bottom" data-sidenav-toggle="#offcanvas-card-bottom">Open Card Bottom</button>
+      <div id="offcanvas-card-anchor" style="height: 4rem;"></div>
+      <div id="offcanvas-card-note">This wrapper keeps the default card transform enabled.</div>
+      <div id="offcanvas-card-bottom" class="vd-offcanvas vd-offcanvas-bottom">
+        <div class="vd-sidenav-header">
+          <h5 class="vd-sidenav-title">Card Bottom Panel</h5>
+          <button class="vd-sidenav-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="vd-sidenav-body"><p>Card-hosted bottom content</p></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Top offcanvas -->
   <div id="offcanvas-top" class="vd-offcanvas vd-offcanvas-top">
     <div class="vd-sidenav-header">

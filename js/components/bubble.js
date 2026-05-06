@@ -56,7 +56,9 @@
       const content = trigger.getAttribute('data-vd-bubble') ||
                       trigger.getAttribute('data-vd-popover') || '';
       const htmlContent = trigger.getAttribute('data-vd-bubble-html') ||
-                          trigger.getAttribute('data-vd-popover-html');
+              trigger.getAttribute('data-vd-popover-html');
+      const allowSvg = trigger.hasAttribute('data-vd-bubble-allow-svg') ||
+               trigger.hasAttribute('data-vd-popover-allow-svg');
 
       if (title) {
         const header = document.createElement('div');
@@ -80,7 +82,7 @@
       body.className = 'vd-bubble-body';
       if (htmlContent) {
         if (typeof sanitizeHtml === 'function') {
-          body.innerHTML = sanitizeHtml(htmlContent);
+          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
         } else {
           body.textContent = htmlContent;
         }
@@ -159,7 +161,10 @@
         this.position(trigger, popover, placement);
       });
 
-      trigger.dispatchEvent(new CustomEvent('bubble:show', { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent('bubble:show', {
+        bubbles: true,
+        detail: { trigger: trigger, placement: placement }
+      }));
     },
 
     hide: function (trigger) {
@@ -167,7 +172,10 @@
       if (!instance) return;
       instance.popover.classList.remove('is-visible');
       trigger.setAttribute('aria-expanded', 'false');
-      trigger.dispatchEvent(new CustomEvent('bubble:hide', { bubbles: true }));
+      trigger.dispatchEvent(new CustomEvent('bubble:hide', {
+        bubbles: true,
+        detail: { trigger: trigger }
+      }));
     },
 
     hideAll: function () {

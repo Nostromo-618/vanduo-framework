@@ -47,6 +47,31 @@ test.describe('Offcanvas Multi-direction @component', () => {
       await page.waitForTimeout(400);
       await expect(el).not.toHaveClass(/is-open/);
     });
+
+    test('card-hosted bottom offcanvas portals to the viewport while open', async ({ page }) => {
+      const el = page.locator('#offcanvas-card-bottom');
+
+      await expect.poll(() => el.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('offcanvas-card-body');
+
+      await page.click('#open-card-bottom');
+      await expect(el).toHaveClass(/is-open/);
+      await expect.poll(() => el.evaluate((node) => node.parentElement === document.body)).toBe(true);
+
+      const layout = await el.evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        return {
+          bottom: rect.bottom,
+          viewportHeight: window.innerHeight
+        };
+      });
+
+      expect(Math.abs(layout.bottom - layout.viewportHeight)).toBeLessThanOrEqual(2);
+
+      await page.keyboard.press('Escape');
+      await expect(el).not.toHaveClass(/is-open/);
+      await page.waitForTimeout(500);
+      await expect.poll(() => el.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('offcanvas-card-body');
+    });
   });
 
   test.describe('Right Direction', () => {

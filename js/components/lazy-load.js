@@ -117,20 +117,20 @@
             + '<div class="vd-skeleton vd-skeleton-text"></div></div>'
             + '<div class="vd-dynamic-loader" style="position:absolute;inset:0;">'
             + '<div class="vd-dynamic-loader-grid">'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-success"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-error"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div>'
             + '<span class="vd-dynamic-loader-text">Loading…</span></div></div>';
     }
 
     function _spinnerHtml() {
         return '<div class="vd-dynamic-loader" style="min-height:180px;display:flex;align-items:center;justify-content:center;">'
             + '<div class="vd-dynamic-loader-grid">'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div>'
-            + '<div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-success"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-error"></div>'
+            + '<div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div>'
             + '<span class="vd-dynamic-loader-text">Loading…</span></div>';
     }
 

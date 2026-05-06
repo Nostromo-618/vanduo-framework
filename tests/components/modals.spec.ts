@@ -42,9 +42,8 @@ test.describe('Modal Component @component', () => {
     test('shows backdrop when opened', async ({ page }) => {
       await page.click('[data-modal="#test-modal"]');
       
-      // Use first() since there might be multiple backdrops
-      const backdrop = page.locator('.vd-modal-backdrop').first();
-      await expect(backdrop).toHaveClass(/is-visible/);
+      const backdrop = page.locator('.vd-modal-backdrop.is-visible').first();
+      await expect(backdrop).toBeVisible();
     });
 
     test('locks body scroll when opened', async ({ page }) => {
@@ -55,6 +54,31 @@ test.describe('Modal Component @component', () => {
       });
       
       expect(isBodyLocked).toBe(true);
+    });
+
+    test('card-hosted modal portals to body and stays above its backdrop', async ({ page }) => {
+      const modal = page.locator('#card-hosted-modal');
+
+      await expect.poll(() => modal.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('card-modal-body');
+
+      await page.click('[data-modal="#card-hosted-modal"]');
+      await expect(modal).toHaveClass(/is-open/);
+      await expect.poll(() => modal.evaluate((node) => node.parentElement === document.body)).toBe(true);
+
+      const layerInfo = await page.evaluate(() => {
+        const modalEl = document.querySelector('#card-hosted-modal');
+        const backdropEl = document.querySelector('.vd-modal-backdrop.is-visible');
+        const rect = modalEl?.getBoundingClientRect();
+
+        return {
+          modalZ: modalEl ? Number(window.getComputedStyle(modalEl).zIndex) : 0,
+          backdropZ: backdropEl ? Number(window.getComputedStyle(backdropEl).zIndex) : 0,
+          centered: rect ? Math.abs((rect.left + rect.width / 2) - window.innerWidth / 2) <= 2 : false
+        };
+      });
+
+      expect(layerInfo.modalZ).toBeGreaterThan(layerInfo.backdropZ);
+      expect(layerInfo.centered).toBe(true);
     });
   });
 
@@ -97,6 +121,17 @@ test.describe('Modal Component @component', () => {
       });
       
       expect(isBodyLocked).toBe(false);
+    });
+
+    test('restores a card-hosted modal to its original container on close', async ({ page }) => {
+      const modal = page.locator('#card-hosted-modal');
+
+      await page.click('[data-modal="#card-hosted-modal"]');
+      await expect.poll(() => modal.evaluate((node) => node.parentElement === document.body)).toBe(true);
+
+      await page.keyboard.press('Escape');
+      await expect(modal).not.toHaveClass(/is-open/);
+      await expect.poll(() => modal.evaluate((node) => node.parentElement && node.parentElement.id)).toBe('card-modal-body');
     });
   });
 

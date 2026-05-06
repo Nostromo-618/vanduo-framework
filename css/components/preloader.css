@@ -1,312 +1,36 @@
 /**
- * Vanduo Framework - Preloader/Progress Bars
- * Loading indicators and progress bars
+ * Vanduo Framework - Preloader Component
+ * Legacy preloader aliases and preloader layout helpers.
+ *
+ * Spinner visuals live in spinner.css. Progress bars live in progress.css.
  */
 
-:root {
-  /* Spinner Colors */
-  --spinner-color: var(--color-primary);
-  --spinner-border-width: 0.25em;
-  
-  /* Spinner Sizes (Fibonacci) */
-  --spinner-size: 2.125rem;     /* 34px - fib */
-  --spinner-size-sm: 1.3125rem; /* 21px - fib */
-  --spinner-size-lg: 3.4375rem; /* 55px - fib */
-
-  /* Progress Bar (Fibonacci heights) */
-  --progress-bg: var(--bg-secondary);
-  --progress-bar-bg: var(--color-primary);
-  --progress-height: 0.8125rem;  /* 13px - fib */
-  --progress-height-sm: 0.5rem;  /* 8px  - fib */
-  --progress-height-lg: 1.3125rem; /* 21px - fib */
-  
-  /* Progress Bar Transitions */
-  --progress-transition: width var(--transition-duration-slow) var(--transition-ease);
-}
-
-/* Base Spinner */
-.vd-spinner,
+/* Legacy preloader spinner alias */
 .vd-preloader {
   display: inline-block;
-  width: var(--spinner-size);
-  height: var(--spinner-size);
-  vertical-align: text-bottom;
-  border: var(--spinner-border-width) solid currentColor;
-  border-right-color: transparent;
+  width: var(--spinner-size, 2rem);
+  height: var(--spinner-size, 2rem);
+  border: var(--spinner-border-width, 3px) solid var(--border-color, #e9ecef);
+  border-top-color: var(--spinner-color, var(--color-primary));
   border-radius: 50%;
-  animation: spinner-rotate 0.75s linear infinite;
-  color: var(--spinner-color);
+  animation: spinner-rotate var(--spinner-speed, 0.65s) linear infinite;
 }
 
-@keyframes spinner-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Preloader Sizes */
+.vd-preloader-xs { --spinner-size: 1rem; --spinner-border-width: 2px; }
+.vd-preloader-sm { --spinner-size: 1.5rem; --spinner-border-width: 2px; }
+.vd-preloader-lg { --spinner-size: 3rem; --spinner-border-width: 4px; }
+.vd-preloader-xl { --spinner-size: 4rem; --spinner-border-width: 5px; }
 
-/* Spinner Variants */
-.vd-spinner-dots {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  border: none;
-  animation: none;
-}
-
-.vd-spinner-dots::before,
-.vd-spinner-dots::after {
-  content: '';
-  width: 0.5em;
-  height: 0.5em;
-  border-radius: 50%;
-  background-color: currentColor;
-  animation: spinner-dots 1.4s ease-in-out infinite both;
-}
-
-.vd-spinner-dots::before {
-  animation-delay: -0.32s;
-}
-
-.vd-spinner-dots::after {
-  animation-delay: -0.16s;
-}
-
-@keyframes spinner-dots {
-  0%, 80%, 100% {
-    transform: scale(0);
-    opacity: 0.5;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.vd-spinner-bars {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.125rem;
-  border: none;
-  animation: none;
-}
-
-.vd-spinner-bars::before,
-.vd-spinner-bars::after {
-  content: '';
-  width: 0.25em;
-  height: 1em;
-  background-color: currentColor;
-  animation: spinner-bars 1.2s ease-in-out infinite;
-}
-
-.vd-spinner-bars::before {
-  animation-delay: -0.4s;
-}
-
-.vd-spinner-bars::after {
-  animation-delay: -0.2s;
-}
-
-@keyframes spinner-bars {
-  0%, 40%, 100% {
-    transform: scaleY(0.4);
-    opacity: 0.5;
-  }
-  20% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-
-.vd-spinner-pulse {
-  border: none;
-  background-color: currentColor;
-  opacity: 1;
-  animation: spinner-pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes spinner-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Spinner Sizes */
-.vd-spinner-sm,
-.vd-preloader-sm {
-  width: var(--spinner-size-sm);
-  height: var(--spinner-size-sm);
-  border-width: calc(var(--spinner-border-width) * 0.75);
-}
-
-.vd-spinner-lg,
-.vd-preloader-lg {
-  width: var(--spinner-size-lg);
-  height: var(--spinner-size-lg);
-  border-width: calc(var(--spinner-border-width) * 1.25);
-}
-
-/* Spinner Colors */
-.vd-spinner-primary,
-.vd-preloader-primary {
-  color: var(--color-primary);
-}
-
-.vd-spinner-secondary,
-.vd-preloader-secondary {
-  color: var(--color-secondary);
-}
-
-.vd-spinner-success,
-.vd-preloader-success {
-  color: var(--color-success);
-}
-
-.vd-spinner-warning,
-.vd-preloader-warning {
-  color: var(--color-warning);
-}
-
-.vd-spinner-error,
-.vd-preloader-error {
-  color: var(--color-error);
-}
-
-.vd-spinner-info,
-.vd-preloader-info {
-  color: var(--color-info);
-}
-
-/* Progress Bar */
-.vd-progress {
-  display: flex;
-  height: var(--progress-height);
-  overflow: hidden;
-  background-color: var(--progress-bg);
-  border-radius: var(--btn-border-radius);
-}
-
-.vd-progress-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--color-white);
-  text-align: center;
-  white-space: nowrap;
-  background-color: var(--progress-bar-bg);
-  transition: var(--progress-transition);
-  width: 0%;
-}
-
-.vd-progress-text {
-  padding: 0 0.5rem;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-}
-
-/* Progress Bar Sizes */
-.vd-progress-sm {
-  height: var(--progress-height-sm);
-}
-
-.vd-progress-sm .vd-progress-text {
-  font-size: var(--font-size-xs);
-  padding: 0 0.25rem;
-}
-
-.vd-progress-lg {
-  height: var(--progress-height-lg);
-}
-
-.vd-progress-lg .vd-progress-text {
-  font-size: var(--font-size-base);
-  padding: 0 0.75rem;
-}
-
-/* Progress Bar Variants */
-.vd-progress-striped .vd-progress-bar {
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 1rem 1rem;
-}
-
-.vd-progress-animated .vd-progress-bar {
-  animation: progress-stripes 1s linear infinite;
-}
-
-@keyframes progress-stripes {
-  0% {
-    background-position: 1rem 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-
-/* Progress Bar Colors */
-.vd-progress-bar-primary,
-.vd-progress-bar.bg-primary {
-  background-color: var(--color-primary);
-}
-
-.vd-progress-bar-secondary,
-.vd-progress-bar.bg-secondary {
-  background-color: var(--color-secondary);
-}
-
-.vd-progress-bar-success,
-.vd-progress-bar.bg-success {
-  background-color: var(--color-success);
-}
-
-.vd-progress-bar-warning,
-.vd-progress-bar.bg-warning {
-  background-color: var(--color-warning);
-  color: var(--color-gray-900);
-}
-
-.vd-progress-bar-error,
-.vd-progress-bar.bg-error {
-  background-color: var(--color-error);
-}
-
-.vd-progress-bar-info,
-.vd-progress-bar.bg-info {
-  background-color: var(--color-info);
-}
-
-/* Indeterminate Progress */
-.vd-progress-indeterminate .vd-progress-bar {
-  width: 100%;
-  background-image: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--progress-bar-bg) 30%,
-    var(--progress-bar-bg) 70%,
-    transparent 100%
-  );
-  animation: progress-indeterminate 1.5s ease-in-out infinite;
-}
-
-@keyframes progress-indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(400%);
-  }
-}
+/* Preloader Colors */
+.vd-preloader-primary { --spinner-color: var(--color-primary); }
+.vd-preloader-secondary { --spinner-color: var(--color-secondary); }
+.vd-preloader-success { --spinner-color: var(--color-success); }
+.vd-preloader-warning { --spinner-color: var(--color-warning); }
+.vd-preloader-error { --spinner-color: var(--color-error); }
+.vd-preloader-info { --spinner-color: var(--color-info); }
+.vd-preloader-light { --spinner-color: #fff; }
+.vd-preloader-dark { --spinner-color: var(--text-primary); }
 
 /* Preloader Container */
 .vd-preloader-container {
@@ -325,16 +49,8 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .vd-spinner,
-  .vd-preloader,
-  .vd-spinner-dots::before,
-  .vd-spinner-dots::after,
-  .vd-spinner-bars::before,
-  .vd-spinner-bars::after,
-  .vd-spinner-pulse,
-  .vd-progress-animated .vd-progress-bar,
-  .vd-progress-indeterminate .vd-progress-bar {
-    animation: none;
+  .vd-preloader {
+    animation-duration: 1.5s;
   }
 }
 

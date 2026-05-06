@@ -170,22 +170,30 @@
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       const padding = 8;
-      
-      // Check if menu overflows right
+
+      // Reset auto-position classes before computing a new state.
+      menu.classList.remove('vd-dropdown-menu-end', 'vd-dropdown-menu-start', 'vd-dropdown-menu-top');
+
+      // Directional wrappers explicitly control placement in CSS.
+      if (dropdown.classList.contains('vd-dropdown-dropup')) {
+        menu.classList.add('vd-dropdown-menu-top');
+        return;
+      }
+
+      if (dropdown.classList.contains('vd-dropdown-dropright') || dropdown.classList.contains('vd-dropdown-dropleft')) {
+        return;
+      }
+
+      // Check if menu overflows right.
       if (rect.left + menuRect.width > viewportWidth - padding) {
         menu.classList.add('vd-dropdown-menu-end');
-        menu.classList.remove('vd-dropdown-menu-start');
-      }
-      
-      // Check if menu overflows bottom (for top positioning)
-      if (menu.classList.contains('dropdown-menu-top')) {
-        if (rect.top - menuRect.height < padding) {
-          menu.classList.remove('vd-dropdown-menu-top');
-        }
       } else {
-        if (rect.bottom + menuRect.height > viewportHeight - padding) {
-          menu.classList.add('vd-dropdown-menu-top');
-        }
+        menu.classList.add('vd-dropdown-menu-start');
+      }
+
+      // Flip above trigger when there is not enough room below.
+      if (rect.bottom + menuRect.height > viewportHeight - padding && rect.top - menuRect.height > padding) {
+        menu.classList.add('vd-dropdown-menu-top');
       }
     },
     

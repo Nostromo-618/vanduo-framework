@@ -6,7 +6,7 @@
 :root {
   /* Sidenav Colors */
   --sidenav-bg: var(--color-white);
-  --sidenav-overlay-bg: rgba(0, 0, 0, 0.5);
+  --sidenav-overlay-bg: rgba(0, 0, 0, 0.35);
   --sidenav-border-color: var(--border-color);
   --sidenav-item-bg-hover: var(--bg-secondary);
   --sidenav-item-bg-active: var(--color-primary-alpha-10);

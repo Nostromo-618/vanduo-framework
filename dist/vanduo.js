@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.7 | Built: 2026-04-18T12:05:32.603Z | git:20b2d08 | development */
+/*! Vanduo v1.3.8 | Built: 2026-05-06T18:32:43.703Z | git:6042eac | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -107,7 +107,7 @@
   // js/vanduo.js
   (function() {
     "use strict";
-    const VANDUO_VERSION = true ? "1.3.7" : "0.0.0-dev";
+    const VANDUO_VERSION = true ? "1.3.8" : "0.0.0-dev";
     const Vanduo2 = {
       version: VANDUO_VERSION,
       components: {},
@@ -993,18 +993,21 @@
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const padding = 8;
+        menu.classList.remove("vd-dropdown-menu-end", "vd-dropdown-menu-start", "vd-dropdown-menu-top");
+        if (dropdown.classList.contains("vd-dropdown-dropup")) {
+          menu.classList.add("vd-dropdown-menu-top");
+          return;
+        }
+        if (dropdown.classList.contains("vd-dropdown-dropright") || dropdown.classList.contains("vd-dropdown-dropleft")) {
+          return;
+        }
         if (rect.left + menuRect.width > viewportWidth - padding) {
           menu.classList.add("vd-dropdown-menu-end");
-          menu.classList.remove("vd-dropdown-menu-start");
-        }
-        if (menu.classList.contains("dropdown-menu-top")) {
-          if (rect.top - menuRect.height < padding) {
-            menu.classList.remove("vd-dropdown-menu-top");
-          }
         } else {
-          if (rect.bottom + menuRect.height > viewportHeight - padding) {
-            menu.classList.add("vd-dropdown-menu-top");
-          }
+          menu.classList.add("vd-dropdown-menu-start");
+        }
+        if (rect.bottom + menuRect.height > viewportHeight - padding && rect.top - menuRect.height > padding) {
+          menu.classList.add("vd-dropdown-menu-top");
         }
       },
       /**
@@ -1161,22 +1164,6 @@
           family: null
           // Uses CSS default
         },
-        "inter": {
-          name: "Inter",
-          family: "'Inter', sans-serif"
-        },
-        "source-sans": {
-          name: "Source Sans 3",
-          family: "'Source Sans 3', sans-serif"
-        },
-        "fira-sans": {
-          name: "Fira Sans",
-          family: "'Fira Sans', sans-serif"
-        },
-        "ibm-plex": {
-          name: "IBM Plex Sans",
-          family: "'IBM Plex Sans', sans-serif"
-        },
         "jetbrains-mono": {
           name: "JetBrains Mono",
           family: "'JetBrains Mono', monospace"
@@ -1193,23 +1180,21 @@
           category: "sans-serif",
           description: "Neutral, highly readable"
         },
-        "rubik": {
-          name: "Rubik",
-          family: "'Rubik', sans-serif",
+        "lato": {
+          name: "Lato",
+          family: "'Lato', sans-serif",
           category: "sans-serif",
-          description: "Modern, geometric"
-        },
-        "titillium-web": {
-          name: "Titillium Web",
-          family: "'Titillium Web', sans-serif",
-          category: "sans-serif",
-          description: "Technical, elegant"
+          description: "Friendly, rounded sans-serif"
         }
       },
       init: function() {
         this.state = {
           preference: this.getPreference()
         };
+        if (!this.fonts[this.state.preference]) {
+          this.state.preference = "lato";
+          this.setStorageValue(this.STORAGE_KEY, this.state.preference);
+        }
         if (this.isInitialized) {
           this.applyFont();
           this.renderUI();
@@ -1223,10 +1208,10 @@
       },
       /**
        * Get saved font preference from localStorage
-       * @returns {string} Font key or 'ubuntu' (default)
+       * @returns {string} Font key or 'lato' (default)
        */
       getPreference: function() {
-        return this.getStorageValue(this.STORAGE_KEY, "ubuntu");
+        return this.getStorageValue(this.STORAGE_KEY, "lato");
       },
       /**
        * Set font preference and apply it
@@ -1863,6 +1848,54 @@
       _triggerCleanups: [],
       // Shared ESC key handler (installed once)
       _sharedEscHandler: null,
+      getPortalState: function(modal) {
+        if (!modal._vdPortalState) {
+          modal._vdPortalState = {
+            originalParent: null,
+            originalNextSibling: null,
+            placeholder: null
+          };
+        }
+        return modal._vdPortalState;
+      },
+      portalToBody: function(modal) {
+        if (!modal || modal.parentNode === document.body) {
+          return;
+        }
+        const state = this.getPortalState(modal);
+        state.originalParent = modal.parentNode;
+        state.originalNextSibling = modal.nextSibling;
+        if (!state.placeholder) {
+          state.placeholder = document.createComment("vd-modal-placeholder");
+        }
+        state.originalParent.insertBefore(state.placeholder, modal);
+        document.body.appendChild(modal);
+        modal.dataset.vdPortaled = "true";
+      },
+      restoreFromPortal: function(modal) {
+        if (!modal) {
+          return;
+        }
+        const state = this.getPortalState(modal);
+        if (!state.placeholder) {
+          delete modal.dataset.vdPortaled;
+          return;
+        }
+        if (state.placeholder.parentNode) {
+          state.placeholder.parentNode.insertBefore(modal, state.placeholder);
+          state.placeholder.parentNode.removeChild(state.placeholder);
+        } else if (state.originalParent && state.originalParent.isConnected) {
+          if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+            state.originalParent.insertBefore(modal, state.originalNextSibling);
+          } else {
+            state.originalParent.appendChild(modal);
+          }
+        }
+        state.originalParent = null;
+        state.originalNextSibling = null;
+        state.placeholder = null;
+        delete modal.dataset.vdPortaled;
+      },
       /**
        * Initialize modals
        */
@@ -1970,6 +2003,7 @@
         }
         const modalData = this.modals.get(el);
         const { backdrop, dialog: _dialog } = modalData;
+        this.portalToBody(el);
         this.zIndexCounter += 10;
         el.style.zIndex = this.zIndexCounter;
         backdrop.style.zIndex = this.zIndexCounter - 1;
@@ -2035,6 +2069,7 @@
           trigger.focus();
         }
         el.dispatchEvent(new CustomEvent("modal:close", { bubbles: true }));
+        this.restoreFromPortal(el);
       },
       /**
        * Trap focus within modal
@@ -2098,8 +2133,20 @@
         const modalData = this.modals.get(modal);
         if (!modalData) return;
         if (modal.classList.contains("is-open")) {
-          this.close(modal);
+          const index = this.openModals.indexOf(modal);
+          if (index > -1) {
+            this.openModals.splice(index, 1);
+          }
+          modalData.backdrop.classList.remove("is-visible");
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+          if (this.openModals.length === 0) {
+            document.body.classList.remove("body-modal-open");
+            document.body.style.paddingRight = "";
+            this.zIndexCounter = 1050;
+          }
         }
+        this.restoreFromPortal(modal);
         if (modalData.cleanup) {
           modalData.cleanup.forEach((fn) => fn());
         }
@@ -2755,7 +2802,7 @@
        * Initialize preloader components
        */
       init: function() {
-        const progressBars = document.querySelectorAll(".progress-bar[data-progress]");
+        const progressBars = document.querySelectorAll(".vd-progress-bar[data-progress], .progress-bar[data-progress]");
         progressBars.forEach((bar) => {
           if (!bar.dataset.progressInitialized) {
             this.initProgressBar(bar);
@@ -2795,7 +2842,7 @@
         el.setAttribute("aria-valuenow", value);
         el.setAttribute("aria-valuemin", 0);
         el.setAttribute("aria-valuemax", 100);
-        const text = el.querySelector(".progress-text");
+        const text = el.querySelector(".vd-progress-text, .progress-text");
         if (text) {
           text.textContent = value + "%";
         }
@@ -2876,7 +2923,7 @@
        * Destroy all progress bar instances
        */
       destroyAll: function() {
-        const progressBars = document.querySelectorAll('.progress-bar[data-progress-initialized="true"]');
+        const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress-initialized="true"], .progress-bar[data-progress-initialized="true"]');
         progressBars.forEach((bar) => {
           delete bar.dataset.progressInitialized;
         });
@@ -3258,6 +3305,7 @@
       sidenavs: /* @__PURE__ */ new Map(),
       breakpoint: 992,
       // Desktop breakpoint
+      restoreDelayMs: 450,
       // Global cleanup functions (toggles, resize)
       _globalCleanups: [],
       isFixedVariant: function(sidenav) {
@@ -3268,6 +3316,94 @@
       },
       isRightVariant: function(sidenav) {
         return sidenav.classList.contains("vd-sidenav-right") || sidenav.classList.contains("sidenav-right");
+      },
+      getPortalState: function(sidenav) {
+        if (!sidenav._vdPortalState) {
+          sidenav._vdPortalState = {
+            originalParent: null,
+            originalNextSibling: null,
+            placeholder: null,
+            restoreTimer: null,
+            restoreHandler: null
+          };
+        }
+        return sidenav._vdPortalState;
+      },
+      cancelScheduledRestore: function(sidenav) {
+        const state = this.getPortalState(sidenav);
+        if (state.restoreHandler) {
+          sidenav.removeEventListener("transitionend", state.restoreHandler);
+          state.restoreHandler = null;
+        }
+        if (state.restoreTimer) {
+          window.clearTimeout(state.restoreTimer);
+          state.restoreTimer = null;
+        }
+      },
+      portalToBody: function(sidenav) {
+        if (!sidenav) {
+          return;
+        }
+        if (sidenav.parentNode === document.body) {
+          this.cancelScheduledRestore(sidenav);
+          return;
+        }
+        const state = this.getPortalState(sidenav);
+        this.cancelScheduledRestore(sidenav);
+        state.originalParent = sidenav.parentNode;
+        state.originalNextSibling = sidenav.nextSibling;
+        if (!state.placeholder) {
+          state.placeholder = document.createComment("vd-sidenav-placeholder");
+        }
+        state.originalParent.insertBefore(state.placeholder, sidenav);
+        document.body.appendChild(sidenav);
+        sidenav.dataset.vdPortaled = "true";
+      },
+      restoreFromPortal: function(sidenav) {
+        if (!sidenav) {
+          return;
+        }
+        const state = this.getPortalState(sidenav);
+        this.cancelScheduledRestore(sidenav);
+        if (!state.placeholder) {
+          delete sidenav.dataset.vdPortaled;
+          return;
+        }
+        if (state.placeholder.parentNode) {
+          state.placeholder.parentNode.insertBefore(sidenav, state.placeholder);
+          state.placeholder.parentNode.removeChild(state.placeholder);
+        } else if (state.originalParent && state.originalParent.isConnected) {
+          if (state.originalNextSibling && state.originalNextSibling.parentNode === state.originalParent) {
+            state.originalParent.insertBefore(sidenav, state.originalNextSibling);
+          } else {
+            state.originalParent.appendChild(sidenav);
+          }
+        }
+        state.originalParent = null;
+        state.originalNextSibling = null;
+        state.placeholder = null;
+        delete sidenav.dataset.vdPortaled;
+      },
+      scheduleRestoreFromPortal: function(sidenav) {
+        if (!sidenav || sidenav.parentNode !== document.body) {
+          return;
+        }
+        const state = this.getPortalState(sidenav);
+        this.cancelScheduledRestore(sidenav);
+        const finalizeRestore = () => {
+          this.restoreFromPortal(sidenav);
+        };
+        const transitionEndHandler = (event) => {
+          if (event.target !== sidenav || event.propertyName !== "transform") {
+            return;
+          }
+          finalizeRestore();
+        };
+        state.restoreHandler = transitionEndHandler;
+        sidenav.addEventListener("transitionend", transitionEndHandler);
+        state.restoreTimer = window.setTimeout(() => {
+          finalizeRestore();
+        }, this.restoreDelayMs);
       },
       /**
        * Initialize sidenav components
@@ -3366,6 +3502,7 @@
           return;
         }
         const { overlay } = this.sidenavs.get(el);
+        this.portalToBody(el);
         if (!this.isFixedVariant(el)) {
           overlay.classList.add("is-visible");
         }
@@ -3395,6 +3532,7 @@
           this.handlePushVariant(el, false);
         }
         el.dispatchEvent(new CustomEvent("sidenav:close", { bubbles: true }));
+        this.scheduleRestoreFromPortal(el);
       },
       /**
        * Toggle sidenav
@@ -3456,8 +3594,12 @@
         const data = this.sidenavs.get(sidenav);
         if (!data) return;
         if (sidenav.classList.contains("is-open")) {
-          this.close(sidenav);
+          data.overlay.classList.remove("is-visible");
+          sidenav.classList.remove("is-open");
+          sidenav.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("body-sidenav-open");
         }
+        this.restoreFromPortal(sidenav);
         data.cleanup.forEach((fn) => fn());
         if (data.overlay && data.overlay.parentNode) {
           data.overlay.parentNode.removeChild(data.overlay);
@@ -3511,7 +3653,7 @@
         const cleanupFunctions = [];
         tabList.setAttribute("role", "tablist");
         tabLinks.forEach((link, index) => {
-          const tabId = link.dataset.tab || link.getAttribute("href")?.replace("#", "") || `tab-${index}`;
+          const tabId = this.getTabId(link, index);
           const pane = this.findPane(container, tabId, tabPanes);
           link.setAttribute("role", "tab");
           link.setAttribute("aria-selected", link.classList.contains("is-active") ? "true" : "false");
@@ -3548,6 +3690,15 @@
         this.instances.set(container, { cleanup: cleanupFunctions });
       },
       /**
+       * Get the pane identifier associated with a tab link.
+       * @param {HTMLElement} link - Tab link element
+       * @param {number} [fallbackIndex] - Optional fallback index
+       * @returns {string} Tab identifier
+       */
+      getTabId: function(link, fallbackIndex) {
+        return link.dataset.tabTarget || link.dataset.tab || link.getAttribute("href")?.replace("#", "") || (typeof fallbackIndex === "number" ? `tab-${fallbackIndex}` : link.id);
+      },
+      /**
        * Find the pane associated with a tab
        * @param {HTMLElement} container - Tabs container
        * @param {string} tabId - Tab identifier
@@ -3562,7 +3713,7 @@
         if (!pane) {
           const tabLinks = container.querySelectorAll(".vd-tab-link, [data-tab]");
           tabLinks.forEach((link, index) => {
-            const linkTabId = link.dataset.tab || link.getAttribute("href")?.replace("#", "");
+            const linkTabId = this.getTabId(link, index);
             if (linkTabId === tabId && tabPanes[index]) {
               pane = tabPanes[index];
             }
@@ -3578,7 +3729,8 @@
        * @param {NodeList} allPanes - All tab panes
        */
       activateTab: function(container, tab, allTabs, allPanes) {
-        const tabId = tab.dataset.tab || tab.getAttribute("href")?.replace("#", "") || tab.id;
+        const tabIndex = Array.from(allTabs).indexOf(tab);
+        const tabId = this.getTabId(tab, tabIndex);
         allTabs.forEach((t) => {
           t.classList.remove("is-active");
           t.setAttribute("aria-selected", "false");
@@ -3619,7 +3771,7 @@
        * @param {NodeList} allPanes - All tab panes
        */
       handleKeydown: function(e, container, currentTab, allTabs, allPanes) {
-        const isVertical = container.classList.contains("tabs-vertical");
+        const isVertical = container.classList.contains("vd-tabs-vertical") || container.classList.contains("tabs-vertical");
         const tabs = Array.from(allTabs).filter((t) => !t.classList.contains("disabled") && !t.disabled);
         const currentIndex = tabs.indexOf(currentTab);
         let newIndex = currentIndex;
@@ -3676,7 +3828,7 @@
       show: function(tab) {
         let tabElement;
         if (typeof tab === "string") {
-          tabElement = document.querySelector(`[data-tab="${tab}"], [href="#${tab}"]`);
+          tabElement = document.querySelector(`[data-tab-target="${tab}"], [data-tab="${tab}"], [href="#${tab}"]`);
         } else {
           tabElement = tab;
         }
@@ -3729,7 +3881,7 @@
         PRIMARY_DARK: "amber",
         NEUTRAL: "neutral",
         RADIUS: "0.5",
-        FONT: "ubuntu",
+        FONT: "lato",
         THEME: "system"
       },
       // Primary color definitions (Open Color based)
@@ -3766,16 +3918,10 @@
       // Font options
       FONT_OPTIONS: {
         "jetbrains-mono": { name: "JetBrains Mono", family: "'JetBrains Mono', monospace" },
-        "inter": { name: "Inter", family: "'Inter', sans-serif" },
-        "source-sans": { name: "Source Sans 3", family: "'Source Sans 3', sans-serif" },
-        "fira-sans": { name: "Fira Sans", family: "'Fira Sans', sans-serif" },
-        "ibm-plex": { name: "IBM Plex Sans", family: "'IBM Plex Sans', sans-serif" },
         "system": { name: "System Default", family: null },
-        // Google Fonts Collection
         "ubuntu": { name: "Ubuntu", family: "'Ubuntu', sans-serif" },
-        "open-sans": { name: "Open Sans", family: "'Open Sans', sans-serif" },
-        "rubik": { name: "Rubik", family: "'Rubik', sans-serif" },
-        "titillium-web": { name: "Titillium Web", family: "'Titillium Web', sans-serif" }
+        "lato": { name: "Lato", family: "'Lato', sans-serif" },
+        "open-sans": { name: "Open Sans", family: "'Open Sans', sans-serif" }
       },
       // Theme mode options
       THEME_MODES: ["system", "dark", "light"],
@@ -3794,6 +3940,7 @@
       elements: {
         customizer: null,
         trigger: null,
+        triggers: [],
         panel: null,
         overlay: null
       },
@@ -3803,6 +3950,7 @@
       init: function() {
         if (this.isInitialized) {
           this.bindExistingElements();
+          this.bindTriggerEvents();
           this.bindPanelEvents();
           this.updateUI();
           return;
@@ -3976,14 +4124,17 @@
        */
       bindExistingElements: function() {
         this.elements.customizer = document.querySelector(".vd-theme-customizer");
+        this.elements.triggers = Array.from(document.querySelectorAll("[data-theme-customizer-trigger]"));
+        if (!this.elements.trigger && this.elements.triggers.length) {
+          this.elements.trigger = this.elements.triggers[0];
+        }
         if (this.elements.customizer) {
-          this.elements.trigger = this.elements.customizer.querySelector(".vd-theme-customizer-trigger");
+          this.elements.trigger = this.elements.customizer.querySelector(".vd-theme-customizer-trigger") || this.elements.trigger;
           this.elements.panel = this.elements.customizer.querySelector(".vd-theme-customizer-panel");
           this.elements.overlay = this.elements.customizer.querySelector(".vd-theme-customizer-overlay");
         } else {
-          const standaloneTrigger = document.querySelector("[data-theme-customizer-trigger]");
-          if (standaloneTrigger) {
-            this.createDynamicPanel(standaloneTrigger);
+          if (this.elements.triggers.length) {
+            this.createDynamicPanel();
           }
         }
         this.updateUI();
@@ -3991,10 +4142,11 @@
       /**
        * Create the panel dynamically when only a trigger button exists
        */
-      createDynamicPanel: function(triggerButton) {
-        const wrapper = document.createElement("div");
-        wrapper.className = "vd-theme-customizer";
-        this.elements.trigger = triggerButton;
+      createDynamicPanel: function() {
+        if (!this.elements.triggers.length) {
+          return;
+        }
+        this.elements.trigger = this.elements.triggers[0];
         const overlay = document.createElement("div");
         overlay.className = "vd-theme-customizer-overlay";
         const panel = document.createElement("div");
@@ -4004,7 +4156,9 @@
         document.body.appendChild(panel);
         this.elements.panel = panel;
         this.elements.overlay = overlay;
-        this.elements.customizer = { contains: (el) => panel.contains(el) || triggerButton.contains(el) };
+        this.elements.customizer = {
+          contains: (el) => panel.contains(el) || this.elements.triggers.some((trigger) => trigger.contains(el))
+        };
         this.positionPanel();
         this.bindPanelEvents();
         this.addListener(window, "resize", () => this.positionPanel());
@@ -4014,6 +4168,7 @@
        */
       positionPanel: function() {
         if (!this.elements.panel || !this.elements.trigger) return;
+        const anchorTrigger = this.elements.activeTrigger || this.elements.trigger;
         const isMobile = window.innerWidth < 768;
         if (isMobile) {
           this.elements.panel.style.top = "";
@@ -4022,7 +4177,7 @@
           this.elements.panel.style.height = "";
           this.elements.panel.style.maxHeight = "";
         } else {
-          const triggerRect = this.elements.trigger.getBoundingClientRect();
+          const triggerRect = anchorTrigger.getBoundingClientRect();
           const panelWidth = 320;
           const panelTop = triggerRect.bottom + 8;
           const viewportWidth = window.innerWidth;
@@ -4184,13 +4339,7 @@
         }
       },
       bindEvents: function() {
-        if (this.elements.trigger) {
-          this.addListener(this.elements.trigger, "click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.toggle();
-          });
-        }
+        this.bindTriggerEvents();
         this.bindPanelEvents();
         if (window.matchMedia) {
           const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -4217,6 +4366,21 @@
           }
         });
       },
+      bindTriggerEvents: function() {
+        this.elements.triggers.forEach((trigger) => {
+          if (trigger.getAttribute("data-customizer-trigger-initialized") === "true") {
+            return;
+          }
+          this.addListener(trigger, "click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.elements.activeTrigger = trigger;
+            this.elements.trigger = trigger;
+            this.toggle();
+          });
+          trigger.setAttribute("data-customizer-trigger-initialized", "true");
+        });
+      },
       /**
        * Toggle panel open/close
        */
@@ -4236,9 +4400,8 @@
         if (this.elements.panel) {
           this.elements.panel.classList.add("is-open");
         }
-        if (this.elements.trigger) {
-          this.elements.trigger.setAttribute("aria-expanded", "true");
-        }
+        this.elements.triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "false"));
+        if (this.elements.trigger) this.elements.trigger.setAttribute("aria-expanded", "true");
         if (this.elements.overlay) {
           this.elements.overlay.classList.add("is-active");
         }
@@ -4252,9 +4415,7 @@
         if (this.elements.panel) {
           this.elements.panel.classList.remove("is-open");
         }
-        if (this.elements.trigger) {
-          this.elements.trigger.setAttribute("aria-expanded", "false");
-        }
+        this.elements.triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "false"));
         if (this.elements.overlay) {
           this.elements.overlay.classList.remove("is-active");
         }
@@ -4534,11 +4695,17 @@
        */
       show: function(options, type, duration) {
         if (typeof options === "string") {
-          options = {
-            message: options,
-            type,
-            duration
-          };
+          if (type && typeof type === "object") {
+            options = Object.assign({}, type, {
+              message: options
+            });
+          } else {
+            options = {
+              message: options,
+              type,
+              duration
+            };
+          }
         }
         const config = Object.assign({}, this.defaults, options);
         const container = this.getContainer(config.position);
@@ -4555,7 +4722,8 @@
         }
         let html = "";
         if (config.icon) {
-          const safeIcon = typeof sanitizeHtml === "function" ? sanitizeHtml(config.icon) : escapeHtml(config.icon);
+          const allowSvg = config.iconAllowSvg === true;
+          const safeIcon = typeof sanitizeHtml === "function" ? sanitizeHtml(config.icon, { allowSvg }) : escapeHtml(config.icon);
           html += `<span class="vd-toast-icon">${safeIcon}</span>`;
         } else if (config.type) {
           html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;
@@ -4763,15 +4931,14 @@
       /**
        * Sanitize HTML — delegates to shared sanitizeHtml from helpers.js
        * @param {string} input
+       * @param {{ allowSvg?: boolean }} [options]
        * @returns {string} sanitized HTML
        */
-      sanitizeHtml: function(input) {
+      sanitizeHtml: function(input, options) {
         if (typeof sanitizeHtml === "function") {
-          return sanitizeHtml(input);
+          return sanitizeHtml(input, options);
         }
-        const div = document.createElement("div");
-        div.textContent = input || "";
-        return div.innerHTML;
+        return input || "";
       },
       /**
        * Initialize tooltips
@@ -4832,7 +4999,8 @@
         const htmlContent = element.dataset.tooltipHtml;
         const textContent = element.dataset.tooltip;
         if (htmlContent) {
-          tooltip.innerHTML = this.sanitizeHtml(htmlContent);
+          const allowSvg = element.hasAttribute("data-tooltip-allow-svg");
+          tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg });
           tooltip.classList.add("vd-tooltip-html");
         } else if (textContent) {
           tooltip.textContent = textContent;
@@ -4964,7 +5132,8 @@
         if (el && this.tooltips.has(el)) {
           const { tooltip } = this.tooltips.get(el);
           if (isHtml) {
-            tooltip.innerHTML = this.sanitizeHtml(content);
+            const allowSvg = el.hasAttribute("data-tooltip-allow-svg");
+            tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg });
             tooltip.classList.add("vd-tooltip-html");
           } else {
             tooltip.textContent = content;
@@ -6329,10 +6498,10 @@
       });
     }
     function _skeletonHtml() {
-      return '<div class="vd-skeleton-card" style="position:relative;min-height:200px;padding:2rem;overflow:hidden;"><div class="vd-skeleton vd-skeleton-heading-lg" style="margin-bottom:1.5rem;"></div><div class="vd-skeleton vd-skeleton-paragraph"><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div></div><div class="vd-dynamic-loader" style="position:absolute;inset:0;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div></div>';
+      return '<div class="vd-skeleton-card" style="position:relative;min-height:200px;padding:2rem;overflow:hidden;"><div class="vd-skeleton vd-skeleton-heading-lg" style="margin-bottom:1.5rem;"></div><div class="vd-skeleton vd-skeleton-paragraph"><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div><div class="vd-skeleton vd-skeleton-text"></div></div><div class="vd-dynamic-loader" style="position:absolute;inset:0;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div></div>';
     }
     function _spinnerHtml() {
-      return '<div class="vd-dynamic-loader" style="min-height:180px;display:flex;align-items:center;justify-content:center;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success" style="animation-delay:0s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning" style="animation-delay:-0.15s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error" style="animation-delay:-0.3s;"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info" style="animation-delay:-0.45s;"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div>';
+      return '<div class="vd-dynamic-loader" style="min-height:180px;display:flex;align-items:center;justify-content:center;"><div class="vd-dynamic-loader-grid"><div class="vd-spinner vd-spinner-sm vd-spinner-success"></div><div class="vd-spinner vd-spinner-sm vd-spinner-warning"></div><div class="vd-spinner vd-spinner-sm vd-spinner-error"></div><div class="vd-spinner vd-spinner-sm vd-spinner-info"></div></div><span class="vd-dynamic-loader-text">Loading\u2026</span></div>';
     }
     function _resolvePlaceholder(placeholder) {
       if (!placeholder || placeholder === "skeleton") return _skeletonHtml();
@@ -7237,6 +7406,7 @@
         const title = trigger.getAttribute("data-vd-bubble-title") || trigger.getAttribute("data-vd-popover-title");
         const content = trigger.getAttribute("data-vd-bubble") || trigger.getAttribute("data-vd-popover") || "";
         const htmlContent = trigger.getAttribute("data-vd-bubble-html") || trigger.getAttribute("data-vd-popover-html");
+        const allowSvg = trigger.hasAttribute("data-vd-bubble-allow-svg") || trigger.hasAttribute("data-vd-popover-allow-svg");
         if (title) {
           const header = document.createElement("div");
           header.className = "vd-bubble-header";
@@ -7260,7 +7430,7 @@
         body.className = "vd-bubble-body";
         if (htmlContent) {
           if (typeof sanitizeHtml === "function") {
-            body.innerHTML = sanitizeHtml(htmlContent);
+            body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
           } else {
             body.textContent = htmlContent;
           }
@@ -7324,14 +7494,20 @@
         requestAnimationFrame(() => {
           this.position(trigger, popover, placement);
         });
-        trigger.dispatchEvent(new CustomEvent("bubble:show", { bubbles: true }));
+        trigger.dispatchEvent(new CustomEvent("bubble:show", {
+          bubbles: true,
+          detail: { trigger, placement }
+        }));
       },
       hide: function(trigger) {
         const instance = this.instances.get(trigger);
         if (!instance) return;
         instance.popover.classList.remove("is-visible");
         trigger.setAttribute("aria-expanded", "false");
-        trigger.dispatchEvent(new CustomEvent("bubble:hide", { bubbles: true }));
+        trigger.dispatchEvent(new CustomEvent("bubble:hide", {
+          bubbles: true,
+          detail: { trigger }
+        }));
       },
       hideAll: function() {
         this.instances.forEach((_, trigger) => this.hide(trigger));
@@ -7623,6 +7799,15 @@
       div.textContent = text;
       return div.innerHTML;
     }
+    function _isSafeUrl(url, allowlist) {
+      try {
+        const resolved = new URL(url, window.location.href);
+        if (resolved.origin === window.location.origin) return true;
+        return allowlist.includes(resolved.origin);
+      } catch (_e) {
+        return false;
+      }
+    }
     const Suggest = {
       instances: /* @__PURE__ */ new Map(),
       init: function() {
@@ -7636,6 +7821,8 @@
         const cleanup = [];
         const minChars = parseInt(input.getAttribute("data-vd-suggest-min-chars") || "1", 10);
         const url = input.getAttribute("data-vd-suggest-url") || "";
+        const allowlistAttr = input.getAttribute("data-vd-suggest-allowlist") || "";
+        const allowlist = allowlistAttr.split(",").map((value) => value.trim()).filter(Boolean);
         const staticData = input.getAttribute("data-vd-suggest") || input.getAttribute("data-vd-autocomplete") || "";
         let items = [];
         try {
@@ -7730,9 +7917,14 @@
           let filtered;
           if (url) {
             try {
-              const separator = url.includes("?") ? "&" : "?";
-              const res = await window.fetch(url + separator + "q=" + encodeURIComponent(query));
-              filtered = await res.json();
+              if (!_isSafeUrl(url, allowlist)) {
+                console.warn("[VanduoSuggest] Blocked non-allowlisted URL:", url);
+                filtered = [];
+              } else {
+                const separator = url.includes("?") ? "&" : "?";
+                const res = await window.fetch(url + separator + "q=" + encodeURIComponent(query));
+                filtered = await res.json();
+              }
             } catch (_e) {
               filtered = [];
             }
@@ -9441,6 +9633,9 @@
       const s = Math.floor(seconds % 60);
       return m + ":" + (s < 10 ? "0" : "") + s;
     }
+    function persistStorageKey(id) {
+      return "vanduo:music-player:" + (id && id.trim() ? id.trim() : "default") + ":pos";
+    }
     function updateRangeFill(input) {
       const min = parseFloat(input.min) || 0;
       const max = parseFloat(input.max) || 1;
@@ -9467,7 +9662,16 @@
         shuffle: false,
         showProgress: false,
         showPlaylist: false,
-        autoAdvance: true
+        autoAdvance: true,
+        glass: false,
+        detachable: false,
+        /** @type {null|string} */
+        floatingPosition: null,
+        draggable: false,
+        minimizable: false,
+        startMinimized: false,
+        persistPosition: false,
+        persistKey: ""
       },
       /**
        * Auto-initialize all .vd-music-player / [data-music-player] elements.
@@ -9507,7 +9711,18 @@
           showProgress: opts.showProgress,
           showPlaylist: opts.showPlaylist,
           autoAdvance: opts.autoAdvance,
-          audio: null
+          audio: null,
+          glass: Boolean(opts.glass),
+          detachable: Boolean(opts.detachable),
+          floatingPosition: opts.floatingPosition || "bottom-right",
+          draggable: Boolean(opts.draggable) && Boolean(opts.detachable),
+          minimizable: Boolean(opts.minimizable),
+          startMinimized: Boolean(opts.startMinimized),
+          persistPosition: Boolean(opts.persistPosition),
+          persistKey: typeof opts.persistKey === "string" ? opts.persistKey : "",
+          isDetached: false,
+          isMinimized: false,
+          _startMinimizeApplied: false
         };
         const audio = new Audio();
         audio.volume = state.volume;
@@ -9520,6 +9735,10 @@
           btnNext: container.querySelector(".vd-music-player-btn-next"),
           btnShuffle: container.querySelector(".vd-music-player-btn-shuffle"),
           btnPlaylist: container.querySelector(".vd-music-player-btn-playlist"),
+          btnDetach: container.querySelector(".vd-music-player-btn-detach"),
+          btnAttach: container.querySelector(".vd-music-player-btn-attach"),
+          btnMinimize: container.querySelector(".vd-music-player-btn-minimize"),
+          dragHandle: container.querySelector(".vd-music-player-drag-handle"),
           trackName: container.querySelector(".vd-music-player-track-name"),
           volumeSlider: container.querySelector(".vd-music-player-volume-slider"),
           volumeIcon: container.querySelector(".vd-music-player-volume-icon"),
@@ -9776,11 +9995,38 @@
             () => refs.playlistPanel.removeEventListener("click", panelHandler)
           );
         }
+        if (refs.btnDetach) {
+          const h = () => {
+            this.detach(container);
+          };
+          refs.btnDetach.addEventListener("click", h);
+          cleanupFunctions.push(() => refs.btnDetach.removeEventListener("click", h));
+        }
+        if (refs.btnAttach) {
+          const h = () => {
+            this.attach(container);
+          };
+          refs.btnAttach.addEventListener("click", h);
+          cleanupFunctions.push(() => refs.btnAttach.removeEventListener("click", h));
+        }
+        if (refs.btnMinimize) {
+          const h = () => {
+            this.toggleMinimize(container);
+          };
+          refs.btnMinimize.addEventListener("click", h);
+          cleanupFunctions.push(() => refs.btnMinimize.removeEventListener("click", h));
+        }
         renderPlayIcon();
         renderTrackName();
         renderVolumeIcon();
         if (opts.showPlaylist) renderPlaylistItems();
-        this.instances.set(container, { state, audio, refs, cleanup: cleanupFunctions });
+        this.instances.set(container, {
+          state,
+          audio,
+          refs,
+          cleanup: cleanupFunctions,
+          ui: { restore: null, unbindDrag: null }
+        });
         container.setAttribute("data-music-player-initialized", "true");
       },
       /* ─── DOM builder ─────────────────────────────────────── */
@@ -9797,6 +10043,51 @@
         container.setAttribute("aria-label", "Music Player");
         if (state.showProgress) container.classList.add("has-progress");
         if (state.showPlaylist) container.classList.add("has-playlist");
+        if (state.glass) container.classList.add("vd-music-player-glass");
+        if (state.draggable) container.classList.add("vd-music-player-draggable");
+        if (state.detachable || state.minimizable) {
+          const tb = document.createElement("div");
+          tb.className = "vd-music-player-toolbar";
+          tb.setAttribute("role", "toolbar");
+          tb.setAttribute("aria-label", "Player window");
+          if (state.draggable) {
+            const h = document.createElement("button");
+            h.type = "button";
+            h.className = "vd-music-player-drag-handle";
+            h.setAttribute("aria-label", "Drag to move player");
+            h.appendChild(icon("dots-six-vertical"));
+            tb.appendChild(h);
+          }
+          const tSp = document.createElement("span");
+          tSp.className = "vd-music-player-toolbar-spacer";
+          tSp.setAttribute("aria-hidden", "true");
+          tb.appendChild(tSp);
+          if (state.minimizable) {
+            const bMin = document.createElement("button");
+            bMin.type = "button";
+            bMin.className = "vd-music-player-btn vd-music-player-btn-minimize";
+            bMin.setAttribute("aria-label", "Minimize player");
+            bMin.setAttribute("aria-expanded", "true");
+            bMin.appendChild(icon("minus"));
+            tb.appendChild(bMin);
+          }
+          if (state.detachable) {
+            const bOut = document.createElement("button");
+            bOut.type = "button";
+            bOut.className = "vd-music-player-btn vd-music-player-btn-detach";
+            bOut.setAttribute("aria-label", "Detach player");
+            bOut.appendChild(icon("arrows-out"));
+            tb.appendChild(bOut);
+            const bIn = document.createElement("button");
+            bIn.type = "button";
+            bIn.className = "vd-music-player-btn vd-music-player-btn-attach";
+            bIn.setAttribute("aria-label", "Attach player");
+            bIn.appendChild(icon("arrows-in"));
+            tb.appendChild(bIn);
+          }
+          container.classList.add("vd-music-player-has-chrome");
+          container.appendChild(tb);
+        }
         const info = document.createElement("div");
         info.className = "vd-music-player-info";
         const iconWrap = document.createElement("span");
@@ -9990,6 +10281,303 @@
         inst.refs.btnShuffle.click();
       },
       /**
+       * Float the player above the page. Requires { detachable: true } at init.
+       * @param {HTMLElement} container
+       * @param {string} [position] 'bottom-left' or 'bottom-right'
+       */
+      detach: function(container, position) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.detachable || inst.state.isDetached) return;
+        const s = inst.state;
+        inst.ui = inst.ui || { restore: null, unbindDrag: null };
+        s.isDetached = true;
+        inst.ui.restore = {
+          parent: container.parentNode,
+          next: container.nextSibling
+        };
+        document.body.appendChild(container);
+        container.classList.add("vd-music-player-floating", "vd-music-player-detached");
+        const pos = position != null && position !== void 0 ? position : s.floatingPosition;
+        this._setCornerPosition(
+          container,
+          pos === "bottom-left" || pos === "bottom-right" ? pos : "bottom-right"
+        );
+        this._loadPersistedPosition(container, inst);
+        if (s.startMinimized && !s._startMinimizeApplied) {
+          s._startMinimizeApplied = true;
+          this.minimize(container);
+        }
+        this._bindFloatingDrag(inst);
+        container.dispatchEvent(new CustomEvent("musicplayer:detach", { bubbles: true }));
+      },
+      /**
+       * Return a detached player to its original place in the document.
+       * @param {HTMLElement} container
+       */
+      attach: function(container) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.isDetached) return;
+        this._unbindFloatingDrag(inst);
+        inst.state.isDetached = false;
+        const r = inst.ui && inst.ui.restore;
+        container.classList.remove(
+          "vd-music-player-floating",
+          "vd-music-player-detached",
+          "vd-music-player-floating-bottom-left",
+          "vd-music-player-floating-bottom-right",
+          "is-position-custom"
+        );
+        container.style.removeProperty("--music-player-floating-top");
+        container.style.removeProperty("--music-player-floating-left");
+        if (r && r.parent && r.parent.isConnected) {
+          r.parent.insertBefore(container, r.next);
+        }
+        if (inst.ui) {
+          inst.ui.restore = null;
+          inst.ui.unbindDrag = null;
+        }
+        container.dispatchEvent(new CustomEvent("musicplayer:attach", { bubbles: true }));
+      },
+      /**
+       * Collapse to essential controls. Requires { minimizable: true } at init.
+       * @param {HTMLElement} container
+       */
+      minimize: function(container) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.minimizable || inst.state.isMinimized) return;
+        const s = inst.state;
+        s.isMinimized = true;
+        container.classList.add("vd-music-player-minimized");
+        this._setMinimizeButtonState(inst, true);
+        if (inst.refs.playlistPanel && inst.refs.playlistPanel.classList.contains("is-open") && inst.refs.btnPlaylist) {
+          inst.refs.playlistPanel.classList.remove("is-open");
+          inst.refs.btnPlaylist.classList.remove("is-active");
+          inst.refs.btnPlaylist.setAttribute("aria-expanded", "false");
+        }
+        container.dispatchEvent(new CustomEvent("musicplayer:minimize", { bubbles: true }));
+      },
+      /**
+       * Restore from minimized state.
+       * @param {HTMLElement} container
+       */
+      expand: function(container) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.minimizable || !inst.state.isMinimized) return;
+        inst.state.isMinimized = false;
+        container.classList.remove("vd-music-player-minimized");
+        this._setMinimizeButtonState(inst, false);
+        container.dispatchEvent(new CustomEvent("musicplayer:expand", { bubbles: true }));
+      },
+      /**
+       * Toggle minimize / expand.
+       * @param {HTMLElement} container
+       */
+      toggleMinimize: function(container) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.minimizable) return;
+        if (inst.state.isMinimized) {
+          this.expand(container);
+        } else {
+          this.minimize(container);
+        }
+      },
+      /**
+       * Set floating corner or pixel position (detached only).
+       * @param {HTMLElement} container
+       * @param {string|{x:number,y:number}} position 'bottom-left' | 'bottom-right' | { x, y } viewport
+       */
+      setPosition: function(container, position) {
+        const inst = this.instances.get(container);
+        if (!inst || !inst.state.isDetached) return;
+        if (typeof position === "string") {
+          this._setCornerPosition(
+            container,
+            position === "bottom-left" || position === "bottom-right" ? position : "bottom-right"
+          );
+        } else if (position && typeof position.x === "number" && typeof position.y === "number") {
+          this._setCustomPositionFromRect(container, position.x, position.y);
+        }
+        if (inst.state.persistPosition) {
+          const r = container.getBoundingClientRect();
+          this._savePositionPixels(inst, r.left, r.top);
+        }
+      },
+      /**
+       * @param {Object} inst
+       * @param {boolean} minimized
+       */
+      _setMinimizeButtonState: function(inst, minimized) {
+        const b = inst.refs && inst.refs.btnMinimize;
+        if (!b) return;
+        b.innerHTML = "";
+        b.appendChild(icon(minimized ? "plus" : "minus"));
+        b.setAttribute("aria-label", minimized ? "Expand player" : "Minimize player");
+        b.setAttribute("aria-expanded", minimized ? "false" : "true");
+      },
+      /**
+       * @param {HTMLElement} container
+       * @param {string} which 'bottom-left' | 'bottom-right'
+       */
+      _setCornerPosition: function(container, which) {
+        container.classList.remove("is-position-custom", "vd-music-player-floating-bottom-left", "vd-music-player-floating-bottom-right");
+        container.style.removeProperty("--music-player-floating-top");
+        container.style.removeProperty("--music-player-floating-left");
+        if (which === "bottom-left") {
+          container.classList.add("vd-music-player-floating-bottom-left");
+        } else {
+          container.classList.add("vd-music-player-floating-bottom-right");
+        }
+      },
+      /**
+       * @param {HTMLElement} container
+       * @param {number} left
+       * @param {number} top
+       */
+      _setCustomPositionFromRect: function(container, left, top) {
+        container.classList.remove("vd-music-player-floating-bottom-left", "vd-music-player-floating-bottom-right");
+        container.classList.add("is-position-custom");
+        container.style.setProperty("--music-player-floating-left", left + "px");
+        container.style.setProperty("--music-player-floating-top", top + "px");
+      },
+      /**
+       * @param {HTMLElement} container
+       * @param {Object} inst
+       */
+      _loadPersistedPosition: function(container, inst) {
+        if (!inst.state.persistPosition) return;
+        const key = this._persistKeyForInstance(inst, container);
+        let raw = null;
+        if (typeof window.safeStorageGet === "function") {
+          raw = window.safeStorageGet(key, null);
+        } else {
+          try {
+            raw = localStorage.getItem(key);
+          } catch (_e) {
+          }
+        }
+        if (!raw) return;
+        try {
+          const o = JSON.parse(raw);
+          if (o && typeof o.x === "number" && typeof o.y === "number") {
+            this._setCustomPositionFromRect(container, o.x, o.y);
+          }
+        } catch (_err) {
+        }
+      },
+      /**
+       * @param {Object} inst
+       * @param {number} x
+       * @param {number} y
+       */
+      _savePositionPixels: function(inst, x, y) {
+        if (!inst.state.persistPosition) return;
+        const container = this._containerOf(inst);
+        if (!container) return;
+        const key = this._persistKeyForInstance(inst, container);
+        const val = JSON.stringify({ x, y });
+        if (typeof window.safeStorageSet === "function") {
+          window.safeStorageSet(key, val);
+        } else {
+          try {
+            localStorage.setItem(key, val);
+          } catch (_e) {
+          }
+        }
+      },
+      /**
+       * @param {Object} inst
+       * @param {HTMLElement} container
+       * @returns {string}
+       */
+      _persistKeyForInstance: function(inst, container) {
+        const pk = inst.state.persistKey;
+        if (pk && String(pk).trim()) return persistStorageKey(String(pk).trim());
+        return persistStorageKey(container.id || "");
+      },
+      /**
+       * @param {Object} inst
+       */
+      _unbindFloatingDrag: function(inst) {
+        if (inst.ui && typeof inst.ui.unbindDrag === "function") {
+          inst.ui.unbindDrag();
+          inst.ui.unbindDrag = null;
+        }
+      },
+      /**
+       * Free-form pointer drag on the handle. Vanduo's `draggable` component uses HTML5
+       * drag/drop for list reordering; floating players use pointer events on the handle instead.
+       * @param {Object} inst
+       */
+      _bindFloatingDrag: function(inst) {
+        this._unbindFloatingDrag(inst);
+        const h = inst.refs && inst.refs.dragHandle;
+        if (!h || !inst.state || !inst.state.draggable) return;
+        const self = this;
+        const container = this._containerOf(inst);
+        if (!container) return;
+        let startX = 0;
+        let startY = 0;
+        let origL = 0;
+        let origT = 0;
+        let activeDrag = false;
+        const onDown = function(e) {
+          if (e.pointerType === "mouse" && e.button !== 0) return;
+          e.preventDefault();
+          activeDrag = true;
+          const r = container.getBoundingClientRect();
+          origL = r.left;
+          origT = r.top;
+          startX = e.clientX;
+          startY = e.clientY;
+          self._setCustomPositionFromRect(container, origL, origT);
+          try {
+            h.setPointerCapture(e.pointerId);
+          } catch (_err) {
+          }
+        };
+        const onMove = function(e) {
+          if (!activeDrag) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          let nl = origL + dx;
+          let nt = origT + dy;
+          const r = container.getBoundingClientRect();
+          const w = r.width;
+          const ph = r.height;
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const pad = 8;
+          nl = Math.max(pad, Math.min(nl, vw - w - pad));
+          nt = Math.max(pad, Math.min(nt, vh - ph - pad));
+          self._setCustomPositionFromRect(container, nl, nt);
+        };
+        const onUp = function(e) {
+          if (!activeDrag) return;
+          activeDrag = false;
+          if (typeof h.hasPointerCapture === "function" && h.hasPointerCapture(e.pointerId)) {
+            try {
+              h.releasePointerCapture(e.pointerId);
+            } catch (_e) {
+            }
+          }
+          if (inst.state.persistPosition) {
+            const r = container.getBoundingClientRect();
+            self._savePositionPixels(inst, r.left, r.top);
+          }
+        };
+        h.addEventListener("pointerdown", onDown);
+        h.addEventListener("pointermove", onMove);
+        h.addEventListener("pointerup", onUp);
+        h.addEventListener("pointercancel", onUp);
+        inst.ui = inst.ui || { restore: null, unbindDrag: null };
+        inst.ui.unbindDrag = function() {
+          h.removeEventListener("pointerdown", onDown);
+          h.removeEventListener("pointermove", onMove);
+          h.removeEventListener("pointerup", onUp);
+          h.removeEventListener("pointercancel", onUp);
+        };
+      },
+      /**
        * Return a shallow copy of the current player state.
        * @param {HTMLElement} container
        * @returns {Object|null}
@@ -10004,7 +10592,9 @@
           currentTrack: s.tracks[s.currentIndex] || null,
           volume: s.volume,
           shuffle: s.shuffle,
-          tracks: s.tracks.slice()
+          tracks: s.tracks.slice(),
+          isDetached: Boolean(s.isDetached),
+          isMinimized: Boolean(s.isMinimized)
         };
       },
       /**
@@ -10014,6 +10604,13 @@
       destroy: function(container) {
         const inst = this.instances.get(container);
         if (!inst) return;
+        this._unbindFloatingDrag(inst);
+        if (inst.state && inst.state.isDetached) {
+          try {
+            this.attach(container);
+          } catch (_e) {
+          }
+        }
         inst.cleanup.forEach((fn) => fn());
         this.instances.delete(container);
         container.removeAttribute("data-music-player-initialized");

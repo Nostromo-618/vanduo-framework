@@ -36,14 +36,40 @@
       </div>
     </div>
 
+    <!-- Button Tabs with data-tab-target -->
+    <div class="vd-tabs" id="target-tabs">
+      <ul class="vd-tab-list">
+        <li class="vd-tab-item">
+          <button class="vd-tab-link is-active" data-tab-target="target-tab-1">Overview</button>
+        </li>
+        <li class="vd-tab-item">
+          <button class="vd-tab-link" data-tab-target="target-tab-2">Features</button>
+        </li>
+        <li class="vd-tab-item">
+          <button class="vd-tab-link" data-tab-target="target-tab-3">Settings</button>
+        </li>
+      </ul>
+      <div class="vd-tab-content">
+        <div class="vd-tab-pane is-active" id="target-tab-1">
+          <p>Overview target content</p>
+        </div>
+        <div class="vd-tab-pane" id="target-tab-2">
+          <p>Features target content remains visible after switching</p>
+        </div>
+        <div class="vd-tab-pane" id="target-tab-3">
+          <p>Settings target content</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Vertical Tabs -->
-    <div class="vd-tabs tabs tabs-vertical" id="vertical-tabs" data-tabs>
+    <div class="vd-tabs vd-tabs-vertical tabs" id="vertical-tabs" data-tabs>
       <ul class="vd-tab-list tab-list">
         <li class="vd-tab-item tab-item">
-          <a href="#vtab1" class="vd-tab-link tab-link is-active" data-tab="vtab1">Vertical 1</a>
+          <a href="#vtab1" class="vd-tab-link tab-link is-active" data-tab="vtab1">Short</a>
         </li>
         <li class="vd-tab-item tab-item">
-          <a href="#vtab2" class="vd-tab-link tab-link" data-tab="vtab2">Vertical 2</a>
+          <a href="#vtab2" class="vd-tab-link tab-link" data-tab="vtab2">Much Longer Vertical Label</a>
         </li>
       </ul>
       <div class="tab-content">

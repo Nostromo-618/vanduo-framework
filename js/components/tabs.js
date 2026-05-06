@@ -44,7 +44,7 @@
       tabList.setAttribute('role', 'tablist');
 
       tabLinks.forEach((link, index) => {
-        const tabId = link.dataset.tab || link.getAttribute('href')?.replace('#', '') || `tab-${index}`;
+        const tabId = this.getTabId(link, index);
         const pane = this.findPane(container, tabId, tabPanes);
 
         // Set up tab attributes
@@ -94,6 +94,19 @@
     },
 
     /**
+     * Get the pane identifier associated with a tab link.
+     * @param {HTMLElement} link - Tab link element
+     * @param {number} [fallbackIndex] - Optional fallback index
+     * @returns {string} Tab identifier
+     */
+    getTabId: function(link, fallbackIndex) {
+      return link.dataset.tabTarget
+        || link.dataset.tab
+        || link.getAttribute('href')?.replace('#', '')
+        || (typeof fallbackIndex === 'number' ? `tab-${fallbackIndex}` : link.id);
+    },
+
+    /**
      * Find the pane associated with a tab
      * @param {HTMLElement} container - Tabs container
      * @param {string} tabId - Tab identifier
@@ -113,7 +126,7 @@
       if (!pane) {
         const tabLinks = container.querySelectorAll('.vd-tab-link, [data-tab]');
         tabLinks.forEach((link, index) => {
-          const linkTabId = link.dataset.tab || link.getAttribute('href')?.replace('#', '');
+          const linkTabId = this.getTabId(link, index);
           if (linkTabId === tabId && tabPanes[index]) {
             pane = tabPanes[index];
           }
@@ -131,7 +144,8 @@
      * @param {NodeList} allPanes - All tab panes
      */
     activateTab: function(container, tab, allTabs, allPanes) {
-      const tabId = tab.dataset.tab || tab.getAttribute('href')?.replace('#', '') || tab.id;
+      const tabIndex = Array.from(allTabs).indexOf(tab);
+      const tabId = this.getTabId(tab, tabIndex);
 
       // Deactivate all tabs
       allTabs.forEach(t => {
@@ -187,7 +201,7 @@
      * @param {NodeList} allPanes - All tab panes
      */
     handleKeydown: function(e, container, currentTab, allTabs, allPanes) {
-      const isVertical = container.classList.contains('tabs-vertical');
+      const isVertical = container.classList.contains('vd-tabs-vertical') || container.classList.contains('tabs-vertical');
       const tabs = Array.from(allTabs).filter(t => !t.classList.contains('disabled') && !t.disabled);
       const currentIndex = tabs.indexOf(currentTab);
 
@@ -257,7 +271,7 @@
       let tabElement;
 
       if (typeof tab === 'string') {
-        tabElement = document.querySelector(`[data-tab="${tab}"], [href="#${tab}"]`);
+        tabElement = document.querySelector(`[data-tab-target="${tab}"], [data-tab="${tab}"], [href="#${tab}"]`);
       } else {
         tabElement = tab;
       }

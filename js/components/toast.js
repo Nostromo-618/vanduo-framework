@@ -51,13 +51,21 @@
      * @returns {HTMLElement} Toast element
      */
     show: function(options, type, duration) {
-      // Support simple API: Toast.show('Message', 'success', 3000)
+      // Support simple API:
+      // - Toast.show('Message', 'success', 3000)
+      // - Toast.show('Message', { type: 'success', duration: 3000 })
       if (typeof options === 'string') {
-        options = {
-          message: options,
-          type: type,
-          duration: duration
-        };
+        if (type && typeof type === 'object') {
+          options = Object.assign({}, type, {
+            message: options
+          });
+        } else {
+          options = {
+            message: options,
+            type: type,
+            duration: duration
+          };
+        }
       }
 
       const config = Object.assign({}, this.defaults, options);
@@ -84,7 +92,10 @@
 
       // Icon (sanitize custom icons, default icons are trusted SVG)
       if (config.icon) {
-        const safeIcon = typeof sanitizeHtml === 'function' ? sanitizeHtml(config.icon) : escapeHtml(config.icon);
+        const allowSvg = config.iconAllowSvg === true;
+        const safeIcon = typeof sanitizeHtml === 'function'
+          ? sanitizeHtml(config.icon, { allowSvg })
+          : escapeHtml(config.icon);
         html += `<span class="vd-toast-icon">${safeIcon}</span>`;
       } else if (config.type) {
         html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;

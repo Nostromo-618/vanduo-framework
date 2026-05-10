@@ -40,8 +40,6 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "build:hex-grid": "pnpm --filter @vanduo-oss/hex-grid build",
-    "build:packages": "pnpm -r --filter ./packages/* build",
     "build:min": "node scripts/build.js --minify",
     "dev": "node scripts/build.js --development",
     "check:versions": "node scripts/check-version-consistency.js",

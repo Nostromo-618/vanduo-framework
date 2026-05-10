@@ -75,6 +75,8 @@
   user-select: none;
   transition: var(--transition-bg);
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   text-align: left;
   font-family: var(--font-family-sans);
@@ -88,7 +90,9 @@
   background-color: var(--collapsible-header-bg-hover);
 }
 
+.vd-collapsible-header:focus,
 .vd-collapsible-header:focus-visible,
+.accordion-header:focus,
 .accordion-header:focus-visible {
   outline: none;
 }
@@ -122,11 +126,15 @@
   text-decoration: none;
   background: none;
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   padding: 0;
   cursor: pointer;
 }
 
+.vd-collapsible-trigger:focus,
 .vd-collapsible-trigger:focus-visible,
+.accordion-trigger:focus,
 .accordion-trigger:focus-visible {
   outline: none;
 }

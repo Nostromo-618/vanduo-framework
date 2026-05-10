@@ -21,6 +21,7 @@ Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS,
 - Pure CSS/JS with no runtime dependencies
 - Modular architecture with optional per-component imports
 - 47+ components, including Expanding Cards and animated Timeline controls in v1.3.8
+- Current Theme Customizer defaults in this worktree are `charcoal` for neutral color and `ubuntu` for font family
 - Niche canvas hex-grid support is distributed as [`@vanduo-oss/hex-grid`](https://www.npmjs.com/package/@vanduo-oss/hex-grid)
 - Built-in dark/light/system theme switching
 - Runtime Theme Customizer for color, font, and radius tokens

@@ -101,25 +101,52 @@ test.describe('Collapsible Component @component', () => {
   });
 
   test.describe('Focus ring', () => {
+    test.beforeEach(async ({ browserName }) => {
+      test.skip(browserName === 'webkit', 'Playwright WebKit does not tab-focus buttons in this fixture');
+    });
+
+    async function focusViaKeyboard(page, target) {
+      await page.evaluate(() => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+      });
+
+      for (let index = 0; index < 20; index += 1) {
+        await page.keyboard.press('Tab');
+
+        if (await target.evaluate(el => el === document.activeElement)) {
+          return;
+        }
+      }
+
+      throw new Error('Failed to focus target via keyboard navigation');
+    }
+
     test('header does not carry its own outline when focused via keyboard', async ({ page }) => {
       const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
 
-      // Focus the header programmatically (mirrors keyboard navigation)
-      await firstHeader.focus();
+      await focusViaKeyboard(page, firstHeader);
 
-      const outline = await firstHeader.evaluate(el =>
-        getComputedStyle(el).outline
-      );
+      const styles = await firstHeader.evaluate(el => {
+        const computed = getComputedStyle(el);
 
-      // The header itself should have no outline; the ring lives on the parent item
-      expect(outline).toMatch(/none|0px/);
+        return {
+          outlineStyle: computed.outlineStyle,
+          boxShadow: computed.boxShadow
+        };
+      });
+
+      // Firefox can report a non-zero outline shorthand even when the outline style is none.
+      expect(styles.outlineStyle).toBe('none');
+      expect(styles.boxShadow).toBe('none');
     });
 
     test('standard item receives a rounded box-shadow focus ring when header is focused', async ({ page }) => {
       const firstHeader = page.locator('#basic-collapsible .vd-collapsible-header').first();
       const firstItem = page.locator('#basic-collapsible .vd-collapsible-item').first();
 
-      await firstHeader.focus();
+      await focusViaKeyboard(page, firstHeader);
 
       const styles = await firstItem.evaluate(el => {
         const computed = getComputedStyle(el);
@@ -137,7 +164,7 @@ test.describe('Collapsible Component @component', () => {
     test('flush variant applies the focus ring to the header with the global radius', async ({ page }) => {
       const flushHeader = page.locator('#flush-accordion-test .accordion-header').first();
 
-      await flushHeader.focus();
+      await focusViaKeyboard(page, flushHeader);
 
       const styles = await flushHeader.evaluate(el => {
         const computed = getComputedStyle(el);
@@ -156,7 +183,7 @@ test.describe('Collapsible Component @component', () => {
       const flushHeader = page.locator('#flush-accordion-test .accordion-header').first();
       const flushItem = page.locator('#flush-accordion-test .accordion-item').first();
 
-      await flushHeader.focus();
+      await focusViaKeyboard(page, flushHeader);
 
       const itemBoxShadow = await flushItem.evaluate(el =>
         getComputedStyle(el).boxShadow

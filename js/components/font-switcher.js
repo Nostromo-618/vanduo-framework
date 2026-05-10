@@ -45,7 +45,7 @@
         preference: this.getPreference()
       };
       if (!this.fonts[this.state.preference]) {
-        this.state.preference = 'lato';
+        this.state.preference = 'ubuntu';
         this.setStorageValue(this.STORAGE_KEY, this.state.preference);
       }
 
@@ -66,10 +66,10 @@
 
     /**
      * Get saved font preference from localStorage
-     * @returns {string} Font key or 'lato' (default)
+     * @returns {string} Font key or 'ubuntu' (default)
      */
     getPreference: function() {
-      return this.getStorageValue(this.STORAGE_KEY, 'lato');
+      return this.getStorageValue(this.STORAGE_KEY, 'ubuntu');
     },
 
     /**

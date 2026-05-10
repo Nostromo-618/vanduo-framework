@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.8 | Built: 2026-05-06T18:32:43.703Z | git:6042eac | development */
+/*! Vanduo v1.3.8 | Built: 2026-05-10T16:42:39.489Z | git:f822e16 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -293,6 +293,16 @@ table {
   --slate-7: #334155;
   --slate-8: #1e293b;
   --slate-9: #0f172a;
+  --charcoal-0: #f6f8fa;
+  --charcoal-1: #eaeef2;
+  --charcoal-2: #d0d7de;
+  --charcoal-3: #afb8c1;
+  --charcoal-4: #8c959f;
+  --charcoal-5: #6e7781;
+  --charcoal-6: #57606a;
+  --charcoal-7: #424a53;
+  --charcoal-8: #2d333b;
+  --charcoal-9: #24292f;
   --zinc-0: #fafafa;
   --zinc-1: #f4f4f5;
   --zinc-2: #e4e4e7;
@@ -801,6 +811,19 @@ table {
   --primary-9: #0a0a0a;
 }
 
+[data-neutral="charcoal"] {
+  --gray-0: var(--charcoal-0);
+  --gray-1: var(--charcoal-1);
+  --gray-2: var(--charcoal-2);
+  --gray-3: var(--charcoal-3);
+  --gray-4: var(--charcoal-4);
+  --gray-5: var(--charcoal-5);
+  --gray-6: var(--charcoal-6);
+  --gray-7: var(--charcoal-7);
+  --gray-8: var(--charcoal-8);
+  --gray-9: var(--charcoal-9);
+}
+
 [data-neutral="gray"] {
   --gray-0: #f8f9fa;
   --gray-1: #f1f3f5;
@@ -1107,7 +1130,7 @@ table {
 }
 
 :root {
-  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-sans: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-family-serif: Georgia, "Times New Roman", Times, serif;
   --font-family-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 }
@@ -1513,7 +1536,7 @@ pre code {
   --vd-border-radius-md: .5rem;
   --vd-border-radius-lg: .75rem;
   --vd-border-radius-xl: 1rem;
-  --vd-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --vd-font-family-base: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --vd-font-family-mono: "JetBrains Mono", "Fira Code", monospace;
   --vd-font-size-xs: .75rem;
   --vd-font-size-sm: .8125rem;

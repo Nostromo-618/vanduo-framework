@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.8 | Built: 2026-05-06T18:32:43.703Z | git:6042eac | development */
+/*! Vanduo v1.3.8 | Built: 2026-05-10T16:42:39.489Z | git:f822e16 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -1192,7 +1192,7 @@
         preference: this.getPreference()
       };
       if (!this.fonts[this.state.preference]) {
-        this.state.preference = "lato";
+        this.state.preference = "ubuntu";
         this.setStorageValue(this.STORAGE_KEY, this.state.preference);
       }
       if (this.isInitialized) {
@@ -1208,10 +1208,10 @@
     },
     /**
      * Get saved font preference from localStorage
-     * @returns {string} Font key or 'lato' (default)
+     * @returns {string} Font key or 'ubuntu' (default)
      */
     getPreference: function() {
-      return this.getStorageValue(this.STORAGE_KEY, "lato");
+      return this.getStorageValue(this.STORAGE_KEY, "ubuntu");
     },
     /**
      * Set font preference and apply it
@@ -3879,9 +3879,9 @@
     DEFAULTS: {
       PRIMARY_LIGHT: "black",
       PRIMARY_DARK: "amber",
-      NEUTRAL: "neutral",
+      NEUTRAL: "charcoal",
       RADIUS: "0.5",
-      FONT: "lato",
+      FONT: "ubuntu",
       THEME: "system"
     },
     // Primary color definitions (Open Color based)
@@ -3907,6 +3907,7 @@
     },
     // Neutral color definitions
     NEUTRAL_COLORS: {
+      "charcoal": { name: "Charcoal", color: "#2d333b" },
       "slate": { name: "Slate", color: "#64748b" },
       "gray": { name: "Gray", color: "#6b7280" },
       "zinc": { name: "Zinc", color: "#71717a" },

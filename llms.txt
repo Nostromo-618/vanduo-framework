@@ -1,6 +1,6 @@
 # Vanduo Framework v1.3.8 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.8 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and treats **Theme Switcher** and **Theme Customizer** as separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.3.8 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -17,7 +17,7 @@ You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS fra
 Set by Theme Customizer when no user preference exists:
 - Primary color in light mode: `black`
 - Primary color in dark mode: `amber`
-- Neutral color: `neutral`
+- Neutral color: `charcoal`
 - Border radius: `0.5`
 - Font family: `ubuntu`
 - Theme: `system` (follows OS)
@@ -97,7 +97,7 @@ Vanduo.init();
 Theme Customizer writes attributes to `<html>`:
 - `data-theme="light|dark|system"`
 - `data-primary="blue|cyan|indigo|..."`
-- `data-neutral="zinc|gray|slate|..."`
+- `data-neutral="charcoal|zinc|gray|slate|..."`
 - `data-radius="0|0.125|0.25|0.375|0.5"`
 - `data-font="open-sans|ubuntu|rubik|..."`
 

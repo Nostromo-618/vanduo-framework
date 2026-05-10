@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.9 | Built: 2026-05-10T18:50:29.401Z | git:0b1100d | development */
+/*! Vanduo v1.3.9 | Built: 2026-05-10T18:54:59.798Z | git:2945a85 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -3907,7 +3907,7 @@
     },
     // Neutral color definitions
     NEUTRAL_COLORS: {
-      "charcoal": { name: "Charcoal", color: "#2d333b" },
+      "charcoal": { name: "Charcoal", color: "#0d1117" },
       "slate": { name: "Slate", color: "#64748b" },
       "gray": { name: "Gray", color: "#6b7280" },
       "zinc": { name: "Zinc", color: "#71717a" },

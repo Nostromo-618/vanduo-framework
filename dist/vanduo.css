@@ -1,4 +1,4 @@
-/*! Vanduo v1.3.9 | Built: 2026-05-10T18:50:29.401Z | git:0b1100d | development */
+/*! Vanduo v1.3.9 | Built: 2026-05-10T18:54:59.798Z | git:2945a85 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -293,16 +293,16 @@ table {
   --slate-7: #334155;
   --slate-8: #1e293b;
   --slate-9: #0f172a;
-  --charcoal-0: #f6f8fa;
-  --charcoal-1: #eaeef2;
-  --charcoal-2: #d0d7de;
-  --charcoal-3: #afb8c1;
-  --charcoal-4: #8c959f;
-  --charcoal-5: #6e7781;
-  --charcoal-6: #57606a;
-  --charcoal-7: #424a53;
-  --charcoal-8: #2d333b;
-  --charcoal-9: #24292f;
+  --charcoal-0: #f5f7f8;
+  --charcoal-1: #e7ebee;
+  --charcoal-2: #ced6dc;
+  --charcoal-3: #adb8c1;
+  --charcoal-4: #8b98a3;
+  --charcoal-5: #6d7c88;
+  --charcoal-6: #53616d;
+  --charcoal-7: #394754;
+  --charcoal-8: #202c38;
+  --charcoal-9: #0d1117;
   --zinc-0: #fafafa;
   --zinc-1: #f4f4f5;
   --zinc-2: #e4e4e7;

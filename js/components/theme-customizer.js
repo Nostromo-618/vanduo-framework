@@ -51,7 +51,7 @@
 
     // Neutral color definitions
     NEUTRAL_COLORS: {
-      'charcoal': { name: 'Charcoal', color: '#2d333b' },
+      'charcoal': { name: 'Charcoal', color: '#0d1117' },
       'slate': { name: 'Slate', color: '#64748b' },
       'gray': { name: 'Gray', color: '#6b7280' },
       'zinc': { name: 'Zinc', color: '#71717a' },

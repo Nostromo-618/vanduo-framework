@@ -21,9 +21,9 @@
     DEFAULTS: {
       PRIMARY_LIGHT: 'black',
       PRIMARY_DARK: 'amber',
-      NEUTRAL: 'neutral',
+      NEUTRAL: 'charcoal',
       RADIUS: '0.5',
-      FONT: 'lato',
+      FONT: 'ubuntu',
       THEME: 'system'
     },
 
@@ -51,6 +51,7 @@
 
     // Neutral color definitions
     NEUTRAL_COLORS: {
+      'charcoal': { name: 'Charcoal', color: '#2d333b' },
       'slate': { name: 'Slate', color: '#64748b' },
       'gray': { name: 'Gray', color: '#6b7280' },
       'zinc': { name: 'Zinc', color: '#71717a' },

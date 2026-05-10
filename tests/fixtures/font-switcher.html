@@ -16,16 +16,16 @@
       <select id="font-select" data-toggle="font">
         <option value="system">System Default</option>
         <option value="jetbrains-mono">JetBrains Mono</option>
-        <option value="ubuntu">Ubuntu</option>
+        <option value="ubuntu" selected>Ubuntu</option>
         <option value="open-sans">Open Sans</option>
-        <option value="lato" selected>Lato</option>
+        <option value="lato">Lato</option>
       </select>
     </div>
 
     <!-- Button-based Font Toggle -->
     <div class="form-group">
       <button id="font-button" class="btn btn-primary" data-toggle="font">
-        Font: <span class="font-current-label">Lato</span>
+        Font: <span class="font-current-label">Ubuntu</span>
       </button>
     </div>
 
@@ -33,7 +33,7 @@
     <div class="card">
       <div class="card-body">
         <h3>Current Font State</h3>
-        <p>data-font attribute: <code id="font-attr">lato</code></p>
+        <p>data-font attribute: <code id="font-attr">ubuntu</code></p>
         <p>localStorage preference: <code id="storage-pref">-</code></p>
       </div>
     </div>

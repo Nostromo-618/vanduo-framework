@@ -24,14 +24,14 @@ test.describe('Font Switcher Component @component', () => {
       await expect(fontSelect).toHaveAttribute('data-font-initialized', 'true');
     });
 
-    test('sets default font to lato', async ({ page }) => {
+    test('sets default font to ubuntu', async ({ page }) => {
       const font = await page.evaluate(() => document.documentElement.getAttribute('data-font'));
-      expect(font).toBe('lato');
+      expect(font).toBe('ubuntu');
     });
 
     test('select reflects current font', async ({ page }) => {
       const fontSelect = page.locator('#font-select');
-      await expect(fontSelect).toHaveValue('lato');
+      await expect(fontSelect).toHaveValue('ubuntu');
     });
   });
 
@@ -189,7 +189,7 @@ test.describe('Font Switcher Component @component', () => {
       await page.click('#get-font');
 
       const display = await page.locator('#font-display').textContent();
-      expect(display).toContain('lato');
+      expect(display).toContain('ubuntu');
     });
 
     test('getFontData returns font information', async ({ page }) => {

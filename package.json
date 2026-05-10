@@ -40,8 +40,6 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "build:hex-grid": "pnpm --filter @vanduo-oss/hex-grid build",
-    "build:packages": "pnpm -r --filter ./packages/* build",
     "build:min": "node scripts/build.js --minify",
     "dev": "node scripts/build.js --development",
     "check:versions": "node scripts/check-version-consistency.js",
@@ -73,7 +71,7 @@
     "eslint": "^10.3.0",
     "husky": "^9.1.7",
     "lightningcss": "^1.32.0",
-    "stylelint": "^17.10.0",
+    "stylelint": "^17.11.0",
     "stylelint-config-standard": "^40.0.0"
   },
   "engines": {

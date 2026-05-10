@@ -84,7 +84,7 @@
   /* ============================================
    * TYPOGRAPHY TOKENS
    * ============================================ */
-  --vd-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vd-font-family-base: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --vd-font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Font Sizes (Fibonacci scale) */

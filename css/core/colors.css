@@ -312,6 +312,18 @@
   --slate-8: #1e293b;
   --slate-9: #0f172a;
 
+  /* --- Charcoal Scale (Deep cool charcoal) --- */
+  --charcoal-0: #f6f8fa;
+  --charcoal-1: #eaeef2;
+  --charcoal-2: #d0d7de;
+  --charcoal-3: #afb8c1;
+  --charcoal-4: #8c959f;
+  --charcoal-5: #6e7781;
+  --charcoal-6: #57606a;
+  --charcoal-7: #424a53;
+  --charcoal-8: #2d333b;
+  --charcoal-9: #24292f;
+
   /* --- Zinc Scale (Slightly warm gray) --- */
   --zinc-0: #fafafa;
   --zinc-1: #f4f4f5;
@@ -946,7 +958,21 @@
  * These rules remap --gray-* variables based on [data-neutral] attribute
  * ═════════════════════════════════════════════════════════════════════════ */
 
-/* Gray Neutral (default - no override needed) */
+/* Charcoal Neutral (default) */
+[data-neutral="charcoal"] {
+  --gray-0: var(--charcoal-0);
+  --gray-1: var(--charcoal-1);
+  --gray-2: var(--charcoal-2);
+  --gray-3: var(--charcoal-3);
+  --gray-4: var(--charcoal-4);
+  --gray-5: var(--charcoal-5);
+  --gray-6: var(--charcoal-6);
+  --gray-7: var(--charcoal-7);
+  --gray-8: var(--charcoal-8);
+  --gray-9: var(--charcoal-9);
+}
+
+/* Gray Neutral */
 [data-neutral="gray"] {
   --gray-0: #f8f9fa;
   --gray-1: #f1f3f5;

@@ -10,8 +10,8 @@
   --customizer-gap: 0.75rem;
   --customizer-swatch-size: 28px;
   --customizer-radius-btn-width: 48px;
-  --customizer-bg: var(--bg-primary);
-  --customizer-border: var(--border-color);
+  --customizer-bg: var(--vd-bg-primary);
+  --customizer-border: var(--vd-border-color);
   --customizer-shadow: var(--shadow-lg);
   --customizer-z-index: 1050;
 }
@@ -55,13 +55,13 @@ body > .vd-theme-customizer-panel.is-open {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem var(--customizer-padding) 0.75rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--vd-border-color);
 }
 
 .tc-title {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   margin: 0;
 }
 
@@ -71,7 +71,7 @@ body > .vd-theme-customizer-panel.is-open {
 
 .tc-footer {
   padding: 0.75rem var(--customizer-padding) 0.5rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--vd-border-color);
 }
 
 .tc-section {
@@ -87,7 +87,7 @@ body > .vd-theme-customizer-panel.is-open {
   margin-bottom: 0.5rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 /* Primary Color Grid */
@@ -114,13 +114,13 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .tc-color-swatch:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
 .tc-color-swatch.is-active {
-  border-color: var(--text-primary);
-  box-shadow: 0 0 0 2px var(--bg-primary);
+  border-color: var(--vd-text-primary);
+  box-shadow: 0 0 0 2px var(--vd-bg-primary);
 }
 
 /* Neutral Color Grid */
@@ -137,7 +137,7 @@ body > .vd-theme-customizer-panel.is-open {
   gap: 0.25rem;
   padding: 0.5rem 0.25rem;
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
   border-radius: calc(var(--radius-scale, 0.25) * 0.5rem);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -154,22 +154,22 @@ body > .vd-theme-customizer-panel.is-open {
 
 .tc-neutral-swatch span {
   font-size: var(--font-size-xs);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .tc-neutral-swatch:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color-dark);
+  background-color: var(--vd-bg-secondary);
+  border-color: var(--vd-border-color-dark);
 }
 
 .tc-neutral-swatch:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
 }
 
 .tc-neutral-swatch.is-active {
-  background-color: var(--bg-secondary);
-  border-color: var(--text-primary);
+  background-color: var(--vd-bg-secondary);
+  border-color: var(--vd-text-primary);
 }
 
 /* Radius Group */
@@ -185,8 +185,8 @@ body > .vd-theme-customizer-panel.is-open {
   justify-content: center;
   padding: 0.5rem 0.25rem;
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  border: 1px solid var(--vd-border-color);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -206,20 +206,20 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .tc-radius-btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   z-index: 1;
 }
 
 .tc-radius-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
   z-index: 2;
 }
 
 .tc-radius-btn.is-active {
-  background-color: var(--bg-dark);
-  border-color: var(--bg-dark);
-  color: var(--text-inverse);
+  background-color: var(--vd-bg-dark);
+  border-color: var(--vd-bg-dark);
+  color: var(--vd-text-inverse);
   z-index: 1;
 }
 
@@ -227,23 +227,23 @@ body > .vd-theme-customizer-panel.is-open {
 .tc-font-select {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  background-color: var(--vd-bg-primary);
+  border: 1px solid var(--vd-border-color);
   border-radius: calc(var(--radius-scale, 0.25) * 0.5rem);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-sm);
   cursor: pointer;
   transition: border-color 0.15s ease;
 }
 
 .tc-font-select:hover {
-  border-color: var(--border-color-dark);
+  border-color: var(--vd-border-color-dark);
 }
 
 .tc-font-select:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-alpha-10);
+  border-color: var(--vd-color-primary);
+  box-shadow: 0 0 0 3px var(--vd-color-primary-alpha-10);
 }
 
 /* Mode Group */
@@ -260,8 +260,8 @@ body > .vd-theme-customizer-panel.is-open {
   gap: 0.375rem;
   padding: 0.5rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  border: 1px solid var(--vd-border-color);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-xs);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -280,20 +280,20 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .tc-mode-btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   z-index: 1;
 }
 
 .tc-mode-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
   z-index: 2;
 }
 
 .tc-mode-btn.is-active {
-  background-color: var(--bg-dark);
-  border-color: var(--bg-dark);
-  color: var(--text-inverse);
+  background-color: var(--vd-bg-dark);
+  border-color: var(--vd-bg-dark);
+  color: var(--vd-text-inverse);
   z-index: 1;
 }
 
@@ -319,21 +319,21 @@ body > .vd-theme-customizer-panel.is-open {
   height: 2.5rem;
   padding: 0;
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
   border-radius: var(--btn-border-radius);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .vd-theme-customizer-trigger:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background-color: var(--vd-bg-secondary);
+  border-color: var(--vd-color-primary);
+  color: var(--vd-color-primary);
 }
 
 .vd-theme-customizer-trigger:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
@@ -342,9 +342,9 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .vd-theme-customizer-trigger[aria-expanded="true"] {
-  background-color: var(--color-primary-alpha-10);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background-color: var(--vd-color-primary-alpha-10);
+  border-color: var(--vd-color-primary);
+  color: var(--vd-color-primary);
 }
 
 /* ==========================================================================
@@ -400,7 +400,7 @@ body > .vd-theme-customizer-panel.is-open {
   margin-bottom: 0.625rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .customizer-help {
@@ -412,13 +412,13 @@ body > .vd-theme-customizer-panel.is-open {
   padding: 0;
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   cursor: help;
   font-size: 0.75rem;
 }
 
 .customizer-help:hover {
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 /* ==========================================================================
@@ -437,7 +437,7 @@ body > .vd-theme-customizer-panel.is-open {
   gap: 0.5rem;
   padding: 0.375rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
   border-radius: var(--btn-border-radius);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -445,18 +445,18 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .customizer-swatch:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color-dark);
+  background-color: var(--vd-bg-secondary);
+  border-color: var(--vd-border-color-dark);
 }
 
 .customizer-swatch:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
 }
 
 .customizer-swatch.is-active {
-  background-color: var(--bg-secondary);
-  border-color: var(--text-primary);
+  background-color: var(--vd-bg-secondary);
+  border-color: var(--vd-text-primary);
 }
 
 .customizer-swatch-dot {
@@ -470,7 +470,7 @@ body > .vd-theme-customizer-panel.is-open {
 
 .customizer-swatch-label {
   font-size: var(--font-size-xs);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -512,8 +512,8 @@ body > .vd-theme-customizer-panel.is-open {
   justify-content: center;
   padding: 0.5rem 0.25rem;
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  border: 1px solid var(--vd-border-color);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -533,20 +533,20 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .customizer-radius-btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   z-index: 1;
 }
 
 .customizer-radius-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
   z-index: 2;
 }
 
 .customizer-radius-btn.is-active {
-  background-color: var(--bg-dark);
-  border-color: var(--bg-dark);
-  color: var(--text-inverse);
+  background-color: var(--vd-bg-dark);
+  border-color: var(--vd-bg-dark);
+  color: var(--vd-text-inverse);
   z-index: 1;
 }
 
@@ -568,7 +568,7 @@ body > .vd-theme-customizer-panel.is-open {
   left: 0.625rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   pointer-events: none;
 }
 
@@ -589,8 +589,8 @@ body > .vd-theme-customizer-panel.is-open {
   gap: 0.375rem;
   padding: 0.5rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  border: 1px solid var(--vd-border-color);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-xs);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -609,20 +609,20 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .customizer-mode-btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   z-index: 1;
 }
 
 .customizer-mode-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
   z-index: 2;
 }
 
 .customizer-mode-btn.is-active {
-  background-color: var(--bg-dark);
-  border-color: var(--bg-dark);
-  color: var(--text-inverse);
+  background-color: var(--vd-bg-dark);
+  border-color: var(--vd-bg-dark);
+  color: var(--vd-text-inverse);
   z-index: 1;
 }
 
@@ -635,8 +635,8 @@ body > .vd-theme-customizer-panel.is-open {
    ========================================================================== */
 
 [data-theme="dark"] {
-  --customizer-bg: var(--bg-primary);
-  --customizer-border: var(--border-color);
+  --customizer-bg: var(--vd-bg-primary);
+  --customizer-border: var(--vd-border-color);
 }
 
 [data-theme="dark"] .customizer-swatch-dot,
@@ -655,8 +655,8 @@ body > .vd-theme-customizer-panel.is-open {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --customizer-bg: var(--bg-primary);
-    --customizer-border: var(--border-color);
+    --customizer-bg: var(--vd-bg-primary);
+    --customizer-border: var(--vd-border-color);
   }
 
   :root:not([data-theme]) .customizer-swatch-dot,
@@ -728,14 +728,14 @@ body > .vd-theme-customizer-panel.is-open {
     height: 2rem;
     padding: 0;
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--vd-border-color);
     border-radius: calc(var(--radius-scale, 0.25) * 0.5rem);
-    color: var(--text-primary);
+    color: var(--vd-text-primary);
     cursor: pointer;
   }
 
   .customizer-mobile-close:hover {
-    background-color: var(--bg-secondary);
+    background-color: var(--vd-bg-secondary);
   }
 
   /* Mobile overlay */
@@ -781,12 +781,12 @@ body > .vd-theme-customizer-panel.is-open {
 }
 
 .vd-theme-customizer-panel::-webkit-scrollbar-thumb {
-  background-color: var(--border-color);
+  background-color: var(--vd-border-color);
   border-radius: 3px;
 }
 
 .vd-theme-customizer-panel::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text-muted);
+  background-color: var(--vd-text-muted);
 }
 
 /* ==========================================================================
@@ -799,13 +799,13 @@ body > .vd-theme-customizer-panel.is-open {
   justify-content: space-between;
   padding-bottom: 0.75rem;
   margin-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--vd-border-color);
 }
 
 .customizer-title {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   margin: 0;
 }
 
@@ -815,21 +815,21 @@ body > .vd-theme-customizer-panel.is-open {
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
   border-radius: var(--btn-border-radius);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   font-size: var(--font-size-xs);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .customizer-reset:hover {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  border-color: var(--border-color-dark);
+  background-color: var(--vd-bg-secondary);
+  color: var(--vd-text-primary);
+  border-color: var(--vd-border-color-dark);
 }
 
 .customizer-reset:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
 }

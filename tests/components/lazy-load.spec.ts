@@ -60,6 +60,7 @@ test.describe('LazyLoad Component @component', () => {
         test('VanduoLazyLoad is registered with window.Vanduo', async ({ page }) => {
             const registered = await page.evaluate(() => {
                 return typeof window.Vanduo !== 'undefined'
+                    && window.Vanduo.getComponent('lazyLoad') !== null
                     && window.Vanduo.getComponent('LazyLoad') !== null;
             });
             expect(registered).toBe(true);
@@ -240,6 +241,44 @@ test.describe('LazyLoad Component @component', () => {
                 () => window.__observeCallbackFired === true,
                 { timeout: 5000 }
             );
+        });
+
+        test('reinitializes only the loaded container after injection', async ({ page }) => {
+            await page.evaluate(() => {
+                document.getElementById('prog-target')!.scrollIntoView();
+            });
+
+            const scope = await page.evaluate(() => {
+                const target = document.getElementById('prog-target') as Element;
+                const originalInit = window.Vanduo.init;
+                (window as any).__initScopeIds = [];
+
+                window.Vanduo.init = function (root?: Element | Document) {
+                    (window as any).__initScopeIds.push(
+                        root && root instanceof Element ? root.id : 'document'
+                    );
+                    return originalInit.call(this, root);
+                };
+
+                window.VanduoLazyLoad.loadSection(
+                    '/tests/fixtures/lazy-load-partial.html',
+                    target,
+                    { placeholder: 'spinner' }
+                );
+
+                return true;
+            });
+
+            expect(scope).toBe(true);
+
+            await page.waitForFunction(
+                () => !!document.querySelector('#prog-target #lazy-partial-content'),
+                { timeout: 5000 }
+            );
+
+            const initScopeIds = await page.evaluate(() => (window as any).__initScopeIds);
+            expect(initScopeIds).toContain('prog-target');
+            expect(initScopeIds).not.toContain('document');
         });
     });
 

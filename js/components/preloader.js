@@ -10,11 +10,19 @@
    * Preloader Component
    */
   const Preloader = {
+    getProgressBars: function(root) {
+      if (typeof window.VanduoLifecycle !== 'undefined') {
+        return window.VanduoLifecycle.queryAll(root, '.vd-progress-bar[data-progress], .progress-bar[data-progress]');
+      }
+
+      return Array.from(document.querySelectorAll('.vd-progress-bar[data-progress], .progress-bar[data-progress]'));
+    },
+
     /**
      * Initialize preloader components
      */
-    init: function() {
-      const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress], .progress-bar[data-progress]');
+    init: function(root) {
+      const progressBars = this.getProgressBars(root);
       
       progressBars.forEach(bar => {
         if (!bar.dataset.progressInitialized) {
@@ -163,8 +171,10 @@
     /**
      * Destroy all progress bar instances
      */
-    destroyAll: function() {
-      const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress-initialized="true"], .progress-bar[data-progress-initialized="true"]');
+    destroyAll: function(root) {
+      const progressBars = this.getProgressBars(root || document).filter(function(bar) {
+        return bar.dataset.progressInitialized === 'true';
+      });
       progressBars.forEach(bar => {
         delete bar.dataset.progressInitialized;
       });
@@ -180,4 +190,3 @@
   window.VanduoPreloader = Preloader;
   
 })();
-

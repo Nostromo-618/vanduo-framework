@@ -13,21 +13,21 @@
   --toast-gap: 0.8125rem;           /* 13px - fib */
 
   /* Toast Colors */
-  --toast-bg: var(--color-white);
-  --toast-text: var(--text-primary);
-  --toast-border: var(--border-color);
+  --toast-bg: var(--vd-color-white);
+  --toast-text: var(--vd-text-primary);
+  --toast-border: var(--vd-border-color);
   --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --toast-bg: var(--color-gray-800);
+  --toast-bg: var(--vd-color-gray-800);
   --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --toast-bg: var(--color-gray-800);
+    --toast-bg: var(--vd-color-gray-800);
     --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 }
@@ -185,7 +185,7 @@
 /* Toast Message */
 .vd-toast-message {
   font-size: var(--font-size-sm);
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
 }
 
 /* Toast Close Button */
@@ -201,7 +201,7 @@
   background: transparent;
   border: none;
   border-radius: var(--btn-border-radius);
-  color: var(--text-tertiary);
+  color: var(--vd-text-tertiary);
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.15s ease, background-color 0.15s ease;
@@ -224,42 +224,42 @@
 
 /* Toast Color Variants */
 .vd-toast-success {
-  border-left: 4px solid var(--color-success);
+  border-left: 4px solid var(--vd-color-success);
 }
 
 .vd-toast-success .vd-toast-icon {
-  color: var(--color-success);
+  color: var(--vd-color-success);
 }
 
 .vd-toast-warning {
-  border-left: 4px solid var(--color-warning);
+  border-left: 4px solid var(--vd-color-warning);
 }
 
 .vd-toast-warning .vd-toast-icon {
-  color: var(--color-warning);
+  color: var(--vd-color-warning);
 }
 
 .vd-toast-error {
-  border-left: 4px solid var(--color-error);
+  border-left: 4px solid var(--vd-color-error);
 }
 
 .vd-toast-error .vd-toast-icon {
-  color: var(--color-error);
+  color: var(--vd-color-error);
 }
 
 .vd-toast-info {
-  border-left: 4px solid var(--color-info);
+  border-left: 4px solid var(--vd-color-info);
 }
 
 .vd-toast-info .vd-toast-icon {
-  color: var(--color-info);
+  color: var(--vd-color-info);
 }
 
 /* Solid Variants */
 .vd-toast-solid.vd-toast-success {
-  background-color: var(--color-success);
-  border-color: var(--color-success);
-  color: var(--color-white);
+  background-color: var(--vd-color-success);
+  border-color: var(--vd-color-success);
+  color: var(--vd-color-white);
 }
 
 .vd-toast-solid.vd-toast-success .vd-toast-message {
@@ -267,13 +267,13 @@
 }
 
 .vd-toast-solid.vd-toast-success .vd-toast-icon {
-  color: var(--color-white);
+  color: var(--vd-color-white);
 }
 
 .vd-toast-solid.vd-toast-warning {
-  background-color: var(--color-warning);
-  border-color: var(--color-warning);
-  color: var(--color-gray-900);
+  background-color: var(--vd-color-warning);
+  border-color: var(--vd-color-warning);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-toast-solid.vd-toast-warning .vd-toast-message {
@@ -281,13 +281,13 @@
 }
 
 .vd-toast-solid.vd-toast-warning .vd-toast-icon {
-  color: var(--color-gray-900);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-toast-solid.vd-toast-error {
-  background-color: var(--color-error);
-  border-color: var(--color-error);
-  color: var(--color-white);
+  background-color: var(--vd-color-error);
+  border-color: var(--vd-color-error);
+  color: var(--vd-color-white);
 }
 
 .vd-toast-solid.vd-toast-error .vd-toast-message {
@@ -295,13 +295,13 @@
 }
 
 .vd-toast-solid.vd-toast-error .vd-toast-icon {
-  color: var(--color-white);
+  color: var(--vd-color-white);
 }
 
 .vd-toast-solid.vd-toast-info {
-  background-color: var(--color-info);
-  border-color: var(--color-info);
-  color: var(--color-white);
+  background-color: var(--vd-color-info);
+  border-color: var(--vd-color-info);
+  color: var(--vd-color-white);
 }
 
 .vd-toast-solid.vd-toast-info .vd-toast-message {
@@ -309,7 +309,7 @@
 }
 
 .vd-toast-solid.vd-toast-info .vd-toast-icon {
-  color: var(--color-white);
+  color: var(--vd-color-white);
 }
 
 /* Toast Progress Bar (auto-dismiss indicator) */

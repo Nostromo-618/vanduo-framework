@@ -1,192 +1,418 @@
-/*! Vanduo v1.3.9 | Built: 2026-05-10T18:54:59.798Z | git:2945a85 | development */
+/*! Vanduo v1.4.0 | Built: 2026-05-20T08:34:24.172Z | git:a27b94e | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
     "use strict";
+    function normalizeCallbacks(value) {
+      if (!value) return [];
+      if (Array.isArray(value)) {
+        return value.filter(function(fn) {
+          return typeof fn === "function";
+        });
+      }
+      return typeof value === "function" ? [value] : [];
+    }
+    function normalizeOptions(options) {
+      if (typeof options === "function") {
+        return { onDestroy: [options] };
+      }
+      return options || {};
+    }
+    function callSafely(label, fn) {
+      try {
+        fn();
+      } catch (error) {
+        console.warn("[Vanduo Lifecycle] " + label + " error:", error);
+      }
+    }
     const Lifecycle = {
-      // Map of element -> { componentName, cleanupFunctions }
+      // Map<Element, Map<componentName, { cleanup, onDestroy, registeredAt }>>
       instances: /* @__PURE__ */ new Map(),
-      /**
-       * Register a component instance
-       * @param {HTMLElement} element - The DOM element
-       * @param {string} componentName - Name of the component
-       * @param {Array<Function>} cleanupFns - Functions to call on destroy
-       */
-      register: function(element, componentName, cleanupFns = []) {
-        if (this.instances.has(element)) {
-          const existing = this.instances.get(element);
-          existing.cleanup = existing.cleanup.concat(cleanupFns);
+      isRoot: function(root) {
+        return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+      },
+      normalizeRoot: function(root) {
+        return this.isRoot(root) ? root : document;
+      },
+      isInRoot: function(root, element) {
+        const scope = this.normalizeRoot(root);
+        if (!(element instanceof Element)) return false;
+        if (scope === document) {
+          return document.documentElement ? document.documentElement.contains(element) : document.contains(element);
+        }
+        if (scope === element) return true;
+        return typeof scope.contains === "function" && scope.contains(element);
+      },
+      queryAll: function(root, selector) {
+        const scope = this.normalizeRoot(root);
+        const matches = [];
+        if (scope instanceof Element && typeof scope.matches === "function" && scope.matches(selector)) {
+          matches.push(scope);
+        }
+        if (typeof scope.querySelectorAll === "function") {
+          const descendants = scope.querySelectorAll(selector);
+          for (let i = 0; i < descendants.length; i++) {
+            matches.push(descendants[i]);
+          }
+        }
+        return matches;
+      },
+      queryOne: function(root, selector) {
+        const matches = this.queryAll(root, selector);
+        return matches.length ? matches[0] : null;
+      },
+      runInRoot: function(root, fn) {
+        const scope = this.normalizeRoot(root);
+        if (scope === document) {
+          return fn();
+        }
+        const originalQuerySelectorAll = document.querySelectorAll.bind(document);
+        document.querySelectorAll = function(selector) {
+          return Lifecycle.queryAll(scope, selector);
+        };
+        try {
+          return fn();
+        } finally {
+          document.querySelectorAll = originalQuerySelectorAll;
+        }
+      },
+      register: function(element, componentName, cleanupFns, options) {
+        if (!(element instanceof Element) || !componentName) return;
+        const optionBag = normalizeOptions(options);
+        const cleanup = normalizeCallbacks(cleanupFns);
+        const onDestroy = normalizeCallbacks(optionBag.onDestroy);
+        const componentEntries = this.instances.get(element) || /* @__PURE__ */ new Map();
+        const existing = componentEntries.get(componentName);
+        if (existing) {
+          existing.cleanup = existing.cleanup.concat(cleanup);
+          existing.onDestroy = existing.onDestroy.concat(onDestroy);
           return;
         }
-        this.instances.set(element, {
+        componentEntries.set(componentName, {
           component: componentName,
-          cleanup: cleanupFns,
+          cleanup,
+          onDestroy,
           registeredAt: Date.now()
         });
+        this.instances.set(element, componentEntries);
       },
-      /**
-       * Unregister a single element and run its cleanup
-       * @param {HTMLElement} element - The element to unregister
-       */
-      unregister: function(element) {
-        const instance = this.instances.get(element);
-        if (!instance) return;
-        instance.cleanup.forEach(function(fn) {
-          try {
-            fn();
-          } catch (e) {
-            console.warn("[Vanduo Lifecycle] Cleanup error:", e);
+      unregister: function(element, componentName) {
+        const componentEntries = this.instances.get(element);
+        if (!componentEntries) return;
+        if (componentName) {
+          const entry = componentEntries.get(componentName);
+          if (!entry) return;
+          componentEntries.delete(componentName);
+          if (!componentEntries.size) {
+            this.instances.delete(element);
           }
-        });
+          entry.cleanup.forEach(function(fn) {
+            callSafely("Cleanup", fn);
+          });
+          entry.onDestroy.forEach(function(fn) {
+            callSafely("Destroy", fn);
+          });
+          return;
+        }
+        const entries = Array.from(componentEntries.values());
         this.instances.delete(element);
+        entries.forEach(function(entry) {
+          entry.cleanup.forEach(function(fn) {
+            callSafely("Cleanup", fn);
+          });
+          entry.onDestroy.forEach(function(fn) {
+            callSafely("Destroy", fn);
+          });
+        });
       },
-      /**
-       * Destroy all instances of a specific component
-       * @param {string} componentName - Optional component name filter
-       */
       destroyAll: function(componentName) {
         const toRemove = [];
-        this.instances.forEach(function(instance, element) {
-          if (!componentName || instance.component === componentName) {
-            toRemove.push(element);
+        this.instances.forEach(function(componentEntries, element) {
+          if (!componentName) {
+            toRemove.push([element, null]);
+            return;
+          }
+          if (componentEntries.has(componentName)) {
+            toRemove.push([element, componentName]);
           }
         });
-        toRemove.forEach(function(element) {
-          Lifecycle.unregister(element);
+        toRemove.forEach(function(entry) {
+          Lifecycle.unregister(entry[0], entry[1] || void 0);
         });
+        return toRemove.length;
       },
-      /**
-       * Destroy all instances within a specific container
-       * Useful for SPAs when navigating between pages
-       * @param {HTMLElement} container - Container element
-       */
-      destroyAllInContainer: function(container) {
+      destroyAllInContainer: function(container, componentName) {
+        const scope = this.normalizeRoot(container);
         const toRemove = [];
-        this.instances.forEach(function(instance, element) {
-          if (container.contains(element)) {
-            toRemove.push(element);
+        this.instances.forEach(function(componentEntries, element) {
+          if (!Lifecycle.isInRoot(scope, element)) return;
+          if (!componentName) {
+            toRemove.push([element, null]);
+            return;
+          }
+          if (componentEntries.has(componentName)) {
+            toRemove.push([element, componentName]);
           }
         });
-        toRemove.forEach(function(element) {
-          Lifecycle.unregister(element);
+        toRemove.forEach(function(entry) {
+          Lifecycle.unregister(entry[0], entry[1] || void 0);
         });
+        return toRemove.length;
       },
-      /**
-       * Get all registered instances (for debugging)
-       * @returns {Array} Array of instance info objects
-       */
       getAll: function() {
         const result = [];
-        this.instances.forEach(function(instance, element) {
-          result.push({
-            element,
-            component: instance.component,
-            registeredAt: instance.registeredAt
+        this.instances.forEach(function(componentEntries, element) {
+          componentEntries.forEach(function(entry) {
+            result.push({
+              element,
+              component: entry.component,
+              registeredAt: entry.registeredAt
+            });
           });
         });
         return result;
       },
-      /**
-       * Check if an element is registered
-       * @param {HTMLElement} element - The element to check
-       * @returns {boolean}
-       */
-      has: function(element) {
-        return this.instances.has(element);
+      has: function(element, componentName) {
+        const componentEntries = this.instances.get(element);
+        if (!componentEntries) return false;
+        return componentName ? componentEntries.has(componentName) : componentEntries.size > 0;
       }
     };
     window.addEventListener("beforeunload", function() {
       Lifecycle.destroyAll();
     });
     window.VanduoLifecycle = Lifecycle;
-    if (typeof window.Vanduo !== "undefined") {
-      window.Vanduo.register("lifecycle", Lifecycle);
-    }
   })();
 
   // js/vanduo.js
   (function() {
     "use strict";
-    const VANDUO_VERSION = true ? "1.3.9" : "0.0.0-dev";
+    const VANDUO_VERSION = true ? "1.4.0" : "0.0.0-dev";
+    const hasOwn = Object.prototype.hasOwnProperty;
     const Vanduo2 = {
       version: VANDUO_VERSION,
       components: {},
+      aliases: {},
+      _decoratedComponents: /* @__PURE__ */ new WeakSet(),
+      resolveComponentName: function(name) {
+        return this.aliases[name] || name;
+      },
+      _isRoot: function(root) {
+        if (typeof window.VanduoLifecycle !== "undefined" && typeof window.VanduoLifecycle.isRoot === "function") {
+          return window.VanduoLifecycle.isRoot(root);
+        }
+        return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+      },
+      _normalizeRoot: function(root) {
+        return this._isRoot(root) ? root : document;
+      },
+      _queryAll: function(root, selector) {
+        const scope = this._normalizeRoot(root);
+        const matches = [];
+        if (scope instanceof Element && typeof scope.matches === "function" && scope.matches(selector)) {
+          matches.push(scope);
+        }
+        if (typeof scope.querySelectorAll === "function") {
+          const descendants = scope.querySelectorAll(selector);
+          for (let i = 0; i < descendants.length; i++) {
+            matches.push(descendants[i]);
+          }
+        }
+        return matches;
+      },
+      _runWithScopedQueries: function(root, fn) {
+        const scope = this._normalizeRoot(root);
+        const lifecycle = window.VanduoLifecycle;
+        if (scope === document) {
+          return fn();
+        }
+        if (lifecycle && typeof lifecycle.runInRoot === "function") {
+          return lifecycle.runInRoot(scope, fn);
+        }
+        const originalQuerySelectorAll = document.querySelectorAll.bind(document);
+        document.querySelectorAll = (selector) => this._queryAll(scope, selector);
+        try {
+          return fn();
+        } finally {
+          document.querySelectorAll = originalQuerySelectorAll;
+        }
+      },
+      _isLifecycleManagedComponent: function(component) {
+        if (!component || typeof component !== "object") return false;
+        for (const key in component) {
+          if (hasOwn.call(component, key) && component[key] instanceof Map) {
+            return true;
+          }
+        }
+        return false;
+      },
+      _syncComponentLifecycle: function(name, component, root) {
+        const lifecycle = window.VanduoLifecycle;
+        if (!lifecycle || !this._isLifecycleManagedComponent(component)) return;
+        const componentName = this.resolveComponentName(name);
+        const scope = this._normalizeRoot(root);
+        for (const key in component) {
+          if (!hasOwn.call(component, key) || !(component[key] instanceof Map)) {
+            continue;
+          }
+          component[key].forEach(function(instance, element) {
+            if (!(element instanceof Element) || !lifecycle.isInRoot(scope, element) || lifecycle.has(element, componentName)) {
+              return;
+            }
+            if (typeof component.destroy === "function") {
+              lifecycle.register(element, componentName, [], function() {
+                component.destroy(element);
+              });
+              return;
+            }
+            const cleanup = instance && Array.isArray(instance.cleanup) ? instance.cleanup : [];
+            lifecycle.register(element, componentName, cleanup, function() {
+              component[key].delete(element);
+            });
+          });
+        }
+      },
+      _decorateComponent: function(name, component) {
+        const framework = this;
+        const lifecycle = window.VanduoLifecycle;
+        if (!component || typeof component !== "object" || this._decoratedComponents.has(component)) {
+          return;
+        }
+        const originalInit = typeof component.init === "function" ? component.init : null;
+        if (originalInit) {
+          component.init = function(...args) {
+            const scopedRoot = framework._isRoot(args[0]) ? args[0] : null;
+            const run = () => originalInit.apply(this, args);
+            const result = scopedRoot ? framework._runWithScopedQueries(scopedRoot, run) : run();
+            if (window.Vanduo) {
+              const syncRoot = scopedRoot || document;
+              window.Vanduo._syncComponentLifecycle(name, this, syncRoot);
+            }
+            return result;
+          };
+        }
+        const originalDestroyAll = typeof component.destroyAll === "function" ? component.destroyAll : null;
+        if (originalDestroyAll) {
+          component.destroyAll = function(...args) {
+            const scopedRoot = framework._isRoot(args[0]) ? args[0] : null;
+            const componentName = window.Vanduo ? window.Vanduo.resolveComponentName(name) : name;
+            if (lifecycle && window.Vanduo && window.Vanduo._isLifecycleManagedComponent(this)) {
+              if (scopedRoot && scopedRoot !== document) {
+                lifecycle.destroyAllInContainer(scopedRoot, componentName);
+                if (this.__vanduoScopedDestroyAll === true) {
+                  return originalDestroyAll.apply(this, args);
+                }
+                return;
+              }
+              lifecycle.destroyAll(componentName);
+            }
+            return originalDestroyAll.apply(this, args);
+          };
+        }
+        this._decoratedComponents.add(component);
+      },
       /**
        * Initialize framework
        * Call this after DOM is ready and all components are loaded
        */
-      init: function() {
+      init: function(root) {
+        const scope = this._normalizeRoot(root);
+        if (scope !== document) {
+          this.initComponents(scope);
+          return;
+        }
         if (typeof ready !== "undefined") {
           ready(() => {
-            this.initComponents();
+            this.initComponents(document);
           });
-        } else {
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", () => {
-              this.initComponents();
-            });
-          } else {
-            this.initComponents();
-          }
+          return;
         }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => {
+            this.initComponents(document);
+          });
+          return;
+        }
+        this.initComponents(document);
       },
       /**
        * Initialize all components
        */
-      initComponents: function() {
+      initComponents: function(root) {
+        const scope = this._normalizeRoot(root);
         Object.keys(this.components).forEach((name) => {
           const component = this.components[name];
           if (component.init && typeof component.init === "function") {
             try {
-              component.init();
+              component.init(scope);
             } catch (e) {
               console.warn('[Vanduo] Failed to initialize component "' + name + '":', e);
             }
           }
         });
-        console.log("Vanduo Framework v" + this.version + " initialized");
       },
       /**
        * Register a component
        * @param {string} name - Component name
        * @param {Object} component - Component object with init method
        */
-      register: function(name, component) {
+      register: function(name, component, options) {
+        const opts = options || {};
+        this._decorateComponent(name, component);
         this.components[name] = component;
+        if (Array.isArray(opts.aliases)) {
+          opts.aliases.forEach((alias) => {
+            this.aliases[alias] = name;
+          });
+        }
+      },
+      registerAlias: function(alias, name) {
+        const canonicalName = this.resolveComponentName(name);
+        if (this.components[canonicalName]) {
+          this.aliases[alias] = canonicalName;
+        }
       },
       /**
        * Re-initialize a component (useful after dynamic DOM changes)
        * @param {string} name - Component name
        */
-      reinit: function(name) {
-        const component = this.components[name];
+      reinit: function(name, root) {
+        const scope = this._normalizeRoot(root);
+        const componentName = this.resolveComponentName(name);
+        const component = this.components[componentName];
         if (component && component.init && typeof component.init === "function") {
           try {
-            component.init();
+            if (component.destroyAll && typeof component.destroyAll === "function") {
+              component.destroyAll(scope);
+            }
+            component.init(scope);
           } catch (e) {
-            console.warn('[Vanduo] Failed to reinitialize component "' + name + '":', e);
+            console.warn('[Vanduo] Failed to reinitialize component "' + componentName + '":', e);
           }
         }
       },
       /**
-       * Destroy all component instances and clean up event listeners
-       * Uses lifecycle manager for memory leak prevention
+       * Destroy component instances within the provided root.
        */
-      destroyAll: function() {
+      destroy: function(root) {
+        const scope = this._normalizeRoot(root);
         const names = Object.keys(this.components);
         for (let i = 0; i < names.length; i++) {
           const component = this.components[names[i]];
           if (component && component.destroyAll && typeof component.destroyAll === "function") {
             try {
-              component.destroyAll();
+              component.destroyAll(scope);
             } catch (e) {
               console.warn('[Vanduo] Failed to destroy component "' + names[i] + '":', e);
             }
           }
         }
-        if (typeof window.VanduoLifecycle !== "undefined") {
-          window.VanduoLifecycle.destroyAll();
-        }
+      },
+      /**
+       * Destroy all component instances and clean up event listeners.
+       */
+      destroyAll: function() {
+        this.destroy(document);
       },
       /**
        * Get component instance
@@ -194,7 +420,8 @@
        * @returns {Object|null}
        */
       getComponent: function(name) {
-        return this.components[name] || null;
+        const componentName = this.resolveComponentName(name);
+        return this.components[componentName] || null;
       }
     };
     window.Vanduo = Vanduo2;
@@ -205,6 +432,26 @@
     "use strict";
     const CodeSnippet = {
       _snippetIdCounter: 0,
+      resolveRoot: function(root) {
+        if (root && (root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11)) {
+          return root;
+        }
+        return document;
+      },
+      queryWithin: function(root, selector) {
+        const scope = this.resolveRoot(root);
+        const matches = [];
+        if (scope instanceof Element && typeof scope.matches === "function" && scope.matches(selector)) {
+          matches.push(scope);
+        }
+        if (typeof scope.querySelectorAll === "function") {
+          const descendants = scope.querySelectorAll(selector);
+          for (let i = 0; i < descendants.length; i++) {
+            matches.push(descendants[i]);
+          }
+        }
+        return matches;
+      },
       getSnippetInstanceId: function(snippet) {
         if (snippet.dataset.codeSnippetId) {
           return snippet.dataset.codeSnippetId;
@@ -229,8 +476,8 @@
       /**
        * Initialize all code snippet components
        */
-      init: function() {
-        const snippets = document.querySelectorAll(".vd-code-snippet");
+      init: function(root) {
+        const snippets = this.queryWithin(root, ".vd-code-snippet");
         snippets.forEach((snippet) => {
           if (!snippet.dataset.initialized) {
             this.initSnippet(snippet);
@@ -261,6 +508,10 @@
         const extractPanes = snippet.querySelectorAll("[data-extract]");
         extractPanes.forEach((pane) => {
           this.extractHtml(pane);
+        });
+        const panesToHighlight = snippet.querySelectorAll(".vd-code-snippet-pane:not([data-extract])");
+        panesToHighlight.forEach((pane) => {
+          this.applyPaneHighlighting(pane);
         });
         const lineNumberPanes = snippet.querySelectorAll(".has-line-numbers");
         lineNumberPanes.forEach((pane) => {
@@ -497,6 +748,7 @@
         codeEl.innerHTML = html;
         pane.replaceChildren(codeEl);
         pane.dataset.extracted = "true";
+        pane.dataset.highlighted = "true";
       },
       /**
        * Format HTML with proper indentation
@@ -537,6 +789,77 @@
         const div = document.createElement("div");
         div.textContent = html;
         return div.innerHTML;
+      },
+      needsHighlighting: function(pane, codeEl) {
+        if (!codeEl) return false;
+        if (pane.dataset.highlighted === "true") return false;
+        if (codeEl.querySelector('[class^="code-"], [class*=" code-"]')) return false;
+        return true;
+      },
+      getHighlightMode: function(lang) {
+        const normalized = String(lang || "").trim().toLowerCase();
+        if ([
+          "html",
+          "xml",
+          "svg",
+          "vue",
+          "svelte",
+          "astro"
+        ].includes(normalized)) {
+          return "html";
+        }
+        if ([
+          "css",
+          "scss",
+          "sass",
+          "less"
+        ].includes(normalized)) {
+          return "css";
+        }
+        if ([
+          "js",
+          "mjs",
+          "cjs",
+          "ts",
+          "jsx",
+          "tsx",
+          "json",
+          "bash",
+          "sh"
+        ].includes(normalized)) {
+          return "js";
+        }
+        return "plain";
+      },
+      highlightCodeByLang: function(rawCode, lang) {
+        const escaped = this.escapeHtml(rawCode);
+        const mode = this.getHighlightMode(lang);
+        if (mode === "html") {
+          return this.highlightHtml(escaped);
+        }
+        if (mode === "css") {
+          return this.highlightCss(escaped);
+        }
+        if (mode === "js") {
+          return this.highlightJs(escaped);
+        }
+        return escaped;
+      },
+      applyPaneHighlighting: function(pane) {
+        if (!pane) return;
+        const codeEl = pane.querySelector("code") || pane;
+        if (!this.needsHighlighting(pane, codeEl)) {
+          pane.dataset.highlighted = "true";
+          return;
+        }
+        const rawCode = codeEl.textContent || "";
+        const highlighted = this.highlightCodeByLang(rawCode, pane.dataset.lang);
+        const nextCodeEl = codeEl.tagName === "CODE" ? codeEl : document.createElement("code");
+        nextCodeEl.innerHTML = highlighted;
+        if (nextCodeEl !== codeEl) {
+          pane.replaceChildren(nextCodeEl);
+        }
+        pane.dataset.highlighted = "true";
       },
       /**
        * Apply syntax highlighting to HTML
@@ -1187,7 +1510,13 @@
           description: "Friendly, rounded sans-serif"
         }
       },
-      init: function() {
+      getToggles: function(root) {
+        if (typeof window.VanduoLifecycle !== "undefined") {
+          return window.VanduoLifecycle.queryAll(root, '[data-toggle="font"]');
+        }
+        return Array.from(document.querySelectorAll('[data-toggle="font"]'));
+      },
+      init: function(root) {
         this.state = {
           preference: this.getPreference()
         };
@@ -1197,14 +1526,13 @@
         }
         if (this.isInitialized) {
           this.applyFont();
-          this.renderUI();
-          this.updateUI();
+          this.renderUI(root);
+          this.updateUI(root);
           return;
         }
         this.isInitialized = true;
         this.applyFont();
-        this.renderUI();
-        console.log("Vanduo Font Switcher initialized");
+        this.renderUI(root);
       },
       /**
        * Get saved font preference from localStorage
@@ -1246,8 +1574,8 @@
       /**
        * Initialize UI elements with data-toggle="font"
        */
-      renderUI: function() {
-        const toggles = document.querySelectorAll('[data-toggle="font"]');
+      renderUI: function(root) {
+        const toggles = this.getToggles(root);
         toggles.forEach((toggle) => {
           if (toggle.getAttribute("data-font-initialized") === "true") {
             if (toggle.tagName === "SELECT") {
@@ -1278,8 +1606,8 @@
       /**
        * Update all UI elements to reflect current state
        */
-      updateUI: function() {
-        const toggles = document.querySelectorAll('[data-toggle="font"]');
+      updateUI: function(root) {
+        const toggles = this.getToggles(root);
         toggles.forEach((toggle) => {
           if (toggle.tagName === "SELECT") {
             toggle.value = this.state.preference;
@@ -1306,8 +1634,10 @@
       getFontData: function(fontKey) {
         return this.fonts[fontKey] || null;
       },
-      destroyAll: function() {
-        const toggles = document.querySelectorAll('[data-toggle="font"][data-font-initialized="true"]');
+      destroyAll: function(root) {
+        const toggles = this.getToggles(root || document).filter(function(toggle) {
+          return toggle.getAttribute("data-font-initialized") === "true";
+        });
         toggles.forEach((toggle) => {
           if (toggle._fontToggleHandler) {
             const eventName = toggle.tagName === "SELECT" ? "change" : "click";
@@ -1316,7 +1646,9 @@
           }
           toggle.removeAttribute("data-font-initialized");
         });
-        this.isInitialized = false;
+        if (!root || root === document) {
+          this.isInitialized = false;
+        }
       },
       getStorageValue: function(key, fallback) {
         if (typeof window.safeStorageGet === "function") {
@@ -1359,10 +1691,11 @@
     })();
     const GridLayout = {
       instances: /* @__PURE__ */ new Map(),
+      __vanduoScopedDestroyAll: true,
       /**
        * Initialize all grid layout containers
        */
-      init: function() {
+      init: function(root) {
         const containers = document.querySelectorAll("[data-layout-mode]");
         containers.forEach(function(container) {
           if (this.instances.has(container)) {
@@ -1370,7 +1703,7 @@
           }
           this.initContainer(container);
         }.bind(this));
-        this.initToggleButtons();
+        this.initToggleButtons(root);
       },
       /**
        * Initialize a single grid container
@@ -1390,8 +1723,8 @@
       /**
        * Initialize toggle buttons that target grid containers
        */
-      initToggleButtons: function() {
-        const toggleButtons = document.querySelectorAll("[data-grid-toggle]");
+      initToggleButtons: function(root) {
+        const toggleButtons = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-grid-toggle]") : document.querySelectorAll("[data-grid-toggle]");
         toggleButtons.forEach(function(button) {
           if (button.getAttribute("data-grid-initialized") === "true") {
             return;
@@ -1559,11 +1892,13 @@
       /**
        * Destroy all grid layout instances and clean up toggle buttons
        */
-      destroyAll: function() {
+      destroyAll: function(root) {
         this.instances.forEach(function(instance, container) {
-          this.destroy(container);
+          if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, container)) {
+            this.destroy(container);
+          }
         }.bind(this));
-        const toggleButtons = document.querySelectorAll('[data-grid-initialized="true"]');
+        const toggleButtons = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, '[data-grid-toggle][data-grid-initialized="true"]') : document.querySelectorAll('[data-grid-initialized="true"]');
         toggleButtons.forEach(function(button) {
           if (button._gridCleanup) {
             button._gridCleanup();
@@ -1593,12 +1928,18 @@
       isOpen: false,
       // Store cleanup functions for event listeners
       _cleanupFunctions: [],
+      getTriggers: function(root) {
+        if (typeof window.VanduoLifecycle !== "undefined") {
+          return window.VanduoLifecycle.queryAll(root, "[data-image-box]");
+        }
+        return Array.from(document.querySelectorAll("[data-image-box]"));
+      },
       /**
        * Initialize Image Box component
        */
-      init: function() {
+      init: function(root) {
         this.createBackdrop();
-        this.bindTriggers();
+        this.bindTriggers(root);
       },
       /**
        * Create backdrop elements
@@ -1682,9 +2023,9 @@
       /**
        * Bind triggers to all images with data-image-box attribute
        */
-      bindTriggers: function() {
+      bindTriggers: function(root) {
         const self = this;
-        const triggers = document.querySelectorAll("[data-image-box]");
+        const triggers = this.getTriggers(root);
         triggers.forEach(function(trigger) {
           if (trigger.dataset.imageBoxInitialized) return;
           trigger.dataset.imageBoxInitialized = "true";
@@ -1701,6 +2042,8 @@
               trigger.classList.remove("is-broken");
             };
             trigger.addEventListener("load", loadHandler);
+            trigger._imageBoxErrorHandler = errorHandler;
+            trigger._imageBoxLoadHandler = loadHandler;
           }
           const clickHandler = function(e) {
             e.preventDefault();
@@ -1719,12 +2062,24 @@
               }
             };
             trigger.addEventListener("keydown", keyHandler);
-            const originalCleanup = trigger._imageBoxCleanup;
+            const originalCleanup2 = trigger._imageBoxCleanup;
             trigger._imageBoxCleanup = () => {
-              originalCleanup();
+              originalCleanup2();
               trigger.removeEventListener("keydown", keyHandler);
             };
           }
+          const originalCleanup = trigger._imageBoxCleanup;
+          trigger._imageBoxCleanup = () => {
+            originalCleanup();
+            if (trigger._imageBoxErrorHandler) {
+              trigger.removeEventListener("error", trigger._imageBoxErrorHandler);
+              delete trigger._imageBoxErrorHandler;
+            }
+            if (trigger._imageBoxLoadHandler) {
+              trigger.removeEventListener("load", trigger._imageBoxLoadHandler);
+              delete trigger._imageBoxLoadHandler;
+            }
+          };
         });
       },
       /**
@@ -1795,13 +2150,25 @@
       /**
        * Reinitialize - useful after dynamic DOM changes
        */
-      reinit: function() {
-        this.bindTriggers();
+      reinit: function(root) {
+        this.bindTriggers(root);
       },
       /**
        * Destroy component and clean up
        */
-      destroy: function() {
+      destroy: function(root) {
+        if (root && root !== document) {
+          const triggersInRoot = this.getTriggers(root);
+          triggersInRoot.forEach((trigger) => {
+            trigger.classList.remove("vd-image-box-trigger");
+            if (trigger._imageBoxCleanup) {
+              trigger._imageBoxCleanup();
+              delete trigger._imageBoxCleanup;
+            }
+            delete trigger.dataset.imageBoxInitialized;
+          });
+          return;
+        }
         if (this.isOpen) {
           this.close();
         }
@@ -1827,8 +2194,8 @@
         this.currentTrigger = null;
         this.isOpen = false;
       },
-      destroyAll: function() {
-        this.destroy();
+      destroyAll: function(root) {
+        this.destroy(root);
       }
     };
     if (typeof window.Vanduo !== "undefined") {
@@ -1844,6 +2211,7 @@
       modals: /* @__PURE__ */ new Map(),
       openModals: [],
       zIndexCounter: 1050,
+      __vanduoScopedDestroyAll: true,
       // Store trigger cleanup functions
       _triggerCleanups: [],
       // Shared ESC key handler (installed once)
@@ -1899,7 +2267,7 @@
       /**
        * Initialize modals
        */
-      init: function() {
+      init: function(root) {
         const modals = document.querySelectorAll(".vd-modal");
         modals.forEach((modal) => {
           if (this.modals.has(modal)) {
@@ -1907,7 +2275,7 @@
           }
           this.initModal(modal);
         });
-        const triggers = document.querySelectorAll("[data-modal]");
+        const triggers = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-modal]") : document.querySelectorAll("[data-modal]");
         triggers.forEach((trigger) => {
           if (trigger.dataset.modalTriggerInitialized) return;
           trigger.dataset.modalTriggerInitialized = "true";
@@ -1920,7 +2288,7 @@
             }
           };
           trigger.addEventListener("click", triggerClickHandler);
-          this._triggerCleanups.push(() => trigger.removeEventListener("click", triggerClickHandler));
+          trigger._modalTriggerCleanup = () => trigger.removeEventListener("click", triggerClickHandler);
         });
       },
       /**
@@ -2158,13 +2526,21 @@
       /**
        * Destroy all modal instances
        */
-      destroyAll: function() {
+      destroyAll: function(root) {
         this.modals.forEach((data, modal) => {
-          this.destroy(modal);
+          if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, modal)) {
+            this.destroy(modal);
+          }
         });
-        this._triggerCleanups.forEach((fn) => fn());
-        this._triggerCleanups = [];
-        if (this._sharedEscHandler) {
+        const triggers = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, "[data-modal][data-modal-trigger-initialized]") : document.querySelectorAll("[data-modal][data-modal-trigger-initialized]");
+        triggers.forEach((trigger) => {
+          if (trigger._modalTriggerCleanup) {
+            trigger._modalTriggerCleanup();
+            delete trigger._modalTriggerCleanup;
+          }
+          delete trigger.dataset.modalTriggerInitialized;
+        });
+        if ((!root || root === document) && this._sharedEscHandler) {
           document.removeEventListener("keydown", this._sharedEscHandler);
           this._sharedEscHandler = null;
         }
@@ -2798,11 +3174,17 @@
   (function() {
     "use strict";
     const Preloader = {
+      getProgressBars: function(root) {
+        if (typeof window.VanduoLifecycle !== "undefined") {
+          return window.VanduoLifecycle.queryAll(root, ".vd-progress-bar[data-progress], .progress-bar[data-progress]");
+        }
+        return Array.from(document.querySelectorAll(".vd-progress-bar[data-progress], .progress-bar[data-progress]"));
+      },
       /**
        * Initialize preloader components
        */
-      init: function() {
-        const progressBars = document.querySelectorAll(".vd-progress-bar[data-progress], .progress-bar[data-progress]");
+      init: function(root) {
+        const progressBars = this.getProgressBars(root);
         progressBars.forEach((bar) => {
           if (!bar.dataset.progressInitialized) {
             this.initProgressBar(bar);
@@ -2922,8 +3304,10 @@
       /**
        * Destroy all progress bar instances
        */
-      destroyAll: function() {
-        const progressBars = document.querySelectorAll('.vd-progress-bar[data-progress-initialized="true"], .progress-bar[data-progress-initialized="true"]');
+      destroyAll: function(root) {
+        const progressBars = this.getProgressBars(root || document).filter(function(bar) {
+          return bar.dataset.progressInitialized === "true";
+        });
         progressBars.forEach((bar) => {
           delete bar.dataset.progressInitialized;
         });
@@ -3306,8 +3690,10 @@
       breakpoint: 992,
       // Desktop breakpoint
       restoreDelayMs: 450,
+      __vanduoScopedDestroyAll: true,
       // Global cleanup functions (toggles, resize)
       _globalCleanups: [],
+      _resizeCleanup: null,
       isFixedVariant: function(sidenav) {
         return sidenav.classList.contains("vd-sidenav-fixed") || sidenav.classList.contains("sidenav-fixed");
       },
@@ -3408,7 +3794,7 @@
       /**
        * Initialize sidenav components
        */
-      init: function() {
+      init: function(root) {
         const sidenavs = document.querySelectorAll(".vd-sidenav, .vd-offcanvas");
         sidenavs.forEach((sidenav) => {
           if (this.sidenavs.has(sidenav)) {
@@ -3416,7 +3802,7 @@
           }
           this.initSidenav(sidenav);
         });
-        const toggles = document.querySelectorAll("[data-sidenav-toggle]");
+        const toggles = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-sidenav-toggle]") : document.querySelectorAll("[data-sidenav-toggle]");
         toggles.forEach((toggle) => {
           if (toggle.dataset.sidenavToggleInitialized) return;
           toggle.dataset.sidenavToggleInitialized = "true";
@@ -3429,14 +3815,16 @@
             }
           };
           toggle.addEventListener("click", toggleClickHandler);
-          this._globalCleanups.push(() => toggle.removeEventListener("click", toggleClickHandler));
+          toggle._sidenavToggleCleanup = () => toggle.removeEventListener("click", toggleClickHandler);
         });
         this.handleResize();
-        const resizeHandler = () => {
-          this.handleResize();
-        };
-        window.addEventListener("resize", resizeHandler);
-        this._globalCleanups.push(() => window.removeEventListener("resize", resizeHandler));
+        if (!this._resizeCleanup) {
+          const resizeHandler = () => {
+            this.handleResize();
+          };
+          window.addEventListener("resize", resizeHandler);
+          this._resizeCleanup = () => window.removeEventListener("resize", resizeHandler);
+        }
       },
       /**
        * Initialize a single sidenav
@@ -3609,12 +3997,28 @@
       /**
        * Destroy all sidenav instances
        */
-      destroyAll: function() {
+      destroyAll: function(root) {
         this.sidenavs.forEach((data, sidenav) => {
-          this.destroy(sidenav);
+          if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, sidenav)) {
+            this.destroy(sidenav);
+          }
         });
-        this._globalCleanups.forEach((fn) => fn());
-        this._globalCleanups = [];
+        const toggles = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, "[data-sidenav-toggle][data-sidenav-toggle-initialized]") : document.querySelectorAll("[data-sidenav-toggle][data-sidenav-toggle-initialized]");
+        toggles.forEach((toggle) => {
+          if (toggle._sidenavToggleCleanup) {
+            toggle._sidenavToggleCleanup();
+            delete toggle._sidenavToggleCleanup;
+          }
+          delete toggle.dataset.sidenavToggleInitialized;
+        });
+        if (!root || root === document) {
+          if (this._resizeCleanup) {
+            this._resizeCleanup();
+            this._resizeCleanup = null;
+          }
+          this._globalCleanups.forEach((fn) => fn());
+          this._globalCleanups = [];
+        }
       }
     };
     if (typeof window.Vanduo !== "undefined") {
@@ -3937,21 +4341,65 @@
       },
       isInitialized: false,
       _cleanup: [],
+      _ownsDynamicPanel: false,
       // DOM references
       elements: {
         customizer: null,
         trigger: null,
+        activeTrigger: null,
         triggers: [],
         panel: null,
         overlay: null
       },
+      isRoot: function(root) {
+        return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+      },
+      normalizeRoot: function(root) {
+        return this.isRoot(root) ? root : document;
+      },
+      queryAll: function(root, selector) {
+        const scope = this.normalizeRoot(root);
+        if (typeof window.VanduoLifecycle !== "undefined" && typeof window.VanduoLifecycle.queryAll === "function") {
+          return window.VanduoLifecycle.queryAll(scope, selector);
+        }
+        const matches = [];
+        if (scope instanceof Element && typeof scope.matches === "function" && scope.matches(selector)) {
+          matches.push(scope);
+        }
+        if (typeof scope.querySelectorAll === "function") {
+          const descendants = scope.querySelectorAll(selector);
+          for (let i = 0; i < descendants.length; i++) {
+            matches.push(descendants[i]);
+          }
+        }
+        return matches;
+      },
+      queryOne: function(root, selector) {
+        const matches = this.queryAll(root, selector);
+        return matches.length ? matches[0] : null;
+      },
+      getTriggers: function(root) {
+        return this.queryAll(root, "[data-theme-customizer-trigger]");
+      },
+      pruneTriggers: function() {
+        this.elements.triggers = this.elements.triggers.filter(function(trigger) {
+          return trigger && trigger.isConnected;
+        });
+        if (this.elements.trigger && !this.elements.trigger.isConnected) {
+          this.elements.trigger = null;
+        }
+        if (this.elements.activeTrigger && !this.elements.activeTrigger.isConnected) {
+          this.elements.activeTrigger = null;
+        }
+      },
       /**
        * Initialize the Theme Customizer
        */
-      init: function() {
+      init: function(root) {
+        const scope = this.normalizeRoot(root);
         if (this.isInitialized) {
-          this.bindExistingElements();
-          this.bindTriggerEvents();
+          this.bindExistingElements(scope);
+          this.bindTriggerEvents(scope);
           this.bindPanelEvents();
           this.updateUI();
           return;
@@ -3960,9 +4408,8 @@
         this._cleanup = [];
         this.loadPreferences();
         this.applyAllPreferences();
-        this.bindExistingElements();
-        this.bindEvents();
-        console.log("Vanduo Theme Customizer initialized");
+        this.bindExistingElements(scope);
+        this.bindEvents(scope);
       },
       addListener: function(target, event, handler, options) {
         if (!target) return;
@@ -4123,18 +4570,26 @@
       /**
        * Bind to existing DOM elements or create them dynamically
        */
-      bindExistingElements: function() {
-        this.elements.customizer = document.querySelector(".vd-theme-customizer");
-        this.elements.triggers = Array.from(document.querySelectorAll("[data-theme-customizer-trigger]"));
+      bindExistingElements: function(root) {
+        const scope = this.normalizeRoot(root);
+        this.pruneTriggers();
+        const scopedTriggers = this.getTriggers(scope);
+        scopedTriggers.forEach((trigger) => {
+          if (!this.elements.triggers.includes(trigger)) {
+            this.elements.triggers.push(trigger);
+          }
+        });
         if (!this.elements.trigger && this.elements.triggers.length) {
           this.elements.trigger = this.elements.triggers[0];
         }
-        if (this.elements.customizer) {
+        const existingCustomizer = this.queryOne(scope, ".vd-theme-customizer") || (this.elements.customizer && typeof this.elements.customizer.contains === "function" ? this.elements.customizer : null) || document.querySelector(".vd-theme-customizer");
+        if (existingCustomizer instanceof Element) {
+          this.elements.customizer = existingCustomizer;
           this.elements.trigger = this.elements.customizer.querySelector(".vd-theme-customizer-trigger") || this.elements.trigger;
           this.elements.panel = this.elements.customizer.querySelector(".vd-theme-customizer-panel");
           this.elements.overlay = this.elements.customizer.querySelector(".vd-theme-customizer-overlay");
         } else {
-          if (this.elements.triggers.length) {
+          if (scopedTriggers.length && !this.elements.panel) {
             this.createDynamicPanel();
           }
         }
@@ -4144,7 +4599,7 @@
        * Create the panel dynamically when only a trigger button exists
        */
       createDynamicPanel: function() {
-        if (!this.elements.triggers.length) {
+        if (!this.elements.triggers.length || this.elements.panel && this.elements.panel.isConnected) {
           return;
         }
         this.elements.trigger = this.elements.triggers[0];
@@ -4157,6 +4612,7 @@
         document.body.appendChild(panel);
         this.elements.panel = panel;
         this.elements.overlay = overlay;
+        this._ownsDynamicPanel = true;
         this.elements.customizer = {
           contains: (el) => panel.contains(el) || this.elements.triggers.some((trigger) => trigger.contains(el))
         };
@@ -4339,8 +4795,8 @@
           this.state.primary = expected;
         }
       },
-      bindEvents: function() {
-        this.bindTriggerEvents();
+      bindEvents: function(root) {
+        this.bindTriggerEvents(root);
         this.bindPanelEvents();
         if (window.matchMedia) {
           const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -4367,20 +4823,43 @@
           }
         });
       },
-      bindTriggerEvents: function() {
-        this.elements.triggers.forEach((trigger) => {
+      bindTriggerEvents: function(root) {
+        const triggers = root ? this.getTriggers(root) : this.elements.triggers;
+        triggers.forEach((trigger) => {
           if (trigger.getAttribute("data-customizer-trigger-initialized") === "true") {
             return;
           }
-          this.addListener(trigger, "click", (e) => {
+          const onClick = (e) => {
             e.preventDefault();
             e.stopPropagation();
             this.elements.activeTrigger = trigger;
             this.elements.trigger = trigger;
             this.toggle();
-          });
+          };
+          trigger.addEventListener("click", onClick);
+          trigger._themeCustomizerTriggerHandler = onClick;
           trigger.setAttribute("data-customizer-trigger-initialized", "true");
         });
+      },
+      cleanupTrigger: function(trigger) {
+        if (!trigger || trigger.getAttribute("data-customizer-trigger-initialized") !== "true") {
+          return;
+        }
+        if (trigger._themeCustomizerTriggerHandler) {
+          trigger.removeEventListener("click", trigger._themeCustomizerTriggerHandler);
+          delete trigger._themeCustomizerTriggerHandler;
+        }
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.removeAttribute("data-customizer-trigger-initialized");
+        if (this.elements.activeTrigger === trigger) {
+          this.elements.activeTrigger = null;
+        }
+        this.elements.triggers = this.elements.triggers.filter(function(candidate) {
+          return candidate !== trigger;
+        });
+        if (this.elements.trigger === trigger) {
+          this.elements.trigger = this.elements.triggers[0] || null;
+        }
       },
       /**
        * Toggle panel open/close
@@ -4492,13 +4971,42 @@
           return false;
         }
       },
-      destroyAll: function() {
+      destroyAll: function(root) {
+        const scope = this.normalizeRoot(root);
+        if (scope !== document) {
+          this.getTriggers(scope).forEach((trigger) => {
+            this.cleanupTrigger(trigger);
+          });
+          this.pruneTriggers();
+          if (!this.elements.triggers.length) {
+            this.destroyAll(document);
+          }
+          return;
+        }
         this._cleanup.forEach((fn) => fn());
         this._cleanup = [];
         if (this.elements.panel) {
           this.elements.panel.removeAttribute("data-customizer-initialized");
         }
+        this.elements.triggers.slice().forEach((trigger) => {
+          this.cleanupTrigger(trigger);
+        });
+        if (this._ownsDynamicPanel) {
+          if (this.elements.panel && this.elements.panel.parentNode) {
+            this.elements.panel.parentNode.removeChild(this.elements.panel);
+          }
+          if (this.elements.overlay && this.elements.overlay.parentNode) {
+            this.elements.overlay.parentNode.removeChild(this.elements.overlay);
+          }
+          this._ownsDynamicPanel = false;
+        }
         this.close();
+        this.elements.customizer = null;
+        this.elements.trigger = null;
+        this.elements.activeTrigger = null;
+        this.elements.triggers = [];
+        this.elements.panel = null;
+        this.elements.overlay = null;
         this.isInitialized = false;
       }
     };
@@ -4515,7 +5023,13 @@
       isInitialized: false,
       _mediaQuery: null,
       _onMediaChange: null,
-      init: function() {
+      getToggles: function(root) {
+        if (typeof window.VanduoLifecycle !== "undefined") {
+          return window.VanduoLifecycle.queryAll(root, '[data-toggle="theme"]');
+        }
+        return Array.from(document.querySelectorAll('[data-toggle="theme"]'));
+      },
+      init: function(root) {
         this.STORAGE_KEY = "vanduo-theme-preference";
         this.state = {
           preference: this.getPreference()
@@ -4523,15 +5037,14 @@
         };
         if (this.isInitialized) {
           this.applyTheme();
-          this.renderUI();
-          this.updateUI();
+          this.renderUI(root);
+          this.updateUI(root);
           return;
         }
         this.isInitialized = true;
         this.applyTheme();
         this.listenForSystemChanges();
-        this.renderUI();
-        console.log("Vanduo Theme Switcher initialized");
+        this.renderUI(root);
       },
       getPreference: function() {
         return this.getStorageValue(this.STORAGE_KEY, "system");
@@ -4591,8 +5104,8 @@
         this._mediaQuery.addEventListener("change", this._onMediaChange);
       },
       // Helper to facilitate UI creation if needed, though often UI is in HTML
-      renderUI: function() {
-        const toggles = document.querySelectorAll('[data-toggle="theme"]');
+      renderUI: function(root) {
+        const toggles = this.getToggles(root);
         toggles.forEach((toggle) => {
           if (toggle.getAttribute("data-theme-initialized") === "true") {
             if (toggle.tagName === "SELECT") {
@@ -4619,8 +5132,8 @@
           toggle.setAttribute("data-theme-initialized", "true");
         });
       },
-      updateUI: function() {
-        const toggles = document.querySelectorAll('[data-toggle="theme"]');
+      updateUI: function(root) {
+        const toggles = this.getToggles(root);
         toggles.forEach((toggle) => {
           if (toggle.tagName === "SELECT") {
             toggle.value = this.state.preference;
@@ -4632,8 +5145,11 @@
           }
         });
       },
-      destroyAll: function() {
-        const toggles = document.querySelectorAll('[data-toggle="theme"][data-theme-initialized="true"]');
+      destroyAll: function(root) {
+        const scope = root || document;
+        const toggles = this.getToggles(scope).filter(function(toggle) {
+          return toggle.getAttribute("data-theme-initialized") === "true";
+        });
         toggles.forEach((toggle) => {
           if (toggle._themeToggleHandler) {
             const eventName = toggle.tagName === "SELECT" ? "change" : "click";
@@ -4642,12 +5158,14 @@
           }
           toggle.removeAttribute("data-theme-initialized");
         });
-        if (this._mediaQuery && this._onMediaChange) {
+        if (scope === document && this._mediaQuery && this._onMediaChange) {
           this._mediaQuery.removeEventListener("change", this._onMediaChange);
         }
-        this._mediaQuery = null;
-        this._onMediaChange = null;
-        this.isInitialized = false;
+        if (scope === document) {
+          this._mediaQuery = null;
+          this._onMediaChange = null;
+          this.isInitialized = false;
+        }
       }
     };
     if (window.Vanduo) {
@@ -4724,7 +5242,7 @@
         let html = "";
         if (config.icon) {
           const allowSvg = config.iconAllowSvg === true;
-          const safeIcon = typeof sanitizeHtml === "function" ? sanitizeHtml(config.icon, { allowSvg }) : escapeHtml(config.icon);
+          const safeIcon = typeof sanitizeHtml === "function" ? sanitizeHtml(config.icon, { allowSvg, allowStyle: false }) : escapeHtml(config.icon);
           html += `<span class="vd-toast-icon">${safeIcon}</span>`;
         } else if (config.type) {
           html += `<span class="vd-toast-icon">${this.getDefaultIcon(config.type)}</span>`;
@@ -5001,7 +5519,7 @@
         const textContent = element.dataset.tooltip;
         if (htmlContent) {
           const allowSvg = element.hasAttribute("data-tooltip-allow-svg");
-          tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg });
+          tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg, allowStyle: false });
           tooltip.classList.add("vd-tooltip-html");
         } else if (textContent) {
           tooltip.textContent = textContent;
@@ -5134,7 +5652,7 @@
           const { tooltip } = this.tooltips.get(el);
           if (isHtml) {
             const allowSvg = el.hasAttribute("data-tooltip-allow-svg");
-            tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg });
+            tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg, allowStyle: false });
             tooltip.classList.add("vd-tooltip-html");
           } else {
             tooltip.textContent = content;
@@ -5224,8 +5742,26 @@
       emptyText: "Try different keywords or check spelling",
       placeholder: "Search..."
     };
+    const ALLOWED_HIGHLIGHT_TAGS = {
+      mark: true,
+      span: true,
+      strong: true,
+      em: true
+    };
+    function isRoot(value) {
+      return typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isRoot(value);
+    }
+    function normalizeRoot(root) {
+      return isRoot(root) ? root : document;
+    }
+    function normalizeHighlightTag(tagName) {
+      const normalized = typeof tagName === "string" ? tagName.toLowerCase() : "mark";
+      return ALLOWED_HIGHLIGHT_TAGS[normalized] ? normalized : "mark";
+    }
     function createSearch(options) {
       const config = Object.assign({}, DEFAULTS, options || {});
+      config.root = normalizeRoot(config.root);
+      config.highlightTag = normalizeHighlightTag(config.highlightTag);
       const state = {
         initialized: false,
         index: [],
@@ -5239,6 +5775,24 @@
         debounceTimer: null,
         boundHandlers: {}
       };
+      function queryAll(selector) {
+        if (typeof window.VanduoLifecycle !== "undefined") {
+          return window.VanduoLifecycle.queryAll(config.root, selector);
+        }
+        const scope = normalizeRoot(config.root);
+        if (scope === document) {
+          return Array.from(document.querySelectorAll(selector));
+        }
+        const matches = [];
+        if (scope instanceof Element && scope.matches(selector)) {
+          matches.push(scope);
+        }
+        return matches.concat(Array.from(scope.querySelectorAll(selector)));
+      }
+      function queryOne(selector) {
+        const matches = queryAll(selector);
+        return matches.length ? matches[0] : null;
+      }
       function safeInvokeCallback(name, fn, ...args) {
         try {
           fn(...args);
@@ -5258,7 +5812,7 @@
         if (state.initialized) {
           return instance;
         }
-        state.container = document.querySelector(config.containerSelector);
+        state.container = queryOne(config.containerSelector);
         if (!state.container) {
           state.initialized = false;
           return null;
@@ -5295,7 +5849,7 @@
           });
           return;
         }
-        const sections = document.querySelectorAll(config.contentSelector);
+        const sections = queryAll(config.contentSelector);
         const categoryMap = buildCategoryMap();
         sections.forEach(function(section) {
           const id = section.id;
@@ -5330,7 +5884,7 @@
       function buildCategoryMap() {
         const map = {};
         let currentCategory = "Documentation";
-        const navItems = document.querySelectorAll(config.navSelector + ", " + config.sectionSelector);
+        const navItems = queryAll(config.navSelector + ", " + config.sectionSelector);
         navItems.forEach(function(item) {
           if (item.classList.contains("doc-nav-section")) {
             currentCategory = item.textContent.trim();
@@ -5659,7 +6213,7 @@
           safeInvokeCallback("onSelect", config.onSelect, result);
           return;
         }
-        const section = document.querySelector(result.url);
+        const section = queryOne(result.url) || document.querySelector(result.url);
         if (section) {
           section.scrollIntoView({ behavior: "smooth", block: "start" });
           window.history.pushState(null, "", result.url);
@@ -5667,7 +6221,7 @@
         }
       }
       function updateSidebarActive(sectionId) {
-        const navLinks = document.querySelectorAll(config.navSelector);
+        const navLinks = queryAll(config.navSelector);
         navLinks.forEach(function(link) {
           link.classList.remove("active");
           if (link.getAttribute("href") === "#" + sectionId) {
@@ -5714,6 +6268,8 @@
       }
       function setConfig(newConfig) {
         Object.assign(config, newConfig);
+        config.root = normalizeRoot(config.root);
+        config.highlightTag = normalizeHighlightTag(config.highlightTag);
       }
       function getConfig() {
         return Object.assign({}, config);
@@ -5730,7 +6286,10 @@
         close,
         setConfig,
         getConfig,
-        getIndex
+        getIndex,
+        getContainer: function() {
+          return state.container;
+        }
       };
       return instance;
     }
@@ -5752,27 +6311,34 @@
       /**
        * Initialize the default search instance
        */
-      init: function(options) {
+      init: function(rootOrOptions, maybeOptions) {
+        const root = isRoot(rootOrOptions) ? rootOrOptions : null;
+        const options = root ? maybeOptions : rootOrOptions;
         if (this._instance) {
           this._instance.destroy();
         }
         if (options) {
           Object.assign(this.config, options);
         }
-        this._instance = createSearch(this.config);
+        this._instance = createSearch(Object.assign({}, this.config, root ? { root } : {}));
         return this._instance ? this._instance.init() : null;
       },
       /**
        * Destroy the default instance
        */
-      destroy: function() {
+      destroy: function(root) {
+        if (root && this._instance && this._instance.getContainer() && typeof window.VanduoLifecycle !== "undefined") {
+          if (!window.VanduoLifecycle.isInRoot(root, this._instance.getContainer())) {
+            return;
+          }
+        }
         if (this._instance) {
           this._instance.destroy();
           this._instance = null;
         }
       },
-      destroyAll: function() {
-        this.destroy();
+      destroyAll: function(root) {
+        this.destroy(root);
       },
       /**
        * Rebuild the default instance index
@@ -6454,6 +7020,35 @@
   (function() {
     "use strict";
     const _observerMap = /* @__PURE__ */ new Map();
+    function _isRoot(root) {
+      return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+    }
+    function _normalizeRoot(root) {
+      return _isRoot(root) ? root : document;
+    }
+    function _isInRoot(root, element) {
+      const scope = _normalizeRoot(root);
+      if (!(element instanceof Element)) return false;
+      if (scope === document) {
+        return document.documentElement ? document.documentElement.contains(element) : document.contains(element);
+      }
+      if (scope === element) return true;
+      return typeof scope.contains === "function" && scope.contains(element);
+    }
+    function _queryAll(root, selector) {
+      const scope = _normalizeRoot(root);
+      const matches = [];
+      if (scope instanceof Element && typeof scope.matches === "function" && scope.matches(selector)) {
+        matches.push(scope);
+      }
+      if (typeof scope.querySelectorAll === "function") {
+        const descendants = scope.querySelectorAll(selector);
+        for (let i = 0; i < descendants.length; i++) {
+          matches.push(descendants[i]);
+        }
+      }
+      return matches;
+    }
     function _isSafeUrl(url) {
       try {
         const resolved = new URL(url, window.location.href);
@@ -6541,6 +7136,9 @@
             if (entry.isIntersecting) {
               obs.unobserve(entry.target);
               _observerMap.delete(entry.target);
+              if (typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.has(entry.target, "lazyLoad")) {
+                window.VanduoLifecycle.unregister(entry.target, "lazyLoad");
+              }
               try {
                 callback(entry.target);
               } catch (e) {
@@ -6550,27 +7148,39 @@
           });
         }, { threshold, rootMargin });
         _observerMap.set(element, observer);
+        if (typeof window.VanduoLifecycle !== "undefined" && !window.VanduoLifecycle.has(element, "lazyLoad")) {
+          window.VanduoLifecycle.register(element, "lazyLoad", [() => {
+            VanduoLazyLoad.unobserve(element, { skipLifecycle: true });
+          }]);
+        }
         observer.observe(element);
       },
       /**
        * Stop observing an element that was previously passed to observe().
        * @param {Element} element
        */
-      unobserve: function(element) {
+      unobserve: function(element, options) {
+        const opts = options || {};
         const observer = _observerMap.get(element);
         if (observer) {
           observer.unobserve(element);
+          if (typeof observer.disconnect === "function") {
+            observer.disconnect();
+          }
           _observerMap.delete(element);
+        }
+        if (!opts.skipLifecycle && typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.has(element, "lazyLoad")) {
+          window.VanduoLifecycle.unregister(element, "lazyLoad");
         }
       },
       /**
        * Stop observing ALL currently observed elements.
        */
       unobserveAll: function() {
-        _observerMap.forEach(function(observer, element) {
-          observer.unobserve(element);
+        const observed = Array.from(_observerMap.keys());
+        observed.forEach(function(element) {
+          VanduoLazyLoad.unobserve(element);
         });
-        _observerMap.clear();
       },
       /* ─────────────────────────────────────────────────
        * HIGH-LEVEL API
@@ -6619,7 +7229,7 @@
             _safeInjectHtml(containerEl, html);
             _dispatch(containerEl, "lazysection:loaded", { url });
             if (typeof window.Vanduo !== "undefined") {
-              window.Vanduo.init();
+              window.Vanduo.init(containerEl);
             }
             if (typeof opts.onLoaded === "function") {
               opts.onLoaded(containerEl);
@@ -6654,9 +7264,9 @@
        * Scan the DOM for [data-vd-lazy] elements and wire them up.
        * Safe to call multiple times — already-observed elements are skipped.
        */
-      init: function() {
+      init: function(root) {
         const self = this;
-        const elements = document.querySelectorAll("[data-vd-lazy]");
+        const elements = _queryAll(root, "[data-vd-lazy]");
         elements.forEach(function(el) {
           if (_observerMap.has(el) || el.dataset.vdLazyState === "loading" || el.dataset.vdLazyState === "loaded") return;
           const url = el.getAttribute("data-vd-lazy");
@@ -6673,10 +7283,26 @@
             }
           });
         });
+      },
+      destroy: function(element) {
+        this.unobserve(element);
+      },
+      destroyAll: function(root) {
+        const scope = _normalizeRoot(root);
+        if (scope === document) {
+          this.unobserveAll();
+          return;
+        }
+        const observed = Array.from(_observerMap.keys());
+        observed.forEach((element) => {
+          if (_isInRoot(scope, element)) {
+            this.unobserve(element);
+          }
+        });
       }
     };
     if (typeof window.Vanduo !== "undefined") {
-      window.Vanduo.register("LazyLoad", VanduoLazyLoad);
+      window.Vanduo.register("lazyLoad", VanduoLazyLoad, { aliases: ["LazyLoad"] });
     }
     window.VanduoLazyLoad = VanduoLazyLoad;
   })();
@@ -6987,6 +7613,8 @@
       const playBtn = scope.querySelector("[data-vd-timeline-play]");
       const pauseBtn = scope.querySelector("[data-vd-timeline-pause]");
       let playTimer = null;
+      let isPlaying = false;
+      let playToken = 0;
       function updateNavButtons() {
         const k = countRevealedPrefix(items);
         const n = items.length;
@@ -7001,10 +7629,10 @@
           nextBtn.setAttribute("aria-disabled", atEnd ? "true" : "false");
         }
         if (playBtn) {
-          playBtn.setAttribute("aria-pressed", playTimer ? "true" : "false");
+          playBtn.setAttribute("aria-pressed", isPlaying ? "true" : "false");
         }
         if (pauseBtn) {
-          pauseBtn.disabled = !playTimer;
+          pauseBtn.disabled = !isPlaying;
         }
       }
       function stepNext() {
@@ -7021,20 +7649,36 @@
         }
         updateNavButtons();
       }
-      function play() {
-        if (playTimer) return;
-        playTimer = setInterval(function() {
+      function scheduleNext() {
+        const token = ++playToken;
+        playTimer = setTimeout(function() {
+          playTimer = null;
+          if (!isPlaying || token !== playToken) {
+            return;
+          }
           if (countRevealedPrefix(items) >= items.length) {
             pause();
             return;
           }
           stepNext();
+          if (countRevealedPrefix(items) >= items.length) {
+            pause();
+            return;
+          }
+          scheduleNext();
         }, PLAY_INTERVAL_MS);
+      }
+      function play() {
+        if (isPlaying) return;
+        isPlaying = true;
+        scheduleNext();
         updateNavButtons();
       }
       function pause() {
+        isPlaying = false;
+        playToken++;
         if (playTimer) {
-          clearInterval(playTimer);
+          clearTimeout(playTimer);
           playTimer = null;
         }
         updateNavButtons();
@@ -7431,7 +8075,7 @@
         body.className = "vd-bubble-body";
         if (htmlContent) {
           if (typeof sanitizeHtml === "function") {
-            body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
+            body.innerHTML = sanitizeHtml(htmlContent, { allowSvg, allowStyle: false });
           } else {
             body.textContent = htmlContent;
           }
@@ -7974,16 +8618,20 @@
         const blurHandler = () => {
           setTimeout(close, 200);
         };
+        const focusHandler = () => {
+          if (input.value.length >= minChars) {
+            doSearch(input.value);
+          }
+        };
         input.addEventListener("input", inputHandler);
         input.addEventListener("keydown", keyHandler);
         input.addEventListener("blur", blurHandler);
-        input.addEventListener("focus", () => {
-          if (input.value.length >= minChars) doSearch(input.value);
-        });
+        input.addEventListener("focus", focusHandler);
         cleanup.push(
           () => input.removeEventListener("input", inputHandler),
           () => input.removeEventListener("keydown", keyHandler),
           () => input.removeEventListener("blur", blurHandler),
+          () => input.removeEventListener("focus", focusHandler),
           () => clearTimeout(debounceTimer),
           () => {
             if (list.parentNode) list.parentNode.removeChild(list);

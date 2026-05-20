@@ -5,10 +5,10 @@
 
 :root {
   --tp-bg: var(--card-bg, #fff);
-  --tp-border-color: var(--border-color, #dee2e6);
+  --tp-border-color: var(--vd-border-color, #dee2e6);
   --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.12);
-  --tp-item-hover-bg: var(--bg-secondary, #f8f9fa);
-  --tp-item-selected-bg: var(--color-primary, #0d6efd);
+  --tp-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --tp-item-selected-bg: var(--vd-color-primary, #0d6efd);
   --tp-item-selected-color: #fff;
   --tp-padding: 0.5rem;
   --tp-item-padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
@@ -19,16 +19,16 @@
 
 [data-theme="dark"] {
   --tp-bg: var(--card-bg, #2d2d44);
-  --tp-border-color: var(--border-color, #3d3d5c);
-  --tp-item-hover-bg: var(--bg-primary, #1a1a2e);
+  --tp-border-color: var(--vd-border-color, #3d3d5c);
+  --tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
   --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --tp-bg: var(--card-bg, #2d2d44);
-    --tp-border-color: var(--border-color, #3d3d5c);
-    --tp-item-hover-bg: var(--bg-primary, #1a1a2e);
+    --tp-border-color: var(--vd-border-color, #3d3d5c);
+    --tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
     --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
   }
 }

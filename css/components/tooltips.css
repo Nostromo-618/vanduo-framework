@@ -5,12 +5,12 @@
 
 :root {
   /* Tooltip Colors */
-  --tooltip-bg: var(--color-white);
-  --tooltip-bg-light: var(--color-gray-100);
-  --tooltip-bg-dark: var(--color-gray-900);
-  --tooltip-text-color: var(--color-gray-900);
-  --tooltip-text-color-light: var(--color-gray-800);
-  --tooltip-text-color-dark: var(--color-white);
+  --tooltip-bg: var(--vd-color-white);
+  --tooltip-bg-light: var(--vd-color-gray-100);
+  --tooltip-bg-dark: var(--vd-color-gray-900);
+  --tooltip-text-color: var(--vd-color-gray-900);
+  --tooltip-text-color-light: var(--vd-color-gray-800);
+  --tooltip-text-color-dark: var(--vd-color-white);
   
   /* Tooltip Spacing (Fibonacci pairs: x/y ratio ~ phi) */
   --tooltip-padding-y: 0.5rem;        /* 8px - fib */
@@ -39,14 +39,14 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --tooltip-bg: var(--color-gray-900);
-  --tooltip-text-color: var(--color-white);
+  --tooltip-bg: var(--vd-color-gray-900);
+  --tooltip-text-color: var(--vd-color-white);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --tooltip-bg: var(--color-gray-900);
-    --tooltip-text-color: var(--color-white);
+    --tooltip-bg: var(--vd-color-gray-900);
+    --tooltip-text-color: var(--vd-color-white);
   }
 }
 
@@ -78,7 +78,7 @@
   background: var(--vd-glass-bg-light);
   border: 1px solid var(--vd-glass-border-light);
   box-shadow: var(--vd-glass-shadow);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
   -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
 }

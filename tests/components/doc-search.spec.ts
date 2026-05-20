@@ -196,6 +196,28 @@ test.describe('Doc Search Component @component', () => {
       });
       expect(first).toBe('section-intro');
     });
+
+    test('invalid highlightTag falls back to mark', async ({ page }) => {
+      const html = await page.evaluate(() => {
+        const s = (window as any).Search.create({
+          containerSelector: '#test-search',
+          minQueryLength: 1,
+          highlightTag: 'script',
+        });
+
+        const input = document.querySelector('#test-search .vd-doc-search-input') as HTMLInputElement;
+        input.value = 'button';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+
+        const result = document.querySelector('#test-search .vd-doc-search-results');
+        return new Promise<string>((resolve) => {
+          setTimeout(() => resolve(result ? result.innerHTML : ''), 250);
+        });
+      });
+
+      expect(html).toContain('<mark>');
+      expect(html).not.toContain('<script>');
+    });
   });
 
   // ─── Icon extraction ──────────────────────────────────────────────

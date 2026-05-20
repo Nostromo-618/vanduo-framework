@@ -242,5 +242,29 @@ test.describe('Helper Functions @unit', () => {
       expect(result).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
       expect(result).not.toContain('<script>');
     });
+
+    test('sanitizeHtml() strips inline styles when allowStyle is false', async ({ page }) => {
+      const result = await page.evaluate(() => {
+        return (window as any).sanitizeHtml(
+          '<span class="tag" style="color:red" onclick="alert(1)">Hello</span>',
+          { allowStyle: false }
+        );
+      });
+
+      expect(result).toContain('<span');
+      expect(result).toContain('class="tag"');
+      expect(result).not.toContain('style=');
+      expect(result).not.toContain('onclick=');
+    });
+
+    test('sanitizeHtml() preserves inline styles by default for compatibility', async ({ page }) => {
+      const result = await page.evaluate(() => {
+        return (window as any).sanitizeHtml(
+          '<span class="tag" style="color:red">Hello</span>'
+        );
+      });
+
+      expect(result).toContain('style="color:red"');
+    });
   });
 });

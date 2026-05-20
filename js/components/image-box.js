@@ -31,12 +31,20 @@
     // Store cleanup functions for event listeners
     _cleanupFunctions: [],
 
+    getTriggers: function (root) {
+      if (typeof window.VanduoLifecycle !== 'undefined') {
+        return window.VanduoLifecycle.queryAll(root, '[data-image-box]');
+      }
+
+      return Array.from(document.querySelectorAll('[data-image-box]'));
+    },
+
     /**
      * Initialize Image Box component
      */
-    init: function () {
+    init: function (root) {
       this.createBackdrop();
-      this.bindTriggers();
+      this.bindTriggers(root);
     },
 
     /**
@@ -151,9 +159,9 @@
     /**
      * Bind triggers to all images with data-image-box attribute
      */
-    bindTriggers: function () {
+    bindTriggers: function (root) {
       const self = this;
-      const triggers = document.querySelectorAll('[data-image-box]');
+      const triggers = this.getTriggers(root);
 
       triggers.forEach(function (trigger) {
         // Skip if already initialized
@@ -181,6 +189,9 @@
             trigger.classList.remove('is-broken');
           };
           trigger.addEventListener('load', loadHandler);
+
+          trigger._imageBoxErrorHandler = errorHandler;
+          trigger._imageBoxLoadHandler = loadHandler;
         }
 
         // Bind click event
@@ -213,6 +224,19 @@
             trigger.removeEventListener('keydown', keyHandler);
           };
         }
+
+        const originalCleanup = trigger._imageBoxCleanup;
+        trigger._imageBoxCleanup = () => {
+          originalCleanup();
+          if (trigger._imageBoxErrorHandler) {
+            trigger.removeEventListener('error', trigger._imageBoxErrorHandler);
+            delete trigger._imageBoxErrorHandler;
+          }
+          if (trigger._imageBoxLoadHandler) {
+            trigger.removeEventListener('load', trigger._imageBoxLoadHandler);
+            delete trigger._imageBoxLoadHandler;
+          }
+        };
       });
     },
 
@@ -320,14 +344,27 @@
     /**
      * Reinitialize - useful after dynamic DOM changes
      */
-    reinit: function () {
-      this.bindTriggers();
+    reinit: function (root) {
+      this.bindTriggers(root);
     },
 
     /**
      * Destroy component and clean up
      */
-    destroy: function () {
+    destroy: function (root) {
+      if (root && root !== document) {
+        const triggersInRoot = this.getTriggers(root);
+        triggersInRoot.forEach(trigger => {
+          trigger.classList.remove('vd-image-box-trigger');
+          if (trigger._imageBoxCleanup) {
+            trigger._imageBoxCleanup();
+            delete trigger._imageBoxCleanup;
+          }
+          delete trigger.dataset.imageBoxInitialized;
+        });
+        return;
+      }
+
       // Close if open
       if (this.isOpen) {
         this.close();
@@ -362,8 +399,8 @@
       this.isOpen = false;
     },
 
-    destroyAll: function () {
-      this.destroy();
+    destroyAll: function (root) {
+      this.destroy(root);
     }
   };
 

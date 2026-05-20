@@ -15,22 +15,22 @@
   --tab-border-width: 2px; /* fib(2) */
 
   /* Tab Colors */
-  --tab-text: var(--text-secondary);
-  --tab-text-hover: var(--text-primary);
-  --tab-text-active: var(--color-primary);
-  --tab-border: var(--border-color);
-  --tab-border-active: var(--color-primary);
-  --tab-bg-hover: var(--bg-secondary);
+  --tab-text: var(--vd-text-secondary);
+  --tab-text-hover: var(--vd-text-primary);
+  --tab-text-active: var(--vd-color-primary);
+  --tab-border: var(--vd-border-color);
+  --tab-border-active: var(--vd-color-primary);
+  --tab-bg-hover: var(--vd-bg-secondary);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --tab-bg-hover: var(--color-gray-800);
+  --tab-bg-hover: var(--vd-color-gray-800);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --tab-bg-hover: var(--color-gray-800);
+    --tab-bg-hover: var(--vd-color-gray-800);
   }
 }
 
@@ -81,7 +81,7 @@
 }
 
 .vd-tab-link:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: -2px;
 }
 
@@ -96,7 +96,7 @@
 .vd-tab-link.disabled,
 .vd-tab-link:disabled,
 .vd-tab-item.disabled .vd-tab-link {
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -127,7 +127,7 @@
 
 /* Tab Variants - Boxed */
 .vd-tabs-boxed .vd-tab-list {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   padding: 0.25rem;
   border-radius: var(--btn-border-radius);
   border-bottom: none;
@@ -140,18 +140,18 @@
 }
 
 .vd-tabs-boxed .vd-tab-link:hover {
-  background-color: var(--color-gray-200);
+  background-color: var(--vd-color-gray-200);
 }
 
 .vd-tabs-boxed .vd-tab-link.is-active,
 .vd-tabs-boxed .vd-tab-item.is-active .vd-tab-link {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--vd-bg-primary);
+  color: var(--vd-text-primary);
   box-shadow: var(--shadow-sm);
 }
 
 [data-theme="dark"] .vd-tabs-boxed .vd-tab-link:hover {
-  background-color: var(--color-gray-700);
+  background-color: var(--vd-color-gray-700);
 }
 
 /* Tab Variants - Pills */
@@ -167,8 +167,8 @@
 
 .vd-tabs-pills .vd-tab-link.is-active,
 .vd-tabs-pills .vd-tab-item.is-active .vd-tab-link {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
 }
 
 /* Tab Variants - Bordered */
@@ -187,8 +187,8 @@
 .vd-tabs-bordered .vd-tab-link.is-active,
 .vd-tabs-bordered .vd-tab-item.is-active .vd-tab-link {
   border-color: var(--tab-border);
-  background-color: var(--bg-primary);
-  border-bottom-color: var(--bg-primary);
+  background-color: var(--vd-bg-primary);
+  border-bottom-color: var(--vd-bg-primary);
   border-radius: var(--btn-border-radius) var(--btn-border-radius) 0 0;
 }
 
@@ -299,13 +299,13 @@
   font-size: 0.75rem;
   font-weight: var(--font-weight-semibold);
   line-height: 1;
-  background-color: var(--color-gray-200);
+  background-color: var(--vd-color-gray-200);
   border-radius: 9999px;
 }
 
 .vd-tab-link.is-active .vd-tab-badge {
-  background-color: var(--color-primary-alpha-20);
-  color: var(--color-primary);
+  background-color: var(--vd-color-primary-alpha-20);
+  color: var(--vd-color-primary);
 }
 
 /* Scrollable Tabs (for many tabs) */

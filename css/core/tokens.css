@@ -11,49 +11,94 @@
    * ============================================ */
 
   /* Primary Colors */
-  --vd-color-primary: #0d6efd;
-  --vd-color-primary-rgb: 13, 110, 253;
-  --vd-color-primary-hover: #0b5ed7;
-  --vd-color-primary-active: #0a58ca;
-  --vd-color-primary-alpha-10: rgba(13, 110, 253, 0.1);
-  --vd-color-primary-alpha-20: rgba(13, 110, 253, 0.2);
-  --vd-color-primary-alpha-50: rgba(13, 110, 253, 0.5);
+  --vd-color-primary: var(--primary-5);
+  --vd-color-primary-light: var(--primary-3);
+  --vd-color-primary-dark: var(--primary-7);
+  --vd-color-primary-hover: var(--primary-6);
+  --vd-color-primary-active: var(--primary-7);
+  --vd-color-primary-rgb: 92, 124, 250;
+  --vd-color-primary-alpha-5: rgba(92, 124, 250, 0.05);
+  --vd-color-primary-alpha-08: rgba(92, 124, 250, 0.08);
+  --vd-color-primary-alpha-10: rgba(92, 124, 250, 0.1);
+  --vd-color-primary-alpha-15: rgba(92, 124, 250, 0.15);
+  --vd-color-primary-alpha-20: rgba(92, 124, 250, 0.2);
+  --vd-color-primary-alpha-30: rgba(92, 124, 250, 0.3);
+  --vd-color-primary-alpha-40: rgba(92, 124, 250, 0.4);
+  --vd-color-primary-alpha-50: rgba(92, 124, 250, 0.5);
 
   /* Secondary Colors */
-  --vd-color-secondary: #6c757d;
-  --vd-color-secondary-hover: #5c636a;
-  --vd-color-secondary-active: #565e64;
+  --vd-color-secondary: var(--secondary-5);
+  --vd-color-secondary-light: var(--secondary-3);
+  --vd-color-secondary-dark: var(--secondary-7);
+  --vd-color-secondary-hover: var(--secondary-6);
+  --vd-color-secondary-active: var(--secondary-7);
+  --vd-color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
+  --vd-color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
+
+  /* Accent */
+  --vd-color-accent: var(--vd-color-primary);
+  --vd-color-accent-light: var(--vd-color-primary-light);
+  --vd-color-accent-dark: var(--vd-color-primary-dark);
 
   /* Semantic Colors */
-  --vd-color-success: #198754;
-  --vd-color-success-rgb: 25, 135, 84;
-  --vd-color-success-alpha-10: rgba(25, 135, 84, 0.1);
+  --vd-color-success: var(--success-6);
+  --vd-color-success-light: var(--success-4);
+  --vd-color-success-dark: var(--success-7);
+  --vd-color-success-hover: var(--success-7);
+  --vd-color-success-active: var(--success-8);
+  --vd-color-success-rgb: 64, 192, 87;
+  --vd-color-success-alpha-10: rgba(64, 192, 87, 0.1);
+  --vd-color-success-alpha-20: rgba(64, 192, 87, 0.2);
 
-  --vd-color-warning: #ffc107;
-  --vd-color-warning-rgb: 255, 193, 7;
-  --vd-color-warning-alpha-10: rgba(255, 193, 7, 0.1);
-  --vd-color-warning-alpha-30: rgba(255, 193, 7, 0.3);
+  --vd-color-warning: var(--warning-6);
+  --vd-color-warning-light: var(--warning-4);
+  --vd-color-warning-dark: var(--warning-7);
+  --vd-color-warning-hover: var(--warning-7);
+  --vd-color-warning-active: var(--warning-8);
+  --vd-color-warning-rgb: 250, 176, 5;
+  --vd-color-warning-alpha-10: rgba(250, 176, 5, 0.1);
+  --vd-color-warning-alpha-20: rgba(250, 176, 5, 0.2);
+  --vd-color-warning-alpha-30: rgba(250, 176, 5, 0.3);
 
-  --vd-color-error: #dc3545;
-  --vd-color-error-rgb: 220, 53, 69;
-  --vd-color-error-alpha-10: rgba(220, 53, 69, 0.1);
+  --vd-color-error: var(--danger-6);
+  --vd-color-error-light: var(--danger-4);
+  --vd-color-error-dark: var(--danger-7);
+  --vd-color-error-hover: var(--danger-7);
+  --vd-color-error-active: var(--danger-8);
+  --vd-color-error-rgb: 250, 82, 82;
+  --vd-color-error-alpha-10: rgba(250, 82, 82, 0.1);
+  --vd-color-error-alpha-20: rgba(250, 82, 82, 0.2);
 
-  --vd-color-info: #0dcaf0;
-  --vd-color-info-rgb: 13, 202, 240;
-  --vd-color-info-alpha-10: rgba(13, 202, 240, 0.1);
+  --vd-color-danger: var(--vd-color-error);
+  --vd-color-danger-light: var(--vd-color-error-light);
+  --vd-color-danger-dark: var(--vd-color-error-dark);
+  --vd-color-danger-hover: var(--vd-color-error-hover);
+  --vd-color-danger-active: var(--vd-color-error-active);
+  --vd-color-danger-alpha-10: var(--vd-color-error-alpha-10);
+  --vd-color-danger-alpha-20: var(--vd-color-error-alpha-20);
+
+  --vd-color-info: var(--info-6);
+  --vd-color-info-light: var(--info-4);
+  --vd-color-info-dark: var(--info-7);
+  --vd-color-info-hover: var(--info-7);
+  --vd-color-info-active: var(--info-8);
+  --vd-color-info-rgb: 34, 139, 230;
+  --vd-color-info-alpha-10: rgba(34, 139, 230, 0.1);
+  --vd-color-info-alpha-20: rgba(34, 139, 230, 0.2);
 
   /* Neutral Colors (Open Color) */
   --vd-color-white: #ffffff;
-  --vd-color-gray-100: #f8f9fa;
-  --vd-color-gray-200: #e9ecef;
-  --vd-color-gray-300: #dee2e6;
-  --vd-color-gray-400: #ced4da;
-  --vd-color-gray-500: #adb5bd;
-  --vd-color-gray-600: #6c757d;
-  --vd-color-gray-700: #495057;
-  --vd-color-gray-800: #343a40;
-  --vd-color-gray-900: #212529;
   --vd-color-black: #000000;
+  --vd-color-gray-50: var(--gray-0);
+  --vd-color-gray-100: var(--gray-2);
+  --vd-color-gray-200: var(--gray-3);
+  --vd-color-gray-300: var(--gray-4);
+  --vd-color-gray-400: var(--gray-5);
+  --vd-color-gray-500: var(--gray-6);
+  --vd-color-gray-600: var(--gray-7);
+  --vd-color-gray-700: var(--gray-8);
+  --vd-color-gray-800: var(--gray-9);
+  --vd-color-gray-900: #1a1d20;
 
   /* ============================================
    * BACKGROUND TOKENS
@@ -61,6 +106,8 @@
   --vd-bg-primary: var(--vd-color-white);
   --vd-bg-secondary: var(--vd-color-gray-100);
   --vd-bg-tertiary: var(--vd-color-gray-200);
+  --vd-bg-dark: var(--vd-color-gray-800);
+  --vd-bg-darker: var(--vd-color-gray-900);
 
   /* ============================================
    * TEXT TOKENS
@@ -68,13 +115,18 @@
   --vd-text-primary: var(--vd-color-gray-900);
   --vd-text-secondary: var(--vd-color-gray-600);
   --vd-text-muted: var(--vd-color-gray-500);
+  --vd-text-light: var(--vd-color-gray-400);
+  --vd-text-tertiary: var(--vd-text-secondary);
+  --vd-text-disabled: var(--vd-text-muted);
   --vd-text-on-primary: var(--vd-color-white);
+  --vd-text-inverse: var(--vd-color-white);
 
   /* ============================================
    * BORDER TOKENS
    * ============================================ */
   --vd-border-color: var(--vd-color-gray-300);
   --vd-border-color-light: var(--vd-color-gray-200);
+  --vd-border-color-dark: var(--vd-color-gray-400);
   --vd-border-width: 1px;
   --vd-border-radius-sm: 0.25rem;
   --vd-border-radius-md: 0.5rem;
@@ -206,13 +258,26 @@
   --vd-bg-primary: var(--vd-color-gray-900);
   --vd-bg-secondary: var(--vd-color-gray-800);
   --vd-bg-tertiary: var(--vd-color-gray-700);
+  --vd-bg-dark: var(--vd-color-black);
+  --vd-bg-darker: #000000;
 
   --vd-text-primary: var(--vd-color-gray-100);
   --vd-text-secondary: var(--vd-color-gray-400);
   --vd-text-muted: var(--vd-color-gray-500);
+  --vd-text-light: var(--vd-color-gray-600);
+  --vd-text-inverse: var(--vd-color-gray-900);
 
   --vd-border-color: var(--vd-color-gray-700);
   --vd-border-color-light: var(--vd-color-gray-800);
+  --vd-border-color-dark: var(--vd-color-gray-600);
+
+  --vd-color-primary: var(--primary-4);
+  --vd-color-primary-light: var(--primary-3);
+  --vd-color-primary-dark: var(--primary-5);
+  --vd-color-primary-hover: var(--primary-5);
+  --vd-color-primary-active: var(--primary-6);
+  --vd-color-primary-alpha-10: rgba(116, 143, 252, 0.15);
+  --vd-color-primary-alpha-20: rgba(116, 143, 252, 0.25);
 
   --vd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
@@ -230,13 +295,26 @@
     --vd-bg-primary: var(--vd-color-gray-900);
     --vd-bg-secondary: var(--vd-color-gray-800);
     --vd-bg-tertiary: var(--vd-color-gray-700);
+    --vd-bg-dark: var(--vd-color-black);
+    --vd-bg-darker: #000000;
 
     --vd-text-primary: var(--vd-color-gray-100);
     --vd-text-secondary: var(--vd-color-gray-400);
     --vd-text-muted: var(--vd-color-gray-500);
+    --vd-text-light: var(--vd-color-gray-600);
+    --vd-text-inverse: var(--vd-color-gray-900);
 
     --vd-border-color: var(--vd-color-gray-700);
     --vd-border-color-light: var(--vd-color-gray-800);
+    --vd-border-color-dark: var(--vd-color-gray-600);
+
+    --vd-color-primary: var(--primary-4);
+    --vd-color-primary-light: var(--primary-3);
+    --vd-color-primary-dark: var(--primary-5);
+    --vd-color-primary-hover: var(--primary-5);
+    --vd-color-primary-active: var(--primary-6);
+    --vd-color-primary-alpha-10: rgba(116, 143, 252, 0.15);
+    --vd-color-primary-alpha-20: rgba(116, 143, 252, 0.25);
 
     --vd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);

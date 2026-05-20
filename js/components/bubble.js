@@ -82,7 +82,7 @@
       body.className = 'vd-bubble-body';
       if (htmlContent) {
         if (typeof sanitizeHtml === 'function') {
-          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
+          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg, allowStyle: false });
         } else {
           body.textContent = htmlContent;
         }

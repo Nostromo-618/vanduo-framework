@@ -20,11 +20,12 @@
    */
   const GridLayout = {
     instances: new Map(),
+    __vanduoScopedDestroyAll: true,
 
     /**
      * Initialize all grid layout containers
      */
-    init: function () {
+    init: function (root) {
       const containers = document.querySelectorAll('[data-layout-mode]');
 
       containers.forEach(function (container) {
@@ -34,7 +35,7 @@
         this.initContainer(container);
       }.bind(this));
 
-      this.initToggleButtons();
+      this.initToggleButtons(root);
     },
 
     /**
@@ -59,8 +60,10 @@
     /**
      * Initialize toggle buttons that target grid containers
      */
-    initToggleButtons: function () {
-      const toggleButtons = document.querySelectorAll('[data-grid-toggle]');
+    initToggleButtons: function (root) {
+      const toggleButtons = typeof window.VanduoLifecycle !== 'undefined'
+        ? window.VanduoLifecycle.queryAll(root, '[data-grid-toggle]')
+        : document.querySelectorAll('[data-grid-toggle]');
 
       toggleButtons.forEach(function (button) {
         if (button.getAttribute('data-grid-initialized') === 'true') {
@@ -253,12 +256,16 @@
     /**
      * Destroy all grid layout instances and clean up toggle buttons
      */
-    destroyAll: function () {
+    destroyAll: function (root) {
       this.instances.forEach(function (instance, container) {
-        this.destroy(container);
+        if (!root || root === document || (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isInRoot(root, container))) {
+          this.destroy(container);
+        }
       }.bind(this));
 
-      const toggleButtons = document.querySelectorAll('[data-grid-initialized="true"]');
+      const toggleButtons = typeof window.VanduoLifecycle !== 'undefined'
+        ? window.VanduoLifecycle.queryAll(root || document, '[data-grid-toggle][data-grid-initialized="true"]')
+        : document.querySelectorAll('[data-grid-initialized="true"]');
       toggleButtons.forEach(function (button) {
         if (button._gridCleanup) {
           button._gridCleanup();

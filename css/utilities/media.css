@@ -132,8 +132,8 @@
 
 .img-thumbnail {
   padding: 0.1875rem; /* 3px - fib */
-  background-color: var(--color-white);
-  border: 1px solid var(--border-color);
+  background-color: var(--vd-color-white);
+  border: 1px solid var(--vd-border-color);
   border-radius: var(--radius-fib-5);
   max-width: 100%;
   height: auto;

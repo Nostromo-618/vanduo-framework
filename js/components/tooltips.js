@@ -93,7 +93,7 @@
 
       if (htmlContent) {
         const allowSvg = element.hasAttribute('data-tooltip-allow-svg');
-        tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg });
+        tooltip.innerHTML = this.sanitizeHtml(htmlContent, { allowSvg, allowStyle: false });
         tooltip.classList.add('vd-tooltip-html');
       } else if (textContent) {
         tooltip.textContent = textContent;
@@ -253,7 +253,7 @@
         const { tooltip } = this.tooltips.get(el);
         if (isHtml) {
           const allowSvg = el.hasAttribute('data-tooltip-allow-svg');
-          tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg });
+          tooltip.innerHTML = this.sanitizeHtml(content, { allowSvg, allowStyle: false });
           tooltip.classList.add('vd-tooltip-html');
         } else {
           tooltip.textContent = content;

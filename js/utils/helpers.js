@@ -258,7 +258,7 @@ function escapeHtml(str) {
  * Keeps a small set of tags and strips disallowed tags and attributes. Safe for
  * simple rich text (use server-side or DOMPurify for stronger guarantees).
  * @param {string} input
- * @param {{ allowSvg?: boolean }} [options]
+ * @param {{ allowSvg?: boolean, allowStyle?: boolean }} [options]
  * @returns {string} sanitized HTML
  */
 function sanitizeHtml(input, options = {}) {
@@ -271,6 +271,7 @@ function sanitizeHtml(input, options = {}) {
     return escapeHtml(input);
   }
   const allowSvg = options && options.allowSvg === true;
+  const allowStyle = !options || options.allowStyle !== false;
   const baseAllowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U', 'DIV', 'P', 'KBD', 'CODE', 'SMALL', 'MARK'];
   const svgAllowed = ['SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
   const allowed = allowSvg ? baseAllowed.concat(svgAllowed) : baseAllowed;
@@ -310,8 +311,11 @@ function sanitizeHtml(input, options = {}) {
           }
         });
       } else {
-        // Keep class and style; strip everything else (no event handlers, no src, etc.)
-        const safeAttrs = new Set(['class', 'style']);
+        // Keep class and optionally inline style; strip everything else.
+        const safeAttrs = new Set(['class']);
+        if (allowStyle) {
+          safeAttrs.add('style');
+        }
         const otherAttrs = Array.from(child.attributes || []);
         otherAttrs.forEach(function (a) {
           if (!safeAttrs.has(a.name)) { child.removeAttribute(a.name); }
@@ -325,6 +329,5 @@ function sanitizeHtml(input, options = {}) {
   sanitizeNode(doc.body);
   return doc.body.innerHTML;
 }
-
 
 

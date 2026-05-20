@@ -86,23 +86,77 @@
 
     isInitialized: false,
     _cleanup: [],
+    _ownsDynamicPanel: false,
 
     // DOM references
     elements: {
       customizer: null,
       trigger: null,
+      activeTrigger: null,
       triggers: [],
       panel: null,
       overlay: null
     },
 
+    isRoot: function (root) {
+      return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+    },
+
+    normalizeRoot: function (root) {
+      return this.isRoot(root) ? root : document;
+    },
+
+    queryAll: function (root, selector) {
+      const scope = this.normalizeRoot(root);
+      if (typeof window.VanduoLifecycle !== 'undefined' && typeof window.VanduoLifecycle.queryAll === 'function') {
+        return window.VanduoLifecycle.queryAll(scope, selector);
+      }
+
+      const matches = [];
+      if (scope instanceof Element && typeof scope.matches === 'function' && scope.matches(selector)) {
+        matches.push(scope);
+      }
+      if (typeof scope.querySelectorAll === 'function') {
+        const descendants = scope.querySelectorAll(selector);
+        for (let i = 0; i < descendants.length; i++) {
+          matches.push(descendants[i]);
+        }
+      }
+      return matches;
+    },
+
+    queryOne: function (root, selector) {
+      const matches = this.queryAll(root, selector);
+      return matches.length ? matches[0] : null;
+    },
+
+    getTriggers: function (root) {
+      return this.queryAll(root, '[data-theme-customizer-trigger]');
+    },
+
+    pruneTriggers: function () {
+      this.elements.triggers = this.elements.triggers.filter(function (trigger) {
+        return trigger && trigger.isConnected;
+      });
+
+      if (this.elements.trigger && !this.elements.trigger.isConnected) {
+        this.elements.trigger = null;
+      }
+
+      if (this.elements.activeTrigger && !this.elements.activeTrigger.isConnected) {
+        this.elements.activeTrigger = null;
+      }
+    },
+
     /**
      * Initialize the Theme Customizer
      */
-    init: function () {
+    init: function (root) {
+      const scope = this.normalizeRoot(root);
+
       if (this.isInitialized) {
-        this.bindExistingElements();
-        this.bindTriggerEvents();
+        this.bindExistingElements(scope);
+        this.bindTriggerEvents(scope);
         this.bindPanelEvents();
         this.updateUI();
         return;
@@ -113,10 +167,8 @@
 
       this.loadPreferences();
       this.applyAllPreferences();
-      this.bindExistingElements();
-      this.bindEvents();
-
-      console.log('Vanduo Theme Customizer initialized');
+      this.bindExistingElements(scope);
+      this.bindEvents(scope);
     },
 
     addListener: function (target, event, handler, options) {
@@ -315,21 +367,33 @@
     /**
      * Bind to existing DOM elements or create them dynamically
      */
-    bindExistingElements: function () {
-      // First check for existing full structure
-      this.elements.customizer = document.querySelector('.vd-theme-customizer');
-      this.elements.triggers = Array.from(document.querySelectorAll('[data-theme-customizer-trigger]'));
+    bindExistingElements: function (root) {
+      const scope = this.normalizeRoot(root);
+      this.pruneTriggers();
+
+      const scopedTriggers = this.getTriggers(scope);
+      scopedTriggers.forEach((trigger) => {
+        if (!this.elements.triggers.includes(trigger)) {
+          this.elements.triggers.push(trigger);
+        }
+      });
+
       if (!this.elements.trigger && this.elements.triggers.length) {
         this.elements.trigger = this.elements.triggers[0];
       }
 
-      if (this.elements.customizer) {
+      const existingCustomizer = this.queryOne(scope, '.vd-theme-customizer')
+        || (this.elements.customizer && typeof this.elements.customizer.contains === 'function' ? this.elements.customizer : null)
+        || document.querySelector('.vd-theme-customizer');
+
+      if (existingCustomizer instanceof Element) {
+        this.elements.customizer = existingCustomizer;
         this.elements.trigger = this.elements.customizer.querySelector('.vd-theme-customizer-trigger') || this.elements.trigger;
         this.elements.panel = this.elements.customizer.querySelector('.vd-theme-customizer-panel');
         this.elements.overlay = this.elements.customizer.querySelector('.vd-theme-customizer-overlay');
       } else {
         // Look for standalone trigger buttons with data attribute
-        if (this.elements.triggers.length) {
+        if (scopedTriggers.length && !this.elements.panel) {
           this.createDynamicPanel();
         }
       }
@@ -342,7 +406,7 @@
      * Create the panel dynamically when only a trigger button exists
      */
     createDynamicPanel: function () {
-      if (!this.elements.triggers.length) {
+      if (!this.elements.triggers.length || (this.elements.panel && this.elements.panel.isConnected)) {
         return;
       }
       this.elements.trigger = this.elements.triggers[0];
@@ -363,6 +427,7 @@
       // Store references
       this.elements.panel = panel;
       this.elements.overlay = overlay;
+      this._ownsDynamicPanel = true;
       this.elements.customizer = {
         contains: (el) => panel.contains(el) || this.elements.triggers.some((trigger) => trigger.contains(el))
       };
@@ -595,8 +660,8 @@
       }
     },
 
-    bindEvents: function () {
-      this.bindTriggerEvents();
+    bindEvents: function (root) {
+      this.bindTriggerEvents(root);
 
       this.bindPanelEvents();
 
@@ -631,20 +696,51 @@
       });
     },
 
-    bindTriggerEvents: function () {
-      this.elements.triggers.forEach((trigger) => {
+    bindTriggerEvents: function (root) {
+      const triggers = root ? this.getTriggers(root) : this.elements.triggers;
+      triggers.forEach((trigger) => {
         if (trigger.getAttribute('data-customizer-trigger-initialized') === 'true') {
           return;
         }
-        this.addListener(trigger, 'click', (e) => {
+
+        const onClick = (e) => {
           e.preventDefault();
           e.stopPropagation();
           this.elements.activeTrigger = trigger;
           this.elements.trigger = trigger;
           this.toggle();
-        });
+        };
+
+        trigger.addEventListener('click', onClick);
+        trigger._themeCustomizerTriggerHandler = onClick;
         trigger.setAttribute('data-customizer-trigger-initialized', 'true');
       });
+    },
+
+    cleanupTrigger: function (trigger) {
+      if (!trigger || trigger.getAttribute('data-customizer-trigger-initialized') !== 'true') {
+        return;
+      }
+
+      if (trigger._themeCustomizerTriggerHandler) {
+        trigger.removeEventListener('click', trigger._themeCustomizerTriggerHandler);
+        delete trigger._themeCustomizerTriggerHandler;
+      }
+
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.removeAttribute('data-customizer-trigger-initialized');
+
+      if (this.elements.activeTrigger === trigger) {
+        this.elements.activeTrigger = null;
+      }
+
+      this.elements.triggers = this.elements.triggers.filter(function (candidate) {
+        return candidate !== trigger;
+      });
+
+      if (this.elements.trigger === trigger) {
+        this.elements.trigger = this.elements.triggers[0] || null;
+      }
     },
 
     /**
@@ -782,7 +878,21 @@
       }
     },
 
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = this.normalizeRoot(root);
+
+      if (scope !== document) {
+        this.getTriggers(scope).forEach((trigger) => {
+          this.cleanupTrigger(trigger);
+        });
+        this.pruneTriggers();
+
+        if (!this.elements.triggers.length) {
+          this.destroyAll(document);
+        }
+        return;
+      }
+
       this._cleanup.forEach(fn => fn());
       this._cleanup = [];
 
@@ -790,7 +900,27 @@
         this.elements.panel.removeAttribute('data-customizer-initialized');
       }
 
+      this.elements.triggers.slice().forEach((trigger) => {
+        this.cleanupTrigger(trigger);
+      });
+
+      if (this._ownsDynamicPanel) {
+        if (this.elements.panel && this.elements.panel.parentNode) {
+          this.elements.panel.parentNode.removeChild(this.elements.panel);
+        }
+        if (this.elements.overlay && this.elements.overlay.parentNode) {
+          this.elements.overlay.parentNode.removeChild(this.elements.overlay);
+        }
+        this._ownsDynamicPanel = false;
+      }
+
       this.close();
+      this.elements.customizer = null;
+      this.elements.trigger = null;
+      this.elements.activeTrigger = null;
+      this.elements.triggers = [];
+      this.elements.panel = null;
+      this.elements.overlay = null;
       this.isInitialized = false;
     }
   };

@@ -37,6 +37,8 @@
     const pauseBtn = scope.querySelector('[data-vd-timeline-pause]');
 
     let playTimer = null;
+    let isPlaying = false;
+    let playToken = 0;
 
     function updateNavButtons() {
       const k = countRevealedPrefix(items);
@@ -52,10 +54,10 @@
         nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
       }
       if (playBtn) {
-        playBtn.setAttribute('aria-pressed', playTimer ? 'true' : 'false');
+        playBtn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
       }
       if (pauseBtn) {
-        pauseBtn.disabled = !playTimer;
+        pauseBtn.disabled = !isPlaying;
       }
     }
 
@@ -75,21 +77,43 @@
       updateNavButtons();
     }
 
-    function play() {
-      if (playTimer) return;
-      playTimer = setInterval(function () {
+    function scheduleNext() {
+      const token = ++playToken;
+      playTimer = setTimeout(function () {
+        playTimer = null;
+
+        if (!isPlaying || token !== playToken) {
+          return;
+        }
+
         if (countRevealedPrefix(items) >= items.length) {
           pause();
           return;
         }
+
         stepNext();
+
+        if (countRevealedPrefix(items) >= items.length) {
+          pause();
+          return;
+        }
+
+        scheduleNext();
       }, PLAY_INTERVAL_MS);
+    }
+
+    function play() {
+      if (isPlaying) return;
+      isPlaying = true;
+      scheduleNext();
       updateNavButtons();
     }
 
     function pause() {
+      isPlaying = false;
+      playToken++;
       if (playTimer) {
-        clearInterval(playTimer);
+        clearTimeout(playTimer);
         playTimer = null;
       }
       updateNavButtons();

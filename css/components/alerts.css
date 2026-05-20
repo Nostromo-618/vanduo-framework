@@ -11,43 +11,43 @@
   --alert-border-width: 1px;
 
   /* Alert Colors */
-  --alert-primary-bg: var(--color-primary-alpha-10);
-  --alert-primary-border: var(--color-primary);
-  --alert-primary-text: var(--color-primary-dark);
+  --alert-primary-bg: var(--vd-color-primary-alpha-10);
+  --alert-primary-border: var(--vd-color-primary);
+  --alert-primary-text: var(--vd-color-primary-dark);
 
-  --alert-success-bg: var(--color-success-alpha-10);
-  --alert-success-border: var(--color-success);
-  --alert-success-text: var(--color-success-dark);
+  --alert-success-bg: var(--vd-color-success-alpha-10);
+  --alert-success-border: var(--vd-color-success);
+  --alert-success-text: var(--vd-color-success-dark);
 
-  --alert-warning-bg: var(--color-warning-alpha-10);
-  --alert-warning-border: var(--color-warning);
-  --alert-warning-text: var(--color-warning-dark);
+  --alert-warning-bg: var(--vd-color-warning-alpha-10);
+  --alert-warning-border: var(--vd-color-warning);
+  --alert-warning-text: var(--vd-color-warning-dark);
 
-  --alert-error-bg: var(--color-error-alpha-10);
-  --alert-error-border: var(--color-error);
-  --alert-error-text: var(--color-error-dark);
+  --alert-error-bg: var(--vd-color-error-alpha-10);
+  --alert-error-border: var(--vd-color-error);
+  --alert-error-text: var(--vd-color-error-dark);
 
-  --alert-info-bg: var(--color-info-alpha-10);
-  --alert-info-border: var(--color-info);
-  --alert-info-text: var(--color-info-dark);
+  --alert-info-bg: var(--vd-color-info-alpha-10);
+  --alert-info-border: var(--vd-color-info);
+  --alert-info-text: var(--vd-color-info-dark);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --alert-primary-text: var(--color-primary-light);
-  --alert-success-text: var(--color-success-light);
-  --alert-warning-text: var(--color-warning-light);
-  --alert-error-text: var(--color-error-light);
-  --alert-info-text: var(--color-info-light);
+  --alert-primary-text: var(--vd-color-primary-light);
+  --alert-success-text: var(--vd-color-success-light);
+  --alert-warning-text: var(--vd-color-warning-light);
+  --alert-error-text: var(--vd-color-error-light);
+  --alert-info-text: var(--vd-color-info-light);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --alert-primary-text: var(--color-primary-light);
-    --alert-success-text: var(--color-success-light);
-    --alert-warning-text: var(--color-warning-light);
-    --alert-error-text: var(--color-error-light);
-    --alert-info-text: var(--color-info-light);
+    --alert-primary-text: var(--vd-color-primary-light);
+    --alert-success-text: var(--vd-color-success-light);
+    --alert-warning-text: var(--vd-color-warning-light);
+    --alert-error-text: var(--vd-color-error-light);
+    --alert-info-text: var(--vd-color-info-light);
   }
 }
 
@@ -164,34 +164,34 @@
 
 /* Solid Variants (filled background) */
 .vd-alert-solid.vd-alert-primary {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  border-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
 }
 
 .vd-alert-solid.vd-alert-success {
-  background-color: var(--color-success);
-  border-color: var(--color-success);
-  color: var(--color-white);
+  background-color: var(--vd-color-success);
+  border-color: var(--vd-color-success);
+  color: var(--vd-color-white);
 }
 
 .vd-alert-solid.vd-alert-warning {
-  background-color: var(--color-warning);
-  border-color: var(--color-warning);
-  color: var(--color-gray-900);
+  background-color: var(--vd-color-warning);
+  border-color: var(--vd-color-warning);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-alert-solid.vd-alert-error,
 .vd-alert-solid.vd-alert-danger {
-  background-color: var(--color-error);
-  border-color: var(--color-error);
-  color: var(--color-white);
+  background-color: var(--vd-color-error);
+  border-color: var(--vd-color-error);
+  color: var(--vd-color-white);
 }
 
 .vd-alert-solid.vd-alert-info {
-  background-color: var(--color-info);
-  border-color: var(--color-info);
-  color: var(--color-white);
+  background-color: var(--vd-color-info);
+  border-color: var(--vd-color-info);
+  color: var(--vd-color-white);
 }
 
 /* Outline Variants */

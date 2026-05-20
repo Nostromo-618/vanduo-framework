@@ -24,6 +24,16 @@ pnpm run build           # Verifies build works
 pnpm test                # Runs test suite
 ```
 
+### Useful Release Checks
+
+```sh
+pnpm run lint
+pnpm run build
+pnpm run check:versions
+pnpm run stats:css
+pnpm audit --audit-level=moderate
+```
+
 ### Security Rules
 
 1. **Never use `npm install` or `yarn`** — always use `pnpm`
@@ -49,6 +59,44 @@ When contributions open up, we plan to accept:
 - New components or enhancements
 
 We will update this file with full guidelines, coding standards, and workflow details at that time.
+
+## Internal Authoring Notes
+
+### CSS Layer Order
+
+`css/vanduo.css` imports layers in this order:
+
+1. Reset
+2. Foundation
+3. Icons
+4. Utilities
+5. Components
+6. Effects
+7. Print
+
+### Token Rules
+
+- Prefer canonical semantic `--vd-*` tokens in framework authoring.
+- Treat `--color-*`, `--bg-*`, and `--text-*` as compatibility aliases.
+- Use raw palette scales only when defining semantic tokens.
+
+### Selector Rules
+
+- New component styling should prefer `.vd-*` hooks.
+- New raw element selectors belong in reset or base layers only.
+- The main bundle still includes native form defaults by design.
+
+### CSS Maintenance Hotspots
+
+As of `1.4.0`, the largest CSS files are:
+
+- `css/core/helpers.css`
+- `css/components/forms.css`
+- `css/core/grid.css`
+- `css/core/colors.css`
+- `css/components/theme-customizer.css`
+
+Use `pnpm run stats:css` before large CSS work so size changes stay intentional.
 
 ## Communication
 

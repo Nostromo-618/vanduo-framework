@@ -5,11 +5,11 @@
 
 :root {
   /* Collection Colors */
-  --collection-bg: var(--color-white);
-  --collection-item-bg: var(--color-white);
-  --collection-item-bg-hover: var(--bg-secondary);
-  --collection-item-bg-active: var(--color-primary-alpha-10);
-  --collection-border-color: var(--border-color);
+  --collection-bg: var(--vd-color-white);
+  --collection-item-bg: var(--vd-color-white);
+  --collection-item-bg-hover: var(--vd-bg-secondary);
+  --collection-item-bg-active: var(--vd-color-primary-alpha-10);
+  --collection-border-color: var(--vd-border-color);
   
   /* Collection Spacing (Fibonacci) */
   --collection-padding-y: 0;
@@ -29,16 +29,16 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --collection-bg: var(--bg-secondary);
-  --collection-item-bg: var(--bg-secondary);
-  --collection-item-bg-hover: var(--bg-primary);
+  --collection-bg: var(--vd-bg-secondary);
+  --collection-item-bg: var(--vd-bg-secondary);
+  --collection-item-bg-hover: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --collection-bg: var(--bg-secondary);
-    --collection-item-bg: var(--bg-secondary);
-    --collection-item-bg-hover: var(--bg-primary);
+    --collection-bg: var(--vd-bg-secondary);
+    --collection-item-bg: var(--vd-bg-secondary);
+    --collection-item-bg-hover: var(--vd-bg-primary);
   }
 }
 
@@ -58,7 +58,7 @@
   align-items: center;
   padding: var(--collection-item-padding-y) var(--collection-item-padding-x);
   margin-bottom: 0;
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   text-decoration: none;
   background-color: var(--collection-item-bg);
   border-bottom: 1px solid var(--collection-border-color);
@@ -76,7 +76,7 @@
 
 .vd-collection-item.active {
   background-color: var(--collection-item-bg-active);
-  color: var(--color-primary);
+  color: var(--vd-color-primary);
   font-weight: var(--font-weight-medium);
 }
 
@@ -93,7 +93,7 @@
   height: var(--collection-avatar-size);
   margin-right: 1rem;
   border-radius: 50%;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +108,7 @@
 
 .vd-collection-avatar-icon {
   font-size: 1.25rem;
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
 }
 
 /* Collection Content */
@@ -122,18 +122,18 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-collection-item.active .vd-collection-title {
-  color: var(--color-primary);
+  color: var(--vd-color-primary);
 }
 
 .vd-collection-text {
   margin: 0;
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
 }
 
 .vd-collection-item-secondary {
@@ -168,10 +168,10 @@
   margin-bottom: 0;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   border-bottom: 1px solid var(--collection-border-color);
 }
 
@@ -191,7 +191,7 @@
 }
 
 .vd-collection-stripped .vd-collection-item:nth-child(odd) {
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
 }
 
 .vd-collection-stripped .vd-collection-item:nth-child(odd):hover {

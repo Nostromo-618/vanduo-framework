@@ -1,135 +1,223 @@
 /**
  * Vanduo Framework - Lifecycle Manager
- * Central registry for component instances and cleanup
- * Prevents memory leaks in SPAs by tracking event listeners
+ * Central registry for scoped init/destroy, instance cleanup, and DOM queries.
  */
 
-(function() {
+(function () {
   'use strict';
 
-  /**
-   * Lifecycle Manager
-   * Simple registry that tracks component instances and their cleanup functions
-   */
+  function normalizeCallbacks(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) {
+      return value.filter(function (fn) {
+        return typeof fn === 'function';
+      });
+    }
+    return typeof value === 'function' ? [value] : [];
+  }
+
+  function normalizeOptions(options) {
+    if (typeof options === 'function') {
+      return { onDestroy: [options] };
+    }
+    return options || {};
+  }
+
+  function callSafely(label, fn) {
+    try {
+      fn();
+    } catch (error) {
+      console.warn('[Vanduo Lifecycle] ' + label + ' error:', error);
+    }
+  }
+
   const Lifecycle = {
-    // Map of element -> { componentName, cleanupFunctions }
+    // Map<Element, Map<componentName, { cleanup, onDestroy, registeredAt }>>
     instances: new Map(),
 
-    /**
-     * Register a component instance
-     * @param {HTMLElement} element - The DOM element
-     * @param {string} componentName - Name of the component
-     * @param {Array<Function>} cleanupFns - Functions to call on destroy
-     */
-    register: function(element, componentName, cleanupFns = []) {
-      if (this.instances.has(element)) {
-        // Already registered, merge cleanup functions
-        const existing = this.instances.get(element);
-        existing.cleanup = existing.cleanup.concat(cleanupFns);
+    isRoot: function (root) {
+      return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+    },
+
+    normalizeRoot: function (root) {
+      return this.isRoot(root) ? root : document;
+    },
+
+    isInRoot: function (root, element) {
+      const scope = this.normalizeRoot(root);
+      if (!(element instanceof Element)) return false;
+      if (scope === document) {
+        return document.documentElement ? document.documentElement.contains(element) : document.contains(element);
+      }
+      if (scope === element) return true;
+      return typeof scope.contains === 'function' && scope.contains(element);
+    },
+
+    queryAll: function (root, selector) {
+      const scope = this.normalizeRoot(root);
+      const matches = [];
+      if (scope instanceof Element && typeof scope.matches === 'function' && scope.matches(selector)) {
+        matches.push(scope);
+      }
+      if (typeof scope.querySelectorAll === 'function') {
+        const descendants = scope.querySelectorAll(selector);
+        for (let i = 0; i < descendants.length; i++) {
+          matches.push(descendants[i]);
+        }
+      }
+      return matches;
+    },
+
+    queryOne: function (root, selector) {
+      const matches = this.queryAll(root, selector);
+      return matches.length ? matches[0] : null;
+    },
+
+    runInRoot: function (root, fn) {
+      const scope = this.normalizeRoot(root);
+      if (scope === document) {
+        return fn();
+      }
+
+      const originalQuerySelectorAll = document.querySelectorAll.bind(document);
+      document.querySelectorAll = function (selector) {
+        return Lifecycle.queryAll(scope, selector);
+      };
+
+      try {
+        return fn();
+      } finally {
+        document.querySelectorAll = originalQuerySelectorAll;
+      }
+    },
+
+    register: function (element, componentName, cleanupFns, options) {
+      if (!(element instanceof Element) || !componentName) return;
+
+      const optionBag = normalizeOptions(options);
+      const cleanup = normalizeCallbacks(cleanupFns);
+      const onDestroy = normalizeCallbacks(optionBag.onDestroy);
+      const componentEntries = this.instances.get(element) || new Map();
+      const existing = componentEntries.get(componentName);
+
+      if (existing) {
+        existing.cleanup = existing.cleanup.concat(cleanup);
+        existing.onDestroy = existing.onDestroy.concat(onDestroy);
         return;
       }
 
-      this.instances.set(element, {
+      componentEntries.set(componentName, {
         component: componentName,
-        cleanup: cleanupFns,
+        cleanup: cleanup,
+        onDestroy: onDestroy,
         registeredAt: Date.now()
       });
+
+      this.instances.set(element, componentEntries);
     },
 
-    /**
-     * Unregister a single element and run its cleanup
-     * @param {HTMLElement} element - The element to unregister
-     */
-    unregister: function(element) {
-      const instance = this.instances.get(element);
-      if (!instance) return;
+    unregister: function (element, componentName) {
+      const componentEntries = this.instances.get(element);
+      if (!componentEntries) return;
 
-      // Run all cleanup functions
-      instance.cleanup.forEach(function(fn) {
-        try {
-          fn();
-        } catch (e) {
-          console.warn('[Vanduo Lifecycle] Cleanup error:', e);
+      if (componentName) {
+        const entry = componentEntries.get(componentName);
+        if (!entry) return;
+
+        componentEntries.delete(componentName);
+        if (!componentEntries.size) {
+          this.instances.delete(element);
         }
-      });
 
+        entry.cleanup.forEach(function (fn) {
+          callSafely('Cleanup', fn);
+        });
+        entry.onDestroy.forEach(function (fn) {
+          callSafely('Destroy', fn);
+        });
+        return;
+      }
+
+      const entries = Array.from(componentEntries.values());
       this.instances.delete(element);
+      entries.forEach(function (entry) {
+        entry.cleanup.forEach(function (fn) {
+          callSafely('Cleanup', fn);
+        });
+        entry.onDestroy.forEach(function (fn) {
+          callSafely('Destroy', fn);
+        });
+      });
     },
 
-    /**
-     * Destroy all instances of a specific component
-     * @param {string} componentName - Optional component name filter
-     */
-    destroyAll: function(componentName) {
+    destroyAll: function (componentName) {
       const toRemove = [];
+      this.instances.forEach(function (componentEntries, element) {
+        if (!componentName) {
+          toRemove.push([element, null]);
+          return;
+        }
 
-      this.instances.forEach(function(instance, element) {
-        if (!componentName || instance.component === componentName) {
-          toRemove.push(element);
+        if (componentEntries.has(componentName)) {
+          toRemove.push([element, componentName]);
         }
       });
 
-      toRemove.forEach(function(element) {
-        Lifecycle.unregister(element);
+      toRemove.forEach(function (entry) {
+        Lifecycle.unregister(entry[0], entry[1] || undefined);
       });
+
+      return toRemove.length;
     },
 
-    /**
-     * Destroy all instances within a specific container
-     * Useful for SPAs when navigating between pages
-     * @param {HTMLElement} container - Container element
-     */
-    destroyAllInContainer: function(container) {
+    destroyAllInContainer: function (container, componentName) {
+      const scope = this.normalizeRoot(container);
       const toRemove = [];
 
-      this.instances.forEach(function(instance, element) {
-        if (container.contains(element)) {
-          toRemove.push(element);
+      this.instances.forEach(function (componentEntries, element) {
+        if (!Lifecycle.isInRoot(scope, element)) return;
+
+        if (!componentName) {
+          toRemove.push([element, null]);
+          return;
+        }
+
+        if (componentEntries.has(componentName)) {
+          toRemove.push([element, componentName]);
         }
       });
 
-      toRemove.forEach(function(element) {
-        Lifecycle.unregister(element);
+      toRemove.forEach(function (entry) {
+        Lifecycle.unregister(entry[0], entry[1] || undefined);
       });
+
+      return toRemove.length;
     },
 
-    /**
-     * Get all registered instances (for debugging)
-     * @returns {Array} Array of instance info objects
-     */
-    getAll: function() {
+    getAll: function () {
       const result = [];
-      this.instances.forEach(function(instance, element) {
-        result.push({
-          element: element,
-          component: instance.component,
-          registeredAt: instance.registeredAt
+      this.instances.forEach(function (componentEntries, element) {
+        componentEntries.forEach(function (entry) {
+          result.push({
+            element: element,
+            component: entry.component,
+            registeredAt: entry.registeredAt
+          });
         });
       });
       return result;
     },
 
-    /**
-     * Check if an element is registered
-     * @param {HTMLElement} element - The element to check
-     * @returns {boolean}
-     */
-    has: function(element) {
-      return this.instances.has(element);
+    has: function (element, componentName) {
+      const componentEntries = this.instances.get(element);
+      if (!componentEntries) return false;
+      return componentName ? componentEntries.has(componentName) : componentEntries.size > 0;
     }
   };
 
-  // Auto-cleanup on page unload
-  window.addEventListener('beforeunload', function() {
+  window.addEventListener('beforeunload', function () {
     Lifecycle.destroyAll();
   });
 
-  // Expose globally
   window.VanduoLifecycle = Lifecycle;
-
-  // Register with Vanduo framework if available
-  if (typeof window.Vanduo !== 'undefined') {
-    window.Vanduo.register('lifecycle', Lifecycle);
-  }
-
 })();

@@ -3,6 +3,7 @@
  * Font system, headings, and text utilities
  */
 
+/* stylelint-disable-next-line no-duplicate-selectors -- token families stay grouped by concern. */
 :root {
   /* Font Families */
   --font-family-sans: 'Ubuntu', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -56,6 +57,7 @@
   --font-family-sans: 'Titillium Web', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors -- type scale tokens stay grouped separately from font-family tokens. */
 :root {
 
   /* Golden Ratio Type Scale (Fluid)
@@ -119,8 +121,8 @@ body {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
+  color: var(--vd-text-primary);
+  background-color: var(--vd-bg-primary);
 }
 
 /* Headings */
@@ -134,7 +136,7 @@ h6 {
   margin-bottom: 0.5em;
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 h1 {
@@ -169,18 +171,18 @@ p {
 
 /* Links */
 a {
-  color: var(--color-primary);
+  color: var(--vd-color-primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: var(--vd-color-primary-dark);
   text-decoration: underline;
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
@@ -217,9 +219,9 @@ blockquote {
   margin: 1em 0;
   padding-left: 0.8125rem;
   /* 13px - fib */
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--vd-color-primary);
   /* fib(3) */
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
   font-style: italic;
 }
 
@@ -227,17 +229,17 @@ blockquote {
 code {
   font-family: var(--font-family-mono);
   font-size: 0.875em;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   padding: 0.125em 0.1875em;
   /* 2px 3px - fib pair */
   border-radius: var(--radius-fib-3);
-  color: var(--color-primary-dark);
+  color: var(--vd-color-primary-dark);
 }
 
 pre {
   font-family: var(--font-family-mono);
   font-size: 0.875em;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   padding: 0.8125rem;
   /* 13px - fib */
   border-radius: var(--radius-fib-5);

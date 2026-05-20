@@ -1379,7 +1379,7 @@
 /* Border Utilities */
 .vd-border,
 .border {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
 }
 
 .vd-border-0,
@@ -1389,22 +1389,22 @@
 
 .vd-border-top,
 .border-top {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--vd-border-color);
 }
 
 .vd-border-right,
 .border-right {
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--vd-border-color);
 }
 
 .vd-border-bottom,
 .border-bottom {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--vd-border-color);
 }
 
 .vd-border-left,
 .border-left {
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--vd-border-color);
 }
 
 .vd-border-2,
@@ -1831,8 +1831,8 @@
   z-index: 9999;
   padding: 0.8125rem;
   /* 13px - fib */
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--vd-bg-primary);
+  color: var(--vd-text-primary);
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
@@ -1840,7 +1840,7 @@
 .skip-link:focus {
   left: 0;
   top: 0;
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
@@ -1871,18 +1871,18 @@
 
 /* Focus Visible Utilities */
 .focus-ring:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
 .focus-ring-inset:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: -2px;
 }
 
 .focus-ring-shadow:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 0, 123, 255), 0.25);
+  box-shadow: 0 0 0 3px rgba(var(--vd-color-primary-rgb, 0, 123, 255), 0.25);
 }
 
 /* Text Alignment Utilities */

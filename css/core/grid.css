@@ -79,7 +79,7 @@
 /* Container Wide - Full Fibonacci wide (1597px) */
 .vd-container-wide {
   width: 100%;
-  max-width: var(--container-2xl);
+  max-width: var(--container-max-width-wide);
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--container-padding);
@@ -1218,11 +1218,6 @@
  * Two-column split: 38.2% / 61.8% (minor / major)
  * Fibonacci column ratios: 2:3:5, 3:5:8, 5:8
  * =================================================== */
-
-/* Wide container variant (Fibonacci: 1597px) */
-.vd-container-wide {
-  max-width: var(--container-max-width-wide);
-}
 
 /* Fibonacci-number container widths */
 .vd-container-fib-610 {

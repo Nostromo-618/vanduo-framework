@@ -3,6 +3,7 @@
  * Form components: inputs, textareas, labels, and validation
  */
 
+/* stylelint-disable-next-line no-duplicate-selectors -- control-specific tokens stay grouped near their rules. */
 :root {
   /* Input Padding (Fibonacci pairs: x/y ratio ~ phi)
    * sm:  8px/5px  = 1.6 ~ phi
@@ -28,18 +29,18 @@
 
   /* Input Border */
   --input-border-width: 1px;
-  --input-border-color: var(--border-color);
+  --input-border-color: var(--vd-border-color);
   --input-border-radius: var(--btn-border-radius);
   --input-border-radius-sm: var(--btn-border-radius-sm);
   --input-border-radius-lg: var(--btn-border-radius-lg);
 
   /* Input Background */
-  --input-bg: var(--color-white);
-  --input-bg-disabled: var(--bg-secondary);
+  --input-bg: var(--vd-color-white);
+  --input-bg-disabled: var(--vd-bg-secondary);
 
   /* Input Focus */
-  --input-focus-border-color: var(--color-primary);
-  --input-focus-box-shadow: 0 0 0 3px var(--color-primary-alpha-20);
+  --input-focus-border-color: var(--vd-color-primary);
+  --input-focus-box-shadow: 0 0 0 3px var(--vd-color-primary-alpha-20);
 
   /* Input Transitions */
   --input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -47,18 +48,22 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --input-bg: var(--bg-secondary);
-  --input-bg-disabled: var(--bg-tertiary);
+  --input-bg: var(--vd-bg-secondary);
+  --input-bg-disabled: var(--vd-bg-tertiary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --input-bg: var(--bg-secondary);
-    --input-bg-disabled: var(--bg-tertiary);
+    --input-bg: var(--vd-bg-secondary);
+    --input-bg-disabled: var(--vd-bg-tertiary);
   }
 }
 
-/* Base Input */
+/* Base Input
+ * The main bundle intentionally styles both `.vd-*` controls and native form
+ * elements for full-page framework usage. Keep new raw element selectors in
+ * reset/base layers; component-specific styling should prefer `.vd-*` hooks.
+ */
 .vd-input,
 input[type="text"],
 input[type="email"],
@@ -77,7 +82,7 @@ input[type="datetime-local"] {
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   background-color: var(--input-bg);
   border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
@@ -103,7 +108,7 @@ input[type="datetime-local"]:focus {
 
 .vd-input::placeholder,
 input::placeholder {
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   opacity: 1;
 }
 
@@ -126,7 +131,7 @@ textarea {
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   background-color: var(--input-bg);
   border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
@@ -144,7 +149,7 @@ textarea:focus {
 
 .textarea::placeholder,
 textarea::placeholder {
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   opacity: 1;
 }
 
@@ -197,41 +202,41 @@ textarea.textarea-lg {
 input.vd-input-error,
 .vd-input.is-error,
 input.is-error {
-  border-color: var(--color-error);
+  border-color: var(--vd-color-error);
 }
 
 .vd-input-invalid,
 input.vd-input-invalid {
-  border-color: var(--color-error);
+  border-color: var(--vd-color-error);
 }
 
 .vd-input-error:focus,
 input.vd-input-error:focus,
 .vd-input.is-error:focus,
 input.is-error:focus {
-  border-color: var(--color-error);
-  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
+  border-color: var(--vd-color-error);
+  box-shadow: 0 0 0 3px var(--vd-color-error-alpha-10);
 }
 
 .vd-input-invalid:focus,
 input.vd-input-invalid:focus {
-  border-color: var(--color-error);
-  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
+  border-color: var(--vd-color-error);
+  box-shadow: 0 0 0 3px var(--vd-color-error-alpha-10);
 }
 
 .textarea-error,
 textarea.textarea-error,
 .textarea.is-error,
 textarea.is-error {
-  border-color: var(--color-error);
+  border-color: var(--vd-color-error);
 }
 
 .textarea-error:focus,
 textarea.textarea-error:focus,
 .textarea.is-error:focus,
 textarea.is-error:focus {
-  border-color: var(--color-error);
-  box-shadow: 0 0 0 3px var(--color-error-alpha-10);
+  border-color: var(--vd-color-error);
+  box-shadow: 0 0 0 3px var(--vd-color-error-alpha-10);
 }
 
 /* Input States - Success */
@@ -239,41 +244,41 @@ textarea.is-error:focus {
 input.vd-input-success,
 .vd-input.is-success,
 input.is-success {
-  border-color: var(--color-success);
+  border-color: var(--vd-color-success);
 }
 
 .vd-input-valid,
 input.vd-input-valid {
-  border-color: var(--color-success);
+  border-color: var(--vd-color-success);
 }
 
 .vd-input-success:focus,
 input.vd-input-success:focus,
 .vd-input.is-success:focus,
 input.is-success:focus {
-  border-color: var(--color-success);
-  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
+  border-color: var(--vd-color-success);
+  box-shadow: 0 0 0 3px var(--vd-color-success-alpha-10);
 }
 
 .vd-input-valid:focus,
 input.vd-input-valid:focus {
-  border-color: var(--color-success);
-  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
+  border-color: var(--vd-color-success);
+  box-shadow: 0 0 0 3px var(--vd-color-success-alpha-10);
 }
 
 .textarea-success,
 textarea.textarea-success,
 .textarea.is-success,
 textarea.is-success {
-  border-color: var(--color-success);
+  border-color: var(--vd-color-success);
 }
 
 .textarea-success:focus,
 textarea.textarea-success:focus,
 .textarea.is-success:focus,
 textarea.is-success:focus {
-  border-color: var(--color-success);
-  box-shadow: 0 0 0 3px var(--color-success-alpha-10);
+  border-color: var(--vd-color-success);
+  box-shadow: 0 0 0 3px var(--vd-color-success-alpha-10);
 }
 
 /* Labels */
@@ -283,14 +288,14 @@ label {
   margin-bottom: 0.5rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   line-height: var(--line-height-normal);
 }
 
 .label-required::after,
 label.required::after {
   content: " *";
-  color: var(--color-error);
+  color: var(--vd-color-error);
 }
 
 .label-sm,
@@ -319,7 +324,7 @@ label.label-lg {
   display: block;
   margin-top: 0.5rem;
   font-size: var(--font-size-sm);
-  color: var(--color-error);
+  color: var(--vd-color-error);
 }
 
 .vd-form-feedback {
@@ -329,7 +334,7 @@ label.label-lg {
 }
 
 .vd-form-feedback-invalid {
-  color: var(--color-error);
+  color: var(--vd-color-error);
 }
 
 .vd-form-success,
@@ -337,11 +342,11 @@ label.label-lg {
   display: block;
   margin-top: 0.5rem;
   font-size: var(--font-size-sm);
-  color: var(--color-success);
+  color: var(--vd-color-success);
 }
 
 .vd-form-feedback-valid {
-  color: var(--color-success);
+  color: var(--vd-color-success);
 }
 
 .vd-form-help,
@@ -349,7 +354,7 @@ label.label-lg {
   display: block;
   margin-top: 0.5rem;
   font-size: var(--font-size-sm);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
 }
 
 /* Input Groups (with prefix/suffix) */
@@ -388,10 +393,10 @@ label.label-lg {
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
   text-align: center;
   white-space: nowrap;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   border: var(--input-border-width) solid var(--input-border-color);
 }
 
@@ -420,6 +425,7 @@ label.label-lg {
    ============================================ */
 
 /* Checkbox Variables */
+/* stylelint-disable-next-line no-duplicate-selectors -- control-specific tokens stay grouped near their rules. */
 :root {
   --checkbox-size: 1.3125rem;
   /* 21px - fib */
@@ -431,9 +437,9 @@ label.label-lg {
   /* fib(2) */
   --checkbox-border-radius: var(--radius-fib-3);
   /* 3px */
-  --checkbox-check-color: var(--color-white);
-  --checkbox-bg-checked: var(--color-primary);
-  --checkbox-bg-indeterminate: var(--color-primary);
+  --checkbox-check-color: var(--vd-color-white);
+  --checkbox-bg-checked: var(--vd-color-primary);
+  --checkbox-bg-indeterminate: var(--vd-color-primary);
   --checkbox-border-color: var(--input-border-color);
   --checkbox-transition: var(--transition-base);
 }
@@ -449,7 +455,7 @@ label.label-lg {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   gap: 0.5rem;
   /* 8px - fib */
@@ -536,7 +542,7 @@ label.label-lg {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   padding-left: calc(var(--checkbox-size) + 0.5rem);
   position: relative;
@@ -675,6 +681,7 @@ label.label-lg {
 }
 
 /* Radio Button Variables */
+/* stylelint-disable-next-line no-duplicate-selectors -- control-specific tokens stay grouped near their rules. */
 :root {
   --radio-size: 1.3125rem;
   /* 21px - fib */
@@ -690,7 +697,7 @@ label.label-lg {
   /* 5px - fib */
   --radio-dot-size-lg: 0.8125rem;
   /* 13px - fib */
-  --radio-bg-checked: var(--color-primary);
+  --radio-bg-checked: var(--vd-color-primary);
   --radio-border-color: var(--input-border-color);
   --radio-transition: var(--transition-base);
 }
@@ -705,7 +712,7 @@ label.label-lg {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   gap: 0.5rem;
 }
@@ -790,7 +797,7 @@ label.label-lg {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   padding-left: calc(var(--radio-size) + 0.5rem);
   position: relative;
@@ -922,6 +929,7 @@ label.label-lg {
 }
 
 /* Range Variables */
+/* stylelint-disable-next-line no-duplicate-selectors -- range tokens stay grouped with range control styles. */
 :root {
   --range-track-height: 0.5rem;
   --range-track-height-sm: 0.375rem;
@@ -929,22 +937,23 @@ label.label-lg {
   --range-thumb-size: 1.25rem;
   --range-thumb-size-sm: 1rem;
   --range-thumb-size-lg: 1.5rem;
-  --range-track-bg: var(--color-gray-300);
+  --range-track-bg: var(--vd-color-gray-300);
   --range-track-border: none;
-  --range-track-fill: var(--color-primary);
-  --range-thumb-bg: var(--color-primary);
-  --range-thumb-border: 2px solid var(--color-white);
+  --range-track-fill: var(--vd-color-primary);
+  --range-thumb-bg: var(--vd-color-primary);
+  --range-thumb-border: 2px solid var(--vd-color-white);
   --range-thumb-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Dark Theme Range Overrides - more visible track */
+/* stylelint-disable-next-line no-duplicate-selectors -- dark-mode token overrides stay adjacent to range styles. */
 [data-theme="dark"] {
-  --range-track-bg: var(--color-gray-400);
+  --range-track-bg: var(--vd-color-gray-400);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --range-track-bg: var(--color-gray-400);
+    --range-track-bg: var(--vd-color-gray-400);
   }
 }
 
@@ -977,12 +986,12 @@ input[type="range"]:focus {
 
 input[type="range"].range-input:focus::-webkit-slider-thumb,
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--color-primary-alpha-10);
+  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--vd-color-primary-alpha-10);
 }
 
 input[type="range"].range-input:focus::-moz-range-thumb,
 input[type="range"]:focus::-moz-range-thumb {
-  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--color-primary-alpha-10);
+  box-shadow: var(--range-thumb-shadow), 0 0 0 3px var(--vd-color-primary-alpha-10);
 }
 
 /* Range Track (Webkit - Chrome, Safari, Edge) */
@@ -1140,11 +1149,11 @@ input[type="range"].range-lg::-moz-range-thumb {
   display: inline-block;
   margin-left: 0.5rem;
   padding: 0.25rem 0.5rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   border-radius: var(--btn-border-radius-sm);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   min-width: 3rem;
   text-align: center;
 }
@@ -1155,7 +1164,7 @@ input[type="range"].range-lg::-moz-range-thumb {
   margin-bottom: 0.5rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .range-min-max {
@@ -1163,10 +1172,11 @@ input[type="range"].range-lg::-moz-range-thumb {
   justify-content: space-between;
   margin-top: 0.25rem;
   font-size: var(--font-size-xs);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
 }
 
 /* Switch Variables */
+/* stylelint-disable-next-line no-duplicate-selectors -- control-specific tokens stay grouped near their rules. */
 :root {
   /* Switch: golden rectangle (55x34 outer, 21px thumb) */
   --switch-width: 3.4375rem;
@@ -1189,23 +1199,24 @@ input[type="range"].range-lg::-moz-range-thumb {
   /* 34px - fib */
   --switch-thumb-offset: 0.1875rem;
   /* 3px - fib */
-  --switch-bg-off: var(--color-gray-300);
-  --switch-bg-on: var(--color-primary);
-  --switch-bg-on-success: var(--color-success);
-  --switch-bg-on-warning: var(--color-warning);
-  --switch-bg-on-error: var(--color-error);
-  --switch-thumb-bg: var(--color-white);
+  --switch-bg-off: var(--vd-color-gray-300);
+  --switch-bg-on: var(--vd-color-primary);
+  --switch-bg-on-success: var(--vd-color-success);
+  --switch-bg-on-warning: var(--vd-color-warning);
+  --switch-bg-on-error: var(--vd-color-error);
+  --switch-thumb-bg: var(--vd-color-white);
   --switch-transition: var(--transition-base);
 }
 
 /* Dark Theme Switch Overrides */
+/* stylelint-disable-next-line no-duplicate-selectors -- dark-mode token overrides stay adjacent to switch styles. */
 [data-theme="dark"] {
-  --switch-bg-off: var(--color-gray-600);
+  --switch-bg-off: var(--vd-color-gray-600);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --switch-bg-off: var(--color-gray-600);
+    --switch-bg-off: var(--vd-color-gray-600);
   }
 }
 
@@ -1219,7 +1230,7 @@ input[type="range"].range-lg::-moz-range-thumb {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   gap: 0.75rem;
 }
@@ -1306,7 +1317,7 @@ input[type="range"].range-lg::-moz-range-thumb {
   cursor: pointer;
   font-size: var(--input-font-size);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   user-select: none;
   position: relative;
 }
@@ -1479,10 +1490,11 @@ input[type="range"].range-lg::-moz-range-thumb {
 }
 
 /* Select Variables */
+/* stylelint-disable-next-line no-duplicate-selectors -- control-specific tokens stay grouped near their rules. */
 :root {
   --select-arrow-size: 16px;
-  --select-arrow-color: var(--text-secondary);
-  --select-arrow-color-focus: var(--color-primary);
+  --select-arrow-color: var(--vd-text-secondary);
+  --select-arrow-color-focus: var(--vd-color-primary);
 }
 
 /* Select Wrapper */
@@ -1504,7 +1516,7 @@ input[type="range"].range-lg::-moz-range-thumb {
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   text-align: left;
   background-color: var(--input-bg);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23495057' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
@@ -1549,7 +1561,7 @@ select,
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   background-color: var(--input-bg);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23495057' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -1587,14 +1599,14 @@ select.vd-input.vd-input-error,
 select.vd-input.is-error,
 .select-input.vd-input-error,
 .select-input.is-error {
-  border-color: var(--color-error);
+  border-color: var(--vd-color-error);
 }
 
 select.vd-input.vd-input-success,
 select.vd-input.is-success,
 .select-input.vd-input-success,
 .select-input.is-success {
-  border-color: var(--color-success);
+  border-color: var(--vd-color-success);
 }
 
 /* Select Sizes */
@@ -1662,7 +1674,7 @@ select[multiple] option,
   width: 100%;
   padding: var(--input-padding-y) var(--input-padding-x);
   font-size: var(--input-font-size);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   background-color: transparent;
   border: none;
   text-align: left;
@@ -1672,13 +1684,13 @@ select[multiple] option,
 
 .custom-select-option:hover,
 .custom-select-option:focus {
-  background-color: var(--color-primary-alpha-10);
+  background-color: var(--vd-color-primary-alpha-10);
   outline: none;
 }
 
 .custom-select-option.is-selected {
-  background-color: var(--color-primary-alpha-10);
-  color: var(--color-primary);
+  background-color: var(--vd-color-primary-alpha-10);
+  color: var(--vd-color-primary);
   font-weight: var(--font-weight-medium);
 }
 
@@ -1686,14 +1698,14 @@ select[multiple] option,
 .custom-select-option[data-value=""] {
   opacity: 0.6;
   cursor: not-allowed;
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
 }
 
 .custom-select-option-group {
   padding: 0.5rem var(--input-padding-x);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }

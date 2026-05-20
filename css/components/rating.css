@@ -6,7 +6,7 @@
 :root {
   /* Rating Colors */
   --rating-active-color: #f59e0b;
-  --rating-inactive-color: var(--color-gray-300, #dee2e6);
+  --rating-inactive-color: var(--vd-color-gray-300, #dee2e6);
   --rating-hover-color: #fbbf24;
 
   /* Rating Dimensions (Fibonacci) */
@@ -17,12 +17,12 @@
 }
 
 [data-theme="dark"] {
-  --rating-inactive-color: var(--color-gray-600, #6c757d);
+  --rating-inactive-color: var(--vd-color-gray-600, #6c757d);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --rating-inactive-color: var(--color-gray-600, #6c757d);
+    --rating-inactive-color: var(--vd-color-gray-600, #6c757d);
   }
 }
 
@@ -108,5 +108,5 @@
   margin-left: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-primary, #212529);
+  color: var(--vd-text-primary, #212529);
 }

@@ -12,6 +12,31 @@
   const CodeSnippet = {
     _snippetIdCounter: 0,
 
+    resolveRoot: function (root) {
+      if (root && (root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11)) {
+        return root;
+      }
+      return document;
+    },
+
+    queryWithin: function (root, selector) {
+      const scope = this.resolveRoot(root);
+      const matches = [];
+
+      if (scope instanceof Element && typeof scope.matches === 'function' && scope.matches(selector)) {
+        matches.push(scope);
+      }
+
+      if (typeof scope.querySelectorAll === 'function') {
+        const descendants = scope.querySelectorAll(selector);
+        for (let i = 0; i < descendants.length; i++) {
+          matches.push(descendants[i]);
+        }
+      }
+
+      return matches;
+    },
+
     getSnippetInstanceId: function (snippet) {
       if (snippet.dataset.codeSnippetId) {
         return snippet.dataset.codeSnippetId;
@@ -40,8 +65,8 @@
     /**
      * Initialize all code snippet components
      */
-    init: function () {
-      const snippets = document.querySelectorAll('.vd-code-snippet');
+    init: function (root) {
+      const snippets = this.queryWithin(root, '.vd-code-snippet');
 
       snippets.forEach(snippet => {
         if (!snippet.dataset.initialized) {
@@ -84,6 +109,11 @@
       const extractPanes = snippet.querySelectorAll('[data-extract]');
       extractPanes.forEach(pane => {
         this.extractHtml(pane);
+      });
+
+      const panesToHighlight = snippet.querySelectorAll('.vd-code-snippet-pane:not([data-extract])');
+      panesToHighlight.forEach(pane => {
+        this.applyPaneHighlighting(pane);
       });
 
       // Handle line numbers
@@ -383,6 +413,7 @@
       codeEl.innerHTML = html;
       pane.replaceChildren(codeEl);
       pane.dataset.extracted = 'true';
+      pane.dataset.highlighted = 'true';
     },
 
     /**
@@ -441,6 +472,94 @@
       return div.innerHTML;
     },
 
+    needsHighlighting: function (pane, codeEl) {
+      if (!codeEl) return false;
+      if (pane.dataset.highlighted === 'true') return false;
+      if (codeEl.querySelector('[class^="code-"], [class*=" code-"]')) return false;
+      return true;
+    },
+
+    getHighlightMode: function (lang) {
+      const normalized = String(lang || '').trim().toLowerCase();
+
+      if ([
+        'html',
+        'xml',
+        'svg',
+        'vue',
+        'svelte',
+        'astro'
+      ].includes(normalized)) {
+        return 'html';
+      }
+
+      if ([
+        'css',
+        'scss',
+        'sass',
+        'less'
+      ].includes(normalized)) {
+        return 'css';
+      }
+
+      if ([
+        'js',
+        'mjs',
+        'cjs',
+        'ts',
+        'jsx',
+        'tsx',
+        'json',
+        'bash',
+        'sh'
+      ].includes(normalized)) {
+        return 'js';
+      }
+
+      return 'plain';
+    },
+
+    highlightCodeByLang: function (rawCode, lang) {
+      const escaped = this.escapeHtml(rawCode);
+      const mode = this.getHighlightMode(lang);
+
+      if (mode === 'html') {
+        return this.highlightHtml(escaped);
+      }
+
+      if (mode === 'css') {
+        return this.highlightCss(escaped);
+      }
+
+      if (mode === 'js') {
+        return this.highlightJs(escaped);
+      }
+
+      return escaped;
+    },
+
+    applyPaneHighlighting: function (pane) {
+      if (!pane) return;
+
+      const codeEl = pane.querySelector('code') || pane;
+      if (!this.needsHighlighting(pane, codeEl)) {
+        pane.dataset.highlighted = 'true';
+        return;
+      }
+
+      const rawCode = codeEl.textContent || '';
+      const highlighted = this.highlightCodeByLang(rawCode, pane.dataset.lang);
+      const nextCodeEl = codeEl.tagName === 'CODE' ? codeEl : document.createElement('code');
+
+      nextCodeEl.innerHTML = highlighted;
+
+      if (nextCodeEl !== codeEl) {
+        pane.replaceChildren(nextCodeEl);
+      }
+
+      pane.dataset.highlighted = 'true';
+    },
+
     /**
      * Apply syntax highlighting to HTML
      * @param {string} html - Escaped HTML string
@@ -451,9 +570,11 @@
       html = html.replace(/(&lt;\/?)([\w-]+)/g, '$1<span class="code-tag">$2</span>');
 
       // Highlight attributes
+      html = html.replace(/([\w-]+)(=)(["'])/g, '<span class="code-attr">$1</span>$2$3');
       html = html.replace(/([\w-]+)(=)(&quot;|&#39;)/g, '<span class="code-attr">$1</span>$2$3');
 
       // Highlight attribute values (strings)
+      html = html.replace(/(["'])([^"']*)(["'])/g, '$1<span class="code-string">$2</span>$3');
       html = html.replace(/(&quot;|&#39;)([^&]*)(&quot;|&#39;)/g, '$1<span class="code-string">$2</span>$3');
 
       // Highlight comments

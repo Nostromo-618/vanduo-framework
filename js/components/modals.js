@@ -13,6 +13,7 @@
     modals: new Map(),
     openModals: [],
     zIndexCounter: 1050,
+    __vanduoScopedDestroyAll: true,
 
     // Store trigger cleanup functions
     _triggerCleanups: [],
@@ -79,7 +80,7 @@
     /**
      * Initialize modals
      */
-    init: function () {
+    init: function (root) {
       const modals = document.querySelectorAll('.vd-modal');
 
       modals.forEach(modal => {
@@ -90,7 +91,9 @@
       });
 
       // Handle data-modal triggers
-      const triggers = document.querySelectorAll('[data-modal]');
+      const triggers = typeof window.VanduoLifecycle !== 'undefined'
+        ? window.VanduoLifecycle.queryAll(root, '[data-modal]')
+        : document.querySelectorAll('[data-modal]');
       triggers.forEach(trigger => {
         if (trigger.dataset.modalTriggerInitialized) return;
         trigger.dataset.modalTriggerInitialized = 'true';
@@ -104,7 +107,7 @@
           }
         };
         trigger.addEventListener('click', triggerClickHandler);
-        this._triggerCleanups.push(() => trigger.removeEventListener('click', triggerClickHandler));
+        trigger._modalTriggerCleanup = () => trigger.removeEventListener('click', triggerClickHandler);
       });
     },
 
@@ -421,15 +424,25 @@
     /**
      * Destroy all modal instances
      */
-    destroyAll: function () {
+    destroyAll: function (root) {
       this.modals.forEach((data, modal) => {
-        this.destroy(modal);
+        if (!root || root === document || (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isInRoot(root, modal))) {
+          this.destroy(modal);
+        }
       });
-      // Clean up trigger listeners
-      this._triggerCleanups.forEach(fn => fn());
-      this._triggerCleanups = [];
-      // Remove shared ESC handler
-      if (this._sharedEscHandler) {
+
+      const triggers = typeof window.VanduoLifecycle !== 'undefined'
+        ? window.VanduoLifecycle.queryAll(root || document, '[data-modal][data-modal-trigger-initialized]')
+        : document.querySelectorAll('[data-modal][data-modal-trigger-initialized]');
+      triggers.forEach(trigger => {
+        if (trigger._modalTriggerCleanup) {
+          trigger._modalTriggerCleanup();
+          delete trigger._modalTriggerCleanup;
+        }
+        delete trigger.dataset.modalTriggerInitialized;
+      });
+
+      if ((!root || root === document) && this._sharedEscHandler) {
         document.removeEventListener('keydown', this._sharedEscHandler);
         this._sharedEscHandler = null;
       }
@@ -445,4 +458,3 @@
   window.VanduoModals = Modals;
 
 })();
-

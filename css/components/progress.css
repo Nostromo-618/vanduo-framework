@@ -5,8 +5,8 @@
 
 :root {
   --progress-height: 8px;
-  --progress-bg: var(--bg-tertiary, #e9ecef);
-  --progress-bar-bg: var(--color-primary);
+  --progress-bg: var(--vd-bg-tertiary, #e9ecef);
+  --progress-bar-bg: var(--vd-color-primary);
   --progress-border-radius: var(--radius-fib-5, 5px);
 }
 
@@ -33,10 +33,10 @@
 }
 
 /* Variants */
-.vd-progress-bar.vd-progress-success { background-color: var(--color-success); }
-.vd-progress-bar.vd-progress-warning { background-color: var(--color-warning); }
-.vd-progress-bar.vd-progress-error { background-color: var(--color-error); }
-.vd-progress-bar.vd-progress-info { background-color: var(--color-info); }
+.vd-progress-bar.vd-progress-success { background-color: var(--vd-color-success); }
+.vd-progress-bar.vd-progress-warning { background-color: var(--vd-color-warning); }
+.vd-progress-bar.vd-progress-error { background-color: var(--vd-color-error); }
+.vd-progress-bar.vd-progress-info { background-color: var(--vd-color-info); }
 
 /* Sizes */
 .vd-progress-xs { --progress-height: 3px; }
@@ -97,11 +97,11 @@
 
 /* Dark mode */
 [data-theme="dark"] {
-  --progress-bg: var(--bg-tertiary, #2d3748);
+  --progress-bg: var(--vd-bg-tertiary, #2d3748);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --progress-bg: var(--bg-tertiary, #2d3748);
+    --progress-bg: var(--vd-bg-tertiary, #2d3748);
   }
 }

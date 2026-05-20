@@ -5,12 +5,12 @@
 
 :root {
   /* Stepper Colors */
-  --stepper-active-color: var(--color-primary, #0d6efd);
-  --stepper-completed-color: var(--color-success, #198754);
-  --stepper-error-color: var(--color-danger, #dc3545);
-  --stepper-pending-color: var(--color-gray-400, #ced4da);
-  --stepper-text-color: var(--text-primary, #212529);
-  --stepper-line-color: var(--border-color, #dee2e6);
+  --stepper-active-color: var(--vd-color-primary, #0d6efd);
+  --stepper-completed-color: var(--vd-color-success, #198754);
+  --stepper-error-color: var(--vd-color-danger, #dc3545);
+  --stepper-pending-color: var(--vd-color-gray-400, #ced4da);
+  --stepper-text-color: var(--vd-text-primary, #212529);
+  --stepper-line-color: var(--vd-border-color, #dee2e6);
 
   /* Stepper Dimensions (Fibonacci) */
   --stepper-circle-size: 2.125rem; /* 34px ~ fib */
@@ -20,14 +20,14 @@
 }
 
 [data-theme="dark"] {
-  --stepper-pending-color: var(--color-gray-600, #6c757d);
-  --stepper-line-color: var(--color-gray-600, #6c757d);
+  --stepper-pending-color: var(--vd-color-gray-600, #6c757d);
+  --stepper-line-color: var(--vd-color-gray-600, #6c757d);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --stepper-pending-color: var(--color-gray-600, #6c757d);
-    --stepper-line-color: var(--color-gray-600, #6c757d);
+    --stepper-pending-color: var(--vd-color-gray-600, #6c757d);
+    --stepper-line-color: var(--vd-color-gray-600, #6c757d);
   }
 }
 
@@ -70,7 +70,7 @@
   height: var(--stepper-circle-size);
   border-radius: 50%;
   border: var(--stepper-line-width) solid var(--stepper-pending-color);
-  background: var(--bg-primary, #fff);
+  background: var(--vd-bg-primary, #fff);
   font-weight: 600;
   font-size: 0.875rem;
   z-index: 1;
@@ -82,12 +82,12 @@
   margin-top: var(--stepper-gap);
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--text-muted, #6c757d);
+  color: var(--vd-text-muted, #6c757d);
 }
 
 .vd-stepper-description {
   font-size: 0.75rem;
-  color: var(--text-muted, #6c757d);
+  color: var(--vd-text-muted, #6c757d);
   margin-top: 0.125rem;
 }
 

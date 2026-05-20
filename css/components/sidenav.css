@@ -5,12 +5,12 @@
 
 :root {
   /* Sidenav Colors */
-  --sidenav-bg: var(--color-white);
+  --sidenav-bg: var(--vd-color-white);
   --sidenav-overlay-bg: rgba(0, 0, 0, 0.35);
-  --sidenav-border-color: var(--border-color);
-  --sidenav-item-bg-hover: var(--bg-secondary);
-  --sidenav-item-bg-active: var(--color-primary-alpha-10);
-  --sidenav-item-color-active: var(--color-primary);
+  --sidenav-border-color: var(--vd-border-color);
+  --sidenav-item-bg-hover: var(--vd-bg-secondary);
+  --sidenav-item-bg-active: var(--vd-color-primary-alpha-10);
+  --sidenav-item-color-active: var(--vd-color-primary);
   
   /* Sidenav Dimensions (Fibonacci) */
   --sidenav-width: 233px;     /* fib */
@@ -33,14 +33,14 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --sidenav-bg: var(--bg-secondary);
-  --sidenav-item-bg-hover: var(--bg-primary);
+  --sidenav-bg: var(--vd-bg-secondary);
+  --sidenav-item-bg-hover: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --sidenav-bg: var(--bg-secondary);
-    --sidenav-item-bg-hover: var(--bg-primary);
+    --sidenav-bg: var(--vd-bg-secondary);
+    --sidenav-item-bg-hover: var(--vd-bg-primary);
   }
 }
 
@@ -138,7 +138,7 @@
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-sidenav-close {
@@ -152,7 +152,7 @@
   font-size: 1.5rem;
   font-weight: var(--font-weight-bold);
   line-height: 1;
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
   transition: var(--transition-opacity);
 }
 
@@ -190,7 +190,7 @@
   margin-top: 0.5rem;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -211,7 +211,7 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   text-decoration: none;
   transition: var(--transition-bg);
   cursor: pointer;
@@ -219,7 +219,7 @@
 
 .vd-sidenav-link:hover {
   background-color: var(--sidenav-item-bg-hover);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   text-decoration: none;
 }
 

@@ -6,7 +6,7 @@
 :root {
   --spinner-size: 2rem;
   --spinner-border-width: 3px;
-  --spinner-color: var(--color-primary);
+  --spinner-color: var(--vd-color-primary);
   --spinner-speed: 0.65s;
 }
 
@@ -15,7 +15,7 @@
   display: inline-block;
   width: var(--spinner-size);
   height: var(--spinner-size);
-  border: var(--spinner-border-width) solid var(--border-color, #e9ecef);
+  border: var(--spinner-border-width) solid var(--vd-border-color, #e9ecef);
   border-top-color: var(--spinner-color);
   border-radius: 50%;
   animation: spinner-rotate var(--spinner-speed) linear infinite;
@@ -80,12 +80,12 @@
 .vd-spinner-xl { --spinner-size: 4rem; --spinner-border-width: 5px; }
 
 /* Color Variants */
-.vd-spinner-success { --spinner-color: var(--color-success); }
-.vd-spinner-warning { --spinner-color: var(--color-warning); }
-.vd-spinner-error { --spinner-color: var(--color-error); }
-.vd-spinner-info { --spinner-color: var(--color-info); }
+.vd-spinner-success { --spinner-color: var(--vd-color-success); }
+.vd-spinner-warning { --spinner-color: var(--vd-color-warning); }
+.vd-spinner-error { --spinner-color: var(--vd-color-error); }
+.vd-spinner-info { --spinner-color: var(--vd-color-info); }
 .vd-spinner-light { --spinner-color: #fff; }
-.vd-spinner-dark { --spinner-color: var(--text-primary); }
+.vd-spinner-dark { --spinner-color: var(--vd-text-primary); }
 
 /* Centering Helper */
 .vd-spinner-center {
@@ -118,7 +118,7 @@
   --spinner-border-width: 2px;
   --spinner-speed: 0.9s;
 
-  border-color: var(--border-color, #d9d9d9);
+  border-color: var(--vd-border-color, #d9d9d9);
   border-top-color: var(--spinner-color);
 }
 
@@ -139,7 +139,7 @@
 }
 
 .vd-dynamic-loader-text {
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   font-size: var(--font-size-sm, 0.8125rem);
 }
 
@@ -150,7 +150,7 @@
   padding: 2rem;
   overflow: hidden;
   border-radius: var(--btn-border-radius, 0.5rem);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--vd-border-color);
 }
 
 .vd-dynamic-loader-card > .vd-dynamic-loader {

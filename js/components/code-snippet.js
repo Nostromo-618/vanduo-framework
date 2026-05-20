@@ -746,9 +746,16 @@
     /**
      * Destroy all code snippet instances
      */
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = this.resolveRoot(root);
       const snippets = document.querySelectorAll('.vd-code-snippet[data-initialized="true"]');
-      snippets.forEach(snippet => this.destroy(snippet));
+      snippets.forEach(snippet => {
+        if (scope !== document) {
+          const inScope = scope === snippet || (typeof scope.contains === 'function' && scope.contains(snippet));
+          if (!inScope) return;
+        }
+        this.destroy(snippet);
+      });
     }
   };
 

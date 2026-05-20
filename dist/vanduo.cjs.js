@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.0 | Built: 2026-05-20T08:34:24.172Z | git:a27b94e | development */
+/*! Vanduo v1.4.0 | Built: 2026-05-20T10:53:15.681Z | git:df6b10f | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -893,7 +893,9 @@ module.exports = __toCommonJS(index_exports);
      */
     highlightHtml: function(html) {
       html = html.replace(/(&lt;\/?)([\w-]+)/g, '$1<span class="code-tag">$2</span>');
+      html = html.replace(/([\w-]+)(=)(["'])/g, '<span class="code-attr">$1</span>$2$3');
       html = html.replace(/([\w-]+)(=)(&quot;|&#39;)/g, '<span class="code-attr">$1</span>$2$3');
+      html = html.replace(/(["'])([^"']*)(["'])/g, '$1<span class="code-string">$2</span>$3');
       html = html.replace(/(&quot;|&#39;)([^&]*)(&quot;|&#39;)/g, '$1<span class="code-string">$2</span>$3');
       html = html.replace(/(&lt;!--)(.*?)(--&gt;)/g, '<span class="code-comment">$1$2$3</span>');
       return html;
@@ -1018,9 +1020,16 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Destroy all code snippet instances
      */
-    destroyAll: function() {
+    destroyAll: function(root) {
+      const scope = this.resolveRoot(root);
       const snippets = document.querySelectorAll('.vd-code-snippet[data-initialized="true"]');
-      snippets.forEach((snippet) => this.destroy(snippet));
+      snippets.forEach((snippet) => {
+        if (scope !== document) {
+          const inScope = scope === snippet || typeof scope.contains === "function" && scope.contains(snippet);
+          if (!inScope) return;
+        }
+        this.destroy(snippet);
+      });
     }
   };
   if (typeof window.Vanduo !== "undefined") {

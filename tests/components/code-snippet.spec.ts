@@ -264,17 +264,18 @@ test.describe('Code Snippet Component @component', () => {
         document.body.appendChild(externalRoot);
         (window as any).Vanduo.init(externalRoot);
         const beforeDestroy = externalRoot.querySelector('#external-snippet')?.getAttribute('data-initialized');
-        const main = document.querySelector('main');
-        (window as any).Vanduo.destroy(main);
+        const fixtureRoot = document.querySelector('.container');
+        (window as any).Vanduo.destroy(fixtureRoot);
         const afterDestroy = externalRoot.querySelector('#external-snippet')?.getAttribute('data-initialized');
-        return { beforeDestroy, afterDestroy, hadMain: Boolean(main) };
+        return { beforeDestroy, afterDestroy, hadFixtureRoot: Boolean(fixtureRoot) };
       });
 
       const externalToggle = page.locator('#external-snippet .vd-code-snippet-toggle');
       const externalSnippet = page.locator('#external-snippet');
 
-      expect(state.hadMain).toBe(true);
+      expect(state.hadFixtureRoot).toBe(true);
       expect(state.beforeDestroy).toBe('true');
+      expect(state.afterDestroy).toBe('true');
       await expect(externalSnippet).toHaveAttribute('data-initialized', 'true');
       await externalToggle.click();
       await expect(externalSnippet).toHaveAttribute('data-expanded', 'true');

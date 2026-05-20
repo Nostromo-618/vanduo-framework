@@ -81,7 +81,7 @@
      * Initialize modals
      */
     init: function (root) {
-      const modals = document.querySelectorAll('.vd-modal');
+      const modals = window.Vanduo.queryAll(root, '.vd-modal');
 
       modals.forEach(modal => {
         if (this.modals.has(modal)) {
@@ -91,8 +91,8 @@
       });
 
       // Handle data-modal triggers
-      const triggers = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root, '[data-modal]')
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-modal]')
         : document.querySelectorAll('[data-modal]');
       triggers.forEach(trigger => {
         if (trigger.dataset.modalTriggerInitialized) return;
@@ -425,14 +425,18 @@
      * Destroy all modal instances
      */
     destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.modals.forEach((data, modal) => {
-        if (!root || root === document || (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isInRoot(root, modal))) {
+        if (scope === document || scope === modal || (typeof scope.contains === 'function' && scope.contains(modal))) {
           this.destroy(modal);
         }
       });
 
-      const triggers = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root || document, '[data-modal][data-modal-trigger-initialized]')
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-modal][data-modal-trigger-initialized]')
         : document.querySelectorAll('[data-modal][data-modal-trigger-initialized]');
       triggers.forEach(trigger => {
         if (trigger._modalTriggerCleanup) {
@@ -442,7 +446,7 @@
         delete trigger.dataset.modalTriggerInitialized;
       });
 
-      if ((!root || root === document) && this._sharedEscHandler) {
+      if (scope === document && this._sharedEscHandler) {
         document.removeEventListener('keydown', this._sharedEscHandler);
         this._sharedEscHandler = null;
       }

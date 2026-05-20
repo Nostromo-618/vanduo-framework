@@ -75,20 +75,7 @@
 
     runInRoot: function (root, fn) {
       const scope = this.normalizeRoot(root);
-      if (scope === document) {
-        return fn();
-      }
-
-      const originalQuerySelectorAll = document.querySelectorAll.bind(document);
-      document.querySelectorAll = function (selector) {
-        return Lifecycle.queryAll(scope, selector);
-      };
-
-      try {
-        return fn();
-      } finally {
-        document.querySelectorAll = originalQuerySelectorAll;
-      }
+      return fn(scope);
     },
 
     register: function (element, componentName, cleanupFns, options) {

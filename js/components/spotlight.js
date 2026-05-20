@@ -15,8 +15,8 @@
     _boundTriggers: new WeakMap(),
     _triggerElement: null,
 
-    init: function () {
-      const triggers = document.querySelectorAll('[data-vd-spotlight]');
+    init: function (root) {
+      const triggers = window.Vanduo.queryAll(root, '[data-vd-spotlight]');
 
       triggers.forEach(trigger => {
         if (this._boundTriggers.has(trigger)) return;

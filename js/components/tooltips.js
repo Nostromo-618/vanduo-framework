@@ -31,8 +31,8 @@
     /**
      * Initialize tooltips
      */
-    init: function () {
-      const elements = document.querySelectorAll('[data-tooltip], [data-tooltip-html]');
+    init: function (root) {
+      const elements = window.Vanduo.queryAll(root, '[data-tooltip], [data-tooltip-html]');
 
       elements.forEach(element => {
         if (this.tooltips.has(element)) {

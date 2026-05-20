@@ -132,8 +132,8 @@
     };
 
     function queryAll(selector) {
-      if (typeof window.VanduoLifecycle !== 'undefined') {
-        return window.VanduoLifecycle.queryAll(config.root, selector);
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(config.root, selector);
       }
 
       const scope = normalizeRoot(config.root);

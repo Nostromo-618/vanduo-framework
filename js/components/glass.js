@@ -18,8 +18,8 @@
     /** @type {Map<Element, IntersectionObserver>} */
     observers: new Map(),
 
-    init: function () {
-      document.querySelectorAll('[data-glass-scroll]').forEach(el => {
+    init: function (root) {
+      window.Vanduo.queryAll(root, '[data-glass-scroll]').forEach(el => {
         if (this.observers.has(el)) return;
         this.initElement(el);
       });

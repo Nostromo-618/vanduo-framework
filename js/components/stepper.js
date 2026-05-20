@@ -9,8 +9,8 @@
   const Stepper = {
     instances: new Map(),
 
-    init: function () {
-      const steppers = document.querySelectorAll('.vd-stepper');
+    init: function (root) {
+      const steppers = window.Vanduo.queryAll(root, '.vd-stepper');
       steppers.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

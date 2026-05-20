@@ -153,16 +153,16 @@
   const Timeline = {
     instances: new Map(),
 
-    init: function () {
-      document.querySelectorAll('.vd-timeline.vd-timeline-animated').forEach(function (el) {
+    init: function (root) {
+      window.Vanduo.queryAll(root, '.vd-timeline.vd-timeline-animated').forEach(function (el) {
         if (Timeline.instances.has(el)) return;
         Timeline.initInstance(el);
       });
     },
 
-    reinit: function () {
-      Timeline.destroyAll();
-      Timeline.init();
+    reinit: function (root) {
+      Timeline.destroyAll(root);
+      Timeline.init(root);
     },
 
     initInstance: function (container) {
@@ -235,8 +235,13 @@
       this.instances.delete(container);
     },
 
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : document;
+
       this.instances.forEach(function (_, el) {
+        if (scope !== document && scope !== el && (!scope.contains || !scope.contains(el))) return;
         Timeline.destroy(el);
       });
     }

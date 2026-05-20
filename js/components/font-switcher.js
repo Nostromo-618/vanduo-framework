@@ -41,8 +41,8 @@
     },
 
     getToggles: function(root) {
-      if (typeof window.VanduoLifecycle !== 'undefined') {
-        return window.VanduoLifecycle.queryAll(root, '[data-toggle="font"]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '[data-toggle="font"]');
       }
 
       return Array.from(document.querySelectorAll('[data-toggle="font"]'));

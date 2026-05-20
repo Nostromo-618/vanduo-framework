@@ -12,8 +12,8 @@
     _onMediaChange: null,
 
     getToggles: function (root) {
-      if (typeof window.VanduoLifecycle !== 'undefined') {
-        return window.VanduoLifecycle.queryAll(root, '[data-toggle="theme"]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '[data-toggle="theme"]');
       }
 
       return Array.from(document.querySelectorAll('[data-toggle="theme"]'));

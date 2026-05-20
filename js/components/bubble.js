@@ -10,8 +10,8 @@
     instances: new Map(),
     _globalCleanups: [],
 
-    init: function () {
-      const triggers = document.querySelectorAll('[data-vd-bubble], [data-vd-popover]');
+    init: function (root) {
+      const triggers = window.Vanduo.queryAll(root, '[data-vd-bubble], [data-vd-popover]');
       triggers.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

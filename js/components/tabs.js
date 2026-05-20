@@ -16,8 +16,8 @@
     /**
      * Initialize all tab components
      */
-    init: function() {
-      const tabContainers = document.querySelectorAll('.vd-tabs, [data-tabs]');
+    init: function(root) {
+      const tabContainers = window.Vanduo.queryAll(root, '.vd-tabs, [data-tabs]');
 
       tabContainers.forEach(container => {
         if (this.instances.has(container)) {

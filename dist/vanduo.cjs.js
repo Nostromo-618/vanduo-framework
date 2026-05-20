@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.0 | Built: 2026-05-20T10:53:15.681Z | git:df6b10f | development */
+/*! Vanduo v1.4.0 | Built: 2026-05-20T14:04:00.482Z | git:2954466 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -88,18 +88,7 @@ module.exports = __toCommonJS(index_exports);
     },
     runInRoot: function(root, fn) {
       const scope = this.normalizeRoot(root);
-      if (scope === document) {
-        return fn();
-      }
-      const originalQuerySelectorAll = document.querySelectorAll.bind(document);
-      document.querySelectorAll = function(selector) {
-        return Lifecycle.queryAll(scope, selector);
-      };
-      try {
-        return fn();
-      } finally {
-        document.querySelectorAll = originalQuerySelectorAll;
-      }
+      return fn(scope);
     },
     register: function(element, componentName, cleanupFns, options) {
       if (!(element instanceof Element) || !componentName) return;
@@ -245,22 +234,16 @@ module.exports = __toCommonJS(index_exports);
       }
       return matches;
     },
-    _runWithScopedQueries: function(root, fn) {
-      const scope = this._normalizeRoot(root);
-      const lifecycle = window.VanduoLifecycle;
-      if (scope === document) {
-        return fn();
+    queryAll: function(root, selector) {
+      if (typeof selector === "undefined") {
+        selector = root;
+        root = document;
       }
-      if (lifecycle && typeof lifecycle.runInRoot === "function") {
-        return lifecycle.runInRoot(scope, fn);
-      }
-      const originalQuerySelectorAll = document.querySelectorAll.bind(document);
-      document.querySelectorAll = (selector) => this._queryAll(scope, selector);
-      try {
-        return fn();
-      } finally {
-        document.querySelectorAll = originalQuerySelectorAll;
-      }
+      return this._queryAll(root, selector);
+    },
+    queryOne: function(root, selector) {
+      const matches = this.queryAll(root, selector);
+      return matches.length ? matches[0] : null;
     },
     _isLifecycleManagedComponent: function(component) {
       if (!component || typeof component !== "object") return false;
@@ -307,8 +290,7 @@ module.exports = __toCommonJS(index_exports);
       if (originalInit) {
         component.init = function(...args) {
           const scopedRoot = framework._isRoot(args[0]) ? args[0] : null;
-          const run = () => originalInit.apply(this, args);
-          const result = scopedRoot ? framework._runWithScopedQueries(scopedRoot, run) : run();
+          const result = originalInit.apply(this, args);
           if (window.Vanduo) {
             const syncRoot = scopedRoot || document;
             window.Vanduo._syncComponentLifecycle(name, this, syncRoot);
@@ -1022,12 +1004,8 @@ module.exports = __toCommonJS(index_exports);
      */
     destroyAll: function(root) {
       const scope = this.resolveRoot(root);
-      const snippets = document.querySelectorAll('.vd-code-snippet[data-initialized="true"]');
+      const snippets = this.queryWithin(scope, '.vd-code-snippet[data-initialized="true"]');
       snippets.forEach((snippet) => {
-        if (scope !== document) {
-          const inScope = scope === snippet || typeof scope.contains === "function" && scope.contains(snippet);
-          if (!inScope) return;
-        }
         this.destroy(snippet);
       });
     }
@@ -1047,8 +1025,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize collapsible components
      */
-    init: function() {
-      const collapsibles = document.querySelectorAll(".vd-collapsible, .accordion");
+    init: function(root) {
+      const collapsibles = window.Vanduo.queryAll(root, ".vd-collapsible, .accordion");
       collapsibles.forEach((container) => {
         if (this.instances.has(container)) {
           return;
@@ -1225,8 +1203,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize dropdown components
      */
-    init: function() {
-      const dropdowns = document.querySelectorAll(".vd-dropdown");
+    init: function(root) {
+      const dropdowns = window.Vanduo.queryAll(root, ".vd-dropdown");
       dropdowns.forEach((dropdown) => {
         if (this.instances.has(dropdown)) {
           return;
@@ -1545,8 +1523,8 @@ module.exports = __toCommonJS(index_exports);
       }
     },
     getToggles: function(root) {
-      if (typeof window.VanduoLifecycle !== "undefined") {
-        return window.VanduoLifecycle.queryAll(root, '[data-toggle="font"]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
+        return window.Vanduo.queryAll(root, '[data-toggle="font"]');
       }
       return Array.from(document.querySelectorAll('[data-toggle="font"]'));
     },
@@ -1730,7 +1708,7 @@ module.exports = __toCommonJS(index_exports);
      * Initialize all grid layout containers
      */
     init: function(root) {
-      const containers = document.querySelectorAll("[data-layout-mode]");
+      const containers = window.Vanduo.queryAll(root, "[data-layout-mode]");
       containers.forEach(function(container) {
         if (this.instances.has(container)) {
           return;
@@ -1758,7 +1736,7 @@ module.exports = __toCommonJS(index_exports);
      * Initialize toggle buttons that target grid containers
      */
     initToggleButtons: function(root) {
-      const toggleButtons = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-grid-toggle]") : document.querySelectorAll("[data-grid-toggle]");
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(root, "[data-grid-toggle]") : document.querySelectorAll("[data-grid-toggle]");
       toggleButtons.forEach(function(button) {
         if (button.getAttribute("data-grid-initialized") === "true") {
           return;
@@ -1927,12 +1905,13 @@ module.exports = __toCommonJS(index_exports);
      * Destroy all grid layout instances and clean up toggle buttons
      */
     destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === "function" ? window.Vanduo._normalizeRoot(root) : root || document;
       this.instances.forEach(function(instance, container) {
-        if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, container)) {
+        if (scope === document || scope === container || typeof scope.contains === "function" && scope.contains(container)) {
           this.destroy(container);
         }
       }.bind(this));
-      const toggleButtons = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, '[data-grid-toggle][data-grid-initialized="true"]') : document.querySelectorAll('[data-grid-initialized="true"]');
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(scope, '[data-grid-toggle][data-grid-initialized="true"]') : document.querySelectorAll('[data-grid-initialized="true"]');
       toggleButtons.forEach(function(button) {
         if (button._gridCleanup) {
           button._gridCleanup();
@@ -1963,8 +1942,8 @@ module.exports = __toCommonJS(index_exports);
     // Store cleanup functions for event listeners
     _cleanupFunctions: [],
     getTriggers: function(root) {
-      if (typeof window.VanduoLifecycle !== "undefined") {
-        return window.VanduoLifecycle.queryAll(root, "[data-image-box]");
+      if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
+        return window.Vanduo.queryAll(root, "[data-image-box]");
       }
       return Array.from(document.querySelectorAll("[data-image-box]"));
     },
@@ -2211,7 +2190,7 @@ module.exports = __toCommonJS(index_exports);
       }
       this._cleanupFunctions.forEach((fn) => fn());
       this._cleanupFunctions = [];
-      const triggers = document.querySelectorAll("[data-image-box-initialized]");
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(root, "[data-image-box-initialized]") : document.querySelectorAll("[data-image-box-initialized]");
       triggers.forEach((trigger) => {
         trigger.classList.remove("vd-image-box-trigger");
         if (trigger._imageBoxCleanup) {
@@ -2302,14 +2281,14 @@ module.exports = __toCommonJS(index_exports);
      * Initialize modals
      */
     init: function(root) {
-      const modals = document.querySelectorAll(".vd-modal");
+      const modals = window.Vanduo.queryAll(root, ".vd-modal");
       modals.forEach((modal) => {
         if (this.modals.has(modal)) {
           return;
         }
         this.initModal(modal);
       });
-      const triggers = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-modal]") : document.querySelectorAll("[data-modal]");
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(root, "[data-modal]") : document.querySelectorAll("[data-modal]");
       triggers.forEach((trigger) => {
         if (trigger.dataset.modalTriggerInitialized) return;
         trigger.dataset.modalTriggerInitialized = "true";
@@ -2561,12 +2540,13 @@ module.exports = __toCommonJS(index_exports);
      * Destroy all modal instances
      */
     destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === "function" ? window.Vanduo._normalizeRoot(root) : root || document;
       this.modals.forEach((data, modal) => {
-        if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, modal)) {
+        if (scope === document || scope === modal || typeof scope.contains === "function" && scope.contains(modal)) {
           this.destroy(modal);
         }
       });
-      const triggers = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, "[data-modal][data-modal-trigger-initialized]") : document.querySelectorAll("[data-modal][data-modal-trigger-initialized]");
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(scope, "[data-modal][data-modal-trigger-initialized]") : document.querySelectorAll("[data-modal][data-modal-trigger-initialized]");
       triggers.forEach((trigger) => {
         if (trigger._modalTriggerCleanup) {
           trigger._modalTriggerCleanup();
@@ -2574,7 +2554,7 @@ module.exports = __toCommonJS(index_exports);
         }
         delete trigger.dataset.modalTriggerInitialized;
       });
-      if ((!root || root === document) && this._sharedEscHandler) {
+      if (scope === document && this._sharedEscHandler) {
         document.removeEventListener("keydown", this._sharedEscHandler);
         this._sharedEscHandler = null;
       }
@@ -2605,8 +2585,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize navbar component
      */
-    init: function() {
-      const navbars = document.querySelectorAll(".vd-navbar");
+    init: function(root) {
+      const navbars = window.Vanduo.queryAll(root, ".vd-navbar");
       navbars.forEach((navbar) => {
         if (this.instances.has(navbar)) {
           return;
@@ -2827,8 +2807,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize pagination components
      */
-    init: function() {
-      const paginations = document.querySelectorAll(".vd-pagination[data-pagination]");
+    init: function(root) {
+      const paginations = window.Vanduo.queryAll(root, ".vd-pagination[data-pagination]");
       paginations.forEach((pagination) => {
         if (this.instances.has(pagination)) {
           return;
@@ -3051,21 +3031,21 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize parallax components
      */
-    init: function() {
-      if (this.isInitialized) {
-        this.refresh();
-        return;
-      }
-      this.isInitialized = true;
+    init: function(root) {
       if (this.reducedMotion) {
         return;
       }
-      const parallaxElements = document.querySelectorAll(".vd-parallax");
+      const parallaxElements = window.Vanduo.queryAll(root, ".vd-parallax");
       parallaxElements.forEach((element) => {
         if (!element.dataset.parallaxInitialized) {
           this.initParallax(element);
         }
       });
+      if (this.isInitialized) {
+        this.refresh();
+        return;
+      }
+      this.isInitialized = true;
       this.handleScroll();
       this._onScroll = () => {
         this.handleScroll();
@@ -3209,8 +3189,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Preloader = {
     getProgressBars: function(root) {
-      if (typeof window.VanduoLifecycle !== "undefined") {
-        return window.VanduoLifecycle.queryAll(root, ".vd-progress-bar[data-progress], .progress-bar[data-progress]");
+      if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
+        return window.Vanduo.queryAll(root, ".vd-progress-bar[data-progress], .progress-bar[data-progress]");
       }
       return Array.from(document.querySelectorAll(".vd-progress-bar[data-progress], .progress-bar[data-progress]"));
     },
@@ -3362,8 +3342,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize select components
      */
-    init: function() {
-      const selects = document.querySelectorAll("select.vd-custom-select-input, select[data-custom-select]");
+    init: function(root) {
+      const selects = window.Vanduo.queryAll(root, "select.vd-custom-select-input, select[data-custom-select]");
       selects.forEach((select) => {
         if (this.instances.has(select)) {
           return;
@@ -3829,14 +3809,14 @@ module.exports = __toCommonJS(index_exports);
      * Initialize sidenav components
      */
     init: function(root) {
-      const sidenavs = document.querySelectorAll(".vd-sidenav, .vd-offcanvas");
+      const sidenavs = window.Vanduo.queryAll(root, ".vd-sidenav, .vd-offcanvas");
       sidenavs.forEach((sidenav) => {
         if (this.sidenavs.has(sidenav)) {
           return;
         }
         this.initSidenav(sidenav);
       });
-      const toggles = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root, "[data-sidenav-toggle]") : document.querySelectorAll("[data-sidenav-toggle]");
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(root, "[data-sidenav-toggle]") : document.querySelectorAll("[data-sidenav-toggle]");
       toggles.forEach((toggle) => {
         if (toggle.dataset.sidenavToggleInitialized) return;
         toggle.dataset.sidenavToggleInitialized = "true";
@@ -4032,12 +4012,13 @@ module.exports = __toCommonJS(index_exports);
      * Destroy all sidenav instances
      */
     destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === "function" ? window.Vanduo._normalizeRoot(root) : root || document;
       this.sidenavs.forEach((data, sidenav) => {
-        if (!root || root === document || typeof window.VanduoLifecycle !== "undefined" && window.VanduoLifecycle.isInRoot(root, sidenav)) {
+        if (scope === document || scope === sidenav || typeof scope.contains === "function" && scope.contains(sidenav)) {
           this.destroy(sidenav);
         }
       });
-      const toggles = typeof window.VanduoLifecycle !== "undefined" ? window.VanduoLifecycle.queryAll(root || document, "[data-sidenav-toggle][data-sidenav-toggle-initialized]") : document.querySelectorAll("[data-sidenav-toggle][data-sidenav-toggle-initialized]");
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(scope, "[data-sidenav-toggle][data-sidenav-toggle-initialized]") : document.querySelectorAll("[data-sidenav-toggle][data-sidenav-toggle-initialized]");
       toggles.forEach((toggle) => {
         if (toggle._sidenavToggleCleanup) {
           toggle._sidenavToggleCleanup();
@@ -4045,7 +4026,7 @@ module.exports = __toCommonJS(index_exports);
         }
         delete toggle.dataset.sidenavToggleInitialized;
       });
-      if (!root || root === document) {
+      if (scope === document) {
         if (this._resizeCleanup) {
           this._resizeCleanup();
           this._resizeCleanup = null;
@@ -4070,8 +4051,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize all tab components
      */
-    init: function() {
-      const tabContainers = document.querySelectorAll(".vd-tabs, [data-tabs]");
+    init: function(root) {
+      const tabContainers = window.Vanduo.queryAll(root, ".vd-tabs, [data-tabs]");
       tabContainers.forEach((container) => {
         if (this.instances.has(container)) {
           return;
@@ -5058,8 +5039,8 @@ module.exports = __toCommonJS(index_exports);
     _mediaQuery: null,
     _onMediaChange: null,
     getToggles: function(root) {
-      if (typeof window.VanduoLifecycle !== "undefined") {
-        return window.VanduoLifecycle.queryAll(root, '[data-toggle="theme"]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
+        return window.Vanduo.queryAll(root, '[data-toggle="theme"]');
       }
       return Array.from(document.querySelectorAll('[data-toggle="theme"]'));
     },
@@ -5496,8 +5477,8 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize tooltips
      */
-    init: function() {
-      const elements = document.querySelectorAll("[data-tooltip], [data-tooltip-html]");
+    init: function(root) {
+      const elements = window.Vanduo.queryAll(root, "[data-tooltip], [data-tooltip-html]");
       elements.forEach((element) => {
         if (this.tooltips.has(element)) {
           return;
@@ -5810,8 +5791,8 @@ module.exports = __toCommonJS(index_exports);
       boundHandlers: {}
     };
     function queryAll(selector) {
-      if (typeof window.VanduoLifecycle !== "undefined") {
-        return window.VanduoLifecycle.queryAll(config.root, selector);
+      if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
+        return window.Vanduo.queryAll(config.root, selector);
       }
       const scope = normalizeRoot(config.root);
       if (scope === document) {
@@ -6430,21 +6411,21 @@ module.exports = __toCommonJS(index_exports);
     /**
      * Initialize draggable components
      */
-    init: function() {
-      const draggables = document.querySelectorAll(".vd-draggable, [data-draggable]");
+    init: function(root) {
+      const draggables = window.Vanduo.queryAll(root, ".vd-draggable, [data-draggable]");
       draggables.forEach((element) => {
         if (this.instances.has(element)) {
           return;
         }
         this.initDraggable(element);
       });
-      const containers = document.querySelectorAll(this.containerSelector);
+      const containers = window.Vanduo.queryAll(root, this.containerSelector);
       containers.forEach((container) => {
         if (!this.instances.has(container)) {
           this.initContainer(container);
         }
       });
-      const dropZones = document.querySelectorAll(".vd-drop-zone");
+      const dropZones = window.Vanduo.queryAll(root, ".vd-drop-zone");
       dropZones.forEach((zone) => {
         if (!this.instances.has(zone)) {
           this.initDropZone(zone);
@@ -7347,8 +7328,8 @@ module.exports = __toCommonJS(index_exports);
   const GlassScroll = {
     /** @type {Map<Element, IntersectionObserver>} */
     observers: /* @__PURE__ */ new Map(),
-    init: function() {
-      document.querySelectorAll("[data-glass-scroll]").forEach((el) => {
+    init: function(root) {
+      window.Vanduo.queryAll(root, "[data-glass-scroll]").forEach((el) => {
         if (this.observers.has(el)) return;
         this.initElement(el);
       });
@@ -7408,8 +7389,8 @@ module.exports = __toCommonJS(index_exports);
   const MORPH_DURATION_MS = 750;
   const Morph = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const elements = document.querySelectorAll(".vd-morph, [data-vd-morph]");
+    init: function(root) {
+      const elements = window.Vanduo.queryAll(root, ".vd-morph, [data-vd-morph]");
       elements.forEach(function(el) {
         if (Morph.instances.has(el)) return;
         if (el.getAttribute("data-vd-morph") === "manual") return;
@@ -7514,8 +7495,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const ExpandingCards = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      document.querySelectorAll(".vd-expanding-cards").forEach(function(el) {
+    init: function(root) {
+      window.Vanduo.queryAll(root, ".vd-expanding-cards").forEach(function(el) {
         if (el.getAttribute("data-vd-expanding-cards") === "manual") return;
         if (ExpandingCards.instances.has(el)) return;
         ExpandingCards.initContainer(el);
@@ -7745,15 +7726,15 @@ module.exports = __toCommonJS(index_exports);
   }
   const Timeline = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      document.querySelectorAll(".vd-timeline.vd-timeline-animated").forEach(function(el) {
+    init: function(root) {
+      window.Vanduo.queryAll(root, ".vd-timeline.vd-timeline-animated").forEach(function(el) {
         if (Timeline.instances.has(el)) return;
         Timeline.initInstance(el);
       });
     },
-    reinit: function() {
-      Timeline.destroyAll();
-      Timeline.init();
+    reinit: function(root) {
+      Timeline.destroyAll(root);
+      Timeline.init(root);
     },
     initInstance: function(container) {
       const cleanup = [];
@@ -7812,8 +7793,10 @@ module.exports = __toCommonJS(index_exports);
       });
       this.instances.delete(container);
     },
-    destroyAll: function() {
+    destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === "function" ? window.Vanduo._normalizeRoot(root) : document;
       this.instances.forEach(function(_, el) {
+        if (scope !== document && scope !== el && (!scope.contains || !scope.contains(el))) return;
         Timeline.destroy(el);
       });
     }
@@ -7829,8 +7812,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Flow = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const carousels = document.querySelectorAll(".vd-flow, .vd-carousel");
+    init: function(root) {
+      const carousels = window.Vanduo.queryAll(root, ".vd-flow, .vd-carousel");
       carousels.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -8047,8 +8030,8 @@ module.exports = __toCommonJS(index_exports);
   const Bubble = {
     instances: /* @__PURE__ */ new Map(),
     _globalCleanups: [],
-    init: function() {
-      const triggers = document.querySelectorAll("[data-vd-bubble], [data-vd-popover]");
+    init: function(root) {
+      const triggers = window.Vanduo.queryAll(root, "[data-vd-bubble], [data-vd-popover]");
       triggers.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -8220,8 +8203,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Waypoint = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const navs = document.querySelectorAll("[data-vd-waypoint-nav], [data-vd-scrollspy-nav]");
+    init: function(root) {
+      const navs = window.Vanduo.queryAll(root, "[data-vd-waypoint-nav], [data-vd-scrollspy-nav]");
       navs.forEach((nav) => {
         if (this.instances.has(nav)) return;
         this.initInstance(nav);
@@ -8314,8 +8297,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Ripple = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const elements = document.querySelectorAll(".vd-ripple, [data-vd-ripple]");
+    init: function(root) {
+      const elements = window.Vanduo.queryAll(root, ".vd-ripple, [data-vd-ripple]");
       elements.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -8386,8 +8369,8 @@ module.exports = __toCommonJS(index_exports);
   }
   const Affix = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const elements = document.querySelectorAll(".vd-affix, .vd-sticky, [data-vd-affix]");
+    init: function(root) {
+      const elements = window.Vanduo.queryAll(root, ".vd-affix, .vd-sticky, [data-vd-affix]");
       elements.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -8489,8 +8472,8 @@ module.exports = __toCommonJS(index_exports);
   }
   const Suggest = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const inputs = document.querySelectorAll("[data-vd-suggest], [data-vd-autocomplete]");
+    init: function(root) {
+      const inputs = window.Vanduo.queryAll(root, "[data-vd-suggest], [data-vd-autocomplete]");
       inputs.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -8740,8 +8723,8 @@ module.exports = __toCommonJS(index_exports);
       pattern: "Invalid format",
       match: "Fields do not match"
     },
-    init: function() {
-      const forms = document.querySelectorAll("[data-vd-validate], .vd-validate");
+    init: function(root) {
+      const forms = window.Vanduo.queryAll(root, "[data-vd-validate], .vd-validate");
       forms.forEach((form) => {
         if (this.instances.has(form)) return;
         this.initInstance(form);
@@ -8978,8 +8961,8 @@ module.exports = __toCommonJS(index_exports);
   }
   const Datepicker = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const inputs = document.querySelectorAll("[data-vd-datepicker]");
+    init: function(root) {
+      const inputs = window.Vanduo.queryAll(root, "[data-vd-datepicker]");
       inputs.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -9431,8 +9414,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Timepicker = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const inputs = document.querySelectorAll("[data-vd-timepicker]");
+    init: function(root) {
+      const inputs = window.Vanduo.queryAll(root, "[data-vd-timepicker]");
       inputs.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -9546,8 +9529,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Stepper = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const steppers = document.querySelectorAll(".vd-stepper");
+    init: function(root) {
+      const steppers = window.Vanduo.queryAll(root, ".vd-stepper");
       steppers.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -9622,8 +9605,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Rating = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const ratings = document.querySelectorAll("[data-vd-rating]");
+    init: function(root) {
+      const ratings = window.Vanduo.queryAll(root, "[data-vd-rating]");
       ratings.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -9757,8 +9740,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Transfer = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const transfers = document.querySelectorAll("[data-vd-transfer]");
+    init: function(root) {
+      const transfers = window.Vanduo.queryAll(root, "[data-vd-transfer]");
       transfers.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -9921,8 +9904,8 @@ module.exports = __toCommonJS(index_exports);
   "use strict";
   const Tree = {
     instances: /* @__PURE__ */ new Map(),
-    init: function() {
-      const trees = document.querySelectorAll("[data-vd-tree]");
+    init: function(root) {
+      const trees = window.Vanduo.queryAll(root, "[data-vd-tree]");
       trees.forEach((el) => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -10086,8 +10069,8 @@ module.exports = __toCommonJS(index_exports);
     _cleanup: [],
     _boundTriggers: /* @__PURE__ */ new WeakMap(),
     _triggerElement: null,
-    init: function() {
-      const triggers = document.querySelectorAll("[data-vd-spotlight]");
+    init: function(root) {
+      const triggers = window.Vanduo.queryAll(root, "[data-vd-spotlight]");
       triggers.forEach((trigger) => {
         if (this._boundTriggers.has(trigger)) return;
         const clickHandler = (event) => {
@@ -10360,8 +10343,8 @@ module.exports = __toCommonJS(index_exports);
      * Auto-initialize all .vd-music-player / [data-music-player] elements.
      * Options can be provided via data-music-player-options (JSON string).
      */
-    init: function() {
-      document.querySelectorAll(".vd-music-player, [data-music-player]").forEach((el) => {
+    init: function(root) {
+      window.Vanduo.queryAll(root, ".vd-music-player, [data-music-player]").forEach((el) => {
         if (this.instances.has(el)) return;
         let opts = {};
         const attr = el.getAttribute("data-music-player-options");

@@ -131,8 +131,8 @@
   const Datepicker = {
     instances: new Map(),
 
-    init: function () {
-      const inputs = document.querySelectorAll('[data-vd-datepicker]');
+    init: function (root) {
+      const inputs = window.Vanduo.queryAll(root, '[data-vd-datepicker]');
       inputs.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

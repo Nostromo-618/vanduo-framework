@@ -63,8 +63,11 @@ test.describe('Navbar Component @component', () => {
       await toggle.click();
       await expect(menu).toHaveClass(/is-open/);
 
-      // Click on the overlay (use force to bypass navbar menu element)
-      await page.locator('.vd-navbar-overlay.is-active').click({ force: true });
+      // Click the left-side overlay area, outside the fixed slide-out menu.
+      await page.locator('.vd-navbar-overlay.is-active').click({
+        position: { x: 24, y: 160 },
+        force: true
+      });
 
       await expect(menu).not.toHaveClass(/is-open/);
     });

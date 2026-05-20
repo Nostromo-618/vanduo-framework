@@ -9,8 +9,8 @@
   const Ripple = {
     instances: new Map(),
 
-    init: function () {
-      const elements = document.querySelectorAll('.vd-ripple, [data-vd-ripple]');
+    init: function (root) {
+      const elements = window.Vanduo.queryAll(root, '.vd-ripple, [data-vd-ripple]');
       elements.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

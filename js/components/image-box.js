@@ -32,8 +32,8 @@
     _cleanupFunctions: [],
 
     getTriggers: function (root) {
-      if (typeof window.VanduoLifecycle !== 'undefined') {
-        return window.VanduoLifecycle.queryAll(root, '[data-image-box]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '[data-image-box]');
       }
 
       return Array.from(document.querySelectorAll('[data-image-box]'));
@@ -380,7 +380,9 @@
       this._cleanupFunctions = [];
 
       // Remove trigger bindings
-      const triggers = document.querySelectorAll('[data-image-box-initialized]');
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-image-box-initialized]')
+        : document.querySelectorAll('[data-image-box-initialized]');
       triggers.forEach(trigger => {
         trigger.classList.remove('vd-image-box-trigger');
         if (trigger._imageBoxCleanup) {

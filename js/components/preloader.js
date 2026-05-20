@@ -11,8 +11,8 @@
    */
   const Preloader = {
     getProgressBars: function(root) {
-      if (typeof window.VanduoLifecycle !== 'undefined') {
-        return window.VanduoLifecycle.queryAll(root, '.vd-progress-bar[data-progress], .progress-bar[data-progress]');
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '.vd-progress-bar[data-progress], .progress-bar[data-progress]');
       }
 
       return Array.from(document.querySelectorAll('.vd-progress-bar[data-progress], .progress-bar[data-progress]'));

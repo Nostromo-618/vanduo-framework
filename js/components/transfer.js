@@ -9,8 +9,8 @@
   const Transfer = {
     instances: new Map(),
 
-    init: function () {
-      const transfers = document.querySelectorAll('[data-vd-transfer]');
+    init: function (root) {
+      const transfers = window.Vanduo.queryAll(root, '[data-vd-transfer]');
       transfers.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

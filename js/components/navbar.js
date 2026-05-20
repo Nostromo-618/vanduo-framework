@@ -29,8 +29,8 @@
     /**
      * Initialize navbar component
      */
-    init: function () {
-      const navbars = document.querySelectorAll('.vd-navbar');
+    init: function (root) {
+      const navbars = window.Vanduo.queryAll(root, '.vd-navbar');
 
       navbars.forEach(navbar => {
         // Skip if already initialized

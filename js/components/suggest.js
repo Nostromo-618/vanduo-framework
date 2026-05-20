@@ -36,8 +36,8 @@
   const Suggest = {
     instances: new Map(),
 
-    init: function () {
-      const inputs = document.querySelectorAll('[data-vd-suggest], [data-vd-autocomplete]');
+    init: function (root) {
+      const inputs = window.Vanduo.queryAll(root, '[data-vd-suggest], [data-vd-autocomplete]');
       inputs.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

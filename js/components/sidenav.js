@@ -143,7 +143,7 @@
      * Initialize sidenav components
      */
     init: function(root) {
-      const sidenavs = document.querySelectorAll('.vd-sidenav, .vd-offcanvas');
+      const sidenavs = window.Vanduo.queryAll(root, '.vd-sidenav, .vd-offcanvas');
 
       sidenavs.forEach(sidenav => {
         if (this.sidenavs.has(sidenav)) {
@@ -153,8 +153,8 @@
       });
 
       // Handle toggle buttons
-      const toggles = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root, '[data-sidenav-toggle]')
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-sidenav-toggle]')
         : document.querySelectorAll('[data-sidenav-toggle]');
       toggles.forEach(toggle => {
         if (toggle.dataset.sidenavToggleInitialized) return;
@@ -413,14 +413,18 @@
      * Destroy all sidenav instances
      */
     destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.sidenavs.forEach((data, sidenav) => {
-        if (!root || root === document || (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isInRoot(root, sidenav))) {
+        if (scope === document || scope === sidenav || (typeof scope.contains === 'function' && scope.contains(sidenav))) {
           this.destroy(sidenav);
         }
       });
 
-      const toggles = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root || document, '[data-sidenav-toggle][data-sidenav-toggle-initialized]')
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-sidenav-toggle][data-sidenav-toggle-initialized]')
         : document.querySelectorAll('[data-sidenav-toggle][data-sidenav-toggle-initialized]');
       toggles.forEach(toggle => {
         if (toggle._sidenavToggleCleanup) {
@@ -430,7 +434,7 @@
         delete toggle.dataset.sidenavToggleInitialized;
       });
 
-      if (!root || root === document) {
+      if (scope === document) {
         if (this._resizeCleanup) {
           this._resizeCleanup();
           this._resizeCleanup = null;

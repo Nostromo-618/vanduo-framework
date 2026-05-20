@@ -8,6 +8,7 @@ declare global {
       destroyAll: () => void;
       reinit: (name: string, root?: Element | Document) => void;
       getComponent: (name: string) => any;
+      register: (name: string, component: { init?: (root?: Element | Document) => void }) => void;
     };
     VanduoLifecycle: {
       getAll: () => Array<{ element: Element; component: string }>;
@@ -103,5 +104,28 @@ test.describe('Runtime Scope Contract @component', () => {
 
     expect(afterDestroyAll.instanceCount).toBe(0);
     expect(afterDestroyAll.lifecycleCount).toBe(0);
+  });
+
+  test('scoped init does not mutate document query APIs', async ({ page }) => {
+    const state = await page.evaluate(() => {
+      const originalQuerySelectorAll = document.querySelectorAll;
+      let sameDuringInit = false;
+
+      window.Vanduo.register('queryProbe', {
+        init: () => {
+          sameDuringInit = document.querySelectorAll === originalQuerySelectorAll;
+        }
+      });
+
+      window.Vanduo.reinit('queryProbe', document.getElementById('scope-a')!);
+
+      return {
+        sameDuringInit,
+        sameAfterInit: document.querySelectorAll === originalQuerySelectorAll
+      };
+    });
+
+    expect(state.sameDuringInit).toBe(true);
+    expect(state.sameAfterInit).toBe(true);
   });
 });

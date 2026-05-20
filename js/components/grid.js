@@ -26,7 +26,7 @@
      * Initialize all grid layout containers
      */
     init: function (root) {
-      const containers = document.querySelectorAll('[data-layout-mode]');
+      const containers = window.Vanduo.queryAll(root, '[data-layout-mode]');
 
       containers.forEach(function (container) {
         if (this.instances.has(container)) {
@@ -61,8 +61,8 @@
      * Initialize toggle buttons that target grid containers
      */
     initToggleButtons: function (root) {
-      const toggleButtons = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root, '[data-grid-toggle]')
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-grid-toggle]')
         : document.querySelectorAll('[data-grid-toggle]');
 
       toggleButtons.forEach(function (button) {
@@ -257,14 +257,18 @@
      * Destroy all grid layout instances and clean up toggle buttons
      */
     destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.instances.forEach(function (instance, container) {
-        if (!root || root === document || (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isInRoot(root, container))) {
+        if (scope === document || scope === container || (typeof scope.contains === 'function' && scope.contains(container))) {
           this.destroy(container);
         }
       }.bind(this));
 
-      const toggleButtons = typeof window.VanduoLifecycle !== 'undefined'
-        ? window.VanduoLifecycle.queryAll(root || document, '[data-grid-toggle][data-grid-initialized="true"]')
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-grid-toggle][data-grid-initialized="true"]')
         : document.querySelectorAll('[data-grid-initialized="true"]');
       toggleButtons.forEach(function (button) {
         if (button._gridCleanup) {

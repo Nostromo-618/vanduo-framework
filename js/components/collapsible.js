@@ -16,8 +16,8 @@
     /**
      * Initialize collapsible components
      */
-    init: function() {
-      const collapsibles = document.querySelectorAll('.vd-collapsible, .accordion');
+    init: function(root) {
+      const collapsibles = window.Vanduo.queryAll(root, '.vd-collapsible, .accordion');
 
       collapsibles.forEach(container => {
         if (this.instances.has(container)) {
@@ -223,4 +223,3 @@
   window.VanduoCollapsible = Collapsible;
   
 })();
-

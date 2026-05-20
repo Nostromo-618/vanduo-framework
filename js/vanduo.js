@@ -51,26 +51,18 @@
       return matches;
     },
 
-    _runWithScopedQueries: function (root, fn) {
-      const scope = this._normalizeRoot(root);
-      const lifecycle = window.VanduoLifecycle;
-
-      if (scope === document) {
-        return fn();
+    queryAll: function (root, selector) {
+      if (typeof selector === 'undefined') {
+        selector = root;
+        root = document;
       }
 
-      if (lifecycle && typeof lifecycle.runInRoot === 'function') {
-        return lifecycle.runInRoot(scope, fn);
-      }
+      return this._queryAll(root, selector);
+    },
 
-      const originalQuerySelectorAll = document.querySelectorAll.bind(document);
-      document.querySelectorAll = (selector) => this._queryAll(scope, selector);
-
-      try {
-        return fn();
-      } finally {
-        document.querySelectorAll = originalQuerySelectorAll;
-      }
+    queryOne: function (root, selector) {
+      const matches = this.queryAll(root, selector);
+      return matches.length ? matches[0] : null;
     },
 
     _isLifecycleManagedComponent: function (component) {
@@ -128,8 +120,7 @@
       if (originalInit) {
         component.init = function (...args) {
           const scopedRoot = framework._isRoot(args[0]) ? args[0] : null;
-          const run = () => originalInit.apply(this, args);
-          const result = scopedRoot ? framework._runWithScopedQueries(scopedRoot, run) : run();
+          const result = originalInit.apply(this, args);
 
           if (window.Vanduo) {
             const syncRoot = scopedRoot || document;

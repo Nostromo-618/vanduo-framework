@@ -9,8 +9,8 @@
   const Tree = {
     instances: new Map(),
 
-    init: function () {
-      const trees = document.querySelectorAll('[data-vd-tree]');
+    init: function (root) {
+      const trees = window.Vanduo.queryAll(root, '[data-vd-tree]');
       trees.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

@@ -10,8 +10,8 @@
     instances: new Map(),
     _globalCleanups: [],
 
-    init: function () {
-      const triggers = document.querySelectorAll('[data-vd-bubble], [data-vd-popover]');
+    init: function (root) {
+      const triggers = window.Vanduo.queryAll(root, '[data-vd-bubble], [data-vd-popover]');
       triggers.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -82,7 +82,7 @@
       body.className = 'vd-bubble-body';
       if (htmlContent) {
         if (typeof sanitizeHtml === 'function') {
-          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg });
+          body.innerHTML = sanitizeHtml(htmlContent, { allowSvg, allowStyle: false });
         } else {
           body.textContent = htmlContent;
         }

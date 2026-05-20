@@ -13,9 +13,11 @@
     sidenavs: new Map(),
     breakpoint: 992, // Desktop breakpoint
     restoreDelayMs: 450,
+    __vanduoScopedDestroyAll: true,
     
     // Global cleanup functions (toggles, resize)
     _globalCleanups: [],
+    _resizeCleanup: null,
 
     isFixedVariant: function(sidenav) {
       return sidenav.classList.contains('vd-sidenav-fixed') || sidenav.classList.contains('sidenav-fixed');
@@ -140,8 +142,8 @@
     /**
      * Initialize sidenav components
      */
-    init: function() {
-      const sidenavs = document.querySelectorAll('.vd-sidenav, .vd-offcanvas');
+    init: function(root) {
+      const sidenavs = window.Vanduo.queryAll(root, '.vd-sidenav, .vd-offcanvas');
 
       sidenavs.forEach(sidenav => {
         if (this.sidenavs.has(sidenav)) {
@@ -151,7 +153,9 @@
       });
 
       // Handle toggle buttons
-      const toggles = document.querySelectorAll('[data-sidenav-toggle]');
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-sidenav-toggle]')
+        : document.querySelectorAll('[data-sidenav-toggle]');
       toggles.forEach(toggle => {
         if (toggle.dataset.sidenavToggleInitialized) return;
         toggle.dataset.sidenavToggleInitialized = 'true';
@@ -165,16 +169,18 @@
           }
         };
         toggle.addEventListener('click', toggleClickHandler);
-        this._globalCleanups.push(() => toggle.removeEventListener('click', toggleClickHandler));
+        toggle._sidenavToggleCleanup = () => toggle.removeEventListener('click', toggleClickHandler);
       });
 
       // Handle responsive behavior
       this.handleResize();
-      const resizeHandler = () => {
-        this.handleResize();
-      };
-      window.addEventListener('resize', resizeHandler);
-      this._globalCleanups.push(() => window.removeEventListener('resize', resizeHandler));
+      if (!this._resizeCleanup) {
+        const resizeHandler = () => {
+          this.handleResize();
+        };
+        window.addEventListener('resize', resizeHandler);
+        this._resizeCleanup = () => window.removeEventListener('resize', resizeHandler);
+      }
     },
 
     /**
@@ -406,12 +412,36 @@
     /**
      * Destroy all sidenav instances
      */
-    destroyAll: function() {
+    destroyAll: function(root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.sidenavs.forEach((data, sidenav) => {
-        this.destroy(sidenav);
+        if (scope === document || scope === sidenav || (typeof scope.contains === 'function' && scope.contains(sidenav))) {
+          this.destroy(sidenav);
+        }
       });
-      this._globalCleanups.forEach(fn => fn());
-      this._globalCleanups = [];
+
+      const toggles = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-sidenav-toggle][data-sidenav-toggle-initialized]')
+        : document.querySelectorAll('[data-sidenav-toggle][data-sidenav-toggle-initialized]');
+      toggles.forEach(toggle => {
+        if (toggle._sidenavToggleCleanup) {
+          toggle._sidenavToggleCleanup();
+          delete toggle._sidenavToggleCleanup;
+        }
+        delete toggle.dataset.sidenavToggleInitialized;
+      });
+
+      if (scope === document) {
+        if (this._resizeCleanup) {
+          this._resizeCleanup();
+          this._resizeCleanup = null;
+        }
+        this._globalCleanups.forEach(fn => fn());
+        this._globalCleanups = [];
+      }
     }
   };
   
@@ -424,4 +454,3 @@
   window.VanduoSidenav = Sidenav;
   
 })();
-

@@ -6,19 +6,19 @@
 
 :root {
   /* Waypoint active indicator */
-  --waypoint-active-color: var(--color-primary, #0d6efd);
+  --waypoint-active-color: var(--vd-color-primary, #0d6efd);
   --waypoint-active-bg: transparent;
   --waypoint-active-border-width: 2px;
   --waypoint-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 [data-theme="dark"] {
-  --waypoint-active-color: var(--color-primary-light, #6ea8fe);
+  --waypoint-active-color: var(--vd-color-primary-light, #6ea8fe);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --waypoint-active-color: var(--color-primary-light, #6ea8fe);
+    --waypoint-active-color: var(--vd-color-primary-light, #6ea8fe);
   }
 }
 

@@ -36,8 +36,8 @@
   const Suggest = {
     instances: new Map(),
 
-    init: function () {
-      const inputs = document.querySelectorAll('[data-vd-suggest], [data-vd-autocomplete]');
+    init: function (root) {
+      const inputs = window.Vanduo.queryAll(root, '[data-vd-suggest], [data-vd-autocomplete]');
       inputs.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);
@@ -220,16 +220,22 @@
       const blurHandler = () => {
         setTimeout(close, 200);
       };
+      const focusHandler = () => {
+        if (input.value.length >= minChars) {
+          doSearch(input.value);
+        }
+      };
 
       input.addEventListener('input', inputHandler);
       input.addEventListener('keydown', keyHandler);
       input.addEventListener('blur', blurHandler);
-      input.addEventListener('focus', () => { if (input.value.length >= minChars) doSearch(input.value); });
+      input.addEventListener('focus', focusHandler);
 
       cleanup.push(
         () => input.removeEventListener('input', inputHandler),
         () => input.removeEventListener('keydown', keyHandler),
         () => input.removeEventListener('blur', blurHandler),
+        () => input.removeEventListener('focus', focusHandler),
         () => clearTimeout(debounceTimer),
         () => { if (list.parentNode) list.parentNode.removeChild(list); }
       );

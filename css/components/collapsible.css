@@ -5,11 +5,11 @@
 
 :root {
   /* Collapsible Colors */
-  --collapsible-border-color: var(--border-color);
-  --collapsible-bg: var(--color-white);
-  --collapsible-header-bg: var(--bg-secondary);
-  --collapsible-header-bg-hover: var(--bg-secondary);
-  --collapsible-header-bg-active: var(--bg-secondary);
+  --collapsible-border-color: var(--vd-border-color);
+  --collapsible-bg: var(--vd-color-white);
+  --collapsible-header-bg: var(--vd-bg-secondary);
+  --collapsible-header-bg-hover: var(--vd-bg-secondary);
+  --collapsible-header-bg-active: var(--vd-bg-secondary);
   --collapsible-focus-ring: 0 0 0 2px var(--input-focus-border-color);
   
   /* Collapsible Spacing (Fibonacci) */
@@ -24,18 +24,18 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --collapsible-bg: var(--bg-secondary);
-  --collapsible-header-bg: var(--bg-primary);
-  --collapsible-header-bg-hover: var(--bg-primary);
-  --collapsible-header-bg-active: var(--bg-primary);
+  --collapsible-bg: var(--vd-bg-secondary);
+  --collapsible-header-bg: var(--vd-bg-primary);
+  --collapsible-header-bg-hover: var(--vd-bg-primary);
+  --collapsible-header-bg-active: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --collapsible-bg: var(--bg-secondary);
-    --collapsible-header-bg: var(--bg-primary);
-    --collapsible-header-bg-hover: var(--bg-primary);
-    --collapsible-header-bg-active: var(--bg-primary);
+    --collapsible-bg: var(--vd-bg-secondary);
+    --collapsible-header-bg: var(--vd-bg-primary);
+    --collapsible-header-bg-hover: var(--vd-bg-primary);
+    --collapsible-header-bg-active: var(--vd-bg-primary);
   }
 }
 
@@ -82,7 +82,7 @@
   font-family: var(--font-family-sans);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-collapsible-header:hover,
@@ -122,7 +122,7 @@
   font-family: var(--font-family-sans);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   text-decoration: none;
   background: none;
   border: none;
@@ -156,7 +156,7 @@
 .accordion-icon::before {
   content: '▼';
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
   transition: transform var(--transition-duration-base) var(--transition-ease);
 }
 
@@ -185,20 +185,20 @@
 /* Collapsible Content */
 .vd-collapsible-content,
 .accordion-content {
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   line-height: var(--line-height-normal);
 }
 
 /* Collapsible States */
 .vd-collapsible-item.is-active,
 .accordion-item.is-active {
-  border-color: var(--color-primary);
+  border-color: var(--vd-color-primary);
 }
 
 .vd-collapsible-item.is-active .vd-collapsible-header,
 .accordion-item.is-active .accordion-header {
-  background-color: var(--color-primary-alpha-10);
-  color: var(--color-primary);
+  background-color: var(--vd-color-primary-alpha-10);
+  color: var(--vd-color-primary);
 }
 
 /* Collapsible Variants - Bordered */

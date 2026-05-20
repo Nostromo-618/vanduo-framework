@@ -18,7 +18,7 @@
   --flow-control-offset: 0.8125rem;  /* 13px - fib */
 
   /* Flow Colors */
-  --flow-bg: var(--bg-primary, #fff);
+  --flow-bg: var(--vd-bg-primary, #fff);
   --flow-indicator-bg: rgba(255, 255, 255, 0.5);
   --flow-indicator-active-bg: #fff;
   --flow-control-bg: rgba(0, 0, 0, 0.3);
@@ -39,14 +39,14 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --flow-bg: var(--bg-primary, #1a1a2e);
+  --flow-bg: var(--vd-bg-primary, #1a1a2e);
   --flow-control-bg: rgba(255, 255, 255, 0.2);
   --flow-control-hover-bg: rgba(255, 255, 255, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --flow-bg: var(--bg-primary, #1a1a2e);
+    --flow-bg: var(--vd-bg-primary, #1a1a2e);
     --flow-control-bg: rgba(255, 255, 255, 0.2);
     --flow-control-hover-bg: rgba(255, 255, 255, 0.35);
   }

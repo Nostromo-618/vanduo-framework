@@ -9,8 +9,8 @@
   const Waypoint = {
     instances: new Map(),
 
-    init: function () {
-      const navs = document.querySelectorAll('[data-vd-waypoint-nav], [data-vd-scrollspy-nav]');
+    init: function (root) {
+      const navs = window.Vanduo.queryAll(root, '[data-vd-waypoint-nav], [data-vd-scrollspy-nav]');
       navs.forEach(nav => {
         if (this.instances.has(nav)) return;
         this.initInstance(nav);

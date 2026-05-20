@@ -24,19 +24,19 @@
   --music-player-border-width: 1px;
 
   /* Colors */
-  --music-player-bg: var(--bg-primary);
-  --music-player-bg-secondary: var(--bg-secondary);
-  --music-player-border: var(--border-color);
-  --music-player-text: var(--text-primary);
-  --music-player-text-muted: var(--text-muted);
-  --music-player-accent: var(--color-primary);
-  --music-player-btn-hover-bg: var(--bg-secondary);
-  --music-player-btn-active-bg: var(--color-primary-alpha-10, rgba(var(--color-primary-rgb, 59,130,246), 0.1));
-  --music-player-track-bg: var(--border-color);
-  --music-player-track-fill: var(--color-primary);
-  --music-player-playlist-hover: var(--bg-secondary);
-  --music-player-playlist-active-bg: var(--color-primary-alpha-10, rgba(var(--color-primary-rgb, 59,130,246), 0.1));
-  --music-player-playlist-active-text: var(--color-primary);
+  --music-player-bg: var(--vd-bg-primary);
+  --music-player-bg-secondary: var(--vd-bg-secondary);
+  --music-player-border: var(--vd-border-color);
+  --music-player-text: var(--vd-text-primary);
+  --music-player-text-muted: var(--vd-text-muted);
+  --music-player-accent: var(--vd-color-primary);
+  --music-player-btn-hover-bg: var(--vd-bg-secondary);
+  --music-player-btn-active-bg: var(--vd-color-primary-alpha-10, rgba(var(--vd-color-primary-rgb, 59,130,246), 0.1));
+  --music-player-track-bg: var(--vd-border-color);
+  --music-player-track-fill: var(--vd-color-primary);
+  --music-player-playlist-hover: var(--vd-bg-secondary);
+  --music-player-playlist-active-bg: var(--vd-color-primary-alpha-10, rgba(var(--vd-color-primary-rgb, 59,130,246), 0.1));
+  --music-player-playlist-active-text: var(--vd-color-primary);
 
   /* Transitions */
   --music-player-transition: 0.15s ease;
@@ -54,20 +54,20 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --music-player-bg: var(--bg-primary);
-  --music-player-bg-secondary: var(--color-gray-800);
-  --music-player-btn-hover-bg: var(--color-gray-700);
-  --music-player-playlist-hover: var(--color-gray-700);
+  --music-player-bg: var(--vd-bg-primary);
+  --music-player-bg-secondary: var(--vd-color-gray-800);
+  --music-player-btn-hover-bg: var(--vd-color-gray-700);
+  --music-player-playlist-hover: var(--vd-color-gray-700);
   --music-player-glass-bg: var(--vd-glass-bg-dark, rgba(30, 30, 40, 0.72));
   --music-player-glass-border: var(--vd-glass-border-dark, rgba(255, 255, 255, 0.14));
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --music-player-bg: var(--bg-primary);
-    --music-player-bg-secondary: var(--color-gray-800);
-    --music-player-btn-hover-bg: var(--color-gray-700);
-    --music-player-playlist-hover: var(--color-gray-700);
+    --music-player-bg: var(--vd-bg-primary);
+    --music-player-bg-secondary: var(--vd-color-gray-800);
+    --music-player-btn-hover-bg: var(--vd-color-gray-700);
+    --music-player-playlist-hover: var(--vd-color-gray-700);
     --music-player-glass-bg: var(--vd-glass-bg-dark, rgba(30, 30, 40, 0.72));
     --music-player-glass-border: var(--vd-glass-border-dark, rgba(255, 255, 255, 0.14));
   }
@@ -550,11 +550,11 @@
    ============================================================ */
 
 .vd-music-player-neutral {
-  --music-player-accent: var(--text-primary);
-  --music-player-track-fill: var(--text-primary);
-  --music-player-playlist-active-text: var(--text-primary);
-  --music-player-playlist-active-bg: var(--bg-secondary);
-  --music-player-btn-active-bg: var(--bg-secondary);
+  --music-player-accent: var(--vd-text-primary);
+  --music-player-track-fill: var(--vd-text-primary);
+  --music-player-playlist-active-text: var(--vd-text-primary);
+  --music-player-playlist-active-bg: var(--vd-bg-secondary);
+  --music-player-btn-active-bg: var(--vd-bg-secondary);
 }
 
 /* ============================================================

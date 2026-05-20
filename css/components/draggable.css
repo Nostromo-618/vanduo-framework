@@ -5,21 +5,21 @@
 
 :root {
   /* Draggable Colors */
-  --draggable-bg: var(--color-white);
-  --draggable-border-color: var(--border-color);
-  --draggable-hover-bg: var(--bg-secondary);
-  --draggable-hover-border-color: var(--color-primary);
-  --draggable-dragging-bg: var(--bg-secondary);
-  --draggable-dragging-border-color: var(--color-primary);
+  --draggable-bg: var(--vd-color-white);
+  --draggable-border-color: var(--vd-border-color);
+  --draggable-hover-bg: var(--vd-bg-secondary);
+  --draggable-hover-border-color: var(--vd-color-primary);
+  --draggable-dragging-bg: var(--vd-bg-secondary);
+  --draggable-dragging-border-color: var(--vd-color-primary);
   --draggable-dragging-shadow: var(--shadow-lg);
   
   /* Drop Zone Colors */
-  --drop-zone-bg: var(--color-primary-alpha-5);
-  --drop-zone-border-color: var(--color-primary-alpha-30);
-  --drop-zone-hover-bg: var(--color-primary-alpha-10);
-  --drop-zone-hover-border-color: var(--color-primary);
-  --drop-zone-active-bg: var(--color-primary-alpha-15);
-  --drop-zone-active-border-color: var(--color-primary);
+  --drop-zone-bg: var(--vd-color-primary-alpha-5);
+  --drop-zone-border-color: var(--vd-color-primary-alpha-30);
+  --drop-zone-hover-bg: var(--vd-color-primary-alpha-10);
+  --drop-zone-hover-border-color: var(--vd-color-primary);
+  --drop-zone-active-bg: var(--vd-color-primary-alpha-15);
+  --drop-zone-active-border-color: var(--vd-color-primary);
   
   /* Spacing */
   --draggable-padding: 0.8125rem; /* 13px - fib */
@@ -32,24 +32,24 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --draggable-bg: var(--bg-secondary);
-  --draggable-hover-bg: var(--bg-primary);
-  --draggable-dragging-bg: var(--bg-primary);
-  --drop-zone-bg: var(--color-primary-alpha-10);
-  --drop-zone-border-color: var(--color-primary-alpha-40);
-  --drop-zone-hover-bg: var(--color-primary-alpha-15);
-  --drop-zone-active-bg: var(--color-primary-alpha-20);
+  --draggable-bg: var(--vd-bg-secondary);
+  --draggable-hover-bg: var(--vd-bg-primary);
+  --draggable-dragging-bg: var(--vd-bg-primary);
+  --drop-zone-bg: var(--vd-color-primary-alpha-10);
+  --drop-zone-border-color: var(--vd-color-primary-alpha-40);
+  --drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
+  --drop-zone-active-bg: var(--vd-color-primary-alpha-20);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --draggable-bg: var(--bg-secondary);
-    --draggable-hover-bg: var(--bg-primary);
-    --draggable-dragging-bg: var(--bg-primary);
-    --drop-zone-bg: var(--color-primary-alpha-10);
-    --drop-zone-border-color: var(--color-primary-alpha-40);
-    --drop-zone-hover-bg: var(--color-primary-alpha-15);
-    --drop-zone-active-bg: var(--color-primary-alpha-20);
+    --draggable-bg: var(--vd-bg-secondary);
+    --draggable-hover-bg: var(--vd-bg-primary);
+    --draggable-dragging-bg: var(--vd-bg-primary);
+    --drop-zone-bg: var(--vd-color-primary-alpha-10);
+    --drop-zone-border-color: var(--vd-color-primary-alpha-40);
+    --drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
+    --drop-zone-active-bg: var(--vd-color-primary-alpha-20);
   }
 }
 
@@ -104,13 +104,13 @@
   width: 1.25rem; /* 20px */
   height: 1.25rem; /* 20px */
   margin-right: 0.5rem; /* 8px */
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   cursor: grab;
   transition: var(--draggable-transition);
 }
 
 .vd-draggable-handle:hover {
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-draggable:active .vd-draggable-handle {
@@ -147,7 +147,7 @@
   display: block;
   text-align: center;
   padding: 1rem;
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   font-style: italic;
 }
 
@@ -158,7 +158,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
+  color: var(--vd-color-primary);
   pointer-events: none;
 }
 
@@ -168,8 +168,8 @@
   flex-wrap: wrap;
   gap: var(--draggable-margin);
   padding: var(--draggable-padding);
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  background-color: var(--vd-bg-secondary);
+  border: 1px solid var(--vd-border-color);
   border-radius: var(--btn-border-radius);
 }
 
@@ -214,7 +214,7 @@
 /* Keyboard-activated grab state (via aria-grabbed) */
 .vd-draggable[aria-grabbed="true"],
 .vd-draggable-item[aria-grabbed="true"] {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
   background-color: var(--draggable-dragging-bg);
   border-color: var(--draggable-dragging-border-color);
@@ -268,7 +268,7 @@
 /* Accessibility */
 .vd-draggable:focus-visible,
 .vd-draggable-item:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 

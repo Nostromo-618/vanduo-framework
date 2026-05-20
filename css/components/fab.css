@@ -11,9 +11,9 @@
   --fab-icon-size: 1.5rem;
 
   /* FAB Colors */
-  --fab-bg: var(--color-primary, #0d6efd);
+  --fab-bg: var(--vd-color-primary, #0d6efd);
   --fab-color: #fff;
-  --fab-hover-bg: var(--color-primary-dark, #0b5ed7);
+  --fab-hover-bg: var(--vd-color-primary-dark, #0b5ed7);
   --fab-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
   --fab-hover-shadow: 0 5px 13px rgba(0, 0, 0, 0.3), 0 2px 5px rgba(0, 0, 0, 0.2);
 
@@ -58,7 +58,7 @@
 
 .vd-fab-glass {
   background: var(--vd-glass-bg-light);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
   border: 1px solid var(--vd-glass-border-light);
   box-shadow: var(--vd-glass-shadow);
   backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
@@ -159,17 +159,17 @@
 /* ========== Color Variants ========== */
 
 .vd-fab-secondary {
-  --fab-bg: var(--color-gray-600, #6c757d);
-  --fab-hover-bg: var(--color-gray-700, #5c636a);
+  --fab-bg: var(--vd-color-gray-600, #6c757d);
+  --fab-hover-bg: var(--vd-color-gray-700, #5c636a);
 }
 
 .vd-fab-success {
-  --fab-bg: var(--color-success, #198754);
+  --fab-bg: var(--vd-color-success, #198754);
   --fab-hover-bg: #157347;
 }
 
 .vd-fab-danger {
-  --fab-bg: var(--color-danger, #dc3545);
+  --fab-bg: var(--vd-color-danger, #dc3545);
   --fab-hover-bg: #bb2d3b;
 }
 

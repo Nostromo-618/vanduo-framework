@@ -5,14 +5,14 @@
 
 :root {
   /* Footer Colors */
-  --footer-bg: var(--bg-secondary);
-  --footer-bg-dark: var(--bg-dark);
-  --footer-text-color: var(--text-primary);
-  --footer-text-color-dark: var(--text-inverse);
-  --footer-link-color: var(--text-secondary);
-  --footer-link-hover-color: var(--color-primary);
-  --footer-border-color: var(--border-color);
-  --footer-heading-color: var(--text-primary);
+  --footer-bg: var(--vd-bg-secondary);
+  --footer-bg-dark: var(--vd-bg-dark);
+  --footer-text-color: var(--vd-text-primary);
+  --footer-text-color-dark: var(--vd-text-inverse);
+  --footer-link-color: var(--vd-text-secondary);
+  --footer-link-hover-color: var(--vd-color-primary);
+  --footer-border-color: var(--vd-border-color);
+  --footer-heading-color: var(--vd-text-primary);
   
   /* Footer Spacing (Fibonacci) */
   --footer-padding-y: 3.4375rem;    /* 55px - fib */
@@ -24,18 +24,18 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --footer-bg: var(--bg-secondary);
-  --footer-text-color: var(--text-primary);
-  --footer-link-color: var(--text-secondary);
-  --footer-heading-color: var(--text-primary);
+  --footer-bg: var(--vd-bg-secondary);
+  --footer-text-color: var(--vd-text-primary);
+  --footer-link-color: var(--vd-text-secondary);
+  --footer-heading-color: var(--vd-text-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --footer-bg: var(--bg-secondary);
-    --footer-text-color: var(--text-primary);
-    --footer-link-color: var(--text-secondary);
-    --footer-heading-color: var(--text-primary);
+    --footer-bg: var(--vd-bg-secondary);
+    --footer-text-color: var(--vd-text-primary);
+    --footer-link-color: var(--vd-text-secondary);
+    --footer-heading-color: var(--vd-text-primary);
   }
 }
 
@@ -89,7 +89,7 @@
 }
 
 .vd-footer-link:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
   border-radius: 0.25rem;
 }
@@ -116,7 +116,7 @@
   border-top: 1px solid var(--footer-border-color);
   text-align: center;
   font-size: var(--font-size-sm);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
 }
 
 .vd-footer-copyright-left {
@@ -177,7 +177,7 @@
 }
 
 .vd-footer-dark .vd-footer-link:hover {
-  color: var(--color-primary-light);
+  color: var(--vd-color-primary-light);
 }
 
 .vd-footer-dark .vd-footer-copyright {
@@ -242,8 +242,8 @@
 }
 
 .vd-footer-social-link:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
   transform: translateY(-2px);
 }
 
@@ -253,8 +253,8 @@
 }
 
 .vd-footer-dark .vd-footer-social-link:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
 }
 
 /* Responsive Footer */
@@ -284,7 +284,7 @@
 
 .vd-footer-made-with-text {
   font-size: var(--font-size-sm);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.02em;
 }
@@ -307,7 +307,7 @@
 }
 
 .vd-footer-kilo-link:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
@@ -341,7 +341,7 @@
 }
 
 .vd-footer-bmac-link:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
   border-radius: 0.25rem;
 }

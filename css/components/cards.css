@@ -14,12 +14,12 @@
 
   /* Card Border */
   --card-border-width: 1px;
-  --card-border-color: var(--border-color);
+  --card-border-color: var(--vd-border-color);
   --card-border-radius: var(--btn-border-radius-lg);
 
   /* Card Background */
-  --card-bg: var(--color-white);
-  --card-bg-filled: var(--bg-secondary);
+  --card-bg: var(--vd-color-white);
+  --card-bg-filled: var(--vd-bg-secondary);
 
   /* Card Shadow */
   --card-shadow: var(--shadow-sm);
@@ -32,8 +32,8 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --card-bg: var(--bg-secondary);
-  --card-bg-filled: var(--bg-primary);
+  --card-bg: var(--vd-bg-secondary);
+  --card-bg-filled: var(--vd-bg-primary);
   /* Stronger elevation on dark surfaces */
   --card-shadow-elevated: var(--shadow-lg);
   /* Glow uses lighter primary shades for dark mode visibility */
@@ -43,8 +43,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --card-bg: var(--bg-secondary);
-    --card-bg-filled: var(--bg-primary);
+    --card-bg: var(--vd-bg-secondary);
+    --card-bg-filled: var(--vd-bg-primary);
     --card-shadow-elevated: var(--shadow-lg);
     /* Glow uses lighter primary shades for dark mode visibility */
     --card-glow-color: var(--primary-3);
@@ -205,7 +205,7 @@
   margin-bottom: 0.5rem;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-card-title:last-child {
@@ -217,13 +217,13 @@
   margin-top: -0.25rem;
   margin-bottom: 0.5rem;
   font-size: var(--font-size-sm);
-  color: var(--text-secondary);
+  color: var(--vd-text-secondary);
 }
 
 /* Card Text */
 .vd-card-text {
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: var(--vd-text-primary);
 }
 
 .vd-card-text:last-child {

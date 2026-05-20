@@ -32,8 +32,8 @@
   const Affix = {
     instances: new Map(),
 
-    init: function () {
-      const elements = document.querySelectorAll('.vd-affix, .vd-sticky, [data-vd-affix]');
+    init: function (root) {
+      const elements = window.Vanduo.queryAll(root, '.vd-affix, .vd-sticky, [data-vd-affix]');
       elements.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

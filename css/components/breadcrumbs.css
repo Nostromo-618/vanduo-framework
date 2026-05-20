@@ -11,14 +11,14 @@
 
   /* Breadcrumb Separator */
   --breadcrumb-separator: "/";
-  --breadcrumb-separator-color: var(--text-muted);
+  --breadcrumb-separator-color: var(--vd-text-muted);
   --breadcrumb-separator-padding: 0.5rem; /* 8px - fib */
   
   /* Breadcrumb Colors */
   --breadcrumb-bg: transparent;
-  --breadcrumb-link-color: var(--color-primary);
-  --breadcrumb-link-hover-color: var(--color-primary-dark);
-  --breadcrumb-active-color: var(--text-secondary);
+  --breadcrumb-link-color: var(--vd-color-primary);
+  --breadcrumb-link-hover-color: var(--vd-color-primary-dark);
+  --breadcrumb-active-color: var(--vd-text-secondary);
 }
 
 /* Dark Theme Overrides - breadcrumbs use CSS variables that already adapt */
@@ -70,7 +70,7 @@
 
 .vd-breadcrumb-link:focus,
 .vd-breadcrumb-item > a:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
   border-radius: 0.25rem;
 }

@@ -84,6 +84,26 @@
     placeholder: 'Search...'
   };
 
+  const ALLOWED_HIGHLIGHT_TAGS = {
+    mark: true,
+    span: true,
+    strong: true,
+    em: true
+  };
+
+  function isRoot(value) {
+    return typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.isRoot(value);
+  }
+
+  function normalizeRoot(root) {
+    return isRoot(root) ? root : document;
+  }
+
+  function normalizeHighlightTag(tagName) {
+    const normalized = typeof tagName === 'string' ? tagName.toLowerCase() : 'mark';
+    return ALLOWED_HIGHLIGHT_TAGS[normalized] ? normalized : 'mark';
+  }
+
   /**
    * Search Component Factory
    * Creates a new search instance with the given configuration
@@ -93,6 +113,8 @@
    */
   function createSearch(options) {
     const config = Object.assign({}, DEFAULTS, options || {});
+    config.root = normalizeRoot(config.root);
+    config.highlightTag = normalizeHighlightTag(config.highlightTag);
     
     // Instance state
     const state = {
@@ -108,6 +130,28 @@
       debounceTimer: null,
       boundHandlers: {}
     };
+
+    function queryAll(selector) {
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(config.root, selector);
+      }
+
+      const scope = normalizeRoot(config.root);
+      if (scope === document) {
+        return Array.from(document.querySelectorAll(selector));
+      }
+
+      const matches = [];
+      if (scope instanceof Element && scope.matches(selector)) {
+        matches.push(scope);
+      }
+      return matches.concat(Array.from(scope.querySelectorAll(selector)));
+    }
+
+    function queryOne(selector) {
+      const matches = queryAll(selector);
+      return matches.length ? matches[0] : null;
+    }
 
     function safeInvokeCallback(name, fn, ...args) {
       try {
@@ -136,7 +180,7 @@
         return instance;
       }
 
-      state.container = document.querySelector(config.containerSelector);
+      state.container = queryOne(config.containerSelector);
       if (!state.container) {
         state.initialized = false;
         return null;
@@ -192,7 +236,7 @@
       }
 
       // Build from DOM
-      const sections = document.querySelectorAll(config.contentSelector);
+      const sections = queryAll(config.contentSelector);
       const categoryMap = buildCategoryMap();
 
       sections.forEach(function(section) {
@@ -234,7 +278,7 @@
     function buildCategoryMap() {
       const map = {};
       let currentCategory = 'Documentation';
-      const navItems = document.querySelectorAll(config.navSelector + ', ' + config.sectionSelector);
+      const navItems = queryAll(config.navSelector + ', ' + config.sectionSelector);
 
       navItems.forEach(function(item) {
         if (item.classList.contains('doc-nav-section')) {
@@ -736,7 +780,7 @@
       }
 
       // Default behavior: navigate to section
-      const section = document.querySelector(result.url);
+      const section = queryOne(result.url) || document.querySelector(result.url);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         window.history.pushState(null, '', result.url);
@@ -748,7 +792,7 @@
      * Update sidebar navigation active state
      */
     function updateSidebarActive(sectionId) {
-      const navLinks = document.querySelectorAll(config.navSelector);
+      const navLinks = queryAll(config.navSelector);
       navLinks.forEach(function(link) {
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + sectionId) {
@@ -822,6 +866,8 @@
      */
     function setConfig(newConfig) {
       Object.assign(config, newConfig);
+      config.root = normalizeRoot(config.root);
+      config.highlightTag = normalizeHighlightTag(config.highlightTag);
     }
 
     /**
@@ -848,7 +894,10 @@
       close: close,
       setConfig: setConfig,
       getConfig: getConfig,
-      getIndex: getIndex
+      getIndex: getIndex,
+      getContainer: function () {
+        return state.container;
+      }
     };
 
     return instance;
@@ -878,7 +927,10 @@
     /**
      * Initialize the default search instance
      */
-    init: function(options) {
+    init: function(rootOrOptions, maybeOptions) {
+      const root = isRoot(rootOrOptions) ? rootOrOptions : null;
+      const options = root ? maybeOptions : rootOrOptions;
+
       if (this._instance) {
         this._instance.destroy();
       }
@@ -887,22 +939,28 @@
         Object.assign(this.config, options);
       }
       
-      this._instance = createSearch(this.config);
+      this._instance = createSearch(Object.assign({}, this.config, root ? { root: root } : {}));
       return this._instance ? this._instance.init() : null;
     },
 
     /**
      * Destroy the default instance
      */
-    destroy: function() {
+    destroy: function(root) {
+      if (root && this._instance && this._instance.getContainer() && typeof window.VanduoLifecycle !== 'undefined') {
+        if (!window.VanduoLifecycle.isInRoot(root, this._instance.getContainer())) {
+          return;
+        }
+      }
+
       if (this._instance) {
         this._instance.destroy();
         this._instance = null;
       }
     },
 
-    destroyAll: function() {
-      this.destroy();
+    destroyAll: function(root) {
+      this.destroy(root);
     },
 
     /**

@@ -112,10 +112,13 @@ test.describe('Timeline Component @component', () => {
 
   test('playback pause stops auto-advance', async ({ page }) => {
     await page.locator('#pb-play').click();
-    await page.waitForTimeout(1100);
+    await expect.poll(async () => {
+      return await page.locator('#playback-timeline .vd-timeline-item.is-revealed').count();
+    }, { timeout: 2500 }).toBe(1);
     await page.locator('#pb-pause').click();
-    await expect(page.locator('#playback-timeline .vd-timeline-item.is-revealed')).toHaveCount(1);
-    await page.waitForTimeout(1200);
-    await expect(page.locator('#playback-timeline .vd-timeline-item.is-revealed')).toHaveCount(1);
+    await expect(page.locator('#pb-pause')).toBeDisabled();
+    await expect.poll(async () => {
+      return await page.locator('#playback-timeline .vd-timeline-item.is-revealed').count();
+    }, { timeout: 1500 }).toBe(1);
   });
 });

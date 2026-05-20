@@ -155,8 +155,8 @@
      * Auto-initialize all .vd-music-player / [data-music-player] elements.
      * Options can be provided via data-music-player-options (JSON string).
      */
-    init: function () {
-      document.querySelectorAll('.vd-music-player, [data-music-player]').forEach((el) => {
+    init: function (root) {
+      window.Vanduo.queryAll(root, '.vd-music-player, [data-music-player]').forEach((el) => {
         if (this.instances.has(el)) return;
 
         let opts = {};

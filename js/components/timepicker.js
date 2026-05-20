@@ -9,8 +9,8 @@
   const Timepicker = {
     instances: new Map(),
 
-    init: function () {
-      const inputs = document.querySelectorAll('[data-vd-timepicker]');
+    init: function (root) {
+      const inputs = window.Vanduo.queryAll(root, '[data-vd-timepicker]');
       inputs.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

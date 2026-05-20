@@ -16,8 +16,8 @@
     /**
      * Initialize dropdown components
      */
-    init: function() {
-      const dropdowns = document.querySelectorAll('.vd-dropdown');
+    init: function(root) {
+      const dropdowns = window.Vanduo.queryAll(root, '.vd-dropdown');
 
       dropdowns.forEach(dropdown => {
         if (this.instances.has(dropdown)) {
@@ -367,4 +367,3 @@
   window.VanduoDropdown = Dropdown;
   
 })();
-

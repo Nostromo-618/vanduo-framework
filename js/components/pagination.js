@@ -16,8 +16,8 @@
     /**
      * Initialize pagination components
      */
-    init: function() {
-      const paginations = document.querySelectorAll('.vd-pagination[data-pagination]');
+    init: function(root) {
+      const paginations = window.Vanduo.queryAll(root, '.vd-pagination[data-pagination]');
 
       paginations.forEach(pagination => {
         if (this.instances.has(pagination)) {
@@ -283,4 +283,3 @@
   window.VanduoPagination = Pagination;
   
 })();
-

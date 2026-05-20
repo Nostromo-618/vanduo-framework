@@ -37,6 +37,8 @@
     const pauseBtn = scope.querySelector('[data-vd-timeline-pause]');
 
     let playTimer = null;
+    let isPlaying = false;
+    let playToken = 0;
 
     function updateNavButtons() {
       const k = countRevealedPrefix(items);
@@ -52,10 +54,10 @@
         nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
       }
       if (playBtn) {
-        playBtn.setAttribute('aria-pressed', playTimer ? 'true' : 'false');
+        playBtn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
       }
       if (pauseBtn) {
-        pauseBtn.disabled = !playTimer;
+        pauseBtn.disabled = !isPlaying;
       }
     }
 
@@ -75,21 +77,43 @@
       updateNavButtons();
     }
 
-    function play() {
-      if (playTimer) return;
-      playTimer = setInterval(function () {
+    function scheduleNext() {
+      const token = ++playToken;
+      playTimer = setTimeout(function () {
+        playTimer = null;
+
+        if (!isPlaying || token !== playToken) {
+          return;
+        }
+
         if (countRevealedPrefix(items) >= items.length) {
           pause();
           return;
         }
+
         stepNext();
+
+        if (countRevealedPrefix(items) >= items.length) {
+          pause();
+          return;
+        }
+
+        scheduleNext();
       }, PLAY_INTERVAL_MS);
+    }
+
+    function play() {
+      if (isPlaying) return;
+      isPlaying = true;
+      scheduleNext();
       updateNavButtons();
     }
 
     function pause() {
+      isPlaying = false;
+      playToken++;
       if (playTimer) {
-        clearInterval(playTimer);
+        clearTimeout(playTimer);
         playTimer = null;
       }
       updateNavButtons();
@@ -129,16 +153,16 @@
   const Timeline = {
     instances: new Map(),
 
-    init: function () {
-      document.querySelectorAll('.vd-timeline.vd-timeline-animated').forEach(function (el) {
+    init: function (root) {
+      window.Vanduo.queryAll(root, '.vd-timeline.vd-timeline-animated').forEach(function (el) {
         if (Timeline.instances.has(el)) return;
         Timeline.initInstance(el);
       });
     },
 
-    reinit: function () {
-      Timeline.destroyAll();
-      Timeline.init();
+    reinit: function (root) {
+      Timeline.destroyAll(root);
+      Timeline.init(root);
     },
 
     initInstance: function (container) {
@@ -211,8 +235,13 @@
       this.instances.delete(container);
     },
 
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : document;
+
       this.instances.forEach(function (_, el) {
+        if (scope !== document && scope !== el && (!scope.contains || !scope.contains(el))) return;
         Timeline.destroy(el);
       });
     }

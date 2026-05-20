@@ -49,8 +49,8 @@
       match: 'Fields do not match'
     },
 
-    init: function () {
-      const forms = document.querySelectorAll('[data-vd-validate], .vd-validate');
+    init: function (root) {
+      const forms = window.Vanduo.queryAll(root, '[data-vd-validate], .vd-validate');
       forms.forEach(form => {
         if (this.instances.has(form)) return;
         this.initInstance(form);

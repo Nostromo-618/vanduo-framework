@@ -3,10 +3,10 @@
  * Import all framework modules
  */
 
-/* CSS Reset - Must be first */
+/* Layer 0: Reset */
 @import url('core/reset.css');
 
-/* Core Foundation */
+/* Layer 1: Foundation (palette -> canonical tokens -> compatibility aliases) */
 @import url('core/colors.css');
 @import url('core/fonts.css');
 @import url('core/typography.css');
@@ -15,43 +15,34 @@
 @import url('core/grid.css');
 @import url('core/helpers.css');
 
-/* Icons - All Phosphor Weights */
+/* Layer 2: Icons */
 @import url('icons/icons-all.css');
 
-/* Utilities - Phase 2 */
+/* Layer 3: Utilities */
 @import url('utilities/shadow.css');
-
-/* Utilities - Phase 4 */
 @import url('utilities/transitions.css');
 @import url('utilities/transforms.css');
+@import url('utilities/media.css');
+@import url('utilities/table.css');
+@import url('utilities/color-utilities.css');
 
-/* Components - Phase 2 */
+/* Layer 4: Components */
 @import url('components/buttons.css');
 @import url('components/forms.css');
 @import url('components/cards.css');
 @import url('components/expanding-cards.css');
-
-/* Components - Phase 3 */
 @import url('components/navbar.css');
 @import url('components/footer.css');
 @import url('components/breadcrumbs.css');
-
-/* Components - Phase 5 */
 @import url('components/tooltips.css');
 @import url('components/collapsible.css');
 @import url('components/dropdown.css');
 @import url('components/modals.css');
-
-/* Components - Phase 6 */
 @import url('components/badges.css');
 @import url('components/collections.css');
 @import url('components/pagination.css');
 @import url('components/sidenav.css');
-
-/* Components - Phase 7 */
 @import url('components/preloader.css');
-
-/* Components - Phase 8 (New) */
 @import url('components/alerts.css');
 @import url('components/chips.css');
 @import url('components/avatar.css');
@@ -66,23 +57,7 @@
 @import url('components/image-box.css');
 @import url('components/doc-tabs.css');
 @import url('components/doc-search.css');
-
-/* Utilities - Phase 7 */
-@import url('utilities/media.css');
-@import url('utilities/table.css');
-
-/* Utilities - Color palette (per-hue bg/text classes) */
-@import url('utilities/color-utilities.css');
-
-/* Effects - Phase 7 */
-@import url('effects/parallax.css');
-@import url('effects/glass.css');
-@import url('effects/morph.css');
-
-/* Components - Phase 9 (New) */
 @import url('components/draggable.css');
-
-/* Components - Phase 10 (v1.2.7) */
 @import url('components/flow.css');
 @import url('components/bubble.css');
 @import url('components/waypoint.css');
@@ -100,5 +75,10 @@
 @import url('components/spotlight.css');
 @import url('components/music-player.css');
 
-/* Print Styles */
+/* Layer 5: Effects */
+@import url('effects/parallax.css');
+@import url('effects/glass.css');
+@import url('effects/morph.css');
+
+/* Layer 6: Print */
 @import url('utilities/print.css');

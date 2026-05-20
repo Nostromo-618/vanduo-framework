@@ -9,8 +9,8 @@
   const Rating = {
     instances: new Map(),
 
-    init: function () {
-      const ratings = document.querySelectorAll('[data-vd-rating]');
+    init: function (root) {
+      const ratings = window.Vanduo.queryAll(root, '[data-vd-rating]');
       ratings.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

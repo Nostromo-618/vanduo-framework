@@ -13,6 +13,7 @@
     modals: new Map(),
     openModals: [],
     zIndexCounter: 1050,
+    __vanduoScopedDestroyAll: true,
 
     // Store trigger cleanup functions
     _triggerCleanups: [],
@@ -79,8 +80,8 @@
     /**
      * Initialize modals
      */
-    init: function () {
-      const modals = document.querySelectorAll('.vd-modal');
+    init: function (root) {
+      const modals = window.Vanduo.queryAll(root, '.vd-modal');
 
       modals.forEach(modal => {
         if (this.modals.has(modal)) {
@@ -90,7 +91,9 @@
       });
 
       // Handle data-modal triggers
-      const triggers = document.querySelectorAll('[data-modal]');
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-modal]')
+        : document.querySelectorAll('[data-modal]');
       triggers.forEach(trigger => {
         if (trigger.dataset.modalTriggerInitialized) return;
         trigger.dataset.modalTriggerInitialized = 'true';
@@ -104,7 +107,7 @@
           }
         };
         trigger.addEventListener('click', triggerClickHandler);
-        this._triggerCleanups.push(() => trigger.removeEventListener('click', triggerClickHandler));
+        trigger._modalTriggerCleanup = () => trigger.removeEventListener('click', triggerClickHandler);
       });
     },
 
@@ -421,15 +424,29 @@
     /**
      * Destroy all modal instances
      */
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.modals.forEach((data, modal) => {
-        this.destroy(modal);
+        if (scope === document || scope === modal || (typeof scope.contains === 'function' && scope.contains(modal))) {
+          this.destroy(modal);
+        }
       });
-      // Clean up trigger listeners
-      this._triggerCleanups.forEach(fn => fn());
-      this._triggerCleanups = [];
-      // Remove shared ESC handler
-      if (this._sharedEscHandler) {
+
+      const triggers = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-modal][data-modal-trigger-initialized]')
+        : document.querySelectorAll('[data-modal][data-modal-trigger-initialized]');
+      triggers.forEach(trigger => {
+        if (trigger._modalTriggerCleanup) {
+          trigger._modalTriggerCleanup();
+          delete trigger._modalTriggerCleanup;
+        }
+        delete trigger.dataset.modalTriggerInitialized;
+      });
+
+      if (scope === document && this._sharedEscHandler) {
         document.removeEventListener('keydown', this._sharedEscHandler);
         this._sharedEscHandler = null;
       }
@@ -445,4 +462,3 @@
   window.VanduoModals = Modals;
 
 })();
-

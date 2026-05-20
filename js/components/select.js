@@ -16,8 +16,8 @@
     /**
      * Initialize select components
      */
-    init: function () {
-      const selects = document.querySelectorAll('select.vd-custom-select-input, select[data-custom-select]');
+    init: function (root) {
+      const selects = window.Vanduo.queryAll(root, 'select.vd-custom-select-input, select[data-custom-select]');
 
       selects.forEach(select => {
         if (this.instances.has(select)) {
@@ -443,4 +443,3 @@
   }
 
 })();
-

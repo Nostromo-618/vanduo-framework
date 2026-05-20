@@ -49,5 +49,5 @@
 
 .vd-affix-bordered.is-stuck {
   box-shadow: none;
-  border-bottom: 1px solid var(--border-color, #dee2e6);
+  border-bottom: 1px solid var(--vd-border-color, #dee2e6);
 }

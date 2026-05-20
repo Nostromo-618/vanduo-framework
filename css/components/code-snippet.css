@@ -14,16 +14,16 @@
   --code-font-size: 0.875rem;         /* 14px */
   
   /* Code Snippet Colors - Light Mode */
-  --code-bg: var(--color-gray-50, #f8fafc);
-  --code-header-bg: var(--color-gray-100, #f1f5f9);
-  --code-border: var(--border-color, #e2e8f0);
-  --code-text: var(--text-primary, #1e293b);
-  --code-text-muted: var(--text-secondary, #64748b);
-  --code-tab-text: var(--text-secondary, #64748b);
-  --code-tab-active: var(--color-primary, #3b82f6);
-  --code-tab-hover-bg: var(--color-gray-200, #e2e8f0);
-  --code-copy-success: var(--color-success, #22c55e);
-  --code-line-number: var(--text-tertiary, #94a3b8);
+  --code-bg: var(--vd-color-gray-50, #f8fafc);
+  --code-header-bg: var(--vd-color-gray-100, #f1f5f9);
+  --code-border: var(--vd-border-color, #e2e8f0);
+  --code-text: var(--vd-text-primary, #1e293b);
+  --code-text-muted: var(--vd-text-secondary, #64748b);
+  --code-tab-text: var(--vd-text-secondary, #64748b);
+  --code-tab-active: var(--vd-color-primary, #3b82f6);
+  --code-tab-hover-bg: var(--vd-color-gray-200, #e2e8f0);
+  --code-copy-success: var(--vd-color-success, #22c55e);
+  --code-line-number: var(--vd-text-tertiary, #94a3b8);
   --code-line-highlight: rgba(59, 130, 246, 0.1);
   
   /* Syntax Highlighting Colors - Light Mode */
@@ -44,10 +44,10 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --code-bg: var(--color-gray-900, #0f172a);
-  --code-header-bg: var(--color-gray-800, #1e293b);
-  --code-border: var(--color-gray-700, #334155);
-  --code-tab-hover-bg: var(--color-gray-700, #334155);
+  --code-bg: var(--vd-color-gray-900, #0f172a);
+  --code-header-bg: var(--vd-color-gray-800, #1e293b);
+  --code-border: var(--vd-color-gray-700, #334155);
+  --code-tab-hover-bg: var(--vd-color-gray-700, #334155);
   --code-line-highlight: rgba(59, 130, 246, 0.15);
   
   /* Syntax Highlighting - Dark Mode */
@@ -68,10 +68,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --code-bg: var(--color-gray-900, #0f172a);
-    --code-header-bg: var(--color-gray-800, #1e293b);
-    --code-border: var(--color-gray-700, #334155);
-    --code-tab-hover-bg: var(--color-gray-700, #334155);
+    --code-bg: var(--vd-color-gray-900, #0f172a);
+    --code-header-bg: var(--vd-color-gray-800, #1e293b);
+    --code-border: var(--vd-color-gray-700, #334155);
+    --code-tab-hover-bg: var(--vd-color-gray-700, #334155);
     --code-line-highlight: rgba(59, 130, 246, 0.15);
     
     --code-tag: #fb7185;

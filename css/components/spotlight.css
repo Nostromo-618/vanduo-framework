@@ -6,7 +6,7 @@
 :root {
   --spotlight-overlay-bg: rgba(0, 0, 0, 0.5);
   --spotlight-tooltip-bg: var(--card-bg, #fff);
-  --spotlight-tooltip-color: var(--text-primary, #212529);
+  --spotlight-tooltip-color: var(--vd-text-primary, #212529);
   --spotlight-tooltip-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.15);
   --spotlight-tooltip-padding: 1.3125rem; /* 21px - fib */
   --spotlight-tooltip-radius: var(--card-border-radius, var(--btn-border-radius-lg, 0.5rem));
@@ -78,7 +78,7 @@
 
 .vd-spotlight-counter {
   font-size: 0.75rem;
-  color: var(--text-muted, #6c757d);
+  color: var(--vd-text-muted, #6c757d);
 }
 
 .vd-spotlight-actions {
@@ -88,7 +88,7 @@
 
 .vd-spotlight-btn {
   padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
-  border: 1px solid var(--border-color, #dee2e6);
+  border: 1px solid var(--vd-border-color, #dee2e6);
   border-radius: var(--btn-border-radius-sm, 0.25rem);
   background: transparent;
   cursor: pointer;
@@ -97,17 +97,17 @@
 }
 
 .vd-spotlight-btn:hover {
-  background: var(--bg-secondary, #f8f9fa);
+  background: var(--vd-bg-secondary, #f8f9fa);
 }
 
 .vd-spotlight-btn-primary {
-  background: var(--color-primary, #0d6efd);
+  background: var(--vd-color-primary, #0d6efd);
   color: #fff;
-  border-color: var(--color-primary, #0d6efd);
+  border-color: var(--vd-color-primary, #0d6efd);
 }
 
 .vd-spotlight-btn-primary:hover {
-  background: var(--color-primary-dark, #0b5ed7);
+  background: var(--vd-color-primary-dark, #0b5ed7);
 }
 
 /* ========== Highlighted Target ========== */

@@ -5,14 +5,14 @@
 
 :root {
   /* Navbar Colors */
-  --navbar-bg: var(--color-white);
-  --navbar-bg-dark: var(--bg-dark);
-  --navbar-text-color: var(--text-primary);
-  --navbar-text-color-dark: var(--text-inverse);
-  --navbar-link-color: var(--text-primary);
-  --navbar-link-hover-color: var(--color-primary);
-  --navbar-link-active-color: var(--color-primary);
-  --navbar-border-color: var(--border-color);
+  --navbar-bg: var(--vd-color-white);
+  --navbar-bg-dark: var(--vd-bg-dark);
+  --navbar-text-color: var(--vd-text-primary);
+  --navbar-text-color-dark: var(--vd-text-inverse);
+  --navbar-link-color: var(--vd-text-primary);
+  --navbar-link-hover-color: var(--vd-color-primary);
+  --navbar-link-active-color: var(--vd-color-primary);
+  --navbar-border-color: var(--vd-border-color);
   
   /* Navbar Spacing (Fibonacci) */
   --navbar-padding-y: 0.8125rem;   /* 13px - fib */
@@ -23,26 +23,26 @@
   --navbar-actions-gap: 2.125rem;  /* 34px - fib */
 
   /* Mobile Menu */
-  --navbar-mobile-menu-bg: var(--color-white);
-  --navbar-mobile-menu-bg-dark: var(--bg-dark);
+  --navbar-mobile-menu-bg: var(--vd-color-white);
+  --navbar-mobile-menu-bg-dark: var(--vd-bg-dark);
   --navbar-mobile-menu-width: 233px; /* fib */
   --navbar-mobile-overlay-bg: rgba(0, 0, 0, 0.5);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --navbar-bg: var(--bg-primary);
-  --navbar-text-color: var(--text-primary);
-  --navbar-link-color: var(--text-primary);
-  --navbar-mobile-menu-bg: var(--bg-primary);
+  --navbar-bg: var(--vd-bg-primary);
+  --navbar-text-color: var(--vd-text-primary);
+  --navbar-link-color: var(--vd-text-primary);
+  --navbar-mobile-menu-bg: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --navbar-bg: var(--bg-primary);
-    --navbar-text-color: var(--text-primary);
-    --navbar-link-color: var(--text-primary);
-    --navbar-mobile-menu-bg: var(--bg-primary);
+    --navbar-bg: var(--vd-bg-primary);
+    --navbar-text-color: var(--vd-text-primary);
+    --navbar-link-color: var(--vd-text-primary);
+    --navbar-mobile-menu-bg: var(--vd-bg-primary);
   }
 }
 
@@ -168,7 +168,7 @@
 }
 
 .vd-navbar-nav .vd-nav-link:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 
@@ -268,7 +268,7 @@
 
 .vd-navbar-dark .vd-navbar-brand:hover,
 .vd-navbar-dark .vd-navbar-brand:focus {
-  color: var(--color-primary-light);
+  color: var(--vd-color-primary-light);
 }
 
 .vd-navbar-dark .vd-navbar-nav .vd-nav-link {
@@ -277,12 +277,12 @@
 
 .vd-navbar-dark .vd-navbar-nav .vd-nav-link:hover,
 .vd-navbar-dark .vd-navbar-nav .vd-nav-link:focus {
-  color: var(--color-primary-light);
+  color: var(--vd-color-primary-light);
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .vd-navbar-dark .vd-navbar-nav .vd-nav-link.active {
-  color: var(--color-primary-light);
+  color: var(--vd-color-primary-light);
 }
 
 .vd-navbar-dark .vd-navbar-toggle span,
@@ -358,7 +358,7 @@
   min-width: 200px;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
-  background-color: var(--color-white);
+  background-color: var(--vd-color-white);
   border: 1px solid var(--navbar-border-color);
   border-radius: var(--btn-border-radius);
   box-shadow: var(--shadow-md);
@@ -387,13 +387,13 @@
 .vd-navbar-dropdown-item:hover,
 .vd-navbar-dropdown-item:focus {
   color: var(--navbar-link-hover-color);
-  background-color: var(--bg-secondary);
+  background-color: var(--vd-bg-secondary);
   text-decoration: none;
 }
 
 .vd-navbar-dropdown-item.active {
   color: var(--navbar-link-active-color);
-  background-color: var(--color-primary-alpha-10);
+  background-color: var(--vd-color-primary-alpha-10);
 }
 
 .vd-navbar-dark .vd-navbar-dropdown-menu {
@@ -407,7 +407,7 @@
 
 .vd-navbar-dark .vd-navbar-dropdown-item:hover,
 .vd-navbar-dark .vd-navbar-dropdown-item:focus {
-  color: var(--color-primary-light);
+  color: var(--vd-color-primary-light);
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -525,7 +525,7 @@
     padding: 0;
     border: none;
     box-shadow: none;
-    background-color: var(--bg-secondary);
+    background-color: var(--vd-bg-secondary);
   }
   
   .vd-navbar-dark .vd-navbar-dropdown-menu {

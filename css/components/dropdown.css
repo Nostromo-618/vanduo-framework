@@ -5,14 +5,14 @@
 
 :root {
   /* Dropdown Colors */
-  --dropdown-bg: var(--color-white);
-  --dropdown-border-color: var(--border-color);
-  --dropdown-item-color: var(--text-primary);
-  --dropdown-item-hover-bg: var(--bg-secondary);
-  --dropdown-item-hover-color: var(--text-primary);
-  --dropdown-item-active-bg: var(--color-primary-alpha-10);
-  --dropdown-item-active-color: var(--color-primary);
-  --dropdown-item-disabled-color: var(--text-muted);
+  --dropdown-bg: var(--vd-color-white);
+  --dropdown-border-color: var(--vd-border-color);
+  --dropdown-item-color: var(--vd-text-primary);
+  --dropdown-item-hover-bg: var(--vd-bg-secondary);
+  --dropdown-item-hover-color: var(--vd-text-primary);
+  --dropdown-item-active-bg: var(--vd-color-primary-alpha-10);
+  --dropdown-item-active-color: var(--vd-color-primary);
+  --dropdown-item-disabled-color: var(--vd-text-muted);
   
   /* Dropdown Spacing (Fibonacci) */
   --dropdown-padding-y: 0.5rem;          /* 8px - fib */
@@ -31,14 +31,14 @@
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --dropdown-bg: var(--bg-secondary);
-  --dropdown-item-hover-bg: var(--bg-primary);
+  --dropdown-bg: var(--vd-bg-secondary);
+  --dropdown-item-hover-bg: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --dropdown-bg: var(--bg-secondary);
-    --dropdown-item-hover-bg: var(--bg-primary);
+    --dropdown-bg: var(--vd-bg-secondary);
+    --dropdown-item-hover-bg: var(--vd-bg-primary);
   }
 }
 
@@ -199,7 +199,7 @@
 }
 
 .vd-dropdown-item:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: -2px;
 }
 
@@ -233,7 +233,7 @@
   margin-bottom: 0;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-muted);
+  color: var(--vd-text-muted);
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.05em;

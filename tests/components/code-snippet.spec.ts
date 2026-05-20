@@ -237,6 +237,49 @@ test.describe('Code Snippet Component @component', () => {
       // Should be expanded
       await expect(snippet).toHaveAttribute('data-expanded', 'true');
     });
+
+    test('scoped destroy does not break snippets outside the destroyed root', async ({ page }) => {
+      const state = await page.evaluate(() => {
+        const externalRoot = document.createElement('div');
+        externalRoot.id = 'external-snippet-root';
+        externalRoot.innerHTML = `
+          <div id="external-snippet" class="vd-code-snippet" data-collapsible data-expanded="false">
+            <button class="vd-code-snippet-toggle" aria-expanded="false">
+              <span class="vd-code-snippet-toggle-icon"></span>
+              <span class="vd-code-snippet-toggle-text">View Code</span>
+            </button>
+            <div class="vd-code-snippet-content" data-visible="false">
+              <div class="vd-code-snippet-header">
+                <div class="vd-code-snippet-tabs" role="tablist">
+                  <button class="vd-code-snippet-tab is-active" data-lang="html">HTML</button>
+                </div>
+              </div>
+              <div class="vd-code-snippet-body">
+                <pre class="vd-code-snippet-pane is-active" data-lang="html"><code>&lt;div&gt;External snippet&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.body.appendChild(externalRoot);
+        (window as any).Vanduo.init(externalRoot);
+        const beforeDestroy = externalRoot.querySelector('#external-snippet')?.getAttribute('data-initialized');
+        const fixtureRoot = document.querySelector('.container');
+        (window as any).Vanduo.destroy(fixtureRoot);
+        const afterDestroy = externalRoot.querySelector('#external-snippet')?.getAttribute('data-initialized');
+        return { beforeDestroy, afterDestroy, hadFixtureRoot: Boolean(fixtureRoot) };
+      });
+
+      const externalToggle = page.locator('#external-snippet .vd-code-snippet-toggle');
+      const externalSnippet = page.locator('#external-snippet');
+
+      expect(state.hadFixtureRoot).toBe(true);
+      expect(state.beforeDestroy).toBe('true');
+      expect(state.afterDestroy).toBe('true');
+      await expect(externalSnippet).toHaveAttribute('data-initialized', 'true');
+      await externalToggle.click();
+      await expect(externalSnippet).toHaveAttribute('data-expanded', 'true');
+    });
   });
 
   test.describe('Line Numbers', () => {

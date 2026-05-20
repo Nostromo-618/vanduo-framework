@@ -21,8 +21,8 @@
   const Morph = {
     instances: new Map(),
 
-    init: function () {
-      const elements = document.querySelectorAll('.vd-morph, [data-vd-morph]');
+    init: function (root) {
+      const elements = window.Vanduo.queryAll(root, '.vd-morph, [data-vd-morph]');
       elements.forEach(function (el) {
         if (Morph.instances.has(el)) return;
         if (el.getAttribute('data-vd-morph') === 'manual') return;

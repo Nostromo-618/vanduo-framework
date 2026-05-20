@@ -8,7 +8,7 @@ export default {
 
         // === Specificity & Structure ===
         'no-descending-specificity': null,
-        'no-duplicate-selectors': null,
+        'no-duplicate-selectors': true,
 
         // === Color ===
         'color-hex-length': null,
@@ -22,7 +22,7 @@ export default {
         'number-max-precision': null,
 
         // === Declaration blocks ===
-        'declaration-block-no-shorthand-property-overrides': null,
+        'declaration-block-no-shorthand-property-overrides': true,
         'declaration-block-single-line-max-declarations': null,
         'declaration-block-no-redundant-longhand-properties': null,
 
@@ -31,7 +31,7 @@ export default {
         'font-family-name-quotes': null,
 
         // === Empty lines ===
-        'block-no-empty': null,
+        'block-no-empty': true,
         'comment-empty-line-before': null,
         'custom-property-empty-line-before': null,
         'rule-empty-line-before': null,
@@ -56,6 +56,6 @@ export default {
         'media-feature-range-notation': null,
 
         // === Length ===
-        'length-zero-no-unit': null
+        'length-zero-no-unit': true
     }
 };

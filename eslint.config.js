@@ -63,25 +63,25 @@ export default [
             // Safer equality while allowing common null checks
             eqeqeq: ['error', 'smart'],
 
-            // Warn on unused vars but don't error
-            'no-unused-vars': ['warn', {
+            // Keep framework source tidy; helpers.js stays exempt below.
+            'no-unused-vars': ['error', {
                 argsIgnorePattern: '^_',
                 varsIgnorePattern: '^_',
                 caughtErrorsIgnorePattern: '^_'
             }],
 
-            // Allow console for debugging
-            'no-console': 'off',
+            // Runtime logging should stay intentional.
+            'no-console': ['error', { allow: ['warn', 'error'] }],
 
             // Allow empty functions
             'no-empty-function': 'off',
             'no-empty': ['error', { allowEmptyCatch: true }],
 
-            // Allow var redeclaration (legacy code)
-            'no-redeclare': 'warn',
+            // Disallow accidental shadowing/redeclaration.
+            'no-redeclare': 'error',
 
-            // Allow useless escapes (legacy regex)
-            'no-useless-escape': 'warn'
+            // Clean up stale regex/string escapes.
+            'no-useless-escape': 'error'
         }
     },
     {

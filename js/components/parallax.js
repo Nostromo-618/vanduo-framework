@@ -21,26 +21,26 @@
     /**
      * Initialize parallax components
      */
-    init: function () {
-      if (this.isInitialized) {
-        this.refresh();
-        return;
-      }
-
-      this.isInitialized = true;
-
+    init: function (root) {
       // Check for reduced motion preference
       if (this.reducedMotion) {
         return; // Don't initialize if user prefers reduced motion
       }
 
-      const parallaxElements = document.querySelectorAll('.vd-parallax');
+      const parallaxElements = window.Vanduo.queryAll(root, '.vd-parallax');
 
       parallaxElements.forEach(element => {
         if (!element.dataset.parallaxInitialized) {
           this.initParallax(element);
         }
       });
+
+      if (this.isInitialized) {
+        this.refresh();
+        return;
+      }
+
+      this.isInitialized = true;
 
       // Handle scroll
       this.handleScroll();
@@ -213,4 +213,3 @@
   window.VanduoParallax = Parallax;
 
 })();
-

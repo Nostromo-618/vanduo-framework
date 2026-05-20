@@ -1,4 +1,4 @@
-# Vanduo Framework v1.3.9
+# Vanduo Framework v1.4.0
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -10,42 +10,43 @@
   <a href="https://github.com/vanduo-oss/framework/blob/main/LICENSE"><img src="https://img.shields.io/github/license/vanduo-oss/framework?style=flat-square&color=64748b" alt="License"></a>
 </p>
 
-**Essential just like water is.**
-
-Vanduo is a lightweight, zero-dependency UI framework built with pure HTML, CSS, and JavaScript. It ships 47+ components, responsive utilities, dark mode support, and a flexible theming system.
+Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaScript. It ships a full component bundle, scoped runtime initialization, a canonical `--vd-*` token API, and compatibility aliases for existing `1.3.x` consumers.
 
 [Browse Docs](https://vanduo.dev/#docs)
 
 ## Highlights
 
-- Pure CSS/JS with no runtime dependencies
-- Modular architecture with optional per-component imports
-- 47+ components, including Expanding Cards and animated Timeline controls in v1.3.9
-- Current Theme Customizer defaults in this worktree are `charcoal` for neutral color and `ubuntu` for font family
-- Niche canvas hex-grid support is distributed as [`@vanduo-oss/hex-grid`](https://www.npmjs.com/package/@vanduo-oss/hex-grid)
-- Built-in dark/light/system theme switching
-- Runtime Theme Customizer for color, font, and radius tokens
-- Accessibility-focused components and utilities
+- Zero runtime dependencies
+- 47+ components across layout, navigation, overlays, search, and effects
+- Scoped runtime APIs for dynamic DOM work
+- Canonical semantic token API under `--vd-*`
+- Built-in dark, light, and system theming
+- Theme customizer with color, font, and radius controls
+- Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
 ## Quick Start
 
-### CDN (recommended)
+### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.9/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.3.9/dist/vanduo.min.js"></script>
-<script>Vanduo.init();</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.0/dist/vanduo.min.js"></script>
+<script>
+  Vanduo.init();
+</script>
 ```
 
-### Local dist files
+### Local Dist Files
 
 ```html
 <link rel="stylesheet" href="dist/vanduo.min.css">
 <script src="dist/vanduo.min.js"></script>
-<script>Vanduo.init();</script>
+<script>
+  Vanduo.init();
+</script>
 ```
 
-### Package install (bundlers)
+### Package Install
 
 ```bash
 pnpm add @vanduo-oss/framework
@@ -58,39 +59,83 @@ import { Vanduo } from '@vanduo-oss/framework';
 Vanduo.init();
 ```
 
-## Docs and Resources
+## Runtime API
 
-- Website: [vanduo.dev](https://vanduo.dev)
-- Docs: [vanduo.dev/#docs](https://vanduo.dev/#docs)
-- npm: [@vanduo-oss/framework](https://www.npmjs.com/package/@vanduo-oss/framework)
-- Releases: [GitHub Releases](https://github.com/vanduo-oss/framework/releases)
-- LLM reference: [`llms.txt`](llms.txt)
+```js
+Vanduo.init(root);
+Vanduo.initComponents(root);
+Vanduo.reinit('lazyLoad', root);
+Vanduo.destroy(root);
+Vanduo.destroyAll();
+Vanduo.getComponent('docSearch');
+```
+
+- Omit `root` to target the full document.
+- Pass an `Element` to initialize or destroy only a subtree.
+- Canonical component registry names use `lowerCamelCase`.
+- `LazyLoad` remains available as a compatibility alias for `lazyLoad` in `1.4.x`.
+
+## Token API
+
+Vanduo `1.4.0` treats `--vd-*` as the canonical semantic API:
+
+- Colors: `--vd-color-*`
+- Backgrounds: `--vd-bg-*`
+- Text: `--vd-text-*`
+- Borders: `--vd-border-*`
+- Shadows: `--vd-shadow-*`
+
+Legacy semantic aliases like `--color-*`, `--bg-*`, and `--text-*` are still supported throughout the `1.4.x` line.
+
+```css
+.cta {
+  color: var(--vd-text-inverse);
+  background: var(--vd-color-primary);
+  border-color: var(--vd-border-color);
+}
+```
+
+More detail lives in [TOKENS.md](TOKENS.md).
+
+## CSS Bundle Notes
+
+- `css/vanduo.css` remains the main framework entrypoint in `1.4.0`.
+- The main bundle still includes framework-wide form defaults for native inputs and textareas.
+- New component styling should prefer `.vd-*` hooks over new raw element selectors.
 
 ## Project Structure
 
 ```text
-vanduo-framework/
-├── dist/          # Production bundles
-├── css/           # Core, components, utilities, effects
-├── js/            # Framework runtime and components
-├── fonts/         # Bundled web fonts
-├── icons/         # Phosphor icons bundle
-└── tests/         # Playwright + linting
+framework/
+├── css/          # Foundation, utilities, effects, components
+├── js/           # Runtime, lifecycle, components
+├── dist/         # Built artifacts
+├── tests/        # Playwright fixtures and specs
+├── scripts/      # Build, verification, and inventory scripts
+└── docs/*.md     # Release and architecture notes
 ```
 
-## Browser Support
+## Development
 
-- Chrome (last 2 versions)
-- Firefox (last 2 versions)
-- Safari (last 2 versions)
-- Edge (last 2 versions)
+```bash
+corepack enable
+pnpm install
+pnpm run lint
+pnpm run build
+pnpm run check:versions
+pnpm test
+pnpm run stats:css
+```
+
+## Release Notes
+
+- Architecture notes: [ARCHITECTURE.md](ARCHITECTURE.md)
+- Token model: [TOKENS.md](TOKENS.md)
+- `1.4.0` migration notes: [changes-v140.md](changes-v140.md)
+- QA strategy: [QA-Automation-Strategy.md](QA-Automation-Strategy.md)
+- Contributor workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
 MIT - see [LICENSE](LICENSE).  
 Third-party notices are listed in [THIRD-PARTY-LICENSES](THIRD-PARTY-LICENSES).
-
-## Credits
-
-- [Open Color](https://yeun.github.io/open-color/) (MIT)
-- [Phosphor Icons](https://phosphoricons.com/) (MIT)

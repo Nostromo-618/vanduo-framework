@@ -14,27 +14,27 @@
   --avatar-size-2xl: 14.5625rem;/* 233px - fib */
 
   /* Avatar Colors */
-  --avatar-bg: var(--color-gray-300);
-  --avatar-text: var(--color-gray-700);
-  --avatar-border: var(--color-white);
-  --avatar-status-online: var(--color-success);
-  --avatar-status-offline: var(--color-gray-400);
-  --avatar-status-busy: var(--color-error);
-  --avatar-status-away: var(--color-warning);
+  --avatar-bg: var(--vd-color-gray-300);
+  --avatar-text: var(--vd-color-gray-700);
+  --avatar-border: var(--vd-color-white);
+  --avatar-status-online: var(--vd-color-success);
+  --avatar-status-offline: var(--vd-color-gray-400);
+  --avatar-status-busy: var(--vd-color-error);
+  --avatar-status-away: var(--vd-color-warning);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --avatar-bg: var(--color-gray-600);
-  --avatar-text: var(--color-gray-200);
-  --avatar-border: var(--color-gray-800);
+  --avatar-bg: var(--vd-color-gray-600);
+  --avatar-text: var(--vd-color-gray-200);
+  --avatar-border: var(--vd-color-gray-800);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --avatar-bg: var(--color-gray-600);
-    --avatar-text: var(--color-gray-200);
-    --avatar-border: var(--color-gray-800);
+    --avatar-bg: var(--vd-color-gray-600);
+    --avatar-text: var(--vd-color-gray-200);
+    --avatar-border: var(--vd-color-gray-800);
   }
 }
 
@@ -161,19 +161,19 @@
 
 /* Avatar with Ring/Border */
 .vd-avatar-ring {
-  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--color-primary);
+  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--vd-color-primary);
 }
 
 .vd-avatar-ring-success {
-  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--color-success);
+  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--vd-color-success);
 }
 
 .vd-avatar-ring-warning {
-  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--color-warning);
+  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--vd-color-warning);
 }
 
 .vd-avatar-ring-error {
-  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--color-error);
+  box-shadow: 0 0 0 3px var(--avatar-border), 0 0 0 5px var(--vd-color-error);
 }
 
 /* Avatar Group (stacked avatars) */
@@ -212,8 +212,8 @@
   width: var(--avatar-size);
   height: var(--avatar-size);
   border-radius: 50%;
-  background-color: var(--color-gray-200);
-  color: var(--text-primary);
+  background-color: var(--vd-color-gray-200);
+  color: var(--vd-text-primary);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   border: 2px solid var(--avatar-border);
@@ -221,38 +221,38 @@
 }
 
 [data-theme="dark"] .vd-avatar-group-count {
-  background-color: var(--color-gray-700);
+  background-color: var(--vd-color-gray-700);
 }
 
 /* Color Variants */
 .vd-avatar-primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
 }
 
 .vd-avatar-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-white);
+  background-color: var(--vd-color-secondary);
+  color: var(--vd-color-white);
 }
 
 .vd-avatar-success {
-  background-color: var(--color-success);
-  color: var(--color-white);
+  background-color: var(--vd-color-success);
+  color: var(--vd-color-white);
 }
 
 .vd-avatar-warning {
-  background-color: var(--color-warning);
-  color: var(--color-gray-900);
+  background-color: var(--vd-color-warning);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-avatar-error {
-  background-color: var(--color-error);
-  color: var(--color-white);
+  background-color: var(--vd-color-error);
+  color: var(--vd-color-white);
 }
 
 .vd-avatar-info {
-  background-color: var(--color-info);
-  color: var(--color-white);
+  background-color: var(--vd-color-info);
+  color: var(--vd-color-white);
 }
 
 /* Clickable Avatar */
@@ -269,7 +269,7 @@ button.vd-avatar:hover {
 
 a.vd-avatar:focus-visible,
 button.vd-avatar:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
 }
 

@@ -13,8 +13,8 @@
   const ExpandingCards = {
     instances: new Map(),
 
-    init: function () {
-      document.querySelectorAll('.vd-expanding-cards').forEach(function (el) {
+    init: function (root) {
+      window.Vanduo.queryAll(root, '.vd-expanding-cards').forEach(function (el) {
         if (el.getAttribute('data-vd-expanding-cards') === 'manual') return;
         if (ExpandingCards.instances.has(el)) return;
         ExpandingCards.initContainer(el);

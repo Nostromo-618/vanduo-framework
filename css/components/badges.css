@@ -37,24 +37,24 @@
 
 /* Dark Theme - Light badge needs different colors */
 [data-theme="dark"] .vd-badge-light {
-  background-color: var(--color-gray-700);
-  color: var(--color-gray-100);
+  background-color: var(--vd-color-gray-700);
+  color: var(--vd-color-gray-100);
 }
 
 [data-theme="dark"] .vd-badge-outlined.vd-badge-light {
-  color: var(--color-gray-300);
-  border-color: var(--color-gray-500);
+  color: var(--vd-color-gray-300);
+  border-color: var(--vd-color-gray-500);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .vd-badge-light {
-    background-color: var(--color-gray-700);
-    color: var(--color-gray-100);
+    background-color: var(--vd-color-gray-700);
+    color: var(--vd-color-gray-100);
   }
 
   :root:not([data-theme]) .vd-badge-outlined.vd-badge-light {
-    color: var(--color-gray-300);
-    border-color: var(--color-gray-500);
+    color: var(--vd-color-gray-300);
+    border-color: var(--vd-color-gray-500);
   }
 }
 
@@ -65,53 +65,53 @@
   font-size: var(--badge-font-size);
   font-weight: var(--badge-font-weight);
   line-height: var(--badge-line-height);
-  color: var(--color-white);
+  color: var(--vd-color-white);
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: var(--badge-border-radius);
-  background-color: var(--color-secondary);
+  background-color: var(--vd-color-secondary);
 }
 
 /* Badge Variants */
 .vd-badge-primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--vd-color-primary);
+  color: var(--vd-color-white);
 }
 
 .vd-badge-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-white);
+  background-color: var(--vd-color-secondary);
+  color: var(--vd-color-white);
 }
 
 .vd-badge-success {
-  background-color: var(--color-success);
-  color: var(--color-white);
+  background-color: var(--vd-color-success);
+  color: var(--vd-color-white);
 }
 
 .vd-badge-warning {
-  background-color: var(--color-warning);
-  color: var(--color-gray-900);
+  background-color: var(--vd-color-warning);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-badge-error {
-  background-color: var(--color-error);
-  color: var(--color-white);
+  background-color: var(--vd-color-error);
+  color: var(--vd-color-white);
 }
 
 .vd-badge-info {
-  background-color: var(--color-info);
-  color: var(--color-white);
+  background-color: var(--vd-color-info);
+  color: var(--vd-color-white);
 }
 
 .vd-badge-light {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
+  background-color: var(--vd-color-gray-100);
+  color: var(--vd-color-gray-900);
 }
 
 .vd-badge-dark {
-  background-color: var(--color-gray-800);
-  color: var(--color-white);
+  background-color: var(--vd-color-gray-800);
+  color: var(--vd-color-white);
 }
 
 /* Badge Sizes */
@@ -138,43 +138,43 @@
 }
 
 .vd-badge-outlined.vd-badge-primary {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--vd-color-primary);
+  border-color: var(--vd-color-primary);
 }
 
 .vd-badge-outlined.vd-badge-secondary {
-  color: var(--color-secondary);
-  border-color: var(--color-secondary);
+  color: var(--vd-color-secondary);
+  border-color: var(--vd-color-secondary);
 }
 
 .vd-badge-outlined.vd-badge-success {
-  color: var(--color-success);
-  border-color: var(--color-success);
+  color: var(--vd-color-success);
+  border-color: var(--vd-color-success);
 }
 
 .vd-badge-outlined.vd-badge-warning {
-  color: var(--color-warning);
-  border-color: var(--color-warning);
+  color: var(--vd-color-warning);
+  border-color: var(--vd-color-warning);
 }
 
 .vd-badge-outlined.vd-badge-error {
-  color: var(--color-error);
-  border-color: var(--color-error);
+  color: var(--vd-color-error);
+  border-color: var(--vd-color-error);
 }
 
 .vd-badge-outlined.vd-badge-info {
-  color: var(--color-info);
-  border-color: var(--color-info);
+  color: var(--vd-color-info);
+  border-color: var(--vd-color-info);
 }
 
 .vd-badge-outlined.vd-badge-light {
-  color: var(--color-gray-600);
-  border-color: var(--color-gray-300);
+  color: var(--vd-color-gray-600);
+  border-color: var(--vd-color-gray-300);
 }
 
 .vd-badge-outlined.vd-badge-dark {
-  color: var(--color-gray-800);
-  border-color: var(--color-gray-800);
+  color: var(--vd-color-gray-800);
+  border-color: var(--vd-color-gray-800);
 }
 
 /* Badge Positioning (for use with buttons, avatars, etc.) */

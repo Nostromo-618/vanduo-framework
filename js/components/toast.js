@@ -94,7 +94,7 @@
       if (config.icon) {
         const allowSvg = config.iconAllowSvg === true;
         const safeIcon = typeof sanitizeHtml === 'function'
-          ? sanitizeHtml(config.icon, { allowSvg })
+          ? sanitizeHtml(config.icon, { allowSvg, allowStyle: false })
           : escapeHtml(config.icon);
         html += `<span class="vd-toast-icon">${safeIcon}</span>`;
       } else if (config.type) {

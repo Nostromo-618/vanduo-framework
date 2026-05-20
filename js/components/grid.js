@@ -20,12 +20,13 @@
    */
   const GridLayout = {
     instances: new Map(),
+    __vanduoScopedDestroyAll: true,
 
     /**
      * Initialize all grid layout containers
      */
-    init: function () {
-      const containers = document.querySelectorAll('[data-layout-mode]');
+    init: function (root) {
+      const containers = window.Vanduo.queryAll(root, '[data-layout-mode]');
 
       containers.forEach(function (container) {
         if (this.instances.has(container)) {
@@ -34,7 +35,7 @@
         this.initContainer(container);
       }.bind(this));
 
-      this.initToggleButtons();
+      this.initToggleButtons(root);
     },
 
     /**
@@ -59,8 +60,10 @@
     /**
      * Initialize toggle buttons that target grid containers
      */
-    initToggleButtons: function () {
-      const toggleButtons = document.querySelectorAll('[data-grid-toggle]');
+    initToggleButtons: function (root) {
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(root, '[data-grid-toggle]')
+        : document.querySelectorAll('[data-grid-toggle]');
 
       toggleButtons.forEach(function (button) {
         if (button.getAttribute('data-grid-initialized') === 'true') {
@@ -253,12 +256,20 @@
     /**
      * Destroy all grid layout instances and clean up toggle buttons
      */
-    destroyAll: function () {
+    destroyAll: function (root) {
+      const scope = window.Vanduo && typeof window.Vanduo._normalizeRoot === 'function'
+        ? window.Vanduo._normalizeRoot(root)
+        : (root || document);
+
       this.instances.forEach(function (instance, container) {
-        this.destroy(container);
+        if (scope === document || scope === container || (typeof scope.contains === 'function' && scope.contains(container))) {
+          this.destroy(container);
+        }
       }.bind(this));
 
-      const toggleButtons = document.querySelectorAll('[data-grid-initialized="true"]');
+      const toggleButtons = window.Vanduo && typeof window.Vanduo.queryAll === 'function'
+        ? window.Vanduo.queryAll(scope, '[data-grid-toggle][data-grid-initialized="true"]')
+        : document.querySelectorAll('[data-grid-initialized="true"]');
       toggleButtons.forEach(function (button) {
         if (button._gridCleanup) {
           button._gridCleanup();

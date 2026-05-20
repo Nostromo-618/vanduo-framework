@@ -32,6 +32,42 @@
     /** @type {Map<Element, IntersectionObserver>} */
     const _observerMap = new Map();
 
+    function _isRoot(root) {
+        return !!root && (root === document || root.nodeType === 1 || root.nodeType === 9 || root.nodeType === 11);
+    }
+
+    function _normalizeRoot(root) {
+        return _isRoot(root) ? root : document;
+    }
+
+    function _isInRoot(root, element) {
+        const scope = _normalizeRoot(root);
+        if (!(element instanceof Element)) return false;
+        if (scope === document) {
+            return document.documentElement ? document.documentElement.contains(element) : document.contains(element);
+        }
+        if (scope === element) return true;
+        return typeof scope.contains === 'function' && scope.contains(element);
+    }
+
+    function _queryAll(root, selector) {
+        const scope = _normalizeRoot(root);
+        const matches = [];
+
+        if (scope instanceof Element && typeof scope.matches === 'function' && scope.matches(selector)) {
+            matches.push(scope);
+        }
+
+        if (typeof scope.querySelectorAll === 'function') {
+            const descendants = scope.querySelectorAll(selector);
+            for (let i = 0; i < descendants.length; i++) {
+                matches.push(descendants[i]);
+            }
+        }
+
+        return matches;
+    }
+
     /* ── Security helpers ─────────────────────────────── */
 
     /**
@@ -183,6 +219,9 @@
                     if (entry.isIntersecting) {
                         obs.unobserve(entry.target);
                         _observerMap.delete(entry.target);
+                        if (typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.has(entry.target, 'lazyLoad')) {
+                            window.VanduoLifecycle.unregister(entry.target, 'lazyLoad');
+                        }
                         try {
                             callback(entry.target);
                         } catch (e) {
@@ -193,6 +232,11 @@
             }, { threshold: threshold, rootMargin: rootMargin });
 
             _observerMap.set(element, observer);
+            if (typeof window.VanduoLifecycle !== 'undefined' && !window.VanduoLifecycle.has(element, 'lazyLoad')) {
+                window.VanduoLifecycle.register(element, 'lazyLoad', [() => {
+                    VanduoLazyLoad.unobserve(element, { skipLifecycle: true });
+                }]);
+            }
             observer.observe(element);
         },
 
@@ -200,11 +244,19 @@
          * Stop observing an element that was previously passed to observe().
          * @param {Element} element
          */
-        unobserve: function (element) {
+        unobserve: function (element, options) {
+            const opts = options || {};
             const observer = _observerMap.get(element);
             if (observer) {
                 observer.unobserve(element);
+                if (typeof observer.disconnect === 'function') {
+                    observer.disconnect();
+                }
                 _observerMap.delete(element);
+            }
+
+            if (!opts.skipLifecycle && typeof window.VanduoLifecycle !== 'undefined' && window.VanduoLifecycle.has(element, 'lazyLoad')) {
+                window.VanduoLifecycle.unregister(element, 'lazyLoad');
             }
         },
 
@@ -212,10 +264,10 @@
          * Stop observing ALL currently observed elements.
          */
         unobserveAll: function () {
-            _observerMap.forEach(function (observer, element) {
-                observer.unobserve(element);
+            const observed = Array.from(_observerMap.keys());
+            observed.forEach(function (element) {
+                VanduoLazyLoad.unobserve(element);
             });
-            _observerMap.clear();
         },
 
         /* ─────────────────────────────────────────────────
@@ -275,9 +327,9 @@
                         // raw innerHTML assignment of externally-sourced strings
                         _safeInjectHtml(containerEl, html);
                         _dispatch(containerEl, 'lazysection:loaded', { url: url });
-                        // Re-init Vanduo components inside the new content
+                        // Re-init Vanduo components only inside the injected subtree
                         if (typeof window.Vanduo !== 'undefined') {
-                            window.Vanduo.init();
+                            window.Vanduo.init(containerEl);
                         }
                         if (typeof opts.onLoaded === 'function') {
                             opts.onLoaded(containerEl);
@@ -316,9 +368,9 @@
          * Scan the DOM for [data-vd-lazy] elements and wire them up.
          * Safe to call multiple times — already-observed elements are skipped.
          */
-        init: function () {
+        init: function (root) {
             const self = this;
-            const elements = document.querySelectorAll('[data-vd-lazy]');
+            const elements = _queryAll(root, '[data-vd-lazy]');
             elements.forEach(function (el) {
                 // Skip already-observed or already-loaded elements
                 if (_observerMap.has(el) || el.dataset.vdLazyState === 'loading' || el.dataset.vdLazyState === 'loaded') return;
@@ -339,12 +391,32 @@
                     }
                 });
             });
+        },
+
+        destroy: function (element) {
+            this.unobserve(element);
+        },
+
+        destroyAll: function (root) {
+            const scope = _normalizeRoot(root);
+
+            if (scope === document) {
+                this.unobserveAll();
+                return;
+            }
+
+            const observed = Array.from(_observerMap.keys());
+            observed.forEach((element) => {
+                if (_isInRoot(scope, element)) {
+                    this.unobserve(element);
+                }
+            });
         }
     };
 
     /* ── Register with Vanduo ─────────────────────────── */
     if (typeof window.Vanduo !== 'undefined') {
-        window.Vanduo.register('LazyLoad', VanduoLazyLoad);
+        window.Vanduo.register('lazyLoad', VanduoLazyLoad, { aliases: ['LazyLoad'] });
     }
 
     /* ── Global convenience alias ─────────────────────── */

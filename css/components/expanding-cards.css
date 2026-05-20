@@ -136,7 +136,7 @@
   height: 40px;
   border-radius: 100%;
   background-color: #fff;
-  color: var(--vd-expanding-card-bg-default, var(--color-primary, #3b82f6));
+  color: var(--vd-expanding-card-bg-default, var(--vd-color-primary, #3b82f6));
 }
 
 .vd-expanding-card-info {

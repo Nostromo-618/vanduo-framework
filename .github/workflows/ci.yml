@@ -36,7 +36,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Security audit
-        run: pnpm audit --audit-level=high
+        run: pnpm audit --audit-level=moderate
         continue-on-error: false
 
       - name: Run CSS linting

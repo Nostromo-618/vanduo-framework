@@ -40,7 +40,15 @@
       }
     },
 
-    init: function() {
+    getToggles: function(root) {
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '[data-toggle="font"]');
+      }
+
+      return Array.from(document.querySelectorAll('[data-toggle="font"]'));
+    },
+
+    init: function(root) {
       this.state = {
         preference: this.getPreference()
       };
@@ -51,17 +59,15 @@
 
       if (this.isInitialized) {
         this.applyFont();
-        this.renderUI();
-        this.updateUI();
+        this.renderUI(root);
+        this.updateUI(root);
         return;
       }
 
       this.isInitialized = true;
 
       this.applyFont();
-      this.renderUI();
-
-      console.log('Vanduo Font Switcher initialized');
+      this.renderUI(root);
     },
 
     /**
@@ -113,8 +119,8 @@
     /**
      * Initialize UI elements with data-toggle="font"
      */
-    renderUI: function() {
-      const toggles = document.querySelectorAll('[data-toggle="font"]');
+    renderUI: function(root) {
+      const toggles = this.getToggles(root);
 
       toggles.forEach(toggle => {
         if (toggle.getAttribute('data-font-initialized') === 'true') {
@@ -153,8 +159,8 @@
     /**
      * Update all UI elements to reflect current state
      */
-    updateUI: function() {
-      const toggles = document.querySelectorAll('[data-toggle="font"]');
+    updateUI: function(root) {
+      const toggles = this.getToggles(root);
 
       toggles.forEach(toggle => {
         if (toggle.tagName === 'SELECT') {
@@ -186,8 +192,10 @@
       return this.fonts[fontKey] || null;
     },
 
-    destroyAll: function() {
-      const toggles = document.querySelectorAll('[data-toggle="font"][data-font-initialized="true"]');
+    destroyAll: function(root) {
+      const toggles = this.getToggles(root || document).filter(function(toggle) {
+        return toggle.getAttribute('data-font-initialized') === 'true';
+      });
       toggles.forEach(toggle => {
         if (toggle._fontToggleHandler) {
           const eventName = toggle.tagName === 'SELECT' ? 'change' : 'click';
@@ -197,7 +205,9 @@
         toggle.removeAttribute('data-font-initialized');
       });
 
-      this.isInitialized = false;
+      if (!root || root === document) {
+        this.isInitialized = false;
+      }
     },
 
     getStorageValue: function(key, fallback) {

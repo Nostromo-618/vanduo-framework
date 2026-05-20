@@ -9,8 +9,8 @@
   const Flow = {
     instances: new Map(),
 
-    init: function () {
-      const carousels = document.querySelectorAll('.vd-flow, .vd-carousel');
+    init: function (root) {
+      const carousels = window.Vanduo.queryAll(root, '.vd-flow, .vd-carousel');
       carousels.forEach(el => {
         if (this.instances.has(el)) return;
         this.initInstance(el);

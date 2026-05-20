@@ -24,8 +24,8 @@
     /**
      * Initialize draggable components
      */
-    init: function () {
-      const draggables = document.querySelectorAll('.vd-draggable, [data-draggable]');
+    init: function (root) {
+      const draggables = window.Vanduo.queryAll(root, '.vd-draggable, [data-draggable]');
 
       draggables.forEach(element => {
         if (this.instances.has(element)) {
@@ -34,14 +34,14 @@
         this.initDraggable(element);
       });
 
-      const containers = document.querySelectorAll(this.containerSelector);
+      const containers = window.Vanduo.queryAll(root, this.containerSelector);
       containers.forEach(container => {
         if (!this.instances.has(container)) {
           this.initContainer(container);
         }
       });
 
-      const dropZones = document.querySelectorAll('.vd-drop-zone');
+      const dropZones = window.Vanduo.queryAll(root, '.vd-drop-zone');
       dropZones.forEach(zone => {
         if (!this.instances.has(zone)) {
           this.initDropZone(zone);

@@ -11,7 +11,15 @@
     _mediaQuery: null,
     _onMediaChange: null,
 
-    init: function () {
+    getToggles: function (root) {
+      if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
+        return window.Vanduo.queryAll(root, '[data-toggle="theme"]');
+      }
+
+      return Array.from(document.querySelectorAll('[data-toggle="theme"]'));
+    },
+
+    init: function (root) {
       this.STORAGE_KEY = 'vanduo-theme-preference';
       this.state = {
         preference: this.getPreference() // 'light', 'dark', or 'system'
@@ -19,8 +27,8 @@
 
       if (this.isInitialized) {
         this.applyTheme();
-        this.renderUI();
-        this.updateUI();
+        this.renderUI(root);
+        this.updateUI(root);
         return;
       }
 
@@ -28,9 +36,7 @@
 
       this.applyTheme();
       this.listenForSystemChanges();
-      this.renderUI();
-
-      console.log('Vanduo Theme Switcher initialized');
+      this.renderUI(root);
     },
 
     getPreference: function () {
@@ -113,9 +119,9 @@
     },
 
     // Helper to facilitate UI creation if needed, though often UI is in HTML
-    renderUI: function () {
+    renderUI: function (root) {
       // Look for any uninitialized theme toggles
-      const toggles = document.querySelectorAll('[data-toggle="theme"]');
+      const toggles = this.getToggles(root);
       toggles.forEach(toggle => {
         if (toggle.getAttribute('data-theme-initialized') === 'true') {
           if (toggle.tagName === 'SELECT') {
@@ -147,8 +153,8 @@
       });
     },
 
-    updateUI: function () {
-      const toggles = document.querySelectorAll('[data-toggle="theme"]');
+    updateUI: function (root) {
+      const toggles = this.getToggles(root);
       toggles.forEach(toggle => {
         if (toggle.tagName === 'SELECT') {
           toggle.value = this.state.preference;
@@ -166,8 +172,11 @@
       });
     },
 
-    destroyAll: function () {
-      const toggles = document.querySelectorAll('[data-toggle="theme"][data-theme-initialized="true"]');
+    destroyAll: function (root) {
+      const scope = root || document;
+      const toggles = this.getToggles(scope).filter(function (toggle) {
+        return toggle.getAttribute('data-theme-initialized') === 'true';
+      });
       toggles.forEach(toggle => {
         if (toggle._themeToggleHandler) {
           const eventName = toggle.tagName === 'SELECT' ? 'change' : 'click';
@@ -177,13 +186,15 @@
         toggle.removeAttribute('data-theme-initialized');
       });
 
-      if (this._mediaQuery && this._onMediaChange) {
+      if (scope === document && this._mediaQuery && this._onMediaChange) {
         this._mediaQuery.removeEventListener('change', this._onMediaChange);
       }
 
-      this._mediaQuery = null;
-      this._onMediaChange = null;
-      this.isInitialized = false;
+      if (scope === document) {
+        this._mediaQuery = null;
+        this._onMediaChange = null;
+        this.isInitialized = false;
+      }
     }
   };
 

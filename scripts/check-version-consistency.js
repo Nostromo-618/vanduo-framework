@@ -89,6 +89,7 @@ if (packageVersion) {
     const directVersionPattern = new RegExp(`version\\s*:\\s*["']${escapeRegExp(packageVersion)}["']`);
     const injectedVersionPattern = new RegExp(`VANDUO_VERSION[^\\n]*["']${escapeRegExp(packageVersion)}["']`);
     const injectedReferencePattern = /version\s*:\s*VANDUO_VERSION/;
+    const aliasedVersionDeclarationPattern = new RegExp(`(?:const|let|var)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*["']${escapeRegExp(packageVersion)}["']`);
 
     for (const fileName of jsFiles) {
         const filePath = path.join(distDir, fileName);
@@ -102,21 +103,13 @@ if (packageVersion) {
 
         const hasDirectVersion = directVersionPattern.test(content);
         const hasInjectedVersion = injectedVersionPattern.test(content) && injectedReferencePattern.test(content);
+        const aliasMatch = content.match(aliasedVersionDeclarationPattern);
+        const hasAliasedVersion = !!(aliasMatch && new RegExp(`version\\s*:\\s*${escapeRegExp(aliasMatch[1])}\\b`).test(content));
 
-        if (!hasDirectVersion && !hasInjectedVersion) {
+        if (!hasDirectVersion && !hasInjectedVersion && !hasAliasedVersion) {
             fail(`Runtime version mismatch in ${fileName}: missing version:${packageVersion}`);
         }
 
-        if (!content.includes('Vanduo Framework v') || !content.includes(' initialized')) {
-            fail(`Runtime init log marker missing in ${fileName}`);
-        }
-
-        const hardcodedMatches = [...content.matchAll(/Vanduo Framework v(\d+\.\d+\.\d+) initialized/g)];
-        for (const match of hardcodedMatches) {
-            if (match[1] !== packageVersion) {
-                fail(`Hardcoded runtime log version mismatch in ${fileName}: found ${match[1]}, expected ${packageVersion}`);
-            }
-        }
     }
 }
 

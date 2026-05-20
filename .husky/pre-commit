@@ -27,7 +27,7 @@ fi
 
 # Quick security audit before committing
 echo "Running security audit..."
-pnpm audit --audit-level=high 2>/dev/null || {
+pnpm audit --audit-level=moderate 2>/dev/null || {
     echo "⚠️  Security vulnerabilities found. Run 'pnpm audit' for details."
     echo "To proceed anyway: git commit --no-verify"
     exit 1

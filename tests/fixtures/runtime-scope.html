@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Runtime Scope Test Fixture</title>
+  <link rel="stylesheet" href="/css/components/timeline.css">
+</head>
+<body>
+  <section id="scope-a">
+    <ul id="timeline-a" class="vd-timeline vd-timeline-animated">
+      <li class="vd-timeline-item">
+        <div class="vd-timeline-marker"></div>
+        <div class="vd-timeline-content"><h4>A1</h4></div>
+      </li>
+      <li class="vd-timeline-item">
+        <div class="vd-timeline-marker"></div>
+        <div class="vd-timeline-content"><h4>A2</h4></div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="scope-b">
+    <ul id="timeline-b" class="vd-timeline vd-timeline-animated">
+      <li class="vd-timeline-item">
+        <div class="vd-timeline-marker"></div>
+        <div class="vd-timeline-content"><h4>B1</h4></div>
+      </li>
+      <li class="vd-timeline-item">
+        <div class="vd-timeline-marker"></div>
+        <div class="vd-timeline-content"><h4>B2</h4></div>
+      </li>
+    </ul>
+  </section>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/utils/lifecycle.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/timeline.js"></script>
+</body>
+</html>

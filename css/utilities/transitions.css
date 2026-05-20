@@ -32,9 +32,15 @@
 
 /* Transition Duration Utilities */
 .vd-transition-none { transition: none; }
-.vd-transition-fast { transition-duration: var(--transition-duration-fast); }
+.vd-transition-fast {
+  transition: var(--transition-fast);
+  transition-duration: var(--transition-duration-fast);
+}
 .vd-transition-base { transition-duration: var(--transition-duration-base); }
-.vd-transition-slow { transition-duration: var(--transition-duration-slow); }
+.vd-transition-slow {
+  transition: var(--transition-slow);
+  transition-duration: var(--transition-duration-slow);
+}
 .vd-transition-slower { transition-duration: var(--transition-duration-slower); }
 .vd-transition-slowest { transition-duration: var(--transition-duration-slowest); }
 
@@ -48,20 +54,26 @@
 /* Transition Property Utilities */
 .vd-transition-all { transition-property: all; }
 .vd-transition-colors { transition-property: color, background-color, border-color; }
-.vd-transition-opacity { transition-property: opacity; }
-.vd-transition-transform { transition-property: transform; }
-.vd-transition-shadow { transition-property: box-shadow; }
+.vd-transition-opacity {
+  transition: var(--transition-opacity);
+  transition-property: opacity;
+}
+
+.vd-transition-transform {
+  transition: var(--transition-transform);
+  transition-property: transform;
+}
+
+.vd-transition-shadow {
+  transition: var(--transition-shadow);
+  transition-property: box-shadow;
+}
 
 /* Combined Transition Utilities */
 .vd-transition { transition: var(--transition-base); }
-.vd-transition-fast { transition: var(--transition-fast); }
-.vd-transition-slow { transition: var(--transition-slow); }
 .vd-transition-color { transition: var(--transition-color); }
 .vd-transition-bg { transition: var(--transition-bg); }
 .vd-transition-border { transition: var(--transition-border); }
-.vd-transition-opacity { transition: var(--transition-opacity); }
-.vd-transition-transform { transition: var(--transition-transform); }
-.vd-transition-shadow { transition: var(--transition-shadow); }
 
 /* Delay Utilities */
 .vd-transition-delay-none { transition-delay: 0ms; }

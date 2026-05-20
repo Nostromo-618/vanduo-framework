@@ -15,24 +15,24 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 1rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--vd-border-color);
     border-radius: var(--btn-border-radius);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    background: var(--vd-bg-secondary);
+    color: var(--vd-text-primary);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .doc-tab:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background: var(--color-primary-alpha-08);
+    border-color: var(--vd-color-primary);
+    color: var(--vd-color-primary);
+    background: var(--vd-color-primary-alpha-08);
 }
 
 .doc-tab.active {
-    border-color: var(--color-primary);
-    color: var(--text-on-primary);
-    background: var(--color-primary);
-    box-shadow: 0 0 0 1px var(--color-primary-alpha-20);
+    border-color: var(--vd-color-primary);
+    color: var(--vd-text-on-primary);
+    background: var(--vd-color-primary);
+    box-shadow: 0 0 0 1px var(--vd-color-primary-alpha-20);
 }

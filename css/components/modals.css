@@ -79,6 +79,7 @@
   outline: 0;
   opacity: 0;
   transition: var(--vd-modal-transition);
+  --vd-modal-dialog-max-width: var(--vd-modal-width);
 }
 
 .vd-modal.is-open {
@@ -91,9 +92,9 @@
 /* Modal Dialog */
 .vd-modal-dialog {
   position: relative;
-  width: auto;
+  width: min(calc(100% - 3.5rem), var(--vd-modal-dialog-max-width));
   margin: 1.75rem auto;
-  max-width: var(--vd-modal-width);
+  max-width: var(--vd-modal-dialog-max-width);
   pointer-events: none;
   transform: scale(0.95);
   transition: var(--vd-modal-dialog-transition);
@@ -202,16 +203,19 @@
 }
 
 /* Modal Sizes */
+.vd-modal-dialog.vd-modal-sm,
 .vd-modal-sm .vd-modal-dialog {
-  max-width: var(--vd-modal-width-sm);
+  --vd-modal-dialog-max-width: var(--vd-modal-width-sm);
 }
 
+.vd-modal-dialog.vd-modal-lg,
 .vd-modal-lg .vd-modal-dialog {
-  max-width: var(--vd-modal-width-lg);
+  --vd-modal-dialog-max-width: var(--vd-modal-width-lg);
 }
 
+.vd-modal-dialog.vd-modal-xl,
 .vd-modal-xl .vd-modal-dialog {
-  max-width: var(--vd-modal-width-xl);
+  --vd-modal-dialog-max-width: var(--vd-modal-width-xl);
 }
 
 .vd-modal-fullscreen .vd-modal-dialog {
@@ -256,6 +260,7 @@
 @media (max-width: 575.98px) {
   .vd-modal-dialog {
     margin: 0.5rem;
+    width: calc(100% - 1rem);
     max-width: calc(100% - 1rem);
   }
   
@@ -295,4 +300,3 @@
   overflow: hidden;
   padding-right: 0;
 }
-

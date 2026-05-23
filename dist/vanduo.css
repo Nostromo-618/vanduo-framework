@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.1 | Built: 2026-05-23T09:27:52.907Z | git:4799a84 | development */
+/*! Vanduo v1.4.1 | Built: 2026-05-23T19:15:51.919Z | git:aac1bed | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -56899,6 +56899,7 @@ a.vd-card:active {
   width: 100%;
   height: 100%;
   transition: var(--vd-modal-transition);
+  --vd-modal-dialog-max-width: var(--vd-modal-width);
   outline: 0;
   display: none;
   position: fixed;
@@ -56915,8 +56916,8 @@ a.vd-card:active {
 }
 
 .vd-modal-dialog {
-  width: auto;
-  max-width: var(--vd-modal-width);
+  width: min(calc(100% - 3.5rem), var(--vd-modal-dialog-max-width));
+  max-width: var(--vd-modal-dialog-max-width);
   pointer-events: none;
   transition: var(--vd-modal-dialog-transition);
   z-index: 1060;
@@ -57019,16 +57020,16 @@ a.vd-card:active {
   margin: 0;
 }
 
-.vd-modal-sm .vd-modal-dialog {
-  max-width: var(--vd-modal-width-sm);
+.vd-modal-dialog.vd-modal-sm, .vd-modal-sm .vd-modal-dialog {
+  --vd-modal-dialog-max-width: var(--vd-modal-width-sm);
 }
 
-.vd-modal-lg .vd-modal-dialog {
-  max-width: var(--vd-modal-width-lg);
+.vd-modal-dialog.vd-modal-lg, .vd-modal-lg .vd-modal-dialog {
+  --vd-modal-dialog-max-width: var(--vd-modal-width-lg);
 }
 
-.vd-modal-xl .vd-modal-dialog {
-  max-width: var(--vd-modal-width-xl);
+.vd-modal-dialog.vd-modal-xl, .vd-modal-xl .vd-modal-dialog {
+  --vd-modal-dialog-max-width: var(--vd-modal-width-xl);
 }
 
 .vd-modal-fullscreen .vd-modal-dialog {
@@ -57068,6 +57069,7 @@ a.vd-card:active {
 
 @media (width <= 575.98px) {
   .vd-modal-dialog {
+    width: calc(100% - 1rem);
     max-width: calc(100% - 1rem);
     margin: .5rem;
   }

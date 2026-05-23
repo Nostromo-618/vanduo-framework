@@ -4,24 +4,24 @@
  */
 
 :root {
-  --tree-indent: 1.3125rem;     /* 21px - fib */
-  --tree-line-color: var(--vd-border-color, #dee2e6);
-  --tree-line-width: 1px;
-  --tree-item-padding: 0.25rem 0.3125rem; /* 4px 5px */
-  --tree-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
-  --tree-icon-size: 1rem;
-  --tree-toggle-size: 1.125rem;
+  --vd-tree-indent: 1.3125rem;     /* 21px - fib */
+  --vd-tree-line-color: var(--vd-border-color, #dee2e6);
+  --vd-tree-line-width: 1px;
+  --vd-tree-item-padding: 0.25rem 0.3125rem; /* 4px 5px */
+  --vd-tree-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-tree-icon-size: 1rem;
+  --vd-tree-toggle-size: 1.125rem;
 }
 
 [data-theme="dark"] {
-  --tree-line-color: var(--vd-color-gray-600, #6c757d);
-  --tree-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-tree-line-color: var(--vd-color-gray-600, #6c757d);
+  --vd-tree-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --tree-line-color: var(--vd-color-gray-600, #6c757d);
-    --tree-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-tree-line-color: var(--vd-color-gray-600, #6c757d);
+    --vd-tree-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
   }
 }
 
@@ -34,7 +34,7 @@
 }
 
 .vd-tree .vd-tree {
-  padding-left: var(--tree-indent);
+  padding-left: var(--vd-tree-indent);
 }
 
 /* ========== Node ========== */
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   gap: 0.3125rem; /* 5px - fib */
-  padding: var(--tree-item-padding);
+  padding: var(--vd-tree-item-padding);
   border-radius: 0.25rem;
   cursor: default;
   font-size: 0.875rem;
@@ -55,7 +55,7 @@
 }
 
 .vd-tree-node-content:hover {
-  background: var(--tree-item-hover-bg);
+  background: var(--vd-tree-item-hover-bg);
 }
 
 /* ========== Toggle ========== */
@@ -64,8 +64,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--tree-toggle-size);
-  height: var(--tree-toggle-size);
+  width: var(--vd-tree-toggle-size);
+  height: var(--vd-tree-toggle-size);
   border: none;
   background: none;
   padding: 0;
@@ -86,7 +86,7 @@
 
 /* Placeholder for leaf nodes (no children) */
 .vd-tree-toggle-placeholder {
-  width: var(--tree-toggle-size);
+  width: var(--vd-tree-toggle-size);
   flex-shrink: 0;
 }
 
@@ -100,7 +100,7 @@
 /* ========== Icon ========== */
 
 .vd-tree-icon {
-  font-size: var(--tree-icon-size);
+  font-size: var(--vd-tree-icon-size);
   flex-shrink: 0;
   color: var(--vd-text-muted, #6c757d);
 }
@@ -139,7 +139,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  padding-left: var(--tree-indent);
+  padding-left: var(--vd-tree-indent);
 }
 
 .vd-tree-node.is-open > .vd-tree-children {
@@ -156,18 +156,18 @@
   content: '';
   position: absolute;
   top: 0;
-  left: calc(var(--tree-toggle-size) / 2);
+  left: calc(var(--vd-tree-toggle-size) / 2);
   bottom: 0.75rem;
-  width: var(--tree-line-width);
-  background: var(--tree-line-color);
+  width: var(--vd-tree-line-width);
+  background: var(--vd-tree-line-color);
 }
 
 .vd-tree-lines .vd-tree-children .vd-tree-node::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: calc(var(--tree-toggle-size) / 2 - var(--tree-indent));
+  left: calc(var(--vd-tree-toggle-size) / 2 - var(--vd-tree-indent));
   width: 0.5rem;
-  height: var(--tree-line-width);
-  background: var(--tree-line-color);
+  height: var(--vd-tree-line-width);
+  background: var(--vd-tree-line-color);
 }

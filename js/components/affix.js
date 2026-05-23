@@ -51,7 +51,7 @@
       sentinel.style.cssText = 'display:block;height:1px;margin-bottom:-1px;visibility:hidden;pointer-events:none;';
       el.parentNode.insertBefore(sentinel, el);
 
-      el.style.setProperty('--affix-top-offset', offset + 'px');
+      el.style.setProperty('--vd-affix-top-offset', offset + 'px');
 
       function stick() {
         if (isStuck) return;
@@ -100,7 +100,7 @@
         () => { if (sentinel.parentNode) sentinel.parentNode.removeChild(sentinel); },
         () => {
           el.classList.remove('is-stuck');
-          el.style.removeProperty('--affix-top-offset');
+          el.style.removeProperty('--vd-affix-top-offset');
         }
       );
 

@@ -4,32 +4,32 @@
  */
 
 :root {
-  --tp-bg: var(--card-bg, #fff);
-  --tp-border-color: var(--vd-border-color, #dee2e6);
-  --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.12);
-  --tp-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
-  --tp-item-selected-bg: var(--vd-color-primary, #0d6efd);
-  --tp-item-selected-color: #fff;
-  --tp-padding: 0.5rem;
-  --tp-item-padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
-  --tp-max-height: 15rem;
-  --tp-border-radius: var(--border-radius, 0.5rem);
-  --tp-z-index: 1055;
+  --vd-tp-bg: var(--vd-card-bg, #fff);
+  --vd-tp-border-color: var(--vd-border-color, #dee2e6);
+  --vd-tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.12);
+  --vd-tp-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-tp-item-selected-bg: var(--vd-color-primary, #0d6efd);
+  --vd-tp-item-selected-color: #fff;
+  --vd-tp-padding: 0.5rem;
+  --vd-tp-item-padding: 0.3125rem 0.8125rem; /* 5px 13px - fib */
+  --vd-tp-max-height: 15rem;
+  --vd-tp-border-radius: var(--vd-border-radius, 0.5rem);
+  --vd-tp-z-index: 1055;
 }
 
 [data-theme="dark"] {
-  --tp-bg: var(--card-bg, #2d2d44);
-  --tp-border-color: var(--vd-border-color, #3d3d5c);
-  --tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-  --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+  --vd-tp-bg: var(--vd-card-bg, #2d2d44);
+  --vd-tp-border-color: var(--vd-border-color, #3d3d5c);
+  --vd-tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --tp-bg: var(--card-bg, #2d2d44);
-    --tp-border-color: var(--vd-border-color, #3d3d5c);
-    --tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-    --tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+    --vd-tp-bg: var(--vd-card-bg, #2d2d44);
+    --vd-tp-border-color: var(--vd-border-color, #3d3d5c);
+    --vd-tp-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-tp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -37,12 +37,12 @@
 
 .vd-timepicker-popup {
   position: absolute;
-  z-index: var(--tp-z-index);
-  background: var(--tp-bg);
-  border: 1px solid var(--tp-border-color);
-  border-radius: var(--tp-border-radius);
-  box-shadow: var(--tp-shadow);
-  max-height: var(--tp-max-height);
+  z-index: var(--vd-tp-z-index);
+  background: var(--vd-tp-bg);
+  border: 1px solid var(--vd-tp-border-color);
+  border-radius: var(--vd-tp-border-radius);
+  box-shadow: var(--vd-tp-shadow);
+  max-height: var(--vd-tp-max-height);
   overflow-y: auto;
   display: none;
   min-width: 8rem;
@@ -55,7 +55,7 @@
 /* ========== Time Items ========== */
 
 .vd-timepicker-item {
-  padding: var(--tp-item-padding);
+  padding: var(--vd-tp-item-padding);
   cursor: pointer;
   font-size: 0.875rem;
   text-align: center;
@@ -64,12 +64,12 @@
 }
 
 .vd-timepicker-item:hover {
-  background: var(--tp-item-hover-bg);
+  background: var(--vd-tp-item-hover-bg);
 }
 
 .vd-timepicker-item.is-selected {
-  background: var(--tp-item-selected-bg);
-  color: var(--tp-item-selected-color);
+  background: var(--vd-tp-item-selected-bg);
+  color: var(--vd-tp-item-selected-color);
   font-weight: 600;
 }
 

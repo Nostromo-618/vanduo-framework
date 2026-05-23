@@ -5,40 +5,40 @@
 
 :root {
   /* Collection Colors */
-  --collection-bg: var(--vd-color-white);
-  --collection-item-bg: var(--vd-color-white);
-  --collection-item-bg-hover: var(--vd-bg-secondary);
-  --collection-item-bg-active: var(--vd-color-primary-alpha-10);
-  --collection-border-color: var(--vd-border-color);
+  --vd-collection-bg: var(--vd-color-white);
+  --vd-collection-item-bg: var(--vd-color-white);
+  --vd-collection-item-bg-hover: var(--vd-bg-secondary);
+  --vd-collection-item-bg-active: var(--vd-color-primary-alpha-10);
+  --vd-collection-border-color: var(--vd-border-color);
   
   /* Collection Spacing (Fibonacci) */
-  --collection-padding-y: 0;
-  --collection-padding-x: 0;
-  --collection-item-padding-y: 0.8125rem;    /* 13px - fib */
-  --collection-item-padding-x: 1.3125rem;    /* 21px - fib */
-  --collection-item-padding-y-sm: 0.5rem;    /* 8px  - fib */
-  --collection-item-padding-x-sm: 0.8125rem; /* 13px - fib */
-  --collection-item-padding-y-lg: 1.3125rem; /* 21px - fib */
-  --collection-item-padding-x-lg: 2.125rem;  /* 34px - fib */
+  --vd-collection-padding-y: 0;
+  --vd-collection-padding-x: 0;
+  --vd-collection-item-padding-y: 0.8125rem;    /* 13px - fib */
+  --vd-collection-item-padding-x: 1.3125rem;    /* 21px - fib */
+  --vd-collection-item-padding-y-sm: 0.5rem;    /* 8px  - fib */
+  --vd-collection-item-padding-x-sm: 0.8125rem; /* 13px - fib */
+  --vd-collection-item-padding-y-lg: 1.3125rem; /* 21px - fib */
+  --vd-collection-item-padding-x-lg: 2.125rem;  /* 34px - fib */
 
   /* Collection Avatar (Fibonacci) */
-  --collection-avatar-size: 2.125rem;     /* 34px - fib */
-  --collection-avatar-size-sm: 1.3125rem; /* 21px - fib */
-  --collection-avatar-size-lg: 3.4375rem; /* 55px - fib */
+  --vd-collection-avatar-size: 2.125rem;     /* 34px - fib */
+  --vd-collection-avatar-size-sm: 1.3125rem; /* 21px - fib */
+  --vd-collection-avatar-size-lg: 3.4375rem; /* 55px - fib */
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --collection-bg: var(--vd-bg-secondary);
-  --collection-item-bg: var(--vd-bg-secondary);
-  --collection-item-bg-hover: var(--vd-bg-primary);
+  --vd-collection-bg: var(--vd-bg-secondary);
+  --vd-collection-item-bg: var(--vd-bg-secondary);
+  --vd-collection-item-bg-hover: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --collection-bg: var(--vd-bg-secondary);
-    --collection-item-bg: var(--vd-bg-secondary);
-    --collection-item-bg-hover: var(--vd-bg-primary);
+    --vd-collection-bg: var(--vd-bg-secondary);
+    --vd-collection-item-bg: var(--vd-bg-secondary);
+    --vd-collection-item-bg-hover: var(--vd-bg-primary);
   }
 }
 
@@ -46,23 +46,23 @@
 .vd-collection {
   display: flex;
   flex-direction: column;
-  padding: var(--collection-padding-y) var(--collection-padding-x);
+  padding: var(--vd-collection-padding-y) var(--vd-collection-padding-x);
   margin-bottom: 0;
   list-style: none;
-  background-color: var(--collection-bg);
+  background-color: var(--vd-collection-bg);
 }
 
 /* Collection Item */
 .vd-collection-item {
   display: flex;
   align-items: center;
-  padding: var(--collection-item-padding-y) var(--collection-item-padding-x);
+  padding: var(--vd-collection-item-padding-y) var(--vd-collection-item-padding-x);
   margin-bottom: 0;
   color: var(--vd-text-primary);
   text-decoration: none;
-  background-color: var(--collection-item-bg);
-  border-bottom: 1px solid var(--collection-border-color);
-  transition: var(--transition-bg);
+  background-color: var(--vd-collection-item-bg);
+  border-bottom: 1px solid var(--vd-collection-border-color);
+  transition: var(--vd-transition-bg);
 }
 
 .vd-collection-item:last-child {
@@ -70,14 +70,14 @@
 }
 
 .vd-collection-item:hover {
-  background-color: var(--collection-item-bg-hover);
+  background-color: var(--vd-collection-item-bg-hover);
   text-decoration: none;
 }
 
 .vd-collection-item.active {
-  background-color: var(--collection-item-bg-active);
+  background-color: var(--vd-collection-item-bg-active);
   color: var(--vd-color-primary);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--vd-font-weight-medium);
 }
 
 .vd-collection-item.disabled {
@@ -89,8 +89,8 @@
 /* Collection Avatar */
 .vd-collection-avatar {
   flex-shrink: 0;
-  width: var(--collection-avatar-size);
-  height: var(--collection-avatar-size);
+  width: var(--vd-collection-avatar-size);
+  height: var(--vd-collection-avatar-size);
   margin-right: 1rem;
   border-radius: 50%;
   background-color: var(--vd-bg-secondary);
@@ -119,9 +119,9 @@
 
 .vd-collection-title {
   margin: 0 0 0.25rem 0;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-normal);
+  font-size: var(--vd-font-size-base);
+  font-weight: var(--vd-font-weight-medium);
+  line-height: var(--vd-line-height-normal);
   color: var(--vd-text-primary);
 }
 
@@ -131,8 +131,8 @@
 
 .vd-collection-text {
   margin: 0;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  font-size: var(--vd-font-size-sm);
+  line-height: var(--vd-line-height-normal);
   color: var(--vd-text-secondary);
 }
 
@@ -159,31 +159,31 @@
   height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
-  border-top: 1px solid var(--collection-border-color);
+  border-top: 1px solid var(--vd-collection-border-color);
 }
 
 /* Collection Header */
 .vd-collection-header {
-  padding: var(--collection-item-padding-y) var(--collection-item-padding-x);
+  padding: var(--vd-collection-item-padding-y) var(--vd-collection-item-padding-x);
   margin-bottom: 0;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--vd-font-size-sm);
+  font-weight: var(--vd-font-weight-semibold);
   color: var(--vd-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: var(--vd-bg-secondary);
-  border-bottom: 1px solid var(--collection-border-color);
+  border-bottom: 1px solid var(--vd-collection-border-color);
 }
 
 /* Collection Variants */
 .vd-collection-bordered {
-  border: 1px solid var(--collection-border-color);
-  border-radius: var(--btn-border-radius);
+  border: 1px solid var(--vd-collection-border-color);
+  border-radius: var(--vd-btn-border-radius);
   overflow: hidden;
 }
 
 .vd-collection-bordered .vd-collection-item {
-  border-bottom: 1px solid var(--collection-border-color);
+  border-bottom: 1px solid var(--vd-collection-border-color);
 }
 
 .vd-collection-bordered .vd-collection-item:last-child {
@@ -195,7 +195,7 @@
 }
 
 .vd-collection-stripped .vd-collection-item:nth-child(odd):hover {
-  background-color: var(--collection-item-bg-hover);
+  background-color: var(--vd-collection-item-bg-hover);
 }
 
 .vd-collection-hoverable .vd-collection-item {
@@ -204,37 +204,37 @@
 
 /* Collection Sizes */
 .vd-collection-sm .vd-collection-item {
-  padding: var(--collection-item-padding-y-sm) var(--collection-item-padding-x-sm);
+  padding: var(--vd-collection-item-padding-y-sm) var(--vd-collection-item-padding-x-sm);
 }
 
 .vd-collection-sm .vd-collection-avatar {
-  width: var(--collection-avatar-size-sm);
-  height: var(--collection-avatar-size-sm);
+  width: var(--vd-collection-avatar-size-sm);
+  height: var(--vd-collection-avatar-size-sm);
 }
 
 .vd-collection-sm .vd-collection-title {
-  font-size: var(--font-size-sm);
+  font-size: var(--vd-font-size-sm);
 }
 
 .vd-collection-sm .vd-collection-text {
-  font-size: var(--font-size-xs);
+  font-size: var(--vd-font-size-xs);
 }
 
 .vd-collection-lg .vd-collection-item {
-  padding: var(--collection-item-padding-y-lg) var(--collection-item-padding-x-lg);
+  padding: var(--vd-collection-item-padding-y-lg) var(--vd-collection-item-padding-x-lg);
 }
 
 .vd-collection-lg .vd-collection-avatar {
-  width: var(--collection-avatar-size-lg);
-  height: var(--collection-avatar-size-lg);
+  width: var(--vd-collection-avatar-size-lg);
+  height: var(--vd-collection-avatar-size-lg);
 }
 
 .vd-collection-lg .vd-collection-title {
-  font-size: var(--font-size-lg);
+  font-size: var(--vd-font-size-lg);
 }
 
 .vd-collection-lg .vd-collection-text {
-  font-size: var(--font-size-base);
+  font-size: var(--vd-font-size-base);
 }
 
 /* Responsive Behavior */
@@ -247,7 +247,7 @@
     width: 100%;
     margin-left: 0;
     margin-top: 0.5rem;
-    padding-left: calc(var(--collection-avatar-size) + 1rem);
+    padding-left: calc(var(--vd-collection-avatar-size) + 1rem);
   }
 }
 

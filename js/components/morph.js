@@ -102,7 +102,7 @@
       el.classList.add('is-morphing');
 
       let duration = MORPH_DURATION_MS;
-      const custom = getComputedStyle(el).getPropertyValue('--morph-duration');
+      const custom = getComputedStyle(el).getPropertyValue('--vd-morph-duration');
       if (custom) {
         const parsed = parseFloat(custom);
         if (!isNaN(parsed)) duration = parsed * (custom.indexOf('ms') !== -1 ? 1 : 1000);

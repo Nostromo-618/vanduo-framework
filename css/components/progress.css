@@ -4,19 +4,19 @@
  */
 
 :root {
-  --progress-height: 8px;
-  --progress-bg: var(--vd-bg-tertiary, #e9ecef);
-  --progress-bar-bg: var(--vd-color-primary);
-  --progress-border-radius: var(--radius-fib-5, 5px);
+  --vd-progress-height: 8px;
+  --vd-progress-bg: var(--vd-bg-tertiary, #e9ecef);
+  --vd-progress-bar-bg: var(--vd-color-primary);
+  --vd-progress-border-radius: var(--vd-radius-fib-5, 5px);
 }
 
 /* Base Progress */
 .vd-progress {
   display: flex;
-  height: var(--progress-height);
+  height: var(--vd-progress-height);
   overflow: hidden;
-  background-color: var(--progress-bg);
-  border-radius: var(--progress-border-radius);
+  background-color: var(--vd-progress-bg);
+  border-radius: var(--vd-progress-border-radius);
 }
 
 .vd-progress-bar {
@@ -27,9 +27,9 @@
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: var(--progress-bar-bg);
+  background-color: var(--vd-progress-bar-bg);
   transition: width 0.4s ease;
-  border-radius: var(--progress-border-radius);
+  border-radius: var(--vd-progress-border-radius);
 }
 
 /* Variants */
@@ -39,15 +39,15 @@
 .vd-progress-bar.vd-progress-info { background-color: var(--vd-color-info); }
 
 /* Sizes */
-.vd-progress-xs { --progress-height: 3px; }
-.vd-progress-sm { --progress-height: 5px; }
-.vd-progress-lg { --progress-height: 13px; }
-.vd-progress-xl { --progress-height: 21px; }
+.vd-progress-xs { --vd-progress-height: 3px; }
+.vd-progress-sm { --vd-progress-height: 5px; }
+.vd-progress-lg { --vd-progress-height: 13px; }
+.vd-progress-xl { --vd-progress-height: 21px; }
 
 /* Labeled (show text) */
 .vd-progress-xl .vd-progress-bar,
 .vd-progress-lg .vd-progress-bar {
-  font-size: var(--font-size-xs, 0.75rem);
+  font-size: var(--vd-font-size-xs, 0.75rem);
   line-height: 1;
 }
 
@@ -97,11 +97,11 @@
 
 /* Dark mode */
 [data-theme="dark"] {
-  --progress-bg: var(--vd-bg-tertiary, #2d3748);
+  --vd-progress-bg: var(--vd-bg-tertiary, #2d3748);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --progress-bg: var(--vd-bg-tertiary, #2d3748);
+    --vd-progress-bg: var(--vd-bg-tertiary, #2d3748);
   }
 }

@@ -5,46 +5,46 @@
 
 :root {
   /* Search Input */
-  --doc-search-input-bg: var(--input-bg);
-  --doc-search-input-border: var(--input-border-color);
-  --doc-search-input-focus-border: var(--vd-color-primary);
-  --doc-search-input-radius: var(--input-border-radius);
-  --doc-search-input-padding-y: 0.5rem;
-  --doc-search-input-padding-x: 0.75rem;
-  --doc-search-input-padding-left: 30px;
+  --vd-doc-search-input-bg: var(--vd-input-bg);
+  --vd-doc-search-input-border: var(--vd-input-border-color);
+  --vd-doc-search-input-focus-border: var(--vd-color-primary);
+  --vd-doc-search-input-radius: var(--vd-input-border-radius);
+  --vd-doc-search-input-padding-y: 0.5rem;
+  --vd-doc-search-input-padding-x: 0.75rem;
+  --vd-doc-search-input-padding-left: 30px;
   
   /* Search Results */
-  --doc-search-results-bg: var(--card-bg, var(--vd-bg-primary));
-  --doc-search-results-border: var(--vd-border-color);
-  --doc-search-results-shadow: var(--shadow-lg);
-  --doc-search-results-max-height: 400px;
-  --doc-search-results-radius: var(--input-border-radius);
+  --vd-doc-search-results-bg: var(--vd-card-bg, var(--vd-bg-primary));
+  --vd-doc-search-results-border: var(--vd-border-color);
+  --vd-doc-search-results-shadow: var(--vd-shadow-lg);
+  --vd-doc-search-results-max-height: 400px;
+  --vd-doc-search-results-radius: var(--vd-input-border-radius);
   
   /* Result Items */
-  --doc-search-result-padding: 0.75rem 1rem;
-  --doc-search-result-hover-bg: var(--vd-color-primary-alpha-10, rgba(34, 184, 207, 0.1));
-  --doc-search-result-active-bg: var(--vd-color-primary-alpha-20, rgba(34, 184, 207, 0.2));
+  --vd-doc-search-result-padding: 0.75rem 1rem;
+  --vd-doc-search-result-hover-bg: var(--vd-color-primary-alpha-10, rgba(34, 184, 207, 0.1));
+  --vd-doc-search-result-active-bg: var(--vd-color-primary-alpha-20, rgba(34, 184, 207, 0.2));
   
   /* Highlight */
-  --doc-search-highlight-bg: var(--vd-color-warning-alpha-30, rgba(250, 176, 5, 0.3));
-  --doc-search-highlight-color: inherit;
+  --vd-doc-search-highlight-bg: var(--vd-color-warning-alpha-30, rgba(250, 176, 5, 0.3));
+  --vd-doc-search-highlight-color: inherit;
   
   /* Shortcut Badge */
-  --doc-search-shortcut-bg: var(--vd-bg-secondary);
-  --doc-search-shortcut-border: var(--vd-border-color);
-  --doc-search-shortcut-color: var(--vd-text-muted);
+  --vd-doc-search-shortcut-bg: var(--vd-bg-secondary);
+  --vd-doc-search-shortcut-border: var(--vd-border-color);
+  --vd-doc-search-shortcut-color: var(--vd-text-muted);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --doc-search-results-bg: var(--vd-bg-secondary);
-  --doc-search-shortcut-bg: var(--vd-bg-tertiary);
+  --vd-doc-search-results-bg: var(--vd-bg-secondary);
+  --vd-doc-search-shortcut-bg: var(--vd-bg-tertiary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --doc-search-results-bg: var(--vd-bg-secondary);
-    --doc-search-shortcut-bg: var(--vd-bg-tertiary);
+    --vd-doc-search-results-bg: var(--vd-bg-secondary);
+    --vd-doc-search-shortcut-bg: var(--vd-bg-tertiary);
   }
 }
 
@@ -88,15 +88,15 @@
 /* Search Input - input.vd-doc-search-input matches forms.css specificity so padding overrides base input[type="search"] */
 input.vd-doc-search-input {
   width: 100%;
-  padding: var(--input-padding-y) var(--input-padding-x);
-  padding-left: var(--doc-search-input-padding-left);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  padding: var(--vd-input-padding-y) var(--vd-input-padding-x);
+  padding-left: var(--vd-doc-search-input-padding-left);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-font-size-sm);
+  line-height: var(--vd-line-height-normal);
   color: var(--vd-text-primary);
-  background-color: var(--doc-search-input-bg);
-  border: 1px solid var(--doc-search-input-border);
-  border-radius: var(--doc-search-input-radius);
+  background-color: var(--vd-doc-search-input-bg);
+  border: 1px solid var(--vd-doc-search-input-border);
+  border-radius: var(--vd-doc-search-input-radius);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   appearance: none;
 }
@@ -108,7 +108,7 @@ input.vd-doc-search-input {
 
 .vd-doc-search-input:focus {
   outline: none;
-  border-color: var(--doc-search-input-focus-border);
+  border-color: var(--vd-doc-search-input-focus-border);
   box-shadow: 0 0 0 3px var(--vd-color-primary-alpha-20, rgba(34, 184, 207, 0.2));
 }
 
@@ -121,19 +121,19 @@ input.vd-doc-search-input {
 /* Keyboard Shortcut Badge */
 .vd-doc-search-shortcut {
   position: absolute;
-  right: var(--doc-search-input-padding-x);
+  right: var(--vd-doc-search-input-padding-x);
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   gap: 0.125rem;
   padding: 0.125rem 0.375rem;
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--doc-search-shortcut-color);
-  background-color: var(--doc-search-shortcut-bg);
-  border: 1px solid var(--doc-search-shortcut-border);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-font-size-xs);
+  font-weight: var(--vd-font-weight-medium);
+  color: var(--vd-doc-search-shortcut-color);
+  background-color: var(--vd-doc-search-shortcut-bg);
+  border: 1px solid var(--vd-doc-search-shortcut-border);
   border-radius: 4px;
   pointer-events: none;
   user-select: none;
@@ -156,11 +156,11 @@ input.vd-doc-search-input {
   z-index: 1000;
   display: none;
   margin-top: 0.5rem;
-  background-color: var(--doc-search-results-bg);
-  border: 1px solid var(--doc-search-results-border);
-  border-radius: var(--doc-search-results-radius);
-  box-shadow: var(--doc-search-results-shadow);
-  max-height: var(--doc-search-results-max-height);
+  background-color: var(--vd-doc-search-results-bg);
+  border: 1px solid var(--vd-doc-search-results-border);
+  border-radius: var(--vd-doc-search-results-radius);
+  box-shadow: var(--vd-doc-search-results-shadow);
+  max-height: var(--vd-doc-search-results-max-height);
   overflow-y: auto;
   overflow-x: hidden;
   animation: doc-search-fade-in 0.15s ease;
@@ -185,7 +185,7 @@ input.vd-doc-search-input {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  padding: var(--doc-search-result-padding);
+  padding: var(--vd-doc-search-result-padding);
   cursor: pointer;
   transition: background-color 0.1s ease;
   text-decoration: none;
@@ -193,12 +193,12 @@ input.vd-doc-search-input {
 }
 
 .vd-doc-search-result:hover {
-  background-color: var(--doc-search-result-hover-bg);
+  background-color: var(--vd-doc-search-result-hover-bg);
 }
 
 .vd-doc-search-result.is-active,
 .vd-doc-search-result:focus {
-  background-color: var(--doc-search-result-active-bg);
+  background-color: var(--vd-doc-search-result-active-bg);
   outline: none;
 }
 
@@ -223,21 +223,21 @@ input.vd-doc-search-input {
 }
 
 .vd-doc-search-result-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--vd-font-size-sm);
+  font-weight: var(--vd-font-weight-medium);
   color: var(--vd-text-primary);
   line-height: 1.4;
   margin-bottom: 0.125rem;
 }
 
 .vd-doc-search-result-category {
-  font-size: var(--font-size-xs);
+  font-size: var(--vd-font-size-xs);
   color: var(--vd-text-muted);
   margin-bottom: 0.25rem;
 }
 
 .vd-doc-search-result-excerpt {
-  font-size: var(--font-size-xs);
+  font-size: var(--vd-font-size-xs);
   color: var(--vd-text-secondary);
   line-height: 1.4;
   display: -webkit-box;
@@ -249,8 +249,8 @@ input.vd-doc-search-input {
 /* Highlight matched text */
 .vd-doc-search-result mark,
 .vd-doc-search-highlight {
-  background-color: var(--doc-search-highlight-bg);
-  color: var(--doc-search-highlight-color);
+  background-color: var(--vd-doc-search-highlight-bg);
+  color: var(--vd-doc-search-highlight-color);
   padding: 0 0.125rem;
   border-radius: 2px;
 }
@@ -272,14 +272,14 @@ input.vd-doc-search-input {
 }
 
 .vd-doc-search-empty-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--vd-font-size-sm);
+  font-weight: var(--vd-font-weight-medium);
   color: var(--vd-text-primary);
   margin-bottom: 0.25rem;
 }
 
 .vd-doc-search-empty-text {
-  font-size: var(--font-size-xs);
+  font-size: var(--vd-font-size-xs);
   color: var(--vd-text-muted);
 }
 
@@ -320,7 +320,7 @@ input.vd-doc-search-input {
   gap: 1rem;
   padding: 0.5rem 1rem;
   border-top: 1px solid var(--vd-border-color);
-  font-size: var(--font-size-xs);
+  font-size: var(--vd-font-size-xs);
   color: var(--vd-text-muted);
 }
 
@@ -331,11 +331,11 @@ input.vd-doc-search-input {
   min-width: 1.25rem;
   height: 1.25rem;
   padding: 0 0.25rem;
-  font-family: var(--font-family-sans);
+  font-family: var(--vd-font-family-sans);
   font-size: 0.625rem;
-  font-weight: var(--font-weight-medium);
-  background-color: var(--doc-search-shortcut-bg);
-  border: 1px solid var(--doc-search-shortcut-border);
+  font-weight: var(--vd-font-weight-medium);
+  background-color: var(--vd-doc-search-shortcut-bg);
+  border: 1px solid var(--vd-doc-search-shortcut-border);
   border-radius: 3px;
 }
 
@@ -415,7 +415,7 @@ input.vd-doc-search-input {
   }
   
   input.vd-doc-search-input {
-    padding-right: var(--doc-search-input-padding-x);
+    padding-right: var(--vd-doc-search-input-padding-x);
     min-height: 44px;
   }
   

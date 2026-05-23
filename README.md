@@ -1,4 +1,4 @@
-# Vanduo Framework v1.4.0
+# Vanduo Framework v1.4.1
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -10,7 +10,7 @@
   <a href="https://github.com/vanduo-oss/framework/blob/main/LICENSE"><img src="https://img.shields.io/github/license/vanduo-oss/framework?style=flat-square&color=64748b" alt="License"></a>
 </p>
 
-Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaScript. It ships a full component bundle, scoped runtime initialization, a canonical `--vd-*` token API, and compatibility aliases for existing `1.3.x` consumers.
+Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaScript. It ships a full component bundle, scoped runtime initialization, and a strict canonical `--vd-*` token API.
 
 [Browse Docs](https://vanduo.dev/#docs)
 
@@ -19,7 +19,7 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Zero runtime dependencies
 - 47+ components across layout, navigation, overlays, search, and effects
 - Scoped runtime APIs for dynamic DOM work
-- Canonical semantic token API under `--vd-*`
+- Strict design token API under `--vd-*`
 - Built-in dark, light, and system theming
 - Theme customizer with color, font, and radius controls
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
@@ -29,8 +29,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.1/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.1/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>
@@ -77,15 +77,17 @@ Vanduo.getComponent('docSearch');
 
 ## Token API
 
-Vanduo `1.4.0` treats `--vd-*` as the canonical semantic API:
+Vanduo `1.4.1` treats `--vd-*` as the only shipped custom-property namespace:
 
+- Palette: `--vd-red-*`, `--vd-primary-*`, `--vd-gray-*`, and related scales
 - Colors: `--vd-color-*`
 - Backgrounds: `--vd-bg-*`
 - Text: `--vd-text-*`
 - Borders: `--vd-border-*`
 - Shadows: `--vd-shadow-*`
+- Components/effects: `--vd-btn-*`, `--vd-card-*`, `--vd-morph-*`, and related internals
 
-Legacy semantic aliases like `--color-*`, `--bg-*`, and `--text-*` are still supported throughout the `1.4.x` line.
+Legacy unprefixed token aliases were removed in `1.4.1`; update custom themes and overrides to use the `--vd-*` equivalents.
 
 ```css
 .cta {
@@ -99,7 +101,7 @@ More detail lives in [TOKENS.md](TOKENS.md).
 
 ## CSS Bundle Notes
 
-- `css/vanduo.css` remains the main framework entrypoint in `1.4.0`.
+- `css/vanduo.css` remains the main framework entrypoint in `1.4.1`.
 - The main bundle still includes framework-wide form defaults for native inputs and textareas.
 - New component styling should prefer `.vd-*` hooks over new raw element selectors.
 
@@ -131,7 +133,7 @@ pnpm run stats:css
 
 - Architecture notes: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Token model: [TOKENS.md](TOKENS.md)
-- `1.4.0` migration notes: [changes-v140.md](changes-v140.md)
+- `1.4.1` token migration notes: [changes-v141.md](changes-v141.md)
 - QA strategy: [QA-Automation-Strategy.md](QA-Automation-Strategy.md)
 - Contributor workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
 

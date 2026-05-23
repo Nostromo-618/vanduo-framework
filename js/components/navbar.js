@@ -19,7 +19,7 @@
      */
     getBreakpoint: function () {
       const root = getComputedStyle(document.documentElement);
-      const breakpointValue = root.getPropertyValue('--breakpoint-lg').trim();
+      const breakpointValue = root.getPropertyValue('--vd-breakpoint-lg').trim();
 
       // Parse the value (could be "992px" or just "992")
       const parsed = parseInt(breakpointValue, 10);

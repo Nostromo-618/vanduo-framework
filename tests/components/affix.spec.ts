@@ -18,6 +18,14 @@ test.describe('Affix (Sticky) Component @component', () => {
       const bar = page.locator('#sticky-bar');
       await expect(bar).not.toHaveClass(/is-stuck/);
     });
+
+    test('sets the vd-prefixed offset runtime token', async ({ page }) => {
+      const offset = await page.locator('#nested-sticky').evaluate((el) => {
+        return (el as HTMLElement).style.getPropertyValue('--vd-affix-top-offset');
+      });
+
+      expect(offset).toBe('20px');
+    });
   });
 
   test.describe('Viewport Fallback', () => {

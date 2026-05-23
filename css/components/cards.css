@@ -5,50 +5,50 @@
 
 :root {
   /* Card Padding (Fibonacci: 13, 21, 34) */
-  --card-padding: 1.3125rem;
+  --vd-card-padding: 1.3125rem;
   /* 21px - fib */
-  --card-padding-sm: 0.8125rem;
+  --vd-card-padding-sm: 0.8125rem;
   /* 13px - fib */
-  --card-padding-lg: 2.125rem;
+  --vd-card-padding-lg: 2.125rem;
   /* 34px - fib */
 
   /* Card Border */
-  --card-border-width: 1px;
-  --card-border-color: var(--vd-border-color);
-  --card-border-radius: var(--btn-border-radius-lg);
+  --vd-card-border-width: 1px;
+  --vd-card-border-color: var(--vd-border-color);
+  --vd-card-border-radius: var(--vd-btn-border-radius-lg);
 
   /* Card Background */
-  --card-bg: var(--vd-color-white);
-  --card-bg-filled: var(--vd-bg-secondary);
+  --vd-card-bg: var(--vd-color-white);
+  --vd-card-bg-filled: var(--vd-bg-secondary);
 
   /* Card Shadow */
-  --card-shadow: var(--shadow-sm);
-  --card-shadow-elevated: var(--shadow-md);
+  --vd-card-shadow: var(--vd-shadow-sm);
+  --vd-card-shadow-elevated: var(--vd-shadow-md);
 
   /* Card Glow Effect - uses primary color scale */
-  --card-glow-color: var(--primary-2);
-  --card-glow-border-color: var(--primary-3);
+  --vd-card-glow-color: var(--vd-primary-2);
+  --vd-card-glow-border-color: var(--vd-primary-3);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --card-bg: var(--vd-bg-secondary);
-  --card-bg-filled: var(--vd-bg-primary);
+  --vd-card-bg: var(--vd-bg-secondary);
+  --vd-card-bg-filled: var(--vd-bg-primary);
   /* Stronger elevation on dark surfaces */
-  --card-shadow-elevated: var(--shadow-lg);
+  --vd-card-shadow-elevated: var(--vd-shadow-lg);
   /* Glow uses lighter primary shades for dark mode visibility */
-  --card-glow-color: var(--primary-3);
-  --card-glow-border-color: var(--primary-4);
+  --vd-card-glow-color: var(--vd-primary-3);
+  --vd-card-glow-border-color: var(--vd-primary-4);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --card-bg: var(--vd-bg-secondary);
-    --card-bg-filled: var(--vd-bg-primary);
-    --card-shadow-elevated: var(--shadow-lg);
+    --vd-card-bg: var(--vd-bg-secondary);
+    --vd-card-bg-filled: var(--vd-bg-primary);
+    --vd-card-shadow-elevated: var(--vd-shadow-lg);
     /* Glow uses lighter primary shades for dark mode visibility */
-    --card-glow-color: var(--primary-3);
-    --card-glow-border-color: var(--primary-4);
+    --vd-card-glow-color: var(--vd-primary-3);
+    --vd-card-glow-border-color: var(--vd-primary-4);
   }
 }
 
@@ -59,11 +59,11 @@
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: var(--card-bg);
+  background-color: var(--vd-card-bg);
   background-clip: border-box;
-  border: var(--card-border-width) solid var(--card-border-color);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--card-shadow);
+  border: var(--vd-card-border-width) solid var(--vd-card-border-color);
+  border-radius: var(--vd-card-border-radius);
+  box-shadow: var(--vd-card-shadow);
 }
 
 .vd-card-glass {
@@ -77,7 +77,7 @@
 /* Card Variants - Elevated (default) */
 .vd-card-elevated,
 .vd-card {
-  box-shadow: var(--card-shadow-elevated);
+  box-shadow: var(--vd-card-shadow-elevated);
   transition: box-shadow 0.2s ease;
   /* Fix Safari disappearing bug during transform transitions */
   -webkit-backface-visibility: hidden;
@@ -87,111 +87,111 @@
 
 /* Subtle lift on hover — skip links (they have their own hover) and non-elevated variants */
 .vd-card:not(a):not(.vd-card-outlined):not(.vd-card-filled):not(.vd-card-glass):not(.vd-card-glow):hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--vd-shadow-lg);
 }
 
 /* Card Variants - Outlined */
 .vd-card-outlined {
   box-shadow: none;
-  border: var(--card-border-width) solid var(--card-border-color);
+  border: var(--vd-card-border-width) solid var(--vd-card-border-color);
 }
 
 /* Card Variants - Filled */
 .vd-card-filled {
-  background-color: var(--card-bg-filled);
+  background-color: var(--vd-card-bg-filled);
   box-shadow: none;
   border: none;
 }
 
 /* Card Header */
 .vd-card-header {
-  padding: var(--card-padding);
+  padding: var(--vd-card-padding);
   margin-bottom: 0;
   background-color: transparent;
-  border-bottom: var(--card-border-width) solid var(--card-border-color);
-  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
-  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-bottom: var(--vd-card-border-width) solid var(--vd-card-border-color);
+  border-top-left-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
+  border-top-right-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
 }
 
 .vd-card-header:first-child {
-  border-top-left-radius: var(--card-border-radius);
-  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius: var(--vd-card-border-radius);
+  border-top-right-radius: var(--vd-card-border-radius);
 }
 
 .vd-card-header-sm {
-  padding: var(--card-padding-sm);
+  padding: var(--vd-card-padding-sm);
 }
 
 .vd-card-header-lg {
-  padding: var(--card-padding-lg);
+  padding: var(--vd-card-padding-lg);
 }
 
 /* Card Body */
 .vd-card-body {
   flex: 1 1 auto;
-  padding: var(--card-padding);
+  padding: var(--vd-card-padding);
 }
 
 .vd-card-body-sm {
-  padding: var(--card-padding-sm);
+  padding: var(--vd-card-padding-sm);
 }
 
 .vd-card-body-lg {
-  padding: var(--card-padding-lg);
+  padding: var(--vd-card-padding-lg);
 }
 
 /* Card Footer */
 .vd-card-footer {
-  padding: var(--card-padding);
+  padding: var(--vd-card-padding);
   margin-top: 0;
   background-color: transparent;
-  border-top: var(--card-border-width) solid var(--card-border-color);
-  border-bottom-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
-  border-bottom-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top: var(--vd-card-border-width) solid var(--vd-card-border-color);
+  border-bottom-left-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
+  border-bottom-right-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
 }
 
 .vd-card-footer:last-child {
-  border-bottom-left-radius: var(--card-border-radius);
-  border-bottom-right-radius: var(--card-border-radius);
+  border-bottom-left-radius: var(--vd-card-border-radius);
+  border-bottom-right-radius: var(--vd-card-border-radius);
 }
 
 .vd-card-footer-sm {
-  padding: var(--card-padding-sm);
+  padding: var(--vd-card-padding-sm);
 }
 
 .vd-card-footer-lg {
-  padding: var(--card-padding-lg);
+  padding: var(--vd-card-padding-lg);
 }
 
 /* Card Image */
 .vd-card-image {
   width: 100%;
   height: auto;
-  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
-  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top-left-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
+  border-top-right-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
 }
 
 .vd-card-image:first-child {
-  border-top-left-radius: var(--card-border-radius);
-  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius: var(--vd-card-border-radius);
+  border-top-right-radius: var(--vd-card-border-radius);
 }
 
 .vd-card-image:last-child {
-  border-bottom-left-radius: var(--card-border-radius);
-  border-bottom-right-radius: var(--card-border-radius);
+  border-bottom-left-radius: var(--vd-card-border-radius);
+  border-bottom-right-radius: var(--vd-card-border-radius);
 }
 
 /* Card Image Container */
 .vd-card-image-container {
   position: relative;
   overflow: hidden;
-  border-top-left-radius: calc(var(--card-border-radius) - var(--card-border-width));
-  border-top-right-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  border-top-left-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
+  border-top-right-radius: calc(var(--vd-card-border-radius) - var(--vd-card-border-width));
 }
 
 .vd-card-image-container:first-child {
-  border-top-left-radius: var(--card-border-radius);
-  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius: var(--vd-card-border-radius);
+  border-top-right-radius: var(--vd-card-border-radius);
 }
 
 .vd-card-image-container img {
@@ -203,8 +203,8 @@
 /* Card Title */
 .vd-card-title {
   margin-bottom: 0.5rem;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--vd-font-size-xl);
+  font-weight: var(--vd-font-weight-semibold);
   color: var(--vd-text-primary);
 }
 
@@ -216,7 +216,7 @@
 .vd-card-subtitle {
   margin-top: -0.25rem;
   margin-bottom: 0.5rem;
-  font-size: var(--font-size-sm);
+  font-size: var(--vd-font-size-sm);
   color: var(--vd-text-secondary);
 }
 
@@ -234,16 +234,16 @@
 .vd-card-actions {
   display: flex;
   gap: 0.5rem;
-  padding: var(--card-padding);
-  border-top: var(--card-border-width) solid var(--card-border-color);
+  padding: var(--vd-card-padding);
+  border-top: var(--vd-card-border-width) solid var(--vd-card-border-color);
 }
 
 .vd-card-actions-sm {
-  padding: var(--card-padding-sm);
+  padding: var(--vd-card-padding-sm);
 }
 
 .vd-card-actions-lg {
-  padding: var(--card-padding-lg);
+  padding: var(--vd-card-padding-lg);
 }
 
 /* Card with No Padding */
@@ -252,36 +252,36 @@
 }
 
 .vd-card-no-padding .vd-card-header {
-  padding: var(--card-padding);
+  padding: var(--vd-card-padding);
 }
 
 .vd-card-no-padding .vd-card-footer {
-  padding: var(--card-padding);
+  padding: var(--vd-card-padding);
 }
 
 /* Card Sizes - Compact */
 .vd-card-compact .vd-card-header,
 .vd-card-compact .vd-card-body,
 .vd-card-compact .vd-card-footer {
-  padding: var(--card-padding-sm);
+  padding: var(--vd-card-padding-sm);
 }
 
 /* Card Sizes - Spacious */
 .vd-card-spacious .vd-card-header,
 .vd-card-spacious .vd-card-body,
 .vd-card-spacious .vd-card-footer {
-  padding: var(--card-padding-lg);
+  padding: var(--vd-card-padding-lg);
 }
 
 /* Card Glow Effect */
 .vd-card-glow {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  border-color: var(--card-border-color);
+  border-color: var(--vd-card-border-color);
 }
 
 .vd-card-glow:hover {
-  box-shadow: 0 0 15px 0 var(--card-glow-color), var(--card-shadow);
-  border-color: var(--card-glow-border-color);
+  box-shadow: 0 0 15px 0 var(--vd-card-glow-color), var(--vd-card-shadow);
+  border-color: var(--vd-card-glow-border-color);
 }
 
 /* Card Link */
@@ -294,12 +294,12 @@ a.vd-card {
 a.vd-card:hover {
   text-decoration: none;
   transform: translateY(-2px) translateZ(0);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--vd-shadow-xl);
 }
 
 a.vd-card.vd-card-glow:hover {
-  box-shadow: 0 0 15px 0 var(--card-glow-color), var(--shadow-xl);
-  border-color: var(--card-glow-border-color);
+  box-shadow: 0 0 15px 0 var(--vd-card-glow-color), var(--vd-shadow-xl);
+  border-color: var(--vd-card-glow-border-color);
 }
 
 a.vd-card:active {

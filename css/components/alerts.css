@@ -5,93 +5,93 @@
 
 :root {
   /* Alert Spacing (Fibonacci: 21px/13px, ratio ~ phi) */
-  --alert-padding-x: 1.3125rem;   /* 21px - fib */
-  --alert-padding-y: 0.8125rem;   /* 13px - fib */
-  --alert-border-radius: var(--btn-border-radius);
-  --alert-border-width: 1px;
+  --vd-alert-padding-x: 1.3125rem;   /* 21px - fib */
+  --vd-alert-padding-y: 0.8125rem;   /* 13px - fib */
+  --vd-alert-border-radius: var(--vd-btn-border-radius);
+  --vd-alert-border-width: 1px;
 
   /* Alert Colors */
-  --alert-primary-bg: var(--vd-color-primary-alpha-10);
-  --alert-primary-border: var(--vd-color-primary);
-  --alert-primary-text: var(--vd-color-primary-dark);
+  --vd-alert-primary-bg: var(--vd-color-primary-alpha-10);
+  --vd-alert-primary-border: var(--vd-color-primary);
+  --vd-alert-primary-text: var(--vd-color-primary-dark);
 
-  --alert-success-bg: var(--vd-color-success-alpha-10);
-  --alert-success-border: var(--vd-color-success);
-  --alert-success-text: var(--vd-color-success-dark);
+  --vd-alert-success-bg: var(--vd-color-success-alpha-10);
+  --vd-alert-success-border: var(--vd-color-success);
+  --vd-alert-success-text: var(--vd-color-success-dark);
 
-  --alert-warning-bg: var(--vd-color-warning-alpha-10);
-  --alert-warning-border: var(--vd-color-warning);
-  --alert-warning-text: var(--vd-color-warning-dark);
+  --vd-alert-warning-bg: var(--vd-color-warning-alpha-10);
+  --vd-alert-warning-border: var(--vd-color-warning);
+  --vd-alert-warning-text: var(--vd-color-warning-dark);
 
-  --alert-error-bg: var(--vd-color-error-alpha-10);
-  --alert-error-border: var(--vd-color-error);
-  --alert-error-text: var(--vd-color-error-dark);
+  --vd-alert-error-bg: var(--vd-color-error-alpha-10);
+  --vd-alert-error-border: var(--vd-color-error);
+  --vd-alert-error-text: var(--vd-color-error-dark);
 
-  --alert-info-bg: var(--vd-color-info-alpha-10);
-  --alert-info-border: var(--vd-color-info);
-  --alert-info-text: var(--vd-color-info-dark);
+  --vd-alert-info-bg: var(--vd-color-info-alpha-10);
+  --vd-alert-info-border: var(--vd-color-info);
+  --vd-alert-info-text: var(--vd-color-info-dark);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --alert-primary-text: var(--vd-color-primary-light);
-  --alert-success-text: var(--vd-color-success-light);
-  --alert-warning-text: var(--vd-color-warning-light);
-  --alert-error-text: var(--vd-color-error-light);
-  --alert-info-text: var(--vd-color-info-light);
+  --vd-alert-primary-text: var(--vd-color-primary-light);
+  --vd-alert-success-text: var(--vd-color-success-light);
+  --vd-alert-warning-text: var(--vd-color-warning-light);
+  --vd-alert-error-text: var(--vd-color-error-light);
+  --vd-alert-info-text: var(--vd-color-info-light);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --alert-primary-text: var(--vd-color-primary-light);
-    --alert-success-text: var(--vd-color-success-light);
-    --alert-warning-text: var(--vd-color-warning-light);
-    --alert-error-text: var(--vd-color-error-light);
-    --alert-info-text: var(--vd-color-info-light);
+    --vd-alert-primary-text: var(--vd-color-primary-light);
+    --vd-alert-success-text: var(--vd-color-success-light);
+    --vd-alert-warning-text: var(--vd-color-warning-light);
+    --vd-alert-error-text: var(--vd-color-error-light);
+    --vd-alert-info-text: var(--vd-color-info-light);
   }
 }
 
 /* Base Alert */
 .vd-alert {
   position: relative;
-  padding: var(--alert-padding-y) var(--alert-padding-x);
+  padding: var(--vd-alert-padding-y) var(--vd-alert-padding-x);
   margin-bottom: 1rem;
-  border: var(--alert-border-width) solid transparent;
-  border-radius: var(--alert-border-radius);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
+  border: var(--vd-alert-border-width) solid transparent;
+  border-radius: var(--vd-alert-border-radius);
+  font-size: var(--vd-font-size-base);
+  line-height: var(--vd-line-height-normal);
 }
 
 /* Alert Variants */
 .vd-alert-primary {
-  background-color: var(--alert-primary-bg);
-  border-color: var(--alert-primary-border);
-  color: var(--alert-primary-text);
+  background-color: var(--vd-alert-primary-bg);
+  border-color: var(--vd-alert-primary-border);
+  color: var(--vd-alert-primary-text);
 }
 
 .vd-alert-success {
-  background-color: var(--alert-success-bg);
-  border-color: var(--alert-success-border);
-  color: var(--alert-success-text);
+  background-color: var(--vd-alert-success-bg);
+  border-color: var(--vd-alert-success-border);
+  color: var(--vd-alert-success-text);
 }
 
 .vd-alert-warning {
-  background-color: var(--alert-warning-bg);
-  border-color: var(--alert-warning-border);
-  color: var(--alert-warning-text);
+  background-color: var(--vd-alert-warning-bg);
+  border-color: var(--vd-alert-warning-border);
+  color: var(--vd-alert-warning-text);
 }
 
 .vd-alert-error,
 .vd-alert-danger {
-  background-color: var(--alert-error-bg);
-  border-color: var(--alert-error-border);
-  color: var(--alert-error-text);
+  background-color: var(--vd-alert-error-bg);
+  border-color: var(--vd-alert-error-border);
+  color: var(--vd-alert-error-text);
 }
 
 .vd-alert-info {
-  background-color: var(--alert-info-bg);
-  border-color: var(--alert-info-border);
-  color: var(--alert-info-text);
+  background-color: var(--vd-alert-info-bg);
+  border-color: var(--vd-alert-info-border);
+  color: var(--vd-alert-info-text);
 }
 
 /* Alert with Icon */
@@ -111,7 +111,7 @@
 
 /* Alert Title */
 .vd-alert-title {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--vd-font-weight-semibold);
   margin-bottom: 0.25rem;
 }
 
@@ -129,7 +129,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: var(--alert-padding-y) var(--alert-padding-x);
+  padding: var(--vd-alert-padding-y) var(--vd-alert-padding-x);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -152,7 +152,7 @@
 /* Alert Link */
 .vd-alert a,
 .vd-alert-link {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--vd-font-weight-semibold);
   color: inherit;
   text-decoration: underline;
 }
@@ -202,18 +202,18 @@
 /* Alert Sizes */
 .vd-alert-sm {
   padding: 0.3125rem 0.5rem; /* 5px 8px - fib pair */
-  font-size: var(--font-size-sm);
+  font-size: var(--vd-font-size-sm);
 }
 
 .vd-alert-lg {
   padding: 1.3125rem 2.125rem; /* 21px 34px - fib pair */
-  font-size: var(--font-size-lg);
+  font-size: var(--vd-font-size-lg);
 }
 
 /* Alert with Border Left Accent */
 .vd-alert-accent {
   border-left-width: 4px;
-  border-radius: 0 var(--alert-border-radius) var(--alert-border-radius) 0;
+  border-radius: 0 var(--vd-alert-border-radius) var(--vd-alert-border-radius) 0;
 }
 
 /* Reduced Motion */

@@ -5,75 +5,75 @@
 
 :root {
   /* Transition Durations */
-  --transition-duration-fast: 150ms;
-  --transition-duration-base: 200ms;
-  --transition-duration-slow: 300ms;
-  --transition-duration-slower: 400ms;
-  --transition-duration-slowest: 500ms;
+  --vd-transition-duration-fast: 150ms;
+  --vd-transition-duration-base: 200ms;
+  --vd-transition-duration-slow: 300ms;
+  --vd-transition-duration-slower: 400ms;
+  --vd-transition-duration-slowest: 500ms;
   
   /* Transition Timing Functions */
-  --transition-ease: ease;
-  --transition-ease-in: ease-in;
-  --transition-ease-out: ease-out;
-  --transition-ease-in-out: ease-in-out;
-  --transition-linear: linear;
+  --vd-transition-ease: ease;
+  --vd-transition-ease-in: ease-in;
+  --vd-transition-ease-out: ease-out;
+  --vd-transition-ease-in-out: ease-in-out;
+  --vd-transition-linear: linear;
   
   /* Common Transitions */
-  --transition-base: all var(--transition-duration-base) var(--transition-ease);
-  --transition-fast: all var(--transition-duration-fast) var(--transition-ease);
-  --transition-slow: all var(--transition-duration-slow) var(--transition-ease);
-  --transition-color: color var(--transition-duration-base) var(--transition-ease);
-  --transition-bg: background-color var(--transition-duration-base) var(--transition-ease);
-  --transition-border: border-color var(--transition-duration-base) var(--transition-ease);
-  --transition-opacity: opacity var(--transition-duration-base) var(--transition-ease);
-  --transition-transform: transform var(--transition-duration-base) var(--transition-ease);
-  --transition-shadow: box-shadow var(--transition-duration-base) var(--transition-ease);
+  --vd-transition-base: all var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-fast: all var(--vd-transition-duration-fast) var(--vd-transition-ease);
+  --vd-transition-slow: all var(--vd-transition-duration-slow) var(--vd-transition-ease);
+  --vd-transition-color: color var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-bg: background-color var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-border: border-color var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-opacity: opacity var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-transform: transform var(--vd-transition-duration-base) var(--vd-transition-ease);
+  --vd-transition-shadow: box-shadow var(--vd-transition-duration-base) var(--vd-transition-ease);
 }
 
 /* Transition Duration Utilities */
 .vd-transition-none { transition: none; }
 .vd-transition-fast {
-  transition: var(--transition-fast);
-  transition-duration: var(--transition-duration-fast);
+  transition: var(--vd-transition-fast);
+  transition-duration: var(--vd-transition-duration-fast);
 }
-.vd-transition-base { transition-duration: var(--transition-duration-base); }
+.vd-transition-base { transition-duration: var(--vd-transition-duration-base); }
 .vd-transition-slow {
-  transition: var(--transition-slow);
-  transition-duration: var(--transition-duration-slow);
+  transition: var(--vd-transition-slow);
+  transition-duration: var(--vd-transition-duration-slow);
 }
-.vd-transition-slower { transition-duration: var(--transition-duration-slower); }
-.vd-transition-slowest { transition-duration: var(--transition-duration-slowest); }
+.vd-transition-slower { transition-duration: var(--vd-transition-duration-slower); }
+.vd-transition-slowest { transition-duration: var(--vd-transition-duration-slowest); }
 
 /* Transition Timing Function Utilities */
-.vd-transition-ease { transition-timing-function: var(--transition-ease); }
-.vd-transition-ease-in { transition-timing-function: var(--transition-ease-in); }
-.vd-transition-ease-out { transition-timing-function: var(--transition-ease-out); }
-.vd-transition-ease-in-out { transition-timing-function: var(--transition-ease-in-out); }
-.vd-transition-linear { transition-timing-function: var(--transition-linear); }
+.vd-transition-ease { transition-timing-function: var(--vd-transition-ease); }
+.vd-transition-ease-in { transition-timing-function: var(--vd-transition-ease-in); }
+.vd-transition-ease-out { transition-timing-function: var(--vd-transition-ease-out); }
+.vd-transition-ease-in-out { transition-timing-function: var(--vd-transition-ease-in-out); }
+.vd-transition-linear { transition-timing-function: var(--vd-transition-linear); }
 
 /* Transition Property Utilities */
 .vd-transition-all { transition-property: all; }
 .vd-transition-colors { transition-property: color, background-color, border-color; }
 .vd-transition-opacity {
-  transition: var(--transition-opacity);
+  transition: var(--vd-transition-opacity);
   transition-property: opacity;
 }
 
 .vd-transition-transform {
-  transition: var(--transition-transform);
+  transition: var(--vd-transition-transform);
   transition-property: transform;
 }
 
 .vd-transition-shadow {
-  transition: var(--transition-shadow);
+  transition: var(--vd-transition-shadow);
   transition-property: box-shadow;
 }
 
 /* Combined Transition Utilities */
-.vd-transition { transition: var(--transition-base); }
-.vd-transition-color { transition: var(--transition-color); }
-.vd-transition-bg { transition: var(--transition-bg); }
-.vd-transition-border { transition: var(--transition-border); }
+.vd-transition { transition: var(--vd-transition-base); }
+.vd-transition-color { transition: var(--vd-transition-color); }
+.vd-transition-bg { transition: var(--vd-transition-bg); }
+.vd-transition-border { transition: var(--vd-transition-border); }
 
 /* Delay Utilities */
 .vd-transition-delay-none { transition-delay: 0ms; }

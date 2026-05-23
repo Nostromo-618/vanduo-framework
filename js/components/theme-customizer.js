@@ -260,7 +260,7 @@
 
       this.state.radius = radius;
       document.documentElement.setAttribute('data-radius', radius);
-      document.documentElement.style.setProperty('--radius-scale', radius);
+      document.documentElement.style.setProperty('--vd-radius-scale', radius);
       this.savePreference(this.STORAGE_KEYS.RADIUS, radius);
 
       this.dispatchEvent('radius-change', { radius: radius });
@@ -461,7 +461,7 @@
       } else {
         // Desktop: position directly below the trigger button, aligned to its right edge
         const triggerRect = anchorTrigger.getBoundingClientRect();
-        const panelWidth = 320; // --customizer-width
+        const panelWidth = 320; // --vd-customizer-width
         const panelTop = triggerRect.bottom + 8;
 
         // Calculate right position: align panel's right edge with trigger's right edge
@@ -572,13 +572,13 @@
       // Generate primary color swatches
       let primarySwatches = '';
       for (const [key, value] of Object.entries(this.PRIMARY_COLORS)) {
-        primarySwatches += `<button class="tc-color-swatch${key === this.state.primary ? ' is-active' : ''}" data-color="${esc(key)}" style="--swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"></button>`;
+        primarySwatches += `<button class="tc-color-swatch${key === this.state.primary ? ' is-active' : ''}" data-color="${esc(key)}" style="--vd-swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"></button>`;
       }
 
       // Generate neutral color swatches
       let neutralSwatches = '';
       for (const [key, value] of Object.entries(this.NEUTRAL_COLORS)) {
-        neutralSwatches += `<button class="tc-neutral-swatch${key === this.state.neutral ? ' is-active' : ''}" data-neutral="${esc(key)}" style="--swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"><span>${esc(value.name)}</span></button>`;
+        neutralSwatches += `<button class="tc-neutral-swatch${key === this.state.neutral ? ' is-active' : ''}" data-neutral="${esc(key)}" style="--vd-swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"><span>${esc(value.name)}</span></button>`;
       }
 
       // Generate radius buttons

@@ -60,7 +60,7 @@
       
       // Update width
       if (animate) {
-        el.style.transition = 'width var(--transition-duration-slow) var(--transition-ease)';
+        el.style.transition = 'width var(--vd-transition-duration-slow) var(--vd-transition-ease)';
       } else {
         el.style.transition = 'none';
         setTimeout(() => {

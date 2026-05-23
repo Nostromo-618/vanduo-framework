@@ -123,7 +123,7 @@
 
 /* Image Styles */
 .img-rounded {
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 .img-circle {
@@ -134,7 +134,7 @@
   padding: 0.1875rem; /* 3px - fib */
   background-color: var(--vd-color-white);
   border: 1px solid var(--vd-border-color);
-  border-radius: var(--radius-fib-5);
+  border-radius: var(--vd-radius-fib-5);
   max-width: 100%;
   height: auto;
 }

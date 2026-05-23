@@ -5,21 +5,21 @@
 
 :root {
   /* Skeleton Colors */
-  --skeleton-bg: var(--vd-color-gray-200);
-  --skeleton-shimmer: var(--vd-color-gray-100);
-  --skeleton-border-radius: var(--btn-border-radius);
+  --vd-skeleton-bg: var(--vd-color-gray-200);
+  --vd-skeleton-shimmer: var(--vd-color-gray-100);
+  --vd-skeleton-border-radius: var(--vd-btn-border-radius);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --skeleton-bg: var(--vd-color-gray-700);
-  --skeleton-shimmer: var(--vd-color-gray-600);
+  --vd-skeleton-bg: var(--vd-color-gray-700);
+  --vd-skeleton-shimmer: var(--vd-color-gray-600);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --skeleton-bg: var(--vd-color-gray-700);
-    --skeleton-shimmer: var(--vd-color-gray-600);
+    --vd-skeleton-bg: var(--vd-color-gray-700);
+    --vd-skeleton-shimmer: var(--vd-color-gray-600);
   }
 }
 
@@ -27,8 +27,8 @@
 .vd-skeleton {
   position: relative;
   overflow: hidden;
-  background-color: var(--skeleton-bg);
-  border-radius: var(--skeleton-border-radius);
+  background-color: var(--vd-skeleton-bg);
+  border-radius: var(--vd-skeleton-border-radius);
 }
 
 /* Shimmer Animation */
@@ -43,7 +43,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    var(--skeleton-shimmer),
+    var(--vd-skeleton-shimmer),
     transparent
   );
   animation: skeleton-shimmer 1.5s infinite;
@@ -111,7 +111,7 @@
 .vd-skeleton-button {
   height: 2.5rem;
   width: 6rem;
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 .vd-skeleton-button-sm {
@@ -127,7 +127,7 @@
 /* Skeleton Card */
 .vd-skeleton-card {
   padding: 1rem;
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
   border: 1px solid var(--vd-border-color);
 }
 
@@ -135,7 +135,7 @@
 .vd-skeleton-input {
   height: 2.5rem;
   width: 100%;
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 /* Skeleton Paragraph (multiple lines) */

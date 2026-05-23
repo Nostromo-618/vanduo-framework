@@ -16,7 +16,7 @@
     gap: 0.4rem;
     padding: 0.6rem 1rem;
     border: 1px solid var(--vd-border-color);
-    border-radius: var(--btn-border-radius);
+    border-radius: var(--vd-btn-border-radius);
     background: var(--vd-bg-secondary);
     color: var(--vd-text-primary);
     text-decoration: none;

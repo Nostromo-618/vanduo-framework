@@ -58,7 +58,7 @@ Use `reinit(name, root)` when a single component needs a targeted reset after DO
 `css/vanduo.css` imports layers in this order:
 
 1. Reset
-2. Foundation (`colors.css`, `tokens.css`, `vd-aliases.css`, typography, grid, helpers)
+2. Foundation (`colors.css`, `tokens.css`, typography, grid, helpers)
 3. Icons
 4. Utilities
 5. Components

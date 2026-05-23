@@ -5,37 +5,37 @@
 
 :root {
   /* Collapsible Colors */
-  --collapsible-border-color: var(--vd-border-color);
-  --collapsible-bg: var(--vd-color-white);
-  --collapsible-header-bg: var(--vd-bg-secondary);
-  --collapsible-header-bg-hover: var(--vd-bg-secondary);
-  --collapsible-header-bg-active: var(--vd-bg-secondary);
-  --collapsible-focus-ring: 0 0 0 2px var(--input-focus-border-color);
+  --vd-collapsible-border-color: var(--vd-border-color);
+  --vd-collapsible-bg: var(--vd-color-white);
+  --vd-collapsible-header-bg: var(--vd-bg-secondary);
+  --vd-collapsible-header-bg-hover: var(--vd-bg-secondary);
+  --vd-collapsible-header-bg-active: var(--vd-bg-secondary);
+  --vd-collapsible-focus-ring: 0 0 0 2px var(--vd-input-focus-border-color);
   
   /* Collapsible Spacing (Fibonacci) */
-  --collapsible-padding-y: 0.8125rem;    /* 13px - fib */
-  --collapsible-padding-x: 1.3125rem;    /* 21px - fib (21/13 ~ phi) */
-  --collapsible-body-padding: 1.3125rem; /* 21px - fib */
+  --vd-collapsible-padding-y: 0.8125rem;    /* 13px - fib */
+  --vd-collapsible-padding-x: 1.3125rem;    /* 21px - fib (21/13 ~ phi) */
+  --vd-collapsible-body-padding: 1.3125rem; /* 21px - fib */
   
   /* Collapsible Transitions */
-  --collapsible-transition: height var(--transition-duration-slow) var(--transition-ease),
-                            opacity var(--transition-duration-base) var(--transition-ease);
+  --vd-collapsible-transition: height var(--vd-transition-duration-slow) var(--vd-transition-ease),
+                            opacity var(--vd-transition-duration-base) var(--vd-transition-ease);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --collapsible-bg: var(--vd-bg-secondary);
-  --collapsible-header-bg: var(--vd-bg-primary);
-  --collapsible-header-bg-hover: var(--vd-bg-primary);
-  --collapsible-header-bg-active: var(--vd-bg-primary);
+  --vd-collapsible-bg: var(--vd-bg-secondary);
+  --vd-collapsible-header-bg: var(--vd-bg-primary);
+  --vd-collapsible-header-bg-hover: var(--vd-bg-primary);
+  --vd-collapsible-header-bg-active: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --collapsible-bg: var(--vd-bg-secondary);
-    --collapsible-header-bg: var(--vd-bg-primary);
-    --collapsible-header-bg-hover: var(--vd-bg-primary);
-    --collapsible-header-bg-active: var(--vd-bg-primary);
+    --vd-collapsible-bg: var(--vd-bg-secondary);
+    --vd-collapsible-header-bg: var(--vd-bg-primary);
+    --vd-collapsible-header-bg-hover: var(--vd-bg-primary);
+    --vd-collapsible-header-bg-active: var(--vd-bg-primary);
   }
 }
 
@@ -50,11 +50,11 @@
 /* Collapsible Item */
 .vd-collapsible-item,
 .accordion-item {
-  border: 1px solid var(--collapsible-border-color);
-  border-radius: var(--btn-border-radius);
+  border: 1px solid var(--vd-collapsible-border-color);
+  border-radius: var(--vd-btn-border-radius);
   margin-bottom: 0.5rem;
   overflow: hidden;
-  background-color: var(--collapsible-bg);
+  background-color: var(--vd-collapsible-bg);
   position: relative;
 }
 
@@ -69,25 +69,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--collapsible-padding-y) var(--collapsible-padding-x);
-  background-color: var(--collapsible-header-bg);
+  padding: var(--vd-collapsible-padding-y) var(--vd-collapsible-padding-x);
+  background-color: var(--vd-collapsible-header-bg);
   cursor: pointer;
   user-select: none;
-  transition: var(--transition-bg);
+  transition: var(--vd-transition-bg);
   border: none;
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
   text-align: left;
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-font-size-base);
+  font-weight: var(--vd-font-weight-medium);
   color: var(--vd-text-primary);
 }
 
 .vd-collapsible-header:hover,
 .accordion-header:hover {
-  background-color: var(--collapsible-header-bg-hover);
+  background-color: var(--vd-collapsible-header-bg-hover);
 }
 
 .vd-collapsible-header:focus,
@@ -102,14 +102,14 @@
 .vd-collapsible-item:has(.vd-collapsible-trigger:focus-visible),
 .accordion-item:has(.accordion-header:focus-visible),
 .accordion-item:has(.accordion-trigger:focus-visible) {
-  box-shadow: var(--collapsible-focus-ring);
+  box-shadow: var(--vd-collapsible-focus-ring);
   z-index: 1;
 }
 
 .vd-collapsible-item.is-open .vd-collapsible-header,
 .accordion-item.is-open .accordion-header {
-  background-color: var(--collapsible-header-bg-active);
-  font-weight: var(--font-weight-semibold);
+  background-color: var(--vd-collapsible-header-bg-active);
+  font-weight: var(--vd-font-weight-semibold);
 }
 
 /* Collapsible Trigger */
@@ -119,9 +119,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-font-size-base);
+  font-weight: var(--vd-font-weight-medium);
   color: var(--vd-text-primary);
   text-decoration: none;
   background: none;
@@ -149,7 +149,7 @@
   height: 1.5rem;
   margin-left: 0.75rem;
   flex-shrink: 0;
-  transition: transform var(--transition-duration-base) var(--transition-ease);
+  transition: transform var(--vd-transition-duration-base) var(--vd-transition-ease);
 }
 
 .vd-collapsible-icon::before,
@@ -157,7 +157,7 @@
   content: '▼';
   font-size: 0.75rem;
   color: var(--vd-text-secondary);
-  transition: transform var(--transition-duration-base) var(--transition-ease);
+  transition: transform var(--vd-transition-duration-base) var(--vd-transition-ease);
 }
 
 .vd-collapsible-item.is-open .vd-collapsible-icon::before,
@@ -170,7 +170,7 @@
 .accordion-body {
   max-height: 0;
   overflow: hidden;
-  transition: var(--collapsible-transition);
+  transition: var(--vd-collapsible-transition);
   opacity: 0;
 }
 
@@ -178,15 +178,15 @@
 .accordion-item.is-open .accordion-body {
   max-height: 5000px;
   opacity: 1;
-  padding: var(--collapsible-body-padding);
-  border-top: 1px solid var(--collapsible-border-color);
+  padding: var(--vd-collapsible-body-padding);
+  border-top: 1px solid var(--vd-collapsible-border-color);
 }
 
 /* Collapsible Content */
 .vd-collapsible-content,
 .accordion-content {
   color: var(--vd-text-primary);
-  line-height: var(--line-height-normal);
+  line-height: var(--vd-line-height-normal);
 }
 
 /* Collapsible States */
@@ -204,21 +204,21 @@
 /* Collapsible Variants - Bordered */
 .vd-collapsible-bordered .vd-collapsible-item,
 .accordion-bordered .accordion-item {
-  border: 1px solid var(--collapsible-border-color);
+  border: 1px solid var(--vd-collapsible-border-color);
   border-radius: 0;
   margin-bottom: -1px;
 }
 
 .vd-collapsible-bordered .vd-collapsible-item:first-child,
 .accordion-bordered .accordion-item:first-child {
-  border-top-left-radius: var(--btn-border-radius);
-  border-top-right-radius: var(--btn-border-radius);
+  border-top-left-radius: var(--vd-btn-border-radius);
+  border-top-right-radius: var(--vd-btn-border-radius);
 }
 
 .vd-collapsible-bordered .vd-collapsible-item:last-child,
 .accordion-bordered .accordion-item:last-child {
-  border-bottom-left-radius: var(--btn-border-radius);
-  border-bottom-right-radius: var(--btn-border-radius);
+  border-bottom-left-radius: var(--vd-btn-border-radius);
+  border-bottom-right-radius: var(--vd-btn-border-radius);
   margin-bottom: 0;
 }
 
@@ -227,7 +227,7 @@
 .accordion-flush .accordion-item {
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid var(--collapsible-border-color);
+  border-bottom: 1px solid var(--vd-collapsible-border-color);
   margin-bottom: 0;
   background-color: transparent;
   overflow: visible;
@@ -249,7 +249,7 @@
 .vd-collapsible-flush .vd-collapsible-trigger:hover,
 .accordion-flush .accordion-header:hover,
 .accordion-flush .accordion-trigger:hover {
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 .vd-collapsible-flush .vd-collapsible-item:has(.vd-collapsible-header:focus-visible),
@@ -263,8 +263,8 @@
 .vd-collapsible-flush .vd-collapsible-trigger:focus-visible,
 .accordion-flush .accordion-header:focus-visible,
 .accordion-flush .accordion-trigger:focus-visible {
-  border-radius: var(--btn-border-radius);
-  box-shadow: var(--collapsible-focus-ring);
+  border-radius: var(--vd-btn-border-radius);
+  box-shadow: var(--vd-collapsible-focus-ring);
   position: relative;
   z-index: 1;
 }
@@ -272,24 +272,24 @@
 /* Collapsible Sizes */
 .vd-collapsible-sm .vd-collapsible-header,
 .accordion-sm .accordion-header {
-  padding: calc(var(--collapsible-padding-y) * 0.75) calc(var(--collapsible-padding-x) * 0.75);
-  font-size: var(--font-size-sm);
+  padding: calc(var(--vd-collapsible-padding-y) * 0.75) calc(var(--vd-collapsible-padding-x) * 0.75);
+  font-size: var(--vd-font-size-sm);
 }
 
 .vd-collapsible-sm .vd-collapsible-body,
 .accordion-sm .accordion-body {
-  padding: calc(var(--collapsible-body-padding) * 0.75);
+  padding: calc(var(--vd-collapsible-body-padding) * 0.75);
 }
 
 .vd-collapsible-lg .vd-collapsible-header,
 .accordion-lg .accordion-header {
-  padding: calc(var(--collapsible-padding-y) * 1.25) calc(var(--collapsible-padding-x) * 1.25);
-  font-size: var(--font-size-lg);
+  padding: calc(var(--vd-collapsible-padding-y) * 1.25) calc(var(--vd-collapsible-padding-x) * 1.25);
+  font-size: var(--vd-font-size-lg);
 }
 
 .vd-collapsible-lg .vd-collapsible-body,
 .accordion-lg .accordion-body {
-  padding: calc(var(--collapsible-body-padding) * 1.25);
+  padding: calc(var(--vd-collapsible-body-padding) * 1.25);
 }
 
 /* Accordion Mode (single open) */
@@ -300,20 +300,20 @@
 }
 
 .accordion .accordion-item.is-open ~ .accordion-item.is-open {
-  border-top: 1px solid var(--collapsible-border-color);
+  border-top: 1px solid var(--vd-collapsible-border-color);
 }
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
   .vd-collapsible-header,
   .accordion-header {
-    padding: calc(var(--collapsible-padding-y) * 0.875) var(--collapsible-padding-x);
-    font-size: var(--font-size-sm);
+    padding: calc(var(--vd-collapsible-padding-y) * 0.875) var(--vd-collapsible-padding-x);
+    font-size: var(--vd-font-size-sm);
   }
   
   .vd-collapsible-body,
   .accordion-body {
-    padding: var(--collapsible-padding-x);
+    padding: var(--vd-collapsible-padding-x);
   }
 }
 

@@ -310,6 +310,17 @@ test.describe('Music Player Component @component', () => {
             const input = page.locator('#player-progress .vd-music-player-progress-bar');
             await expect(input).toHaveAttribute('aria-label', /seek|progress/i);
         });
+
+        test('range input uses the vd-prefixed fill runtime token', async ({ page }) => {
+            const tokenValue = await page.locator('#player-progress .vd-music-player-volume-slider').evaluate((el) => {
+                const input = el as HTMLInputElement;
+                input.value = '0.25';
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                return input.style.getPropertyValue('--vd-fill');
+            });
+
+            expect(tokenValue).toBe('25%');
+        });
     });
 
     // ────────────────────────────────────────────────────
@@ -476,6 +487,21 @@ test.describe('Music Player Component @component', () => {
                 return 'ok';
             });
             expect(result).toBe('ok');
+        });
+
+        test('custom floating position uses vd-prefixed runtime tokens', async ({ page }) => {
+            const tokens = await page.evaluate(() => {
+                const el = document.getElementById('player-float');
+                if (!el) return null;
+                VanduoMusicPlayer.detach(el, 'bottom-right');
+                VanduoMusicPlayer.setPosition(el, { x: 42, y: 64 });
+                return {
+                    left: el.style.getPropertyValue('--vd-music-player-floating-left'),
+                    top: el.style.getPropertyValue('--vd-music-player-floating-top'),
+                };
+            });
+
+            expect(tokens).toEqual({ left: '42px', top: '64px' });
         });
     });
 

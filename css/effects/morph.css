@@ -12,10 +12,10 @@
  */
 
 :root {
-  --morph-duration: 0.75s;
-  --morph-easing: cubic-bezier(0.2, 0.8, 0.35, 1);
-  --morph-blur-peak: 11px;
-  --morph-wave-color: var(--vd-color-primary, #3b82f6);
+  --vd-morph-duration: 0.75s;
+  --vd-morph-easing: cubic-bezier(0.2, 0.8, 0.35, 1);
+  --vd-morph-blur-peak: 11px;
+  --vd-morph-wave-color: var(--vd-color-primary, #3b82f6);
 }
 
 /* ========== Base ========== */
@@ -42,10 +42,10 @@
       color-mix(in srgb, #fff 30%, transparent) 0%,
       transparent 30%),
     radial-gradient(circle at 50% 50%,
-      color-mix(in srgb, var(--morph-wave-color) 96%, #a8d8ff) 0%,
-      color-mix(in srgb, var(--morph-wave-color) 82%, #7ec8ff) 35%,
-      color-mix(in srgb, var(--morph-wave-color) 70%, #5ba4f5) 65%,
-      color-mix(in srgb, var(--morph-wave-color) 90%, #4478f0) 100%);
+      color-mix(in srgb, var(--vd-morph-wave-color) 96%, #a8d8ff) 0%,
+      color-mix(in srgb, var(--vd-morph-wave-color) 82%, #7ec8ff) 35%,
+      color-mix(in srgb, var(--vd-morph-wave-color) 70%, #5ba4f5) 65%,
+      color-mix(in srgb, var(--vd-morph-wave-color) 90%, #4478f0) 100%);
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -50%);
@@ -53,7 +53,7 @@
 }
 
 .vd-morph.is-morphing .vd-morph-wave {
-  animation: vd-morph-expand var(--morph-duration) var(--morph-easing) forwards;
+  animation: vd-morph-expand var(--vd-morph-duration) var(--vd-morph-easing) forwards;
 }
 
 .vd-morph.is-morphing .vd-morph-wave::after {
@@ -66,12 +66,12 @@
   border-radius: 50%;
   background:
     radial-gradient(circle at 50% 50%,
-      color-mix(in srgb, var(--morph-wave-color) 70%, #b0e0ff) 0%,
-      color-mix(in srgb, var(--morph-wave-color) 50%, #88c0ff) 45%,
+      color-mix(in srgb, var(--vd-morph-wave-color) 70%, #b0e0ff) 0%,
+      color-mix(in srgb, var(--vd-morph-wave-color) 50%, #88c0ff) 45%,
       transparent 80%);
   transform: translate(-50%, -50%);
   opacity: 0;
-  animation: vd-morph-expand2 var(--morph-duration) var(--morph-easing) 0.08s forwards;
+  animation: vd-morph-expand2 var(--vd-morph-duration) var(--vd-morph-easing) 0.08s forwards;
 }
 
 @keyframes vd-morph-expand {
@@ -93,7 +93,7 @@
     width: 360%;
     height: 360%;
     opacity: 0.6;
-    filter: blur(var(--morph-blur-peak)) saturate(1.3);
+    filter: blur(var(--vd-morph-blur-peak)) saturate(1.3);
   }
   100% {
     width: 360%;
@@ -225,13 +225,13 @@
 /* ========== Size Variants ========== */
 
 .vd-morph-sm {
-  --morph-duration: 0.5s;
-  --morph-blur-peak: 7px;
+  --vd-morph-duration: 0.5s;
+  --vd-morph-blur-peak: 7px;
 }
 
 .vd-morph-lg {
-  --morph-duration: 1s;
-  --morph-blur-peak: 16px;
+  --vd-morph-duration: 1s;
+  --vd-morph-blur-peak: 16px;
 }
 
 /* ========== Accessibility ========== */

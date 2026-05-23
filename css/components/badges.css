@@ -5,23 +5,23 @@
 
 :root {
   /* Badge Padding (x/y ratio ~ phi) */
-  --badge-padding-y: 0.3em;
-  --badge-padding-x: 0.48em;     /* 0.48/0.3 = 1.6 ~ phi */
-  --badge-padding-y-sm: 0.18em;
-  --badge-padding-x-sm: 0.3em;   /* 0.3/0.18 = 1.67 ~ phi */
-  --badge-padding-y-lg: 0.42em;
-  --badge-padding-x-lg: 0.65em;    /* 0.65/0.42 = 1.55 ~ phi */
+  --vd-badge-padding-y: 0.3em;
+  --vd-badge-padding-x: 0.48em;     /* 0.48/0.3 = 1.6 ~ phi */
+  --vd-badge-padding-y-sm: 0.18em;
+  --vd-badge-padding-x-sm: 0.3em;   /* 0.3/0.18 = 1.67 ~ phi */
+  --vd-badge-padding-y-lg: 0.42em;
+  --vd-badge-padding-x-lg: 0.65em;    /* 0.65/0.42 = 1.55 ~ phi */
   
   /* Badge Font */
-  --badge-font-size: 0.8125em;
-  --badge-font-size-sm: 0.7em;
-  --badge-font-size-lg: 0.9375em;
-  --badge-font-weight: var(--font-weight-semibold);
-  --badge-line-height: 1;
+  --vd-badge-font-size: 0.8125em;
+  --vd-badge-font-size-sm: 0.7em;
+  --vd-badge-font-size-lg: 0.9375em;
+  --vd-badge-font-weight: var(--vd-font-weight-semibold);
+  --vd-badge-line-height: 1;
   
   /* Badge Border Radius */
-  --badge-border-radius: var(--btn-border-radius-sm);
-  --badge-pill-border-radius: 50rem;
+  --vd-badge-border-radius: var(--vd-btn-border-radius-sm);
+  --vd-badge-pill-border-radius: 50rem;
 }
 
 /* Dark Theme Overrides */
@@ -61,15 +61,15 @@
 /* Base Badge */
 .vd-badge {
   display: inline-block;
-  padding: var(--badge-padding-y) var(--badge-padding-x);
-  font-size: var(--badge-font-size);
-  font-weight: var(--badge-font-weight);
-  line-height: var(--badge-line-height);
+  padding: var(--vd-badge-padding-y) var(--vd-badge-padding-x);
+  font-size: var(--vd-badge-font-size);
+  font-weight: var(--vd-badge-font-weight);
+  line-height: var(--vd-badge-line-height);
   color: var(--vd-color-white);
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: var(--badge-border-radius);
+  border-radius: var(--vd-badge-border-radius);
   background-color: var(--vd-color-secondary);
 }
 
@@ -116,20 +116,20 @@
 
 /* Badge Sizes */
 .vd-badge-sm {
-  padding: var(--badge-padding-y-sm) var(--badge-padding-x-sm);
-  font-size: var(--badge-font-size-sm);
+  padding: var(--vd-badge-padding-y-sm) var(--vd-badge-padding-x-sm);
+  font-size: var(--vd-badge-font-size-sm);
 }
 
 .vd-badge-lg {
-  padding: var(--badge-padding-y-lg) var(--badge-padding-x-lg);
-  font-size: var(--badge-font-size-lg);
+  padding: var(--vd-badge-padding-y-lg) var(--vd-badge-padding-x-lg);
+  font-size: var(--vd-badge-font-size-lg);
 }
 
 /* Badge Styles */
 .vd-badge-pill {
-  padding-right: var(--badge-padding-x);
-  padding-left: var(--badge-padding-x);
-  border-radius: var(--badge-pill-border-radius);
+  padding-right: var(--vd-badge-padding-x);
+  padding-left: var(--vd-badge-padding-x);
+  border-radius: var(--vd-badge-pill-border-radius);
 }
 
 .vd-badge-outlined {

@@ -5,9 +5,9 @@
 
 :root {
   /* Parallax Settings */
-  --parallax-speed-slow: 0.5;
-  --parallax-speed-medium: 1;
-  --parallax-speed-fast: 1.5;
+  --vd-parallax-speed-slow: 0.5;
+  --vd-parallax-speed-medium: 1;
+  --vd-parallax-speed-fast: 1.5;
 }
 
 /* Base Parallax Container */
@@ -37,15 +37,15 @@
 
 /* Parallax Speed Variants */
 .vd-parallax-slow {
-  --parallax-speed: var(--parallax-speed-slow);
+  --vd-parallax-speed: var(--vd-parallax-speed-slow);
 }
 
 .vd-parallax-medium {
-  --parallax-speed: var(--parallax-speed-medium);
+  --vd-parallax-speed: var(--vd-parallax-speed-medium);
 }
 
 .vd-parallax-fast {
-  --parallax-speed: var(--parallax-speed-fast);
+  --vd-parallax-speed: var(--vd-parallax-speed-fast);
 }
 
 /* Parallax Direction */

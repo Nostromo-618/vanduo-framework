@@ -7,26 +7,26 @@
   /* Fibonacci Shadow System
    * Y-offset and blur follow Fibonacci pairs: 1/2, 2/3, 3/5, 8/13, 13/21, 21/34
    * Each level steps through the Fibonacci sequence */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.1), 0 2px 3px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.1), 0 3px 5px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.1), 0 5px 8px -5px rgba(0, 0, 0, 0.1);
-  --shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.25);
-  --shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+  --vd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --vd-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --vd-shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.1), 0 2px 3px -2px rgba(0, 0, 0, 0.1);
+  --vd-shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.1), 0 3px 5px -3px rgba(0, 0, 0, 0.1);
+  --vd-shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.1), 0 5px 8px -5px rgba(0, 0, 0, 0.1);
+  --vd-shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.25);
+  --vd-shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.05);
 
   /* Colored Shadows (Fibonacci: 3/5 offset/blur)
    * Colors match Open Color palette defined in colors.css */
-  --shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.2), 0 2px 3px -2px rgba(34, 184, 207, 0.1);
-  --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.2), 0 2px 3px -2px rgba(64, 192, 87, 0.1);
-  --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.2), 0 2px 3px -2px rgba(250, 176, 5, 0.1);
-  --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.2), 0 2px 3px -2px rgba(250, 82, 82, 0.1);
+  --vd-shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.2), 0 2px 3px -2px rgba(34, 184, 207, 0.1);
+  --vd-shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.2), 0 2px 3px -2px rgba(64, 192, 87, 0.1);
+  --vd-shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.2), 0 2px 3px -2px rgba(250, 176, 5, 0.1);
+  --vd-shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.2), 0 2px 3px -2px rgba(250, 82, 82, 0.1);
 
   /* Glow Effect Colors - uses color scale variables */
-  --glow-primary-color: var(--primary-3);
-  --glow-success-color: var(--success-3);
-  --glow-warning-color: var(--warning-3);
-  --glow-error-color: var(--danger-3);
+  --vd-glow-primary-color: var(--vd-primary-3);
+  --vd-glow-success-color: var(--vd-success-3);
+  --vd-glow-warning-color: var(--vd-warning-3);
+  --vd-glow-error-color: var(--vd-danger-3);
 }
 
 /* Shadow Utilities */
@@ -35,48 +35,48 @@
 }
 
 .vd-shadow-sm {
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--vd-shadow-sm);
 }
 
 .vd-shadow {
-  box-shadow: var(--shadow);
+  box-shadow: var(--vd-shadow);
 }
 
 .vd-shadow-md {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--vd-shadow-md);
 }
 
 .vd-shadow-lg {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--vd-shadow-lg);
 }
 
 .vd-shadow-xl {
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--vd-shadow-xl);
 }
 
 .vd-shadow-2xl {
-  box-shadow: var(--shadow-2xl);
+  box-shadow: var(--vd-shadow-2xl);
 }
 
 .vd-shadow-inner {
-  box-shadow: var(--shadow-inner);
+  box-shadow: var(--vd-shadow-inner);
 }
 
 /* Colored Shadow Utilities */
 .vd-shadow-primary {
-  box-shadow: var(--shadow-primary);
+  box-shadow: var(--vd-shadow-primary);
 }
 
 .vd-shadow-success {
-  box-shadow: var(--shadow-success);
+  box-shadow: var(--vd-shadow-success);
 }
 
 .vd-shadow-warning {
-  box-shadow: var(--shadow-warning);
+  box-shadow: var(--vd-shadow-warning);
 }
 
 .vd-shadow-error {
-  box-shadow: var(--shadow-error);
+  box-shadow: var(--vd-shadow-error);
 }
 
 /* Elevation Levels (for Material Design-like system) */
@@ -85,23 +85,23 @@
 }
 
 .elevation-1 {
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--vd-shadow-sm);
 }
 
 .elevation-2 {
-  box-shadow: var(--shadow);
+  box-shadow: var(--vd-shadow);
 }
 
 .elevation-3 {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--vd-shadow-md);
 }
 
 .elevation-4 {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--vd-shadow-lg);
 }
 
 .elevation-5 {
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--vd-shadow-xl);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -114,7 +114,7 @@
 .vd-glow-primary,
 .glow,
 .glow-primary {
-  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 /* Glow on Hover */
@@ -129,70 +129,70 @@
 .vd-hover-glow-primary:hover,
 .hover-glow:hover,
 .hover-glow-primary:hover {
-  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 /* Glow Color Variants */
 .vd-glow-success,
 .glow-success {
-  box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-success-color, rgba(64, 192, 87, 0.25));
 }
 
 .vd-glow-warning,
 .glow-warning {
-  box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-warning-color, rgba(250, 176, 5, 0.25));
 }
 
 .vd-glow-error,
 .glow-error {
-  box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-error-color, rgba(250, 82, 82, 0.25));
 }
 
 /* Glow Hover Variants */
 .vd-hover-glow-success:hover,
 .hover-glow-success:hover {
-  box-shadow: 0 0 15px 0 var(--glow-success-color, rgba(64, 192, 87, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-success-color, rgba(64, 192, 87, 0.25));
 }
 
 .vd-hover-glow-warning:hover,
 .hover-glow-warning:hover {
-  box-shadow: 0 0 15px 0 var(--glow-warning-color, rgba(250, 176, 5, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-warning-color, rgba(250, 176, 5, 0.25));
 }
 
 .vd-hover-glow-error:hover,
 .hover-glow-error:hover {
-  box-shadow: 0 0 15px 0 var(--glow-error-color, rgba(250, 82, 82, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-error-color, rgba(250, 82, 82, 0.25));
 }
 
 /* Glow Intensity Variants */
 .vd-glow-sm,
 .glow-sm {
-  box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
+  box-shadow: 0 0 8px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.15));
 }
 
 .vd-glow-md,
 .glow-md {
-  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 .vd-glow-lg,
 .glow-lg {
-  box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
+  box-shadow: 0 0 22px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.35));
 }
 
 .vd-hover-glow-sm:hover,
 .hover-glow-sm:hover {
-  box-shadow: 0 0 8px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.15));
+  box-shadow: 0 0 8px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.15));
 }
 
 .vd-hover-glow-md:hover,
 .hover-glow-md:hover {
-  box-shadow: 0 0 15px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.25));
+  box-shadow: 0 0 15px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.25));
 }
 
 .vd-hover-glow-lg:hover,
 .hover-glow-lg:hover {
-  box-shadow: 0 0 22px 0 var(--glow-primary-color, rgba(34, 184, 207, 0.35));
+  box-shadow: 0 0 22px 0 var(--vd-glow-primary-color, rgba(34, 184, 207, 0.35));
 }
 
 /* Dark Mode Shadow Overrides
@@ -200,44 +200,44 @@
  * Matches both explicit dark theme and system preference */
 [data-theme="dark"],
 :root:not([data-theme]) {
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  --shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.35), 0 2px 3px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.35), 0 3px 5px -3px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.35), 0 5px 8px -5px rgba(0, 0, 0, 0.3);
-  --shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.5);
-  --shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
-  --shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.3), 0 2px 3px -2px rgba(34, 184, 207, 0.2);
-  --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
-  --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
-  --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
+  --vd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --vd-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --vd-shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.35), 0 2px 3px -2px rgba(0, 0, 0, 0.3);
+  --vd-shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.35), 0 3px 5px -3px rgba(0, 0, 0, 0.3);
+  --vd-shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.35), 0 5px 8px -5px rgba(0, 0, 0, 0.3);
+  --vd-shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.5);
+  --vd-shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  --vd-shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.3), 0 2px 3px -2px rgba(34, 184, 207, 0.2);
+  --vd-shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
+  --vd-shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
+  --vd-shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
 
   /* Glow Effect Colors - Dark Mode (lighter shades for visibility) */
-  --glow-primary-color: var(--primary-4);
-  --glow-success-color: var(--success-4);
-  --glow-warning-color: var(--warning-4);
-  --glow-error-color: var(--danger-4);
+  --vd-glow-primary-color: var(--vd-primary-4);
+  --vd-glow-success-color: var(--vd-success-4);
+  --vd-glow-warning-color: var(--vd-warning-4);
+  --vd-glow-error-color: var(--vd-danger-4);
 }
 
 /* System preference dark mode (when no explicit theme is set) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    --shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.35), 0 2px 3px -2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.35), 0 3px 5px -3px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.35), 0 5px 8px -5px rgba(0, 0, 0, 0.3);
-    --shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.5);
-    --shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
-    --shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.3), 0 2px 3px -2px rgba(34, 184, 207, 0.2);
-    --shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
-    --shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
-    --shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
+    --vd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --vd-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+    --vd-shadow-md: 0 3px 5px -1px rgba(0, 0, 0, 0.35), 0 2px 3px -2px rgba(0, 0, 0, 0.3);
+    --vd-shadow-lg: 0 8px 13px -3px rgba(0, 0, 0, 0.35), 0 3px 5px -3px rgba(0, 0, 0, 0.3);
+    --vd-shadow-xl: 0 13px 21px -5px rgba(0, 0, 0, 0.35), 0 5px 8px -5px rgba(0, 0, 0, 0.3);
+    --vd-shadow-2xl: 0 21px 34px -8px rgba(0, 0, 0, 0.5);
+    --vd-shadow-inner: inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+    --vd-shadow-primary: 0 3px 5px -1px rgba(34, 184, 207, 0.3), 0 2px 3px -2px rgba(34, 184, 207, 0.2);
+    --vd-shadow-success: 0 3px 5px -1px rgba(64, 192, 87, 0.3), 0 2px 3px -2px rgba(64, 192, 87, 0.2);
+    --vd-shadow-warning: 0 3px 5px -1px rgba(250, 176, 5, 0.3), 0 2px 3px -2px rgba(250, 176, 5, 0.2);
+    --vd-shadow-error: 0 3px 5px -1px rgba(250, 82, 82, 0.3), 0 2px 3px -2px rgba(250, 82, 82, 0.2);
 
     /* Glow Effect Colors - Dark Mode */
-    --glow-primary-color: var(--primary-4);
-    --glow-success-color: var(--success-4);
-    --glow-warning-color: var(--warning-4);
-    --glow-error-color: var(--danger-4);
+    --vd-glow-primary-color: var(--vd-primary-4);
+    --vd-glow-success-color: var(--vd-success-4);
+    --vd-glow-warning-color: var(--vd-warning-4);
+    --vd-glow-error-color: var(--vd-danger-4);
   }
 }

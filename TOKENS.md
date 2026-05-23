@@ -2,18 +2,18 @@
 
 ## Token Tiers
 
-Vanduo `1.4.0` uses three token tiers.
+Vanduo `1.4.1` uses a strict `--vd-*` custom-property namespace for every shipped design token.
 
 ### 1. Palette Tokens
 
 Raw implementation scales:
 
-- `--primary-*`
-- `--secondary-*`
-- `--gray-*`
-- `--success-*`
-- `--warning-*`
-- `--danger-*`
+- `--vd-primary-*`
+- `--vd-secondary-*`
+- `--vd-gray-*`
+- `--vd-success-*`
+- `--vd-warning-*`
+- `--vd-danger-*`
 
 These are not the primary public API.
 
@@ -29,27 +29,27 @@ The canonical Vanduo API lives under `--vd-*`:
 
 Framework authoring should prefer these semantic tokens whenever an equivalent exists.
 
-### 3. Compatibility Aliases
+### 3. Component, Utility, and Runtime Tokens
 
-Legacy semantic aliases remain available through the `1.4.x` line:
+Component, utility, effect, and JS-set custom properties also use `--vd-*`:
 
-- `--color-*`
-- `--bg-*`
-- `--text-*`
-- `--border-*`
+- `--vd-btn-*`
+- `--vd-card-*`
+- `--vd-spacing-*`
+- `--vd-morph-*`
+- `--vd-affix-top-offset`
 
-These aliases map back to the canonical `--vd-*` tokens in `css/core/vd-aliases.css`.
+Unprefixed token aliases are not shipped in `1.4.1`.
 
 ## Source of Truth
 
 - Palette values originate in `css/core/colors.css`.
 - Canonical semantic tokens are defined in `css/core/tokens.css`.
-- Compatibility aliases are defined in `css/core/vd-aliases.css`.
+- Component, utility, effect, and runtime tokens are defined near their owning CSS or JS modules.
 
 ## Authoring Rules
 
-- Prefer `var(--vd-color-primary)` over `var(--color-primary)`.
-- Prefer `var(--vd-text-secondary)` over `var(--text-secondary)`.
+- Every framework custom property must start with `--vd-`.
 - Prefer semantic tokens over raw palette tokens in component CSS.
 - Use raw palette tokens only when defining or composing semantic tokens.
 
@@ -63,6 +63,6 @@ These aliases map back to the canonical `--vd-*` tokens in `css/core/vd-aliases.
 }
 ```
 
-## Deferred Work
+## Migration Note
 
-The raw palette namespace is intentionally unchanged in `1.4.0`. A future release can decide whether `--primary-*` and similar scales should also move behind a Vanduo-prefixed public namespace.
+The `1.4.1` release removes unprefixed aliases such as color-primary, bg-primary, primary-5, and component-local names like card-bg. Replace each override with its `--vd-*` counterpart.

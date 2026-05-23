@@ -5,41 +5,41 @@
 
 :root {
   /* Datepicker Colors */
-  --dp-bg: var(--card-bg, #fff);
-  --dp-border-color: var(--vd-border-color, #dee2e6);
-  --dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.12); /* 4px 13px fib */
-  --dp-header-bg: var(--vd-color-primary, #0d6efd);
-  --dp-header-color: #fff;
-  --dp-day-hover-bg: var(--vd-bg-secondary, #f8f9fa);
-  --dp-day-selected-bg: var(--vd-color-primary, #0d6efd);
-  --dp-day-selected-color: #fff;
-  --dp-day-today-color: var(--vd-color-primary, #0d6efd);
-  --dp-day-outside-color: var(--vd-text-muted, #6c757d);
-  --dp-day-disabled-color: var(--vd-text-disabled, #adb5bd);
+  --vd-dp-bg: var(--vd-card-bg, #fff);
+  --vd-dp-border-color: var(--vd-border-color, #dee2e6);
+  --vd-dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.12); /* 4px 13px fib */
+  --vd-dp-header-bg: var(--vd-color-primary, #0d6efd);
+  --vd-dp-header-color: #fff;
+  --vd-dp-day-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-dp-day-selected-bg: var(--vd-color-primary, #0d6efd);
+  --vd-dp-day-selected-color: #fff;
+  --vd-dp-day-today-color: var(--vd-color-primary, #0d6efd);
+  --vd-dp-day-outside-color: var(--vd-text-muted, #6c757d);
+  --vd-dp-day-disabled-color: var(--vd-text-disabled, #adb5bd);
 
   /* Datepicker Spacing (Fibonacci) */
-  --dp-padding: 0.5rem;        /* 8px - fib */
-  --dp-cell-size: 2.25rem;     /* 36px */
-  --dp-gap: 2px;
-  --dp-border-radius: var(--border-radius, 0.5rem);
+  --vd-dp-padding: 0.5rem;        /* 8px - fib */
+  --vd-dp-cell-size: 2.25rem;     /* 36px */
+  --vd-dp-gap: 2px;
+  --vd-dp-border-radius: var(--vd-border-radius, 0.5rem);
 
   /* Datepicker Z-index */
-  --dp-z-index: 1055;
+  --vd-dp-z-index: 1055;
 }
 
 [data-theme="dark"] {
-  --dp-bg: var(--card-bg, #2d2d44);
-  --dp-border-color: var(--vd-border-color, #3d3d5c);
-  --dp-day-hover-bg: var(--vd-bg-primary, #1a1a2e);
-  --dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+  --vd-dp-bg: var(--vd-card-bg, #2d2d44);
+  --vd-dp-border-color: var(--vd-border-color, #3d3d5c);
+  --vd-dp-day-hover-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --dp-bg: var(--card-bg, #2d2d44);
-    --dp-border-color: var(--vd-border-color, #3d3d5c);
-    --dp-day-hover-bg: var(--vd-bg-primary, #1a1a2e);
-    --dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+    --vd-dp-bg: var(--vd-card-bg, #2d2d44);
+    --vd-dp-border-color: var(--vd-border-color, #3d3d5c);
+    --vd-dp-day-hover-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-dp-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -47,12 +47,12 @@
 
 .vd-datepicker-popup {
   position: absolute;
-  z-index: var(--dp-z-index);
-  background: var(--dp-bg);
-  border: 1px solid var(--dp-border-color);
-  border-radius: var(--dp-border-radius);
-  box-shadow: var(--dp-shadow);
-  padding: var(--dp-padding);
+  z-index: var(--vd-dp-z-index);
+  background: var(--vd-dp-bg);
+  border: 1px solid var(--vd-dp-border-color);
+  border-radius: var(--vd-dp-border-radius);
+  box-shadow: var(--vd-dp-shadow);
+  padding: var(--vd-dp-padding);
   display: none;
   min-width: 17rem;
 }
@@ -73,12 +73,12 @@
 
 .vd-datepicker-title {
   font-weight: 600;
-  font-size: var(--font-size-base, 1rem);
+  font-size: var(--vd-font-size-base, 1rem);
   cursor: pointer;
 }
 
 .vd-datepicker-title:hover {
-  color: var(--dp-day-today-color);
+  color: var(--vd-dp-day-today-color);
 }
 
 .vd-datepicker-prev,
@@ -100,7 +100,7 @@
 
 .vd-datepicker-prev:hover,
 .vd-datepicker-next:hover {
-  background: var(--dp-day-hover-bg);
+  background: var(--vd-dp-day-hover-bg);
 }
 
 /* ========== Calendar grid (weekday row + week rows) ========== */
@@ -108,7 +108,7 @@
 .vd-datepicker-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--dp-gap);
+  gap: var(--vd-dp-gap);
 }
 
 /* ========== Weekday Headers ========== */
@@ -116,7 +116,7 @@
 .vd-datepicker-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--dp-gap);
+  gap: var(--vd-dp-gap);
   text-align: center;
   font-size: 0.75rem;
   font-weight: 600;
@@ -130,15 +130,15 @@
 .vd-datepicker-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--dp-gap);
+  gap: var(--vd-dp-gap);
 }
 
 .vd-datepicker-day {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--dp-cell-size);
-  height: var(--dp-cell-size);
+  width: var(--vd-dp-cell-size);
+  height: var(--vd-dp-cell-size);
   border: none;
   border-radius: 50%;
   background: transparent;
@@ -149,26 +149,26 @@
 }
 
 .vd-datepicker-day:hover {
-  background: var(--dp-day-hover-bg);
+  background: var(--vd-dp-day-hover-bg);
 }
 
 .vd-datepicker-day.is-today {
-  color: var(--dp-day-today-color);
+  color: var(--vd-dp-day-today-color);
   font-weight: 700;
 }
 
 .vd-datepicker-day.is-selected {
-  background: var(--dp-day-selected-bg);
-  color: var(--dp-day-selected-color);
+  background: var(--vd-dp-day-selected-bg);
+  color: var(--vd-dp-day-selected-color);
   font-weight: 600;
 }
 
 .vd-datepicker-day.is-outside {
-  color: var(--dp-day-outside-color);
+  color: var(--vd-dp-day-outside-color);
 }
 
 .vd-datepicker-day.is-disabled {
-  color: var(--dp-day-disabled-color);
+  color: var(--vd-dp-day-disabled-color);
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -177,14 +177,14 @@
 
 .vd-datepicker-day.is-range-start {
   border-radius: 50% 0 0 50%;
-  background: var(--dp-day-selected-bg);
-  color: var(--dp-day-selected-color);
+  background: var(--vd-dp-day-selected-bg);
+  color: var(--vd-dp-day-selected-color);
 }
 
 .vd-datepicker-day.is-range-end {
   border-radius: 0 50% 50% 0;
-  background: var(--dp-day-selected-bg);
-  color: var(--dp-day-selected-color);
+  background: var(--vd-dp-day-selected-bg);
+  color: var(--vd-dp-day-selected-color);
 }
 
 .vd-datepicker-day.is-in-range {
@@ -206,7 +206,7 @@
 .vd-datepicker-year-btn {
   padding: 0.5rem;
   border: none;
-  border-radius: var(--dp-border-radius);
+  border-radius: var(--vd-dp-border-radius);
   background: transparent;
   cursor: pointer;
   text-align: center;
@@ -215,11 +215,11 @@
 
 .vd-datepicker-month-btn:hover,
 .vd-datepicker-year-btn:hover {
-  background: var(--dp-day-hover-bg);
+  background: var(--vd-dp-day-hover-bg);
 }
 
 .vd-datepicker-month-btn.is-selected,
 .vd-datepicker-year-btn.is-selected {
-  background: var(--dp-day-selected-bg);
-  color: var(--dp-day-selected-color);
+  background: var(--vd-dp-day-selected-bg);
+  color: var(--vd-dp-day-selected-color);
 }

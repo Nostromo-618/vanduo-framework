@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.1 | Built: 2026-05-23T19:15:51.919Z | git:aac1bed | development */
+/*! Vanduo v1.4.2 | Built: 2026-05-23T19:59:36.731Z | git:adbe750 | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -176,7 +176,7 @@
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.4.1" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.4.2" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,
@@ -8934,6 +8934,27 @@
     x.setDate(x.getDate() + (6 - day));
     return x;
   }
+  function positionAnchoredPopup(anchor, popup, gap) {
+    const padding = 8;
+    const offset = gap != null ? gap : 4;
+    const rect = anchor.getBoundingClientRect();
+    popup.style.minWidth = Math.max(rect.width, 0) + "px";
+    let top = rect.bottom + offset;
+    let left = rect.left;
+    popup.style.top = top + "px";
+    popup.style.left = left + "px";
+    const popRect = popup.getBoundingClientRect();
+    if (popRect.bottom > window.innerHeight - padding && rect.top - popRect.height > padding) {
+      top = rect.top - popRect.height - offset;
+      popup.style.top = top + "px";
+    }
+    const alignedRect = popup.getBoundingClientRect();
+    left = rect.left;
+    if (left + alignedRect.width > window.innerWidth - padding) {
+      left = window.innerWidth - alignedRect.width - padding;
+    }
+    popup.style.left = Math.max(padding, left) + "px";
+  }
   const Datepicker = {
     instances: /* @__PURE__ */ new Map(),
     init: function(root) {
@@ -9015,7 +9036,7 @@
       wrapper.style.display = "inline-block";
       input.parentNode.insertBefore(wrapper, input);
       wrapper.appendChild(input);
-      wrapper.appendChild(popup);
+      document.body.appendChild(popup);
       const isSameDay = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
       const selectDate = (date) => {
         selectedDate = date;
@@ -9245,6 +9266,9 @@
           }
           popup.appendChild(grid);
         }
+        if (popup.classList.contains("is-open")) {
+          requestAnimationFrame(positionPopup);
+        }
       };
       const handleGridKeydown = (e) => {
         if (!popup.classList.contains("is-open") || viewMode !== "days") return;
@@ -9312,6 +9336,13 @@
         render();
         requestAnimationFrame(focusFocusedDay);
       };
+      const positionPopup = () => {
+        if (!popup.classList.contains("is-open")) return;
+        positionAnchoredPopup(input, popup);
+      };
+      const repositionHandler = () => {
+        positionPopup();
+      };
       const open = () => {
         viewMode = "days";
         if (selectedDate) {
@@ -9329,7 +9360,10 @@
         render();
         popup.classList.add("is-open");
         input.setAttribute("aria-expanded", "true");
-        requestAnimationFrame(focusFocusedDay);
+        requestAnimationFrame(() => {
+          positionPopup();
+          focusFocusedDay();
+        });
       };
       const close = () => {
         popup.classList.remove("is-open");
@@ -9344,7 +9378,7 @@
         open();
       };
       const outsideHandler = (e) => {
-        if (!wrapper.contains(e.target)) close();
+        if (!input.contains(e.target) && !popup.contains(e.target)) close();
       };
       const escHandler = (e) => {
         if (e.key === "Escape" && popup.classList.contains("is-open")) {
@@ -9357,6 +9391,8 @@
       document.addEventListener("click", outsideHandler, true);
       document.addEventListener("keydown", escHandler);
       popup.addEventListener("keydown", handleGridKeydown);
+      window.addEventListener("resize", repositionHandler);
+      window.addEventListener("scroll", repositionHandler, true);
       input.setAttribute("aria-haspopup", "dialog");
       input.setAttribute("aria-expanded", "false");
       input.setAttribute("autocomplete", "off");
@@ -9364,7 +9400,10 @@
         () => input.removeEventListener("focus", focusHandler),
         () => document.removeEventListener("click", outsideHandler, true),
         () => document.removeEventListener("keydown", escHandler),
-        () => popup.removeEventListener("keydown", handleGridKeydown)
+        () => popup.removeEventListener("keydown", handleGridKeydown),
+        () => window.removeEventListener("resize", repositionHandler),
+        () => window.removeEventListener("scroll", repositionHandler, true),
+        () => popup.remove()
       );
       this.instances.set(input, { cleanup, open, close, popup });
     },
@@ -9387,6 +9426,27 @@
 // js/components/timepicker.js
 (function() {
   "use strict";
+  function positionAnchoredPopup(anchor, popup, gap) {
+    const padding = 8;
+    const offset = gap != null ? gap : 4;
+    const rect = anchor.getBoundingClientRect();
+    popup.style.minWidth = Math.max(rect.width, 0) + "px";
+    let top = rect.bottom + offset;
+    let left = rect.left;
+    popup.style.top = top + "px";
+    popup.style.left = left + "px";
+    const popRect = popup.getBoundingClientRect();
+    if (popRect.bottom > window.innerHeight - padding && rect.top - popRect.height > padding) {
+      top = rect.top - popRect.height - offset;
+      popup.style.top = top + "px";
+    }
+    const alignedRect = popup.getBoundingClientRect();
+    left = rect.left;
+    if (left + alignedRect.width > window.innerWidth - padding) {
+      left = window.innerWidth - alignedRect.width - padding;
+    }
+    popup.style.left = Math.max(padding, left) + "px";
+  }
   const Timepicker = {
     instances: /* @__PURE__ */ new Map(),
     init: function(root) {
@@ -9411,7 +9471,7 @@
       const popup = document.createElement("div");
       popup.className = "vd-timepicker-popup";
       popup.setAttribute("role", "listbox");
-      wrapper.appendChild(popup);
+      document.body.appendChild(popup);
       const times = [];
       for (let h = 0; h < 24; h++) {
         for (let m = 0; m < 60; m += step) {
@@ -9451,12 +9511,22 @@
           popup.appendChild(item);
         });
       };
+      const positionPopup = () => {
+        if (!popup.classList.contains("is-open")) return;
+        positionAnchoredPopup(input, popup);
+      };
+      const repositionHandler = () => {
+        positionPopup();
+      };
       const open = () => {
         render();
         popup.classList.add("is-open");
         input.setAttribute("aria-expanded", "true");
-        const selected = popup.querySelector(".is-selected");
-        if (selected) selected.scrollIntoView({ block: "center" });
+        requestAnimationFrame(() => {
+          positionPopup();
+          const selected = popup.querySelector(".is-selected");
+          if (selected) selected.scrollIntoView({ block: "center" });
+        });
       };
       const close = () => {
         popup.classList.remove("is-open");
@@ -9464,7 +9534,7 @@
       };
       const focusHandler = () => open();
       const outsideHandler = (e) => {
-        if (!wrapper.contains(e.target)) close();
+        if (!input.contains(e.target) && !popup.contains(e.target)) close();
       };
       const escHandler = (e) => {
         if (e.key === "Escape") close();
@@ -9472,6 +9542,8 @@
       input.addEventListener("focus", focusHandler);
       document.addEventListener("click", outsideHandler, true);
       document.addEventListener("keydown", escHandler);
+      window.addEventListener("resize", repositionHandler);
+      window.addEventListener("scroll", repositionHandler, true);
       input.setAttribute("aria-haspopup", "listbox");
       input.setAttribute("aria-expanded", "false");
       input.setAttribute("autocomplete", "off");
@@ -9479,7 +9551,10 @@
       cleanup.push(
         () => input.removeEventListener("focus", focusHandler),
         () => document.removeEventListener("click", outsideHandler, true),
-        () => document.removeEventListener("keydown", escHandler)
+        () => document.removeEventListener("keydown", escHandler),
+        () => window.removeEventListener("resize", repositionHandler),
+        () => window.removeEventListener("scroll", repositionHandler, true),
+        () => popup.remove()
       );
       this.instances.set(input, { cleanup, open, close });
     },

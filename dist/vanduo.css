@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.1 | Built: 2026-05-23T19:15:51.919Z | git:aac1bed | development */
+/*! Vanduo v1.4.2 | Built: 2026-05-23T19:59:36.731Z | git:adbe750 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -63071,7 +63071,9 @@ input.vd-doc-search-input {
   padding: var(--vd-dp-padding);
   min-width: 17rem;
   display: none;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .vd-datepicker-popup.is-open {
@@ -63261,7 +63263,9 @@ input.vd-doc-search-input {
   max-height: var(--vd-tp-max-height);
   min-width: 8rem;
   display: none;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow-y: auto;
 }
 

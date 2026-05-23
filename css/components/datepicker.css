@@ -46,7 +46,9 @@
 /* ========== Calendar Popup ========== */
 
 .vd-datepicker-popup {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: var(--vd-dp-z-index);
   background: var(--vd-dp-bg);
   border: 1px solid var(--vd-dp-border-color);

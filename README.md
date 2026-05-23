@@ -1,4 +1,4 @@
-# Vanduo Framework v1.4.1
+# Vanduo Framework v1.4.2
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -29,8 +29,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.2/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.2/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>

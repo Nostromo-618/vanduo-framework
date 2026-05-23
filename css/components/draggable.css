@@ -5,51 +5,51 @@
 
 :root {
   /* Draggable Colors */
-  --draggable-bg: var(--vd-color-white);
-  --draggable-border-color: var(--vd-border-color);
-  --draggable-hover-bg: var(--vd-bg-secondary);
-  --draggable-hover-border-color: var(--vd-color-primary);
-  --draggable-dragging-bg: var(--vd-bg-secondary);
-  --draggable-dragging-border-color: var(--vd-color-primary);
-  --draggable-dragging-shadow: var(--shadow-lg);
+  --vd-draggable-bg: var(--vd-color-white);
+  --vd-draggable-border-color: var(--vd-border-color);
+  --vd-draggable-hover-bg: var(--vd-bg-secondary);
+  --vd-draggable-hover-border-color: var(--vd-color-primary);
+  --vd-draggable-dragging-bg: var(--vd-bg-secondary);
+  --vd-draggable-dragging-border-color: var(--vd-color-primary);
+  --vd-draggable-dragging-shadow: var(--vd-shadow-lg);
   
   /* Drop Zone Colors */
-  --drop-zone-bg: var(--vd-color-primary-alpha-5);
-  --drop-zone-border-color: var(--vd-color-primary-alpha-30);
-  --drop-zone-hover-bg: var(--vd-color-primary-alpha-10);
-  --drop-zone-hover-border-color: var(--vd-color-primary);
-  --drop-zone-active-bg: var(--vd-color-primary-alpha-15);
-  --drop-zone-active-border-color: var(--vd-color-primary);
+  --vd-drop-zone-bg: var(--vd-color-primary-alpha-5);
+  --vd-drop-zone-border-color: var(--vd-color-primary-alpha-30);
+  --vd-drop-zone-hover-bg: var(--vd-color-primary-alpha-10);
+  --vd-drop-zone-hover-border-color: var(--vd-color-primary);
+  --vd-drop-zone-active-bg: var(--vd-color-primary-alpha-15);
+  --vd-drop-zone-active-border-color: var(--vd-color-primary);
   
   /* Spacing */
-  --draggable-padding: 0.8125rem; /* 13px - fib */
-  --draggable-margin: 0.5rem; /* 8px - fib */
-  --drop-zone-padding: 1.3125rem; /* 21px - fib */
+  --vd-draggable-padding: 0.8125rem; /* 13px - fib */
+  --vd-draggable-margin: 0.5rem; /* 8px - fib */
+  --vd-drop-zone-padding: 1.3125rem; /* 21px - fib */
   
   /* Transitions */
-  --draggable-transition: all var(--transition-duration-base) var(--transition-ease);
+  --vd-draggable-transition: all var(--vd-transition-duration-base) var(--vd-transition-ease);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --draggable-bg: var(--vd-bg-secondary);
-  --draggable-hover-bg: var(--vd-bg-primary);
-  --draggable-dragging-bg: var(--vd-bg-primary);
-  --drop-zone-bg: var(--vd-color-primary-alpha-10);
-  --drop-zone-border-color: var(--vd-color-primary-alpha-40);
-  --drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
-  --drop-zone-active-bg: var(--vd-color-primary-alpha-20);
+  --vd-draggable-bg: var(--vd-bg-secondary);
+  --vd-draggable-hover-bg: var(--vd-bg-primary);
+  --vd-draggable-dragging-bg: var(--vd-bg-primary);
+  --vd-drop-zone-bg: var(--vd-color-primary-alpha-10);
+  --vd-drop-zone-border-color: var(--vd-color-primary-alpha-40);
+  --vd-drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
+  --vd-drop-zone-active-bg: var(--vd-color-primary-alpha-20);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --draggable-bg: var(--vd-bg-secondary);
-    --draggable-hover-bg: var(--vd-bg-primary);
-    --draggable-dragging-bg: var(--vd-bg-primary);
-    --drop-zone-bg: var(--vd-color-primary-alpha-10);
-    --drop-zone-border-color: var(--vd-color-primary-alpha-40);
-    --drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
-    --drop-zone-active-bg: var(--vd-color-primary-alpha-20);
+    --vd-draggable-bg: var(--vd-bg-secondary);
+    --vd-draggable-hover-bg: var(--vd-bg-primary);
+    --vd-draggable-dragging-bg: var(--vd-bg-primary);
+    --vd-drop-zone-bg: var(--vd-color-primary-alpha-10);
+    --vd-drop-zone-border-color: var(--vd-color-primary-alpha-40);
+    --vd-drop-zone-hover-bg: var(--vd-color-primary-alpha-15);
+    --vd-drop-zone-active-bg: var(--vd-color-primary-alpha-20);
   }
 }
 
@@ -57,20 +57,20 @@
 .vd-draggable {
   position: relative;
   display: inline-block;
-  padding: var(--draggable-padding);
-  margin: var(--draggable-margin);
-  background-color: var(--draggable-bg);
-  border: 1px solid var(--draggable-border-color);
-  border-radius: var(--btn-border-radius);
+  padding: var(--vd-draggable-padding);
+  margin: var(--vd-draggable-margin);
+  background-color: var(--vd-draggable-bg);
+  border: 1px solid var(--vd-draggable-border-color);
+  border-radius: var(--vd-btn-border-radius);
   cursor: grab;
   user-select: none;
-  transition: var(--draggable-transition);
+  transition: var(--vd-draggable-transition);
   touch-action: none;
 }
 
 .vd-draggable:hover {
-  background-color: var(--draggable-hover-bg);
-  border-color: var(--draggable-hover-border-color);
+  background-color: var(--vd-draggable-hover-bg);
+  border-color: var(--vd-draggable-hover-border-color);
 }
 
 .vd-draggable:active {
@@ -89,9 +89,9 @@
 .vd-draggable.is-dragging {
   opacity: 0.7;
   transform: scale(1.02);
-  background-color: var(--draggable-dragging-bg);
-  border-color: var(--draggable-dragging-border-color);
-  box-shadow: var(--draggable-dragging-shadow);
+  background-color: var(--vd-draggable-dragging-bg);
+  border-color: var(--vd-draggable-dragging-border-color);
+  box-shadow: var(--vd-draggable-dragging-shadow);
   cursor: grabbing;
   z-index: 1000;
 }
@@ -106,7 +106,7 @@
   margin-right: 0.5rem; /* 8px */
   color: var(--vd-text-muted);
   cursor: grab;
-  transition: var(--draggable-transition);
+  transition: var(--vd-draggable-transition);
 }
 
 .vd-draggable-handle:hover {
@@ -121,22 +121,22 @@
 .vd-drop-zone {
   position: relative;
   min-height: 3rem; /* 48px */
-  padding: var(--drop-zone-padding);
-  margin: var(--draggable-margin);
-  background-color: var(--drop-zone-bg);
-  border: 2px dashed var(--drop-zone-border-color);
-  border-radius: var(--btn-border-radius);
-  transition: var(--draggable-transition);
+  padding: var(--vd-drop-zone-padding);
+  margin: var(--vd-draggable-margin);
+  background-color: var(--vd-drop-zone-bg);
+  border: 2px dashed var(--vd-drop-zone-border-color);
+  border-radius: var(--vd-btn-border-radius);
+  transition: var(--vd-draggable-transition);
 }
 
 .vd-drop-zone:hover {
-  background-color: var(--drop-zone-hover-bg);
-  border-color: var(--drop-zone-hover-border-color);
+  background-color: var(--vd-drop-zone-hover-bg);
+  border-color: var(--vd-drop-zone-hover-border-color);
 }
 
 .vd-drop-zone.is-drag-over {
-  background-color: var(--drop-zone-active-bg);
-  border-color: var(--drop-zone-active-border-color);
+  background-color: var(--vd-drop-zone-active-bg);
+  border-color: var(--vd-drop-zone-active-border-color);
   border-style: solid;
   transform: scale(1.01);
 }
@@ -157,7 +157,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--vd-font-weight-medium);
   color: var(--vd-color-primary);
   pointer-events: none;
 }
@@ -166,11 +166,11 @@
 .vd-draggable-container {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--draggable-margin);
-  padding: var(--draggable-padding);
+  gap: var(--vd-draggable-margin);
+  padding: var(--vd-draggable-padding);
   background-color: var(--vd-bg-secondary);
   border: 1px solid var(--vd-border-color);
-  border-radius: var(--btn-border-radius);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 .vd-draggable-container.vd-draggable-container-vertical {
@@ -182,27 +182,27 @@
 .vd-draggable-item {
   flex: 0 0 auto;
   min-width: 8rem; /* 128px */
-  padding: var(--draggable-padding);
-  background-color: var(--draggable-bg);
-  border: 1px solid var(--draggable-border-color);
-  border-radius: var(--btn-border-radius);
+  padding: var(--vd-draggable-padding);
+  background-color: var(--vd-draggable-bg);
+  border: 1px solid var(--vd-draggable-border-color);
+  border-radius: var(--vd-btn-border-radius);
   cursor: grab;
   user-select: none;
   touch-action: none;
-  transition: var(--draggable-transition);
+  transition: var(--vd-draggable-transition);
 }
 
 .vd-draggable-item:hover {
-  background-color: var(--draggable-hover-bg);
-  border-color: var(--draggable-hover-border-color);
+  background-color: var(--vd-draggable-hover-bg);
+  border-color: var(--vd-draggable-hover-border-color);
 }
 
 .vd-draggable-item.is-dragging {
   opacity: 0.7;
   transform: scale(1.02);
-  background-color: var(--draggable-dragging-bg);
-  border-color: var(--draggable-dragging-border-color);
-  box-shadow: var(--draggable-dragging-shadow);
+  background-color: var(--vd-draggable-dragging-bg);
+  border-color: var(--vd-draggable-dragging-border-color);
+  box-shadow: var(--vd-draggable-dragging-shadow);
   cursor: grabbing;
   z-index: 1000;
 }
@@ -216,8 +216,8 @@
 .vd-draggable-item[aria-grabbed="true"] {
   outline: 2px solid var(--vd-color-primary);
   outline-offset: 2px;
-  background-color: var(--draggable-dragging-bg);
-  border-color: var(--draggable-dragging-border-color);
+  background-color: var(--vd-draggable-dragging-bg);
+  border-color: var(--vd-draggable-dragging-border-color);
 }
 
 /* Drag Feedback */

@@ -5,20 +5,20 @@
 
 :root {
   /* Table Colors */
-  --table-bg: var(--vd-color-white);
-  --table-border-color: var(--vd-border-color);
-  --table-striped-bg: var(--vd-bg-secondary);
-  --table-hover-bg: rgba(0, 0, 0, 0.075);
-  --table-active-bg: var(--vd-color-primary-alpha-10);
+  --vd-table-bg: var(--vd-color-white);
+  --vd-table-border-color: var(--vd-border-color);
+  --vd-table-striped-bg: var(--vd-bg-secondary);
+  --vd-table-hover-bg: rgba(0, 0, 0, 0.075);
+  --vd-table-active-bg: var(--vd-color-primary-alpha-10);
 
   /* Table Spacing (Fibonacci) */
-  --table-padding-y: 0.5rem;
+  --vd-table-padding-y: 0.5rem;
   /* 8px  - fib */
-  --table-padding-x: 0.8125rem;
+  --vd-table-padding-x: 0.8125rem;
   /* 13px - fib (13/8 ~ phi) */
-  --table-padding-y-sm: 0.3125rem;
+  --vd-table-padding-y-sm: 0.3125rem;
   /* 5px  - fib */
-  --table-padding-x-sm: 0.5rem;
+  --vd-table-padding-x-sm: 0.5rem;
   /* 8px  - fib (8/5 ~ phi) */
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
   margin-bottom: 1rem;
   color: var(--vd-text-primary);
-  background-color: var(--table-bg);
+  background-color: var(--vd-table-bg);
   border-collapse: collapse;
 }
 
@@ -36,35 +36,35 @@
 .vd-table td,
 .table th,
 .table td {
-  padding: var(--table-padding-y) var(--table-padding-x);
+  padding: var(--vd-table-padding-y) var(--vd-table-padding-x);
   vertical-align: middle;
-  border-top: 1px solid var(--table-border-color);
+  border-top: 1px solid var(--vd-table-border-color);
 }
 
 .vd-table thead th,
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid var(--table-border-color);
-  font-weight: var(--font-weight-semibold);
+  border-bottom: 2px solid var(--vd-table-border-color);
+  font-weight: var(--vd-font-weight-semibold);
   color: var(--vd-text-primary);
 }
 
 .vd-table tbody+tbody,
 .table tbody+tbody {
-  border-top: 2px solid var(--table-border-color);
+  border-top: 2px solid var(--vd-table-border-color);
 }
 
 /* Table Variants */
 .vd-table-bordered,
 .table-bordered {
-  border: 1px solid var(--table-border-color);
+  border: 1px solid var(--vd-table-border-color);
 }
 
 .vd-table-bordered th,
 .vd-table-bordered td,
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid var(--table-border-color);
+  border: 1px solid var(--vd-table-border-color);
 }
 
 .vd-table-bordered thead th,
@@ -87,19 +87,19 @@
 
 .vd-table-striped tbody tr:nth-of-type(odd),
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: var(--table-striped-bg);
+  background-color: var(--vd-table-striped-bg);
 }
 
 .vd-table-hover tbody tr:hover,
 .table-hover tbody tr:hover {
-  background-color: var(--table-hover-bg);
+  background-color: var(--vd-table-hover-bg);
 }
 
 .vd-table-sm th,
 .vd-table-sm td,
 .table-sm th,
 .table-sm td {
-  padding: var(--table-padding-y-sm) var(--table-padding-x-sm);
+  padding: var(--vd-table-padding-y-sm) var(--vd-table-padding-x-sm);
 }
 
 /* Table Cell States */
@@ -109,7 +109,7 @@
 .table-active,
 .table-active>th,
 .table-active>td {
-  background-color: var(--table-active-bg);
+  background-color: var(--vd-table-active-bg);
 }
 
 .vd-table-primary,
@@ -182,9 +182,9 @@ thead {
 .vd-table-header th,
 .table-header th,
 thead th {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--vd-font-weight-semibold);
   text-transform: uppercase;
-  font-size: var(--font-size-sm);
+  font-size: var(--vd-font-size-sm);
   letter-spacing: 0.05em;
 }
 
@@ -197,7 +197,7 @@ tbody {
 .table-footer,
 tfoot {
   background-color: var(--vd-bg-secondary);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--vd-font-weight-semibold);
 }
 
 /* Responsive Table Wrapper */
@@ -315,12 +315,12 @@ tfoot {
 /* Dark Mode Table Overrides */
 [data-theme="dark"] .vd-table,
 [data-theme="dark"] .table {
-  --table-bg: var(--vd-bg-primary);
-  --table-border-color: var(--vd-border-color);
-  --table-striped-bg: var(--vd-bg-secondary);
-  --table-hover-bg: rgba(255, 255, 255, 0.05);
+  --vd-table-bg: var(--vd-bg-primary);
+  --vd-table-border-color: var(--vd-border-color);
+  --vd-table-striped-bg: var(--vd-bg-secondary);
+  --vd-table-hover-bg: rgba(255, 255, 255, 0.05);
 
-  background-color: var(--table-bg);
+  background-color: var(--vd-table-bg);
   color: var(--vd-text-primary);
 }
 
@@ -328,18 +328,18 @@ tfoot {
 [data-theme="dark"] .vd-table td,
 [data-theme="dark"] .table th,
 [data-theme="dark"] .table td {
-  border-color: var(--table-border-color);
+  border-color: var(--vd-table-border-color);
 }
 
 [data-theme="dark"] .vd-table thead th,
 [data-theme="dark"] .table thead th {
-  border-color: var(--table-border-color);
+  border-color: var(--vd-table-border-color);
   color: var(--vd-text-primary);
 }
 
 [data-theme="dark"] .vd-table-striped tbody tr:nth-of-type(odd),
 [data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
-  background-color: var(--table-striped-bg);
+  background-color: var(--vd-table-striped-bg);
 }
 
 [data-theme="dark"] .vd-table thead,
@@ -352,12 +352,12 @@ tfoot {
 
   :root:not([data-theme]) .vd-table,
   :root:not([data-theme]) .table {
-    --table-bg: var(--vd-bg-primary);
-    --table-border-color: var(--vd-border-color);
-    --table-striped-bg: var(--vd-bg-secondary);
-    --table-hover-bg: rgba(255, 255, 255, 0.05);
+    --vd-table-bg: var(--vd-bg-primary);
+    --vd-table-border-color: var(--vd-border-color);
+    --vd-table-striped-bg: var(--vd-bg-secondary);
+    --vd-table-hover-bg: rgba(255, 255, 255, 0.05);
 
-    background-color: var(--table-bg);
+    background-color: var(--vd-table-bg);
     color: var(--vd-text-primary);
   }
 
@@ -365,18 +365,18 @@ tfoot {
   :root:not([data-theme]) .vd-table td,
   :root:not([data-theme]) .table th,
   :root:not([data-theme]) .table td {
-    border-color: var(--table-border-color);
+    border-color: var(--vd-table-border-color);
   }
 
   :root:not([data-theme]) .vd-table thead th,
   :root:not([data-theme]) .table thead th {
-    border-color: var(--table-border-color);
+    border-color: var(--vd-table-border-color);
     color: var(--vd-text-primary);
   }
 
   :root:not([data-theme]) .vd-table-striped tbody tr:nth-of-type(odd),
   :root:not([data-theme]) .table-striped tbody tr:nth-of-type(odd) {
-    background-color: var(--table-striped-bg);
+    background-color: var(--vd-table-striped-bg);
   }
 
   :root:not([data-theme]) .vd-table thead,

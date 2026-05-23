@@ -62,12 +62,12 @@
 
 /* Sizing - inherit from button sizes */
 .vd-btn-group-sm>.vd-btn {
-  font-size: var(--font-size-sm);
+  font-size: var(--vd-font-size-sm);
   padding: 0.3125rem 0.625rem;
 }
 
 .vd-btn-group-lg>.vd-btn {
-  font-size: var(--font-size-lg);
+  font-size: var(--vd-font-size-lg);
   padding: 0.625rem 1.25rem;
 }
 

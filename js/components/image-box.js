@@ -280,7 +280,7 @@
 
       // Calculate scrollbar width and lock body scroll
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+      document.body.style.setProperty('--vd-scrollbar-width', `${scrollbarWidth}px`);
       document.body.classList.add('body-image-box-open');
 
       // Show backdrop
@@ -318,7 +318,7 @@
 
       // Unlock body scroll
       document.body.classList.remove('body-image-box-open');
-      document.body.style.removeProperty('--scrollbar-width');
+      document.body.style.removeProperty('--vd-scrollbar-width');
 
       // Return focus to trigger
       if (this.currentTrigger) {

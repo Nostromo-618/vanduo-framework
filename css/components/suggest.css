@@ -6,37 +6,37 @@
 
 :root {
   /* Suggest Colors */
-  --suggest-bg: var(--card-bg, #fff);
-  --suggest-border-color: var(--vd-border-color, #dee2e6);
-  --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.1); /* 4px 13px - fib */
-  --suggest-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
-  --suggest-item-active-bg: var(--vd-color-primary, #0d6efd);
-  --suggest-item-active-color: #fff;
-  --suggest-highlight-color: var(--vd-color-primary, #0d6efd);
+  --vd-suggest-bg: var(--vd-card-bg, #fff);
+  --vd-suggest-border-color: var(--vd-border-color, #dee2e6);
+  --vd-suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.1); /* 4px 13px - fib */
+  --vd-suggest-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-suggest-item-active-bg: var(--vd-color-primary, #0d6efd);
+  --vd-suggest-item-active-color: #fff;
+  --vd-suggest-highlight-color: var(--vd-color-primary, #0d6efd);
 
   /* Suggest Spacing (Fibonacci) */
-  --suggest-padding: 0.3125rem 0; /* 5px - fib */
-  --suggest-item-padding: 0.5rem 0.8125rem; /* 8px 13px - fib */
-  --suggest-max-height: 15rem;
-  --suggest-border-radius: var(--border-radius, 0.5rem);
+  --vd-suggest-padding: 0.3125rem 0; /* 5px - fib */
+  --vd-suggest-item-padding: 0.5rem 0.8125rem; /* 8px 13px - fib */
+  --vd-suggest-max-height: 15rem;
+  --vd-suggest-border-radius: var(--vd-border-radius, 0.5rem);
 
   /* Suggest Z-index */
-  --suggest-z-index: 1050;
+  --vd-suggest-z-index: 1050;
 }
 
 [data-theme="dark"] {
-  --suggest-bg: var(--card-bg, #2d2d44);
-  --suggest-border-color: var(--vd-border-color, #3d3d5c);
-  --suggest-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-  --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+  --vd-suggest-bg: var(--vd-card-bg, #2d2d44);
+  --vd-suggest-border-color: var(--vd-border-color, #3d3d5c);
+  --vd-suggest-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --suggest-bg: var(--card-bg, #2d2d44);
-    --suggest-border-color: var(--vd-border-color, #3d3d5c);
-    --suggest-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-    --suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
+    --vd-suggest-bg: var(--vd-card-bg, #2d2d44);
+    --vd-suggest-border-color: var(--vd-border-color, #3d3d5c);
+    --vd-suggest-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-suggest-shadow: 0 0.25rem 0.8125rem rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -56,15 +56,15 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: var(--suggest-z-index);
+  z-index: var(--vd-suggest-z-index);
   margin-top: 2px;
-  padding: var(--suggest-padding);
-  max-height: var(--suggest-max-height);
+  padding: var(--vd-suggest-padding);
+  max-height: var(--vd-suggest-max-height);
   overflow-y: auto;
-  background: var(--suggest-bg);
-  border: 1px solid var(--suggest-border-color);
-  border-radius: var(--suggest-border-radius);
-  box-shadow: var(--suggest-shadow);
+  background: var(--vd-suggest-bg);
+  border: 1px solid var(--vd-suggest-border-color);
+  border-radius: var(--vd-suggest-border-radius);
+  box-shadow: var(--vd-suggest-shadow);
   list-style: none;
   display: none;
 }
@@ -76,26 +76,26 @@
 /* ========== Items ========== */
 
 .vd-suggest-item {
-  padding: var(--suggest-item-padding);
+  padding: var(--vd-suggest-item-padding);
   cursor: pointer;
   transition: background 0.15s ease;
-  font-size: var(--font-size-base, 1rem);
+  font-size: var(--vd-font-size-base, 1rem);
 }
 
 .vd-suggest-item:hover,
 .vd-suggest-item.is-highlighted {
-  background: var(--suggest-item-hover-bg);
+  background: var(--vd-suggest-item-hover-bg);
 }
 
 .vd-suggest-item.is-active {
-  background: var(--suggest-item-active-bg);
-  color: var(--suggest-item-active-color);
+  background: var(--vd-suggest-item-active-bg);
+  color: var(--vd-suggest-item-active-color);
 }
 
 /* Match highlight */
 .vd-suggest-match {
   font-weight: 600;
-  color: var(--suggest-highlight-color);
+  color: var(--vd-suggest-highlight-color);
 }
 
 .vd-suggest-item.is-active .vd-suggest-match {
@@ -105,7 +105,7 @@
 /* ========== No Results ========== */
 
 .vd-suggest-empty {
-  padding: var(--suggest-item-padding);
+  padding: var(--vd-suggest-item-padding);
   color: var(--vd-text-muted, #6c757d);
   font-style: italic;
 }
@@ -113,7 +113,7 @@
 /* ========== Loading ========== */
 
 .vd-suggest-loading {
-  padding: var(--suggest-item-padding);
+  padding: var(--vd-suggest-item-padding);
   text-align: center;
   color: var(--vd-text-muted, #6c757d);
 }

@@ -6,12 +6,11 @@
 /* Layer 0: Reset */
 @import url('core/reset.css');
 
-/* Layer 1: Foundation (palette -> canonical tokens -> compatibility aliases) */
+/* Layer 1: Foundation (vd-prefixed palette and canonical tokens) */
 @import url('core/colors.css');
 @import url('core/fonts.css');
 @import url('core/typography.css');
 @import url('core/tokens.css');
-@import url('core/vd-aliases.css');
 @import url('core/grid.css');
 @import url('core/helpers.css');
 

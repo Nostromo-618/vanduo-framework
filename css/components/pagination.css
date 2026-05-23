@@ -5,41 +5,41 @@
 
 :root {
   /* Pagination Colors */
-  --pagination-bg: var(--vd-color-white);
-  --pagination-border-color: var(--vd-border-color);
-  --pagination-link-color: var(--vd-color-primary);
-  --pagination-link-bg: var(--vd-color-white);
-  --pagination-link-bg-hover: var(--vd-bg-secondary);
-  --pagination-link-bg-active: var(--vd-color-primary);
-  --pagination-link-color-active: var(--vd-color-white);
-  --pagination-link-color-disabled: var(--vd-text-muted);
+  --vd-pagination-bg: var(--vd-color-white);
+  --vd-pagination-border-color: var(--vd-border-color);
+  --vd-pagination-link-color: var(--vd-color-primary);
+  --vd-pagination-link-bg: var(--vd-color-white);
+  --vd-pagination-link-bg-hover: var(--vd-bg-secondary);
+  --vd-pagination-link-bg-active: var(--vd-color-primary);
+  --vd-pagination-link-color-active: var(--vd-color-white);
+  --vd-pagination-link-color-disabled: var(--vd-text-muted);
   
   /* Pagination Spacing (Fibonacci pairs: x/y ratio ~ phi) */
-  --pagination-padding-y: 0.5rem;        /* 8px  - fib */
-  --pagination-padding-x: 0.8125rem;     /* 13px - fib */
-  --pagination-padding-y-sm: 0.1875rem;  /* 3px  - fib */
-  --pagination-padding-x-sm: 0.3125rem;  /* 5px  - fib */
-  --pagination-padding-y-lg: 0.8125rem;  /* 13px - fib */
-  --pagination-padding-x-lg: 1.3125rem;  /* 21px - fib */
+  --vd-pagination-padding-y: 0.5rem;        /* 8px  - fib */
+  --vd-pagination-padding-x: 0.8125rem;     /* 13px - fib */
+  --vd-pagination-padding-y-sm: 0.1875rem;  /* 3px  - fib */
+  --vd-pagination-padding-x-sm: 0.3125rem;  /* 5px  - fib */
+  --vd-pagination-padding-y-lg: 0.8125rem;  /* 13px - fib */
+  --vd-pagination-padding-x-lg: 1.3125rem;  /* 21px - fib */
   
   /* Pagination Font */
-  --pagination-font-size: var(--font-size-base);
-  --pagination-font-size-sm: var(--font-size-sm);
-  --pagination-font-size-lg: var(--font-size-lg);
+  --vd-pagination-font-size: var(--vd-font-size-base);
+  --vd-pagination-font-size-sm: var(--vd-font-size-sm);
+  --vd-pagination-font-size-lg: var(--vd-font-size-lg);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --pagination-bg: var(--vd-bg-secondary);
-  --pagination-link-bg: var(--vd-bg-secondary);
-  --pagination-link-bg-hover: var(--vd-bg-primary);
+  --vd-pagination-bg: var(--vd-bg-secondary);
+  --vd-pagination-link-bg: var(--vd-bg-secondary);
+  --vd-pagination-link-bg-hover: var(--vd-bg-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --pagination-bg: var(--vd-bg-secondary);
-    --pagination-link-bg: var(--vd-bg-secondary);
-    --pagination-link-bg-hover: var(--vd-bg-primary);
+    --vd-pagination-bg: var(--vd-bg-secondary);
+    --vd-pagination-link-bg: var(--vd-bg-secondary);
+    --vd-pagination-link-bg-hover: var(--vd-bg-primary);
   }
 }
 
@@ -70,61 +70,61 @@
 .vd-pagination-link {
   position: relative;
   display: block;
-  padding: var(--pagination-padding-y) var(--pagination-padding-x);
-  font-size: var(--pagination-font-size);
-  line-height: var(--line-height-normal);
-  color: var(--pagination-link-color);
+  padding: var(--vd-pagination-padding-y) var(--vd-pagination-padding-x);
+  font-size: var(--vd-pagination-font-size);
+  line-height: var(--vd-line-height-normal);
+  color: var(--vd-pagination-link-color);
   text-decoration: none;
-  background-color: var(--pagination-link-bg);
-  border: 1px solid var(--pagination-border-color);
-  border-radius: var(--btn-border-radius);
-  transition: var(--transition-colors);
+  background-color: var(--vd-pagination-link-bg);
+  border: 1px solid var(--vd-pagination-border-color);
+  border-radius: var(--vd-btn-border-radius);
+  transition: var(--vd-transition-colors);
   cursor: pointer;
   user-select: none;
 }
 
 .vd-pagination-link:hover {
-  color: var(--pagination-link-color);
-  background-color: var(--pagination-link-bg-hover);
-  border-color: var(--pagination-border-color);
+  color: var(--vd-pagination-link-color);
+  background-color: var(--vd-pagination-link-bg-hover);
+  border-color: var(--vd-pagination-border-color);
   text-decoration: none;
 }
 
 .vd-pagination-link:focus {
   outline: 0;
-  box-shadow: var(--input-focus-box-shadow);
+  box-shadow: var(--vd-input-focus-box-shadow);
   z-index: 1;
 }
 
 /* Pagination Active State */
 .vd-pagination-item.active .vd-pagination-link {
   z-index: 1;
-  color: var(--pagination-link-color-active);
-  background-color: var(--pagination-link-bg-active);
-  border-color: var(--pagination-link-bg-active);
+  color: var(--vd-pagination-link-color-active);
+  background-color: var(--vd-pagination-link-bg-active);
+  border-color: var(--vd-pagination-link-bg-active);
   cursor: default;
 }
 
 .vd-pagination-item.active .vd-pagination-link:hover {
-  color: var(--pagination-link-color-active);
-  background-color: var(--pagination-link-bg-active);
-  border-color: var(--pagination-link-bg-active);
+  color: var(--vd-pagination-link-color-active);
+  background-color: var(--vd-pagination-link-bg-active);
+  border-color: var(--vd-pagination-link-bg-active);
 }
 
 /* Pagination Disabled State */
 .vd-pagination-item.disabled .vd-pagination-link {
-  color: var(--pagination-link-color-disabled);
+  color: var(--vd-pagination-link-color-disabled);
   pointer-events: none;
   cursor: not-allowed;
-  background-color: var(--pagination-link-bg);
-  border-color: var(--pagination-border-color);
+  background-color: var(--vd-pagination-link-bg);
+  border-color: var(--vd-pagination-border-color);
   opacity: 0.6;
 }
 
 /* Pagination Previous/Next */
 .vd-pagination-prev,
 .vd-pagination-next {
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--vd-font-weight-medium);
 }
 
 .vd-pagination-prev .vd-pagination-link::before {
@@ -139,7 +139,7 @@
 
 /* Pagination Ellipsis */
 .vd-pagination-ellipsis {
-  padding: var(--pagination-padding-y) var(--pagination-padding-x);
+  padding: var(--vd-pagination-padding-y) var(--vd-pagination-padding-x);
   color: var(--vd-text-muted);
   pointer-events: none;
   cursor: default;
@@ -147,13 +147,13 @@
 
 /* Pagination Sizes */
 .vd-pagination-sm .vd-pagination-link {
-  padding: var(--pagination-padding-y-sm) var(--pagination-padding-x-sm);
-  font-size: var(--pagination-font-size-sm);
+  padding: var(--vd-pagination-padding-y-sm) var(--vd-pagination-padding-x-sm);
+  font-size: var(--vd-pagination-font-size-sm);
 }
 
 .vd-pagination-lg .vd-pagination-link {
-  padding: var(--pagination-padding-y-lg) var(--pagination-padding-x-lg);
-  font-size: var(--pagination-font-size-lg);
+  padding: var(--vd-pagination-padding-y-lg) var(--vd-pagination-padding-x-lg);
+  font-size: var(--vd-pagination-font-size-lg);
 }
 
 /* Pagination Alignment */

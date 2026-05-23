@@ -4,30 +4,30 @@
  */
 
 :root {
-  --transfer-bg: var(--card-bg, #fff);
-  --transfer-border-color: var(--vd-border-color, #dee2e6);
-  --transfer-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
-  --transfer-item-selected-bg: var(--vd-color-primary-alpha-10, rgba(13, 110, 253, 0.1));
-  --transfer-header-bg: var(--vd-bg-secondary, #f8f9fa);
-  --transfer-padding: 0.5rem;
-  --transfer-list-height: 15rem;
-  --transfer-border-radius: var(--border-radius, 0.5rem);
-  --transfer-gap: 0.8125rem; /* 13px - fib */
+  --vd-transfer-bg: var(--vd-card-bg, #fff);
+  --vd-transfer-border-color: var(--vd-border-color, #dee2e6);
+  --vd-transfer-item-hover-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-transfer-item-selected-bg: var(--vd-color-primary-alpha-10, rgba(13, 110, 253, 0.1));
+  --vd-transfer-header-bg: var(--vd-bg-secondary, #f8f9fa);
+  --vd-transfer-padding: 0.5rem;
+  --vd-transfer-list-height: 15rem;
+  --vd-transfer-border-radius: var(--vd-border-radius, 0.5rem);
+  --vd-transfer-gap: 0.8125rem; /* 13px - fib */
 }
 
 [data-theme="dark"] {
-  --transfer-bg: var(--card-bg, #2d2d44);
-  --transfer-border-color: var(--vd-border-color, #3d3d5c);
-  --transfer-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-  --transfer-header-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-transfer-bg: var(--vd-card-bg, #2d2d44);
+  --vd-transfer-border-color: var(--vd-border-color, #3d3d5c);
+  --vd-transfer-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+  --vd-transfer-header-bg: var(--vd-bg-primary, #1a1a2e);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --transfer-bg: var(--card-bg, #2d2d44);
-    --transfer-border-color: var(--vd-border-color, #3d3d5c);
-    --transfer-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
-    --transfer-header-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-transfer-bg: var(--vd-card-bg, #2d2d44);
+    --vd-transfer-border-color: var(--vd-border-color, #3d3d5c);
+    --vd-transfer-item-hover-bg: var(--vd-bg-primary, #1a1a2e);
+    --vd-transfer-header-bg: var(--vd-bg-primary, #1a1a2e);
   }
 }
 
@@ -36,14 +36,14 @@
 .vd-transfer {
   display: flex;
   align-items: stretch;
-  gap: var(--transfer-gap);
+  gap: var(--vd-transfer-gap);
 }
 
 .vd-transfer-panel {
   flex: 1;
-  border: 1px solid var(--transfer-border-color);
-  border-radius: var(--transfer-border-radius);
-  background: var(--transfer-bg);
+  border: 1px solid var(--vd-transfer-border-color);
+  border-radius: var(--vd-transfer-border-radius);
+  background: var(--vd-transfer-bg);
   display: flex;
   flex-direction: column;
   min-width: 10rem;
@@ -55,10 +55,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--transfer-padding) 0.8125rem;
-  background: var(--transfer-header-bg);
-  border-bottom: 1px solid var(--transfer-border-color);
-  border-radius: var(--transfer-border-radius) var(--transfer-border-radius) 0 0;
+  padding: var(--vd-transfer-padding) 0.8125rem;
+  background: var(--vd-transfer-header-bg);
+  border-bottom: 1px solid var(--vd-transfer-border-color);
+  border-radius: var(--vd-transfer-border-radius) var(--vd-transfer-border-radius) 0 0;
   font-size: 0.8125rem;
   font-weight: 600;
 }
@@ -71,17 +71,17 @@
 /* ========== Search ========== */
 
 .vd-transfer-search {
-  padding: var(--transfer-padding);
-  border-bottom: 1px solid var(--transfer-border-color);
+  padding: var(--vd-transfer-padding);
+  border-bottom: 1px solid var(--vd-transfer-border-color);
 }
 
 .vd-transfer-search input {
   width: 100%;
   padding: 0.3125rem 0.5rem;
-  border: 1px solid var(--transfer-border-color);
+  border: 1px solid var(--vd-transfer-border-color);
   border-radius: 0.25rem;
   font-size: 0.8125rem;
-  background: var(--transfer-bg);
+  background: var(--vd-transfer-bg);
   color: var(--vd-text-primary, #212529);
 }
 
@@ -90,7 +90,7 @@
 .vd-transfer-list {
   flex: 1;
   overflow-y: auto;
-  max-height: var(--transfer-list-height);
+  max-height: var(--vd-transfer-list-height);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -107,11 +107,11 @@
 }
 
 .vd-transfer-item:hover {
-  background: var(--transfer-item-hover-bg);
+  background: var(--vd-transfer-item-hover-bg);
 }
 
 .vd-transfer-item.is-selected {
-  background: var(--transfer-item-selected-bg);
+  background: var(--vd-transfer-item-selected-bg);
 }
 
 .vd-transfer-item input[type="checkbox"] {
@@ -134,9 +134,9 @@
   justify-content: center;
   width: 2rem;
   height: 2rem;
-  border: 1px solid var(--transfer-border-color);
+  border: 1px solid var(--vd-transfer-border-color);
   border-radius: 0.25rem;
-  background: var(--transfer-bg);
+  background: var(--vd-transfer-bg);
   cursor: pointer;
   font-size: 0.875rem;
   transition: background 0.15s ease;
@@ -144,7 +144,7 @@
 }
 
 .vd-transfer-btn:hover {
-  background: var(--transfer-item-hover-bg);
+  background: var(--vd-transfer-item-hover-bg);
 }
 
 .vd-transfer-btn:disabled {

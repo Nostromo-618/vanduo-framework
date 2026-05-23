@@ -5,31 +5,31 @@
 
 :root {
   /* Chip Sizing (Fibonacci) */
-  --chip-padding-x: 0.8125rem;     /* 13px - fib */
-  --chip-padding-y: 0.3125rem;     /* 5px  - fib */
-  --chip-padding-x-sm: 0.5rem;     /* 8px  - fib */
-  --chip-padding-y-sm: 0.1875rem;  /* 3px  - fib */
-  --chip-padding-x-lg: 1.3125rem;  /* 21px - fib */
-  --chip-padding-y-lg: 0.5rem;     /* 8px  - fib */
-  --chip-border-radius: 9999px;
-  --chip-font-size: var(--font-size-sm);
-  --chip-font-size-sm: var(--font-size-xs);
-  --chip-font-size-lg: var(--font-size-base);
+  --vd-chip-padding-x: 0.8125rem;     /* 13px - fib */
+  --vd-chip-padding-y: 0.3125rem;     /* 5px  - fib */
+  --vd-chip-padding-x-sm: 0.5rem;     /* 8px  - fib */
+  --vd-chip-padding-y-sm: 0.1875rem;  /* 3px  - fib */
+  --vd-chip-padding-x-lg: 1.3125rem;  /* 21px - fib */
+  --vd-chip-padding-y-lg: 0.5rem;     /* 8px  - fib */
+  --vd-chip-border-radius: 9999px;
+  --vd-chip-font-size: var(--vd-font-size-sm);
+  --vd-chip-font-size-sm: var(--vd-font-size-xs);
+  --vd-chip-font-size-lg: var(--vd-font-size-base);
 
   /* Chip Colors */
-  --chip-bg: var(--vd-bg-secondary);
-  --chip-text: var(--vd-text-primary);
-  --chip-border: var(--vd-border-color);
+  --vd-chip-bg: var(--vd-bg-secondary);
+  --vd-chip-text: var(--vd-text-primary);
+  --vd-chip-border: var(--vd-border-color);
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --chip-bg: var(--vd-color-gray-700);
+  --vd-chip-bg: var(--vd-color-gray-700);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --chip-bg: var(--vd-color-gray-700);
+    --vd-chip-bg: var(--vd-color-gray-700);
   }
 }
 
@@ -39,29 +39,29 @@
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  padding: var(--chip-padding-y) var(--chip-padding-x);
-  font-size: var(--chip-font-size);
-  font-weight: var(--font-weight-medium);
+  padding: var(--vd-chip-padding-y) var(--vd-chip-padding-x);
+  font-size: var(--vd-chip-font-size);
+  font-weight: var(--vd-font-weight-medium);
   line-height: 1.2;
-  color: var(--chip-text);
-  background-color: var(--chip-bg);
-  border-radius: var(--chip-border-radius);
+  color: var(--vd-chip-text);
+  background-color: var(--vd-chip-bg);
+  border-radius: var(--vd-chip-border-radius);
   white-space: nowrap;
   vertical-align: middle;
-  transition: var(--transition-base);
+  transition: var(--vd-transition-base);
 }
 
 /* Chip Sizes */
 .vd-chip-sm,
 .tag-sm {
-  padding: var(--chip-padding-y-sm) var(--chip-padding-x-sm);
-  font-size: var(--chip-font-size-sm);
+  padding: var(--vd-chip-padding-y-sm) var(--vd-chip-padding-x-sm);
+  font-size: var(--vd-chip-font-size-sm);
 }
 
 .vd-chip-lg,
 .tag-lg {
-  padding: var(--chip-padding-y-lg) var(--chip-padding-x-lg);
-  font-size: var(--chip-font-size-lg);
+  padding: var(--vd-chip-padding-y-lg) var(--vd-chip-padding-x-lg);
+  font-size: var(--vd-chip-font-size-lg);
 }
 
 /* Chip Color Variants */
@@ -107,7 +107,7 @@
 .vd-chip-outline,
 .tag-outline {
   background-color: transparent;
-  border: 1px solid var(--chip-border);
+  border: 1px solid var(--vd-chip-border);
 }
 
 .vd-chip-outline.vd-chip-primary,

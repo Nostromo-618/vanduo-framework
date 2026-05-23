@@ -90,19 +90,17 @@ export class VdHexGrid {
         const root = document.documentElement;
         const style = getComputedStyle(root);
         
-        const readToken = (canonical, fallback, defaultValue) => {
-            return style.getPropertyValue(canonical).trim()
-                || style.getPropertyValue(fallback).trim()
-                || defaultValue;
+        const readToken = (token, defaultValue) => {
+            return style.getPropertyValue(token).trim() || defaultValue;
         };
 
         return {
-            bgPrimary: readToken('--vd-bg-primary', '--bg-primary', '#ffffff'),
-            bgSecondary: readToken('--vd-bg-secondary', '--bg-secondary', '#f5f5f5'),
-            borderColor: readToken('--vd-border-color', '--border-color', '#e0e0e0'),
-            colorPrimary: readToken('--vd-color-primary', '--color-primary', '#3b82f6'),
-            textColor: readToken('--vd-text-primary', '--text-primary', '#1f2937'),
-            textMuted: readToken('--vd-text-muted', '--text-muted', '#6b7280')
+            bgPrimary: readToken('--vd-bg-primary', '#ffffff'),
+            bgSecondary: readToken('--vd-bg-secondary', '#f5f5f5'),
+            borderColor: readToken('--vd-border-color', '#e0e0e0'),
+            colorPrimary: readToken('--vd-color-primary', '#3b82f6'),
+            textColor: readToken('--vd-text-primary', '#1f2937'),
+            textMuted: readToken('--vd-text-muted', '#6b7280')
         };
     }
     

@@ -4,21 +4,21 @@
  */
 
 :root {
-  --spinner-size: 2rem;
-  --spinner-border-width: 3px;
-  --spinner-color: var(--vd-color-primary);
-  --spinner-speed: 0.65s;
+  --vd-spinner-size: 2rem;
+  --vd-spinner-border-width: 3px;
+  --vd-spinner-color: var(--vd-color-primary);
+  --vd-spinner-speed: 0.65s;
 }
 
 /* Border Spinner */
 .vd-spinner {
   display: inline-block;
-  width: var(--spinner-size);
-  height: var(--spinner-size);
-  border: var(--spinner-border-width) solid var(--vd-border-color, #e9ecef);
-  border-top-color: var(--spinner-color);
+  width: var(--vd-spinner-size);
+  height: var(--vd-spinner-size);
+  border: var(--vd-spinner-border-width) solid var(--vd-border-color, #e9ecef);
+  border-top-color: var(--vd-spinner-color);
   border-radius: 50%;
-  animation: spinner-rotate var(--spinner-speed) linear infinite;
+  animation: spinner-rotate var(--vd-spinner-speed) linear infinite;
 }
 
 @keyframes spinner-rotate {
@@ -40,7 +40,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--spinner-color);
+  background-color: var(--vd-spinner-color);
   animation: spinner-dots-bounce 1.4s ease-in-out infinite both;
 }
 
@@ -60,9 +60,9 @@
 /* Growing Spinner */
 .vd-spinner-grow {
   display: inline-block;
-  width: var(--spinner-size);
-  height: var(--spinner-size);
-  background-color: var(--spinner-color);
+  width: var(--vd-spinner-size);
+  height: var(--vd-spinner-size);
+  background-color: var(--vd-spinner-color);
   border-radius: 50%;
   opacity: 0;
   animation: spinner-grow 0.75s linear infinite;
@@ -74,25 +74,25 @@
 }
 
 /* Size Variants */
-.vd-spinner-xs { --spinner-size: 1rem; --spinner-border-width: 2px; }
-.vd-spinner-sm { --spinner-size: 1.5rem; --spinner-border-width: 2px; }
-.vd-spinner-lg { --spinner-size: 3rem; --spinner-border-width: 4px; }
-.vd-spinner-xl { --spinner-size: 4rem; --spinner-border-width: 5px; }
+.vd-spinner-xs { --vd-spinner-size: 1rem; --vd-spinner-border-width: 2px; }
+.vd-spinner-sm { --vd-spinner-size: 1.5rem; --vd-spinner-border-width: 2px; }
+.vd-spinner-lg { --vd-spinner-size: 3rem; --vd-spinner-border-width: 4px; }
+.vd-spinner-xl { --vd-spinner-size: 4rem; --vd-spinner-border-width: 5px; }
 
 /* Color Variants */
-.vd-spinner-success { --spinner-color: var(--vd-color-success); }
-.vd-spinner-warning { --spinner-color: var(--vd-color-warning); }
-.vd-spinner-error { --spinner-color: var(--vd-color-error); }
-.vd-spinner-info { --spinner-color: var(--vd-color-info); }
-.vd-spinner-light { --spinner-color: #fff; }
-.vd-spinner-dark { --spinner-color: var(--vd-text-primary); }
+.vd-spinner-success { --vd-spinner-color: var(--vd-color-success); }
+.vd-spinner-warning { --vd-spinner-color: var(--vd-color-warning); }
+.vd-spinner-error { --vd-spinner-color: var(--vd-color-error); }
+.vd-spinner-info { --vd-spinner-color: var(--vd-color-info); }
+.vd-spinner-light { --vd-spinner-color: #fff; }
+.vd-spinner-dark { --vd-spinner-color: var(--vd-text-primary); }
 
 /* Centering Helper */
 .vd-spinner-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-5, 1rem);
+  padding: var(--vd-spacing-5, 1rem);
 }
 
 /* Quad-Spinner Loader — signature Vanduo 2x2 grid loader */
@@ -114,12 +114,12 @@
 }
 
 .vd-dynamic-loader-grid .vd-spinner {
-  --spinner-size: 1.125rem;
-  --spinner-border-width: 2px;
-  --spinner-speed: 0.9s;
+  --vd-spinner-size: 1.125rem;
+  --vd-spinner-border-width: 2px;
+  --vd-spinner-speed: 0.9s;
 
   border-color: var(--vd-border-color, #d9d9d9);
-  border-top-color: var(--spinner-color);
+  border-top-color: var(--vd-spinner-color);
 }
 
 .vd-dynamic-loader-grid .vd-spinner:nth-child(1) {
@@ -140,7 +140,7 @@
 
 .vd-dynamic-loader-text {
   color: var(--vd-text-muted);
-  font-size: var(--font-size-sm, 0.8125rem);
+  font-size: var(--vd-font-size-sm, 0.8125rem);
 }
 
 /* Quad-Spinner overlaying a skeleton card */
@@ -149,7 +149,7 @@
   min-height: 300px;
   padding: 2rem;
   overflow: hidden;
-  border-radius: var(--btn-border-radius, 0.5rem);
+  border-radius: var(--vd-btn-border-radius, 0.5rem);
   border: 1px solid var(--vd-border-color);
 }
 

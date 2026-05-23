@@ -89,6 +89,20 @@ test.describe('Image Box Component @component', () => {
             const body = page.locator('body');
             await expect(body).toHaveClass(/body-image-box-open/);
         });
+
+        test('sets the vd-prefixed scrollbar runtime token', async ({ page }) => {
+            await page.click('#basic-image');
+            const tokens = await page.evaluate(() => {
+                const legacyToken = '--' + 'scrollbar-width';
+                return {
+                    current: document.body.style.getPropertyValue('--vd-scrollbar-width'),
+                    legacy: document.body.style.getPropertyValue(legacyToken),
+                };
+            });
+
+            expect(tokens.current).toMatch(/px$/);
+            expect(tokens.legacy).toBe('');
+        });
     });
 
     test.describe('Close Behavior', () => {

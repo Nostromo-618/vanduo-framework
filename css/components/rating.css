@@ -5,24 +5,24 @@
 
 :root {
   /* Rating Colors */
-  --rating-active-color: #f59e0b;
-  --rating-inactive-color: var(--vd-color-gray-300, #dee2e6);
-  --rating-hover-color: #fbbf24;
+  --vd-rating-active-color: #f59e0b;
+  --vd-rating-inactive-color: var(--vd-color-gray-300, #dee2e6);
+  --vd-rating-hover-color: #fbbf24;
 
   /* Rating Dimensions (Fibonacci) */
-  --rating-size: 1.3125rem;  /* 21px - fib */
-  --rating-size-sm: 1rem;
-  --rating-size-lg: 2.125rem; /* 34px ~ fib */
-  --rating-gap: 0.125rem;     /* 2px */
+  --vd-rating-size: 1.3125rem;  /* 21px - fib */
+  --vd-rating-size-sm: 1rem;
+  --vd-rating-size-lg: 2.125rem; /* 34px ~ fib */
+  --vd-rating-gap: 0.125rem;     /* 2px */
 }
 
 [data-theme="dark"] {
-  --rating-inactive-color: var(--vd-color-gray-600, #6c757d);
+  --vd-rating-inactive-color: var(--vd-color-gray-600, #6c757d);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --rating-inactive-color: var(--vd-color-gray-600, #6c757d);
+    --vd-rating-inactive-color: var(--vd-color-gray-600, #6c757d);
   }
 }
 
@@ -31,15 +31,15 @@
 .vd-rating {
   display: inline-flex;
   align-items: center;
-  gap: var(--rating-gap);
+  gap: var(--vd-rating-gap);
 }
 
 .vd-rating-star {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--rating-size);
-  color: var(--rating-inactive-color);
+  font-size: var(--vd-rating-size);
+  color: var(--vd-rating-inactive-color);
   cursor: pointer;
   transition: color 0.15s ease, transform 0.15s ease;
   user-select: none;
@@ -58,17 +58,17 @@
 }
 
 .vd-rating-star.is-active {
-  color: var(--rating-active-color);
+  color: var(--vd-rating-active-color);
 }
 
 .vd-rating-star.is-hovered {
-  color: var(--rating-hover-color);
+  color: var(--vd-rating-hover-color);
 }
 
 /* Half-star support */
 .vd-rating-star.is-half {
   position: relative;
-  color: var(--rating-inactive-color);
+  color: var(--vd-rating-inactive-color);
 }
 
 .vd-rating-star.is-half::after {
@@ -78,7 +78,7 @@
   top: 0;
   width: 50%;
   overflow: hidden;
-  color: var(--rating-active-color);
+  color: var(--vd-rating-active-color);
 }
 
 /* ========== Read-only ========== */
@@ -95,11 +95,11 @@
 /* ========== Sizes ========== */
 
 .vd-rating-sm .vd-rating-star {
-  font-size: var(--rating-size-sm);
+  font-size: var(--vd-rating-size-sm);
 }
 
 .vd-rating-lg .vd-rating-star {
-  font-size: var(--rating-size-lg);
+  font-size: var(--vd-rating-size-lg);
 }
 
 /* ========== Value Display ========== */

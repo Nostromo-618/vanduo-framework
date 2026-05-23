@@ -88,6 +88,33 @@ test.describe('Color Utility Classes @unit', () => {
     });
   });
 
+  test.describe('Token Namespace', () => {
+    test('palette utilities resolve through vd-prefixed custom properties', async ({ page }) => {
+      await page.evaluate(() => {
+        document.documentElement.style.setProperty('--vd-red-5', 'rgb(1, 2, 3)');
+        document.documentElement.style.setProperty('--vd-indigo-9', 'rgb(4, 5, 6)');
+      });
+
+      const styles = await page.locator('#combined').evaluate((el) => {
+        el.className = 'vd-bg-red-5 vd-text-indigo-9';
+        const cs = getComputedStyle(el);
+        return { bg: cs.backgroundColor, color: cs.color };
+      });
+
+      expect(parseRgb(styles.bg)).toEqual([1, 2, 3]);
+      expect(parseRgb(styles.color)).toEqual([4, 5, 6]);
+    });
+
+    test('legacy unprefixed palette properties are not defined', async ({ page }) => {
+      const legacyValue = await page.evaluate(() => {
+        const legacyToken = '--' + 'red-5';
+        return getComputedStyle(document.documentElement).getPropertyValue(legacyToken).trim();
+      });
+
+      expect(legacyValue).toBe('');
+    });
+  });
+
   test.describe('Backward Compatibility', () => {
     test('existing .vd-bg-primary still works', async ({ page }) => {
       const bg = await page.locator('#semantic-bg').evaluate(

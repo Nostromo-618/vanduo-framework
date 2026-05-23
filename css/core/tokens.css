@@ -1,7 +1,7 @@
 /**
  * Vanduo Framework - Design Tokens
  * Centralized CSS custom properties for consistent theming
- * v1.1.1
+ * v1.4.1
  */
 
 :root {
@@ -11,11 +11,11 @@
    * ============================================ */
 
   /* Primary Colors */
-  --vd-color-primary: var(--primary-5);
-  --vd-color-primary-light: var(--primary-3);
-  --vd-color-primary-dark: var(--primary-7);
-  --vd-color-primary-hover: var(--primary-6);
-  --vd-color-primary-active: var(--primary-7);
+  --vd-color-primary: var(--vd-primary-5);
+  --vd-color-primary-light: var(--vd-primary-3);
+  --vd-color-primary-dark: var(--vd-primary-7);
+  --vd-color-primary-hover: var(--vd-primary-6);
+  --vd-color-primary-active: var(--vd-primary-7);
   --vd-color-primary-rgb: 92, 124, 250;
   --vd-color-primary-alpha-5: rgba(92, 124, 250, 0.05);
   --vd-color-primary-alpha-08: rgba(92, 124, 250, 0.08);
@@ -27,11 +27,11 @@
   --vd-color-primary-alpha-50: rgba(92, 124, 250, 0.5);
 
   /* Secondary Colors */
-  --vd-color-secondary: var(--secondary-5);
-  --vd-color-secondary-light: var(--secondary-3);
-  --vd-color-secondary-dark: var(--secondary-7);
-  --vd-color-secondary-hover: var(--secondary-6);
-  --vd-color-secondary-active: var(--secondary-7);
+  --vd-color-secondary: var(--vd-secondary-5);
+  --vd-color-secondary-light: var(--vd-secondary-3);
+  --vd-color-secondary-dark: var(--vd-secondary-7);
+  --vd-color-secondary-hover: var(--vd-secondary-6);
+  --vd-color-secondary-active: var(--vd-secondary-7);
   --vd-color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
   --vd-color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
 
@@ -41,30 +41,30 @@
   --vd-color-accent-dark: var(--vd-color-primary-dark);
 
   /* Semantic Colors */
-  --vd-color-success: var(--success-6);
-  --vd-color-success-light: var(--success-4);
-  --vd-color-success-dark: var(--success-7);
-  --vd-color-success-hover: var(--success-7);
-  --vd-color-success-active: var(--success-8);
+  --vd-color-success: var(--vd-success-6);
+  --vd-color-success-light: var(--vd-success-4);
+  --vd-color-success-dark: var(--vd-success-7);
+  --vd-color-success-hover: var(--vd-success-7);
+  --vd-color-success-active: var(--vd-success-8);
   --vd-color-success-rgb: 64, 192, 87;
   --vd-color-success-alpha-10: rgba(64, 192, 87, 0.1);
   --vd-color-success-alpha-20: rgba(64, 192, 87, 0.2);
 
-  --vd-color-warning: var(--warning-6);
-  --vd-color-warning-light: var(--warning-4);
-  --vd-color-warning-dark: var(--warning-7);
-  --vd-color-warning-hover: var(--warning-7);
-  --vd-color-warning-active: var(--warning-8);
+  --vd-color-warning: var(--vd-warning-6);
+  --vd-color-warning-light: var(--vd-warning-4);
+  --vd-color-warning-dark: var(--vd-warning-7);
+  --vd-color-warning-hover: var(--vd-warning-7);
+  --vd-color-warning-active: var(--vd-warning-8);
   --vd-color-warning-rgb: 250, 176, 5;
   --vd-color-warning-alpha-10: rgba(250, 176, 5, 0.1);
   --vd-color-warning-alpha-20: rgba(250, 176, 5, 0.2);
   --vd-color-warning-alpha-30: rgba(250, 176, 5, 0.3);
 
-  --vd-color-error: var(--danger-6);
-  --vd-color-error-light: var(--danger-4);
-  --vd-color-error-dark: var(--danger-7);
-  --vd-color-error-hover: var(--danger-7);
-  --vd-color-error-active: var(--danger-8);
+  --vd-color-error: var(--vd-danger-6);
+  --vd-color-error-light: var(--vd-danger-4);
+  --vd-color-error-dark: var(--vd-danger-7);
+  --vd-color-error-hover: var(--vd-danger-7);
+  --vd-color-error-active: var(--vd-danger-8);
   --vd-color-error-rgb: 250, 82, 82;
   --vd-color-error-alpha-10: rgba(250, 82, 82, 0.1);
   --vd-color-error-alpha-20: rgba(250, 82, 82, 0.2);
@@ -77,11 +77,11 @@
   --vd-color-danger-alpha-10: var(--vd-color-error-alpha-10);
   --vd-color-danger-alpha-20: var(--vd-color-error-alpha-20);
 
-  --vd-color-info: var(--info-6);
-  --vd-color-info-light: var(--info-4);
-  --vd-color-info-dark: var(--info-7);
-  --vd-color-info-hover: var(--info-7);
-  --vd-color-info-active: var(--info-8);
+  --vd-color-info: var(--vd-info-6);
+  --vd-color-info-light: var(--vd-info-4);
+  --vd-color-info-dark: var(--vd-info-7);
+  --vd-color-info-hover: var(--vd-info-7);
+  --vd-color-info-active: var(--vd-info-8);
   --vd-color-info-rgb: 34, 139, 230;
   --vd-color-info-alpha-10: rgba(34, 139, 230, 0.1);
   --vd-color-info-alpha-20: rgba(34, 139, 230, 0.2);
@@ -89,15 +89,15 @@
   /* Neutral Colors (Open Color) */
   --vd-color-white: #ffffff;
   --vd-color-black: #000000;
-  --vd-color-gray-50: var(--gray-0);
-  --vd-color-gray-100: var(--gray-2);
-  --vd-color-gray-200: var(--gray-3);
-  --vd-color-gray-300: var(--gray-4);
-  --vd-color-gray-400: var(--gray-5);
-  --vd-color-gray-500: var(--gray-6);
-  --vd-color-gray-600: var(--gray-7);
-  --vd-color-gray-700: var(--gray-8);
-  --vd-color-gray-800: var(--gray-9);
+  --vd-color-gray-50: var(--vd-gray-0);
+  --vd-color-gray-100: var(--vd-gray-2);
+  --vd-color-gray-200: var(--vd-gray-3);
+  --vd-color-gray-300: var(--vd-gray-4);
+  --vd-color-gray-400: var(--vd-gray-5);
+  --vd-color-gray-500: var(--vd-gray-6);
+  --vd-color-gray-600: var(--vd-gray-7);
+  --vd-color-gray-700: var(--vd-gray-8);
+  --vd-color-gray-800: var(--vd-gray-9);
   --vd-color-gray-900: #1a1d20;
 
   /* ============================================
@@ -197,29 +197,17 @@
   /* ============================================
    * GLASS TOKENS
    * ============================================ */
-  --glass-blur: 12px;
-  --glass-saturate: 1.8;
-  --glass-bg-opacity: 0.65;
-  --glass-bg-light: rgba(255, 255, 255, var(--glass-bg-opacity));
-  --glass-bg-dark: rgba(30, 30, 30, var(--glass-bg-opacity));
-  --glass-border-alpha: 0.18;
-  --glass-border-light: rgba(255, 255, 255, var(--glass-border-alpha));
-  --glass-border-dark: rgba(255, 255, 255, 0.08);
-  --glass-highlight-alpha: 0.25;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --glass-noise-opacity: 0.03;
-
-  --vd-glass-blur: var(--glass-blur);
-  --vd-glass-saturate: var(--glass-saturate);
-  --vd-glass-bg-opacity: var(--glass-bg-opacity);
-  --vd-glass-bg-light: var(--glass-bg-light);
-  --vd-glass-bg-dark: var(--glass-bg-dark);
-  --vd-glass-border-alpha: var(--glass-border-alpha);
-  --vd-glass-border-light: var(--glass-border-light);
-  --vd-glass-border-dark: var(--glass-border-dark);
-  --vd-glass-highlight-alpha: var(--glass-highlight-alpha);
-  --vd-glass-shadow: var(--glass-shadow);
-  --vd-glass-noise-opacity: var(--glass-noise-opacity);
+  --vd-glass-blur: 12px;
+  --vd-glass-saturate: 1.8;
+  --vd-glass-bg-opacity: 0.65;
+  --vd-glass-bg-light: rgba(255, 255, 255, var(--vd-glass-bg-opacity));
+  --vd-glass-bg-dark: rgba(30, 30, 30, var(--vd-glass-bg-opacity));
+  --vd-glass-border-alpha: 0.18;
+  --vd-glass-border-light: rgba(255, 255, 255, var(--vd-glass-border-alpha));
+  --vd-glass-border-dark: rgba(255, 255, 255, 0.08);
+  --vd-glass-highlight-alpha: 0.25;
+  --vd-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --vd-glass-noise-opacity: 0.03;
 
   /* ============================================
    * TRANSITION TOKENS
@@ -271,11 +259,11 @@
   --vd-border-color-light: var(--vd-color-gray-800);
   --vd-border-color-dark: var(--vd-color-gray-600);
 
-  --vd-color-primary: var(--primary-4);
-  --vd-color-primary-light: var(--primary-3);
-  --vd-color-primary-dark: var(--primary-5);
-  --vd-color-primary-hover: var(--primary-5);
-  --vd-color-primary-active: var(--primary-6);
+  --vd-color-primary: var(--vd-primary-4);
+  --vd-color-primary-light: var(--vd-primary-3);
+  --vd-color-primary-dark: var(--vd-primary-5);
+  --vd-color-primary-hover: var(--vd-primary-5);
+  --vd-color-primary-active: var(--vd-primary-6);
   --vd-color-primary-alpha-10: rgba(116, 143, 252, 0.15);
   --vd-color-primary-alpha-20: rgba(116, 143, 252, 0.25);
 
@@ -283,10 +271,10 @@
   --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
   --vd-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
 
-  --glass-bg-light: var(--glass-bg-dark);
-  --glass-border-light: var(--glass-border-dark);
-  --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-  --glass-highlight-alpha: 0.16;
+  --vd-glass-bg-light: var(--vd-glass-bg-dark);
+  --vd-glass-border-light: var(--vd-glass-border-dark);
+  --vd-glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --vd-glass-highlight-alpha: 0.16;
 }
 
 /* Dark mode via prefers-color-scheme */
@@ -308,11 +296,11 @@
     --vd-border-color-light: var(--vd-color-gray-800);
     --vd-border-color-dark: var(--vd-color-gray-600);
 
-    --vd-color-primary: var(--primary-4);
-    --vd-color-primary-light: var(--primary-3);
-    --vd-color-primary-dark: var(--primary-5);
-    --vd-color-primary-hover: var(--primary-5);
-    --vd-color-primary-active: var(--primary-6);
+    --vd-color-primary: var(--vd-primary-4);
+    --vd-color-primary-light: var(--vd-primary-3);
+    --vd-color-primary-dark: var(--vd-primary-5);
+    --vd-color-primary-hover: var(--vd-primary-5);
+    --vd-color-primary-active: var(--vd-primary-6);
     --vd-color-primary-alpha-10: rgba(116, 143, 252, 0.15);
     --vd-color-primary-alpha-20: rgba(116, 143, 252, 0.25);
 
@@ -320,9 +308,9 @@
     --vd-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
     --vd-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
 
-    --glass-bg-light: var(--glass-bg-dark);
-    --glass-border-light: var(--glass-border-dark);
-    --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-    --glass-highlight-alpha: 0.16;
+    --vd-glass-bg-light: var(--vd-glass-bg-dark);
+    --vd-glass-border-light: var(--vd-glass-border-dark);
+    --vd-glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    --vd-glass-highlight-alpha: 0.16;
   }
 }

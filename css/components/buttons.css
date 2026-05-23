@@ -8,52 +8,52 @@
    * sm:  13px/8px  = 1.625 ~ phi
    * base: 21px/13px = 1.615 ~ phi
    * lg:  34px/21px = 1.619 ~ phi */
-  --btn-padding-x-sm: 0.8125rem;
+  --vd-btn-padding-x-sm: 0.8125rem;
   /* 13px - fib */
-  --btn-padding-y-sm: 0.5rem;
+  --vd-btn-padding-y-sm: 0.5rem;
   /* 8px  - fib */
-  --btn-padding-x: 1.3125rem;
+  --vd-btn-padding-x: 1.3125rem;
   /* 21px - fib */
-  --btn-padding-y: 0.8125rem;
+  --vd-btn-padding-y: 0.8125rem;
   /* 13px - fib */
-  --btn-padding-x-lg: 2.125rem;
+  --vd-btn-padding-x-lg: 2.125rem;
   /* 34px - fib */
-  --btn-padding-y-lg: 1.3125rem;
+  --vd-btn-padding-y-lg: 1.3125rem;
   /* 21px - fib */
 
   /* Button Font Sizes */
-  --btn-font-size-sm: var(--font-size-sm);
-  --btn-font-size: var(--font-size-base);
-  --btn-font-size-lg: var(--font-size-lg);
+  --vd-btn-font-size-sm: var(--vd-font-size-sm);
+  --vd-btn-font-size: var(--vd-font-size-base);
+  --vd-btn-font-size-lg: var(--vd-font-size-lg);
 
   /* Button Border Radius (Fibonacci) */
-  --btn-border-radius: var(--radius-fib-5);
+  --vd-btn-border-radius: var(--vd-radius-fib-5);
   /* 5px */
-  --btn-border-radius-sm: var(--radius-fib-3);
+  --vd-btn-border-radius-sm: var(--vd-radius-fib-3);
   /* 3px */
-  --btn-border-radius-lg: var(--radius-fib-8);
+  --vd-btn-border-radius-lg: var(--vd-radius-fib-8);
   /* 8px */
 
   /* Button Transitions */
-  --btn-transition: all 0.2s ease-in-out;
+  --vd-btn-transition: all 0.2s ease-in-out;
 }
 
 /* Base Button */
 .vd-btn {
   display: inline-block;
-  padding: var(--btn-padding-y) var(--btn-padding-x);
-  font-family: var(--font-family-sans);
-  font-size: var(--btn-font-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-normal);
+  padding: var(--vd-btn-padding-y) var(--vd-btn-padding-x);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-btn-font-size);
+  font-weight: var(--vd-font-weight-medium);
+  line-height: var(--vd-line-height-normal);
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
   border: 1px solid transparent;
-  border-radius: var(--btn-border-radius);
-  transition: var(--btn-transition);
+  border-radius: var(--vd-btn-border-radius);
+  transition: var(--vd-btn-transition);
   background-color: transparent;
   color: var(--vd-text-primary);
   margin-bottom: 0.5rem;
@@ -410,28 +410,28 @@
 }
 
 .vd-btn-ghost-subtle:hover:not(:disabled):not(.disabled):not(.is-disabled) {
-  background-color: var(--gray-0);
-  border-color: var(--gray-4);
+  background-color: var(--vd-gray-0);
+  border-color: var(--vd-gray-4);
   color: var(--vd-text-primary);
 }
 
 .vd-btn-ghost-subtle:active:not(:disabled):not(.disabled):not(.is-disabled) {
-  background-color: var(--gray-1);
-  border-color: var(--gray-5);
+  background-color: var(--vd-gray-1);
+  border-color: var(--vd-gray-5);
 }
 
 /* Button Sizes - Small */
 .vd-btn-sm {
-  padding: var(--btn-padding-y-sm) var(--btn-padding-x-sm);
-  font-size: var(--btn-font-size-sm);
-  border-radius: var(--btn-border-radius-sm);
+  padding: var(--vd-btn-padding-y-sm) var(--vd-btn-padding-x-sm);
+  font-size: var(--vd-btn-font-size-sm);
+  border-radius: var(--vd-btn-border-radius-sm);
 }
 
 /* Button Sizes - Large */
 .vd-btn-lg {
-  padding: var(--btn-padding-y-lg) var(--btn-padding-x-lg);
-  font-size: var(--btn-font-size-lg);
-  border-radius: var(--btn-border-radius-lg);
+  padding: var(--vd-btn-padding-y-lg) var(--vd-btn-padding-x-lg);
+  font-size: var(--vd-btn-font-size-lg);
+  border-radius: var(--vd-btn-border-radius-lg);
 }
 
 /* Full Width Button */
@@ -446,7 +446,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--btn-padding-y);
+  padding: var(--vd-btn-padding-y);
   width: auto;
   min-width: 2.125rem;
   /* 34px - fib */
@@ -459,7 +459,7 @@
   /* 34px - fib */
   height: 2.125rem;
   /* 34px - fib */
-  padding: var(--btn-padding-y-sm);
+  padding: var(--vd-btn-padding-y-sm);
 }
 
 .vd-btn-icon.vd-btn-lg {
@@ -467,7 +467,7 @@
   /* 55px - fib */
   height: 3.4375rem;
   /* 55px - fib */
-  padding: var(--btn-padding-y-lg);
+  padding: var(--vd-btn-padding-y-lg);
 }
 
 /* Button with Icon Spacing */

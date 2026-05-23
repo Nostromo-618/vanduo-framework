@@ -199,7 +199,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 | Component | CSS Class | JS Module | Notes |
 |---|---|---|---|
 | Glass Effects | `.vd-glass` | `glass` | Frosted glass surfaces; size variants `vd-glass-sm/md/lg/xl`; modifiers `vd-glass-tinted`, `vd-glass-floating`, `vd-glass-contrast`; opt-in component variants via `.vd-*-glass`; scroll-activation via `data-glass-scroll` |
-| Water Morph | `.vd-morph` | `morph` | Liquid wave content-swap effect; size variants `vd-morph-sm/lg`; custom `--morph-wave-color`; programmatic `VanduoMorph.morph(el)`; `data-vd-morph` for declarative opt-in, `data-vd-morph="manual"` to skip auto-init |
+| Water Morph | `.vd-morph` | `morph` | Liquid wave content-swap effect; size variants `vd-morph-sm/lg`; custom `--vd-morph-wave-color`; programmatic `VanduoMorph.morph(el)`; `data-vd-morph` for declarative opt-in, `data-vd-morph="manual"` to skip auto-init |
 | Ripple / Waves | `.vd-ripple` | `ripple` | Material-style click ripple |
 | FAB | `.vd-fab` | — | CSS-only floating action button |
 | Sticky / Affix | `.vd-affix` | `affix` | Automatically sticks within the nearest scrollable container, with viewport fallback and `is-stuck` events |

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Runtime Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <button
+    id="morph-target"
+    class="vd-morph"
+    data-vd-morph="manual"
+    style="--vd-morph-duration: 5ms"
+  >
+    <span class="vd-morph-content vd-morph-current">Current</span>
+    <span class="vd-morph-content vd-morph-next">Next</span>
+  </button>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/morph.js"></script>
+  <script>
+    Vanduo.init();
+  </script>
+</body>
+</html>

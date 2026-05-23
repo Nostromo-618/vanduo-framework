@@ -212,6 +212,25 @@ test.describe('Theme Switcher Component @component', () => {
       const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
       expect(theme).toBe('light');
     });
+
+    test('ThemeCustomizer writes vd-prefixed runtime tokens', async ({ page }) => {
+      const tokens = await page.evaluate(() => {
+        const legacyToken = '--' + 'radius-scale';
+        window.ThemeCustomizer.applyRadius('0.25');
+
+        return {
+          radius: document.documentElement.style.getPropertyValue('--vd-radius-scale'),
+          legacyRadius: document.documentElement.style.getPropertyValue(legacyToken),
+          swatchesUseVdToken: window.ThemeCustomizer.getPanelHTML().includes('--vd-swatch-color'),
+        };
+      });
+
+      expect(tokens).toEqual({
+        radius: '0.25',
+        legacyRadius: '',
+        swatchesUseVdToken: true,
+      });
+    });
   });
 
   test.describe('System Theme Detection', () => {

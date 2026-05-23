@@ -5,19 +5,19 @@
  */
 
 :root {
-  --affix-top-offset: 0;
-  --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --affix-transition: box-shadow 0.2s ease, background-color 0.2s ease;
-  --affix-z-index: 1020;
+  --vd-affix-top-offset: 0;
+  --vd-affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --vd-affix-transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  --vd-affix-z-index: 1020;
 }
 
 [data-theme="dark"] {
-  --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --vd-affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --vd-affix-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -27,9 +27,9 @@
 .vd-sticky,
 [data-vd-affix] {
   position: sticky;
-  top: var(--affix-top-offset);
-  transition: var(--affix-transition);
-  z-index: calc(var(--affix-z-index) - 1);
+  top: var(--vd-affix-top-offset);
+  transition: var(--vd-affix-transition);
+  z-index: calc(var(--vd-affix-z-index) - 1);
 }
 
 /* ========== Stuck State ========== */
@@ -37,8 +37,8 @@
 .vd-affix.is-stuck,
 .vd-sticky.is-stuck,
 [data-vd-affix].is-stuck {
-  z-index: var(--affix-z-index);
-  box-shadow: var(--affix-shadow);
+  z-index: var(--vd-affix-z-index);
+  box-shadow: var(--vd-affix-shadow);
 }
 
 /* ========== Variants ========== */

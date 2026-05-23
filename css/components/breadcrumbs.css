@@ -5,35 +5,35 @@
 
 :root {
   /* Breadcrumb Spacing (Fibonacci) */
-  --breadcrumb-padding-y: 0.5rem;     /* 8px - fib */
-  --breadcrumb-padding-x: 0;
-  --breadcrumb-margin-bottom: 0.8125rem; /* 13px - fib */
+  --vd-breadcrumb-padding-y: 0.5rem;     /* 8px - fib */
+  --vd-breadcrumb-padding-x: 0;
+  --vd-breadcrumb-margin-bottom: 0.8125rem; /* 13px - fib */
 
   /* Breadcrumb Separator */
-  --breadcrumb-separator: "/";
-  --breadcrumb-separator-color: var(--vd-text-muted);
-  --breadcrumb-separator-padding: 0.5rem; /* 8px - fib */
+  --vd-breadcrumb-separator: "/";
+  --vd-breadcrumb-separator-color: var(--vd-text-muted);
+  --vd-breadcrumb-separator-padding: 0.5rem; /* 8px - fib */
   
   /* Breadcrumb Colors */
-  --breadcrumb-bg: transparent;
-  --breadcrumb-link-color: var(--vd-color-primary);
-  --breadcrumb-link-hover-color: var(--vd-color-primary-dark);
-  --breadcrumb-active-color: var(--vd-text-secondary);
+  --vd-breadcrumb-bg: transparent;
+  --vd-breadcrumb-link-color: var(--vd-color-primary);
+  --vd-breadcrumb-link-hover-color: var(--vd-color-primary-dark);
+  --vd-breadcrumb-active-color: var(--vd-text-secondary);
 }
 
 /* Dark Theme Overrides - breadcrumbs use CSS variables that already adapt */
-/* No additional overrides needed as --text-secondary and --color-primary update in dark mode */
+/* No additional overrides needed as --vd-text-secondary and --vd-color-primary update in dark mode */
 
 /* Base Breadcrumbs */
 .vd-breadcrumbs,
 .vd-breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  padding: var(--breadcrumb-padding-y) var(--breadcrumb-padding-x);
-  margin-bottom: var(--breadcrumb-margin-bottom);
+  padding: var(--vd-breadcrumb-padding-y) var(--vd-breadcrumb-padding-x);
+  margin-bottom: var(--vd-breadcrumb-margin-bottom);
   list-style: none;
-  background-color: var(--breadcrumb-bg);
-  border-radius: var(--btn-border-radius);
+  background-color: var(--vd-breadcrumb-bg);
+  border-radius: var(--vd-btn-border-radius);
 }
 
 /* Breadcrumb Item */
@@ -43,28 +43,28 @@
 }
 
 .vd-breadcrumb-item + .vd-breadcrumb-item {
-  padding-left: var(--breadcrumb-separator-padding);
+  padding-left: var(--vd-breadcrumb-separator-padding);
 }
 
 .vd-breadcrumb-item + .vd-breadcrumb-item::before {
-  content: var(--breadcrumb-separator);
+  content: var(--vd-breadcrumb-separator);
   display: inline-block;
-  padding-right: var(--breadcrumb-separator-padding);
-  color: var(--breadcrumb-separator-color);
-  font-weight: var(--font-weight-normal);
+  padding-right: var(--vd-breadcrumb-separator-padding);
+  color: var(--vd-breadcrumb-separator-color);
+  font-weight: var(--vd-font-weight-normal);
 }
 
 /* Breadcrumb Link */
 .vd-breadcrumb-link,
 .vd-breadcrumb-item > a {
-  color: var(--breadcrumb-link-color);
+  color: var(--vd-breadcrumb-link-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .vd-breadcrumb-link:hover,
 .vd-breadcrumb-item > a:hover {
-  color: var(--breadcrumb-link-hover-color);
+  color: var(--vd-breadcrumb-link-hover-color);
   text-decoration: underline;
 }
 
@@ -78,12 +78,12 @@
 /* Active/Current Breadcrumb Item */
 .vd-breadcrumb-item.active,
 .vd-breadcrumb-current {
-  color: var(--breadcrumb-active-color);
+  color: var(--vd-breadcrumb-active-color);
 }
 
 .vd-breadcrumb-item.active > a,
 .vd-breadcrumb-current > a {
-  color: var(--breadcrumb-active-color);
+  color: var(--vd-breadcrumb-active-color);
   pointer-events: none;
   cursor: default;
 }
@@ -123,24 +123,24 @@
 
 /* Breadcrumb Sizes */
 .vd-breadcrumb-sm {
-  font-size: var(--font-size-sm);
-  padding: calc(var(--breadcrumb-padding-y) * 0.75) var(--breadcrumb-padding-x);
+  font-size: var(--vd-font-size-sm);
+  padding: calc(var(--vd-breadcrumb-padding-y) * 0.75) var(--vd-breadcrumb-padding-x);
 }
 
 .vd-breadcrumb-lg {
-  font-size: var(--font-size-lg);
-  padding: calc(var(--breadcrumb-padding-y) * 1.25) var(--breadcrumb-padding-x);
+  font-size: var(--vd-font-size-lg);
+  padding: calc(var(--vd-breadcrumb-padding-y) * 1.25) var(--vd-breadcrumb-padding-x);
 }
 
 /* Responsive Behavior */
 @media (max-width: 575.98px) {
   .vd-breadcrumb-item {
-    font-size: var(--font-size-sm);
+    font-size: var(--vd-font-size-sm);
   }
   
   .vd-breadcrumb-item + .vd-breadcrumb-item::before {
-    padding-right: calc(var(--breadcrumb-separator-padding) * 0.75);
-    padding-left: calc(var(--breadcrumb-separator-padding) * 0.75);
+    padding-right: calc(var(--vd-breadcrumb-separator-padding) * 0.75);
+    padding-left: calc(var(--vd-breadcrumb-separator-padding) * 0.75);
   }
 }
 

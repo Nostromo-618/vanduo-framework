@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.0 | Built: 2026-05-20T14:51:00.085Z | git:46420b0 | development */
+/*! Vanduo v1.4.1 | Built: 2026-05-23T09:27:52.907Z | git:4799a84 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -201,7 +201,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.4.0" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.4.1" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,
@@ -2119,7 +2119,7 @@ module.exports = __toCommonJS(index_exports);
         this.caption.style.display = "none";
       }
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+      document.body.style.setProperty("--vd-scrollbar-width", `${scrollbarWidth}px`);
       document.body.classList.add("body-image-box-open");
       this.backdrop.classList.add("is-visible");
       this.backdrop.focus();
@@ -2143,7 +2143,7 @@ module.exports = __toCommonJS(index_exports);
       this.isOpen = false;
       this.backdrop.classList.remove("is-visible");
       document.body.classList.remove("body-image-box-open");
-      document.body.style.removeProperty("--scrollbar-width");
+      document.body.style.removeProperty("--vd-scrollbar-width");
       if (this.currentTrigger) {
         this.currentTrigger.focus();
         this.currentTrigger.dispatchEvent(new CustomEvent("imageBox:close", { bubbles: true }));
@@ -2578,7 +2578,7 @@ module.exports = __toCommonJS(index_exports);
      */
     getBreakpoint: function() {
       const root = getComputedStyle(document.documentElement);
-      const breakpointValue = root.getPropertyValue("--breakpoint-lg").trim();
+      const breakpointValue = root.getPropertyValue("--vd-breakpoint-lg").trim();
       const parsed = parseInt(breakpointValue, 10);
       return isNaN(parsed) ? 992 : parsed;
     },
@@ -3227,7 +3227,7 @@ module.exports = __toCommonJS(index_exports);
       }
       value = Math.max(0, Math.min(100, value));
       if (animate) {
-        el.style.transition = "width var(--transition-duration-slow) var(--transition-ease)";
+        el.style.transition = "width var(--vd-transition-duration-slow) var(--vd-transition-ease)";
       } else {
         el.style.transition = "none";
         setTimeout(() => {
@@ -4503,7 +4503,7 @@ module.exports = __toCommonJS(index_exports);
       }
       this.state.radius = radius;
       document.documentElement.setAttribute("data-radius", radius);
-      document.documentElement.style.setProperty("--radius-scale", radius);
+      document.documentElement.style.setProperty("--vd-radius-scale", radius);
       this.savePreference(this.STORAGE_KEYS.RADIUS, radius);
       this.dispatchEvent("radius-change", { radius });
     },
@@ -4733,11 +4733,11 @@ module.exports = __toCommonJS(index_exports);
       };
       let primarySwatches = "";
       for (const [key, value] of Object.entries(this.PRIMARY_COLORS)) {
-        primarySwatches += `<button class="tc-color-swatch${key === this.state.primary ? " is-active" : ""}" data-color="${esc(key)}" style="--swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"></button>`;
+        primarySwatches += `<button class="tc-color-swatch${key === this.state.primary ? " is-active" : ""}" data-color="${esc(key)}" style="--vd-swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"></button>`;
       }
       let neutralSwatches = "";
       for (const [key, value] of Object.entries(this.NEUTRAL_COLORS)) {
-        neutralSwatches += `<button class="tc-neutral-swatch${key === this.state.neutral ? " is-active" : ""}" data-neutral="${esc(key)}" style="--swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"><span>${esc(value.name)}</span></button>`;
+        neutralSwatches += `<button class="tc-neutral-swatch${key === this.state.neutral ? " is-active" : ""}" data-neutral="${esc(key)}" style="--vd-swatch-color: ${safeColor(value.color)}" title="${esc(value.name)}"><span>${esc(value.name)}</span></button>`;
       }
       let radiusButtons = "";
       this.RADIUS_OPTIONS.forEach((r) => {
@@ -7465,7 +7465,7 @@ module.exports = __toCommonJS(index_exports);
       }
       el.classList.add("is-morphing");
       let duration = MORPH_DURATION_MS;
-      const custom = getComputedStyle(el).getPropertyValue("--morph-duration");
+      const custom = getComputedStyle(el).getPropertyValue("--vd-morph-duration");
       if (custom) {
         const parsed = parseFloat(custom);
         if (!isNaN(parsed)) duration = parsed * (custom.indexOf("ms") !== -1 ? 1 : 1e3);
@@ -8385,7 +8385,7 @@ module.exports = __toCommonJS(index_exports);
       const sentinel = document.createElement("div");
       sentinel.style.cssText = "display:block;height:1px;margin-bottom:-1px;visibility:hidden;pointer-events:none;";
       el.parentNode.insertBefore(sentinel, el);
-      el.style.setProperty("--affix-top-offset", offset + "px");
+      el.style.setProperty("--vd-affix-top-offset", offset + "px");
       function stick() {
         if (isStuck) return;
         isStuck = true;
@@ -8431,7 +8431,7 @@ module.exports = __toCommonJS(index_exports);
         },
         () => {
           el.classList.remove("is-stuck");
-          el.style.removeProperty("--affix-top-offset");
+          el.style.removeProperty("--vd-affix-top-offset");
         }
       );
       this.instances.set(el, { cleanup, observer, sentinel, scrollParent });
@@ -10307,8 +10307,8 @@ module.exports = __toCommonJS(index_exports);
     const max = parseFloat(input.max) || 1;
     const val = parseFloat(input.value) || 0;
     const pct = (val - min) / (max - min) * 100;
-    input.style.setProperty("--fill", pct + "%");
-    input.style.backgroundImage = "linear-gradient(to right, var(--music-player-track-fill, currentColor) 0%, var(--music-player-track-fill, currentColor) " + pct + "%, var(--music-player-track-bg, #ccc) " + pct + "%, var(--music-player-track-bg, #ccc) 100%)";
+    input.style.setProperty("--vd-fill", pct + "%");
+    input.style.backgroundImage = "linear-gradient(to right, var(--vd-music-player-track-fill, currentColor) 0%, var(--vd-music-player-track-fill, currentColor) " + pct + "%, var(--vd-music-player-track-bg, #ccc) " + pct + "%, var(--vd-music-player-track-bg, #ccc) 100%)";
   }
   function icon(name) {
     const el = document.createElement("i");
@@ -10993,8 +10993,8 @@ module.exports = __toCommonJS(index_exports);
         "vd-music-player-floating-bottom-right",
         "is-position-custom"
       );
-      container.style.removeProperty("--music-player-floating-top");
-      container.style.removeProperty("--music-player-floating-left");
+      container.style.removeProperty("--vd-music-player-floating-top");
+      container.style.removeProperty("--vd-music-player-floating-left");
       if (r && r.parent && r.parent.isConnected) {
         r.parent.insertBefore(container, r.next);
       }
@@ -11086,8 +11086,8 @@ module.exports = __toCommonJS(index_exports);
      */
     _setCornerPosition: function(container, which) {
       container.classList.remove("is-position-custom", "vd-music-player-floating-bottom-left", "vd-music-player-floating-bottom-right");
-      container.style.removeProperty("--music-player-floating-top");
-      container.style.removeProperty("--music-player-floating-left");
+      container.style.removeProperty("--vd-music-player-floating-top");
+      container.style.removeProperty("--vd-music-player-floating-left");
       if (which === "bottom-left") {
         container.classList.add("vd-music-player-floating-bottom-left");
       } else {
@@ -11102,8 +11102,8 @@ module.exports = __toCommonJS(index_exports);
     _setCustomPositionFromRect: function(container, left, top) {
       container.classList.remove("vd-music-player-floating-bottom-left", "vd-music-player-floating-bottom-right");
       container.classList.add("is-position-custom");
-      container.style.setProperty("--music-player-floating-left", left + "px");
-      container.style.setProperty("--music-player-floating-top", top + "px");
+      container.style.setProperty("--vd-music-player-floating-left", left + "px");
+      container.style.setProperty("--vd-music-player-floating-top", top + "px");
     },
     /**
      * @param {HTMLElement} container

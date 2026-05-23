@@ -80,6 +80,38 @@ test.describe('Modal Component @component', () => {
       expect(layerInfo.modalZ).toBeGreaterThan(layerInfo.backdropZ);
       expect(layerInfo.centered).toBe(true);
     });
+
+    test('dialog-level size modifiers render distinct desktop widths', async ({ page }) => {
+      const viewport = page.viewportSize();
+      test.skip(!viewport || viewport.width < 992, 'Desktop width tiers collapse on narrow viewports by design.');
+
+      const measureDialogWidth = async (triggerSelector: string, modalSelector: string) => {
+        await page.click(triggerSelector);
+        await expect(page.locator(modalSelector)).toHaveClass(/is-open/);
+
+        const width = await page.locator(`${modalSelector} .vd-modal-dialog`).evaluate((node) => {
+          return Math.round(node.getBoundingClientRect().width);
+        });
+
+        await page.keyboard.press('Escape');
+        await expect(page.locator(modalSelector)).not.toHaveClass(/is-open/);
+
+        return width;
+      };
+
+      const defaultWidth = await measureDialogWidth('[data-modal="#test-modal"]', '#test-modal');
+      const smallWidth = await measureDialogWidth('[data-modal="#size-modal-sm"]', '#size-modal-sm');
+      const largeWidth = await measureDialogWidth('[data-modal="#size-modal-lg"]', '#size-modal-lg');
+      const extraLargeWidth = await measureDialogWidth('[data-modal="#size-modal-xl"]', '#size-modal-xl');
+
+      expect(smallWidth).toBeLessThan(defaultWidth);
+      expect(defaultWidth).toBeLessThan(largeWidth);
+      expect(largeWidth).toBeLessThan(extraLargeWidth);
+
+      expect(defaultWidth - smallWidth).toBeGreaterThanOrEqual(120);
+      expect(largeWidth - defaultWidth).toBeGreaterThanOrEqual(180);
+      expect(extraLargeWidth - largeWidth).toBeGreaterThanOrEqual(300);
+    });
   });
 
   test.describe('Closing', () => {

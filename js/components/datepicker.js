@@ -128,6 +128,32 @@
     return x;
   }
 
+  function positionAnchoredPopup(anchor, popup, gap) {
+    const padding = 8;
+    const offset = gap != null ? gap : 4;
+    const rect = anchor.getBoundingClientRect();
+
+    popup.style.minWidth = Math.max(rect.width, 0) + 'px';
+
+    let top = rect.bottom + offset;
+    let left = rect.left;
+    popup.style.top = top + 'px';
+    popup.style.left = left + 'px';
+
+    const popRect = popup.getBoundingClientRect();
+    if (popRect.bottom > window.innerHeight - padding && rect.top - popRect.height > padding) {
+      top = rect.top - popRect.height - offset;
+      popup.style.top = top + 'px';
+    }
+
+    const alignedRect = popup.getBoundingClientRect();
+    left = rect.left;
+    if (left + alignedRect.width > window.innerWidth - padding) {
+      left = window.innerWidth - alignedRect.width - padding;
+    }
+    popup.style.left = Math.max(padding, left) + 'px';
+  }
+
   const Datepicker = {
     instances: new Map(),
 
@@ -221,7 +247,7 @@
       wrapper.style.display = 'inline-block';
       input.parentNode.insertBefore(wrapper, input);
       wrapper.appendChild(input);
-      wrapper.appendChild(popup);
+      document.body.appendChild(popup);
 
       const isSameDay = (a, b) => a && b &&
         a.getFullYear() === b.getFullYear() &&
@@ -442,6 +468,10 @@
           }
           popup.appendChild(grid);
         }
+
+        if (popup.classList.contains('is-open')) {
+          requestAnimationFrame(positionPopup);
+        }
       };
 
       const handleGridKeydown = (e) => {
@@ -523,6 +553,15 @@
         requestAnimationFrame(focusFocusedDay);
       };
 
+      const positionPopup = () => {
+        if (!popup.classList.contains('is-open')) return;
+        positionAnchoredPopup(input, popup);
+      };
+
+      const repositionHandler = () => {
+        positionPopup();
+      };
+
       const open = () => {
         viewMode = 'days';
         if (selectedDate) {
@@ -542,7 +581,10 @@
         render();
         popup.classList.add('is-open');
         input.setAttribute('aria-expanded', 'true');
-        requestAnimationFrame(focusFocusedDay);
+        requestAnimationFrame(() => {
+          positionPopup();
+          focusFocusedDay();
+        });
       };
 
       const close = () => {
@@ -559,7 +601,7 @@
         open();
       };
       const outsideHandler = (e) => {
-        if (!wrapper.contains(e.target)) close();
+        if (!input.contains(e.target) && !popup.contains(e.target)) close();
       };
       const escHandler = (e) => {
         if (e.key === 'Escape' && popup.classList.contains('is-open')) {
@@ -573,6 +615,8 @@
       document.addEventListener('click', outsideHandler, true);
       document.addEventListener('keydown', escHandler);
       popup.addEventListener('keydown', handleGridKeydown);
+      window.addEventListener('resize', repositionHandler);
+      window.addEventListener('scroll', repositionHandler, true);
 
       input.setAttribute('aria-haspopup', 'dialog');
       input.setAttribute('aria-expanded', 'false');
@@ -582,7 +626,10 @@
         () => input.removeEventListener('focus', focusHandler),
         () => document.removeEventListener('click', outsideHandler, true),
         () => document.removeEventListener('keydown', escHandler),
-        () => popup.removeEventListener('keydown', handleGridKeydown)
+        () => popup.removeEventListener('keydown', handleGridKeydown),
+        () => window.removeEventListener('resize', repositionHandler),
+        () => window.removeEventListener('scroll', repositionHandler, true),
+        () => popup.remove()
       );
 
       this.instances.set(input, { cleanup: cleanup, open: open, close: close, popup: popup });

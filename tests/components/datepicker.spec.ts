@@ -5,7 +5,17 @@
  * Covers: rendering, calendar display, day selection, month/year nav, ARIA, pre-selected
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page, type Locator } from '@playwright/test';
+
+/** Open #date-basic and return the visible popup (fixture has multiple instances). */
+async function openBasicDatepicker(page: Page): Promise<Locator> {
+  const input = page.locator('#date-basic');
+  await input.scrollIntoViewIfNeeded();
+  await input.focus();
+  const popup = page.locator('.vd-datepicker-popup.is-open');
+  await expect(popup).toBeVisible();
+  return popup;
+}
 
 test.describe('Datepicker Component @component', () => {
   test.beforeEach(async ({ page }) => {
@@ -28,11 +38,7 @@ test.describe('Datepicker Component @component', () => {
 
   test.describe('Calendar Display', () => {
     test('opens calendar on focus', async ({ page }) => {
-      await page.click('#date-basic');
-      await page.waitForTimeout(200);
-
-      const popup = page.locator('.vd-datepicker-popup.is-open');
-      await expect(popup.first()).toBeVisible();
+      await openBasicDatepicker(page);
     });
 
     test('shows weekday headers', async ({ page }) => {
@@ -64,30 +70,29 @@ test.describe('Datepicker Component @component', () => {
 
   test.describe('Day Selection', () => {
     test('clicking a day selects it and closes popup', async ({ page }) => {
-      await page.click('#date-basic');
-      await page.waitForTimeout(200);
+      const popup = await openBasicDatepicker(page);
 
-      const day15 = page.locator('.vd-datepicker-day:not(.is-outside):not(.is-disabled)').filter({ hasText: /^15$/ });
+      const day15 = popup
+        .locator('.vd-datepicker-day:not(.is-outside):not(.is-disabled)')
+        .filter({ hasText: /^15$/ });
       await day15.first().click();
       await page.waitForTimeout(200);
 
       const value = await page.locator('#date-basic').inputValue();
       expect(value).toContain('15');
 
-      const popup = page.locator('.vd-datepicker-popup.is-open');
-      await expect(popup).toHaveCount(0);
+      await expect(page.locator('.vd-datepicker-popup.is-open')).toHaveCount(0);
     });
   });
 
   test.describe('Month Navigation', () => {
     test('next button advances month', async ({ page }) => {
-      await page.click('#date-basic');
-      await page.waitForTimeout(200);
+      const popup = await openBasicDatepicker(page);
 
-      const title = page.locator('.vd-datepicker-title').first();
+      const title = popup.locator('.vd-datepicker-title');
       const initialText = await title.textContent();
 
-      await page.locator('.vd-datepicker-next').first().click();
+      await popup.locator('.vd-datepicker-next').click();
       await page.waitForTimeout(100);
 
       const newText = await title.textContent();
@@ -156,8 +161,11 @@ test.describe('Datepicker Component @component', () => {
 
   test.describe('Keyboard navigation', () => {
     test('ArrowRight then Enter selects focused date', async ({ page }) => {
-      await page.click('#date-basic');
-      await page.waitForTimeout(200);
+      const popup = await openBasicDatepicker(page);
+
+      const focusedDay = popup.locator('.vd-datepicker-day[tabindex="0"]');
+      await expect(focusedDay).toBeVisible();
+      await focusedDay.focus();
 
       await page.keyboard.press('ArrowRight');
       await page.waitForTimeout(100);

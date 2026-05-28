@@ -7,17 +7,6 @@
   'use strict';
 
   /**
-   * Escape HTML entities to prevent XSS when inserting into innerHTML
-   * @param {string} text
-   * @returns {string}
-   */
-  function _escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  /**
    * Allow same-origin URLs by default, or an explicit allowlist of origins.
    * @param {string} url
    * @param {string[]} allowlist
@@ -109,10 +98,24 @@
 
           const text = typeof item === 'object' ? (item.label || item.text || String(item)) : String(item);
           if (query) {
-            // Escape HTML first to prevent XSS, then highlight matches in the safe string
-            const escaped = _escapeHtml(text);
-            const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-            li.innerHTML = escaped.replace(re, '<span class="vd-suggest-match">$1</span>');
+            const lowerText = text.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+            let start = 0;
+            let matchIndex = lowerText.indexOf(lowerQuery, start);
+            while (matchIndex !== -1) {
+              if (matchIndex > start) {
+                li.appendChild(document.createTextNode(text.slice(start, matchIndex)));
+              }
+              const matchSpan = document.createElement('span');
+              matchSpan.className = 'vd-suggest-match';
+              matchSpan.textContent = text.slice(matchIndex, matchIndex + query.length);
+              li.appendChild(matchSpan);
+              start = matchIndex + query.length;
+              matchIndex = lowerText.indexOf(lowerQuery, start);
+            }
+            if (start < text.length) {
+              li.appendChild(document.createTextNode(text.slice(start)));
+            }
           } else {
             li.textContent = text;
           }

@@ -9,9 +9,13 @@ import { test, expect } from '@playwright/test';
 test.describe('VdHexGrid @e2e', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/tests/fixtures/hex-harness.html');
+    await page.waitForFunction(
+      () => typeof window.resetGrid === 'function' && window.hexMath && window.hexMath.hexToPixel,
+    );
     await page.evaluate(() => {
       window.resetGrid({ width: 6, height: 4, size: 24 });
     });
+    await page.waitForFunction(() => window.grid && typeof window.grid.getHexCount === 'function');
   });
 
   test('initializes grid and exposes expected base state', async ({ page }) => {

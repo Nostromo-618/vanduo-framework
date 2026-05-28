@@ -566,19 +566,65 @@
      * @returns {string} HTML with syntax highlighting spans
      */
     highlightHtml: function (html) {
-      // Highlight HTML tags
-      html = html.replace(/(&lt;\/?)([\w-]+)/g, '$1<span class="code-tag">$2</span>');
-
-      // Highlight attributes
-      html = html.replace(/([\w-]+)(=)(["'])/g, '<span class="code-attr">$1</span>$2$3');
-      html = html.replace(/([\w-]+)(=)(&quot;|&#39;)/g, '<span class="code-attr">$1</span>$2$3');
-
-      // Highlight attribute values (strings)
-      html = html.replace(/(["'])([^"']*)(["'])/g, '$1<span class="code-string">$2</span>$3');
-      html = html.replace(/(&quot;|&#39;)([^&]*)(&quot;|&#39;)/g, '$1<span class="code-string">$2</span>$3');
-
-      // Highlight comments
+      // Comments first so tag highlighting does not treat them as elements.
       html = html.replace(/(&lt;!--)(.*?)(--&gt;)/g, '<span class="code-comment">$1$2$3</span>');
+
+      // Only highlight inside escaped HTML tags. Build the highlighted tag from the
+      // original escaped source so regexes never re-process our injected spans.
+      html = html.replace(/&lt;(?!--)([\s\S]*?)&gt;/g, function (match, inner) {
+        const closingMatch = inner.match(/^(\/)([\w-]+)\s*$/);
+        if (closingMatch) {
+          return '&lt;'
+            + closingMatch[1]
+            + '<span class="code-tag">' + closingMatch[2] + '</span>'
+            + '&gt;';
+        }
+
+        const selfClosingMatch = inner.match(/(\s*\/)\s*$/);
+        const selfClosingSuffix = selfClosingMatch ? selfClosingMatch[1] : '';
+        const tagSource = selfClosingMatch
+          ? inner.slice(0, inner.length - selfClosingMatch[0].length)
+          : inner;
+        const openMatch = tagSource.match(/^([\w-]+)([\s\S]*)$/);
+
+        if (!openMatch) {
+          return match;
+        }
+
+        const tagName = openMatch[1];
+        let attrSource = openMatch[2];
+
+        attrSource = attrSource.replace(
+          /([\w:-]+)(\s*=\s*)(["'])([\s\S]*?)\3/g,
+          function (attrMatch, attrName, separator, quote, value) {
+            return '<span class="code-attr">' + attrName + '</span>'
+              + separator
+              + quote
+              + '<span class="code-string">' + value + '</span>'
+              + quote;
+          }
+        );
+
+        attrSource = attrSource.replace(
+          /([\w:-]+)(\s*=\s*)(&quot;|&#39;)([\s\S]*?)(&quot;|&#39;)/g,
+          function (attrMatch, attrName, separator, openQuote, value, closeQuote) {
+            if (openQuote !== closeQuote) {
+              return attrMatch;
+            }
+
+            return '<span class="code-attr">' + attrName + '</span>'
+              + separator
+              + openQuote
+              + '<span class="code-string">' + value + '</span>'
+              + closeQuote;
+          }
+        );
+
+        return '&lt;<span class="code-tag">' + tagName + '</span>'
+          + attrSource
+          + selfClosingSuffix
+          + '&gt;';
+      });
 
       return html;
     },
@@ -613,6 +659,20 @@
      * @returns {string} JS with syntax highlighting spans
      */
     highlightJs: function (js) {
+      const protectedTokens = [];
+      const protectToken = (value, className) => {
+        const marker = String.fromCharCode(0xE000 + protectedTokens.length);
+        protectedTokens.push({ marker, html: '<span class="' + className + '">' + value + '</span>' });
+        return marker;
+      };
+
+      // Protect comments and strings before adding markup so later passes never
+      // re-highlight attributes inside the generated spans.
+      js = js.replace(
+        /\/\*[\s\S]*?\*\/|\/\/.*$|'(?:[^'\\]|\\.){0,10000}'|"(?:[^"\\]|\\.){0,10000}"|`(?:[^`\\]|\\.){0,10000}`/gm,
+        match => protectToken(match, match.startsWith('/') ? 'code-comment' : 'code-string')
+      );
+
       // Highlight keywords
       const keywords = ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'continue', 'new', 'this', 'class', 'extends', 'import', 'export', 'default', 'async', 'await', 'try', 'catch', 'throw', 'typeof', 'instanceof'];
       keywords.forEach(kw => {
@@ -620,18 +680,15 @@
         js = js.replace(regex, '<span class="code-keyword">$1</span>');
       });
 
-      // Highlight strings (limit to 10 000 chars to prevent polynomial backtracking)
-      js = js.replace(/('(?:[^'\\]|\\.){0,10000}'|"(?:[^"\\]|\\.){0,10000}"|`(?:[^`\\]|\\.){0,10000}`)/g, '<span class="code-string">$1</span>');
-
       // Highlight numbers
       js = js.replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');
 
       // Highlight function calls
       js = js.replace(/\b([\w]+)(\s*\()/g, '<span class="code-function">$1</span>$2');
 
-      // Highlight comments
-      js = js.replace(/(\/\/.*$)/gm, '<span class="code-comment">$1</span>');
-      js = js.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
+      protectedTokens.forEach(token => {
+        js = js.replace(token.marker, token.html);
+      });
 
       return js;
     },

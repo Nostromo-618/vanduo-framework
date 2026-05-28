@@ -181,6 +181,8 @@
       let focusedDate = null;
       /** Prevents focus() after close from immediately re-opening the popup */
       let skipNextFocusOpen = false;
+      /** Ignore outside-click closes briefly after open (mobile click/focus ordering). */
+      let ignoreOutsideUntil = 0;
 
       const isDisabled = (d) => {
         if (minDate) {
@@ -562,7 +564,12 @@
         positionPopup();
       };
 
+      const markIgnoreOutside = () => {
+        ignoreOutsideUntil = Date.now() + 100;
+      };
+
       const open = () => {
+        markIgnoreOutside();
         viewMode = 'days';
         if (selectedDate) {
           viewYear = selectedDate.getFullYear();
@@ -600,8 +607,25 @@
         }
         open();
       };
+      /** Mobile browsers may not focus the input before the click event (Playwright too). */
+      const clickHandler = () => {
+        if (!popup.classList.contains('is-open')) open();
+      };
+
+      const isOpenAnchorTarget = (target) => {
+        if (!target || !(target instanceof Node)) return false;
+        if (target === input || input.contains(target) || popup.contains(target)) return true;
+        const inputId = input.id;
+        if (inputId) {
+          const label = document.querySelector('label[for="' + inputId.replace(/"/g, '\\"') + '"]');
+          if (label && (target === label || label.contains(target))) return true;
+        }
+        return false;
+      };
+
       const outsideHandler = (e) => {
-        if (!input.contains(e.target) && !popup.contains(e.target)) close();
+        if (Date.now() < ignoreOutsideUntil) return;
+        if (!isOpenAnchorTarget(e.target)) close();
       };
       const escHandler = (e) => {
         if (e.key === 'Escape' && popup.classList.contains('is-open')) {
@@ -612,6 +636,7 @@
       };
 
       input.addEventListener('focus', focusHandler);
+      input.addEventListener('click', clickHandler);
       document.addEventListener('click', outsideHandler, true);
       document.addEventListener('keydown', escHandler);
       popup.addEventListener('keydown', handleGridKeydown);
@@ -624,6 +649,7 @@
 
       cleanup.push(
         () => input.removeEventListener('focus', focusHandler),
+        () => input.removeEventListener('click', clickHandler),
         () => document.removeEventListener('click', outsideHandler, true),
         () => document.removeEventListener('keydown', escHandler),
         () => popup.removeEventListener('keydown', handleGridKeydown),

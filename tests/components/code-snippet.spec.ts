@@ -379,6 +379,43 @@ test.describe('Code Snippet Component @component', () => {
       await expect(cssTab).toHaveClass(/is-active/);
       await expect(cssPane).toHaveClass(/is-active/);
     });
+
+    test('highlights plain import snippets without corrupting generated span attributes', async ({ page }) => {
+      const source = `import VanduoMusicPlayer from '@vanduo-oss/music-player';
+import '@vanduo-oss/music-player/css';
+
+VanduoMusicPlayer.initPlayer(el, { tracks });`;
+
+      const result = await page.evaluate((codeSource) => {
+        const host = document.createElement('div');
+        host.innerHTML = `
+          <div class="vd-code-snippet" id="music-import-snippet" data-expanded="true">
+            <div class="vd-code-snippet-content" data-visible="true">
+              <pre class="vd-code-snippet-pane is-active" data-lang="js"><code></code></pre>
+            </div>
+          </div>
+        `;
+
+        const snippet = host.firstElementChild as HTMLElement;
+        const code = snippet.querySelector('code') as HTMLElement;
+        code.textContent = codeSource;
+        document.body.appendChild(snippet);
+
+        (window as any).CodeSnippet.initSnippet(snippet);
+
+        return {
+          html: code.innerHTML,
+          text: code.textContent || '',
+        };
+      }, source);
+
+      expect(result.text).toBe(source);
+      expect(result.text).not.toContain('"code-keyword">');
+      expect(result.html).toContain('<span class="code-keyword">import</span> VanduoMusicPlayer from');
+      expect(result.html).toContain('<span class="code-string">\'@vanduo-oss/music-player/css\'</span>');
+      expect(result.html).not.toContain('<span class=<span');
+      expect(result.html).not.toContain('code-string">"code-keyword"');
+    });
   });
 
   test.describe('HTML Extraction', () => {
@@ -390,6 +427,23 @@ test.describe('Code Snippet Component @component', () => {
       const content = await code.textContent();
       expect(content).toContain('Demo Button');
       expect(content).toContain('btn');
+    });
+  });
+
+  test.describe('HTML Syntax Highlighting', () => {
+    test('highlightHtml does not corrupt its own span markup', async ({ page }) => {
+      const highlighted = await page.evaluate(() => {
+        const cs = (window as any).CodeSnippet;
+        const escaped = cs.escapeHtml('<div class="vd-glass" style="padding: 1rem"><code>.vd-glass</code></div>');
+        return cs.highlightHtml(escaped);
+      });
+
+      expect(highlighted).toContain('&lt;<span class="code-tag">div</span>');
+      expect(highlighted).toContain('<span class="code-attr">class</span>="<span class="code-string">vd-glass</span>"');
+      expect(highlighted).toContain('<span class="code-attr">style</span>="<span class="code-string">padding: 1rem</span>"');
+      expect(highlighted).not.toContain('code-attr">class="code-tag"');
+      expect(highlighted).not.toContain('<code-attr');
+      expect(highlighted).not.toContain('$3');
     });
   });
 });

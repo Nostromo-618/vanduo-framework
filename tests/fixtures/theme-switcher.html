@@ -10,6 +10,27 @@
   <div class="container">
     <h1>Theme Switcher Test Fixture</h1>
 
+    <!-- Menu-based Theme Switcher -->
+    <div class="form-group">
+      <label>Menu Theme Switcher</label>
+      <div class="vd-theme-switcher vd-theme-switcher-menu-end" data-theme-ui="menu" id="theme-menu">
+        <button type="button" class="vd-theme-switcher-toggle" aria-label="Theme: System" data-tooltip="Theme: System">
+          <i class="ph ph-desktop" data-theme-icon aria-hidden="true"></i>
+        </button>
+        <div class="vd-theme-switcher-menu" role="menu" aria-hidden="true">
+          <button type="button" role="menuitemradio" data-theme-value="system" data-tooltip="Use system preference" aria-checked="true">
+            <i class="ph ph-desktop" aria-hidden="true"></i>
+          </button>
+          <button type="button" role="menuitemradio" data-theme-value="light" data-tooltip="Light theme" aria-checked="false">
+            <i class="ph ph-sun" aria-hidden="true"></i>
+          </button>
+          <button type="button" role="menuitemradio" data-theme-value="dark" data-tooltip="Dark theme" aria-checked="false">
+            <i class="ph ph-moon" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Select-based Theme Toggle -->
     <div class="form-group">
       <label for="theme-select">Select Theme</label>

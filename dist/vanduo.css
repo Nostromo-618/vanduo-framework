@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.3 | Built: 2026-05-28T13:14:25.371Z | git:02ef7f6 | development */
+/*! Vanduo v1.4.4 | Built: 2026-06-07T19:14:20.877Z | git:781df0d | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -61282,6 +61282,122 @@ body > .vd-theme-customizer-panel.is-open {
 .customizer-reset:focus-visible {
   outline: 2px solid var(--vd-color-primary);
   outline-offset: 1px;
+}
+
+:root {
+  --vd-theme-switcher-menu-bg: var(--vd-color-white);
+  --vd-theme-switcher-menu-border-color: var(--vd-border-color);
+  --vd-theme-switcher-option-hover-bg: var(--vd-bg-secondary);
+  --vd-theme-switcher-option-active-bg: var(--vd-color-primary-alpha-10);
+  --vd-theme-switcher-option-active-color: var(--vd-color-primary);
+  --vd-theme-switcher-z-index: 1000;
+}
+
+[data-theme="dark"] {
+  --vd-theme-switcher-menu-bg: var(--vd-bg-primary);
+  --vd-theme-switcher-option-hover-bg: var(--vd-bg-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --vd-theme-switcher-menu-bg: var(--vd-bg-primary);
+    --vd-theme-switcher-option-hover-bg: var(--vd-bg-secondary);
+  }
+}
+
+.vd-theme-switcher {
+  display: inline-block;
+  position: relative;
+}
+
+.vd-theme-switcher-toggle {
+  border: 1px solid var(--vd-border-color);
+  border-radius: var(--vd-btn-border-radius, var(--vd-card-border-radius));
+  width: 2.375rem;
+  height: 2.375rem;
+  color: var(--vd-text-secondary);
+  cursor: pointer;
+  background: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: color .2s, border-color .2s, background .2s;
+  display: inline-flex;
+}
+
+.vd-theme-switcher-toggle:hover, .vd-theme-switcher-toggle:focus-visible {
+  color: var(--vd-color-primary);
+  border-color: var(--vd-color-primary);
+  background: var(--vd-color-primary-alpha-10);
+  outline: none;
+}
+
+.vd-theme-switcher-menu {
+  z-index: var(--vd-theme-switcher-z-index);
+  background: var(--vd-theme-switcher-menu-bg, #fff);
+  border: 1px solid var(--vd-theme-switcher-menu-border-color);
+  border-radius: var(--vd-btn-border-radius, var(--vd-card-border-radius));
+  min-width: auto;
+  box-shadow: var(--vd-shadow-lg);
+  isolation: isolate;
+  -webkit-backdrop-filter: none;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility var(--vd-transition-duration-base, .2s) var(--vd-transition-ease, ease),
+              transform var(--vd-transition-duration-base, .2s) var(--vd-transition-ease, ease);
+  flex-direction: column;
+  gap: .25rem;
+  margin: 0;
+  padding: .375rem;
+  list-style: none;
+  display: none;
+  position: absolute;
+  top: calc(100% + .375rem);
+  left: 0;
+  transform: translateY(-6px);
+}
+
+.vd-theme-switcher-menu-end .vd-theme-switcher-menu, .vd-theme-switcher.vd-theme-switcher-menu-end .vd-theme-switcher-menu {
+  left: auto;
+  right: 0;
+}
+
+.vd-theme-switcher.is-open .vd-theme-switcher-menu, .vd-theme-switcher-menu.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  display: flex;
+  transform: translateY(0);
+}
+
+.vd-theme-switcher-option, .vd-theme-switcher-menu [data-theme-value] {
+  border-radius: var(--vd-btn-border-radius-sm, var(--vd-radius-fib-3));
+  width: 2.375rem;
+  height: 2.375rem;
+  color: var(--vd-text-secondary);
+  cursor: pointer;
+  background: none;
+  border: 1px solid #0000;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: color .2s, background .2s, border-color .2s;
+  display: inline-flex;
+}
+
+.vd-theme-switcher-option:hover, .vd-theme-switcher-option:focus-visible, .vd-theme-switcher-menu [data-theme-value]:hover, .vd-theme-switcher-menu [data-theme-value]:focus-visible {
+  color: var(--vd-text-primary);
+  background: var(--vd-theme-switcher-option-hover-bg);
+  outline: none;
+}
+
+.vd-theme-switcher-option.is-active, .vd-theme-switcher-menu [data-theme-value].is-active {
+  color: var(--vd-theme-switcher-option-active-color);
+  background: var(--vd-theme-switcher-option-active-bg);
+  border-color: var(--vd-color-primary-alpha-20, transparent);
 }
 
 :root {

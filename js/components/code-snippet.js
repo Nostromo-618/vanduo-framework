@@ -69,9 +69,10 @@
       const snippets = this.queryWithin(root, '.vd-code-snippet');
 
       snippets.forEach(snippet => {
-        if (!snippet.dataset.initialized) {
-          this.initSnippet(snippet);
+        if (snippet.dataset.initialized === 'true') {
+          return;
         }
+        this.initSnippet(snippet);
       });
     },
 
@@ -80,7 +81,9 @@
      * @param {HTMLElement} snippet - Code snippet container element
      */
     initSnippet: function (snippet) {
-      snippet.dataset.initialized = 'true';
+      if (snippet.dataset.initialized === 'true') {
+        return;
+      }
       snippet._codeSnippetCleanup = [];
 
       // Handle collapsible toggle
@@ -121,6 +124,8 @@
       lineNumberPanes.forEach(pane => {
         this.addLineNumbers(pane);
       });
+
+      snippet.dataset.initialized = 'true';
     },
 
     /**
@@ -132,14 +137,15 @@
     initCollapsible: function (snippet, toggle, content) {
       // Set initial state
       const isExpanded = snippet.dataset.expanded === 'true';
-      toggle.setAttribute('aria-expanded', isExpanded);
-      content.dataset.visible = isExpanded;
+      toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      content.dataset.visible = isExpanded ? 'true' : 'false';
 
       this.addListener(snippet, toggle, 'click', () => {
         const expanded = snippet.dataset.expanded === 'true';
-        snippet.dataset.expanded = !expanded;
-        toggle.setAttribute('aria-expanded', !expanded);
-        content.dataset.visible = !expanded;
+        const nextExpanded = !expanded;
+        snippet.dataset.expanded = nextExpanded ? 'true' : 'false';
+        toggle.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
+        content.dataset.visible = nextExpanded ? 'true' : 'false';
 
         // Extract HTML on first expand if needed
         if (!expanded) {

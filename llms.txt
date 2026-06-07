@@ -1,6 +1,6 @@
-# Vanduo Framework v1.4.3 — LLM Context
+# Vanduo Framework v1.4.4 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.4.3 ships **46+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.4.4 ships **46+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -57,8 +57,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.3/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.3/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.4/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.4/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -104,6 +104,20 @@ Theme Customizer writes attributes to `<html>`:
 These values persist via `localStorage`.
 
 When Theme Switcher and Theme Customizer are both present, they share `vanduo-theme-preference` and Theme Customizer only swaps between `PRIMARY_LIGHT` and `PRIMARY_DARK` while the active primary color is still on the per-theme default.
+
+### Theme Switcher (v1.4.4)
+
+Three UI variants share the same preference key (`vanduo-theme-preference`):
+
+1. **Menu (recommended for navbars)** — `.vd-theme-switcher[data-theme-ui="menu"]`
+   - Toggle (`.vd-theme-switcher-toggle`) opens an icon-only menu (`.vd-theme-switcher-menu`) without changing theme
+   - Options use `data-theme-value="system|light|dark"` and `role="menuitemradio"`
+   - Add `.vd-theme-switcher-menu-end` to right-align the menu in navbars
+   - Optional `data-tooltip` on toggle/options when Tooltips component is loaded
+2. **Cycle button** — `button[data-toggle="theme"]` outside a menu wrapper cycles system → light → dark → system
+3. **Select** — `select[data-toggle="theme"]` sets preference on change
+
+Persistence: `localStorage` key `vanduo-theme-preference` (`system`, `light`, or `dark`).
 
 ---
 
@@ -221,7 +235,7 @@ When Theme Switcher and Theme Customizer are both present, they share `vanduo-th
 | Component | CSS Class | JS Module | Notes |
 |---|---|---|---|
 | Theme Customizer | `.vd-theme-customizer` | `theme-customizer` | Runtime theming UI with primary/neutral/radius/font/theme controls; coordinates with Theme Switcher when both are loaded |
-| Theme Switcher | — | `theme-switcher` | Light/dark/system toggle with shared theme preference |
+| Theme Switcher | `.vd-theme-switcher` | `theme-switcher` | Light/dark/system; menu variant (v1.4.4), cycle button, or select; shared `vanduo-theme-preference` |
 | Font Switcher | — | `font-switcher` | Font family swap |
 | Doc Search | `.vd-doc-search` | `doc-search` | Documentation search modal |
 | Grid Toggle | — | `grid` | Fibonacci/standard layout switch |
@@ -335,6 +349,9 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `data-modal="#id"` / `data-dismiss="modal"`
 - `data-tooltip="text"` / `data-tooltip-placement="top|right|bottom|left"`
 - `data-toggle="theme"` / `data-toggle="font"`
+- `data-theme-ui="menu"` — on `.vd-theme-switcher`; enables icon menu variant
+- `data-theme-value="system|light|dark"` — menu option value
+- `data-theme-icon` — icon element updated by Theme Switcher `updateUI()`
 - `data-collapsible`
 - `data-grid-toggle="#selector"`
 - `data-theme-customizer-trigger`
@@ -421,6 +438,9 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 ### Spotlight
 `.vd-spotlight-overlay`, `.vd-spotlight-tooltip`, `.vd-spotlight-target`
 
+### Theme Switcher (v1.4.4)
+`.vd-theme-switcher`, `.vd-theme-switcher-toggle`, `.vd-theme-switcher-menu`, `.vd-theme-switcher-menu-end`, `.is-open` (menu open), `.is-active` (selected option)
+
 ---
 
 ## Key Files
@@ -432,6 +452,8 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `css/effects/glass.css` — frosted glass effect system (new in v1.3.4)
 - `css/effects/morph.css` — water morph effect (new in v1.3.5)
 - `css/components/expanding-cards.css` — expanding flex image strip (new in v1.3.8, MIT CodePen adaptation)
+- `css/components/theme-switcher.css` — Theme Switcher menu layout and active states (new in v1.4.4)
+- `js/components/theme-switcher.js` — menu/cycle/select variants, keyboard nav, ThemeCustomizer coordination (v1.4.4 menu)
 - `js/components/glass.js` — scroll-activated glass via IntersectionObserver (new in v1.3.4)
 - `js/components/morph.js` — water morph click handler and programmatic API (new in v1.3.5)
 - `js/components/expanding-cards.js` — expanding cards click + keyboard focus (new in v1.3.8)
@@ -455,10 +477,13 @@ Phosphor Icons are bundled locally:
 
 - Tests use **Playwright Test** only (`@playwright/test`).
 - Main scripts (from package.json):
-  - `pnpm test` – full Playwright suite
+  - `pnpm test` – full Playwright suite (run locally before release)
   - `pnpm test:a11y` – accessibility-focused tests (`@a11y` tag)
   - `pnpm test:mobile`, `pnpm test:desktop` – viewport-specific runs
   - `pnpm test:chromium`, `pnpm test:firefox`, `pnpm test:webkit` – engine-specific runs
+- CI tiers (`.github/workflows/tests.yml`):
+  - **Pull requests:** Chromium Desktop smoke only (`pr-smoke-tests`)
+  - **Push to main / workflow_dispatch:** full cross-browser matrix + tablet + `@a11y`
 - Configuration:
   - `playwright.config.ts` defines desktop, mobile, and tablet projects.
   - Local server uses Python's `http.server` to serve the repo at `http://localhost:8787`.

@@ -78,6 +78,72 @@ test.describe('Theme Switcher Component @component', () => {
     });
   });
 
+  test.describe('Menu Variant', () => {
+    test('toggle opens menu without changing theme', async ({ page }) => {
+      await page.locator('#theme-select').selectOption('dark');
+      await page.waitForTimeout(50);
+
+      const themeBefore = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(themeBefore).toBe('dark');
+
+      const menuToggle = page.locator('#theme-menu .vd-theme-switcher-toggle');
+      await menuToggle.click();
+
+      const menu = page.locator('#theme-menu .vd-theme-switcher-menu');
+      await expect(menu).toHaveClass(/is-open/);
+      await expect(menuToggle).toHaveAttribute('aria-expanded', 'true');
+
+      const themeAfter = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(themeAfter).toBe('dark');
+    });
+
+    test('selects light from menu', async ({ page }) => {
+      await page.locator('#theme-select').selectOption('system');
+      await page.waitForTimeout(50);
+
+      await page.locator('#theme-menu .vd-theme-switcher-toggle').click();
+      await page.locator('#theme-menu [data-theme-value="light"]').click();
+
+      const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(theme).toBe('light');
+
+      await expect(page.locator('#theme-menu [data-theme-value="light"]')).toHaveClass(/is-active/);
+      await expect(page.locator('#theme-menu .vd-theme-switcher-menu')).not.toHaveClass(/is-open/);
+    });
+
+    test('selects system from menu removes data-theme', async ({ page }) => {
+      await page.locator('#theme-select').selectOption('dark');
+      await page.waitForTimeout(50);
+
+      await page.locator('#theme-menu .vd-theme-switcher-toggle').click();
+      await page.locator('#theme-menu [data-theme-value="system"]').click();
+
+      const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(theme).toBeNull();
+    });
+
+    test('menu preference persists on reload', async ({ page }) => {
+      await page.locator('#theme-menu .vd-theme-switcher-toggle').click();
+      await page.locator('#theme-menu [data-theme-value="dark"]').click();
+      await page.waitForTimeout(50);
+
+      await page.reload();
+      await page.waitForTimeout(100);
+
+      const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+      expect(theme).toBe('dark');
+      await expect(page.locator('#theme-menu [data-theme-value="dark"]')).toHaveClass(/is-active/);
+    });
+
+    test('escape closes menu', async ({ page }) => {
+      await page.locator('#theme-menu .vd-theme-switcher-toggle').click();
+      await expect(page.locator('#theme-menu .vd-theme-switcher-menu')).toHaveClass(/is-open/);
+
+      await page.keyboard.press('Escape');
+      await expect(page.locator('#theme-menu .vd-theme-switcher-menu')).not.toHaveClass(/is-open/);
+    });
+  });
+
   test.describe('Theme Selection', () => {
     test('changes theme to light via select', async ({ page }) => {
       const themeSelect = page.locator('#theme-select');

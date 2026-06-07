@@ -1,5 +1,8 @@
 # Playwright Test Suite for Vanduo Framework
 # Single dependency strategy: @playwright/test only
+#
+# PR: Chromium Desktop smoke (fast feedback)
+# Push to main / workflow_dispatch: full cross-browser matrix + tablet + a11y
 name: Tests
 
 on:
@@ -9,14 +12,57 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 # --------------------
 
 jobs:
-  # Primary tests - run on all browsers for desktop and mobile
+  pr-smoke-tests:
+    name: PR Smoke (Chromium Desktop)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Playwright
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec playwright install --with-deps chromium
+
+      - name: Run smoke tests
+        run: pnpm exec playwright test --project="Chromium Desktop"
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report-pr-smoke
+          path: playwright-report/
+          retention-days: 7
+
+  # Primary tests - run on all browsers for desktop and mobile (post-merge only)
   playwright-tests:
     name: Playwright (${{ matrix.project }})
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -69,9 +115,10 @@ jobs:
           path: test-results/
           retention-days: 7
 
-  # Accessibility tests
+  # Accessibility tests (post-merge only)
   accessibility:
     name: Accessibility
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -107,9 +154,10 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  # Tablet tests (secondary priority - runs separately)
+  # Tablet tests (post-merge only)
   tablet-tests:
     name: Tablet Tests
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 45
 

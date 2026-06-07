@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.3 | Built: 2026-05-28T13:14:25.371Z | git:02ef7f6 | development */
+/*! Vanduo v1.4.4 | Built: 2026-06-07T18:03:42.022Z | git:98c10cc | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -176,7 +176,7 @@
   // js/vanduo.js
   (function() {
     "use strict";
-    const VANDUO_VERSION = true ? "1.4.3" : "0.0.0-dev";
+    const VANDUO_VERSION = true ? "1.4.4" : "0.0.0-dev";
     const hasOwn = Object.prototype.hasOwnProperty;
     const Vanduo2 = {
       version: VANDUO_VERSION,
@@ -461,9 +461,10 @@
       init: function(root) {
         const snippets = this.queryWithin(root, ".vd-code-snippet");
         snippets.forEach((snippet) => {
-          if (!snippet.dataset.initialized) {
-            this.initSnippet(snippet);
+          if (snippet.dataset.initialized === "true") {
+            return;
           }
+          this.initSnippet(snippet);
         });
       },
       /**
@@ -471,7 +472,9 @@
        * @param {HTMLElement} snippet - Code snippet container element
        */
       initSnippet: function(snippet) {
-        snippet.dataset.initialized = "true";
+        if (snippet.dataset.initialized === "true") {
+          return;
+        }
         snippet._codeSnippetCleanup = [];
         const toggle = snippet.querySelector(".vd-code-snippet-toggle");
         const content = snippet.querySelector(".vd-code-snippet-content");
@@ -499,6 +502,7 @@
         lineNumberPanes.forEach((pane) => {
           this.addLineNumbers(pane);
         });
+        snippet.dataset.initialized = "true";
       },
       /**
        * Initialize collapsible functionality
@@ -508,13 +512,14 @@
        */
       initCollapsible: function(snippet, toggle, content) {
         const isExpanded = snippet.dataset.expanded === "true";
-        toggle.setAttribute("aria-expanded", isExpanded);
-        content.dataset.visible = isExpanded;
+        toggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+        content.dataset.visible = isExpanded ? "true" : "false";
         this.addListener(snippet, toggle, "click", () => {
           const expanded = snippet.dataset.expanded === "true";
-          snippet.dataset.expanded = !expanded;
-          toggle.setAttribute("aria-expanded", !expanded);
-          content.dataset.visible = !expanded;
+          const nextExpanded = !expanded;
+          snippet.dataset.expanded = nextExpanded ? "true" : "false";
+          toggle.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+          content.dataset.visible = nextExpanded ? "true" : "false";
           if (!expanded) {
             const extractPanes = content.querySelectorAll("[data-extract]:not([data-extracted])");
             extractPanes.forEach((pane) => {
@@ -5045,21 +5050,44 @@
   // js/components/theme-switcher.js
   (function() {
     "use strict";
+    const THEME_MODES = ["system", "light", "dark"];
+    const THEME_ICON_CLASSES = {
+      system: "ph ph-desktop",
+      light: "ph ph-sun",
+      dark: "ph ph-moon"
+    };
+    const THEME_LABELS = {
+      system: "Theme: System",
+      light: "Theme: Light",
+      dark: "Theme: Dark"
+    };
+    const THEME_OPTION_TOOLTIPS = {
+      system: "Use system preference",
+      light: "Light theme",
+      dark: "Dark theme"
+    };
     const ThemeSwitcher = {
       isInitialized: false,
       _mediaQuery: null,
       _onMediaChange: null,
+      menuInstances: /* @__PURE__ */ new Map(),
       getToggles: function(root) {
+        const scope = root || document;
+        const toggles = window.Vanduo && typeof window.Vanduo.queryAll === "function" ? window.Vanduo.queryAll(scope, '[data-toggle="theme"]') : Array.from(scope.querySelectorAll('[data-toggle="theme"]'));
+        return toggles.filter(function(toggle) {
+          return !toggle.closest('.vd-theme-switcher[data-theme-ui="menu"]');
+        });
+      },
+      getMenuSwitchers: function(root) {
         if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
-          return window.Vanduo.queryAll(root, '[data-toggle="theme"]');
+          return window.Vanduo.queryAll(root, '.vd-theme-switcher[data-theme-ui="menu"]');
         }
-        return Array.from(document.querySelectorAll('[data-toggle="theme"]'));
+        return Array.from(document.querySelectorAll('.vd-theme-switcher[data-theme-ui="menu"]'));
       },
       init: function(root) {
         this.STORAGE_KEY = "vanduo-theme-preference";
         this.state = {
           preference: this.getPreference()
-          // 'light', 'dark', or 'system'
         };
         if (this.isInitialized) {
           this.applyTheme();
@@ -5076,6 +5104,9 @@
         return this.getStorageValue(this.STORAGE_KEY, "system");
       },
       setPreference: function(pref) {
+        if (!THEME_MODES.includes(pref)) {
+          return;
+        }
         this.state.preference = pref;
         this.setStorageValue(this.STORAGE_KEY, pref);
         this.applyTheme();
@@ -5129,8 +5160,8 @@
         };
         this._mediaQuery.addEventListener("change", this._onMediaChange);
       },
-      // Helper to facilitate UI creation if needed, though often UI is in HTML
       renderUI: function(root) {
+        this.renderMenuSwitchers(root);
         const toggles = this.getToggles(root);
         toggles.forEach((toggle) => {
           if (toggle.getAttribute("data-theme-initialized") === "true") {
@@ -5148,7 +5179,7 @@
             toggle._themeToggleHandler = onChange;
           } else {
             const onClick = () => {
-              const modes = ["system", "light", "dark"];
+              const modes = THEME_MODES;
               const nextIndex = (modes.indexOf(this.state.preference) + 1) % modes.length;
               this.setPreference(modes[nextIndex]);
             };
@@ -5157,6 +5188,178 @@
           }
           toggle.setAttribute("data-theme-initialized", "true");
         });
+        this.updateUI(root);
+      },
+      renderMenuSwitchers: function(root) {
+        const switchers = this.getMenuSwitchers(root);
+        switchers.forEach((switcher) => {
+          if (switcher.getAttribute("data-theme-menu-initialized") === "true") {
+            return;
+          }
+          const toggle = switcher.querySelector(".vd-theme-switcher-toggle");
+          const menu = switcher.querySelector(".vd-theme-switcher-menu");
+          if (!toggle || !menu) {
+            return;
+          }
+          const options = menu.querySelectorAll("[data-theme-value]");
+          const cleanupFunctions = [];
+          toggle.setAttribute("aria-haspopup", "true");
+          toggle.setAttribute("aria-expanded", "false");
+          menu.setAttribute("aria-hidden", "true");
+          const toggleClickHandler = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleMenu(switcher, toggle, menu);
+          };
+          toggle.addEventListener("click", toggleClickHandler);
+          cleanupFunctions.push(() => toggle.removeEventListener("click", toggleClickHandler));
+          options.forEach((option) => {
+            const optionClickHandler = (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const value = option.getAttribute("data-theme-value");
+              if (value) {
+                this.setPreference(value);
+              }
+              this.closeMenu(switcher, toggle, menu);
+            };
+            option.addEventListener("click", optionClickHandler);
+            cleanupFunctions.push(() => option.removeEventListener("click", optionClickHandler));
+            const optionKeydownHandler = (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                optionClickHandler(e);
+              }
+            };
+            option.addEventListener("keydown", optionKeydownHandler);
+            cleanupFunctions.push(() => option.removeEventListener("keydown", optionKeydownHandler));
+          });
+          const toggleKeydownHandler = (e) => {
+            if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              if (!menu.classList.contains("is-open")) {
+                this.openMenu(switcher, toggle, menu);
+              }
+            } else if (e.key === "Escape" && menu.classList.contains("is-open")) {
+              e.preventDefault();
+              this.closeMenu(switcher, toggle, menu);
+            }
+          };
+          toggle.addEventListener("keydown", toggleKeydownHandler);
+          cleanupFunctions.push(() => toggle.removeEventListener("keydown", toggleKeydownHandler));
+          const menuKeydownHandler = (e) => {
+            this.handleMenuKeydown(e, switcher, toggle, menu, options);
+          };
+          menu.addEventListener("keydown", menuKeydownHandler);
+          cleanupFunctions.push(() => menu.removeEventListener("keydown", menuKeydownHandler));
+          const documentClickHandler = (e) => {
+            if (!switcher.contains(e.target) && menu.classList.contains("is-open")) {
+              this.closeMenu(switcher, toggle, menu);
+            }
+          };
+          document.addEventListener("click", documentClickHandler);
+          cleanupFunctions.push(() => document.removeEventListener("click", documentClickHandler));
+          this.menuInstances.set(switcher, { toggle, menu, cleanup: cleanupFunctions });
+          switcher.setAttribute("data-theme-menu-initialized", "true");
+          this.initMenuTooltips(switcher);
+        });
+      },
+      initMenuTooltips: function(switcher) {
+        const tooltips = window.Vanduo && typeof window.Vanduo.getComponent === "function" ? window.Vanduo.getComponent("tooltips") : null;
+        if (tooltips && typeof tooltips.init === "function") {
+          tooltips.init(switcher);
+        }
+      },
+      closeOtherMenus: function(exceptMenu) {
+        this.menuInstances.forEach((instance, switcher) => {
+          if (instance.menu !== exceptMenu && instance.menu.classList.contains("is-open")) {
+            this.closeMenu(switcher, instance.toggle, instance.menu);
+          }
+        });
+      },
+      toggleMenu: function(switcher, toggle, menu) {
+        if (menu.classList.contains("is-open")) {
+          this.closeMenu(switcher, toggle, menu);
+        } else {
+          this.openMenu(switcher, toggle, menu);
+        }
+      },
+      openMenu: function(switcher, toggle, menu) {
+        this.closeOtherMenus(menu);
+        switcher.classList.add("is-open");
+        menu.classList.add("is-open");
+        toggle.setAttribute("aria-expanded", "true");
+        menu.setAttribute("aria-hidden", "false");
+        const activeOption = menu.querySelector("[data-theme-value].is-active") || menu.querySelector("[data-theme-value]");
+        if (activeOption) {
+          setTimeout(() => activeOption.focus(), 0);
+        }
+      },
+      closeMenu: function(switcher, toggle, menu) {
+        switcher.classList.remove("is-open");
+        menu.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        menu.setAttribute("aria-hidden", "true");
+      },
+      handleMenuKeydown: function(e, switcher, toggle, menu, options) {
+        const items = Array.from(options);
+        const currentIndex = items.indexOf(document.activeElement);
+        if (e.key === "Escape") {
+          e.preventDefault();
+          this.closeMenu(switcher, toggle, menu);
+          toggle.focus();
+          return;
+        }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+          items[nextIndex].focus();
+          return;
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+          items[prevIndex].focus();
+        }
+      },
+      updateMenuSwitcher: function(switcher) {
+        const toggle = switcher.querySelector(".vd-theme-switcher-toggle");
+        const menu = switcher.querySelector(".vd-theme-switcher-menu");
+        if (!toggle || !menu) {
+          return;
+        }
+        const pref = this.state.preference;
+        const icon = toggle.querySelector("[data-theme-icon]");
+        const label = THEME_LABELS[pref] || THEME_LABELS.system;
+        if (icon) {
+          icon.className = THEME_ICON_CLASSES[pref] || THEME_ICON_CLASSES.system;
+        }
+        toggle.setAttribute("aria-label", label);
+        if (toggle.hasAttribute("data-tooltip")) {
+          toggle.setAttribute("data-tooltip", label);
+          this.refreshTooltipContent(toggle, label);
+        }
+        menu.querySelectorAll("[data-theme-value]").forEach((option) => {
+          const value = option.getAttribute("data-theme-value");
+          const isActive = value === pref;
+          option.classList.toggle("is-active", isActive);
+          option.setAttribute("aria-checked", isActive ? "true" : "false");
+          const tooltipText = THEME_OPTION_TOOLTIPS[value];
+          if (tooltipText && option.hasAttribute("data-tooltip")) {
+            option.setAttribute("data-tooltip", tooltipText);
+            this.refreshTooltipContent(option, tooltipText);
+          }
+        });
+      },
+      refreshTooltipContent: function(element, text) {
+        const tooltips = window.Vanduo && typeof window.Vanduo.getComponent === "function" ? window.Vanduo.getComponent("tooltips") : null;
+        if (!tooltips || !tooltips.tooltips || !tooltips.tooltips.has(element)) {
+          return;
+        }
+        const entry = tooltips.tooltips.get(element);
+        if (entry && entry.tooltip) {
+          entry.tooltip.textContent = text;
+        }
       },
       updateUI: function(root) {
         const toggles = this.getToggles(root);
@@ -5170,9 +5373,21 @@
             }
           }
         });
+        this.getMenuSwitchers(root).forEach((switcher) => {
+          this.updateMenuSwitcher(switcher);
+        });
       },
       destroyAll: function(root) {
         const scope = root || document;
+        this.getMenuSwitchers(scope).forEach((switcher) => {
+          const instance = this.menuInstances.get(switcher);
+          if (instance) {
+            instance.cleanup.forEach((fn) => fn());
+            this.closeMenu(switcher, instance.toggle, instance.menu);
+            this.menuInstances.delete(switcher);
+          }
+          switcher.removeAttribute("data-theme-menu-initialized");
+        });
         const toggles = this.getToggles(scope).filter(function(toggle) {
           return toggle.getAttribute("data-theme-initialized") === "true";
         });

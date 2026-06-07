@@ -44,11 +44,12 @@
     },
 
     getMenuSwitchers: function (root) {
+      const scope = root || document;
       if (window.Vanduo && typeof window.Vanduo.queryAll === 'function') {
-        return window.Vanduo.queryAll(root, '.vd-theme-switcher[data-theme-ui="menu"]');
+        return window.Vanduo.queryAll(scope, '.vd-theme-switcher[data-theme-ui="menu"]');
       }
 
-      return Array.from(document.querySelectorAll('.vd-theme-switcher[data-theme-ui="menu"]'));
+      return Array.from(scope.querySelectorAll('.vd-theme-switcher[data-theme-ui="menu"]'));
     },
 
     init: function (root) {
@@ -377,13 +378,26 @@
         ? window.Vanduo.getComponent('tooltips')
         : null;
 
-      if (!tooltips || !tooltips.tooltips || !tooltips.tooltips.has(element)) {
+      if (!tooltips || typeof tooltips.update !== 'function') {
         return;
       }
 
-      const entry = tooltips.tooltips.get(element);
-      if (entry && entry.tooltip) {
-        entry.tooltip.textContent = text;
+      tooltips.update(element, text);
+    },
+
+    updateCycleToggle: function (toggle) {
+      const pref = this.state.preference;
+      const icon = toggle.querySelector('[data-theme-icon]');
+      const label = THEME_LABELS[pref] || THEME_LABELS.system;
+
+      if (icon) {
+        icon.className = THEME_ICON_CLASSES[pref] || THEME_ICON_CLASSES.system;
+      }
+
+      toggle.setAttribute('aria-label', label);
+      if (toggle.hasAttribute('data-tooltip')) {
+        toggle.setAttribute('data-tooltip', label);
+        this.refreshTooltipContent(toggle, label);
       }
     },
 
@@ -396,6 +410,10 @@
           const span = toggle.querySelector('.theme-current-label');
           if (span) {
             span.textContent = this.state.preference.charAt(0).toUpperCase() + this.state.preference.slice(1);
+          }
+
+          if (toggle.querySelector('[data-theme-icon]')) {
+            this.updateCycleToggle(toggle);
           }
         }
       });

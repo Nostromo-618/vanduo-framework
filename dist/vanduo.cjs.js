@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.4 | Built: 2026-06-07T18:03:42.022Z | git:98c10cc | development */
+/*! Vanduo v1.4.4 | Built: 2026-06-07T19:13:04.734Z | git:3593ddc | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -5104,10 +5104,11 @@ module.exports = __toCommonJS(index_exports);
       });
     },
     getMenuSwitchers: function(root) {
+      const scope = root || document;
       if (window.Vanduo && typeof window.Vanduo.queryAll === "function") {
-        return window.Vanduo.queryAll(root, '.vd-theme-switcher[data-theme-ui="menu"]');
+        return window.Vanduo.queryAll(scope, '.vd-theme-switcher[data-theme-ui="menu"]');
       }
-      return Array.from(document.querySelectorAll('.vd-theme-switcher[data-theme-ui="menu"]'));
+      return Array.from(scope.querySelectorAll('.vd-theme-switcher[data-theme-ui="menu"]'));
     },
     init: function(root) {
       this.STORAGE_KEY = "vanduo-theme-preference";
@@ -5378,12 +5379,22 @@ module.exports = __toCommonJS(index_exports);
     },
     refreshTooltipContent: function(element, text) {
       const tooltips = window.Vanduo && typeof window.Vanduo.getComponent === "function" ? window.Vanduo.getComponent("tooltips") : null;
-      if (!tooltips || !tooltips.tooltips || !tooltips.tooltips.has(element)) {
+      if (!tooltips || typeof tooltips.update !== "function") {
         return;
       }
-      const entry = tooltips.tooltips.get(element);
-      if (entry && entry.tooltip) {
-        entry.tooltip.textContent = text;
+      tooltips.update(element, text);
+    },
+    updateCycleToggle: function(toggle) {
+      const pref = this.state.preference;
+      const icon = toggle.querySelector("[data-theme-icon]");
+      const label = THEME_LABELS[pref] || THEME_LABELS.system;
+      if (icon) {
+        icon.className = THEME_ICON_CLASSES[pref] || THEME_ICON_CLASSES.system;
+      }
+      toggle.setAttribute("aria-label", label);
+      if (toggle.hasAttribute("data-tooltip")) {
+        toggle.setAttribute("data-tooltip", label);
+        this.refreshTooltipContent(toggle, label);
       }
     },
     updateUI: function(root) {
@@ -5395,6 +5406,9 @@ module.exports = __toCommonJS(index_exports);
           const span = toggle.querySelector(".theme-current-label");
           if (span) {
             span.textContent = this.state.preference.charAt(0).toUpperCase() + this.state.preference.slice(1);
+          }
+          if (toggle.querySelector("[data-theme-icon]")) {
+            this.updateCycleToggle(toggle);
           }
         }
       });

@@ -258,12 +258,31 @@ export function detectVisualBleedFromScreenshot(
   };
 }
 
+function clampClipToViewport(
+  box: { x: number; y: number; width: number; height: number },
+  viewport: { width: number; height: number },
+): { x: number; y: number; width: number; height: number } | null {
+  const x = Math.max(0, box.x);
+  const y = Math.max(0, box.y);
+  const right = Math.min(box.x + box.width, viewport.width);
+  const bottom = Math.min(box.y + box.height, viewport.height);
+  const width = right - x;
+  const height = bottom - y;
+
+  if (width < 4 || height < 4) {
+    return null;
+  }
+
+  return { x, y, width, height };
+}
+
 export async function auditElement(
   page: Page,
   id: string,
   parentRgb: [number, number, number],
 ): Promise<AuditResult> {
   const locator = page.locator(`[data-audit-id="${id}"]`);
+  await locator.scrollIntoViewIfNeeded();
   const styleMetrics = await readStyleMetrics(locator);
   const styleRisk = evaluateStyleRisk(styleMetrics);
   const isControl = CONTROL_IDS.includes(id as (typeof CONTROL_IDS)[number]);
@@ -296,14 +315,33 @@ export async function auditElement(
     };
   }
 
-  const pngBuffer = await page.screenshot({
-    clip: {
-      x: box.x,
-      y: box.y,
-      width: Math.ceil(box.width),
-      height: Math.ceil(box.height),
-    },
-  });
+  const viewport = page.viewportSize();
+  if (!viewport) {
+    return {
+      id,
+      isControl,
+      isNegativeControl,
+      styleMetrics,
+      styleRisk,
+      visualBleed: null,
+      cornerSamples: [],
+    };
+  }
+
+  const clip = clampClipToViewport(box, viewport);
+  if (!clip) {
+    return {
+      id,
+      isControl,
+      isNegativeControl,
+      styleMetrics,
+      styleRisk,
+      visualBleed: null,
+      cornerSamples: [],
+    };
+  }
+
+  const pngBuffer = await page.screenshot({ clip });
 
   const { visualBleed, cornerSamples } = detectVisualBleedFromScreenshot(
     pngBuffer,

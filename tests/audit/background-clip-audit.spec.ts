@@ -29,7 +29,11 @@ const auditIds = [
 ] as const;
 
 test.describe('Background clip audit @audit', () => {
-  test('reports corner bleed risk across component surfaces', async ({ page }) => {
+  test('reports corner bleed risk across component surfaces', async ({ page }, testInfo) => {
+    test.skip(
+      !testInfo.project.name.includes('Desktop'),
+      'Corner pixel audit uses a desktop fixture grid and runs on desktop projects only',
+    );
     await page.goto('/tests/fixtures/background-clip-audit.html');
     await page.waitForSelector('[data-audit-id]');
 

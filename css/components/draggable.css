@@ -60,6 +60,7 @@
   padding: var(--vd-draggable-padding);
   margin: var(--vd-draggable-margin);
   background-color: var(--vd-draggable-bg);
+  background-clip: padding-box;
   border: 1px solid var(--vd-draggable-border-color);
   border-radius: var(--vd-btn-border-radius);
   cursor: grab;
@@ -124,6 +125,7 @@
   padding: var(--vd-drop-zone-padding);
   margin: var(--vd-draggable-margin);
   background-color: var(--vd-drop-zone-bg);
+  background-clip: padding-box;
   border: 2px dashed var(--vd-drop-zone-border-color);
   border-radius: var(--vd-btn-border-radius);
   transition: var(--vd-draggable-transition);
@@ -169,6 +171,7 @@
   gap: var(--vd-draggable-margin);
   padding: var(--vd-draggable-padding);
   background-color: var(--vd-bg-secondary);
+  background-clip: padding-box;
   border: 1px solid var(--vd-border-color);
   border-radius: var(--vd-btn-border-radius);
 }
@@ -184,6 +187,7 @@
   min-width: 8rem; /* 128px */
   padding: var(--vd-draggable-padding);
   background-color: var(--vd-draggable-bg);
+  background-clip: padding-box;
   border: 1px solid var(--vd-draggable-border-color);
   border-radius: var(--vd-btn-border-radius);
   cursor: grab;

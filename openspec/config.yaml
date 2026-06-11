@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  Package: @vanduo-oss/framework (MIT, vanduo-oss org). Current release: 1.4.4.
+  Package: @vanduo-oss/framework (MIT, vanduo-oss org). Current release: 1.4.5.
   Stack: Vanilla JavaScript (zero runtime dependencies), CSS with --vd-* design tokens.
   Build: esbuild + lightningcss → dist/ (IIFE, ESM, CJS, minified CSS).
   Tests: Playwright component tests in tests/; fixture server; tagged @a11y, @e2e, @perf.
@@ -23,3 +23,7 @@ rules:
   tasks:
     - Include pnpm build:min and pnpm test when code changes
     - Include docs sync step when public API or CSS changes
+  changelog:
+    - Track Framework and Ecosystem only; never add a Docs product column
+    - Framework-only releases use a single Framework section (no empty Ecosystem column)
+    - See openspec/specs/changelog/spec.md

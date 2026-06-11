@@ -397,6 +397,7 @@ label.label-lg {
   text-align: center;
   white-space: nowrap;
   background-color: var(--vd-bg-secondary);
+  background-clip: padding-box;
   border: var(--vd-input-border-width) solid var(--vd-input-border-color);
 }
 

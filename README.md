@@ -1,4 +1,4 @@
-# Vanduo Framework v1.4.4
+# Vanduo Framework v1.4.5
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -25,11 +25,15 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 1.4.4
+## What's New in 1.4.5
 
-- **Theme Switcher menu variant** — `.vd-theme-switcher[data-theme-ui="menu"]` opens an icon-only picker; option click applies the theme without cycling on toggle. Cycle (`button[data-toggle="theme"]`) and select variants are unchanged.
-- **New stylesheet** — `css/components/theme-switcher.css` for menu layout, active state, and navbar alignment.
-- **Optional tooltips** — add `data-tooltip` on the toggle or menu options when the Tooltips component is loaded (opt-in).
+- **Rounded-corner background fixes** — draggable surfaces and input-group addons use `background-clip: padding-box` so opaque fills no longer bleed past border arcs at large `data-radius` presets.
+- **Background-clip audit** — Playwright `@audit` harness at `tests/audit/background-clip-audit.spec.ts` for regression checks.
+- Normative API: [openspec/specs/draggable/spec.md](openspec/specs/draggable/spec.md).
+
+## Previous: 1.4.4
+
+- **Theme Switcher menu variant** — `.vd-theme-switcher[data-theme-ui="menu"]` opens an icon-only picker; option click applies the theme without cycling on toggle.
 - Normative API: [openspec/specs/theme-switcher/spec.md](openspec/specs/theme-switcher/spec.md).
 
 ## Quick Start
@@ -37,8 +41,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.4/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.4/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>
@@ -145,6 +149,8 @@ CI runs **Chromium Desktop smoke tests on pull requests** and the **full cross-b
 - Architecture notes: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Token model: [TOKENS.md](TOKENS.md)
 - Theme Switcher spec: [openspec/specs/theme-switcher/spec.md](openspec/specs/theme-switcher/spec.md)
+- Draggable spec: [openspec/specs/draggable/spec.md](openspec/specs/draggable/spec.md)
+- Changelog policy: [openspec/specs/changelog/spec.md](openspec/specs/changelog/spec.md)
 - QA strategy: [QA-Automation-Strategy.md](QA-Automation-Strategy.md)
 - Contributor workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
 

@@ -11,7 +11,7 @@ Vanduo uses Playwright as the single browser-test dependency. The suite covers:
 
 Visual pixel-diff testing is not part of the active release gate.
 
-## CI Tiers (1.4.4+)
+## CI Tiers (1.4.5+)
 
 GitHub Actions runs a two-tier strategy via [`.github/workflows/tests.yml`](.github/workflows/tests.yml):
 
@@ -26,7 +26,7 @@ PR smoke keeps feedback fast; merge to `main` runs the full cross-browser gate.
 
 ## Release Gates
 
-For `1.4.4`, the local pre-release gate is:
+For `1.4.5`, the local pre-release gate is:
 
 ```bash
 pnpm run lint
@@ -48,7 +48,7 @@ Run the full Playwright suite locally before tagging a release even though PR CI
 - Build output consistency and version alignment
 - Theme Switcher menu variant: open/select/persistence/keyboard (see `tests/components/theme-switcher.spec.ts`)
 
-## Notes for 1.4.4
+## Notes for 1.4.5
 
 - Theme Switcher menu variant tests cover toggle-open, option select, persistence, Escape/arrow keyboard nav, and outside-click close.
 - The timeline playback tests rely on deterministic polling instead of fragile fixed sleeps.
@@ -57,4 +57,4 @@ Run the full Playwright suite locally before tagging a release even though PR CI
 
 ## Manual QA
 
-Automated checks are necessary, not sufficient. Verify Theme Switcher menu UX in a real navbar before publishing `1.4.4`.
+Automated checks are necessary, not sufficient. Run `npx playwright test tests/audit/background-clip-audit.spec.ts --project="Chromium Desktop"` before publishing `1.4.5` when touching bordered surface CSS.

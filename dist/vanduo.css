@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.4 | Built: 2026-06-11T17:43:09.720Z | git:a6a64de | development */
+/*! Vanduo v1.4.5 | Built: 2026-06-11T18:11:31.153Z | git:70ed923 | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -53576,6 +53576,7 @@ a.vd-btn, a.vd-btn:hover {
   white-space: nowrap;
   background-color: var(--vd-bg-secondary);
   border: var(--vd-input-border-width) solid var(--vd-input-border-color);
+  background-clip: padding-box;
   align-items: center;
   display: flex;
 }

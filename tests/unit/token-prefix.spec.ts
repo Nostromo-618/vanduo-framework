@@ -10,7 +10,6 @@ const scannedTargets = [
   'ARCHITECTURE.md',
   'README.md',
   'TOKENS.md',
-  'changes-v141.md',
   'css',
   'dist',
   'js',

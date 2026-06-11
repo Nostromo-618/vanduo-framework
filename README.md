@@ -144,7 +144,6 @@ CI runs **Chromium Desktop smoke tests on pull requests** and the **full cross-b
 
 - Architecture notes: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Token model: [TOKENS.md](TOKENS.md)
-- `1.4.1` token migration notes: [changes-v141.md](changes-v141.md)
 - Theme Switcher spec: [openspec/specs/theme-switcher/spec.md](openspec/specs/theme-switcher/spec.md)
 - QA strategy: [QA-Automation-Strategy.md](QA-Automation-Strategy.md)
 - Contributor workflow: [CONTRIBUTING.md](CONTRIBUTING.md)

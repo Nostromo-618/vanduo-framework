@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-radius="0.5" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Clip Audit Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background-color: #212529;
+      font-family: var(--vd-font-family-base);
+      color: #f8f9fa;
+    }
+
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+      gap: 2rem;
+      max-width: 72rem;
+    }
+
+    .audit-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .audit-label {
+      font-size: 0.75rem;
+      color: #adb5bd;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .audit-dropdown-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .audit-modal-shell {
+      position: relative;
+      display: inline-block;
+    }
+
+    .audit-toast-wrap {
+      position: relative;
+      min-height: 5rem;
+    }
+
+    .audit-toast-wrap .vd-toast {
+      position: relative;
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Background Clip Audit</h1>
+  <p>data-radius=&quot;0.5&quot;, light theme, dark page background</p>
+
+  <div class="audit-grid">
+    <div class="audit-cell">
+      <span class="audit-label">vd-input</span>
+      <input type="text" class="vd-input" data-audit-id="vd-input" value="Text input" aria-label="Audit input">
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-textarea</span>
+      <textarea class="vd-input" data-audit-id="vd-textarea" rows="2" aria-label="Audit textarea">Textarea</textarea>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-select</span>
+      <select class="vd-input" data-audit-id="vd-select" aria-label="Audit select">
+        <option>Option A</option>
+        <option>Option B</option>
+      </select>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-input-group-prefix</span>
+      <div class="vd-input-group">
+        <span class="vd-input-group-prefix" data-audit-id="vd-input-group-prefix">$</span>
+        <input type="text" class="vd-input" value="100" aria-label="Amount">
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-dropdown-menu</span>
+      <div class="audit-dropdown-wrap">
+        <button type="button" class="vd-btn vd-btn-secondary">Dropdown</button>
+        <div class="vd-dropdown-menu is-open" data-audit-id="vd-dropdown-menu" style="position: relative; top: 0; opacity: 1; transform: none; display: block;">
+          <a href="#" class="vd-dropdown-item">Item 1</a>
+          <a href="#" class="vd-dropdown-item">Item 2</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-toast</span>
+      <div class="audit-toast-wrap">
+        <div class="vd-toast is-visible" data-audit-id="vd-toast" role="status">
+          <div class="vd-toast-body">Toast message for corner audit</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-pagination-link</span>
+      <nav aria-label="Audit pagination">
+        <ul class="vd-pagination">
+          <li class="vd-pagination-item">
+            <a href="#" class="vd-pagination-link" data-audit-id="vd-pagination-link">2</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-collapsible-item</span>
+      <div class="vd-collapsible">
+        <div class="vd-collapsible-item" data-audit-id="vd-collapsible-item">
+          <button type="button" class="vd-collapsible-header">
+            <span>Section</span>
+            <span class="vd-collapsible-icon"></span>
+          </button>
+          <div class="vd-collapsible-body">
+            <p>Collapsible body</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-code-snippet</span>
+      <div class="vd-code-snippet" data-audit-id="vd-code-snippet" data-expanded="true">
+        <div class="vd-code-snippet-header">
+          <span class="vd-code-snippet-title">Snippet</span>
+        </div>
+        <div class="vd-code-snippet-content" data-visible="true">
+          <pre class="vd-code-snippet-pane is-active" data-lang="html"><code>&lt;div&gt;code&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-collection-bordered</span>
+      <ul class="vd-collection vd-collection-bordered" data-audit-id="vd-collection-bordered">
+        <li class="vd-collection-item">Item one</li>
+        <li class="vd-collection-item">Item two</li>
+      </ul>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-tabs-bordered-active</span>
+      <div class="vd-tabs vd-tabs-bordered">
+        <ul class="vd-tab-list">
+          <li class="vd-tab-item">
+            <a href="#" class="vd-tab-link is-active" data-audit-id="vd-tabs-bordered-active">Active</a>
+          </li>
+          <li class="vd-tab-item">
+            <a href="#" class="vd-tab-link">Inactive</a>
+          </li>
+        </ul>
+        <div class="vd-tab-content">
+          <div class="vd-tab-pane is-active"><p>Tab content</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-alert-primary (medium)</span>
+      <div class="vd-alert vd-alert-primary" data-audit-id="vd-alert-primary" role="alert">Primary alert</div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-draggable (control)</span>
+      <div class="vd-draggable" data-audit-id="vd-draggable" draggable="true">Drag me</div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-modal-content (control)</span>
+      <div class="audit-modal-shell">
+        <div class="vd-modal-content" data-audit-id="vd-modal-content">
+          <div class="vd-modal-body">Modal surface</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-cell">
+      <span class="audit-label">vd-btn-primary (negative control)</span>
+      <button type="button" class="vd-btn vd-btn-primary" data-audit-id="vd-btn-primary">Primary</button>
+    </div>
+  </div>
+</body>
+</html>

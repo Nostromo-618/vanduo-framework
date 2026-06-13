@@ -61,38 +61,40 @@
     page-break-inside: avoid;
   }
 
-  /* Hide non-essential elements */
-  .navbar,
-  .navbar-menu,
-  .navbar-toggle,
-  .navbar-overlay,
-  .sidenav,
-  .modal,
-  .modal-backdrop,
-  .tooltip,
-  .dropdown-menu,
-  .btn-group,
-  .pagination,
+  /* Hide non-essential UI chrome */
+  .vd-navbar,
+  .vd-navbar-menu,
+  .vd-navbar-toggle,
+  .vd-navbar-overlay,
+  .vd-sidenav,
+  .vd-sidenav-overlay,
+  .vd-modal,
+  .vd-modal-backdrop,
+  .vd-tooltip,
+  .vd-dropdown-menu,
+  .vd-btn-group,
+  .vd-pagination,
   .skip-link,
-  .d-print-none {
+  .vd-d-print-none {
     display: none !important;
   }
 
   /* Show print-only elements */
-  .d-print-block {
+  .vd-d-print-block {
     display: block !important;
   }
 
-  .d-print-inline {
+  .vd-d-print-inline {
     display: inline !important;
   }
 
-  .d-print-inline-block {
+  .vd-d-print-inline-block {
     display: inline-block !important;
   }
 
   /* Container adjustments */
-  .container {
+  .vd-container,
+  .vd-container-responsive {
     width: 100% !important;
     max-width: none !important;
     padding: 0 !important;

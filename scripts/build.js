@@ -115,6 +115,31 @@ function copyDir(src, dest) {
 }
 
 /**
+ * Determine which Phosphor icon weights the bundled CSS actually imports, by
+ * following the icon entry imported from css/vanduo.css. Returns a Set of
+ * weight names (e.g. {'regular','fill'}) or null if it can't be determined
+ * (in which case the caller falls back to copying every weight).
+ */
+function getReferencedIconWeights() {
+    const entryCSS = readFileSync(resolve(rootDir, 'css/vanduo.css'), 'utf8');
+    const iconEntryMatch = entryCSS.match(/@import\s+url\(['"]?(icons\/[^'")]+)['"]?\)/);
+    if (!iconEntryMatch) return null;
+
+    const iconEntryPath = resolve(rootDir, 'css', iconEntryMatch[1]);
+    if (!existsSync(iconEntryPath)) return null;
+
+    const iconCSS = readFileSync(iconEntryPath, 'utf8');
+    const weights = new Set();
+    // Anchor on @import url(...) so commented example paths aren't counted.
+    const weightRegex = /@import\s+url\(\s*['"]?[^'")]*phosphor\/([^/]+)\/style\.css/g;
+    let match;
+    while ((match = weightRegex.exec(iconCSS)) !== null) {
+        weights.add(match[1]);
+    }
+    return weights.size ? weights : null;
+}
+
+/**
  * Copy fonts and icons to dist
  */
 function copyAssets() {
@@ -128,12 +153,47 @@ function copyAssets() {
         console.log('   ✅ fonts/');
     }
 
-    // Copy icons
+    // Copy hand-written TypeScript declarations into dist (dist/ is reset each
+    // build, so the source lives in types/ and is copied here).
+    const typesSrc = resolve(rootDir, 'types/vanduo.d.ts');
+    if (existsSync(typesSrc)) {
+        copyFileSync(typesSrc, resolve(distDir, 'vanduo.d.ts'));
+        console.log('   ✅ vanduo.d.ts');
+    }
+
+    // Copy icons. The default bundle only uses a subset of Phosphor weights
+    // (regular + fill via css/icons/icons.css), so only ship the weights the
+    // bundle references instead of all six — keeps dist/icons lean. The full
+    // 6-weight set still ships in the top-level icons/ for icons-all.css users.
     const iconsDir = resolve(rootDir, 'icons');
     const distIconsDir = resolve(distDir, 'icons');
     if (existsSync(iconsDir)) {
-        copyDir(iconsDir, distIconsDir);
-        console.log('   ✅ icons/');
+        const weights = getReferencedIconWeights();
+        const phosphorSrc = resolve(iconsDir, 'phosphor');
+
+        if (weights && existsSync(phosphorSrc)) {
+            const phosphorDest = resolve(distIconsDir, 'phosphor');
+            mkdirSync(phosphorDest, { recursive: true });
+
+            // Preserve top-level files in icons/phosphor (e.g. LICENSE).
+            for (const entry of readdirSync(phosphorSrc)) {
+                const srcPath = join(phosphorSrc, entry);
+                if (statSync(srcPath).isFile()) {
+                    copyFileSync(srcPath, join(phosphorDest, entry));
+                }
+            }
+
+            for (const weight of weights) {
+                const weightSrc = resolve(phosphorSrc, weight);
+                if (existsSync(weightSrc)) {
+                    copyDir(weightSrc, resolve(phosphorDest, weight));
+                }
+            }
+            console.log(`   ✅ icons/ (weights: ${[...weights].join(', ')})`);
+        } else {
+            copyDir(iconsDir, distIconsDir);
+            console.log('   ✅ icons/ (all weights)');
+        }
     }
 }
 
@@ -142,9 +202,12 @@ function copyAssets() {
  * Rewrites url() references in imported files to be relative to the entry
  * CSS directory so that asset paths survive inlining.
  */
-function resolveCSSImports(filePath, basePath, entryDir) {
+function resolveCSSImports(filePath, basePath, entryDir, sourceOverride) {
     if (!entryDir) entryDir = basePath;
-    let css = readFileSync(filePath, 'utf8');
+    // `sourceOverride` lets a caller bundle a variant of the entry file (e.g. the
+    // no-icons core build) without writing a temp file to disk. It only applies
+    // to the top-level entry; nested @imports are still read from disk.
+    let css = sourceOverride != null ? sourceOverride : readFileSync(filePath, 'utf8');
 
     // Rewrite non-import url() references to be relative to the entry CSS
     // directory. This ensures font/icon asset paths stay valid after CSS
@@ -202,20 +265,36 @@ function rewriteAssetPaths(css) {
 }
 
 // Build CSS
-async function buildCSS(isMinify, banner) {
+// `variant` is 'full' (default) or 'core' (no-icons: the bundled icon entry
+// @import is stripped so consumers who ship their own icons get a smaller file).
+async function buildCSS(isMinify, banner, { variant = 'full' } = {}) {
+    const isCore = variant === 'core';
     const inputPath = resolve(rootDir, 'css/vanduo.css');
-    const outputPath = resolve(distDir, isMinify ? 'vanduo.min.css' : 'vanduo.css');
+    const baseName = isCore ? 'vanduo-core' : 'vanduo';
+    const outputPath = resolve(distDir, isMinify ? `${baseName}.min.css` : `${baseName}.css`);
 
     try {
+        // For the core variant, strip the icon entry @import from the top-level
+        // source so no icon weight rules are inlined. The full variant reads
+        // the entry from disk unchanged.
+        let sourceOverride;
+        if (isCore) {
+            const entrySrc = readFileSync(inputPath, 'utf8');
+            sourceOverride = entrySrc.replace(
+                /^[ \t]*@import\s+url\(\s*['"]?icons\/[^'")]+['"]?\s*\);?[ \t]*\r?\n?/gm,
+                ''
+            );
+        }
+
         // Resolve all imports into one file
-        let bundledCSS = resolveCSSImports(inputPath, dirname(inputPath));
+        let bundledCSS = resolveCSSImports(inputPath, dirname(inputPath), dirname(inputPath), sourceOverride);
 
         // Rewrite asset paths for dist folder structure
         bundledCSS = rewriteAssetPaths(bundledCSS);
 
         // Transform/minify with LightningCSS
         const { code, map } = transform({
-            filename: 'vanduo.css',
+            filename: `${baseName}.css`,
             code: Buffer.from(bundledCSS),
             minify: isMinify,
             sourceMap: true
@@ -228,8 +307,9 @@ async function buildCSS(isMinify, banner) {
             writeFileSync(outputPath + '.map', map);
         }
 
+        const outName = isMinify ? `${baseName}.min.css` : `${baseName}.css`;
         const sizeKB = (finalCSS.length / 1024).toFixed(1);
-        console.log(`✅ CSS: ${isMinify ? 'vanduo.min.css' : 'vanduo.css'} (${sizeKB} KB)`);
+        console.log(`✅ CSS: ${outName} (${sizeKB} KB)`);
     } catch (error) {
         console.error('❌ CSS build failed:', error.message);
         if (error.loc) {
@@ -356,6 +436,7 @@ async function build() {
 
         console.log(`📦 Building ${mode} artifacts...`);
         await buildCSS(isMinify, banner);
+        await buildCSS(isMinify, banner, { variant: 'core' });
         await buildJS(isMinify, banner);
         await buildJSESM(isMinify, banner);
         await buildJSCJS(isMinify, banner);

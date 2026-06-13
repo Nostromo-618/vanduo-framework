@@ -1,6 +1,6 @@
-# Vanduo Framework v1.4.5 — LLM Context
+# Vanduo Framework v1.4.6 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.4.5 ships **46+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.4.6 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -13,7 +13,7 @@ You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS fra
 
 ---
 
-## Defaults (v1.3.x)
+## Defaults (v1.4.x)
 Set by Theme Customizer when no user preference exists:
 - Primary color in light mode: `black`
 - Primary color in dark mode: `amber`
@@ -32,7 +32,6 @@ Set by Theme Customizer when no user preference exists:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/vanduo.css" />
-  <link rel="stylesheet" href="css/icons/icons.css" />
   <title>Vanduo Page</title>
 </head>
 <body>
@@ -57,8 +56,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 
@@ -149,7 +148,7 @@ Persistence: `localStorage` key `vanduo-theme-preference` (`system`, `light`, or
 
 ---
 
-## Complete Component Inventory (46+ built-in; Music Player is `@vanduo-oss/music-player`)
+## Complete Component Inventory (47+ built-in; Music Player is `@vanduo-oss/music-player`)
 
 ### Layout & Navigation
 | Component | CSS Class | JS Module | Notes |
@@ -464,6 +463,8 @@ Vanduo.components.draggable.makeDraggable(element, { data: 'value' });
 - `tests/audit/background-clip-audit.spec.ts` — corner bleed audit (`@audit`)
 - `css/utilities/` — shadows, tables, transitions, transforms
 - `dist/` — production-ready minified build
+- `dist/vanduo-core.min.css` — framework styles without the bundled icon weights (`@vanduo-oss/framework/css/core`)
+- `CHANGELOG.md` — release history (Keep a Changelog format)
 
 ---
 
@@ -473,6 +474,7 @@ Phosphor Icons are bundled locally:
 <i class="ph ph-house"></i>
 <i class="ph-fill ph-heart"></i>
 ```
+The default `css/vanduo.css` / `dist/vanduo.min.css` bundle only the `regular` + `fill` weights. Import `css/icons/icons-all.css` for all six weights (bold, light, thin, duotone). Consumers who ship their own icon set can load the no-icons **core** build instead: `dist/vanduo-core.min.css` (npm: `@vanduo-oss/framework/css/core`), ~123 KB smaller than the full minified bundle.
 
 ---
 

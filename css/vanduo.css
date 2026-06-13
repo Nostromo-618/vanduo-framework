@@ -14,8 +14,8 @@
 @import url('core/grid.css');
 @import url('core/helpers.css');
 
-/* Layer 2: Icons */
-@import url('icons/icons-all.css');
+/* Layer 2: Icons (regular + fill; import css/icons/icons-all.css for all 6 weights) */
+@import url('icons/icons.css');
 
 /* Layer 3: Utilities */
 @import url('utilities/shadow.css');
@@ -55,7 +55,6 @@
 @import url('components/theme-customizer.css');
 @import url('components/theme-switcher.css');
 @import url('components/image-box.css');
-@import url('components/doc-tabs.css');
 @import url('components/doc-search.css');
 @import url('components/draggable.css');
 @import url('components/flow.css');

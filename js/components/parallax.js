@@ -64,15 +64,17 @@
     initParallax: function (element) {
       element.dataset.parallaxInitialized = 'true';
 
-      // Check if disabled on mobile
-      const disableMobile = element.classList.contains('parallax-disable-mobile');
+      // Check if disabled on mobile (vd- prefixed; unprefixed kept for back-compat)
+      const disableMobile = element.classList.contains('vd-parallax-disable-mobile')
+        || element.classList.contains('parallax-disable-mobile');
       if (disableMobile && this.isMobile) {
         return;
       }
 
       const layers = element.querySelectorAll('.vd-parallax-layer, .vd-parallax-bg');
       const speed = this.getSpeed(element);
-      const direction = element.classList.contains('parallax-horizontal') ? 'horizontal' : 'vertical';
+      const direction = (element.classList.contains('vd-parallax-horizontal')
+        || element.classList.contains('parallax-horizontal')) ? 'horizontal' : 'vertical';
 
       this.parallaxElements.set(element, {
         layers: Array.from(layers),
@@ -91,9 +93,11 @@
      * @returns {number} Speed multiplier
      */
     getSpeed: function (element) {
-      if (element.classList.contains('parallax-slow')) {
+      if (element.classList.contains('vd-parallax-slow')
+        || element.classList.contains('parallax-slow')) {
         return 0.5;
-      } else if (element.classList.contains('parallax-fast')) {
+      } else if (element.classList.contains('vd-parallax-fast')
+        || element.classList.contains('parallax-fast')) {
         return 1.5;
       }
       return 1; // Default medium speed
@@ -150,8 +154,10 @@
       const offset = (scrollProgress - 0.5) * config.speed * 100;
 
       config.layers.forEach((layer, _index) => {
-        // Different layers can have different speeds
-        const layerSpeed = layer.dataset.parallaxSpeed ? parseFloat(layer.dataset.parallaxSpeed) : 1;
+        // Different layers can have different speeds. Accept data-parallax-speed
+        // (canonical) or data-speed (back-compat).
+        const layerSpeedAttr = layer.dataset.parallaxSpeed || layer.dataset.speed;
+        const layerSpeed = layerSpeedAttr ? parseFloat(layerSpeedAttr) : 1;
         const layerOffset = offset * layerSpeed;
 
         if (config.direction === 'horizontal') {

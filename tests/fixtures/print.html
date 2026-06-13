@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Utilities Test Fixture</title>
+    <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+
+<body>
+    <!-- UI chrome that print.css hides -->
+    <nav id="t-navbar" class="vd-navbar">navbar chrome</nav>
+    <div id="t-modal" class="vd-modal">modal chrome</div>
+
+    <!-- Print display utilities -->
+    <div id="t-print-none" class="vd-d-print-none">hidden when printing</div>
+    <!-- inline display:none so the stylesheet's `!important` toggle is observable on screen vs print -->
+    <div id="t-print-block" class="vd-d-print-block" style="display: none;">print-only block</div>
+    <span id="t-print-inline" class="vd-d-print-inline" style="display: none;">print-only inline</span>
+
+    <div id="t-container" class="vd-container">container</div>
+</body>
+
+</html>

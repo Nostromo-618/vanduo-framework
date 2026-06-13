@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Component Test Fixture</title>
+    <link rel="stylesheet" href="/css/vanduo.css">
+    <style>
+        body {
+            margin: 20px;
+            font-family: var(--vd-font-family-base);
+            background-color: var(--vd-bg-primary);
+            color: var(--vd-text-primary);
+        }
+
+        /* Give each parallax block real height so getBoundingClientRect is meaningful. */
+        .vd-parallax {
+            height: 300px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <h1>Parallax Component Test Fixture</h1>
+
+        <!-- Speed: canonical vd- prefix -->
+        <div id="p-slow" class="vd-parallax vd-parallax-slow">
+            <div class="vd-parallax-bg"></div>
+            <div class="vd-parallax-content">slow (vd-)</div>
+        </div>
+        <div id="p-fast" class="vd-parallax vd-parallax-fast">
+            <div class="vd-parallax-bg"></div>
+        </div>
+        <div id="p-default" class="vd-parallax">
+            <div class="vd-parallax-bg"></div>
+        </div>
+
+        <!-- Speed: legacy unprefixed (back-compat) -->
+        <div id="p-slow-legacy" class="vd-parallax parallax-slow">
+            <div class="vd-parallax-bg"></div>
+        </div>
+        <div id="p-fast-legacy" class="vd-parallax parallax-fast">
+            <div class="vd-parallax-bg"></div>
+        </div>
+
+        <!-- Direction -->
+        <div id="p-horizontal" class="vd-parallax vd-parallax-horizontal">
+            <div class="vd-parallax-bg"></div>
+        </div>
+        <div id="p-horizontal-legacy" class="vd-parallax parallax-horizontal">
+            <div class="vd-parallax-bg"></div>
+        </div>
+
+        <!-- Disable on mobile -->
+        <div id="p-disable-mobile" class="vd-parallax vd-parallax-disable-mobile">
+            <div class="vd-parallax-bg"></div>
+        </div>
+        <div id="p-disable-mobile-legacy" class="vd-parallax parallax-disable-mobile">
+            <div class="vd-parallax-bg"></div>
+        </div>
+
+        <!-- Layers: canonical data-parallax-speed vs legacy data-speed -->
+        <div id="p-layers" class="vd-parallax">
+            <div class="vd-parallax-bg" id="layer-bg"></div>
+            <div class="vd-parallax-layer" id="layer-canonical" data-parallax-speed="0"></div>
+            <div class="vd-parallax-layer" id="layer-legacy" data-speed="0"></div>
+        </div>
+    </div>
+
+    <script src="/js/utils/helpers.js"></script>
+    <script src="/js/vanduo.js"></script>
+    <script src="/js/components/parallax.js"></script>
+    <script>
+        Vanduo.init();
+    </script>
+</body>
+
+</html>

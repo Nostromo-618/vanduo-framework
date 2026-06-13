@@ -81,7 +81,16 @@ export default [
             'no-redeclare': 'error',
 
             // Clean up stale regex/string escapes.
-            'no-useless-escape': 'error'
+            'no-useless-escape': 'error',
+
+            // Guard raw innerHTML assignment — HTML should be routed through
+            // sanitizeHtml()/escapeHtml() or built with the DOM API. Shipped as
+            // a warning while the existing call sites are reviewed; promote to
+            // 'error' once each is verified or annotated.
+            'no-restricted-syntax': ['warn', {
+                selector: "AssignmentExpression[left.type='MemberExpression'][left.property.name='innerHTML']",
+                message: 'Avoid assigning to innerHTML directly; sanitize via sanitizeHtml()/escapeHtml() or build nodes with the DOM API.'
+            }]
         }
     },
     {

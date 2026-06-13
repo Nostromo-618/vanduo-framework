@@ -42,6 +42,69 @@ function readJsonFile(filePath) {
     return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+/**
+ * Validate version-bound prose (README, SECURITY, llms.txt). Targeted/anchored
+ * checks only — these files legitimately cite historical versions (e.g.
+ * "new in v1.3.5", "Theme Switcher (v1.4.4)"), so a blanket scan would
+ * false-positive. We only assert the lines that must track the current release.
+ */
+function checkProseVersions(version) {
+    const [major, minor] = version.split('.');
+    const minorWildcard = `${major}.${minor}.x`;
+
+    // Every pinned jsDelivr CDN reference must point at the current release.
+    const cdnFiles = ['README.md', 'llms.txt'];
+    const cdnRegex = /vanduo-oss\/framework@v(\d+\.\d+\.\d+)/g;
+    for (const fileName of cdnFiles) {
+        const filePath = path.join(rootDir, fileName);
+        if (!fs.existsSync(filePath)) {
+            fail(`${fileName} not found for prose version check.`);
+            continue;
+        }
+        const content = fs.readFileSync(filePath, 'utf8');
+        let cdnMatch;
+        while ((cdnMatch = cdnRegex.exec(content)) !== null) {
+            if (cdnMatch[1] !== version) {
+                fail(`${fileName}: CDN reference framework@v${cdnMatch[1]} should be v${version}`);
+            }
+        }
+    }
+
+    // Anchored lines that must reference the current version verbatim.
+    const requiredPatterns = [
+        { file: 'README.md', regex: new RegExp(`^# Vanduo Framework v${escapeRegExp(version)}\\b`, 'm'), label: `README.md title "# Vanduo Framework v${version}"` },
+        { file: 'README.md', regex: new RegExp(`^## What's New in ${escapeRegExp(version)}\\b`, 'm'), label: `README.md "## What's New in ${version}"` },
+        { file: 'llms.txt', regex: new RegExp(`^# Vanduo Framework v${escapeRegExp(version)}\\b`, 'm'), label: `llms.txt header "# Vanduo Framework v${version}"` },
+        { file: 'llms.txt', regex: new RegExp(`\\bv${escapeRegExp(version)} ships\\b`), label: `llms.txt "v${version} ships ..." summary` },
+        { file: 'SECURITY.md', regex: new RegExp(`\\|\\s*${escapeRegExp(minorWildcard)}\\s*\\|`), label: `SECURITY.md supported-versions row "${minorWildcard}"` }
+    ];
+    for (const { file, regex, label } of requiredPatterns) {
+        const filePath = path.join(rootDir, file);
+        if (!fs.existsSync(filePath)) {
+            fail(`${file} not found for prose version check.`);
+            continue;
+        }
+        const content = fs.readFileSync(filePath, 'utf8');
+        if (!regex.test(content)) {
+            fail(`Prose version drift: missing ${label}`);
+        }
+    }
+
+    // CHANGELOG.md: the newest "## [X.Y.Z]" entry must be the current release.
+    const changelogPath = path.join(rootDir, 'CHANGELOG.md');
+    if (!fs.existsSync(changelogPath)) {
+        fail('CHANGELOG.md not found for prose version check.');
+    } else {
+        const changelog = fs.readFileSync(changelogPath, 'utf8');
+        const firstEntry = changelog.match(/^##\s*\[(\d+\.\d+\.\d+)\]/m);
+        if (!firstEntry) {
+            fail('CHANGELOG.md has no "## [X.Y.Z]" version entry.');
+        } else if (firstEntry[1] !== version) {
+            fail(`CHANGELOG.md latest entry is [${firstEntry[1]}], expected [${version}]`);
+        }
+    }
+}
+
 if (!fs.existsSync(packagePath)) {
     fail('package.json not found.');
 }
@@ -111,6 +174,8 @@ if (packageVersion) {
         }
 
     }
+
+    checkProseVersions(packageVersion);
 }
 
 if (errors.length > 0) {

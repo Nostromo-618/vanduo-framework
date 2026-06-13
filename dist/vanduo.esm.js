@@ -1,4 +1,4 @@
-/*! Vanduo v1.4.5 | Built: 2026-06-11T18:11:31.153Z | git:70ed923 | development */
+/*! Vanduo v1.4.6 | Built: 2026-06-13T10:32:26.875Z | git:82019ff | development */
 
 // js/utils/lifecycle.js
 (function() {
@@ -176,7 +176,7 @@
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.4.5" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.4.6" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,
@@ -3079,13 +3079,13 @@
      */
     initParallax: function(element) {
       element.dataset.parallaxInitialized = "true";
-      const disableMobile = element.classList.contains("parallax-disable-mobile");
+      const disableMobile = element.classList.contains("vd-parallax-disable-mobile") || element.classList.contains("parallax-disable-mobile");
       if (disableMobile && this.isMobile) {
         return;
       }
       const layers = element.querySelectorAll(".vd-parallax-layer, .vd-parallax-bg");
       const speed = this.getSpeed(element);
-      const direction = element.classList.contains("parallax-horizontal") ? "horizontal" : "vertical";
+      const direction = element.classList.contains("vd-parallax-horizontal") || element.classList.contains("parallax-horizontal") ? "horizontal" : "vertical";
       this.parallaxElements.set(element, {
         layers: Array.from(layers),
         speed,
@@ -3100,9 +3100,9 @@
      * @returns {number} Speed multiplier
      */
     getSpeed: function(element) {
-      if (element.classList.contains("parallax-slow")) {
+      if (element.classList.contains("vd-parallax-slow") || element.classList.contains("parallax-slow")) {
         return 0.5;
-      } else if (element.classList.contains("parallax-fast")) {
+      } else if (element.classList.contains("vd-parallax-fast") || element.classList.contains("parallax-fast")) {
         return 1.5;
       }
       return 1;
@@ -3149,7 +3149,8 @@
       ));
       const offset = (scrollProgress - 0.5) * config.speed * 100;
       config.layers.forEach((layer, _index) => {
-        const layerSpeed = layer.dataset.parallaxSpeed ? parseFloat(layer.dataset.parallaxSpeed) : 1;
+        const layerSpeedAttr = layer.dataset.parallaxSpeed || layer.dataset.speed;
+        const layerSpeed = layerSpeedAttr ? parseFloat(layerSpeedAttr) : 1;
         const layerOffset = offset * layerSpeed;
         if (config.direction === "horizontal") {
           layer.style.transform = `translateX(${layerOffset}px)`;

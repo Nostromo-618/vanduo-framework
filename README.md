@@ -1,4 +1,4 @@
-# Vanduo Framework v1.4.5
+# Vanduo Framework v1.4.6
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -25,28 +25,36 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 1.4.5
+## What's New in 1.4.6
+
+- **Leaner default CSS** — `css/vanduo.css` now bundles the `regular` + `fill` icon weights only (~45% smaller minified CSS). Need all six weights? Import `css/icons/icons-all.css`.
+- **No-icons core build** — new `dist/vanduo-core.min.css` (`@vanduo-oss/framework/css/core`) drops the bundled icons entirely (~123 KB lighter) for consumers who ship their own icon set.
+- **Smaller package** — the build ships only the icon weights the bundle actually uses into `dist/icons/`, instead of all six.
+- **TypeScript types** — a hand-written `dist/vanduo.d.ts` for the `Vanduo` runtime, exposed via the `types` field.
+- **In-repo changelog** — a new [CHANGELOG.md](CHANGELOG.md) (Keep a Changelog), now validated by `check:versions`.
+- **Version-consistency now covers prose** — `pnpm check:versions` validates README, `SECURITY.md`, `llms.txt`, and `CHANGELOG.md`, not just the dist banners.
+- **Lint guard** — raw `innerHTML` assignment is now flagged by ESLint outside the sanitization helpers.
+- **Parallax & print fixes (now tested)** — speed/direction classes and the print stylesheet's hide-list now use the canonical `vd-` prefix, with new Playwright regression specs; removed the unused internal `doc-tabs` styles from the bundle.
+
+## Previous: 1.4.5
 
 - **Rounded-corner background fixes** — draggable surfaces and input-group addons use `background-clip: padding-box` so opaque fills no longer bleed past border arcs at large `data-radius` presets.
 - **Background-clip audit** — Playwright `@audit` harness at `tests/audit/background-clip-audit.spec.ts` for regression checks.
 - Normative API: [openspec/specs/draggable/spec.md](openspec/specs/draggable/spec.md).
-
-## Previous: 1.4.4
-
-- **Theme Switcher menu variant** — `.vd-theme-switcher[data-theme-ui="menu"]` opens an icon-only picker; option click applies the theme without cycling on toggle.
-- Normative API: [openspec/specs/theme-switcher/spec.md](openspec/specs/theme-switcher/spec.md).
 
 ## Quick Start
 
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.5/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>
 ```
+
+> **Production tip:** harden CDN tags with Subresource Integrity — add `integrity="sha384-…" crossorigin="anonymous"`. Copy the hash from [jsdelivr.com](https://www.jsdelivr.com/) (per-file "SRI" button) or generate it with `openssl dgst -sha384 -binary dist/vanduo.min.js | openssl base64 -A`.
 
 ### Local Dist Files
 
@@ -146,6 +154,7 @@ CI runs **Chromium Desktop smoke tests on pull requests** and the **full cross-b
 
 ## Release Notes
 
+- Changelog: [CHANGELOG.md](CHANGELOG.md)
 - Architecture notes: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Token model: [TOKENS.md](TOKENS.md)
 - Theme Switcher spec: [openspec/specs/theme-switcher/spec.md](openspec/specs/theme-switcher/spec.md)

@@ -27,7 +27,7 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 
 ## What's New in 1.5.0
 
-- **Layout primitives** — new CSS-only `.vd-box`, `.vd-stack`, `.vd-inline`, and `.vd-center` containers with a `data-*` API (`data-pad`, `data-gap`, `data-align`, `data-justify`, `data-round`…) that consumes the existing Fibonacci spacing/radius and semantic tokens. They are the composition layer between utilities and components — *utilities style an element; primitives arrange elements*. Sub-1KB, zero JS, zero new public tokens.
+- **Layout primitives** — new CSS-only layout containers — `.vd-box`, `.vd-stack`, `.vd-inline`, `.vd-center`, `.vd-frame` (golden-ratio aspect box), `.vd-cover`, and `.vd-switcher` (container-query-free responsive row→column) — with a `data-*` API (`data-pad`, `data-gap`, `data-align`, `data-justify`, `data-round`, `data-ratio`…) that consumes the existing Fibonacci spacing/radius and semantic tokens. They are the composition layer between utilities and components — *utilities style an element; primitives arrange elements*. Zero JS, zero new public tokens.
 - **Hex grid is now a standalone package** — `VdHexGrid` was never part of the bundle; its source has moved out of the framework tree. Install [`@vanduo-oss/hex-grid`](https://www.npmjs.com/package/@vanduo-oss/hex-grid) directly.
 
 ## Previous: 1.4.6

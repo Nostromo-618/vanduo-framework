@@ -96,6 +96,46 @@ test.describe('Layout Primitives @unit', () => {
     });
   });
 
+  test.describe('Frame', () => {
+    test('defaults to the golden aspect ratio', async ({ page }) => {
+      const ratio = await page.locator('#frame-default').evaluate((el) => getComputedStyle(el).aspectRatio);
+      expect(ratio).toContain('1.618');
+    });
+
+    test('data-ratio="square" sets a 1:1 ratio', async ({ page }) => {
+      const ratio = await page.locator('#frame-square').evaluate((el) => getComputedStyle(el).aspectRatio);
+      expect(ratio.replace(/\s/g, '')).toBe('1/1');
+    });
+  });
+
+  test.describe('Cover', () => {
+    test('is a vertically-centering flex column with a min-height', async ({ page }) => {
+      const styles = await page.locator('#cover-half').evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return { display: cs.display, dir: cs.flexDirection, justify: cs.justifyContent, minHeight: cs.minHeight };
+      });
+      expect(styles.display).toBe('flex');
+      expect(styles.dir).toBe('column');
+      expect(styles.justify).toBe('center');
+      expect(styles.minHeight).not.toBe('auto');
+      expect(styles.minHeight).not.toBe('0px');
+    });
+  });
+
+  test.describe('Switcher', () => {
+    test('is a wrapping flex row with a token gap and growing children', async ({ page }) => {
+      const styles = await page.locator('#switcher').evaluate((el) => {
+        const cs = getComputedStyle(el);
+        const child = getComputedStyle(el.firstElementChild as Element);
+        return { display: cs.display, wrap: cs.flexWrap, gap: cs.columnGap, grow: child.flexGrow };
+      });
+      expect(styles.display).toBe('flex');
+      expect(styles.wrap).toBe('wrap');
+      expect(styles.gap).toBe('12px');
+      expect(styles.grow).toBe('1');
+    });
+  });
+
   test.describe('Override semantics', () => {
     test('a gap utility overrides the primitive data-gap on the same element', async ({ page }) => {
       const result = await page.evaluate(() => {

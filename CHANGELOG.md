@@ -11,7 +11,7 @@ ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 ## [1.5.0] - 2026-06-18
 
 ### Added
-- **Layout primitives** — CSS-only `.vd-box`, `.vd-stack`, `.vd-inline`, and `.vd-center` containers (`css/primitives/primitives.css`) with a `data-*` API consuming the existing Fibonacci spacing/radius and semantic tokens. The composition layer between utilities and components; sub-1KB, zero JS, no new public tokens. Unit specs in `tests/unit/primitives.spec.ts`.
+- **Layout primitives** — CSS-only `.vd-box`, `.vd-stack`, `.vd-inline`, `.vd-center`, `.vd-frame` (golden-ratio aspect box), `.vd-cover`, and `.vd-switcher` (responsive row→column without a media query) containers (`css/primitives/primitives.css`) with a `data-*` API consuming the existing Fibonacci spacing/radius and semantic tokens. The composition layer between utilities and components; zero JS, no new public tokens. Unit specs in `tests/unit/primitives.spec.ts`.
 
 ### Removed
 - **Hex grid source** (`js/components/vd-hex.js`, `js/utils/hex-math.js`) and its tests. `VdHexGrid` was never bundled; it now ships solely as the standalone `@vanduo-oss/hex-grid` package.

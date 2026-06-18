@@ -12,10 +12,13 @@
  * Each primitive sets a vd-prefixed internal custom property defaulted from a
  * token; data-* attributes remap that property.
  *
- *   .vd-box     data-pad data-bg data-round data-border
- *   .vd-stack   data-gap data-align
- *   .vd-inline  data-gap data-align data-justify data-wrap
- *   .vd-center  data-axis data-max
+ *   .vd-box      data-pad data-bg data-round data-border
+ *   .vd-stack    data-gap data-align
+ *   .vd-inline   data-gap data-align data-justify data-wrap
+ *   .vd-center   data-axis data-max
+ *   .vd-frame    data-ratio
+ *   .vd-cover    data-min data-gap
+ *   .vd-switcher data-threshold data-gap
  *
  * @since 1.5.0
  * @license MIT
@@ -163,3 +166,92 @@
   display: flex;
   align-items: center;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * FRAME — a fixed aspect-ratio box (golden by default); media children cover it
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-frame {
+  --vd-frame-ratio: 1.618;
+
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--vd-frame-ratio);
+}
+
+.vd-frame > img,
+.vd-frame > video,
+.vd-frame > canvas,
+.vd-frame > svg,
+.vd-frame > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vd-frame[data-ratio="golden"] { --vd-frame-ratio: 1.618; }
+.vd-frame[data-ratio="golden-portrait"] { --vd-frame-ratio: 0.618; }
+.vd-frame[data-ratio="square"] { --vd-frame-ratio: 1; }
+.vd-frame[data-ratio="16-9"] { --vd-frame-ratio: 1.7778; }
+.vd-frame[data-ratio="4-3"] { --vd-frame-ratio: 1.3333; }
+.vd-frame[data-ratio="3-2"] { --vd-frame-ratio: 1.5; }
+.vd-frame[data-ratio="21-9"] { --vd-frame-ratio: 2.3333; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * COVER — a min-height region that vertically centers its content
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-cover {
+  --vd-cover-min: 100vh;
+  --vd-cover-gap: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--vd-cover-gap);
+  min-height: var(--vd-cover-min);
+}
+
+.vd-cover[data-min="screen"] { --vd-cover-min: 100vh; }
+.vd-cover[data-min="half"] { --vd-cover-min: 50vh; }
+.vd-cover[data-min="fib-610"] { --vd-cover-min: 610px; }
+.vd-cover[data-min="fib-987"] { --vd-cover-min: 987px; }
+
+.vd-cover[data-gap="fib-3"] { --vd-cover-gap: var(--vd-space-fib-3); }
+.vd-cover[data-gap="fib-5"] { --vd-cover-gap: var(--vd-space-fib-5); }
+.vd-cover[data-gap="fib-8"] { --vd-cover-gap: var(--vd-space-fib-8); }
+.vd-cover[data-gap="fib-13"] { --vd-cover-gap: var(--vd-space-fib-13); }
+.vd-cover[data-gap="fib-21"] { --vd-cover-gap: var(--vd-space-fib-21); }
+.vd-cover[data-gap="fib-34"] { --vd-cover-gap: var(--vd-space-fib-34); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SWITCHER — auto row→column at a container-width threshold (no media query).
+ * When the container is wider than the threshold the children share a row;
+ * narrower and they each take a full row. Thresholds are Fibonacci by design.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-switcher {
+  --vd-switcher-threshold: 610px;
+  --vd-switcher-gap: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-switcher-gap);
+}
+
+.vd-switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--vd-switcher-threshold) - 100%) * 999);
+}
+
+.vd-switcher[data-threshold="fib-377"] { --vd-switcher-threshold: 377px; }
+.vd-switcher[data-threshold="fib-610"] { --vd-switcher-threshold: 610px; }
+.vd-switcher[data-threshold="fib-987"] { --vd-switcher-threshold: 987px; }
+
+.vd-switcher[data-gap="fib-3"] { --vd-switcher-gap: var(--vd-space-fib-3); }
+.vd-switcher[data-gap="fib-5"] { --vd-switcher-gap: var(--vd-space-fib-5); }
+.vd-switcher[data-gap="fib-8"] { --vd-switcher-gap: var(--vd-space-fib-8); }
+.vd-switcher[data-gap="fib-13"] { --vd-switcher-gap: var(--vd-space-fib-13); }
+.vd-switcher[data-gap="fib-21"] { --vd-switcher-gap: var(--vd-space-fib-21); }
+.vd-switcher[data-gap="fib-34"] { --vd-switcher-gap: var(--vd-space-fib-34); }

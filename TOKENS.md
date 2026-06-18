@@ -38,7 +38,7 @@ Component, utility, effect, and JS-set custom properties also use `--vd-*`:
 - `--vd-spacing-*`
 - `--vd-morph-*`
 - `--vd-affix-top-offset`
-- `--vd-box-*` / `--vd-stack-*` / `--vd-inline-*` / `--vd-center-*` — layout-primitive internals (see `css/primitives/primitives.css`); each defaults from a semantic/spacing token and is remapped by `data-*` attributes.
+- `--vd-box-*` / `--vd-stack-*` / `--vd-inline-*` / `--vd-center-*` / `--vd-frame-*` / `--vd-cover-*` / `--vd-switcher-*` — layout-primitive internals (see `css/primitives/primitives.css`); each defaults from a semantic/spacing token and is remapped by `data-*` attributes.
 
 Unprefixed token aliases are not shipped in `1.4.1`.
 

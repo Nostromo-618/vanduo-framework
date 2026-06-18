@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.0 | Built: 2026-06-18T09:21:39.495Z | git:9ee6a24 | development */
+/*! Vanduo v1.5.0 | Built: 2026-06-18T14:22:41.763Z | git:f28b6cd | development */
 *, :before, :after {
   box-sizing: border-box;
 }
@@ -3508,6 +3508,147 @@ pre code {
 .vd-center[data-axis="vertical"] {
   align-items: center;
   display: flex;
+}
+
+.vd-frame {
+  --vd-frame-ratio: 1.618;
+  aspect-ratio: var(--vd-frame-ratio);
+  display: block;
+  overflow: hidden;
+}
+
+.vd-frame > img, .vd-frame > video, .vd-frame > canvas, .vd-frame > svg, .vd-frame > iframe {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.vd-frame[data-ratio="golden"] {
+  --vd-frame-ratio: 1.618;
+}
+
+.vd-frame[data-ratio="golden-portrait"] {
+  --vd-frame-ratio: .618;
+}
+
+.vd-frame[data-ratio="square"] {
+  --vd-frame-ratio: 1;
+}
+
+.vd-frame[data-ratio="16-9"] {
+  --vd-frame-ratio: 1.7778;
+}
+
+.vd-frame[data-ratio="4-3"] {
+  --vd-frame-ratio: 1.3333;
+}
+
+.vd-frame[data-ratio="3-2"] {
+  --vd-frame-ratio: 1.5;
+}
+
+.vd-frame[data-ratio="21-9"] {
+  --vd-frame-ratio: 2.3333;
+}
+
+.vd-cover {
+  --vd-cover-min: 100vh;
+  --vd-cover-gap: 0;
+  justify-content: center;
+  gap: var(--vd-cover-gap);
+  min-height: var(--vd-cover-min);
+  flex-direction: column;
+  display: flex;
+}
+
+.vd-cover[data-min="screen"] {
+  --vd-cover-min: 100vh;
+}
+
+.vd-cover[data-min="half"] {
+  --vd-cover-min: 50vh;
+}
+
+.vd-cover[data-min="fib-610"] {
+  --vd-cover-min: 610px;
+}
+
+.vd-cover[data-min="fib-987"] {
+  --vd-cover-min: 987px;
+}
+
+.vd-cover[data-gap="fib-3"] {
+  --vd-cover-gap: var(--vd-space-fib-3);
+}
+
+.vd-cover[data-gap="fib-5"] {
+  --vd-cover-gap: var(--vd-space-fib-5);
+}
+
+.vd-cover[data-gap="fib-8"] {
+  --vd-cover-gap: var(--vd-space-fib-8);
+}
+
+.vd-cover[data-gap="fib-13"] {
+  --vd-cover-gap: var(--vd-space-fib-13);
+}
+
+.vd-cover[data-gap="fib-21"] {
+  --vd-cover-gap: var(--vd-space-fib-21);
+}
+
+.vd-cover[data-gap="fib-34"] {
+  --vd-cover-gap: var(--vd-space-fib-34);
+}
+
+.vd-switcher {
+  --vd-switcher-threshold: 610px;
+  --vd-switcher-gap: 0;
+  gap: var(--vd-switcher-gap);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.vd-switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--vd-switcher-threshold) - 100%) * 999);
+}
+
+.vd-switcher[data-threshold="fib-377"] {
+  --vd-switcher-threshold: 377px;
+}
+
+.vd-switcher[data-threshold="fib-610"] {
+  --vd-switcher-threshold: 610px;
+}
+
+.vd-switcher[data-threshold="fib-987"] {
+  --vd-switcher-threshold: 987px;
+}
+
+.vd-switcher[data-gap="fib-3"] {
+  --vd-switcher-gap: var(--vd-space-fib-3);
+}
+
+.vd-switcher[data-gap="fib-5"] {
+  --vd-switcher-gap: var(--vd-space-fib-5);
+}
+
+.vd-switcher[data-gap="fib-8"] {
+  --vd-switcher-gap: var(--vd-space-fib-8);
+}
+
+.vd-switcher[data-gap="fib-13"] {
+  --vd-switcher-gap: var(--vd-space-fib-13);
+}
+
+.vd-switcher[data-gap="fib-21"] {
+  --vd-switcher-gap: var(--vd-space-fib-21);
+}
+
+.vd-switcher[data-gap="fib-34"] {
+  --vd-switcher-gap: var(--vd-space-fib-34);
 }
 
 :root {

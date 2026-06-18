@@ -95,7 +95,7 @@ export default [
     },
     {
         // Override for ES module entry point
-        files: ['js/index.js', 'js/components/vd-hex.js', 'js/utils/hex-math.js'],
+        files: ['js/index.js'],
         languageOptions: {
             sourceType: 'module'
         },

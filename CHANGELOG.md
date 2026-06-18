@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
+## [1.5.0] - 2026-06-18
+
+### Added
+- **Layout primitives** — CSS-only `.vd-box`, `.vd-stack`, `.vd-inline`, `.vd-center`, `.vd-frame` (golden-ratio aspect box), `.vd-cover`, and `.vd-switcher` (responsive row→column without a media query) containers (`css/primitives/primitives.css`) with a `data-*` API consuming the existing Fibonacci spacing/radius and semantic tokens. The composition layer between utilities and components; zero JS, no new public tokens. Unit specs in `tests/unit/primitives.spec.ts`.
+
+### Removed
+- **Hex grid source** (`js/components/vd-hex.js`, `js/utils/hex-math.js`) and its tests. `VdHexGrid` was never bundled; it now ships solely as the standalone `@vanduo-oss/hex-grid` package.
+
+### Changed
+- Removed the unused empty `packages/` workspace and `pnpm-workspace.yaml` (the esbuild build-approval remains in `package.json` `pnpm.allowedBuilds`).
+
 ## [1.4.6] - 2026-06-12
 
 ### Added

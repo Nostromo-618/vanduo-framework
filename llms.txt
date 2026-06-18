@@ -1,6 +1,6 @@
-# Vanduo Framework v1.4.6 — LLM Context
+# Vanduo Framework v1.5.0 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.4.6 ships **47+ components** plus Glass Effects, Water Morph, and Expanding Cards, and the current worktree sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.5.0 ships **47+ components** plus **layout primitives** (`vd-box` / `vd-stack` / `vd-inline` / `vd-center` / `vd-frame` / `vd-cover` / `vd-switcher` — CSS-only containers with a `data-*` API, the composition layer between utilities and components), Glass Effects, Water Morph, and Expanding Cards, and sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The hex grid (`VdHexGrid`) ships separately as `@vanduo-oss/hex-grid`. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -56,8 +56,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.4.6/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.0/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 

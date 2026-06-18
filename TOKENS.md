@@ -38,6 +38,7 @@ Component, utility, effect, and JS-set custom properties also use `--vd-*`:
 - `--vd-spacing-*`
 - `--vd-morph-*`
 - `--vd-affix-top-offset`
+- `--vd-box-*` / `--vd-stack-*` / `--vd-inline-*` / `--vd-center-*` / `--vd-frame-*` / `--vd-cover-*` / `--vd-switcher-*` — layout-primitive internals (see `css/primitives/primitives.css`); each defaults from a semantic/spacing token and is remapped by `data-*` attributes.
 
 Unprefixed token aliases are not shipped in `1.4.1`.
 
@@ -46,6 +47,7 @@ Unprefixed token aliases are not shipped in `1.4.1`.
 - Palette values originate in `css/core/colors.css`.
 - Canonical semantic tokens are defined in `css/core/tokens.css`.
 - Component, utility, effect, and runtime tokens are defined near their owning CSS or JS modules.
+- Layout-primitive internal tokens are defined in `css/primitives/primitives.css`.
 
 ## Authoring Rules
 

@@ -12,6 +12,13 @@
 @import url('core/typography.css');
 @import url('core/tokens.css');
 @import url('core/grid.css');
+
+/* Layer 1.5: Layout primitives (Box, Stack, Inline, Center).
+   Imported BEFORE helpers so the spacing/gap/padding/radius utilities that follow
+   override a primitive default on equal specificity (utilities stay the escape
+   hatch). Primitive token references resolve order-independently from :root. */
+@import url('primitives/primitives.css');
+
 @import url('core/helpers.css');
 
 /* Layer 2: Icons (regular + fill; import css/icons/icons-all.css for all 6 weights) */

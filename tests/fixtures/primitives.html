@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Primitives Test Fixture</title>
+    <link rel="stylesheet" href="../../css/vanduo.css">
+</head>
+<body>
+    <!-- Stack -->
+    <div id="stack-gap" class="vd-stack" data-gap="fib-13"><span>a</span><span>b</span></div>
+    <div id="stack-align" class="vd-stack" data-align="center"><span>a</span></div>
+
+    <!-- Box -->
+    <div id="box-pad" class="vd-box" data-pad="fib-8">pad</div>
+    <div id="box-round" class="vd-box" data-round="lg">round</div>
+    <div id="box-bg" class="vd-box" data-bg="secondary">bg</div>
+    <div id="box-border" class="vd-box" data-border>border</div>
+
+    <!-- Inline -->
+    <div id="inline-default" class="vd-inline"><span>a</span><span>b</span></div>
+    <div id="inline-justify" class="vd-inline" data-justify="between"><span>a</span><span>b</span></div>
+    <div id="inline-nowrap" class="vd-inline" data-wrap="nowrap"><span>a</span></div>
+
+    <!-- Center -->
+    <div id="center-max" class="vd-center" data-max="fib-610">centered column</div>
+    <div id="center-axis" class="vd-center" data-axis="both"><span>x</span></div>
+
+    <!-- Frame -->
+    <div id="frame-default" class="vd-frame"></div>
+    <div id="frame-square" class="vd-frame" data-ratio="square"></div>
+
+    <!-- Cover -->
+    <div id="cover-half" class="vd-cover" data-min="half"><span>x</span></div>
+
+    <!-- Switcher -->
+    <div id="switcher" class="vd-switcher" data-threshold="fib-610" data-gap="fib-8"><span>a</span><span>b</span></div>
+
+    <!-- Ordering: a utility on the same element overrides the primitive default -->
+    <div id="gap2-ref" class="vd-gap-2"></div>
+    <div id="override" class="vd-stack vd-gap-2" data-gap="fib-55"><span>a</span><span>b</span></div>
+</body>
+</html>

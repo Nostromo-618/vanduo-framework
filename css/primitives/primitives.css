@@ -1,0 +1,257 @@
+/**
+ * Vanduo Framework - Layout Primitives
+ *
+ * Unstyled, single-responsibility layout containers that consume design tokens.
+ * They express a layout INTENT (vertical rhythm, wrapping row, centered column)
+ * rather than a single property — the composition layer between utilities and
+ * components:  tokens -> (utilities | primitives) -> components.
+ *
+ * Override semantics: this file is imported BEFORE core/helpers.css and the
+ * utilities layer, so a spacing/gap/padding/radius utility on the same element
+ * (e.g. .vd-gap-5) always wins over a primitive's default on equal specificity.
+ * Each primitive sets a vd-prefixed internal custom property defaulted from a
+ * token; data-* attributes remap that property.
+ *
+ *   .vd-box      data-pad data-bg data-round data-border
+ *   .vd-stack    data-gap data-align
+ *   .vd-inline   data-gap data-align data-justify data-wrap
+ *   .vd-center   data-axis data-max
+ *   .vd-frame    data-ratio
+ *   .vd-cover    data-min data-gap
+ *   .vd-switcher data-threshold data-gap
+ *
+ * @since 1.5.0
+ * @license MIT
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * BOX — a single padded / optionally skinned surface
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-box {
+  --vd-box-pad: 0;
+  --vd-box-radius: 0;
+
+  display: block;
+  padding: var(--vd-box-pad);
+  border-radius: var(--vd-box-radius);
+}
+
+.vd-box[data-pad="0"] { --vd-box-pad: 0; }
+.vd-box[data-pad="fib-1"] { --vd-box-pad: var(--vd-space-fib-1); }
+.vd-box[data-pad="fib-2"] { --vd-box-pad: var(--vd-space-fib-2); }
+.vd-box[data-pad="fib-3"] { --vd-box-pad: var(--vd-space-fib-3); }
+.vd-box[data-pad="fib-5"] { --vd-box-pad: var(--vd-space-fib-5); }
+.vd-box[data-pad="fib-8"] { --vd-box-pad: var(--vd-space-fib-8); }
+.vd-box[data-pad="fib-13"] { --vd-box-pad: var(--vd-space-fib-13); }
+.vd-box[data-pad="fib-21"] { --vd-box-pad: var(--vd-space-fib-21); }
+.vd-box[data-pad="fib-34"] { --vd-box-pad: var(--vd-space-fib-34); }
+.vd-box[data-pad="fib-55"] { --vd-box-pad: var(--vd-space-fib-55); }
+
+/* Background — canonical semantic surfaces */
+.vd-box[data-bg="primary"] { background-color: var(--vd-bg-primary); }
+.vd-box[data-bg="secondary"] { background-color: var(--vd-bg-secondary); }
+.vd-box[data-bg="tertiary"] { background-color: var(--vd-bg-tertiary); }
+.vd-box[data-bg="dark"] { background-color: var(--vd-bg-dark); }
+.vd-box[data-bg="darker"] { background-color: var(--vd-bg-darker); }
+
+/* Radius — mirrors the .vd-rounded-* scale (uses data-round, NOT data-radius,
+   which is the global theme-customizer radius hook). */
+.vd-box[data-round="none"] { --vd-box-radius: 0; }
+.vd-box[data-round="sm"] { --vd-box-radius: var(--vd-radius-fib-2); }
+.vd-box[data-round="md"] { --vd-box-radius: var(--vd-radius-fib-5); }
+.vd-box[data-round="lg"] { --vd-box-radius: var(--vd-radius-fib-8); }
+.vd-box[data-round="xl"] { --vd-box-radius: var(--vd-radius-fib-13); }
+.vd-box[data-round="2xl"] { --vd-box-radius: var(--vd-radius-fib-21); }
+.vd-box[data-round="full"] { --vd-box-radius: 9999px; }
+
+.vd-box[data-border] { border: 1px solid var(--vd-border-color); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * STACK — vertical rhythm (flex column with token-driven gap)
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-stack {
+  --vd-stack-gap: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--vd-stack-gap);
+}
+
+.vd-stack[data-gap="0"] { --vd-stack-gap: 0; }
+.vd-stack[data-gap="fib-1"] { --vd-stack-gap: var(--vd-space-fib-1); }
+.vd-stack[data-gap="fib-2"] { --vd-stack-gap: var(--vd-space-fib-2); }
+.vd-stack[data-gap="fib-3"] { --vd-stack-gap: var(--vd-space-fib-3); }
+.vd-stack[data-gap="fib-5"] { --vd-stack-gap: var(--vd-space-fib-5); }
+.vd-stack[data-gap="fib-8"] { --vd-stack-gap: var(--vd-space-fib-8); }
+.vd-stack[data-gap="fib-13"] { --vd-stack-gap: var(--vd-space-fib-13); }
+.vd-stack[data-gap="fib-21"] { --vd-stack-gap: var(--vd-space-fib-21); }
+.vd-stack[data-gap="fib-34"] { --vd-stack-gap: var(--vd-space-fib-34); }
+.vd-stack[data-gap="fib-55"] { --vd-stack-gap: var(--vd-space-fib-55); }
+
+.vd-stack[data-align="start"] { align-items: flex-start; }
+.vd-stack[data-align="center"] { align-items: center; }
+.vd-stack[data-align="end"] { align-items: flex-end; }
+.vd-stack[data-align="stretch"] { align-items: stretch; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * INLINE — horizontal cluster (wrapping flex row with token-driven gap)
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-inline {
+  --vd-inline-gap: 0;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-inline-gap);
+}
+
+.vd-inline[data-gap="0"] { --vd-inline-gap: 0; }
+.vd-inline[data-gap="fib-1"] { --vd-inline-gap: var(--vd-space-fib-1); }
+.vd-inline[data-gap="fib-2"] { --vd-inline-gap: var(--vd-space-fib-2); }
+.vd-inline[data-gap="fib-3"] { --vd-inline-gap: var(--vd-space-fib-3); }
+.vd-inline[data-gap="fib-5"] { --vd-inline-gap: var(--vd-space-fib-5); }
+.vd-inline[data-gap="fib-8"] { --vd-inline-gap: var(--vd-space-fib-8); }
+.vd-inline[data-gap="fib-13"] { --vd-inline-gap: var(--vd-space-fib-13); }
+.vd-inline[data-gap="fib-21"] { --vd-inline-gap: var(--vd-space-fib-21); }
+.vd-inline[data-gap="fib-34"] { --vd-inline-gap: var(--vd-space-fib-34); }
+.vd-inline[data-gap="fib-55"] { --vd-inline-gap: var(--vd-space-fib-55); }
+
+.vd-inline[data-align="start"] { align-items: flex-start; }
+.vd-inline[data-align="center"] { align-items: center; }
+.vd-inline[data-align="end"] { align-items: flex-end; }
+.vd-inline[data-align="baseline"] { align-items: baseline; }
+.vd-inline[data-align="stretch"] { align-items: stretch; }
+
+.vd-inline[data-justify="start"] { justify-content: flex-start; }
+.vd-inline[data-justify="center"] { justify-content: center; }
+.vd-inline[data-justify="end"] { justify-content: flex-end; }
+.vd-inline[data-justify="between"] { justify-content: space-between; }
+.vd-inline[data-justify="around"] { justify-content: space-around; }
+.vd-inline[data-justify="evenly"] { justify-content: space-evenly; }
+
+.vd-inline[data-wrap="nowrap"] { flex-wrap: nowrap; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * CENTER — center a column horizontally (data-max) and/or its content (data-axis)
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-center {
+  --vd-center-max: none;
+
+  display: block;
+  max-width: var(--vd-center-max);
+  margin-inline: auto;
+}
+
+.vd-center[data-max="fib-377"] { --vd-center-max: 377px; }
+.vd-center[data-max="fib-610"] { --vd-center-max: 610px; }
+.vd-center[data-max="fib-987"] { --vd-center-max: 987px; }
+
+.vd-center[data-axis="both"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vd-center[data-axis="horizontal"] {
+  display: flex;
+  justify-content: center;
+}
+
+.vd-center[data-axis="vertical"] {
+  display: flex;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * FRAME — a fixed aspect-ratio box (golden by default); media children cover it
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-frame {
+  --vd-frame-ratio: 1.618;
+
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--vd-frame-ratio);
+}
+
+.vd-frame > img,
+.vd-frame > video,
+.vd-frame > canvas,
+.vd-frame > svg,
+.vd-frame > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vd-frame[data-ratio="golden"] { --vd-frame-ratio: 1.618; }
+.vd-frame[data-ratio="golden-portrait"] { --vd-frame-ratio: 0.618; }
+.vd-frame[data-ratio="square"] { --vd-frame-ratio: 1; }
+.vd-frame[data-ratio="16-9"] { --vd-frame-ratio: 1.7778; }
+.vd-frame[data-ratio="4-3"] { --vd-frame-ratio: 1.3333; }
+.vd-frame[data-ratio="3-2"] { --vd-frame-ratio: 1.5; }
+.vd-frame[data-ratio="21-9"] { --vd-frame-ratio: 2.3333; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * COVER — a min-height region that vertically centers its content
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-cover {
+  --vd-cover-min: 100vh;
+  --vd-cover-gap: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--vd-cover-gap);
+  min-height: var(--vd-cover-min);
+}
+
+.vd-cover[data-min="screen"] { --vd-cover-min: 100vh; }
+.vd-cover[data-min="half"] { --vd-cover-min: 50vh; }
+.vd-cover[data-min="fib-610"] { --vd-cover-min: 610px; }
+.vd-cover[data-min="fib-987"] { --vd-cover-min: 987px; }
+
+.vd-cover[data-gap="fib-3"] { --vd-cover-gap: var(--vd-space-fib-3); }
+.vd-cover[data-gap="fib-5"] { --vd-cover-gap: var(--vd-space-fib-5); }
+.vd-cover[data-gap="fib-8"] { --vd-cover-gap: var(--vd-space-fib-8); }
+.vd-cover[data-gap="fib-13"] { --vd-cover-gap: var(--vd-space-fib-13); }
+.vd-cover[data-gap="fib-21"] { --vd-cover-gap: var(--vd-space-fib-21); }
+.vd-cover[data-gap="fib-34"] { --vd-cover-gap: var(--vd-space-fib-34); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SWITCHER — auto row→column at a container-width threshold (no media query).
+ * When the container is wider than the threshold the children share a row;
+ * narrower and they each take a full row. Thresholds are Fibonacci by design.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.vd-switcher {
+  --vd-switcher-threshold: 610px;
+  --vd-switcher-gap: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-switcher-gap);
+}
+
+.vd-switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--vd-switcher-threshold) - 100%) * 999);
+}
+
+.vd-switcher[data-threshold="fib-377"] { --vd-switcher-threshold: 377px; }
+.vd-switcher[data-threshold="fib-610"] { --vd-switcher-threshold: 610px; }
+.vd-switcher[data-threshold="fib-987"] { --vd-switcher-threshold: 987px; }
+
+.vd-switcher[data-gap="fib-3"] { --vd-switcher-gap: var(--vd-space-fib-3); }
+.vd-switcher[data-gap="fib-5"] { --vd-switcher-gap: var(--vd-space-fib-5); }
+.vd-switcher[data-gap="fib-8"] { --vd-switcher-gap: var(--vd-space-fib-8); }
+.vd-switcher[data-gap="fib-13"] { --vd-switcher-gap: var(--vd-space-fib-13); }
+.vd-switcher[data-gap="fib-21"] { --vd-switcher-gap: var(--vd-space-fib-21); }
+.vd-switcher[data-gap="fib-34"] { --vd-switcher-gap: var(--vd-space-fib-34); }

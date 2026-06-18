@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.0 | Built: 2026-06-18T14:22:41.763Z | git:f28b6cd | development */
+/*! Vanduo v1.5.0 | Built: 2026-06-18T19:13:58.613Z | git:8f0e1b5 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -10441,6 +10441,7 @@ module.exports = __toCommonJS(index_exports);
     _cleanup: [],
     _boundTriggers: /* @__PURE__ */ new WeakMap(),
     _triggerElement: null,
+    _currentTarget: null,
     init: function(root) {
       const triggers = window.Vanduo.queryAll(root, "[data-vd-spotlight]");
       triggers.forEach((trigger) => {
@@ -10509,7 +10510,28 @@ module.exports = __toCommonJS(index_exports);
       document.addEventListener("keydown", escHandler);
       this._cleanup.push(() => document.removeEventListener("keydown", escHandler));
       overlay.addEventListener("click", () => this.stop());
+      const reposition = () => {
+        if (this._active && this._currentTarget) this._positionTooltip(this._currentTarget);
+      };
+      window.addEventListener("scroll", reposition, { passive: true });
+      window.addEventListener("resize", reposition);
+      this._cleanup.push(() => window.removeEventListener("scroll", reposition));
+      this._cleanup.push(() => window.removeEventListener("resize", reposition));
       this._showStep(this._currentStep);
+    },
+    _positionTooltip: function(target) {
+      const tooltip = this._elements.tooltip;
+      if (!tooltip || !target || !target.isConnected) return;
+      const rect = target.getBoundingClientRect();
+      const tRect = tooltip.getBoundingClientRect();
+      let top = rect.bottom + 12 + window.scrollY;
+      let left = rect.left + (rect.width - tRect.width) / 2 + window.scrollX;
+      left = Math.max(8, Math.min(left, window.innerWidth - tRect.width - 8));
+      if (top + tRect.height > window.innerHeight + window.scrollY) {
+        top = rect.top - tRect.height - 12 + window.scrollY;
+      }
+      tooltip.style.top = top + "px";
+      tooltip.style.left = left + "px";
     },
     _showStep: function(index) {
       const step = this._steps[index];
@@ -10583,19 +10605,15 @@ module.exports = __toCommonJS(index_exports);
       footer.appendChild(counter);
       footer.appendChild(actions);
       tooltip.appendChild(footer);
+      this._currentTarget = target || null;
       if (target) {
-        requestAnimationFrame(() => {
-          const rect = target.getBoundingClientRect();
-          const tRect = tooltip.getBoundingClientRect();
-          let top = rect.bottom + 12 + window.scrollY;
-          let left = rect.left + (rect.width - tRect.width) / 2 + window.scrollX;
-          left = Math.max(8, Math.min(left, window.innerWidth - tRect.width - 8));
-          if (top + tRect.height > window.innerHeight + window.scrollY) {
-            top = rect.top - tRect.height - 12 + window.scrollY;
-          }
-          tooltip.style.top = top + "px";
-          tooltip.style.left = left + "px";
-        });
+        let frames = 0;
+        const settle = () => {
+          if (!this._active || this._currentTarget !== target) return;
+          this._positionTooltip(target);
+          if (frames++ < 30) requestAnimationFrame(settle);
+        };
+        requestAnimationFrame(settle);
       }
       document.dispatchEvent(new CustomEvent("spotlight:step", {
         detail: { index, step: index, total, data: step }
@@ -10636,6 +10654,7 @@ module.exports = __toCommonJS(index_exports);
       this._elements = {};
       this._steps = [];
       this._currentStep = 0;
+      this._currentTarget = null;
       if (this._triggerElement && this._triggerElement.isConnected && typeof this._triggerElement.focus === "function") {
         this._triggerElement.focus();
       }

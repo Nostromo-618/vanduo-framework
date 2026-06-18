@@ -14,6 +14,7 @@
     _cleanup: [],
     _boundTriggers: new WeakMap(),
     _triggerElement: null,
+    _currentTarget: null,
 
     init: function (root) {
       const triggers = window.Vanduo.queryAll(root, '[data-vd-spotlight]');
@@ -113,7 +114,37 @@
       // Overlay click to close
       overlay.addEventListener('click', () => this.stop());
 
+      // Keep the tooltip glued to its target while active — through the smooth
+      // scrollIntoView and any late layout (e.g. content-visibility sections that
+      // only render their real geometry once scrolled into view).
+      const reposition = () => {
+        if (this._active && this._currentTarget) this._positionTooltip(this._currentTarget);
+      };
+      window.addEventListener('scroll', reposition, { passive: true });
+      window.addEventListener('resize', reposition);
+      this._cleanup.push(() => window.removeEventListener('scroll', reposition));
+      this._cleanup.push(() => window.removeEventListener('resize', reposition));
+
       this._showStep(this._currentStep);
+    },
+
+    _positionTooltip: function (target) {
+      const tooltip = this._elements.tooltip;
+      if (!tooltip || !target || !target.isConnected) return;
+
+      const rect = target.getBoundingClientRect();
+      const tRect = tooltip.getBoundingClientRect();
+      let top = rect.bottom + 12 + window.scrollY;
+      let left = rect.left + (rect.width - tRect.width) / 2 + window.scrollX;
+
+      // Keep in viewport
+      left = Math.max(8, Math.min(left, window.innerWidth - tRect.width - 8));
+      if (top + tRect.height > window.innerHeight + window.scrollY) {
+        top = rect.top - tRect.height - 12 + window.scrollY;
+      }
+
+      tooltip.style.top = top + 'px';
+      tooltip.style.left = left + 'px';
     },
 
     _showStep: function (index) {
@@ -206,23 +237,21 @@
       footer.appendChild(actions);
       tooltip.appendChild(footer);
 
-      // Position tooltip near target
+      // Position the tooltip near the target. A single measurement right after a
+      // smooth scrollIntoView is unreliable: the scroll is still animating and the
+      // target's final geometry may not exist yet (content-visibility sections only
+      // render once scrolled into view). Re-position across the settle window so the
+      // tooltip converges on the correct spot; the scroll/resize listeners keep it
+      // there afterward.
+      this._currentTarget = target || null;
       if (target) {
-        requestAnimationFrame(() => {
-          const rect = target.getBoundingClientRect();
-          const tRect = tooltip.getBoundingClientRect();
-          let top = rect.bottom + 12 + window.scrollY;
-          let left = rect.left + (rect.width - tRect.width) / 2 + window.scrollX;
-
-          // Keep in viewport
-          left = Math.max(8, Math.min(left, window.innerWidth - tRect.width - 8));
-          if (top + tRect.height > window.innerHeight + window.scrollY) {
-            top = rect.top - tRect.height - 12 + window.scrollY;
-          }
-
-          tooltip.style.top = top + 'px';
-          tooltip.style.left = left + 'px';
-        });
+        let frames = 0;
+        const settle = () => {
+          if (!this._active || this._currentTarget !== target) return;
+          this._positionTooltip(target);
+          if (frames++ < 30) requestAnimationFrame(settle);
+        };
+        requestAnimationFrame(settle);
       }
 
       document.dispatchEvent(new CustomEvent('spotlight:step', {
@@ -272,6 +301,7 @@
       this._elements = {};
       this._steps = [];
       this._currentStep = 0;
+      this._currentTarget = null;
 
       if (this._triggerElement && this._triggerElement.isConnected && typeof this._triggerElement.focus === 'function') {
         this._triggerElement.focus();

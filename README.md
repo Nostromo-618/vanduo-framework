@@ -27,7 +27,9 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 
 ## What's New in 1.5.1
 
-- Development branch opened for the v1.5.1 patch cycle (`dev-v151`).
+- **Expanding Cards — mobile** — below `768px`, panels stack vertically and expand in place using the same flex-grow redistribution as the desktop strip (replacing progressive hide and non-animatable `order` reorder). Inactive rows render as compact stripes with icon + title; labels and subtitles transition smoothly. `ArrowUp`/`ArrowDown` keyboard navigation added alongside left/right.
+- **Expanding Cards — photo backgrounds** — active panels use `background-size: cover` and `background-repeat: no-repeat` so wide expanded cards no longer show tiled repeats on the sides.
+- **Expanding Cards — polish** — mobile overflow clipping and keyboard focus edge cases resolved.
 
 ## Previous: 1.5.0
 

@@ -68,6 +68,11 @@
         }
         if (idx < 0) idx = 0;
 
+        const isVertical = window.getComputedStyle(container).flexDirection === 'column';
+        if (!isVertical && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+          return;
+        }
+
         if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
           e.preventDefault();
           setActive(cards[Math.max(0, idx - 1)]);

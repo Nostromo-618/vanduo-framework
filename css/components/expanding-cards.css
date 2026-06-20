@@ -181,7 +181,7 @@
       72vh,
       calc(
         var(--vd-expanding-card-mobile-active) +
-          4 * (var(--vd-expanding-card-mobile-stripe) + var(--vd-expanding-card-mobile-gap))
+          5 * (var(--vd-expanding-card-mobile-stripe) + var(--vd-expanding-card-mobile-gap))
       )
     );
     gap: var(--vd-expanding-card-mobile-gap);
@@ -193,12 +193,10 @@
     margin: 0;
     flex: 1 1 var(--vd-expanding-card-mobile-stripe);
     min-height: var(--vd-expanding-card-mobile-stripe);
-    background-size: cover;
     transition:
       flex 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
       min-height 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
       border-radius 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
-      background-size 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
       margin 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
   }
 
@@ -207,7 +205,6 @@
     min-height: var(--vd-expanding-card-mobile-active);
     max-width: none;
     border-radius: 32px;
-    background-size: cover;
   }
 
   .vd-expanding-card:not(.is-active) {

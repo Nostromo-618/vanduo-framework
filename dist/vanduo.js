@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.1 | Built: 2026-06-20T14:38:40.881Z | git:aa99fa5 | development */
+/*! Vanduo v1.5.1 | Built: 2026-06-20T14:53:49.342Z | git:43c3649 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -7778,6 +7778,10 @@
             });
           }
           if (idx < 0) idx = 0;
+          const isVertical = window.getComputedStyle(container).flexDirection === "column";
+          if (!isVertical && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+            return;
+          }
           if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
             e.preventDefault();
             setActive(cards[Math.max(0, idx - 1)]);

@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.0 | Built: 2026-06-18T19:13:58.613Z | git:8f0e1b5 | development */
+/*! Vanduo v1.5.1 | Built: 2026-06-20T14:53:49.342Z | git:43c3649 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -201,7 +201,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.5.0" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.5.1" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,
@@ -7788,7 +7788,7 @@ module.exports = __toCommonJS(index_exports);
         setActive(card);
       };
       const onKeydown = function(e) {
-        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Home" && e.key !== "End") {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "Home" && e.key !== "End") {
           return;
         }
         const cards = getCards().filter(function(c) {
@@ -7803,10 +7803,14 @@ module.exports = __toCommonJS(index_exports);
           });
         }
         if (idx < 0) idx = 0;
-        if (e.key === "ArrowLeft") {
+        const isVertical = window.getComputedStyle(container).flexDirection === "column";
+        if (!isVertical && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+          return;
+        }
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
           e.preventDefault();
           setActive(cards[Math.max(0, idx - 1)]);
-        } else if (e.key === "ArrowRight") {
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
           e.preventDefault();
           setActive(cards[Math.min(cards.length - 1, idx + 1)]);
         } else if (e.key === "Home") {

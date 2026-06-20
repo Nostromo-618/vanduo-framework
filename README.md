@@ -1,4 +1,4 @@
-# Vanduo Framework v1.5.0
+# Vanduo Framework v1.5.1
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -25,7 +25,11 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 1.5.0
+## What's New in 1.5.1
+
+- Development branch opened for the v1.5.1 patch cycle (`dev-v151`).
+
+## Previous: 1.5.0
 
 - **Layout primitives** — new CSS-only layout containers — `.vd-box`, `.vd-stack`, `.vd-inline`, `.vd-center`, `.vd-frame` (golden-ratio aspect box), `.vd-cover`, and `.vd-switcher` (container-query-free responsive row→column) — with a `data-*` API (`data-pad`, `data-gap`, `data-align`, `data-justify`, `data-round`, `data-ratio`…) that consumes the existing Fibonacci spacing/radius and semantic tokens. They are the composition layer between utilities and components — *utilities style an element; primitives arrange elements*. Zero JS, zero new public tokens.
 - **Hex grid is now a standalone package** — `VdHexGrid` was never part of the bundle; its source has moved out of the framework tree. Install [`@vanduo-oss/hex-grid`](https://www.npmjs.com/package/@vanduo-oss/hex-grid) directly.
@@ -52,8 +56,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.1/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.1/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>

@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
+## [1.5.1] - Unreleased
+
+### Changed
+- Opened `dev-v151` development branch for the v1.5.1 patch cycle.
+
+### Enhanced
+- **Expanding Cards — mobile** — Below `768px`, panels stack vertically and expand in place using the same flex-grow redistribution as the desktop strip (replacing progressive hide and non-animatable `order` reorder). Inactive rows render as compact stripes with icon + title; labels and subtitles transition smoothly. `ArrowUp`/`ArrowDown` keyboard navigation added alongside left/right.
+
+### Fixed
+- **Expanding Cards — photo backgrounds** — Active panels use `background-size: cover` and `background-repeat: no-repeat` so wide expanded cards no longer show tiled repeats on the sides.
+
 ## [1.5.0] - 2026-06-18
 
 ### Added

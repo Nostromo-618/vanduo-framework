@@ -33,7 +33,8 @@
   border-radius: 30px;
   cursor: pointer;
   background: var(--vd-expanding-card-bg, var(--vd-expanding-card-bg-default, #e6e9ed));
-  background-size: auto 120%;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
 }
@@ -68,7 +69,6 @@
   max-width: 600px;
   margin: 0;
   border-radius: 40px;
-  background-size: auto 100%;
 }
 
 .vd-expanding-card.is-active .vd-expanding-card-shadow {
@@ -164,44 +164,115 @@
   transition-delay: 0.1s;
 }
 
-/* Progressive hide: narrow viewports hide rightmost cards (matches original) */
-@media screen and (max-width: 718px) {
+/* Mobile: vertical stack, expand in place (mirrors desktop flex-grow model) */
+@media screen and (max-width: 767.98px) {
   .vd-expanding-cards {
-    min-width: 520px;
+    --vd-expanding-card-mobile-stripe: 56px;
+    --vd-expanding-card-mobile-active: clamp(200px, 55vw, 280px);
+    --vd-expanding-card-mobile-gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: min(
+      72vh,
+      calc(
+        var(--vd-expanding-card-mobile-active) +
+          4 * (var(--vd-expanding-card-mobile-stripe) + var(--vd-expanding-card-mobile-gap))
+      )
+    );
+    gap: var(--vd-expanding-card-mobile-gap);
   }
 
-  .vd-expanding-card:nth-child(5) {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 638px) {
-  .vd-expanding-cards {
-    min-width: 440px;
-  }
-
-  .vd-expanding-card:nth-child(4) {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 558px) {
-  .vd-expanding-cards {
-    min-width: 360px;
+  .vd-expanding-card {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    flex: 1 1 var(--vd-expanding-card-mobile-stripe);
+    min-height: var(--vd-expanding-card-mobile-stripe);
+    background-size: cover;
+    transition:
+      flex 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+      min-height 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+      border-radius 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+      background-size 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+      margin 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
   }
 
-  .vd-expanding-card:nth-child(3) {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 478px) {
-  .vd-expanding-cards {
-    min-width: 280px;
+  .vd-expanding-card.is-active {
+    flex: 10000 1 var(--vd-expanding-card-mobile-active);
+    min-height: var(--vd-expanding-card-mobile-active);
+    max-width: none;
+    border-radius: 32px;
+    background-size: cover;
   }
 
-  .vd-expanding-card:nth-child(2) {
-    display: none;
+  .vd-expanding-card:not(.is-active) {
+    flex: 1 1 var(--vd-expanding-card-mobile-stripe);
+    min-height: var(--vd-expanding-card-mobile-stripe);
+    border-radius: 28px;
+  }
+
+  .vd-expanding-card.is-active .vd-expanding-card-shadow {
+    box-shadow:
+      inset 0 -120px 120px -120px black,
+      inset 0 -120px 120px -100px black;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-shadow {
+    bottom: 0;
+    height: 100%;
+    box-shadow: inset 0 0 80px 0 rgb(0 0 0 / 35%);
+  }
+
+  .vd-expanding-card.is-active .vd-expanding-card-label {
+    bottom: 20px;
+    left: 20px;
+    top: auto;
+    transform: none;
+    align-items: flex-end;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-label {
+    bottom: 8px;
+    left: 12px;
+    top: auto;
+    right: auto;
+    height: 40px;
+    transform: none;
+    align-items: center;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-info {
+    min-width: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-info > div {
+    left: 0;
+    opacity: 1;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-subtitle {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .vd-expanding-card.is-active .vd-expanding-card-subtitle {
+    opacity: 1;
+    max-height: 2em;
+  }
+
+  .vd-expanding-card:not(.is-active) .vd-expanding-card-title {
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

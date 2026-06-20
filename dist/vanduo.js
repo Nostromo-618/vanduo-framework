@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.1 | Built: 2026-06-20T12:55:28.428Z | git:33e3eaa | development */
+/*! Vanduo v1.5.1 | Built: 2026-06-20T14:03:24.142Z | git:cd7b0b8 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -7763,7 +7763,7 @@
           setActive(card);
         };
         const onKeydown = function(e) {
-          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Home" && e.key !== "End") {
+          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "Home" && e.key !== "End") {
             return;
           }
           const cards = getCards().filter(function(c) {
@@ -7778,10 +7778,10 @@
             });
           }
           if (idx < 0) idx = 0;
-          if (e.key === "ArrowLeft") {
+          if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
             e.preventDefault();
             setActive(cards[Math.max(0, idx - 1)]);
-          } else if (e.key === "ArrowRight") {
+          } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             e.preventDefault();
             setActive(cards[Math.min(cards.length - 1, idx + 1)]);
           } else if (e.key === "Home") {

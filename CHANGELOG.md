@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
+## [1.5.1] - Unreleased
+
+### Changed
+- Opened `dev-v151` development branch for the v1.5.1 patch cycle.
+
 ## [1.5.0] - 2026-06-18
 
 ### Added

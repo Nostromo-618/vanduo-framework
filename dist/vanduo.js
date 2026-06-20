@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.0 | Built: 2026-06-18T19:13:58.613Z | git:8f0e1b5 | development */
+/*! Vanduo v1.5.1 | Built: 2026-06-20T12:55:28.428Z | git:33e3eaa | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -176,7 +176,7 @@
   // js/vanduo.js
   (function() {
     "use strict";
-    const VANDUO_VERSION = true ? "1.5.0" : "0.0.0-dev";
+    const VANDUO_VERSION = true ? "1.5.1" : "0.0.0-dev";
     const hasOwn = Object.prototype.hasOwnProperty;
     const Vanduo2 = {
       version: VANDUO_VERSION,

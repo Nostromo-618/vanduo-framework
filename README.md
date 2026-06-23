@@ -174,6 +174,13 @@ CI runs **Chromium Desktop smoke tests on pull requests** and the **full cross-b
 - QA strategy: [QA-Automation-Strategy.md](QA-Automation-Strategy.md)
 - Contributor workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
 
+## Ecosystem
+
+- [`@vanduo-oss/vd2`](https://github.com/vanduo-oss/vd2) — the
+  Vue 3 + vite-ssg documentation site that mirrors the framework
+  surface in Vue components. Consumes `@vanduo-oss/framework` for
+  CSS tokens and class names only.
+
 ## License
 
 MIT - see [LICENSE](LICENSE).  

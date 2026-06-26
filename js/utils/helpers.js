@@ -276,7 +276,10 @@ function sanitizeHtml(input, options = {}) {
     return escapeHtml(input);
   }
   const allowSvg = options && options.allowSvg === true;
-  const allowStyle = !options || options.allowStyle !== false;
+  // Secure default: deny inline `style` unless explicitly opted in. (Inline
+  // style can't run JS but enables CSS exfiltration/clickjacking on untrusted
+  // HTML.) Callers that need rich styling pass { allowStyle: true }.
+  const allowStyle = options && options.allowStyle === true;
   const baseAllowed = ['B', 'STRONG', 'I', 'EM', 'BR', 'A', 'SPAN', 'U', 'DIV', 'P', 'KBD', 'CODE', 'SMALL', 'MARK'];
   const svgAllowed = ['SVG', 'PATH', 'LINE', 'CIRCLE', 'POLYLINE', 'RECT', 'G'];
   const allowed = allowSvg ? baseAllowed.concat(svgAllowed) : baseAllowed;

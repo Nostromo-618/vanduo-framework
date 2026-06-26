@@ -257,10 +257,22 @@ test.describe('Helper Functions @unit', () => {
       expect(result).not.toContain('onclick=');
     });
 
-    test('sanitizeHtml() preserves inline styles by default for compatibility', async ({ page }) => {
+    test('sanitizeHtml() strips inline styles by default (secure default)', async ({ page }) => {
       const result = await page.evaluate(() => {
         return (window as any).sanitizeHtml(
           '<span class="tag" style="color:red">Hello</span>'
+        );
+      });
+
+      expect(result).toContain('class="tag"');
+      expect(result).not.toContain('style=');
+    });
+
+    test('sanitizeHtml() keeps inline styles only when allowStyle is true', async ({ page }) => {
+      const result = await page.evaluate(() => {
+        return (window as any).sanitizeHtml(
+          '<span class="tag" style="color:red">Hello</span>',
+          { allowStyle: true }
         );
       });
 

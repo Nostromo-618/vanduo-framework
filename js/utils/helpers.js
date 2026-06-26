@@ -248,9 +248,14 @@ function getPosition(element) {
  */
 function escapeHtml(str) {
   if (!str) return '';
-  const div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+  // Escape quotes too, so output is safe in attribute context (e.g.
+  // title="${escapeHtml(x)}"), not just element-text context.
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 /**

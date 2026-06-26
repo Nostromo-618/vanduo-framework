@@ -1,4 +1,4 @@
-/*! Vanduo v1.5.1 | Built: 2026-06-20T15:06:48.806Z | git:f8204c3 | development */
+/*! Vanduo v1.5.1 | Built: 2026-06-26T15:59:13.325Z | git:0bff4ef | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {
@@ -6431,9 +6431,8 @@
         return escaped;
       }
       function escapeHtml2(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
+        if (text === null || text === void 0) return "";
+        return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
       }
       function navigate(direction) {
         let newIndex = state.activeIndex + direction;

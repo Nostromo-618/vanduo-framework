@@ -17,21 +17,21 @@ Raw implementation scales:
 
 These are not the primary public API.
 
-#### Palette system (Fibonacci default / Open Color optional)
+#### Palette system (Open Color default / Fibonacci optional)
 
 The active raw scales are palette-switchable at runtime:
 
-- **Fibonacci** (default): a golden-angle generated palette (`--vd-fib-*`),
+- **Open Color** (default): the classic Open Color scales (`--vd-oc-*`).
+- **Fibonacci** (optional): a golden-angle generated palette (`--vd-fib-*`),
   including a `--vd-golden-1..8` accent track.
-- **Open Color** (optional): the classic Open Color scales (`--vd-oc-*`).
 
 Both namespaced scales are always defined; the active `--vd-<family>-<step>`
 scales follow the active palette. Switch palettes via the `data-palette`
 attribute on `<html>`:
 
 ```html
-<html data-palette="fibonacci">  <!-- default -->
-<html data-palette="open-color"> <!-- opt-in -->
+<html data-palette="open-color"> <!-- default -->
+<html data-palette="fibonacci">  <!-- opt-in -->
 ```
 
 `data-primary` / `data-neutral` hue remaps and `data-theme` dark mode keep

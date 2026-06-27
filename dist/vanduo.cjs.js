@@ -1,4 +1,4 @@
-/*! Vanduo v2.0.0 | Built: 2026-06-27T14:59:13.406Z | git:bca580b | development */
+/*! Vanduo v1.6.0 | Built: 2026-06-27T15:48:08.659Z | git:9384f14 | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -201,7 +201,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "2.0.0" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.6.0" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,
@@ -4339,7 +4339,7 @@ module.exports = __toCommonJS(index_exports);
     },
     // Default values
     DEFAULTS: {
-      PALETTE: "fibonacci",
+      PALETTE: "open-color",
       PRIMARY_LIGHT: "black",
       PRIMARY_DARK: "amber",
       NEUTRAL: "charcoal",
@@ -4347,10 +4347,10 @@ module.exports = __toCommonJS(index_exports);
       FONT: "ubuntu",
       THEME: "system"
     },
-    // Palette options (the Fibonacci default + the optional Open Color palette)
+    // Palette options (the Open Color default + the optional Fibonacci palette)
     PALETTE_OPTIONS: {
-      "fibonacci": { name: "Fibonacci", description: "Golden-angle generated palette \u2014 the Vanduo default." },
-      "open-color": { name: "Open Color", description: "The Open Color palette (MIT) \u2014 optional alternative." }
+      "open-color": { name: "Open Color", description: "The Open Color palette (MIT) \u2014 the Vanduo default." },
+      "fibonacci": { name: "Fibonacci", description: 'Golden-angle generated palette \u2014 optional, opt in via data-palette="fibonacci".' }
     },
     // Primary color definitions (palette-aware: shown over the active palette)
     PRIMARY_COLORS: {

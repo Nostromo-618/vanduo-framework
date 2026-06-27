@@ -20,7 +20,7 @@
 
     // Default values
     DEFAULTS: {
-      PALETTE: 'fibonacci',
+      PALETTE: 'open-color',
       PRIMARY_LIGHT: 'black',
       PRIMARY_DARK: 'amber',
       NEUTRAL: 'charcoal',
@@ -29,10 +29,10 @@
       THEME: 'system'
     },
 
-    // Palette options (the Fibonacci default + the optional Open Color palette)
+    // Palette options (the Open Color default + the optional Fibonacci palette)
     PALETTE_OPTIONS: {
-      'fibonacci': { name: 'Fibonacci', description: 'Golden-angle generated palette — the Vanduo default.' },
-      'open-color': { name: 'Open Color', description: 'The Open Color palette (MIT) — optional alternative.' }
+      'open-color': { name: 'Open Color', description: 'The Open Color palette (MIT) — the Vanduo default.' },
+      'fibonacci': { name: 'Fibonacci', description: 'Golden-angle generated palette — optional, opt in via data-palette="fibonacci".' }
     },
 
     // Primary color definitions (palette-aware: shown over the active palette)

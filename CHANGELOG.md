@@ -8,22 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
-## [2.0.0] - 2026-06-27
+## [1.6.0] - 2026-06-27
 
-Major release. Adds the Popover and Search primitives and promotes the
-Fibonacci palette to the default; contains breaking changes — review before
-upgrading.
+Additive release. Adds the Popover and Search primitives and an optional
+Fibonacci palette; **Open Color remains the default look.** One HTML-sanitization
+behavior change to note (see Security).
 
 ### Added
 - **Popover component** (`window.VanduoPopover`) — a general popover primitive separate from `.vd-bubble`: click / hover / focus triggers (combinable via `data-vd-popover-trigger`), external-panel composition through `data-vd-popover-target`, `.vd-popover-sm` / `.vd-popover-lg` size variants, and auto-placement flip on viewport overflow (`data-vd-popover-flip`). New `css/components/popover.css` + `js/components/popover.js`, wired into `css/vanduo.css` and `js/index.js`. Playwright spec at `tests/components/popover.spec.ts`.
 - **Search helper** (`window.VanduoSearch`) — a registry so consumers can register their own data sources: `register(source)` / `unregister(name)` / `list()` / `query(text, options?)`. Sources return `Promise<Result[]>`; results merge across sources with an optional per-source limit. New `js/components/search.js`; spec at `tests/components/search.spec.ts`.
+- **Optional Fibonacci palette** — a golden-angle generated palette (`--vd-fib-*` + `--vd-golden-1..8` accent track), opt in at runtime via `data-palette="fibonacci"` on `<html>`. Open Color (`--vd-oc-*`) is the default and `data-primary` / `data-neutral` remaps work under either palette.
 
 ### Changed
-- **BREAKING — Fibonacci palette is the default.** The golden-angle (Fibonacci) palette now ships as the out-of-the-box look, switchable at runtime via `data-palette`. Set `data-palette="open-color"` on `<html>` to restore the previous defaults.
 - Dependencies updated to latest; pnpm config migrated to `pnpm-workspace.yaml`.
 
 ### Security
-- **BREAKING — `sanitizeHtml` denies inline `style` by default.** Rich HTML passed to Bubble / Popover now has `style` attributes stripped unless explicitly allowed, closing an attribute-injection vector. Move inline styles to classes.
+- **Behavior change — `sanitizeHtml` denies inline `style` by default.** Rich HTML passed to Bubble / Popover now has `style` attributes stripped unless explicitly allowed, closing an attribute-injection vector. Move inline styles to classes.
 - `escapeHtml` is now quote-safe for attribute contexts.
 
 ## [1.5.1] - 2026-06-20

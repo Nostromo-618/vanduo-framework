@@ -1,4 +1,4 @@
-# Vanduo Framework v2.0.0
+# Vanduo Framework v1.6.0
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -25,14 +25,14 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 2.0.0
+## What's New in 1.6.0
 
-> **Major release — contains breaking changes.** Review before upgrading.
+Additive release — two new primitives and an optional palette, plus one HTML-sanitization behavior change to note.
 
-- **BREAKING — HTML sanitization denies inline styles by default** — `sanitizeHtml` (used by Bubble / Popover rich content) now strips `style` attributes, closing an attribute-injection vector. Move inline styles to classes; opt back in only where you fully trust the source.
-- **BREAKING — Fibonacci palette is the default** — the golden-angle (Fibonacci) palette now ships as the out-of-the-box look, switchable at runtime via `data-palette`. Set `data-palette="open-color"` on `<html>` to keep the previous defaults.
 - **New — Popover component** (`window.VanduoPopover`) — a general popover primitive with click / hover / focus triggers, external-panel composition via `data-vd-popover-target`, size variants, and auto-placement flip on overflow — alongside the existing `.vd-bubble`.
 - **New — Search helper** (`window.VanduoSearch`) — a small registry letting consumers register their own data sources (`register` / `unregister` / `list` / `query`) behind a single search surface; results merge across sources.
+- **New — Optional Fibonacci palette** — a golden-angle generated palette, opt in at runtime via `data-palette="fibonacci"` on `<html>`. **Open Color remains the default look.**
+- **Behavior change — HTML sanitization denies inline styles by default** — `sanitizeHtml` (used by Bubble / Popover rich content) now strips `style` attributes, closing an attribute-injection vector. Move inline styles to classes; opt back in only where you fully trust the source.
 - **Hardening** — `escapeHtml` is now quote-safe for attribute contexts.
 - **Tooling** — dependencies updated to latest; pnpm config migrated to `pnpm-workspace.yaml`.
 
@@ -69,8 +69,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.0/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>
@@ -122,9 +122,9 @@ Vanduo.getComponent('docSearch');
 Vanduo `1.4.1` treats `--vd-*` as the only shipped custom-property namespace:
 
 - Palette: `--vd-red-*`, `--vd-primary-*`, `--vd-gray-*`, and related scales. The
-  default palette is **Fibonacci** (golden-angle generated, `--vd-fib-*`, with a
-  `--vd-golden-1..8` accent track); **Open Color** (`--vd-oc-*`) is opt-in via
-  `data-palette="open-color"`. See [TOKENS.md](TOKENS.md#palette-system-fibonacci-default--open-color-optional).
+  default palette is **Open Color** (`--vd-oc-*`); **Fibonacci** (golden-angle
+  generated, `--vd-fib-*`, with a `--vd-golden-1..8` accent track) is opt-in via
+  `data-palette="fibonacci"`. See [TOKENS.md](TOKENS.md#palette-system-open-color-default--fibonacci-optional).
 - Colors: `--vd-color-*`
 - Backgrounds: `--vd-bg-*`
 - Text: `--vd-text-*`

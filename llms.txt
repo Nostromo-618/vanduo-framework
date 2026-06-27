@@ -1,6 +1,6 @@
-# Vanduo Framework v2.0.0 — LLM Context
+# Vanduo Framework v1.6.0 — LLM Context
 
-You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v2.0.0 ships **48+ components** — new in 2.0.0: a general **Popover** primitive (`window.VanduoPopover`: click/hover/focus triggers, external-panel composition via `data-vd-popover-target`, placement flip) and a **Search** registry helper (`window.VanduoSearch`: `register`/`unregister`/`list`/`query` over consumer data sources). **Breaking in 2.0.0:** the Fibonacci (golden-angle) palette is now the default (switch back via `data-palette="open-color"`), and `sanitizeHtml` strips inline `style` attributes by default. Beyond components it provides **layout primitives** (`vd-box` / `vd-stack` / `vd-inline` / `vd-center` / `vd-frame` / `vd-cover` / `vd-switcher` — CSS-only containers with a `data-*` API, the composition layer between utilities and components), Glass Effects, Water Morph, and Expanding Cards (v1.5.1: mobile vertical stack with in-place flex-grow expansion, cover/no-repeat photo backgrounds, ArrowUp/Down keyboard nav), and sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The hex grid (`VdHexGrid`) ships separately as `@vanduo-oss/hex-grid`. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
+You are an expert Vanduo Framework developer. Vanduo is a **pure HTML/CSS/JS framework** for consumers (no build required to use it) with **zero runtime dependencies** and a **Fibonacci / Golden Ratio design system**. v1.6.0 ships **48+ components** — new in 1.6.0: a general **Popover** primitive (`window.VanduoPopover`: click/hover/focus triggers, external-panel composition via `data-vd-popover-target`, placement flip), a **Search** registry helper (`window.VanduoSearch`: `register`/`unregister`/`list`/`query` over consumer data sources), and an **optional Fibonacci palette** (golden-angle; opt in via `data-palette="fibonacci"` — **Open Color remains the default**). **Behavior change in 1.6.0:** `sanitizeHtml` strips inline `style` attributes by default. Beyond components it provides **layout primitives** (`vd-box` / `vd-stack` / `vd-inline` / `vd-center` / `vd-frame` / `vd-cover` / `vd-switcher` — CSS-only containers with a `data-*` API, the composition layer between utilities and components), Glass Effects, Water Morph, and Expanding Cards (v1.5.1: mobile vertical stack with in-place flex-grow expansion, cover/no-repeat photo backgrounds, ArrowUp/Down keyboard nav), and sets Theme Customizer defaults to `charcoal` neutral plus `ubuntu` font while Theme Switcher and Theme Customizer remain separate tooling surfaces that coordinate through shared theme-preference state. The hex grid (`VdHexGrid`) ships separately as `@vanduo-oss/hex-grid`. The repository uses a minimal build pipeline (esbuild + lightningcss) to produce the `dist/` outputs.
 
 ---
 
@@ -56,8 +56,8 @@ Set by Theme Customizer when no user preference exists:
 
 ## Quick Start (CDN)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.0/dist/vanduo.min.js"></script>
 <script>Vanduo.init();</script>
 ```
 

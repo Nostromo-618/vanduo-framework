@@ -10,6 +10,7 @@
   const ThemeCustomizer = {
     // Storage keys
     STORAGE_KEYS: {
+      PALETTE: 'vanduo-palette',
       PRIMARY: 'vanduo-primary-color',
       NEUTRAL: 'vanduo-neutral-color',
       RADIUS: 'vanduo-radius',
@@ -19,6 +20,7 @@
 
     // Default values
     DEFAULTS: {
+      PALETTE: 'fibonacci',
       PRIMARY_LIGHT: 'black',
       PRIMARY_DARK: 'amber',
       NEUTRAL: 'charcoal',
@@ -27,7 +29,13 @@
       THEME: 'system'
     },
 
-    // Primary color definitions (Open Color based)
+    // Palette options (the Fibonacci default + the optional Open Color palette)
+    PALETTE_OPTIONS: {
+      'fibonacci': { name: 'Fibonacci', description: 'Golden-angle generated palette — the Vanduo default.' },
+      'open-color': { name: 'Open Color', description: 'The Open Color palette (MIT) — optional alternative.' }
+    },
+
+    // Primary color definitions (palette-aware: shown over the active palette)
     PRIMARY_COLORS: {
       'black': { name: 'Black', color: '#000000' },
       'red': { name: 'Red', color: '#fa5252' },
@@ -76,6 +84,7 @@
 
     // State
     state: {
+      palette: null,
       primary: null,
       neutral: null,
       radius: null,
@@ -194,6 +203,7 @@
      * Load preferences from localStorage
      */
     loadPreferences: function () {
+      this.state.palette = this.getStorageValue(this.STORAGE_KEYS.PALETTE, this.DEFAULTS.PALETTE);
       this.state.theme = this.getStorageValue(this.STORAGE_KEYS.THEME, this.DEFAULTS.THEME);
       this.state.primary = this.getStorageValue(this.STORAGE_KEYS.PRIMARY, this.getDefaultPrimary(this.state.theme));
       this._normalizeDefaultPrimaryIfStaleWithStoredTheme();
@@ -213,11 +223,27 @@
      * Apply all preferences
      */
     applyAllPreferences: function () {
+      this.applyPalette(this.state.palette);
       this.applyPrimary(this.state.primary);
       this.applyNeutral(this.state.neutral);
       this.applyRadius(this.state.radius);
       this.applyFont(this.state.font);
       this.applyTheme(this.state.theme);
+    },
+
+    /**
+     * Apply color palette (Fibonacci default / Open Color optional)
+     */
+    applyPalette: function (paletteKey) {
+      if (!this.PALETTE_OPTIONS[paletteKey]) {
+        paletteKey = this.DEFAULTS.PALETTE;
+      }
+
+      this.state.palette = paletteKey;
+      document.documentElement.setAttribute('data-palette', paletteKey);
+      this.savePreference(this.STORAGE_KEYS.PALETTE, paletteKey);
+
+      this.dispatchEvent('palette-change', { palette: paletteKey });
     },
 
     /**
@@ -492,6 +518,14 @@
 
       this.elements.panel.setAttribute('data-customizer-initialized', 'true');
 
+      // Palette buttons
+      this.elements.panel.querySelectorAll('[data-palette]').forEach(btn => {
+        this.addListener(btn, 'click', () => {
+          this.applyPalette(btn.dataset.palette);
+          this.updateUI();
+        });
+      });
+
       // Primary color swatches
       this.elements.panel.querySelectorAll('[data-color]').forEach(swatch => {
         this.addListener(swatch, 'click', () => {
@@ -569,6 +603,12 @@
         return '#000000';
       };
 
+      // Generate palette options
+      let paletteOptions = '';
+      for (const [key, value] of Object.entries(this.PALETTE_OPTIONS)) {
+        paletteOptions += `<button class="tc-palette-btn${key === this.state.palette ? ' is-active' : ''}" data-palette="${esc(key)}" title="${esc(value.description)}">${esc(value.name)}</button>`;
+      }
+
       // Generate primary color swatches
       let primarySwatches = '';
       for (const [key, value] of Object.entries(this.PRIMARY_COLORS)) {
@@ -602,6 +642,12 @@
         </div>
         <div class="tc-body">
 
+          <div class="tc-section">
+            <label class="tc-label">Palette</label>
+            <div class="tc-palette-group">
+              ${paletteOptions}
+            </div>
+          </div>
           <div class="tc-section">
             <label class="tc-label">Primary Color</label>
             <div class="tc-color-grid">
@@ -798,6 +844,11 @@
     updateUI: function () {
       if (!this.elements.panel) return;
 
+      // Update palette buttons
+      this.elements.panel.querySelectorAll('[data-palette]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.palette === this.state.palette);
+      });
+
       // Update primary color swatches
       this.elements.panel.querySelectorAll('[data-color]').forEach(swatch => {
         swatch.classList.toggle('is-active', swatch.dataset.color === this.state.primary);
@@ -825,6 +876,7 @@
      * Reset all preferences to defaults
      */
     reset: function () {
+      this.applyPalette(this.DEFAULTS.PALETTE);
       this.applyTheme(this.DEFAULTS.THEME);
       this.applyPrimary(this.getDefaultPrimary(this.DEFAULTS.THEME));
       this.applyNeutral(this.DEFAULTS.NEUTRAL);
@@ -846,6 +898,7 @@
      * Programmatically set preferences
      */
     setPreferences: function (prefs) {
+      if (prefs.palette) this.applyPalette(prefs.palette);
       if (prefs.primary) this.applyPrimary(prefs.primary);
       if (prefs.neutral) this.applyNeutral(prefs.neutral);
       if (prefs.radius) this.applyRadius(prefs.radius);

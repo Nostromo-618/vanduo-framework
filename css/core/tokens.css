@@ -17,14 +17,14 @@
   --vd-color-primary-hover: var(--vd-primary-6);
   --vd-color-primary-active: var(--vd-primary-7);
   --vd-color-primary-rgb: 92, 124, 250;
-  --vd-color-primary-alpha-5: rgba(92, 124, 250, 0.05);
-  --vd-color-primary-alpha-08: rgba(92, 124, 250, 0.08);
-  --vd-color-primary-alpha-10: rgba(92, 124, 250, 0.1);
-  --vd-color-primary-alpha-15: rgba(92, 124, 250, 0.15);
-  --vd-color-primary-alpha-20: rgba(92, 124, 250, 0.2);
-  --vd-color-primary-alpha-30: rgba(92, 124, 250, 0.3);
-  --vd-color-primary-alpha-40: rgba(92, 124, 250, 0.4);
-  --vd-color-primary-alpha-50: rgba(92, 124, 250, 0.5);
+  --vd-color-primary-alpha-5: color-mix(in srgb, var(--vd-color-primary) 5%, transparent);
+  --vd-color-primary-alpha-08: color-mix(in srgb, var(--vd-color-primary) 8%, transparent);
+  --vd-color-primary-alpha-10: color-mix(in srgb, var(--vd-color-primary) 10%, transparent);
+  --vd-color-primary-alpha-15: color-mix(in srgb, var(--vd-color-primary) 15%, transparent);
+  --vd-color-primary-alpha-20: color-mix(in srgb, var(--vd-color-primary) 20%, transparent);
+  --vd-color-primary-alpha-30: color-mix(in srgb, var(--vd-color-primary) 30%, transparent);
+  --vd-color-primary-alpha-40: color-mix(in srgb, var(--vd-color-primary) 40%, transparent);
+  --vd-color-primary-alpha-50: color-mix(in srgb, var(--vd-color-primary) 50%, transparent);
 
   /* Secondary Colors */
   --vd-color-secondary: var(--vd-secondary-5);
@@ -32,8 +32,8 @@
   --vd-color-secondary-dark: var(--vd-secondary-7);
   --vd-color-secondary-hover: var(--vd-secondary-6);
   --vd-color-secondary-active: var(--vd-secondary-7);
-  --vd-color-secondary-alpha-10: rgba(32, 201, 151, 0.1);
-  --vd-color-secondary-alpha-20: rgba(32, 201, 151, 0.2);
+  --vd-color-secondary-alpha-10: color-mix(in srgb, var(--vd-color-secondary) 10%, transparent);
+  --vd-color-secondary-alpha-20: color-mix(in srgb, var(--vd-color-secondary) 20%, transparent);
 
   /* Accent */
   --vd-color-accent: var(--vd-color-primary);
@@ -47,8 +47,8 @@
   --vd-color-success-hover: var(--vd-success-7);
   --vd-color-success-active: var(--vd-success-8);
   --vd-color-success-rgb: 64, 192, 87;
-  --vd-color-success-alpha-10: rgba(64, 192, 87, 0.1);
-  --vd-color-success-alpha-20: rgba(64, 192, 87, 0.2);
+  --vd-color-success-alpha-10: color-mix(in srgb, var(--vd-color-success) 10%, transparent);
+  --vd-color-success-alpha-20: color-mix(in srgb, var(--vd-color-success) 20%, transparent);
 
   --vd-color-warning: var(--vd-warning-6);
   --vd-color-warning-light: var(--vd-warning-4);
@@ -56,9 +56,9 @@
   --vd-color-warning-hover: var(--vd-warning-7);
   --vd-color-warning-active: var(--vd-warning-8);
   --vd-color-warning-rgb: 250, 176, 5;
-  --vd-color-warning-alpha-10: rgba(250, 176, 5, 0.1);
-  --vd-color-warning-alpha-20: rgba(250, 176, 5, 0.2);
-  --vd-color-warning-alpha-30: rgba(250, 176, 5, 0.3);
+  --vd-color-warning-alpha-10: color-mix(in srgb, var(--vd-color-warning) 10%, transparent);
+  --vd-color-warning-alpha-20: color-mix(in srgb, var(--vd-color-warning) 20%, transparent);
+  --vd-color-warning-alpha-30: color-mix(in srgb, var(--vd-color-warning) 30%, transparent);
 
   --vd-color-error: var(--vd-danger-6);
   --vd-color-error-light: var(--vd-danger-4);
@@ -66,8 +66,8 @@
   --vd-color-error-hover: var(--vd-danger-7);
   --vd-color-error-active: var(--vd-danger-8);
   --vd-color-error-rgb: 250, 82, 82;
-  --vd-color-error-alpha-10: rgba(250, 82, 82, 0.1);
-  --vd-color-error-alpha-20: rgba(250, 82, 82, 0.2);
+  --vd-color-error-alpha-10: color-mix(in srgb, var(--vd-color-error) 10%, transparent);
+  --vd-color-error-alpha-20: color-mix(in srgb, var(--vd-color-error) 20%, transparent);
 
   --vd-color-danger: var(--vd-color-error);
   --vd-color-danger-light: var(--vd-color-error-light);
@@ -83,8 +83,8 @@
   --vd-color-info-hover: var(--vd-info-7);
   --vd-color-info-active: var(--vd-info-8);
   --vd-color-info-rgb: 34, 139, 230;
-  --vd-color-info-alpha-10: rgba(34, 139, 230, 0.1);
-  --vd-color-info-alpha-20: rgba(34, 139, 230, 0.2);
+  --vd-color-info-alpha-10: color-mix(in srgb, var(--vd-color-info) 10%, transparent);
+  --vd-color-info-alpha-20: color-mix(in srgb, var(--vd-color-info) 20%, transparent);
 
   /* Neutral Colors (Open Color) */
   --vd-color-white: #ffffff;

@@ -223,6 +223,57 @@ body > .vd-theme-customizer-panel.is-open {
   z-index: 1;
 }
 
+/* Palette toggle (Fibonacci default / Open Color optional) */
+.tc-palette-group {
+  display: flex;
+  gap: 0;
+}
+
+.tc-palette-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--vd-border-color);
+  color: var(--vd-text-primary);
+  font-size: var(--vd-font-size-xs);
+  font-weight: var(--vd-font-weight-medium);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tc-palette-btn:first-child {
+  border-radius: calc(var(--vd-radius-scale, 0.25) * 0.5rem) 0 0 calc(var(--vd-radius-scale, 0.25) * 0.5rem);
+}
+
+.tc-palette-btn:last-child {
+  border-radius: 0 calc(var(--vd-radius-scale, 0.25) * 0.5rem) calc(var(--vd-radius-scale, 0.25) * 0.5rem) 0;
+}
+
+.tc-palette-btn:not(:first-child) {
+  margin-left: -1px;
+}
+
+.tc-palette-btn:hover {
+  background-color: var(--vd-bg-secondary);
+  z-index: 1;
+}
+
+.tc-palette-btn:focus-visible {
+  outline: 2px solid var(--vd-color-primary);
+  outline-offset: 1px;
+  z-index: 2;
+}
+
+.tc-palette-btn.is-active {
+  background-color: var(--vd-bg-dark);
+  border-color: var(--vd-bg-dark);
+  color: var(--vd-text-inverse);
+  z-index: 1;
+}
+
 /* Font Select */
 .tc-font-select {
   width: 100%;
@@ -647,6 +698,7 @@ body > .vd-theme-customizer-panel.is-open {
 [data-theme="dark"] .customizer-radius-btn.is-active,
 [data-theme="dark"] .customizer-mode-btn.is-active,
 [data-theme="dark"] .tc-radius-btn.is-active,
+[data-theme="dark"] .tc-palette-btn.is-active,
 [data-theme="dark"] .tc-mode-btn.is-active {
   background-color: var(--vd-gray-2);
   border-color: var(--vd-gray-2);
@@ -667,6 +719,7 @@ body > .vd-theme-customizer-panel.is-open {
   :root:not([data-theme]) .customizer-radius-btn.is-active,
   :root:not([data-theme]) .customizer-mode-btn.is-active,
   :root:not([data-theme]) .tc-radius-btn.is-active,
+  :root:not([data-theme]) .tc-palette-btn.is-active,
   :root:not([data-theme]) .tc-mode-btn.is-active {
     background-color: var(--vd-gray-2);
     border-color: var(--vd-gray-2);

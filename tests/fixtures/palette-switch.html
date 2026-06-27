@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palette Switch Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Palette Switch Test Fixture</h1>
+
+    <!-- Theme customizer trigger (builds the dynamic panel incl. palette toggle) -->
+    <button type="button" class="btn btn-primary" data-theme-customizer-trigger aria-label="Customize theme">
+      Customize
+    </button>
+
+    <!-- Active scale (follows the active palette). Blue is NOT remapped by
+         data-primary, so it isolates the palette switch. -->
+    <div
+      id="active-swatch"
+      style="width: 120px; height: 120px; background: var(--vd-blue-5); color: var(--vd-color-white); display: flex; align-items: center; justify-content: center;"
+    >Blue 5</div>
+
+    <!-- Fixed references (palette-independent namespaced scales) -->
+    <div id="ref-fib" style="width: 40px; height: 40px; background: var(--vd-fib-blue-5);"></div>
+    <div id="ref-oc" style="width: 40px; height: 40px; background: var(--vd-oc-blue-5);"></div>
+    <div id="ref-oc-red" style="width: 40px; height: 40px; background: var(--vd-oc-red-5);"></div>
+
+    <!-- Active semantic primary (used to verify data-primary remap under a palette) -->
+    <div id="color-primary-swatch" style="width: 40px; height: 40px; background: var(--vd-color-primary);"></div>
+
+    <!-- Golden accent (Fibonacci-only) -->
+    <div
+      id="golden-swatch"
+      style="width: 120px; height: 120px; background: var(--vd-golden-1);"
+    ></div>
+
+    <!-- Programmatic controls -->
+    <div class="form-group">
+      <button id="set-fibonacci" class="btn btn-secondary">Set Fibonacci</button>
+      <button id="set-open-color" class="btn btn-secondary">Set Open Color</button>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <p>data-palette: <code id="palette-attr">none</code></p>
+        <p>localStorage: <code id="palette-storage">-</code></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/theme-customizer.js"></script>
+  <script>
+    function customizer() {
+      return (window.Vanduo && window.Vanduo.getComponent)
+        ? window.Vanduo.getComponent('themeCustomizer')
+        : window.ThemeCustomizer;
+    }
+    function updateDisplay() {
+      document.getElementById('palette-attr').textContent =
+        document.documentElement.getAttribute('data-palette') || 'none';
+      document.getElementById('palette-storage').textContent =
+        localStorage.getItem('vanduo-palette') || 'not set';
+    }
+    document.getElementById('set-fibonacci').addEventListener('click', () => {
+      customizer().applyPalette('fibonacci');
+      updateDisplay();
+    });
+    document.getElementById('set-open-color').addEventListener('click', () => {
+      customizer().applyPalette('open-color');
+      updateDisplay();
+    });
+    document.addEventListener('theme:palette-change', updateDisplay);
+    updateDisplay();
+  </script>
+  <script>Vanduo.init(); </script>
+  <script>updateDisplay();</script>
+</body>
+</html>

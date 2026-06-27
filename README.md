@@ -110,7 +110,10 @@ Vanduo.getComponent('docSearch');
 
 Vanduo `1.4.1` treats `--vd-*` as the only shipped custom-property namespace:
 
-- Palette: `--vd-red-*`, `--vd-primary-*`, `--vd-gray-*`, and related scales
+- Palette: `--vd-red-*`, `--vd-primary-*`, `--vd-gray-*`, and related scales. The
+  default palette is **Fibonacci** (golden-angle generated, `--vd-fib-*`, with a
+  `--vd-golden-1..8` accent track); **Open Color** (`--vd-oc-*`) is opt-in via
+  `data-palette="open-color"`. See [TOKENS.md](TOKENS.md#palette-system-fibonacci-default--open-color-optional).
 - Colors: `--vd-color-*`
 - Backgrounds: `--vd-bg-*`
 - Text: `--vd-text-*`

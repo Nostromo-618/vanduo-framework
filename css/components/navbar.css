@@ -82,6 +82,17 @@
   -webkit-backdrop-filter: none;
 }
 
+/* Strong frosted surface once scroll activates glass (beyond vd-glass-xl) */
+.vd-navbar-glass.vd-navbar-scrolled {
+  --vd-glass-blur: 80px;
+  --vd-glass-saturate: 2.6;
+}
+
+.vd-navbar-fixed.vd-navbar-glass.vd-navbar-scrolled,
+.vd-navbar-fixed-top.vd-navbar-glass.vd-navbar-scrolled {
+  box-shadow: var(--vd-glass-shadow);
+}
+
 /* Navbar Container - matches .vd-container-responsive breakpoints for alignment with page content */
 .vd-navbar-container {
   display: flex;

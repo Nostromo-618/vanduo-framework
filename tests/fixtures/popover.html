@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popover Test Fixture</title>
+  <link rel="stylesheet" href="/css/vanduo.css">
+  <link rel="stylesheet" href="/css/components/popover.css">
+</head>
+<body style="padding: 100px;">
+
+  <!-- Click-triggered popover -->
+  <button id="basic-popover" class="vd-btn vd-btn-primary vd-popover-trigger"
+    data-vd-popover-target="#basic-panel"
+    data-vd-popover-placement="bottom"
+    data-vd-popover-trigger="click">
+    Click me
+  </button>
+  <div id="basic-panel" class="vd-popover-panel" role="dialog" hidden>
+    Basic popover content
+  </div>
+
+  <!-- Hover-triggered popover -->
+  <button id="hover-popover" class="vd-btn vd-popover-trigger"
+    data-vd-popover-target="#hover-panel"
+    data-vd-popover-trigger="hover">
+    Hover me
+  </button>
+  <div id="hover-panel" class="vd-popover-panel" role="dialog" hidden>
+    Hover popover
+  </div>
+
+  <!-- Focus-triggered popover -->
+  <button id="focus-popover" class="vd-btn vd-popover-trigger"
+    data-vd-popover-target="#focus-panel"
+    data-vd-popover-trigger="focus">
+    Focus me
+  </button>
+  <div id="focus-panel" class="vd-popover-panel" role="dialog" hidden>
+    Focus popover
+  </div>
+
+  <!-- Top-placement popover -->
+  <button id="top-popover" class="vd-btn vd-popover-trigger"
+    data-vd-popover-target="#top-panel"
+    data-vd-popover-placement="top"
+    data-vd-popover-trigger="click">
+    Top
+  </button>
+  <div id="top-panel" class="vd-popover-panel" role="dialog" hidden>
+    Top popover
+  </div>
+
+  <!-- Large size -->
+  <button id="large-popover" class="vd-btn vd-popover-trigger"
+    data-vd-popover-target="#large-panel"
+    data-vd-popover-trigger="click">
+    Large
+  </button>
+  <div id="large-panel" class="vd-popover-panel vd-popover-lg" role="dialog" hidden>
+    Large popover
+  </div>
+
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/popover.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.VanduoPopover.init();
+    });
+  </script>
+</body>
+</html>

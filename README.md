@@ -1,4 +1,4 @@
-# Vanduo Framework v1.5.1
+# Vanduo Framework v2.0.0
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -17,7 +17,7 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ## Highlights
 
 - Zero runtime dependencies
-- 47+ components across layout, navigation, overlays, search, and effects
+- 48+ components across layout, navigation, overlays, search, and effects
 - Scoped runtime APIs for dynamic DOM work
 - Strict design token API under `--vd-*`
 - Built-in dark, light, and system theming
@@ -25,7 +25,18 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 1.5.1
+## What's New in 2.0.0
+
+> **Major release — contains breaking changes.** Review before upgrading.
+
+- **BREAKING — HTML sanitization denies inline styles by default** — `sanitizeHtml` (used by Bubble / Popover rich content) now strips `style` attributes, closing an attribute-injection vector. Move inline styles to classes; opt back in only where you fully trust the source.
+- **BREAKING — Fibonacci palette is the default** — the golden-angle (Fibonacci) palette now ships as the out-of-the-box look, switchable at runtime via `data-palette`. Set `data-palette="open-color"` on `<html>` to keep the previous defaults.
+- **New — Popover component** (`window.VanduoPopover`) — a general popover primitive with click / hover / focus triggers, external-panel composition via `data-vd-popover-target`, size variants, and auto-placement flip on overflow — alongside the existing `.vd-bubble`.
+- **New — Search helper** (`window.VanduoSearch`) — a small registry letting consumers register their own data sources (`register` / `unregister` / `list` / `query`) behind a single search surface; results merge across sources.
+- **Hardening** — `escapeHtml` is now quote-safe for attribute contexts.
+- **Tooling** — dependencies updated to latest; pnpm config migrated to `pnpm-workspace.yaml`.
+
+## Previous: 1.5.1
 
 - **Expanding Cards — mobile** — below `768px`, panels stack vertically and expand in place using the same flex-grow redistribution as the desktop strip (replacing progressive hide and non-animatable `order` reorder). Inactive rows render as compact stripes with icon + title; labels and subtitles transition smoothly. `ArrowUp`/`ArrowDown` keyboard navigation added alongside left/right.
 - **Expanding Cards — photo backgrounds** — active panels use `background-size: cover` and `background-repeat: no-repeat` so wide expanded cards no longer show tiled repeats on the sides.
@@ -58,8 +69,8 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.5.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v2.0.0/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>

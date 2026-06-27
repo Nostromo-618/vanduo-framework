@@ -1,0 +1,97 @@
+/**
+ * Vanduo Framework - Popover Component
+ * Multi-trigger (click | hover | focus) popover with auto-placement flip.
+ * Sibling to .vd-bubble (which is click-only rich HTML); this is the general
+ * primitive documented in docs/sections/components/popover.html.
+ */
+
+:root {
+  --vd-popover-bg: var(--vd-card-bg, #fff);
+  --vd-popover-text: var(--vd-text-primary, #212529);
+  --vd-popover-border-color: var(--vd-border-color, #dee2e6);
+  --vd-popover-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.12);
+  --vd-popover-padding: 0.8125rem;
+  --vd-popover-radius: var(--vd-border-radius, 0.5rem);
+  --vd-popover-max-width: 21rem;
+  --vd-popover-min-width: 8rem;
+  --vd-popover-z-index: 1060;
+  --vd-popover-arrow-size: 8px;
+  --vd-popover-font-size: var(--vd-font-size-sm, 0.875rem);
+}
+
+[data-theme="dark"] {
+  --vd-popover-bg: var(--vd-card-bg, #2d2d44);
+  --vd-popover-border-color: var(--vd-border-color, #3d3d5c);
+  --vd-popover-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --vd-popover-bg: var(--vd-card-bg, #2d2d44);
+    --vd-popover-border-color: var(--vd-border-color, #3d3d5c);
+    --vd-popover-shadow: 0 0.5rem 1.3125rem rgba(0, 0, 0, 0.3);
+  }
+}
+
+.vd-popover-panel {
+  position: absolute;
+  z-index: var(--vd-popover-z-index);
+  min-width: var(--vd-popover-min-width);
+  max-width: var(--vd-popover-max-width);
+  padding: var(--vd-popover-padding);
+  background: var(--vd-popover-bg);
+  color: var(--vd-popover-text);
+  border: 1px solid var(--vd-popover-border-color);
+  border-radius: var(--vd-popover-radius);
+  box-shadow: var(--vd-popover-shadow);
+  font-size: var(--vd-popover-font-size);
+  animation: vd-popover-enter 0.18s ease-out;
+}
+
+.vd-popover-panel[hidden] {
+  display: none !important;
+}
+
+.vd-popover-panel::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: var(--vd-popover-arrow-size) solid transparent;
+}
+
+.vd-popover-panel[data-placement="bottom"]::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--vd-popover-border-color);
+}
+
+.vd-popover-panel[data-placement="top"]::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--vd-popover-border-color);
+}
+
+.vd-popover-panel[data-placement="left"]::before {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--vd-popover-border-color);
+}
+
+.vd-popover-panel[data-placement="right"]::before {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--vd-popover-border-color);
+}
+
+.vd-popover-sm { --vd-popover-padding: 0.5rem; --vd-popover-font-size: var(--vd-font-size-xs, 0.75rem); }
+.vd-popover-lg { --vd-popover-padding: 1.3125rem; --vd-popover-max-width: 34rem; }
+
+@keyframes vd-popover-enter {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}

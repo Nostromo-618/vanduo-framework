@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Helper Test Fixture</title>
+</head>
+<body>
+  <h1>Search Helper Test</h1>
+  <script src="/js/vanduo.js"></script>
+  <script src="/js/components/search.js"></script>
+  <script>
+    window.VanduoSearch.register({
+      name: 'sections',
+      label: 'Documentation Sections',
+      icon: 'ph-book-open',
+      limit: 10,
+      fetch: async (query) => {
+        const all = ['Button', 'Card', 'Modal', 'Toast', 'Tabs'];
+        return all
+          .filter((t) => t.toLowerCase().includes(query.toLowerCase()))
+          .map((t) => ({ title: t, href: '/sections/' + t.toLowerCase() }));
+      }
+    });
+    window.VanduoSearch.register({
+      name: 'guides',
+      label: 'Guides',
+      limit: 5,
+      fetch: async (query) => {
+        const all = ['Getting Started', 'First Layout', 'Lifecycle Manager'];
+        return all
+          .filter((t) => t.toLowerCase().includes(query.toLowerCase()))
+          .map((t) => ({ title: t, href: '/guides/' + t.toLowerCase().replace(/\s+/g, '-') }));
+      }
+    });
+  </script>
+</body>
+</html>

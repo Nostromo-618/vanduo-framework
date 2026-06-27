@@ -1,6 +1,9 @@
 {
   "name": "@vanduo-oss/framework",
-  "version": "1.5.1",
+  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Zero-dependency CSS/JS framework built on Fibonacci/Golden Ratio design system with Open Color integration",
   "keywords": [
     "css",

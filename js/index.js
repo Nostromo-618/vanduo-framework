@@ -68,6 +68,8 @@ import './components/rating.js';
 import './components/transfer.js';
 import './components/tree.js';
 import './components/spotlight.js';
+import './components/popover.js';
+import './components/search.js';
 
 // Re-export for ESM / CJS consumers
 const Vanduo = window.Vanduo;

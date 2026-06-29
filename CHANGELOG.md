@@ -8,15 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
-## [1.6.1] - 2026-06-29
+## [1.7.0] - 2026-06-29
 
-Additive patch. Adds the CSS aliases that back the `@vanduo-oss/vue` 0.2.x
-component markup so the framework stylesheet (which `@vanduo-oss/vue` ships as
-its CSS) styles every class those components render. No vanilla class names
-changed; every rule is additive and container-level rules that could collide
-with legacy base styles are gated with `:has()`.
+Additive minor backing the `@vanduo-oss/vue` 0.3.0 release. Adds CSS for new
+components plus alias classes the Vue components render, so the framework
+stylesheet (which `@vanduo-oss/vue` ships as its CSS) styles every class. No
+vanilla class names changed; every rule is additive and container-level rules
+that could collide with legacy base styles are gated with `:has()`.
 
 ### Added
+- **Separator + Slider components** — new `css/components/separator.css` (`.vd-separator`, `-vertical`, `-labeled`, `-label`) and `css/components/slider.css` (`.vd-slider` range input, `.vd-slider-field`/`-row`/`-value`), wired into `css/vanduo.css`. (`VdSwitch` reuses `.vd-form-switch`; `VdMenu` reuses `.vd-dropdown`.)
+- **Unified status-palette aliases** — `.vd-input-danger` + `.vd-badge-danger` (aliases of the `-error` validation/variant), `.vd-alert-secondary` (new), plus `.vd-form-label` and `.vd-form-radio-icon` form helpers — backing the unified `primary/secondary/success/warning/danger/info` vocabulary in `@vanduo-oss/vue`.
 - **Accordion component** — new `css/components/accordion.css` (`.vd-accordion`, `-item`, `-header`, `-icon`, `-panel`), wired into `css/vanduo.css`. Previously no accordion CSS existed.
 - **Panel-based modal aliases** (`css/components/modals.css`) — `.vd-modal.vd-modal-open` (container open state), `.vd-modal-open .vd-modal-backdrop` (backdrop visibility), `.vd-modal-panel` (merges the legacy `.vd-modal-dialog` + `.vd-modal-content` box), and `.vd-modal-panel-{sm,md,lg}` sizes. Fixes invisible `VdModal` dialogs.
 - **Component sub-element aliases** — `.vd-alert-body` / `.vd-alert-dismiss` (alerts), `.vd-btn-spinner` (a real loading spinner element; legacy `::after` suppressed when present), `.vd-card-interactive` (cards), `.vd-progress-track` / `-fill` / `-label` + `.vd-progress.is-indeterminate` (progress), `.vd-avatar-img` (alias for `.vd-avatar img`), `.vd-tab` / `.vd-tab-panels` (tabs), `.vd-code-snippet-pre` (code snippet), `.vd-collection-list` / `-text-secondary` (collections), `.vd-flow-controls` / `-position` (flow), `.vd-skeleton-lines` / `-text-short` / `-card-header` / `-card-body` / `-card-{sm,md,lg,xl}` (skeleton), `.vd-preloader-spinner` (preloader), and `.vd-table-caption` (tables).

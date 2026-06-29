@@ -1,0 +1,50 @@
+/**
+ * Vanduo Framework - Separator / Divider
+ * Added in 1.7.0 to back @vanduo-oss/vue's VdSeparator.
+ */
+
+:root {
+  --vd-separator-color: var(--vd-border-color);
+  --vd-separator-spacing: 1.3125rem; /* 21px - fib */
+}
+
+.vd-separator {
+  width: 100%;
+  height: 0;
+  margin: var(--vd-separator-spacing) 0;
+  border: none;
+  border-top: 1px solid var(--vd-separator-color);
+}
+
+.vd-separator-vertical {
+  width: 0;
+  height: auto;
+  min-height: 1em;
+  margin: 0 var(--vd-separator-spacing);
+  border-top: none;
+  border-left: 1px solid var(--vd-separator-color);
+  align-self: stretch;
+}
+
+/* Labeled separator: a horizontal rule with centered text. */
+.vd-separator-labeled {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  margin: var(--vd-separator-spacing) 0;
+  border: none;
+  color: var(--vd-text-muted);
+  font-size: var(--vd-font-size-sm);
+}
+
+.vd-separator-labeled::before,
+.vd-separator-labeled::after {
+  content: '';
+  flex: 1 1 auto;
+  border-top: 1px solid var(--vd-separator-color);
+}
+
+.vd-separator-label {
+  flex-shrink: 0;
+}

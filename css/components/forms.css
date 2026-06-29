@@ -197,9 +197,11 @@ textarea.textarea-lg {
   border-radius: var(--vd-input-border-radius-lg);
 }
 
-/* Input States - Error */
+/* Input States - Error (`.vd-input-danger` is the canonical alias, added 1.7.0) */
 .vd-input-error,
 input.vd-input-error,
+.vd-input-danger,
+input.vd-input-danger,
 .vd-input.is-error,
 input.is-error {
   border-color: var(--vd-color-error);
@@ -212,6 +214,8 @@ input.vd-input-invalid {
 
 .vd-input-error:focus,
 input.vd-input-error:focus,
+.vd-input-danger:focus,
+input.vd-input-danger:focus,
 .vd-input.is-error:focus,
 input.is-error:focus {
   border-color: var(--vd-color-error);
@@ -283,6 +287,7 @@ textarea.is-success:focus {
 
 /* Labels */
 .label,
+.vd-form-label,
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -296,6 +301,12 @@ label {
 label.required::after {
   content: " *";
   color: var(--vd-color-error);
+}
+
+/* Icon inside a radio/check label (added 1.7.0; used by @vanduo-oss/vue) */
+.vd-form-radio-icon {
+  margin-right: 0.375rem;
+  vertical-align: -0.125em;
 }
 
 .label-sm,

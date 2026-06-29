@@ -1,4 +1,4 @@
-# Vanduo Framework v1.6.1
+# Vanduo Framework v1.7.0
 
 <p align="center">
   <img src="vanduo-banner.svg" alt="Vanduo Framework Banner" width="100%">
@@ -25,11 +25,13 @@ Vanduo is a zero-dependency UI framework built with HTML, CSS, and vanilla JavaS
 - Theme Switcher menu variant for icon-only light/dark/system selection in navbars
 - Playwright-based browser coverage across Chromium, Firefox, and WebKit
 
-## What's New in 1.6.1
+## What's New in 1.7.0
 
-Additive patch — adds the CSS aliases that back the `@vanduo-oss/vue` component markup, with no changes to the existing (vanilla) class names.
+Additive minor — backs the `@vanduo-oss/vue` 0.3.0 release. Adds CSS for new components (separator, slider) plus the alias classes the Vue components render. No vanilla class names changed.
 
-- **Vue-component CSS coverage** — the framework stylesheet now styles the class names the `@vanduo-oss/vue` 0.2.x components render: the panel-based modal (`.vd-modal-open` / `.vd-modal-panel` / `.vd-modal-panel-{sm,md,lg}`), alert body + dismiss, the real button loading spinner (`.vd-btn-spinner`), card `:interactive`, progress track/fill/label, avatar image class alias, `.vd-tab` / `.vd-tab-panels`, code-snippet `<pre>`, collection list/secondary text, flow controls, skeleton card/lines, preloader inner spinner, and the `.vd-muted` / `.vd-visually-hidden` utilities.
+- **New component CSS** — `css/components/separator.css` (`.vd-separator` / `-vertical` / `-labeled` / `-label`) and `css/components/slider.css` (`.vd-slider` range input + `.vd-slider-field` / `-row` / `-value`). `VdSwitch` reuses the existing `.vd-form-switch`; `VdMenu` reuses `.vd-dropdown`.
+- **Unified status-palette aliases** — `.vd-input-danger` and `.vd-badge-danger` (aliases of the `-error` validation/variant), `.vd-alert-secondary` (new), plus the `.vd-form-label` and `.vd-form-radio-icon` form helpers.
+- **Vue-component CSS coverage** — the framework stylesheet now styles the class names the `@vanduo-oss/vue` components render: the panel-based modal (`.vd-modal-open` / `.vd-modal-panel` / `.vd-modal-panel-{sm,md,lg}`), alert body + dismiss, the real button loading spinner (`.vd-btn-spinner`), card `:interactive`, progress track/fill/label, avatar image class alias, `.vd-tab` / `.vd-tab-panels`, code-snippet `<pre>`, collection list/secondary text, flow controls, skeleton card/lines, preloader inner spinner, and the `.vd-muted` / `.vd-visually-hidden` utilities.
 - **New — Accordion component** (`css/components/accordion.css`) — styles `.vd-accordion` / `-item` / `-header` / `-icon` / `-panel`, previously unstyled.
 - **Non-breaking** — every rule is additive; the legacy `.is-open` / `.vd-modal-dialog` / `.vd-modal-content` / `.vd-progress-bar` / `.vd-tab-link` markup is untouched. (Container-level rules that could collide with legacy base styles are gated with `:has()`.)
 
@@ -77,8 +79,8 @@ Additive release — two new primitives and an optional palette, plus one HTML-s
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.1/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.6.1/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>

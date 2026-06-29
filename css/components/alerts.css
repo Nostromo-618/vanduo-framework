@@ -94,6 +94,23 @@
   color: var(--vd-alert-info-text);
 }
 
+/* Secondary variant (added 1.7.0 for the unified status palette) */
+.vd-alert-secondary {
+  background-color: var(--vd-color-secondary-alpha-10);
+  border-color: var(--vd-color-secondary);
+  color: var(--vd-color-secondary-dark);
+}
+
+[data-theme="dark"] .vd-alert-secondary {
+  color: var(--vd-color-secondary-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .vd-alert-secondary {
+    color: var(--vd-color-secondary-light);
+  }
+}
+
 /* Alert with Icon */
 .vd-alert-icon {
   display: flex;

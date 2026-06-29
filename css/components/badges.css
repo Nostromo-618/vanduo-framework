@@ -94,7 +94,8 @@
   color: var(--vd-color-gray-900);
 }
 
-.vd-badge-error {
+.vd-badge-error,
+.vd-badge-danger {
   background-color: var(--vd-color-error);
   color: var(--vd-color-white);
 }

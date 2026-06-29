@@ -1,0 +1,92 @@
+/**
+ * Vanduo Framework - Slider (range input)
+ * Added in 1.7.0 to back @vanduo-oss/vue's VdSlider.
+ */
+
+:root {
+  --vd-slider-track-height: 0.375rem;  /* 6px */
+  --vd-slider-track-bg: var(--vd-bg-tertiary, #e9ecef);
+  --vd-slider-thumb-size: 1.125rem;    /* 18px */
+  --vd-slider-thumb-bg: var(--vd-color-primary);
+}
+
+.vd-slider-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 100%;
+}
+
+.vd-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vd-slider-value {
+  flex-shrink: 0;
+  min-width: 3ch;
+  text-align: right;
+  font-size: var(--vd-font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--vd-text-secondary);
+}
+
+.vd-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--vd-slider-track-height);
+  border-radius: calc(var(--vd-slider-track-height) / 2);
+  background-color: var(--vd-slider-track-bg);
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.vd-slider:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vd-slider:focus-visible {
+  outline: 2px solid var(--vd-color-primary);
+}
+
+/* WebKit / Blink thumb */
+.vd-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--vd-slider-thumb-size);
+  height: var(--vd-slider-thumb-size);
+  border: 2px solid var(--vd-color-white);
+  border-radius: 50%;
+  background-color: var(--vd-slider-thumb-bg);
+  box-shadow: var(--vd-shadow-sm);
+  transition: transform 0.1s ease;
+}
+
+.vd-slider::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+}
+
+/* Firefox thumb + track */
+.vd-slider::-moz-range-thumb {
+  width: var(--vd-slider-thumb-size);
+  height: var(--vd-slider-thumb-size);
+  border: 2px solid var(--vd-color-white);
+  border-radius: 50%;
+  background-color: var(--vd-slider-thumb-bg);
+  box-shadow: var(--vd-shadow-sm);
+}
+
+.vd-slider::-moz-range-track {
+  height: var(--vd-slider-track-height);
+  border-radius: calc(var(--vd-slider-track-height) / 2);
+  background-color: var(--vd-slider-track-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-slider::-webkit-slider-thumb {
+    transition: none;
+  }
+}

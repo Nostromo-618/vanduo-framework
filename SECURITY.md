@@ -6,7 +6,7 @@ We take security seriously and actively maintain the following versions of Vandu
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.6.x   | :white_check_mark: |
+| 1.7.x   | :white_check_mark: |
 | < 2.0   | :x:                |
 
 We recommend always using the latest stable version to benefit from the most recent security updates and improvements.

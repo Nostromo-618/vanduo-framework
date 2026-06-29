@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # Keep the SHA-pinned GitHub Actions current (Dependabot bumps the SHA and
+  # annotates the version). One grouped PR per week; nothing auto-merges.
+  # npm/runtime deps are intentionally NOT managed here — they stay under the
+  # manual Safe-Chain release process.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]
+    cooldown:
+      default-days: 2

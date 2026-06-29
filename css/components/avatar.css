@@ -58,7 +58,8 @@
 }
 
 /* Avatar Image */
-.vd-avatar img {
+.vd-avatar img,
+.vd-avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;

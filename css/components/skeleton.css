@@ -240,3 +240,45 @@
     animation: none;
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdSkeleton additions (additive; added in 1.6.1)
+   VdSkeleton renders multi-line (`.vd-skeleton-lines`) and card shapes
+   (`.vd-skeleton-card.vd-skeleton-card-{size} > .vd-skeleton-card-header +
+   .vd-skeleton-card-body`), plus a `.vd-skeleton-text-short` last line.
+   ========================================================================== */
+.vd-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vd-skeleton-lines .vd-skeleton-text {
+  margin-bottom: 0;
+}
+
+.vd-skeleton-text-short {
+  width: 60%;
+}
+
+.vd-skeleton-card-header {
+  height: 8rem;
+  width: 100%;
+  margin-bottom: 0.8125rem;
+}
+
+.vd-skeleton-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vd-skeleton-card-body .vd-skeleton-text {
+  margin-bottom: 0;
+}
+
+/* Card size variants scale the header placeholder height */
+.vd-skeleton-card-sm .vd-skeleton-card-header { height: 5rem; }
+.vd-skeleton-card-md .vd-skeleton-card-header { height: 8rem; }
+.vd-skeleton-card-lg .vd-skeleton-card-header { height: 12rem; }
+.vd-skeleton-card-xl .vd-skeleton-card-header { height: 16rem; }

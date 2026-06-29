@@ -263,3 +263,23 @@
     padding: 0.8125rem 0.8125rem 2rem;
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdFlow inline controls (additive; added in 1.6.1)
+   VdFlow renders a `.vd-flow-controls` bar with prev/next buttons and a
+   `.vd-flow-position` "n / total" label below the track.
+   ========================================================================== */
+.vd-flow-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.8125rem;
+}
+
+.vd-flow-position {
+  min-width: 4ch;
+  font-size: var(--vd-font-size-sm);
+  color: var(--vd-text-secondary);
+  text-align: center;
+}

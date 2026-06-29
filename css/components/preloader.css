@@ -54,3 +54,34 @@
   }
 }
 
+/* ==========================================================================
+   @vanduo-oss/vue VdPreloader nested spinner (additive; added in 1.6.1)
+   VdPreloader nests `.vd-preloader > .vd-preloader-spinner`; when the inner
+   element is present the spinner visual moves to it (legacy bare .vd-preloader
+   keeps spinning on its own). Size/color vars set on .vd-preloader inherit down.
+   ========================================================================== */
+.vd-preloader:has(.vd-preloader-spinner) {
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  animation: none;
+  display: inline-flex;
+}
+
+.vd-preloader-spinner {
+  display: inline-block;
+  width: var(--vd-spinner-size, 2rem);
+  height: var(--vd-spinner-size, 2rem);
+  border: var(--vd-spinner-border-width, 3px) solid var(--vd-border-color, #e9ecef);
+  border-top-color: var(--vd-spinner-color, var(--vd-color-primary));
+  border-radius: 50%;
+  animation: spinner-rotate var(--vd-spinner-speed, 0.65s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-preloader-spinner {
+    animation-duration: 1.5s;
+  }
+}
+

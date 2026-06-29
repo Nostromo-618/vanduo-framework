@@ -32,6 +32,15 @@
   border-collapse: collapse;
 }
 
+/* @vanduo-oss/vue VdTable <caption> (additive; added in 1.6.1) */
+.vd-table-caption {
+  padding: var(--vd-table-padding-y) var(--vd-table-padding-x);
+  color: var(--vd-text-muted);
+  font-size: var(--vd-font-size-sm);
+  text-align: left;
+  caption-side: top;
+}
+
 .vd-table th,
 .vd-table td,
 .table th,

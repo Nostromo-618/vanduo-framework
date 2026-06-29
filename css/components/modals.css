@@ -300,3 +300,72 @@
   overflow: hidden;
   padding-right: 0;
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue panel-based modal markup (additive; added in 1.6.1)
+   VdModal renders `.vd-modal.vd-modal-open > .vd-modal-backdrop +
+   .vd-modal-panel.vd-modal-panel-{sm|md|lg}` with header/body/footer directly
+   inside the panel (no .vd-modal-dialog / .vd-modal-content split, and the
+   backdrop carries no .is-visible state). These aliases style that DOM without
+   touching the legacy .is-open / .vd-modal-dialog / .vd-modal-content rules.
+   ========================================================================== */
+
+/* Container open state (mirror of .vd-modal.is-open) */
+.vd-modal.vd-modal-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+/* Backdrop becomes visible when the container is open (mirror of .is-visible) */
+.vd-modal-open .vd-modal-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Panel merges .vd-modal-dialog (sizing/positioning) + .vd-modal-content (box) */
+.vd-modal-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(calc(100% - 3.5rem), var(--vd-modal-dialog-max-width));
+  max-width: var(--vd-modal-dialog-max-width);
+  margin: 1.75rem auto;
+  pointer-events: auto;
+  background-color: var(--vd-modal-bg);
+  background-clip: padding-box;
+  border: 1px solid var(--vd-modal-border-color);
+  border-radius: var(--vd-btn-border-radius-lg);
+  box-shadow: var(--vd-shadow-2xl);
+  outline: 0;
+  transform: scale(0.95);
+  transition: var(--vd-modal-dialog-transition);
+  z-index: 1060;
+}
+
+.vd-modal.vd-modal-open .vd-modal-panel {
+  transform: scale(1);
+}
+
+/* Panel sizes (md = default width) */
+.vd-modal-panel-sm { --vd-modal-dialog-max-width: var(--vd-modal-width-sm); }
+.vd-modal-panel-md { --vd-modal-dialog-max-width: var(--vd-modal-width); }
+.vd-modal-panel-lg { --vd-modal-dialog-max-width: var(--vd-modal-width-lg); }
+
+/* Glass variant parity with .vd-modal-glass .vd-modal-content */
+.vd-modal-glass .vd-modal-panel {
+  background: var(--vd-glass-bg-light);
+  border-color: var(--vd-glass-border-light);
+  box-shadow: var(--vd-glass-shadow);
+  backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--vd-glass-blur)) saturate(var(--vd-glass-saturate));
+}
+
+@media (max-width: 575.98px) {
+  .vd-modal-panel {
+    margin: 0.5rem;
+    width: calc(100% - 1rem);
+    max-width: calc(100% - 1rem);
+  }
+}

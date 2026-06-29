@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
+## [1.6.1] - 2026-06-29
+
+Additive patch. Adds the CSS aliases that back the `@vanduo-oss/vue` 0.2.x
+component markup so the framework stylesheet (which `@vanduo-oss/vue` ships as
+its CSS) styles every class those components render. No vanilla class names
+changed; every rule is additive and container-level rules that could collide
+with legacy base styles are gated with `:has()`.
+
+### Added
+- **Accordion component** — new `css/components/accordion.css` (`.vd-accordion`, `-item`, `-header`, `-icon`, `-panel`), wired into `css/vanduo.css`. Previously no accordion CSS existed.
+- **Panel-based modal aliases** (`css/components/modals.css`) — `.vd-modal.vd-modal-open` (container open state), `.vd-modal-open .vd-modal-backdrop` (backdrop visibility), `.vd-modal-panel` (merges the legacy `.vd-modal-dialog` + `.vd-modal-content` box), and `.vd-modal-panel-{sm,md,lg}` sizes. Fixes invisible `VdModal` dialogs.
+- **Component sub-element aliases** — `.vd-alert-body` / `.vd-alert-dismiss` (alerts), `.vd-btn-spinner` (a real loading spinner element; legacy `::after` suppressed when present), `.vd-card-interactive` (cards), `.vd-progress-track` / `-fill` / `-label` + `.vd-progress.is-indeterminate` (progress), `.vd-avatar-img` (alias for `.vd-avatar img`), `.vd-tab` / `.vd-tab-panels` (tabs), `.vd-code-snippet-pre` (code snippet), `.vd-collection-list` / `-text-secondary` (collections), `.vd-flow-controls` / `-position` (flow), `.vd-skeleton-lines` / `-text-short` / `-card-header` / `-card-body` / `-card-{sm,md,lg,xl}` (skeleton), `.vd-preloader-spinner` (preloader), and `.vd-table-caption` (tables).
+- **Utilities** — `.vd-muted` and `.vd-visually-hidden` (`css/core/helpers.css`).
+
 ## [1.6.0] - 2026-06-27
 
 Additive release. Adds the Popover and Search primitives and an optional

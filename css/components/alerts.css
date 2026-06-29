@@ -222,3 +222,51 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdAlert markup (additive; added in 1.6.1)
+   VdAlert renders `.vd-alert > .vd-alert-icon + .vd-alert-body + .vd-alert-dismiss`.
+   .vd-alert-body wraps the title + content; .vd-alert-dismiss replaces the legacy
+   .vd-alert-close. Scoped with :has() so legacy alert markup is untouched.
+   ========================================================================== */
+.vd-alert:has(.vd-alert-body) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.vd-alert:has(.vd-alert-body) > .vd-alert-icon {
+  flex-shrink: 0;
+}
+
+.vd-alert-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.vd-alert-dismiss {
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  color: inherit;
+  line-height: 1;
+  transition: opacity 0.15s ease;
+}
+
+.vd-alert-dismiss:hover {
+  opacity: 1;
+}
+
+.vd-alert-dismiss:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-alert-dismiss {
+    transition: none;
+  }
+}

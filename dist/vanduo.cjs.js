@@ -1,4 +1,4 @@
-/*! Vanduo v1.6.0 | Built: 2026-06-27T17:14:04.139Z | git:6d2f62b | development */
+/*! Vanduo v1.6.1 | Built: 2026-06-29T05:29:43.658Z | git:c1fb16f | development */
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -201,7 +201,7 @@ module.exports = __toCommonJS(index_exports);
 // js/vanduo.js
 (function() {
   "use strict";
-  const VANDUO_VERSION = true ? "1.6.0" : "0.0.0-dev";
+  const VANDUO_VERSION = true ? "1.6.1" : "0.0.0-dev";
   const hasOwn = Object.prototype.hasOwnProperty;
   const Vanduo2 = {
     version: VANDUO_VERSION,

@@ -528,3 +528,47 @@ a.vd-btn:hover {
     transform: rotate(360deg);
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdButton spinner (additive; added in 1.6.1)
+   VdButton renders a real `<span class="vd-btn-spinner">` while loading (the
+   button also gets .is-loading). Style the real element and suppress the legacy
+   ::after so only one spinner is shown.
+   ========================================================================== */
+.vd-btn.is-loading:has(.vd-btn-spinner)::after {
+  content: none;
+}
+
+.vd-btn-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;
+  height: 1em;
+  margin: -0.5em 0 0 -0.5em;
+  border: 2px solid var(--vd-color-primary);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spinner 0.6s linear infinite;
+}
+
+.vd-btn-primary .vd-btn-spinner,
+.vd-btn-secondary .vd-btn-spinner,
+.vd-btn-success .vd-btn-spinner,
+.vd-btn-danger .vd-btn-spinner,
+.vd-btn-error .vd-btn-spinner,
+.vd-btn-info .vd-btn-spinner {
+  border-color: var(--vd-color-white);
+  border-right-color: transparent;
+}
+
+.vd-btn-warning .vd-btn-spinner {
+  border-color: var(--vd-color-black);
+  border-right-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-btn-spinner {
+    animation-duration: 1.2s;
+  }
+}

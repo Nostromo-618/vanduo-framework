@@ -1,0 +1,80 @@
+/**
+ * Vanduo Framework - Accordion
+ * Added in 1.6.1 to back @vanduo-oss/vue's VdAccordion.
+ *
+ * VdAccordion renders:
+ *   ul.vd-accordion
+ *     li.vd-accordion-item(.is-open)
+ *       button.vd-accordion-header > span + span.vd-accordion-icon
+ *       div.vd-accordion-panel        (toggled via v-show)
+ */
+
+:root {
+  --vd-accordion-border-color: var(--vd-border-color);
+  --vd-accordion-header-bg: transparent;
+  --vd-accordion-header-bg-hover: var(--vd-bg-secondary);
+  --vd-accordion-padding-x: 1.3125rem;   /* 21px - fib */
+  --vd-accordion-padding-y: 0.8125rem;   /* 13px - fib */
+}
+
+.vd-accordion {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--vd-accordion-border-color);
+  border-radius: var(--vd-btn-border-radius);
+  overflow: hidden;
+}
+
+.vd-accordion-item {
+  border-top: 1px solid var(--vd-accordion-border-color);
+}
+
+.vd-accordion-item:first-child {
+  border-top: none;
+}
+
+.vd-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: var(--vd-accordion-padding-y) var(--vd-accordion-padding-x);
+  background: var(--vd-accordion-header-bg);
+  border: none;
+  cursor: pointer;
+  font-size: var(--vd-font-size-base);
+  font-weight: var(--vd-font-weight-medium);
+  color: var(--vd-text-primary);
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.vd-accordion-header:hover {
+  background: var(--vd-accordion-header-bg-hover);
+}
+
+.vd-accordion-header:focus-visible {
+  outline: 2px solid var(--vd-color-primary);
+  outline-offset: -2px;
+}
+
+.vd-accordion-icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--vd-text-secondary);
+}
+
+.vd-accordion-panel {
+  padding: var(--vd-accordion-padding-y) var(--vd-accordion-padding-x);
+  color: var(--vd-text-primary);
+  border-top: 1px solid var(--vd-accordion-border-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-accordion-header {
+    transition: none;
+  }
+}

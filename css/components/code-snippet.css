@@ -553,3 +553,26 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdCodeSnippet <pre> (additive; added in 1.6.1)
+   VdCodeSnippet renders `figure.vd-code-snippet > pre.vd-code-snippet-pre > code`.
+   ========================================================================== */
+.vd-code-snippet-pre {
+  margin: 0;
+  padding: var(--vd-code-padding-y) var(--vd-code-padding-x);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--vd-code-bg);
+  font-family: var(--vd-font-family-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
+  font-size: var(--vd-code-font-size);
+  line-height: var(--vd-code-line-height);
+  color: var(--vd-code-text);
+}
+
+.vd-code-snippet-pre code {
+  font: inherit;
+  color: inherit;
+  white-space: pre;
+  tab-size: 2;
+}

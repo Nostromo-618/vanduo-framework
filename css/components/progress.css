@@ -105,3 +105,49 @@
     --vd-progress-bg: var(--vd-bg-tertiary, #2d3748);
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdProgress markup (additive; added in 1.6.1)
+   VdProgress renders `.vd-progress > .vd-progress-track > .vd-progress-fill`
+   plus an optional `.vd-progress-label`, and uses `.is-indeterminate` (vs the
+   legacy `.vd-progress-bar` / `.vd-progress-indeterminate`). Scoped with :has()
+   so the legacy single-bar progress is untouched.
+   ========================================================================== */
+.vd-progress:has(.vd-progress-track) {
+  display: block;
+  height: auto;
+  overflow: visible;
+  background-color: transparent;
+}
+
+.vd-progress-track {
+  display: flex;
+  height: var(--vd-progress-height);
+  overflow: hidden;
+  background-color: var(--vd-progress-bg);
+  border-radius: var(--vd-progress-border-radius);
+}
+
+.vd-progress-fill {
+  display: block;
+  height: 100%;
+  background-color: var(--vd-progress-bar-bg);
+  border-radius: var(--vd-progress-border-radius);
+  transition: width 0.4s ease;
+}
+
+.vd-progress.is-indeterminate .vd-progress-fill {
+  width: 30%;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+.vd-progress-label {
+  display: block;
+  margin-top: 0.375rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-progress.is-indeterminate .vd-progress-fill {
+    animation: none;
+  }
+}

@@ -2203,3 +2203,20 @@
   --vd-radius-fib-13: 1.625rem;   /* 26px */
   --vd-radius-fib-21: 2.625rem;   /* 42px */
 }
+
+/* Muted text + visually-hidden utilities (added in 1.6.1; used by @vanduo-oss/vue) */
+.vd-muted {
+  color: var(--vd-text-muted);
+}
+
+.vd-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

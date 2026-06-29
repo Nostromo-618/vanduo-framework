@@ -327,3 +327,49 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   @vanduo-oss/vue VdTabs markup (additive; added in 1.6.1)
+   VdTabs renders `.vd-tabs > .vd-tab-list > button.vd-tab.is-active` and a
+   `.vd-tab-panels` wrapper (vs the legacy .vd-tab-link / .vd-tab-content).
+   ========================================================================== */
+.vd-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: var(--vd-tab-padding-y) var(--vd-tab-padding-x);
+  font-size: var(--vd-font-size-base);
+  font-weight: var(--vd-font-weight-medium);
+  color: var(--vd-tab-text);
+  background: transparent;
+  border: none;
+  border-bottom: var(--vd-tab-border-width) solid transparent;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.vd-tab:hover {
+  color: var(--vd-tab-text-hover);
+  background-color: var(--vd-tab-bg-hover);
+}
+
+.vd-tab:focus-visible {
+  outline: 2px solid var(--vd-color-primary);
+  outline-offset: -2px;
+}
+
+.vd-tab.is-active {
+  color: var(--vd-tab-text-active);
+  border-bottom-color: var(--vd-tab-border-active);
+}
+
+.vd-tab-panels {
+  padding-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-tab {
+    transition: none;
+  }
+}

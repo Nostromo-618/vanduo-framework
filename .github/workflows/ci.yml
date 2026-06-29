@@ -12,6 +12,10 @@ on:
       - "**/*.md"
       - "llms.txt"
 
+# Least-privilege default token: this workflow only reads the repo.
+permissions:
+  contents: read
+
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest

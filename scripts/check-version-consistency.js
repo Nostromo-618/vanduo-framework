@@ -53,7 +53,7 @@ function checkProseVersions(version) {
     const minorWildcard = `${major}.${minor}.x`;
 
     // Every pinned jsDelivr CDN reference must point at the current release.
-    const cdnFiles = ['README.md', 'llms.txt'];
+    const cdnFiles = ['README.md'];
     const cdnRegex = /vanduo-oss\/framework@v(\d+\.\d+\.\d+)/g;
     for (const fileName of cdnFiles) {
         const filePath = path.join(rootDir, fileName);
@@ -70,12 +70,10 @@ function checkProseVersions(version) {
         }
     }
 
-    // Anchored lines that must reference the current version verbatim.
+    // Anchored lines that must reference the current version verbatim. (The
+    // README's current-version reference is its pinned CDN URL, already checked
+    // above; the lean README no longer carries a version title or "What's New".)
     const requiredPatterns = [
-        { file: 'README.md', regex: new RegExp(`^# Vanduo Framework v${escapeRegExp(version)}\\b`, 'm'), label: `README.md title "# Vanduo Framework v${version}"` },
-        { file: 'README.md', regex: new RegExp(`^## What's New in ${escapeRegExp(version)}\\b`, 'm'), label: `README.md "## What's New in ${version}"` },
-        { file: 'llms.txt', regex: new RegExp(`^# Vanduo Framework v${escapeRegExp(version)}\\b`, 'm'), label: `llms.txt header "# Vanduo Framework v${version}"` },
-        { file: 'llms.txt', regex: new RegExp(`\\bv${escapeRegExp(version)} ships\\b`), label: `llms.txt "v${version} ships ..." summary` },
         { file: 'SECURITY.md', regex: new RegExp(`\\|\\s*${escapeRegExp(minorWildcard)}\\s*\\|`), label: `SECURITY.md supported-versions row "${minorWildcard}"` }
     ];
     for (const { file, regex, label } of requiredPatterns) {

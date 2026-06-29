@@ -13,7 +13,6 @@ const scannedTargets = [
   'css',
   'dist',
   'js',
-  'llms.txt',
   'tests',
 ];
 const shellCommandPattern = /^\s*(corepack|git|node|npm|npx|playwright|pnpm)\b/;

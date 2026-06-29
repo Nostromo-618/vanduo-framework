@@ -5,12 +5,10 @@ on:
     branches: [main]
     paths-ignore:
       - "**/*.md"
-      - "llms.txt"
   pull_request:
     branches: [main]
     paths-ignore:
       - "**/*.md"
-      - "llms.txt"
 
 # Least-privilege default token: this workflow only reads the repo.
 permissions:

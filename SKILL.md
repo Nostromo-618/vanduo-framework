@@ -15,8 +15,8 @@ pnpm add @vanduo-oss/framework        # Node >=18
 
 ```html
 <!-- or CDN (pin a version; add SRI in production) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.1/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.1/dist/vanduo.min.js"></script>
 <script>Vanduo.init()</script>
 ```
 

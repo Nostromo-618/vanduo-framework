@@ -28,8 +28,8 @@ Vanduo.init();
 ## Quick start (no build)
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.css">
-<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.0/dist/vanduo.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.1/dist/vanduo.min.css">
+<script src="https://cdn.jsdelivr.net/gh/vanduo-oss/framework@v1.7.1/dist/vanduo.min.js"></script>
 <script>
   Vanduo.init();
 </script>

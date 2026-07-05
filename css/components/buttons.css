@@ -165,20 +165,23 @@
   transform: translateY(1px);
 }
 
-/* Button Variants - Error */
-.vd-btn-error {
+/* Button Variants - Danger (unified) / Error (alias) */
+.vd-btn-error,
+.vd-btn-danger {
   background-color: var(--vd-color-error);
   border-color: var(--vd-color-error);
   color: var(--vd-color-white);
 }
 
-.vd-btn-error:hover:not(:disabled):not(.disabled):not(.is-disabled) {
+.vd-btn-error:hover:not(:disabled):not(.disabled):not(.is-disabled),
+.vd-btn-danger:hover:not(:disabled):not(.disabled):not(.is-disabled) {
   background-color: var(--vd-color-error-dark);
   border-color: var(--vd-color-error-dark);
   color: var(--vd-color-white);
 }
 
-.vd-btn-error:active:not(:disabled):not(.disabled):not(.is-disabled) {
+.vd-btn-error:active:not(:disabled):not(.disabled):not(.is-disabled),
+.vd-btn-danger:active:not(:disabled):not(.disabled):not(.is-disabled) {
   background-color: var(--vd-color-error-dark);
   border-color: var(--vd-color-error-dark);
   transform: translateY(1px);
@@ -264,13 +267,15 @@
   color: var(--vd-color-black);
 }
 
-.vd-btn-outline-error {
+.vd-btn-outline-error,
+.vd-btn-outline-danger {
   background-color: transparent;
   border-color: var(--vd-color-error);
   color: var(--vd-color-error);
 }
 
-.vd-btn-outline-error:hover:not(:disabled):not(.disabled):not(.is-disabled) {
+.vd-btn-outline-error:hover:not(:disabled):not(.disabled):not(.is-disabled),
+.vd-btn-outline-danger:hover:not(:disabled):not(.disabled):not(.is-disabled) {
   background-color: var(--vd-color-error);
   border-color: var(--vd-color-error);
   color: var(--vd-color-white);
@@ -370,18 +375,21 @@
   color: var(--vd-color-warning-active);
 }
 
-.vd-btn-ghost-error {
+.vd-btn-ghost-error,
+.vd-btn-ghost-danger {
   background-color: transparent;
   border-color: transparent;
   color: var(--vd-color-error);
 }
 
-.vd-btn-ghost-error:hover:not(:disabled):not(.disabled):not(.is-disabled) {
+.vd-btn-ghost-error:hover:not(:disabled):not(.disabled):not(.is-disabled),
+.vd-btn-ghost-danger:hover:not(:disabled):not(.disabled):not(.is-disabled) {
   background-color: var(--vd-color-error-alpha-10);
   color: var(--vd-color-error-dark);
 }
 
-.vd-btn-ghost-error:active:not(:disabled):not(.disabled):not(.is-disabled) {
+.vd-btn-ghost-error:active:not(:disabled):not(.disabled):not(.is-disabled),
+.vd-btn-ghost-danger:active:not(:disabled):not(.disabled):not(.is-disabled) {
   background-color: var(--vd-color-error-alpha-20);
   color: var(--vd-color-error-active);
 }
@@ -513,6 +521,7 @@ a.vd-btn:hover {
 .vd-btn-secondary.is-loading::after,
 .vd-btn-success.is-loading::after,
 .vd-btn-error.is-loading::after,
+.vd-btn-danger.is-loading::after,
 .vd-btn-info.is-loading::after {
   border-color: var(--vd-color-white);
   border-right-color: transparent;

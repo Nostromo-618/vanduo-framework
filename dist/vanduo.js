@@ -1,4 +1,4 @@
-/*! Vanduo v1.7.1 | Built: 2026-07-05T17:43:33.650Z | git:ce2b392 | development */
+/*! Vanduo v1.7.1 | Built: 2026-07-05T17:48:13.002Z | git:6585256 | development */
 (() => {
   // js/utils/lifecycle.js
   (function() {

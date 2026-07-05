@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths-ignore:
       - "**/*.md"
+      - "vanduo-oss-animated.svg"
   pull_request:
     branches: [main]
     paths-ignore:
       - "**/*.md"
+      - "vanduo-oss-animated.svg"
 
 # Least-privilege default token: this workflow only reads the repo.
 permissions:

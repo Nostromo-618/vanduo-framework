@@ -9,8 +9,14 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "vanduo-oss-animated.svg"
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "vanduo-oss-animated.svg"
 
 concurrency:
   group: tests-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="vanduo-banner.svg" alt="Vanduo Framework" width="100%">
-</p>
+<div align="center">
+  <img src="vanduo-oss-animated.svg" alt="vanduo-oss/framework" width="220"/>
+</div>
 
 # @vanduo-oss/framework
 

@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Full release notes — covering the framework, the documentation site, and
 ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
 
+## [1.7.1] - 2026-07-05
+
+### Fixed
+- **Button danger alias** — `.vd-btn-danger`, `.vd-btn-outline-danger`, and
+  `.vd-btn-ghost-danger` now share the same rules as the existing `-error`
+  variants, matching badges, alerts, and chips after the unified status vocabulary
+  migration.
+
 ## [1.7.0] - 2026-06-29
 
 Additive minor backing the `@vanduo-oss/vue` 0.3.0 release. Adds CSS for new

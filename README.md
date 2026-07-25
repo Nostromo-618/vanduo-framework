@@ -8,6 +8,12 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/vanduo-oss/framework/ci.yml?branch=main)](https://github.com/vanduo-oss/framework/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
+> **⚠️ Retired — 2026-07-25.** `@vanduo-oss/framework` is no longer developed or released.
+> The Vanduo **legacy** line (the dual-engine Vanilla + Vue 3 system) is retired; development
+> continues in the **perspective** line. **There is no vanilla successor** — `@vanduo-oss/vd3` is Vue 3 only. The final release, `1.7.1`, stays on npm and keeps working — this is a stop to development, not a removal.
+>
+> New docs: <https://vanduo-oss.github.io/vd3-docs/> · Migration guide: <https://vanduo-oss.github.io/vd3-docs/guides/migration>
+
 > The zero-build **Vanilla** engine of the Vanduo design system.
 
 Drop-in HTML/CSS/JS — 48+ components driven by `.vd-*` classes and `data-vd-*` attributes, an imperative `window.Vanduo` runtime, and a strict `--vd-*` token API. Zero runtime dependencies; consumes design tokens from [`@vanduo-oss/core`](https://www.npmjs.com/package/@vanduo-oss/core). Need Vue 3 instead? See [`@vanduo-oss/vue`](https://www.npmjs.com/package/@vanduo-oss/vue).

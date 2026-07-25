@@ -1,3 +1,8 @@
+> **ABANDONED — 2026-07-25.** The Vanduo legacy (dual-engine) line was retired
+> before this change shipped. It is kept here as a record of intent, not as work in
+> progress. Development continues in the perspective line — `@vanduo-oss/vd3` and
+> `@vanduo-oss/vd3-cbun`. See `openspec/changes/archive/retire-*` for the decision.
+
 # Framework Search Helper — Proposal
 
 ## Why

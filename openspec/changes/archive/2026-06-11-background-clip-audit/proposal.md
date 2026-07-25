@@ -1,3 +1,8 @@
+> **ABANDONED — 2026-07-25.** The Vanduo legacy (dual-engine) line was retired
+> before this change shipped. It is kept here as a record of intent, not as work in
+> progress. Development continues in the perspective line — `@vanduo-oss/vd3` and
+> `@vanduo-oss/vd3-cbun`. See `openspec/changes/archive/retire-*` for the decision.
+
 ## Why
 
 After fixing draggable corner bleed, we need automated verification of whether the same `background-clip: border-box` pattern affects other bordered components at `data-radius="0.5"`.

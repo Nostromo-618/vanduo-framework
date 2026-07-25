@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Full release notes — covering the framework, the documentation site, and
-ecosystem packages side by side — live at <https://vanduo.dev/#changelog>.
+ecosystem packages side by side — live at <https://vanduo-oss.github.io/vd2/#changelog>.
+
+## Retired — 2026-07-25
+
+The Vanduo legacy (dual-engine) line is retired. `1.7.1` is the final release of `@vanduo-oss/framework`; no further versions will be published. The package remains installable on npm. The repository is archived (read-only) and the git tag `retired-v1.7.1` marks the final state. Successor: none for vanilla; `@vanduo-oss/vd3` if you can adopt Vue 3 — see `README.md`.
 
 ## [1.7.1] - 2026-07-05
 
@@ -130,4 +134,4 @@ behavior change to note (see Security).
 
 ---
 
-Releases prior to 1.4.0 are documented at <https://vanduo.dev/#changelog>.
+Releases prior to 1.4.0 are documented at <https://vanduo-oss.github.io/vd2/#changelog>.

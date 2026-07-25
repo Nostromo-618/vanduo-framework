@@ -1,9 +1,15 @@
 ---
 name: vanduo-framework
-description: Use when building UIs with @vanduo-oss/framework — the zero-build "Vanilla" HTML/CSS/JS engine of the Vanduo design system (data-attribute components + an imperative window.Vanduo runtime). Covers install (CDN/ESM/IIFE), the runtime API, the --vd-* token model, security, and caveats.
+description: Use when building UIs with @vanduo-oss/framework — the zero-build "Vanilla" HTML/CSS/JS engine of the Vanduo design system (data-attribute components + an imperative window.Vanduo runtime). Covers install (CDN/ESM/IIFE), the runtime API, the --vd-* token model, security, and caveats. RETIRED 2026-07-25 — final version 1.7.1; successor: none for vanilla; `@vanduo-oss/vd3` if you can adopt Vue 3; no further releases.
 ---
 
 # @vanduo-oss/framework
+
+> **⚠️ Retired — 2026-07-25.** `@vanduo-oss/framework` is no longer developed or released.
+> The Vanduo **legacy** line (the dual-engine Vanilla + Vue 3 system) is retired; development
+> continues in the **perspective** line. **There is no vanilla successor** — `@vanduo-oss/vd3` is Vue 3 only. The final release, `1.7.1`, stays on npm and keeps working — this is a stop to development, not a removal.
+>
+> New docs: <https://vanduo-oss.github.io/vd3-docs/> · Migration guide: <https://vanduo-oss.github.io/vd3-docs/guides/migration>
 
 The **Vanilla (zero-build) engine** of the Vanduo design system: drop-in HTML/CSS/JS — 48+ components driven by `.vd-*` classes + `data-vd-*` attributes, an imperative `window.Vanduo` runtime, and a strict `--vd-*` token API. Consumes the values from `@vanduo-oss/core`. No build step required.
 
